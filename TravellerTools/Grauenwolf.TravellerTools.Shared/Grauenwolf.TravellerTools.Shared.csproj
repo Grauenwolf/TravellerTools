@@ -51,6 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Characters\Person.cs" />
+    <Compile Include="Characters\Skill.cs" />
+    <Compile Include="Characters\SkillCollection.cs" />
+    <Compile Include="Characters\Weapon.cs" />
+    <Compile Include="Characters\WeaponCollection.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="Edition.cs" />
     <Compile Include="EHex.cs" />

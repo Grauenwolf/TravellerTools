@@ -1,14 +1,15 @@
 using Grauenwolf.TravellerTools.Characters;
 using Tortuga.Anchor.Modeling;
 
-namespace Grauenwolf.TravellerTools.Animals.Mgt
+namespace Grauenwolf.TravellerTools.Animals.AE
 {
     public class Animal : ModelBase
     {
         public string TerrainType { get { return Get<string>(); } set { Set(value); } }
 
-        public string AnimalType { get { return Get<string>(); } set { Set(value); } }
 
+
+        public string Diet { get { return Get<string>(); } set { Set(value); } }
         public string Behavior { get { return Get<string>(); } set { Set(value); } }
         public string Movement { get { return Get<string>(); } set { Set(value); } }
 
@@ -50,9 +51,9 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
 
         public int Armor { get { return Get<int>(); } set { Set(value); } }
 
-        public string Attack { get { return Get<string>(); } set { Set(value); } }
+        public int? Attack { get { return Get<int?>(); } set { Set(value); } }
 
-        public string Flee { get { return Get<string>(); } set { Set(value); } }
+        public int? Flee { get { return Get<int?>(); } set { Set(value); } }
 
         public string NumberEncountered { get { return Get<string>(); } set { Set(value); } }
 

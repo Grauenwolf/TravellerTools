@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Grauenwolf.TravellerTools.Characters;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
@@ -15,33 +16,33 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
             var file = new FileInfo(Path.Combine(dataPath, "Animals-MGT1.xml"));
             var converter = new XmlSerializer(typeof(AnimalTemplates));
             using (var stream = file.OpenRead())
-                m_Templates = ((AnimalTemplates)converter.Deserialize(stream));
+                s_Templates = ((AnimalTemplates)converter.Deserialize(stream));
 
         }
 
-        static AnimalTemplates m_Templates;
+        static AnimalTemplates s_Templates;
 
         static public ImmutableList<AnimalTemplatesTerrain> TerrainTypeList
         {
-            get { return ImmutableList.Create(m_Templates.TerrainList); }
+            get { return ImmutableList.Create(s_Templates.TerrainList); }
         }
 
         static public ImmutableList<AnimalTemplatesAnimalType> AnimalTypeList
         {
-            get { return ImmutableList.Create(m_Templates.AnimalTypeList); }
+            get { return ImmutableList.Create(s_Templates.AnimalTypeList); }
         }
 
 
         static public Dictionary<string, List<Animal>> BuildPlanetSet()
         {
             var result = new Dictionary<string, List<Animal>>();
-            foreach (var terrain in m_Templates.TerrainList)
+            foreach (var terrain in s_Templates.TerrainList)
             {
                 var terrainList = new List<Animal>();
-                foreach (var option in m_Templates.EncounterTable)
+                foreach (var option in s_Templates.EncounterTable)
                 {
                     var animal = BuildAnimal(terrain.Name, option.AnimalType);
-                    animal.Roll = (int)option.Roll;
+                    animal.Roll = option.Roll;
                     terrainList.Add(animal);
                 }
                 result.Add(terrain.Name, terrainList);
@@ -53,7 +54,7 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
         static public List<Animal> BuildTerrainSet(string terrainType)
         {
             var result = new List<Animal>();
-            foreach (var option in m_Templates.EncounterTable)
+            foreach (var option in s_Templates.EncounterTable)
             {
                 var animal = BuildAnimal(terrainType, option.AnimalType);
                 animal.Roll = (int)option.Roll;
@@ -80,7 +81,7 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
 
             //Size
             var sizeRoll = (dice.D(selectedTerrainType.SizeDM) + dice.D(movement.SizeDM) + dice.D(2, 6)).Limit(1, 13);
-            var size = m_Templates.SizeTable.Single(sizeRoll);
+            var size = s_Templates.SizeTable.Single(sizeRoll);
             result.Size = sizeRoll;
             result.Movement = movement.Movement;
             result.WeightKG = size.WeightKG;
@@ -140,21 +141,21 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
             result.Skills.Add("Athletics");
 
             //Weapons
-            var baseDamage = (int)m_Templates.DamageTable.Last(x => result.Strength >= x.MinValue).Damage;
+            var baseDamage = (int)s_Templates.DamageTable.Last(x => result.Strength >= x.MinValue).Damage;
 
-            var weapon = m_Templates.WeaponTable.Single((dice.D(2, 6) + (int)selectedAnimalType.WeaponDM).Limit(1, 13));
+            var weapon = s_Templates.WeaponTable.Single((dice.D(2, 6) + (int)selectedAnimalType.WeaponDM).Limit(1, 13));
             if (weapon.Weapon != "None")
                 result.Weapons.Add(new Weapon() { Name = weapon.Weapon, Damage = (baseDamage + int.Parse(weapon.Bonus)) + "d6" });
 
             if (selectedAnimalType.Name == "Scavenger" && !(result.Weapons.Any(x => x.Name.Contains("Teeth"))))
                 result.Weapons.Add(new Weapon() { Name = "Teeth", Damage = baseDamage + "d6" });
 
-            result.NumberEncountered = m_Templates.NumberTable.Last(x => result.Pack.Limit(0, 15) >= x.MinValue).Number;
+            result.NumberEncountered = s_Templates.NumberTable.Last(x => result.Pack.Limit(0, 15) >= x.MinValue).Number;
             result.Attack = behavior.Attack;
             result.Flee = behavior.Flee;
 
             //Armor
-            result.Armor = m_Templates.ArmorTable.Single(dice.D(2, 6)).Armor;
+            result.Armor = s_Templates.ArmorTable.Single(dice.D(2, 6)).Armor;
 
             return result;
 

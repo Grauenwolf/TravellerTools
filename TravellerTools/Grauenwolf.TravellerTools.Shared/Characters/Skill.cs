@@ -1,6 +1,6 @@
 using Tortuga.Anchor.Modeling;
 
-namespace Grauenwolf.TravellerTools.Animals.Mgt
+namespace Grauenwolf.TravellerTools.Characters
 {
     public class Skill : EditableObjectModelBase
     {

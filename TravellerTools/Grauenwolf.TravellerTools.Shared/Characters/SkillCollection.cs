@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using Tortuga.Anchor.Collections;
 
-namespace Grauenwolf.TravellerTools.Animals.Mgt
+namespace Grauenwolf.TravellerTools.Characters
 {
     public class SkillCollection : ObservableCollectionExtended<Skill>
     {
