@@ -1,4 +1,4 @@
-﻿namespace Grauenwolf.TravellerTools.Animals
+﻿namespace Grauenwolf.TravellerTools.Animals.Mgt
 {
 
 

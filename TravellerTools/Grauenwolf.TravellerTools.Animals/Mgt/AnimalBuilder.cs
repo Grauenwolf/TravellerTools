@@ -4,15 +4,15 @@ using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace Grauenwolf.TravellerTools.Animals
+namespace Grauenwolf.TravellerTools.Animals.Mgt
 {
 
 
-    public static class AnimalBuilder
+    public static class AnimalBuilderMgt
     {
         static public void SetDataPath(string dataPath)
         {
-            var file = new FileInfo(Path.Combine(dataPath, "Animals.xml"));
+            var file = new FileInfo(Path.Combine(dataPath, "Animals-MGT1.xml"));
             var converter = new XmlSerializer(typeof(AnimalTemplates));
             using (var stream = file.OpenRead())
                 m_Templates = ((AnimalTemplates)converter.Deserialize(stream));

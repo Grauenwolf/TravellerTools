@@ -54,6 +54,8 @@
     <Compile Include="Dice.cs" />
     <Compile Include="Edition.cs" />
     <Compile Include="EHex.cs" />
+    <Compile Include="Helpers.cs" />
+    <Compile Include="ITablePick.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Grauenwolf.TravellerTools.Animals
+﻿namespace Grauenwolf.TravellerTools.Animals.Mgt
 {
 
 
@@ -59,9 +57,6 @@ namespace Grauenwolf.TravellerTools.Animals
             return Roll == value;
         }
     }
-    public interface ITablePick
-    {
-        bool IsMatch(int value);
-    }
+
 }
 

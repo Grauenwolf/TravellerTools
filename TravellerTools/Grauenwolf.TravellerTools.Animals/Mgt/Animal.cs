@@ -1,6 +1,6 @@
 using Tortuga.Anchor.Modeling;
 
-namespace Grauenwolf.TravellerTools.Animals
+namespace Grauenwolf.TravellerTools.Animals.Mgt
 {
     public class Animal : ModelBase
     {

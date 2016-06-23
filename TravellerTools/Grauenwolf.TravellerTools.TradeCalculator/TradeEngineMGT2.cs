@@ -8,7 +8,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
 
 
-    public class TradeEngineMGT2 : TradeEngine
+    public class TradeEngineMgt2 : TradeEngine
     {
         protected override string DataFileName
         {

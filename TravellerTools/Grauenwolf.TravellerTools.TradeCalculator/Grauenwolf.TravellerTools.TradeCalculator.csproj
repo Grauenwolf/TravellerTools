@@ -60,8 +60,8 @@
     <Compile Include="Mod.cs" />
     <Compile Include="TradeBid.cs" />
     <Compile Include="TradeEngine.cs" />
-    <Compile Include="TradeEngineMGT.cs" />
-    <Compile Include="TradeEngineMGT2.cs" />
+    <Compile Include="TradeEngineMgt.cs" />
+    <Compile Include="TradeEngineMgt2.cs" />
     <Compile Include="TradeGood.cs" />
     <Compile Include="TradeGoodDetail.cs" />
     <Compile Include="TradeGoods.cs" />

@@ -203,7 +203,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Animals.xml">
+    <Content Include="App_Data\Animals-MGT1.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Data\TradeGoods-MGT.xml" />

@@ -1,4 +1,4 @@
-﻿using Grauenwolf.TravellerTools.Animals;
+﻿using Grauenwolf.TravellerTools.Animals.Mgt;
 using Grauenwolf.TravellerTools.TradeCalculator;
 using Grauenwolf.TravellerTools.Web.Models;
 using System.Collections.Generic;
@@ -43,22 +43,22 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
 
         public ActionResult Animals(string terrainType = "", string animalType = "")
         {
-            System.Collections.Generic.Dictionary<string, List<Grauenwolf.TravellerTools.Animals.Animal>> model;
+            Dictionary<string, List<Animal>> model;
             if (!string.IsNullOrWhiteSpace(terrainType) && !string.IsNullOrWhiteSpace(animalType))
             {
                 var list = new List<Animal>();
                 model = new Dictionary<string, List<Animal>>();
                 model.Add(terrainType, list);
-                list.Add(AnimalBuilder.BuildAnimal(terrainType, animalType));
+                list.Add(AnimalBuilderMgt.BuildAnimal(terrainType, animalType));
             }
             else if (!string.IsNullOrWhiteSpace(terrainType))
             {
                 model = new Dictionary<string, List<Animal>>();
-                model.Add(terrainType, AnimalBuilder.BuildTerrainSet(terrainType));
+                model.Add(terrainType, AnimalBuilderMgt.BuildTerrainSet(terrainType));
             }
             else
             {
-                model = AnimalBuilder.BuildPlanetSet();
+                model = AnimalBuilderMgt.BuildPlanetSet();
             }
 
             return View(model);

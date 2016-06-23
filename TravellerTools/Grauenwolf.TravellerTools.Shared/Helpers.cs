@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Grauenwolf.TravellerTools.Animals
+namespace Grauenwolf.TravellerTools
 {
-    static class Helpers
+    public static class Helpers
     {
         public static T Single<T>(this IEnumerable<T> list, int roll) where T : ITablePick
         {

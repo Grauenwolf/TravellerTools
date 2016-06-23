@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
 
-    public class TradeEngineMGT : TradeEngine
+    public class TradeEngineMgt : TradeEngine
     {
         protected override string DataFileName
         {
