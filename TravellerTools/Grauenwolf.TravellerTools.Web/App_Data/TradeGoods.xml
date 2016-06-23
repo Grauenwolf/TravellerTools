@@ -1,0 +1,497 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TradeGoods >
+
+	<TradeGood Name="Electronics" Roll="11" Availability="*" BasePrice="10" Tons="10D6" >
+		<Purchase Tag="In" Bonus ="2" />
+		<Purchase Tag="Ht" Bonus ="3" />
+		<Purchase Tag="Ri" Bonus ="1" />
+		<Sale Tag="Ni" Bonus ="2" />
+		<Sale Tag="Lt" Bonus ="1" />
+		<Sale Tag="Po" Bonus ="1" />
+		<Detail Roll="2" Name="Calculators/Adding Machines" Tons="12D6" Price="6" />
+		<Detail Roll="3-5" Name="Video Game and Entertainment Systems" Tons="10D6" Price="8" />
+		<Detail Roll="6-8" Name="Personal and Commerical Computers" Tons="10D6" Price="10" />
+		<Detail Roll="9-11" Name="Banking Machines and Security Systems" Tons="4D6" Price="12" />
+		<Detail Roll="12" Name="Microprocessor Assemblies" Tons="2D6" Price="14"/>
+	</TradeGood>
+	
+	<TradeGood Name="Basic Machine Parts" Roll="12" Availability="*" BasePrice="10" Tons="10D6">
+		<Purchase Tag="Na"  Bonus="2"/>
+		<Purchase Tag="In" Bonus="5"/>
+		<Sale Tag="Ni" Bonus="3"/>
+		<Sale Tag="Ag" Bonus="2"/>
+		<Detail Roll="2" Name="Staped/Poured Cogs and Sprokets" Tons="12D6" Price="8" />
+		<Detail Roll="3-5" Name="Piping and Attachment Pieces" Tons="12D6" Price="9"/>
+		<Detail Roll="6-8" Name="Engine Components" Tons="10D6" Price="10"/>
+		<Detail Roll="9-11" Name="Pneumatics and Hydraulics" Tons="6D6" Price="11"/>
+		<Detail Roll="12" Name="Starship-Quality Components" Tons="4D6" Price="12"/>
+	</TradeGood>
+
+	<TradeGood Name="Basic Manufactured Goods" Roll="13" Availability="*" BasePrice="10" Tons="10D6">
+		<Purchase Tag="Na" Bonus="2"/>
+		<Purchase Tag="In" Bonus="5"/>
+		<Sale Tag="Ni" Bonus="3"/>
+		<Sale Tag="Hi" Bonus="2"/>
+		<Detail Roll="2" Name="Second Stage Components" Tons="12D6" Price="8"/>
+		<Detail Roll="3-5" Name="Uniforms/Clothing Products" Tons="10D6" Price="9"/>
+		<Detail Roll="6-8" Name="Residential Applicances" Tons="10D6" Price="10"/>
+		<Detail Roll="9-11" Name="Furniture/Storage Systems/Tools" Tons="5D6" Price="11" />
+		<Detail Roll="12" Name="Vehicle/Survival Accessories" Tons="3D6" Price="12"/>
+	</TradeGood>
+
+
+	<TradeGood Name="Basic Raw Materials" Roll="14" Availability="*" BasePrice="5" Tons="10D6">
+		<Purchase Tag="Ag" Bonus="3"/>
+		<Purchase Tag="Ga" Bonus="2"/>
+		<Sale Tag="In" Bonus="2"/>
+		<Sale Tag="Po" Bonus="2"/>
+		<Detail Roll="2" Name="Foundation Stones/Base Elements" Tons="14D6" Price="1" />
+		<Detail Roll="3-5" Name="Workable Metals" Tons="12D6" Price="3"/>
+		<Detail Roll="6-8" Name="Workable Alloys" Tons="10D6" Price="5"/>
+		<Detail Roll="9-11" Name="Fabricated Plastics" Tons="5D6" Price="11"/>
+		<Detail Roll="12"   Name="Chemical Solutions and Compounds" Tons="3D6" Price="12"/>
+	</TradeGood>
+
+	<TradeGood Name="Basic Consumables" Roll="15" Availability="*" BasePrice="2" Tons="10D6">
+		<Purchase Tag="Ag" Bonus="3"/>
+		<Purchase Tag="Wa" Bonus="2"/>
+		<Purchase Tag="Ga" Bonus="1"/>
+		<Purchase Tag="As" Bonus="-4"/>
+		<Sale			Tag="As" Bonus="1"/>
+		<Sale			Tag="Fl" Bonus="1"/>
+		<Sale			Tag="IC" Bonus="1"/>
+		<Sale			Tag="Hi" Bonus="1"/>
+
+		<Detail Roll="2"    Name="Feed Grade Vegetation" Tons="12D6" Price="0.5" />
+		<Detail Roll="3-5"  Name="Food Grade Vegetation" Tons="10D6" Price="1"/>
+		<Detail Roll="6-8"  Name="Pre-packaged Food and Drink" Tons="10D6" Price="5"/>
+		<Detail Roll="9-11" Name="Survival Rations and Storage-packed Liquids" Tons="8D6" Price="3"/>
+		<Detail Roll="12"   Name="Junk Food/Soda Drink" Tons="4D6" Price="5"/>
+	</TradeGood>
+
+	<TradeGood Name="Basic Ore" Roll="16" Availability="*" BasePrice="1" Tons="10D6">
+		<Purchase Tag="NA" Bonus="4"/>
+		<Purchase Tag="IC" Bonus="0"/>
+		<Sale			Tag="In" Bonus="3"/>
+		<Sale			Tag="Ni" Bonus="1"/>
+
+		<Detail Roll="2"    Name="Bornite, Galena/Sedimentary Stone" Tons="14D6" Price="0.25" />
+		<Detail Roll="3-5"  Name="Chalcocite/Talc" Tons="12D6" Price="0.5"/>
+		<Detail Roll="6-8"  Name="Bauxite/Coltan/Wolframite" Tons="10D6" Price="1"/>
+		<Detail Roll="9-11" Name="Acanthite/Cobaltite/Magnetite" Tons="8D6" Price="1.5"/>
+		<Detail Roll="12"   Name="Chromite/Cinnabar" Tons="4D6" Price="2"/>
+	</TradeGood>
+	
+	<TradeGood Name="Advanced Electronics" Roll="21" Availability="In, Ht" BasePrice="100" Tons="5D6">
+		<Purchase Tag="In" Bonus="2"/>
+		<Purchase Tag="Ht" Bonus="3"/>
+		<Sale			Tag="Ni" Bonus="2"/>
+		<Sale			Tag="Ri" Bonus="2"/>
+		<Sale			Tag="As" Bonus="3"/>
+
+		<Detail Roll="2"    Name="Circuitry Bundle" Tons="6D6" Price="25" />
+		<Detail Roll="3-5"  Name="Fibre-optic Cable" Tons="5D6" Price="50"/>
+		<Detail Roll="6-8"  Name="VR Computer and Sensor Packages" Tons="5D6" Price="100"/>
+		<Detail Roll="9-11" Name="Weapon Components" Tons="2D6" Price="125"/>
+		<Detail Roll="12"   Name="Starship Bridge Components" Tons="1D6" Price="150"/>
+	</TradeGood>
+	
+	<TradeGood Name="Advanced Machine Parts" Roll="22" Availability="In, Ht" BasePrice="75" Tons="5D6">
+		<Purchase Tag="In" Bonus="2"/>
+		<Purchase Tag="Ht" Bonus="1"/>
+		<Sale			Tag="As" Bonus="2"/>
+		<Sale			Tag="Ni" Bonus="1"/>
+
+		<Detail Roll="2"    Name="Alloy and Plastic Tool Kits" Tons="6D6" Price="25" />
+		<Detail Roll="3-5"  Name="Startship Deckplate/Atmospheric Filters" Tons="5D6" Price="50"/>
+		<Detail Roll="6-8"  Name="Fusion Conduits/Power Plant Shells" Tons="5D6" Price="75"/>
+		<Detail Roll="9-11" Name="Weapon Core/Starship Hull Plating" Tons="3D6" Price="90"/>
+		<Detail Roll="12"   Name="Gravitic Gyros/Navigation Magnets" Tons="1D6" Price="100"/>
+	</TradeGood>
+	
+	<TradeGood Name="Advanced Manufactured Goods" Roll="23" Availability="In, Ht" BasePrice="100" Tons="5D6">
+		<Purchase Tag="In" Bonus="1"/>
+		<Purchase Tag="Ht" Bonus="0"/>
+		<Sale			Tag="Hi" Bonus="1"/>
+		<Sale			Tag="Ri" Bonus="2"/>
+
+		<Detail Roll="2"    Name="High-Pressure/Temperature-Resistant Components" Tons="6D6" Price="25" />
+		<Detail Roll="3-5"  Name="Protective/Specialized Clothing" Tons="5D6" Price="50"/>
+		<Detail Roll="6-8"  Name="Survival Equipment/Colonisation Kits" Tons="5D6" Price="100"/>
+		<Detail Roll="9-11" Name="Computerised Job-related Gear" Tons="2D6" Price="125"/>
+		<Detail Roll="12"   Name="Starship Add-ons/Powered Armor Components" Tons="1D6" Price="150"/>
+	</TradeGood>
+
+	<TradeGood Name="Advanced Weapons" Roll="24" Availability="In, Ht" BasePrice="150" Tons="5D6">
+		<Purchase Tag="In" Bonus="0"/>
+		<Purchase Tag="Ht" Bonus="2"/>
+		<Sale			Tag="Po" Bonus="1"/>
+		<Sale			Tag="A" Bonus="2"/>
+		<Sale			Tag="R" Bonus="4"/>
+
+		<Detail Roll="2"    Name="Slug Weapons (TL 7)" Tons="7D6" Price="50" />
+		<Detail Roll="3-5"  Name="Slug Weapons (TL 10)" Tons="6D6" Price="100"/>
+		<Detail Roll="6-8"  Name="Slug Weapons (TL 12)/Energy Weapons (TL 12)/Heavy Slug Weapons (TL 12)" Tons="5D6" Price="150"/>
+		<Detail Roll="9-11" Name="Slug Weapons (TL 15)/Energy Weapons (TL 15)/Explosives (TL 15)" Tons="3D6" Price="200"/>
+		<Detail Roll="12"   Name="Artillery/Heavy Energy Weapons" Tons="1D6" Price="250"/>
+	</TradeGood>
+
+	<TradeGood Name="Advanced Vehicles" Roll="25" Availability="In, Ht" BasePrice="180" Tons="5D6">
+		<Purchase Tag="In" Bonus="0"/>
+		<Purchase Tag="Ht" Bonus="2"/>
+		<Sale			Tag="As" Bonus="2"/>
+		<Sale			Tag="Ri" Bonus="2"/>
+
+		<Detail Roll="2"    Name="Engine Components" Tons="5D6" Price="100" />
+		<Detail Roll="3-5"  Name="Seafaring Vehicle Components/ Mole Vehicle Components" Tons="5D6" Price="140"/>
+		<Detail Roll="6-8"  Name="Air Vehicle Components/Raft Components" Tons="5D6" Price="180"/>
+		<Detail Roll="9-11" Name="Grav-Vehicle Components" Tons="2D6" Price="200"/>
+		<Detail Roll="12"   Name="Spacecraft Components" Tons="1D6" Price="250"/>
+	</TradeGood>
+
+	<TradeGood Name="Biochemicals" Roll="26" Availability="Ag, Wa" BasePrice="50" Tons="5D6">
+		<Purchase Tag="Ag" Bonus="1"/>
+		<Purchase Tag="Wa" Bonus="2"/>
+		<Sale			Tag="In" Bonus="3"/>
+
+		<Detail Roll="2"    Name="Organic Glues" Tons="6D6" Price="25" />
+		<Detail Roll="3-5"  Name="Ethanol/Fructose Syrup" Tons="5D6" Price="50"/>
+		<Detail Roll="6-8"  Name="Biodiesel/Cooking Compounds" Tons="5D6" Price="100"/>
+		<Detail Roll="9-11" Name="Oxygenated Cleaner/Biodegradable Concentrates" Tons="2D6" Price="125"/>
+		<Detail Roll="12"   Name="Gelis oxygen Substitutes/Bio-fusion cell Fuel" Tons="1D6" Price="150"/>
+	</TradeGood>
+
+	<TradeGood Name="Crystals &amp; Gems" Roll="31" Availability="As, De, IC" BasePrice="20" Tons="5D6">
+		<Purchase Tag="As" Bonus="2"/>
+		<Purchase Tag="De" Bonus="1"/>
+		<Purchase Tag="IC" Bonus="1"/>
+		<Sale			Tag="In" Bonus="3"/>
+		<Sale			Tag="Ri" Bonus="2"/>
+
+		<Detail Roll="2"    Name="Rock Salt/Compressed Coal" Tons="7D6" Price="5" />
+		<Detail Roll="3-5"  Name="Graphite/Quartz" Tons="6D6" Price="10"/>
+		<Detail Roll="6-8"  Name="Silica/Focuser-Quality Gems" Tons="5D6" Price="20"/>
+		<Detail Roll="9-11" Name="Photonics/Synthetic Gems" Tons="3D6" Price="30"/>
+		<Detail Roll="12"   Name="Industrial Diamond/Jewellery-Quality Gems" Tons="2D6" Price="45"/>
+	</TradeGood>
+
+	<TradeGood Name="Cybernetics" Roll="32" Availability="Ht" BasePrice="250" Tons="1D6">
+		<Purchase Tag="Ht" Bonus="0"/>
+		<Sale			Tag="As" Bonus="1"/>
+		<Sale			Tag="IC" Bonus="1"/>
+		<Sale			Tag="Ri" Bonus="2"/>
+
+		<Detail Roll="2"    Name="Cybernetic Lubricants" Tons="1D6+2" Price="100" />
+		<Detail Roll="3-5"  Name="Cybernetic Components/Physical Augments" Tons="1D6+1" Price="200"/>
+		<Detail Roll="6-8"  Name="Cyber-Prosthetics" Tons="1D6" Price="250"/>
+		<Detail Roll="9-11" Name="Cosmetic Prosthetics" Tons="1D6" Price="350"/>
+		<Detail Roll="12"   Name="Real-Life Replacements and Augments" Tons="1" Price="500"/>
+	</TradeGood>
+
+	<TradeGood Name="Live Animals" Roll="33" Availability="Ag,Ga" BasePrice="10" Tons="10D6">
+		<Purchase Tag="Ag" Bonus="2"/>
+		<Purchase Tag="Ga" Bonus="0"/>
+		<Sale			Tag="Lo" Bonus="3"/>
+
+		<Detail Roll="2"    Name="Beasts of Burden" Tons="12D6" Price="2.5" />
+		<Detail Roll="3-5"  Name="Untrained Riding Animals" Tons="10D6" Price="5"/>
+		<Detail Roll="6-8"  Name="Trained Riding Animals/Common Pets" Tons="10D6" Price="10"/>
+		<Detail Roll="9-11" Name="Untrained Guard Animals" Tons="6D6" Price="12.5"/>
+		<Detail Roll="12"   Name="Trained Guard Animals/Exotic Pets" Tons="3D6" Price="15"/>
+	</TradeGood>
+
+	<TradeGood Name="Luxury Consumables" Roll="34" Availability="Ag,Ga,Wa" BasePrice="20" Tons="10D6">
+		<Purchase Tag="Ag" Bonus="2"/>
+		<Purchase Tag="Ga" Bonus="0"/>
+		<Purchase Tag="Wa" Bonus="1"/>
+		<Sale			Tag="Ri" Bonus="2"/>
+		<Sale			Tag="Hi" Bonus="2"/>
+
+		<Detail Roll="2"    Name="Common Desserts/Rare Food Additives" Tons="14D6" Price="5" />
+		<Detail Roll="3-5"  Name="Common Desserts/Common Wine" Tons="12D6" Price="10"/>
+		<Detail Roll="6-8"  Name="Rare Foods/Common Liquor" Tons="10D6" Price="20"/>
+		<Detail Roll="9-11" Name="Exotic Foods/Rare Desserts/Rare Liquor" Tons="5D6" Price="30"/>
+		<Detail Roll="12"   Name="Exotic Desserts/Exotic Liquor" Tons="2D6" Price="50"/>
+	</TradeGood>
+
+	<TradeGood Name="Luxury Goods" Roll="35" Availability="1D6" BasePrice="200" Tons="1D6">
+		<Purchase Tag="Hi" Bonus="0"/>
+		<Sale			Tag="Ri" Bonus="4"/>
+
+		<Detail Roll="2"    Name="Rare Literature/Art" Tons="1D6+2" Price="50" />
+		<Detail Roll="3-5"  Name="Jewellery/Alien Textiles" Tons="1D6+1" Price="100"/>
+		<Detail Roll="6-8"  Name="Rare Clothing/Home Decorations" Tons="1D6" Price="200"/>
+		<Detail Roll="9-11" Name="VR Electronic Entertainment Devices" Tons="1D6" Price="250"/>
+		<Detail Roll="12"   Name="Exotic Furnishings/Exquisite Jewellery" Tons="1" Price="500"/>
+	</TradeGood>
+
+	<TradeGood Name="Medical Supplies" Roll="36" Availability="Ht,Hi" BasePrice="50" Tons="5D6">
+		<Purchase Tag="Ht" Bonus="2"/>
+		<Purchase Tag="Hi" Bonus="0"/>
+		<Sale			Tag="Ind" Bonus="2"/>
+		<Sale			Tag="Po" Bonus="1"/>
+		<Sale			Tag="Ri" Bonus="1"/>
+
+		<Detail Roll="2"    Name="Medical Uniforms/Disposable Tools" Tons="6D6" Price="10" />
+		<Detail Roll="3-5"  Name="Cosmetic Chemicals/Practitioners Tools" Tons="5D6" Price="30"/>
+		<Detail Roll="6-8"  Name="General Medical Equipment" Tons="5D6" Price="50"/>
+		<Detail Roll="9-11" Name="Specialised Equipment and Supplies" Tons="2D6" Price="75"/>
+		<Detail Roll="12"   Name="Micro-Surgical Equipment and Supplies" Tons="1D6" Price="100"/>
+	</TradeGood>
+
+	<TradeGood Name="Petrochemicals" Roll="41" Availability="De,Fl,IC,Wa" BasePrice="10" Tons="10D6">
+		<Purchase Tag="De" Bonus="2"/>
+		<Purchase Tag="Fl" Bonus="0"/>
+		<Purchase Tag="IC" Bonus="0"/>
+		<Purchase Tag="Wa" Bonus="0"/>
+		<Sale			Tag="In" Bonus="2"/>
+		<Sale			Tag="Ag" Bonus="1"/>
+		<Sale			Tag="Lt" Bonus="2"/>
+
+		<Detail Roll="2"    Name="Crude Oil/Diesel" Tons="12D6" Price="2" />
+		<Detail Roll="3-5"  Name="Refined Kerosine/Purified Oil" Tons="10D6" Price="5"/>
+		<Detail Roll="6-8"  Name="Gasoline/Machine Lubricants" Tons="10D6" Price="10"/>
+		<Detail Roll="9-11" Name="Jet Fuel/Gelid Adhesives" Tons="8D6" Price="20"/>
+		<Detail Roll="12"   Name="Rocket Fuel/Power Plant Starter Charges" Tons="4D6" Price="30"/>
+	</TradeGood>
+
+	<TradeGood Name="Pharmaceuticals" Roll="42" Availability="As,De,Hi,Wa" BasePrice="100" Tons="1D6">
+		<Purchase Tag="As" Bonus="2"/>
+		<Purchase Tag="De" Bonus="0"/>
+		<Purchase Tag="Hi" Bonus="1"/>
+		<Purchase Tag="Wa" Bonus="0"/>
+		<Sale			Tag="Ri" Bonus="2"/>
+		<Sale			Tag="Lt" Bonus="1"/>
+
+		<Detail Roll="2"    Name="OTC Drugs/Antibiotics" Tons="1D6+3" Price="25" />
+		<Detail Roll="3-5"  Name="Anti-venom/Prescription Medications" Tons="1D6+2" Price="50"/>
+		<Detail Roll="6-8"  Name="Prescription Medications/Surgical" Tons="1D6" Price="100"/>
+		<Detail Roll="12"   Name="Anagathics" Tons="2" Price="200"/>
+		<Detail Roll="9-11" Name="Psi-Related Drugs/Viral Therapy Doses" Tons="1" Price="500"/>
+	</TradeGood>
+		
+	<TradeGood Name="Polymers" Roll="43" Availability="In" BasePrice="7" Tons="10D6">
+		<Purchase Tag="In" Bonus="0"/>
+		<Sale			Tag="Ri" Bonus="2"/>
+		<Sale			Tag="NI" Bonus="1"/>
+
+		<Detail Roll="2"    Name="Rubber/Vinyl Spooling" Tons="12D6" Price="1" />
+		<Detail Roll="3-5"  Name="Insulation/Polyurethane Foam" Tons="10D6" Price="3"/>
+		<Detail Roll="6-8"  Name="Poured Plastics/Synthetic Fibre Spools" Tons="10D6" Price="7"/>
+		<Detail Roll="9-11" Name="Kevlar/Teflon" Tons="3D6" Price="9"/>
+		<Detail Roll="12"   Name="Advanced Ballistic Weave" Tons="1D6" Price="10"/>
+	</TradeGood>
+
+	<TradeGood Name="Precious Metals" Roll="44" Availability="As,De,IC,Fl" BasePrice="50" Tons="1D6">
+		<Purchase Tag="As" Bonus="3"/>
+		<Purchase Tag="De" Bonus="1"/>
+		<Purchase Tag="IC" Bonus="2"/>
+		<Purchase Tag="Fl" Bonus="0"/>
+		<Sale			Tag="Ri" Bonus="3"/>
+		<Sale			Tag="Ni" Bonus="2"/>
+		<Sale			Tag="Ht" Bonus="1"/>
+
+		<Detail Roll="2"    Name="Bismuth/Indium" Tons="1D6+2" Price="10" />
+		<Detail Roll="3-5"  Name="Beryllium/Silver" Tons="1D6+1" Price="25"/>
+		<Detail Roll="6-8"  Name="Ruthenium/Rhenium" Tons="1D6" Price="50"/>
+		<Detail Roll="9-11" Name="Gold/Osmium/Iridium" Tons="1D6" Price="75"/>
+		<Detail Roll="12"   Name="Platinum/Rhodium" Tons="1" Price="100"/>
+	</TradeGood>
+		
+	<TradeGood Name="Radioactives" Roll="45" Availability="As,De,Lo" BasePrice="1000" Tons="1D6">
+		<Purchase Tag="As" Bonus="2"/>
+		<Purchase Tag="De" Bonus="0"/>
+		<Purchase Tag="Lo" Bonus="2"/>
+		<Sale			Tag="In" Bonus="3"/>
+		<Sale			Tag="Ht" Bonus="1"/>
+		<Sale			Tag="NI" Bonus="-2"/>
+		<Sale			Tag="Ag" Bonus="-3"/>
+
+		<Detail Roll="2"    Name="Nuclear Waste/Deactivated Materials" Tons="1D6 + 3" Price="500" />
+		<Detail Roll="3-5"  Name="Industrial Isotopes" Tons="1D6 + 2" Price="750"/>
+		<Detail Roll="6-8"  Name="Medical Isotopes/Reactor-Grade Uranium" Tons="1D6" Price="1000"/>
+		<Detail Roll="9-11" Name="Weapons-Grade Plutonium/Fusion Cell Rods" Tons="1" Price="1250"/>
+		<Detail Roll="12"   Name="Superweapon-Grade Isotopes" Tons="1" Price="1500"/>
+	</TradeGood>
+
+	<TradeGood Name="Robots" Roll="46" Availability="In" BasePrice="400" Tons="5D6">
+		<Purchase Tag="In" Bonus="0"/>
+		<Sale			Tag="Ag" Bonus="2"/>
+		<Sale			Tag="Ht" Bonus="1"/>
+
+		<Detail Roll="2"    Name="Automated Robotics/Cargo Drones" Tons="7D6" Price="150" />
+		<Detail Roll="3-5"  Name="Industrial Drones/Personal Drones" Tons="6D6" Price="300"/>
+		<Detail Roll="6-8"  Name="Combat Drones/Guardian Drones" Tons="5D6" Price="400"/>
+		<Detail Roll="9-11" Name="Scout and Sensor Drones" Tons="2D6" Price="500"/>
+		<Detail Roll="12"   Name="Advanced Robotics" Tons="1D6" Price="650"/>
+	</TradeGood>
+	
+	<TradeGood Name="Spices" Roll="51" Availability="Ga,De,Wa" BasePrice="6" Tons="5D6">
+		<Purchase Tag="Ga" Bonus="0"/>
+		<Purchase Tag="De" Bonus="2"/>
+		<Purchase Tag="Wa" Bonus="0"/>
+		<Sale			Tag="Hi" Bonus="2"/>
+		<Sale			Tag="Ri" Bonus="3"/>
+		<Sale			Tag="Po" Bonus="3"/>
+
+		<Detail Roll="2"    Name="Table Salt/Black Pepper" Tons="6D6" Price="1" />
+		<Detail Roll="3-5"  Name="Adobo/Basil/Sage" Tons="5D6" Price="3"/>
+		<Detail Roll="6-8"  Name="Aniseed/Curry/Fennel/White Pepper" Tons="5D6" Price="6"/>
+		<Detail Roll="9-11" Name="Cinnamon/Marjoram/Wasabi" Tons="3D6" Price="9"/>
+		<Detail Roll="12"   Name="Black Salt/Saffron/Alien Flavourings" Tons="1D6" Price="12"/>
+	</TradeGood>
+
+	<TradeGood Name="Textiles" Roll="52" Availability="Ag,NI" BasePrice="3" Tons="10D6">
+		<Purchase Tag="Ag" Bonus="7"/>
+		<Purchase Tag="NI" Bonus="0"/>
+		<Sale			Tag="Hi" Bonus="3"/>
+		<Sale			Tag="NA" Bonus="2"/>
+
+		<Detail Roll="2"    Name="Yarn/Wool/Canvas" Tons="12D6" Price="1" />
+		<Detail Roll="3-5"  Name="Animal-based Fabrics" Tons="10D6" Price="2"/>
+		<Detail Roll="6-8"  Name="Cotton-based Fabrics/Flax-based Fabrics" Tons="10D6" Price="3"/>
+		<Detail Roll="9-11" Name="Synthetic Silks/Finished Common Clothing" Tons="6D6" Price="4"/>
+		<Detail Roll="12"   Name="Organic Silk/Satin/Finished Fine Clothing" Tons="3D6" Price="5"/>
+	</TradeGood>
+
+	<TradeGood Name="Uncommon Ore" Roll="53" Availability="As, IC" BasePrice="5" Tons="10D6">
+		<Purchase Tag="As" Bonus="4"/>
+		<Purchase Tag="IC" Bonus="0"/>
+		<Sale			Tag="In" Bonus="3"/>
+		<Sale			Tag="NI" Bonus="0"/>
+
+		<Detail Roll="2"    Name="Lead/Zinc Ores" Tons="10D6" Price="1" />
+		<Detail Roll="3-5"  Name="Copper/Tin Ores" Tons="10D6" Price="2"/>
+		<Detail Roll="6-8"  Name="Nickel/Sodium/Tungsten Ores" Tons="10D6" Price="5"/>
+		<Detail Roll="9-11" Name="Gold/Silver/Limenite Ores" Tons="5D6" Price="7"/>
+		<Detail Roll="12"   Name="Platinum/Uranium Ores" Tons="2D6" Price="10"/>
+	</TradeGood>
+	
+	<TradeGood Name="Uncommon Raw Materials" Roll="54" Availability="Ag, De, Wa" BasePrice="20" Tons="10D6">
+		<Purchase Tag="Ag" Bonus="2"/>
+		<Purchase Tag="De" Bonus="0"/>
+		<Purchase Tag="Wa" Bonus="1"/>
+		<Sale			Tag="In" Bonus="2"/>
+		<Sale			Tag="Ht" Bonus="1"/>
+
+		<Detail Roll="2"    Name="Aluminium/Brass/Calcium" Tons="14D6" Price="5" />
+		<Detail Roll="3-5"  Name="Carbonate/Magnesium/Meteoric Iron" Tons="12D6" Price="10"/>
+		<Detail Roll="6-8"  Name="Marble/Potassium/Titanium" Tons="10D6" Price="20"/>
+		<Detail Roll="9-11" Name="Stellite/Tombac" Tons="8D6" Price="35"/>
+		<Detail Roll="12"   Name="Depleted Uranium/Ceramic-Alloy" Tons="3D6" Price="50"/>
+	</TradeGood>
+
+	<TradeGood Name="Wood" Roll="55" Availability="Ag, Ga" BasePrice="1" Tons="10D6">
+		<Purchase Tag="Ag" Bonus="6"/>
+		<Purchase Tag="Ga" Bonus="0"/>
+		<Sale			Tag="Ri" Bonus="2"/>
+		<Sale			Tag="In" Bonus="1"/>
+
+		<Detail Roll="2"    Name="Low-Grade Rough Cuts/Construction Scrap" Tons="12D6" Price="0.1" />
+		<Detail Roll="3-5"  Name="High-Grade Rough Cut" Tons="10D6" Price="0.5"/>
+		<Detail Roll="6-8"  Name="Construction-Grade Timber" Tons="10D6" Price="1"/>
+		<Detail Roll="9-11" Name="Furniture-Grade Timber/Rare Grades" Tons="6D6" Price="2"/>
+		<Detail Roll="12"   Name="Exotics(Permanbuco, White Mahogany etc.)" Tons="2D6" Price="4"/>
+	</TradeGood>
+
+	<TradeGood Name="Vehicles" Roll="56" Availability="In,Ht" BasePrice="15" Tons="10D6">
+		<Purchase Tag="In" Bonus="2"/>
+		<Purchase Tag="Ht" Bonus="1"/>
+		<Sale			Tag="NI" Bonus="2"/>
+		<Sale			Tag="Hi" Bonus="1"/>
+
+		<Detail Roll="2"    Name="Wheeled Repair Components" Tons="14" Price="5" />
+		<Detail Roll="3-5"  Name="Tracked Repair Components" Tons="12" Price="10"/>
+		<Detail Roll="6-8"  Name="Wheeled Components" Tons="10" Price="15"/>
+		<Detail Roll="9-11" Name="Wheeled Vehicles/Tracked Components" Tons="6" Price="20"/>
+		<Detail Roll="12"   Name="Tracked Vehicles" Tons="2" Price="30"/>
+	</TradeGood>
+
+	<TradeGood Name="Illegal Biochemicals" Roll="61" Availability="Ag, Wa" BasePrice="50" Tons="5D6" Legal="false">
+		<Purchase Tag="Ag" Bonus="0"/>
+		<Purchase Tag="Wa" Bonus="2"/>
+		<Sale			Tag="In" Bonus="6"/>
+
+		<Detail Roll="2"    Name="Herbal Stimulants/Ultra-Caffeine" Tons="6D6" Price="10" />
+		<Detail Roll="3-5"  Name="Raw Growth Hormone" Tons="5D6" Price="25"/>
+		<Detail Roll="6-8"  Name="Chemical Solvents/Protein Duplexer Steroids" Tons="5D6" Price="50"/>
+		<Detail Roll="9-11" Name="Bio-Acid/Pheromone Extracts" Tons="2" Price="100"/>
+		<Detail Roll="12"   Name="Genetic Mutagens/Organic Toxins" Tons="1" Price="200"/>
+	</TradeGood>
+
+
+	<TradeGood Name="Illegal Cybernetics" Roll="62" Availability="Ht" BasePrice="250" Tons="1D6" Legal="false">
+		<Purchase Tag="Ht" Bonus="0"/>
+		<Sale			Tag="As" Bonus="4"/>
+		<Sale			Tag="IC" Bonus="4"/>
+		<Sale			Tag="Ri" Bonus="8"/>
+		<Sale			Tag="A" Bonus="6"/>
+		<Sale			Tag="R" Bonus="6"/>
+
+		<Detail Roll="2"    Name="Unlicensed Augment Tool and Parts" Tons="2D6" Price="100" />
+		<Detail Roll="3-5"  Name="Physical Enhancement Tissues" Tons="2D6" Price="150"/>
+		<Detail Roll="6-8"  Name="Unlicensed Augments/Combat Implant Additives" Tons="1D6" Price="250"/>
+		<Detail Roll="9-11" Name="Combat Prosthetics/Surgical Duplications" Tons="2" Price="400"/>
+		<Detail Roll="12"   Name="Mimicry Augments" Tons="1" Price="650"/>
+	</TradeGood>
+
+	<TradeGood Name="Illegal Drugs" Roll="63" Availability="As, De, Hi, Wa, Ga" BasePrice="100" Tons="1D6" Legal="false">
+		<Purchase Tag="As" Bonus="0"/>
+		<Purchase Tag="De" Bonus="0"/>
+		<Purchase Tag="Ga" Bonus="0"/>
+		<Purchase Tag="Wa" Bonus="0"/>
+		<Sale			Tag="Ri" Bonus="6"/>
+		<Sale			Tag="Hi" Bonus="6"/>
+
+		<Detail Roll="2"    Name="Herbal Stimulants/Biological Hallucinogens" Tons="1D6 + 2" Price="25" />
+		<Detail Roll="3-5"  Name="Chemical Depressants/Natural Narcotics" Tons="1D6 + 1" Price="50"/>
+		<Detail Roll="6-8"  Name="Chemical Stimulants and Hallucinogens" Tons="1D6" Price="100"/>
+		<Detail Roll="9-11" Name="Designer Narcotics" Tons="2" Price="200"/>
+		<Detail Roll="12"   Name="Alien Synthetics/Psi-Drugs" Tons="1" Price="300"/>
+	</TradeGood>
+
+	<TradeGood Name="Illegal Luxuries" Roll="64" Availability="Ag, Ga, Wa" BasePrice="50" Tons="1D6" Legal="false">
+		<Purchase Tag="Ag" Bonus="2"/>
+		<Purchase Tag="Ga" Bonus="0"/>
+		<Purchase Tag="Wa" Bonus="1"/>
+		<Sale			Tag="Ri" Bonus="6"/>
+		<Sale			Tag="Hi" Bonus="4"/>
+
+		<Detail Roll="2"    Name="Anti-Governmental Propaganda/Endangered Animal Products" Tons="1D6 + 1" Price="10" />
+		<Detail Roll="3-5"  Name="Black-Data Recordings/Slaving Gear" Tons="1D6" Price="25"/>
+		<Detail Roll="6-8"  Name="Extinct Animal Products" Tons="1D6" Price="50"/>
+		<Detail Roll="9-11" Name="BTL Devices/Cloning Equipment" Tons="2" Price="100"/>
+		<Detail Roll="12"   Name="Forbidden Pleasures" Tons="1" Price="200"/>
+	</TradeGood>
+	
+	<TradeGood Name="Illegal Weapons" Roll="65" Availability="In, Ht" BasePrice="150" Tons="5D6"  Legal="false">
+		<Purchase Tag="In" Bonus="0"/>
+		<Purchase Tag="Ht" Bonus="2"/>
+		<Sale			Tag="Po" Bonus="6"/>
+		<Sale			Tag="A" Bonus="8"/>
+		<Sale			Tag="R" Bonus="10"/>
+
+		<Detail Roll="2"    Name="Chain-Drive Weaponry/Armour-Piercing Ammo" Tons="6D6" Price="50" />
+		<Detail Roll="3-5"  Name="Protected Technologies/Explosive Ammo/Incendiary Ammo" Tons="5D6" Price="100"/>
+		<Detail Roll="6-8"  Name="Synthetic Poisons/Person-Scale Mass Trauma Explosives" Tons="5D6" Price="150"/>
+		<Detail Roll="9-11" Name="Arclight Weaponry/Biological Weaponry/Chemical Weaponry/Naval Starship Weaponry" Tons="2D6" Price="300"/>
+		<Detail Roll="12"   Name="Disintegrators/Psi-Weaponry/Weapons of Mass Destruction" Tons="1D6" Price="450"/>
+	</TradeGood>
+
+	<TradeGood Name="Exotic Goods" Roll="66" Availability="" BasePrice="0" Tons="0" DetailRoll="D66"  Legal="false">
+
+		<Detail Roll="11-13" Name="Alien Super-Science" Tons="1D6-3" Price="2000" />
+		<Detail Roll="14-16" Name="Alien Ancient Relic" Tons="1D6-4" Price="2500" />
+		<Detail Roll="21-23" Name="Prototype Armour" Tons="1D6-2" Price="1250" />
+		<Detail Roll="24-26" Name="Prototype Device" Tons="1D6-3" Price="500" />
+		<Detail Roll="31-33" Name="Prototype Technology" Tons="1D6-3" Price="750" />
+		<Detail Roll="34-36" Name="Prototype Vehicular Components" Tons="1D6-1" Price="1000" />
+		<Detail Roll="41-43" Name="Undiscovered Animal Species" Tons="1D6" Price="1500" />
+		<Detail Roll="44-46" Name="Undiscovered Plant Species" Tons="1D6" Price="1500" />
+		<Detail Roll="51-53" Name="Unique Chemical" Tons="1" Price="5000" />
+		<Detail Roll="54-56" Name="Unique Treasure" Tons="1" Price="10000" />
+		<Detail Roll="61-63" Name="Unique Weapon" Tons="1" Price="15000" />
+		<Detail Roll="64-66" Name="Progenitor Artefact" Tons="1" Price="25000" />
+	</TradeGood>
+	
+</TradeGoods>

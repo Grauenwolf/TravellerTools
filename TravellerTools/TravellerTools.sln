@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grauenwolf.TravellerTools.Web", "Grauenwolf.TravellerTools.Web\Grauenwolf.TravellerTools.Web.csproj", "{664A83DB-E410-47C2-98D2-31952BD4C7D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grauenwolf.TravellerTools.Services", "Grauenwolf.TravellerTools.Services\Grauenwolf.TravellerTools.Services.csproj", "{9DFCCB72-0DF3-40B1-869E-BD1C0CC2ED98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grauenwolf.TravellerTools.Tests", "Grauenwolf.TravellerTools.Tests\Grauenwolf.TravellerTools.Tests.csproj", "{00B9E730-C4C3-4651-9CFD-4120F207D008}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grauenwolf.TravellerTools.Shared", "Grauenwolf.TravellerTools.Shared\Grauenwolf.TravellerTools.Shared.csproj", "{BA1AAE89-F357-4174-A756-47E73FF72FF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grauenwolf.TravellerTools.Animals", "Grauenwolf.TravellerTools.Animals\Grauenwolf.TravellerTools.Animals.csproj", "{A25CCEEB-1ED4-4213-B168-8EC5DDD514B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grauenwolf.TravellerTools.TradeCalculator", "Grauenwolf.TravellerTools.TradeCalculator\Grauenwolf.TravellerTools.TradeCalculator.csproj", "{9860C999-CB55-409A-8079-746C140DD261}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{664A83DB-E410-47C2-98D2-31952BD4C7D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{664A83DB-E410-47C2-98D2-31952BD4C7D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{664A83DB-E410-47C2-98D2-31952BD4C7D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{664A83DB-E410-47C2-98D2-31952BD4C7D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DFCCB72-0DF3-40B1-869E-BD1C0CC2ED98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DFCCB72-0DF3-40B1-869E-BD1C0CC2ED98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DFCCB72-0DF3-40B1-869E-BD1C0CC2ED98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DFCCB72-0DF3-40B1-869E-BD1C0CC2ED98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00B9E730-C4C3-4651-9CFD-4120F207D008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00B9E730-C4C3-4651-9CFD-4120F207D008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00B9E730-C4C3-4651-9CFD-4120F207D008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00B9E730-C4C3-4651-9CFD-4120F207D008}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA1AAE89-F357-4174-A756-47E73FF72FF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA1AAE89-F357-4174-A756-47E73FF72FF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA1AAE89-F357-4174-A756-47E73FF72FF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA1AAE89-F357-4174-A756-47E73FF72FF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A25CCEEB-1ED4-4213-B168-8EC5DDD514B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A25CCEEB-1ED4-4213-B168-8EC5DDD514B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A25CCEEB-1ED4-4213-B168-8EC5DDD514B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A25CCEEB-1ED4-4213-B168-8EC5DDD514B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9860C999-CB55-409A-8079-746C140DD261}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9860C999-CB55-409A-8079-746C140DD261}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9860C999-CB55-409A-8079-746C140DD261}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9860C999-CB55-409A-8079-746C140DD261}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

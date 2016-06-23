@@ -1,0 +1,349 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<AnimalTemplates>
+  <TerrainList>
+    <Terrain Name="Clear"   TypeDM="+3" 	SizeDM="" >
+      <Option Roll="1" Movement="Walker" SizeDM=""    />
+      <Option Roll="2" Movement="Walker" SizeDM="" />
+      <Option Roll="3" Movement="Walker" SizeDM=""  />
+      <Option Roll="4" Movement="Walker" SizeDM=""  />
+      <Option Roll="5" Movement="Walker" SizeDM="+2" 	/>
+      <Option Roll="6" Movement="Flyer" SizeDM="-6"/>
+    </Terrain>
+    <Terrain Name="Plain or Prairie"   TypeDM="+4" 	SizeDM="" >
+      <Option Roll="1" Movement="Walker" SizeDM=""    />
+      <Option Roll="2" Movement="Walker" SizeDM="" />
+      <Option Roll="3" Movement="Walker" SizeDM=""  />
+      <Option Roll="4" Movement="Walker" SizeDM="+2"  />
+      <Option Roll="5" Movement="Walker" SizeDM="+4" 	/>
+      <Option Roll="6" Movement="Flyer" SizeDM="-6"/>
+    </Terrain>
+    <Terrain Name="Desert (hot or cold)" 	 TypeDM="+3" 	SizeDM="-3"	>
+      <Option Roll="1" Movement="Walker" SizeDM=""    />
+      <Option Roll="2" Movement="Walker" SizeDM="" />
+      <Option Roll="3" Movement="Walker" SizeDM=""  />
+      <Option Roll="4" Movement="Walker" SizeDM=""  />
+      <Option Roll="5" Movement="Flyer" SizeDM="-4" 	/>
+      <Option Roll="6" Movement="Flyer" SizeDM="-6"/>
+    </Terrain>
+    <Terrain Name="Hills, Foothills"	   TypeDM=""  SizeDM="" >
+      <Option Roll="1" Movement="Walker" SizeDM=""    />
+      <Option Roll="2" Movement="Walker" SizeDM="" />
+      <Option Roll="3" Movement="Walker" SizeDM=""  />
+      <Option Roll="4" Movement="Walker" SizeDM="+2"  />
+      <Option Roll="5" Movement="Flyer" SizeDM="-4" 	/>
+      <Option Roll="6" Movement="Flyer" SizeDM="-6"/>
+    </Terrain>
+    <Terrain Name="Mountain"   TypeDM=""	SizeDM="" >
+      <Option Roll="2" Movement="Walker" SizeDM="" />
+      <Option Roll="1" Movement="Walker" SizeDM=""    />
+      <Option Roll="3" Movement="Walker" SizeDM=""  />
+      <Option Roll="4" Movement="Flyer" SizeDM="-2"  />
+      <Option Roll="5" Movement="Flyer" SizeDM="-4" 	/>
+      <Option Roll="6" Movement="Flyer" SizeDM="-6"/>
+    </Terrain>
+    <Terrain Name="Forest"   TypeDM="-4" 	SizeDM="-4"	>
+      <Option Roll="1" Movement="Walker" SizeDM=""    />
+      <Option Roll="2" Movement="Walker" SizeDM="" />
+      <Option Roll="3" Movement="Walker" SizeDM=""  />
+      <Option Roll="4" Movement="Walker" SizeDM=""  />
+      <Option Roll="5" Movement="Flyer" SizeDM="-4" 	/>
+      <Option Roll="6" Movement="Flyer" SizeDM="-6"/>
+    </Terrain>
+    <Terrain Name="Woods"   TypeDM="-2" 	SizeDM="-1"	>
+      <Option Roll="1" Movement="Walker" SizeDM=""    />
+      <Option Roll="2" Movement="Walker" SizeDM="" />
+      <Option Roll="3" Movement="Walker" SizeDM=""  />
+      <Option Roll="4" Movement="Walker" SizeDM=""  />
+      <Option Roll="5" Movement="Walker" SizeDM=""  />
+      <Option Roll="6" Movement="Flyer" SizeDM="-6" />
+    </Terrain>
+    <Terrain Name="Jungle"   TypeDM="-4" 	SizeDM="-3"	>
+      <Option Roll="1" Movement="Walker" SizeDM=""    />
+      <Option Roll="2" Movement="Walker" SizeDM="" />
+      <Option Roll="3" Movement="Walker" SizeDM=""  />
+      <Option Roll="4" Movement="Walker" SizeDM=""  />
+      <Option Roll="5" Movement="Walker" SizeDM="+2"	/>
+      <Option Roll="6" Movement="Flyer" SizeDM="-6"  />
+    </Terrain>
+    <Terrain Name="Rainforest"   TypeDM="-2" 	SizeDM="-2"	>
+      <Option Roll="1" Movement="Walker" SizeDM=""    />
+      <Option Roll="2" Movement="Walker" SizeDM="" />
+      <Option Roll="3" Movement="Walker" SizeDM=""  />
+      <Option Roll="4" Movement="Walker" SizeDM="+2"  />
+      <Option Roll="5" Movement="Walker" SizeDM="+4"	/>
+      <Option Roll="6" Movement="Flyer" SizeDM="-6"  />
+    </Terrain>
+    <Terrain Name="Rough, Broken"   TypeDM="-3" 	SizeDM="-3"	>
+      <Option Roll="1" Movement="Walker" SizeDM=""    />
+      <Option Roll="2" Movement="Walker" SizeDM="" />
+      <Option Roll="3" Movement="Walker" SizeDM=""  />
+      <Option Roll="4" Movement="Walker" SizeDM="+2"  />
+      <Option Roll="5" Movement="Flyer" SizeDM="-4" 	/>
+      <Option Roll="6" Movement="Flyer" SizeDM="-6"/>
+    </Terrain>
+    <Terrain Name="Swamp, Marsh"   TypeDM="-2" 	SizeDM="+4"	>
+      <Option Roll="1" Movement="Swimmer" SizeDM="-6"    />
+      <Option Roll="2" Movement="Amphibious" SizeDM="+2" />
+      <Option Roll="3" Movement="Walker" SizeDM=""  />
+      <Option Roll="4" Movement="Walker" SizeDM=""  />
+      <Option Roll="5" Movement="Flyer" SizeDM="-4" 	/>
+      <Option Roll="6" Movement="Flyer" SizeDM="-6"/>
+    </Terrain>
+    <Terrain Name="Beach, Shore"   TypeDM="+3" 	SizeDM="+2"	>
+      <Option Roll="1" Movement="Swimmer" SizeDM="+1"    />
+      <Option Roll="2" Movement="Amphibious" SizeDM="+2" />
+      <Option Roll="3" Movement="Walker" SizeDM=""  />
+      <Option Roll="4" Movement="Walker" SizeDM=""  />
+      <Option Roll="5" Movement="Flyer" SizeDM="-4"	/>
+      <Option Roll="6" Movement="Flyer" SizeDM="-6"  />
+    </Terrain>
+    <Terrain Name="Riverbank"  TypeDM="+1" 	SizeDM="+1"	>
+      <Option Roll="1" Movement="Swimmer" SizeDM="-4"    />
+      <Option Roll="2" Movement="Amphibious" SizeDM="" />
+      <Option Roll="3" Movement="Walker" SizeDM=""  />
+      <Option Roll="4" Movement="Walker" SizeDM=""  />
+      <Option Roll="5" Movement="Walker" SizeDM=""  />
+      <Option Roll="6" Movement="Flyer" SizeDM="-6" />
+    </Terrain>
+    <Terrain Name="Ocean shallows"   TypeDM="+4" 	SizeDM="+1"	>
+      <Option Roll="1" Movement="Swimmer" SizeDM="+4"    />
+      <Option Roll="2" Movement="Swimmer" SizeDM="+2"	/>
+      <Option Roll="3" Movement="Swimmer" SizeDM=""  />
+      <Option Roll="4" Movement="Swimmer" SizeDM=""  />
+      <Option Roll="5" Movement="Flyer" SizeDM="-4" 	/>
+      <Option Roll="6" Movement="Flyer" SizeDM="-6"/>
+    </Terrain>
+    <Terrain Name="Open ocean"   TypeDM="+4" 	SizeDM="-4"	>
+      <Option Roll="1" Movement="Swimmer" SizeDM="+6"    />
+      <Option Roll="2" Movement="Swimmer" SizeDM="+4"	/>
+      <Option Roll="3" Movement="Swimmer" SizeDM="+2"  />
+      <Option Roll="4" Movement="Swimmer" SizeDM=""  />
+      <Option Roll="5" Movement="Flyer" SizeDM="-4" 	/>
+      <Option Roll="6" Movement="Flyer" SizeDM="-6"/>
+    </Terrain>
+    <Terrain Name="Deep ocean"   TypeDM="+4" 	SizeDM="+2"	>
+      <Option Roll="1" Movement="Swimmer" SizeDM="+8"    />
+      <Option Roll="2" Movement="Swimmer" SizeDM="+6"	/>
+      <Option Roll="3" Movement="Swimmer" SizeDM="+4"  />
+      <Option Roll="4" Movement="Swimmer" SizeDM="+2"  />
+      <Option Roll="5" Movement="Swimmer" SizeDM=""  />
+      <Option Roll="6" Movement="Swimmer" SizeDM="-2" />
+    </Terrain>
+
+  </TerrainList>
+
+  <EncounterTable>
+    <Option Roll="2" AnimalType="Scavenger" />
+    <Option Roll="3" AnimalType="Omnivore" />
+    <Option Roll="4" AnimalType="Scavenger" />
+    <Option Roll="5" AnimalType="Omnivore" />
+    <Option Roll="6" AnimalType="Herbivore" />
+    <Option Roll="7" AnimalType="Herbivore" />
+    <Option Roll="8" AnimalType="Herbivore" />
+    <Option Roll="9" AnimalType="Carnivore" />
+    <!--<Option Roll="10" AnimalType="" />-->
+    <Option Roll="11" AnimalType="Carnivore" />
+    <Option Roll="12" AnimalType="Carnivore" />
+  </EncounterTable>
+
+  <AnimalTypeList>
+
+    <AnimalType Name="Herbivore" WeaponDM="-6" >
+      <Behavior Name="Filter">
+        <Attribute Name="Endurance" Add="4" Atttack="10+" Flee="5-" />
+      </Behavior>
+      <Behavior Name="Intermittent">
+        <Attribute Name="Pack" Add="4" Attack="10+" Flee="4-"/>
+      </Behavior>
+      <Behavior Name="Grazer" Attack="8+" Flee="6-">
+        <Attribute Name="Instinct" Add="2"/>
+        <Attribute Name="Pack" Add="4"/>
+      </Behavior>
+      <Option Behavior="Filter" Roll="2" />
+      <Option Behavior="Filter" Roll="1" />
+      <Option Behavior="Intermittent" Roll="3" />
+      <Option Behavior="Intermittent" Roll="4" />
+      <Option Behavior="Intermittent" Roll="5" />
+      <Option Behavior="Intermittent" Roll="6" />
+      <Option Behavior="Grazer" Roll="7" />
+      <Option Behavior="Grazer" Roll="8" />
+      <Option Behavior="Grazer" Roll="9" />
+      <Option Behavior="Grazer" Roll="10" />
+      <Option Behavior="Grazer" Roll="11" />
+      <Option Behavior="Grazer" Roll="12" />
+      <Option Behavior="Grazer" Roll="13" />
+    </AnimalType>
+
+    <AnimalType Name="Omnivore" WeaponDM="4">
+      <Behavior Name="Gatherer" Attack="9+" Flee="7-">
+        <Skill Name="Stealth" />
+        <Attribute Name="Pack" Add="2"/>
+      </Behavior>
+      <Behavior Name="Eater" Attack="5+" Flee="4-">
+        <Attribute Name="Endurance" Add="4" />
+        <Attribute Name="Pack" Add="2" />
+      </Behavior>
+
+      <Behavior Name="Hunter" Attack="6+ or 10+" Flee="5-">
+        <Skill Name="Survival" />
+        <Attribute Name="Instinct" Add="2"/>
+
+      </Behavior>
+      <Option Behavior="Gatherer" Roll="1" />
+      <Option Behavior="Eater" Roll="2" />
+      <Option Behavior="Gatherer" Roll="3" />
+      <Option Behavior="Eater" Roll="4" />
+      <Option Behavior="Gatherer" Roll="5" />
+      <Option Behavior="Hunter" Roll="6" />
+      <Option Behavior="Hunter" Roll="7" />
+      <Option Behavior="Hunter" Roll="8" />
+      <Option Behavior="Gatherer" Roll="9" />
+      <Option Behavior="Eater" Roll="10" />
+      <Option Behavior="Hunter" Roll="11" />
+      <Option Behavior="Gatherer" Roll="12" />
+      <Option Behavior="Hunter" Roll="13" />
+    </AnimalType>
+
+    <AnimalType Name="Carnivore" WeaponDM="8">
+      <Behavior Name="Pouncer" Attack="Has Surprise" Flee="Surprised">
+        <Skill Name="Stealth" />
+        <Skill Name="Recon" />
+        <Skill Name="Athletics" />
+        <Attribute Name="Dexterity" Add="4"/>
+        <Attribute Name="Instinct" Add="4"/>
+      </Behavior>
+      <Behavior Name="Siren" Attack="Has Surprise" Flee="4-">
+        <Skill Name="Deception"/>
+        <Attribute Name="Pack" Add="4"/>
+      </Behavior>
+      <Behavior Name="Killer" Attack="6+" Flee="3-">
+        <Attribute Name="Instinct" Add="4"/>
+        <Attribute Name="Pack" Add="-4"/>
+      </Behavior>
+      <Behavior Name="Trapper" Attack="Has Surprise" Flee="5-">
+        <Attribute Name="Pack" Add="-2"/>
+      </Behavior>
+      <Behavior Name="Chaser" Attack="Outnumbers" Flee="5-">
+        <Skill Name="Athletics (Coordination)" />
+        <Skill Name="Athletics (Endurance)"  />
+        <Attribute Name="Dexterity" Add="4" />
+        <Attribute Name="Instinct" Add="2" />
+        <Attribute Name="Pack" Add="2" />
+      </Behavior>
+      <Option Behavior="Pouncer" Roll="2" />
+      <Option Behavior="Siren" Roll="1" />
+      <Option Behavior="Pouncer" Roll="3" />
+      <Option Behavior="Killer" Roll="4" />
+      <Option Behavior="Trapper" Roll="5" />
+      <Option Behavior="Pouncer" Roll="6" />
+      <Option Behavior="Chaser" Roll="7" />
+      <Option Behavior="Chaser" Roll="8" />
+      <Option Behavior="Chaser" Roll="9" />
+      <Option Behavior="Killer" Roll="10" />
+      <Option Behavior="Chaser" Roll="11" />
+      <Option Behavior="Siren" Roll="12" />
+      <Option Behavior="Chaser" Roll="13" />
+    </AnimalType>
+
+    <AnimalType Name="Scavenger" WeaponDM="0">
+      <Behavior Name="Carrion-Eater" Attack="11+" Flee="7-">
+        <Skill Name="Recon" />
+        <Attribute Name="Instinct" Add="2" />
+      </Behavior>
+      <Behavior Name="Reducer" Attack="10+" Flee="7-">
+        <Attribute Name="Pack" Add="4"/>
+      </Behavior>
+      <Behavior Name="Hijacker" Attack="7+" Flee="6-">
+        <Attribute Name="Strength" Add="2"/>
+        <Attribute Name="Pack" Add="2"/>
+      </Behavior>
+      <Behavior Name="Intimidator" Attack="8+" Flee="7-">
+        <Skill Name="Persuade" />
+      </Behavior>
+      <Option Behavior="Carrion-Eater" Roll="1" />
+      <Option Behavior="Reducer" Roll="2" />
+      <Option Behavior="Hijacker" Roll="3" />
+      <Option Behavior="Carrion-Eater" Roll="4" />
+      <Option Behavior="Intimidator" Roll="5" />
+      <Option Behavior="Reducer" Roll="6" />
+      <Option Behavior="Carrion-Eater" Roll="7" />
+      <Option Behavior="Reducer" Roll="8" />
+      <Option Behavior="Hijacker" Roll="9" />
+      <Option Behavior="Intimidator" Roll="10" />
+      <Option Behavior="Reducer" Roll="11" />
+      <Option Behavior="Hijacker" Roll="12" />
+      <Option Behavior="Intimidator" Roll="13" />
+    </AnimalType>
+
+  </AnimalTypeList>
+
+  <SizeTable>
+    <Size Roll="1" WeightKG="1"    Strength="1" Dexterity="1d6" Endurance="1" />
+    <Size Roll="2" WeightKG="3"    Strength="2" Dexterity="1d6" Endurance="2" />
+    <Size Roll="3" WeightKG="6"    Strength="1d6" Dexterity="2d6" Endurance="1d6" />
+    <Size Roll="4" WeightKG="12"   Strength="1d6" Dexterity="2d6" Endurance="1d6" />
+    <Size Roll="5" WeightKG="25"   Strength="2d6" Dexterity="3d6" Endurance="2d6" />
+    <Size Roll="6" WeightKG="50"   Strength="2d6" Dexterity="4d6" Endurance="2d6" />
+    <Size Roll="7" WeightKG="100"  Strength="3d6" Dexterity="3d6" Endurance="3d6" />
+    <Size Roll="8" WeightKG="200"  Strength="3d6" Dexterity="3d6" Endurance="3d6" />
+    <Size Roll="9" WeightKG="400"  Strength="4d6" Dexterity="2d6" Endurance="4d6" />
+    <Size Roll="10" WeightKG="800"  Strength="4d6" Dexterity="2d6" Endurance="4d6" />
+    <Size Roll="11" WeightKG="1600" Strength="5d6" Dexterity="2d6" Endurance="5d6" />
+    <Size Roll="12" WeightKG="3200" Strength="6d6" Dexterity="1d6" Endurance="6d6" />
+    <Size Roll="13" WeightKG="5000" Strength="7d6" Dexterity="1d6" Endurance="7d6" />
+  </SizeTable>
+
+  <WeaponTable>
+    <Weapon Roll="1"  Weapon="None" Bonus="" />
+    <Weapon Roll="2"  Weapon="Teeth" Bonus="0" />
+    <Weapon Roll="3"  Weapon="Horns" Bonus="0" />
+    <Weapon Roll="4"  Weapon="Hooves" Bonus="0" />
+    <Weapon Roll="5"  Weapon="Hooves and Teeth" Bonus="0" />
+    <Weapon Roll="6"  Weapon="Teeth" Bonus="0" />
+    <Weapon Roll="7"  Weapon="Claws" Bonus="1" />
+    <Weapon Roll="8"  Weapon="Stinger" Bonus="1" />
+    <Weapon Roll="9"  Weapon="Thrasher" Bonus="1" />
+    <Weapon Roll="10" Weapon="Claws and Teeth" Bonus="2" />
+    <Weapon Roll="11" Weapon="Claws" Bonus="2" />
+    <Weapon Roll="12" Weapon="Teeth" Bonus="2" />
+    <Weapon Roll="13" Weapon="Thrasher" Bonus="2" />
+  </WeaponTable>
+
+  <ArmorTable>
+    <ArmorOption Roll="1"  Armor="0" />
+    <ArmorOption Roll="2"  Armor="0" />
+    <ArmorOption Roll="3"  Armor="0" />
+    <ArmorOption Roll="4"  Armor="1" />
+    <ArmorOption Roll="5"  Armor="1" />
+    <ArmorOption Roll="6"  Armor="2" />
+    <ArmorOption Roll="7"  Armor="2" />
+    <ArmorOption Roll="8"  Armor="3" />
+    <ArmorOption Roll="9"  Armor="3" />
+    <ArmorOption Roll="10" Armor="4" />
+    <ArmorOption Roll="11" Armor="4" />
+    <ArmorOption Roll="12" Armor="5" />
+    <ArmorOption Roll="13" Armor="5" />
+  </ArmorTable>
+
+  <DamageTable>
+    <Strength MinValue="1" Damage="1" />
+    <Strength MinValue="11" Damage="2" />
+    <Strength MinValue="21" Damage="3" />
+    <Strength MinValue="31" Damage="4" />
+    <Strength MinValue="41" Damage="5" />
+    <Strength MinValue="51" Damage="6" />
+  </DamageTable>
+
+  <NumberTable>
+    <Pack MinValue="0" Number="1" />
+    <Pack MinValue="1" Number="1d3" />
+    <Pack MinValue="3" Number="1d6" />
+    <Pack MinValue="6" Number="2d6" />
+    <Pack MinValue="9" Number="3d6" />
+    <Pack MinValue="12" Number="4d6" />
+    <Pack MinValue="15" Number="5d6" />
+  </NumberTable>
+
+</AnimalTemplates>
+
+

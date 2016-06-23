@@ -1,0 +1,165 @@
+﻿@model Grauenwolf.TravellerTools.Calculator.ManifestCollection
+@{
+	ViewBag.Title = "Trade Info for " + Model.Origin.Name;
+}
+
+<h2>Origin: @Model.Origin.Name</h2>
+<h3>Planet Info</h3>
+<table border="1">
+	<tr><th>Sector</th><td>@Model.Origin.Sector</td><td>@Model.Origin.SectorX,@Model.Origin.SectorY</td></tr>
+	<tr><th>Subsector</th><td>@Model.Origin.SubsectorName</td><td>Hex @Model.Origin.Hex</td></tr>
+	<tr><th>Starport</th><td>@Model.Origin.StarportCode</td><td>@Model.Origin.StarportDescription</td></tr>
+	<tr><th>Berthing Cost</th><td>@Model.BerthingCost.ToString("N0")</td></tr>
+	<tr><th>Size</th><td>@Model.Origin.SizeCode</td><td>@Model.Origin.SizeKM.ToString("N0")</td></tr>
+	<tr><th>Atmosphere</th><td>@Model.Origin.AtmosphereCode</td><td>@Model.Origin.AtmosphereDescription</td></tr>
+
+	<tr><th>Hydrographics</th><td>@Model.Origin.HydrographicsCode</td><td>@Model.Origin.Hydrographics</td></tr>
+
+	<tr><th>Population</th><td>@Model.Origin.PopulationCode</td><td>@Model.Origin.Population.ToString("N0")</td></tr>
+	<tr><th>Government</th><td>@Model.Origin.GovernmentCode</td><td>@Model.Origin.GovernmentType</td></tr>
+	<tr><th>Law</th><td>@Model.Origin.LawCode</td><td>@Model.Origin.LawLevel</td></tr>
+	<tr><th>Tech</th><td>@Model.Origin.TechCode</td><td>@Model.Origin.TechLevel</td></tr>
+	<tr><th>Remarks</th><td colspan="2">@Model.Origin.RemarksDescription</td></tr>
+</table>
+<h3>Travel Info</h3>
+<div style="display: inline-block; vertical-align: top">
+	<table border="1">
+		<tr><th>Thrust</th><th>Transit Time to Jump Point</th></tr>
+		<tr><td>1</td><td>@Model.Origin.TransitTimeJumpPoint(1).ToString("h'h 'm'm 's's'")</td></tr>
+		<tr><td>2</td><td>@Model.Origin.TransitTimeJumpPoint(2).ToString("h'h 'm'm 's's'")</td></tr>
+		<tr><td>3</td><td>@Model.Origin.TransitTimeJumpPoint(3).ToString("h'h 'm'm 's's'")</td></tr>
+		<tr><td>4</td><td>@Model.Origin.TransitTimeJumpPoint(4).ToString("h'h 'm'm 's's'")</td></tr>
+		<tr><td>5</td><td>@Model.Origin.TransitTimeJumpPoint(5).ToString("h'h 'm'm 's's'")</td></tr>
+		<tr><td>6</td><td>@Model.Origin.TransitTimeJumpPoint(6).ToString("h'h 'm'm 's's'")</td></tr>
+	</table>
+</div>
+<div style="display: inline-block; vertical-align: top">
+	<img src=@String.Format("http://travellermap.com/api/jumpmap?sx={0}&sy={1}&hx={2}&hy={3}&jump={4}&scale=48&style=print", @Model.SectorX, @Model.SectorY, @Model.HexX, @Model.HexY, @Model.MaxJumpDistance) />
+</div>
+<h3>Available Trade Goods</h3>
+<p>Purchase DM does not include broker score.<br />Price modifier and current price include purchase DM, broker score, and random roll.</p>
+<table border="1">
+	<tr><th>Type</th><th>Subtype</th><th>Tons</th><th>Base Price</th> <th>Purchase DM</th><th>Price Modifier</th><th>Current Price</th><th>Modified Roll</th></tr>
+	@foreach (var lot in Model.TradeList.Lots)
+	{
+		<tr><td>@lot.Type</td><td>@lot.Subtype</td><td>@lot.Tons</td><td>@lot.BasePrice.ToString("N0")</td><td>@lot.PurchaseDM</td><td>@lot.PriceModifier.ToString("P2")</td><td>@lot.CurrentPrice.ToString("N0")</td><td>@lot.Roll.ToString("N0")</td></tr>
+	}
+</table>
+
+
+<h3>Desired Goods</h3>
+<p>Sale DM does not include broker score.<br />Price modifier and current price include sale DM, broker score, and random roll.</p>
+<table border="1">
+	<tr><th>Type</th><th>Subtype</th><th>Base Price</th> <th>Sale DM</th><th>Price Modifier</th><th>Current Price</th><th>Modified Roll</th></tr>
+	@foreach (var lot in Model.TradeList.Bids)
+	{
+		<tr><td>@lot.Type</td><td>@lot.Subtype</td><td>@lot.BasePrice.ToString("N0")</td><td>@lot.SaleDM</td><td>@lot.PriceModifier.ToString("P2")</td><td>@lot.CurrentPrice.ToString("N0")</td><td>@lot.Roll.ToString("N0")</td></tr>
+	}
+</table>
+
+@foreach (var manifest in @Model)
+{
+	<hr />
+	<a href=@String.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}", @manifest.Destination.SectorX, @manifest.Destination.SectorY, @manifest.Destination.HexX, @manifest.Destination.HexY, @Model.MaxJumpDistance)><h2>Destination: @manifest.Destination.Name</h2></a>
+	<h3>Planet Info</h3>
+	<table border="1">
+		<tr><th>Sector</th><td>@manifest.Destination.Sector</td><td>@manifest.Destination.SectorX,@manifest.Destination.SectorY</td></tr>
+		<tr><th>Subsector</th><td>@manifest.Destination.SubsectorName</td><td>Hex @manifest.Destination.Hex</td></tr>
+		<tr><th>Distance</th><td>@manifest.Destination.JumpDistance</td></tr>
+		<tr><th>Starport</th><td>@manifest.Destination.StarportCode</td><td>@manifest.Destination.StarportDescription</td></tr>
+		<tr><th>Size</th><td>@manifest.Destination.SizeCode</td><td>@manifest.Destination.SizeKM.ToString("N0")</td></tr>
+		<tr><th>Atmosphere</th><td>@manifest.Destination.AtmosphereCode</td><td>@manifest.Destination.AtmosphereDescription</td></tr>
+
+		<tr><th>Hydrographics</th><td>@manifest.Destination.HydrographicsCode</td><td>@manifest.Destination.Hydrographics</td></tr>
+
+		<tr><th>Population</th><td>@manifest.Destination.PopulationCode</td><td>@manifest.Destination.Population.ToString("N0")</td></tr>
+		<tr><th>Government</th><td>@manifest.Destination.GovernmentCode</td><td>@manifest.Destination.GovernmentType</td></tr>
+		<tr><th>Law</th><td>@manifest.Destination.LawCode</td><td>@manifest.Destination.LawLevel</td></tr>
+		<tr><th>Tech</th><td>@manifest.Destination.TechCode</td><td>@manifest.Destination.TechLevel</td></tr>
+		<tr><th>Remarks</th><td colspan="2">@manifest.Destination.RemarksDescription</td></tr>
+	</table>
+	<h3>Travel Info</h3>
+	<div style="display: inline-block; vertical-align: top">
+
+		<table border="1">
+			<tr><th>Thrust</th><th>Transit Time to Jump Point</th></tr>
+			<tr><td>1</td><td>@manifest.Destination.TransitTimeJumpPoint(1).ToString("h'h 'm'm 's's'")</td></tr>
+			<tr><td>2</td><td>@manifest.Destination.TransitTimeJumpPoint(2).ToString("h'h 'm'm 's's'")</td></tr>
+			<tr><td>3</td><td>@manifest.Destination.TransitTimeJumpPoint(3).ToString("h'h 'm'm 's's'")</td></tr>
+			<tr><td>4</td><td>@manifest.Destination.TransitTimeJumpPoint(4).ToString("h'h 'm'm 's's'")</td></tr>
+			<tr><td>5</td><td>@manifest.Destination.TransitTimeJumpPoint(5).ToString("h'h 'm'm 's's'")</td></tr>
+			<tr><td>6</td><td>@manifest.Destination.TransitTimeJumpPoint(6).ToString("h'h 'm'm 's's'")</td></tr>
+		</table>
+	</div>
+	<div style="display: inline-block; vertical-align: top">
+		<img src=@String.Format("http://travellermap.com/api/jumpmap?sx={0}&sy={1}&hx={2}&hy={3}&jump={4}&scale=48&style=print", @manifest.Destination.SectorX, @manifest.Destination.SectorY, @manifest.Destination.HexX, @manifest.Destination.HexY, @Model.MaxJumpDistance) />
+	</div>
+	<h3>Passengers</h3>
+
+	if (manifest.PassengerList.Passengers.Count > 0)
+	{
+		<ul id="listofthings">
+			@foreach (var passenger in manifest.PassengerList.Passengers)
+			{
+				<li>
+					<h4>@passenger.FirstName @passenger.LastName</h4>
+					<div>Age: @passenger.ApparentAge (@passenger.Gender)</div>
+					<div>UPP: @passenger.Upp</div>
+					<div>Passage Desired: @passenger.TravelType</div>
+					@if (@passenger.TravelType == "Low")
+					{
+						<div>Endurance DM: @passenger.EnduranceDM</div>
+					}
+					<div>Notes: @passenger.PassengerType, @passenger.Trait</div>
+				</li>
+			}
+		</ul>
+	}
+	
+	if (manifest.FreightList.Lots.Count > 0)
+	{
+		<h3>Freight</h3>
+		<ul id="listofthings">
+			@foreach (var lot in manifest.FreightList.Lots)
+			{
+				<li>
+					<h4>@lot.Size Tons for @lot.ShippingFee.ToString("N0"). </h4>
+					<div>Contents: @lot.Contents </div>
+					<div>Value: @lot.ActualValue.ToString("N0") </div>
+				</li>
+			}
+		</ul>
+	}
+
+	<h3>Trade Preview</h3>
+
+	<table>
+		<td valign="top">
+			<h4>Readily Available Goods</h4>
+			<table border="1">
+				<tr><th>Type</th><th>Purchase DM</th></tr>
+				@foreach (var lot in manifest.Offers)
+				{
+					<tr><td>@lot.Type</td><td>@lot.PurchaseDM</td></tr>
+				}
+			</table>
+
+		</td>
+		<td> </td>
+		<td valign="top">
+			<h4>Desired Goods</h4>
+			<table border="1">
+				<tr><th>Type</th><th>Sale DM</th></tr>
+				@foreach (var lot in manifest.Bids)
+				{
+					<tr><td>@lot.Type</td><td>@lot.SaleDM</td></tr>
+				}
+			</table>
+		</td>
+	</table>
+
+
+
+}
+
+

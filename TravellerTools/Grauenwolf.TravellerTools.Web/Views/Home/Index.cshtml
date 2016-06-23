@@ -1,0 +1,77 @@
+﻿@model Grauenwolf.TravellerTools.Web.Models.HomeIndexViewModel
+@{
+	ViewBag.Title = "Home Page";
+}
+
+@*<div class="jumbotron">
+	<h1>ASP.NET</h1>
+	<p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
+	<p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<div class="row">
+	<div class="col-md-4">
+		<h2>Getting started</h2>
+		<p>
+			ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
+			enables a clean separation of concerns and gives you full control over markup
+			for enjoyable, agile development.
+		</p>
+		<p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+	</div>
+	<div class="col-md-4">
+		<h2>Get more libraries</h2>
+		<p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
+		<p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+	</div>
+	<div class="col-md-4">
+		<h2>Web Hosting</h2>
+		<p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+		<p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+	</div>
+</div>*@
+
+<div class="row">
+	<h2>Trade Calculator</h2>
+
+	<table>
+		<tr>
+			<th>Sector</th>
+			<td>
+				@Html.DropDownList("sector", Model.SectorList(), new { onchange = "SectorChanged($('#sector')[0].value, $('#subsector')[0])" })
+			</td>
+			<th>Subsector</th>
+			<td>
+				<select id="subsector" onchange="SubsectorChanged($('#sector')[0].value, $('#subsector')[0].value, $('#world')[0])"></select>
+			</td>
+			<th>World</th>
+			<td>
+				<select id="world" onchange="WorldChanged($('#sector')[0].value, $('#world')[0].value, $('#showTradeScreen')[0])"></select>
+			</td>
+			</tr>
+		<tr>
+			<td>
+				<label> <input type="checkbox" id="advancedMode" />Advanced Mode</label>
+			</td>
+			<td>
+				<label> <input type="checkbox" id="illegalGoods" />Allow Illegal Goods</label>
+			</td>
+			<th>Jump Distance</th>
+			<td><input type="number" id="jumpDistance" value="3" /></td>
+			<th>Broker Score</th>
+			<td><input type="number" id="brokerScore" value="0" /></td>
+			<td>
+				<input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo($('#sector')[0].value, $('#world')[0].value, $('#advancedMode')[0].checked, $('#illegalGoods')[0].checked, $('#jumpDistance')[0].value, $('#brokerScore')[0].value)" style="visibility:hidden" />
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="row">
+    <h2>Animal Encounters</h2>
+    <div>@Html.ActionLink("Animals", "Animals", "Home")</div>    
+</div>
+
+@section Scripts {
+	@Scripts.Render("~/Scripts/Home/Index.js")
+}
