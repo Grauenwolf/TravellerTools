@@ -221,6 +221,72 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
             return result;
         }
+
+        override protected decimal PurchasePriceModifier(Dice random, int purchaseBonus, int brokerScore, out int roll)
+        {
+            roll = random.D(3, 6) + purchaseBonus + brokerScore;
+            if (roll < 0)
+                return 4M;
+            switch (roll)
+            {
+                case 0: return 3M;
+                case 1: return 2M;
+                case 2: return 1.75M;
+                case 3: return 1.5M;
+                case 4: return 1.35M;
+                case 5: return 1.25M;
+                case 6: return 1.2M;
+                case 7: return 1.15M;
+                case 8: return 1.1M;
+                case 9: return 1.05M;
+                case 10: return 1M;
+                case 11: return 0.95M;
+                case 12: return 0.9M;
+                case 13: return 0.85M;
+                case 14: return 0.8M;
+                case 15: return 0.75M;
+                case 16: return 0.7M;
+                case 17: return 0.65M;
+                case 18: return 0.55M;
+                case 19: return 0.5M;
+                case 20: return 0.4M;
+                default: return 0.25M;
+            }
+
+        }
+
+        override protected decimal SalePriceModifier(Dice random, int saleBonus, int brokerScore, out int roll)
+        {
+            roll = random.D(3, 6) + saleBonus + brokerScore;
+            if (roll < 0)
+                return 0.25M;
+            switch (roll)
+            {
+                case 0: return 0.45M;
+                case 1: return 0.50M;
+                case 2: return 0.55M;
+                case 3: return 0.60M;
+                case 4: return 0.65M;
+                case 5: return 0.75M;
+                case 6: return 0.80M;
+                case 7: return 0.85M;
+                case 8: return 0.90M;
+                case 9: return 0.95M;
+                case 10: return 1M;
+                case 11: return 1.05M;
+                case 12: return 1.1M;
+                case 13: return 1.15M;
+                case 14: return 1.2M;
+                case 15: return 1.25M;
+                case 16: return 1.35M;
+                case 17: return 1.5M;
+                case 18: return 1.75M;
+                case 19: return 2M;
+                case 20: return 3M;
+                default: return 4M;
+            }
+
+        }
     }
 }
 

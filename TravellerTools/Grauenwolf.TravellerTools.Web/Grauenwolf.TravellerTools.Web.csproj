@@ -216,15 +216,15 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <None Include="App_Data\TradeGoods.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="App_Data\TradeGoods.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\TravellerTools - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\TravellerTools - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\TravellerTools - Web Deploy %282%29.pubxml" />
