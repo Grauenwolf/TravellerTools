@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Passenger.cs" />
     <Compile Include="PassengerList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FreightList.cs" />

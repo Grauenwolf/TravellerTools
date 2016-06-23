@@ -55,8 +55,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Characters\Passenger.cs" />
-    <Compile Include="Characters\Person.cs" />
     <Compile Include="Characters\SimpleCharacterEngine.cs" />
     <Compile Include="Maps\Allegiance.cs" />
     <Compile Include="Maps\Border.cs" />

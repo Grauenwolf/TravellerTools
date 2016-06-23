@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Characters\Person.cs" />
     <Compile Include="Dice.cs" />
     <Compile Include="EHex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

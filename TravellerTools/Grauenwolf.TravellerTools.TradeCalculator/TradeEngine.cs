@@ -430,8 +430,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 Gender = user.Gender,
                 ApparentAge = 12 + random.D(1, 60),
             };
+            Passenger.AddPassengerType(result, random);
+
             SimpleCharacterEngine.AddTrait(result, random);
-            SimpleCharacterEngine.AddPassengerType(result, random);
             SimpleCharacterEngine.AddCharacteristics(result, random);
 
 
