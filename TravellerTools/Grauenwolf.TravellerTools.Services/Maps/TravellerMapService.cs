@@ -39,16 +39,18 @@ namespace Grauenwolf.TravellerTools.Maps
                 var rawSectorList = await client.DownloadStringTaskAsync(new Uri("http://travellermap.com/api/universe")).ConfigureAwait(false);
 
                 var sectors = JsonConvert.DeserializeObject<Universe>(rawSectorList).Sectors.Where(s => s.Names.First().Text != "Legend").ToList();
-                var populatedSectors = new List<Sector>();
-                foreach (var sector in sectors)
-                {
-                    var worlds = await FetchWorldsInSectorAsync(sector.X, sector.Y).ConfigureAwait(false);
-                    if (worlds.Any(p => !string.IsNullOrWhiteSpace(p.Name)))
-                        populatedSectors.Add(sector);
-                }
+                //var populatedSectors = new List<Sector>();
+                //foreach (var sector in sectors)
+                //{
+                //    var worlds = await FetchWorldsInSectorAsync(sector.X, sector.Y).ConfigureAwait(false);
+                //    if (worlds.Any(p => !string.IsNullOrWhiteSpace(p.Name)))
+                //        populatedSectors.Add(sector);
+                //}
 
 
-                s_SectorList = ImmutableList.CreateRange(populatedSectors);
+                //s_SectorList = ImmutableList.CreateRange(populatedSectors);
+
+                s_SectorList = ImmutableList.CreateRange(sectors);
                 return s_SectorList;
             }
         }

@@ -8,6 +8,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         public int LowPassengers { get; set; }
 
+        public int BasicPassengers { get; set; }
+
         public int MiddlePassengers { get; set; }
 
         public int HighPassengers { get; set; }

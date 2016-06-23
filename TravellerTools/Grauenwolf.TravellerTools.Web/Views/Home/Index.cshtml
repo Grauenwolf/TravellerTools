@@ -50,6 +50,9 @@
 			</td>
 			</tr>
 		<tr>
+            <td>
+                <label> <input type="checkbox" id="mongoose2" />Mongoose 2</label>
+            </td>
 			<td>
 				<label> <input type="checkbox" id="advancedMode" />Advanced Mode</label>
 			</td>
@@ -61,7 +64,7 @@
 			<th>Broker Score</th>
 			<td><input type="number" id="brokerScore" value="0" /></td>
 			<td>
-				<input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo($('#sector')[0].value, $('#world')[0].value, $('#advancedMode')[0].checked, $('#illegalGoods')[0].checked, $('#jumpDistance')[0].value, $('#brokerScore')[0].value)" style="visibility:hidden" />
+				<input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo($('#sector')[0].value, $('#world')[0].value, $('#advancedMode')[0].checked, $('#illegalGoods')[0].checked, $('#jumpDistance')[0].value, $('#brokerScore')[0].value, $('#mongoose2')[0].checked)" style="visibility:hidden" />
 			</td>
 		</tr>
 	</table>

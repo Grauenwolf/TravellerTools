@@ -7,7 +7,7 @@ using System.Web.Routing;
 
 namespace Grauenwolf.TravellerTools.Web
 {
-    public class MvcApplication : System.Web.HttpApplication
+    public class Global : System.Web.HttpApplication
     {
         protected void Application_Start()
         {
@@ -18,9 +18,13 @@ namespace Grauenwolf.TravellerTools.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             string appDataPath = Server.MapPath("~/app_data");
-            TradeEngine.SetDataPath(appDataPath);
+            TradeEngine1.SetDataPath(appDataPath);
+            TradeEngine2.SetDataPath(appDataPath);
             AnimalBuilder.SetDataPath(appDataPath);
 
         }
+
+        public static readonly TradeEngine TradeEngine1 = new TradeEngineMGT();
+        public static readonly TradeEngine TradeEngine2 = new TradeEngineMGT2();
     }
 }

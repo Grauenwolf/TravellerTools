@@ -29,9 +29,14 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             return View();
         }
 
-        public async Task<ActionResult> TradeInfo(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0)
+        public async Task<ActionResult> TradeInfo(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT)
         {
-            var model = await TradeEngine.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore);
+            ManifestCollection model = null;
+
+            if (edition == Edition.MGT)
+                model = await Global.TradeEngine1.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore);
+            else if (edition == Edition.MGT2)
+                model = await Global.TradeEngine2.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore);
 
             return View(model);
         }
