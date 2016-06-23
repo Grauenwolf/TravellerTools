@@ -5,7 +5,7 @@
 
   <AnimalClass Name="Amphibian" >
     <Diets>
-      <Diet Odds="2" Diet="Carnivore" >
+      <Option Odds="2" Diet="Carnivore" >
         <Attribute Name="PhysicalSkills" Bonus="1"/>
         <Attribute Name="Str" Bonus="1"/>
         <Attribute Name="EvolutionDM" Bonus="1"/>
@@ -18,8 +18,8 @@
           <Option Roll="5" Behavior="Hunter" Reaction="0" />
           <Option Roll="6" Behavior="Chaser" Reaction="-2" />
         </Behaviors>
-      </Diet>
-      <Diet Odds="1" Diet="Herbivore" >
+      </Option>
+      <Option Odds="1" Diet="Herbivore" >
         <Attribute Name="SocialSkills" Bonus="1"/>
         <Attribute Name="End" Bonus="1"/>
         <Attribute Name="Instinct" Bonus="1"/>
@@ -31,8 +31,8 @@
           <Option Roll="5" Behavior="Intermittent" Reaction="0" />
           <Option Roll="6" Behavior="Grazer" Reaction="-2" />
         </Behaviors>
-      </Diet>
-      <Diet Odds="3" Diet="Omnivore" >
+      </Option>
+      <Option Odds="3" Diet="Omnivore" >
         <Attribute Name="PhysicalSkills" Bonus="1"/>
         <Attribute Name="SocialSkills" Bonus="1"/>
         <Attribute Name="Pack" Bonus="4"/>
@@ -45,7 +45,7 @@
           <Option Roll="5" Behavior="Intermittent" Reaction="-1" />
           <Option Roll="6" Behavior="Reducer" Reaction="-2" />
         </Behaviors>
-      </Diet>
+      </Option>
     </Diets>
     <Skills>
       <Skill Name="Athletics" Score="0" />
@@ -190,13 +190,22 @@
     </Quirks>
 
   </AnimalClass>
+    
+  <AnimalClass Name="Aquatic" />
+  <AnimalClass Name="Avian" />
+  <AnimalClass Name="Fungal" />
+  <AnimalClass Name="Insect" />
+  <AnimalClass Name="Mammal" />
+  <AnimalClass Name="Reptile" />
+  
 
   </AnimalClasses>
   
   <Terrains>
     <Terrain Name="Clear"    	SizeDM="" >
       <AnimalClasses>
-        <Option Odds="1" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
+        <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM=""    />
@@ -209,7 +218,7 @@
     </Terrain>
     <Terrain Name="Plain or Prairie"   SizeDM="" >
       <AnimalClasses>
-        <Option Odds="1" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM=""    />
@@ -222,7 +231,7 @@
     </Terrain>
     <Terrain Name="Desert (hot or cold)" 	 SizeDM="-3"	>
       <AnimalClasses>
-        <Option Odds="1" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM=""    />
@@ -235,7 +244,7 @@
     </Terrain>
     <Terrain Name="Hills, Foothills"	     SizeDM="" >
       <AnimalClasses>
-        <Option Odds="1" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM=""    />
@@ -248,7 +257,7 @@
     </Terrain>
     <Terrain Name="Mountain"   	SizeDM="" >
       <AnimalClasses>
-        <Option Odds="1" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM=""    />
@@ -261,7 +270,7 @@
     </Terrain>
     <Terrain Name="Forest"    	SizeDM="-4"	>
       <AnimalClasses>
-        <Option Odds="1" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM=""    />
@@ -274,7 +283,7 @@
     </Terrain>
     <Terrain Name="Woods"   SizeDM="-1"	>
       <AnimalClasses>
-        <Option Odds="1" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM=""    />
@@ -287,7 +296,7 @@
     </Terrain>
     <Terrain Name="Jungle"    	SizeDM="-3"	>
       <AnimalClasses>
-        <Option Odds="5" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="5" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM=""    />
@@ -300,7 +309,7 @@
     </Terrain>
     <Terrain Name="Rainforest"    	SizeDM="-2"	>
       <AnimalClasses>
-        <Option Odds="1" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM=""    />
@@ -313,7 +322,7 @@
     </Terrain>
     <Terrain Name="Rough, Broken"    	SizeDM="-3"	>
       <AnimalClasses>
-        <Option Odds="1" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM=""    />
@@ -326,7 +335,7 @@
     </Terrain>
     <Terrain Name="Swamp, Marsh"   SizeDM="+4"	>
       <AnimalClasses>
-        <Option Odds="5" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="5" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="-6"    />
@@ -339,7 +348,7 @@
     </Terrain>
     <Terrain Name="Beach, Shore"   SizeDM="+2"	>
       <AnimalClasses>
-        <Option Odds="5" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="5" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="+1"    />
@@ -352,7 +361,7 @@
     </Terrain>
     <Terrain Name="Riverbank"  SizeDM="+1"	>
       <AnimalClasses>
-        <Option Odds="5" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="5" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="-4"    />
@@ -365,7 +374,7 @@
     </Terrain>
     <Terrain Name="Ocean shallows"   SizeDM="+1"	>
       <AnimalClasses>
-        <Option Odds="5" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="5" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="+4"    />
@@ -378,7 +387,7 @@
     </Terrain>
     <Terrain Name="Open ocean"    	SizeDM="-4"	>
       <AnimalClasses>
-        <Option Odds="1" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="+6"    />
@@ -391,7 +400,7 @@
     </Terrain>
     <Terrain Name="Deep ocean"   SizeDM="+2"	>
       <AnimalClasses>
-        <Option Odds="1" AnimalClass="Amphibian"  Penality="-2"   />
+        <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="+8"    />

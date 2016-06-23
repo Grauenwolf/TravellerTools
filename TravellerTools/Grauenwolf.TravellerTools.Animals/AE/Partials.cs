@@ -18,20 +18,37 @@
     //    }
     //}
 
-    partial class AnimalTemplatesTerrainOption : ITablePick
+    partial class AnimalTemplatesTerrainOption : IHasOdds
     {
-        public bool IsMatch(int value)
+        int IHasOdds.Odds
         {
-            return Roll == value;
+            get { return Odds; }
         }
     }
-    //partial class AnimalTemplatesAnimalTypeOption : ITablePick
+
+    partial class AnimalTemplatesAnimalClassOption : IHasOdds
+    {
+        int IHasOdds.Odds
+        {
+            get { return Odds; }
+        }
+    }
+
+    //partial class AnimalTemplatesTerrainOption : ITablePick
     //{
     //    public bool IsMatch(int value)
     //    {
     //        return Roll == value;
     //    }
     //}
+
+    partial class AnimalTemplatesAnimalClassOptionOption : ITablePick
+    {
+        public bool IsMatch(int value)
+        {
+            return Roll == value;
+        }
+    }
 
     partial class AnimalTemplatesSize : ITablePick
     {

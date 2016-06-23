@@ -1,4 +1,5 @@
-﻿using Grauenwolf.TravellerTools.Animals.Mgt;
+﻿using Grauenwolf.TravellerTools.Animals.AE;
+using Grauenwolf.TravellerTools.Animals.Mgt;
 using Grauenwolf.TravellerTools.TradeCalculator;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -21,6 +22,7 @@ namespace Grauenwolf.TravellerTools.Web
             TradeEngine1.SetDataPath(appDataPath);
             TradeEngine2.SetDataPath(appDataPath);
             AnimalBuilderMgt.SetDataPath(appDataPath);
+            AnimalBuilderAE.SetDataPath(appDataPath);
 
         }
 

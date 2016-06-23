@@ -1,0 +1,65 @@
+﻿@model System.Collections.Generic.Dictionary<string, List<Grauenwolf.TravellerTools.Animals.AE.Animal>>
+@{
+    ViewBag.Title = "Animals";
+}
+
+@foreach (var terrain in Model)
+{
+    <h2> @terrain.Key </h2>
+
+    <table>
+        <tr>
+            <th width="50" align="center">Roll</th>
+            <th width="250" align="center" colspan="5">Type</th>
+            <th width="70" align="center">Move</th>
+            <th width="50" align="center">Num.</th>
+            <th width="50" align="center">Str</th>
+            <th width="50" align="center">Dex</th>
+            <th width="50" align="center">End</th>
+            <th width="50" align="center">Int</th>
+            <th width="50" align="center">Ins</th>
+            <th width="50" align="center">Pack</th>
+            <th width="50" align="center">Size</th>
+        </tr>
+
+        @foreach (var animal in terrain.Value)
+        {
+            <tr>
+                <td>@animal.Roll</td>
+                <td colspan="5">@(animal.AnimalClass) (@animal.Diet / @animal.Behavior)</td>
+                <td>@animal.Movement</td>
+                <td>@animal.NumberEncountered</td>
+                <td>@(animal.Strength) (@animal.StrengthDM)</td>
+                <td>@(animal.Dexterity) (@animal.DexterityDM)</td>
+                <td>@(animal.Endurance) (@animal.EnduranceDM)</td>
+                <td>@(animal.Intelligence) (@animal.IntelligenceDM)</td>
+                <td>@(animal.Instinct) (@animal.InstinctDM)</td>
+                <td>@(animal.Pack) (@animal.PackDM)</td>
+                <td>@animal.WeightKG.ToString("N0") kg</td>
+            </tr>
+            <tr>
+                <th>Skills</th>
+                <td colspan="10"> @( string.Join(", ", animal.Skills.Select(s => s.Name + " " + s.Level)))</td>
+            </tr>
+            <tr>
+                <th>Armor</th>
+                <td>@animal.Armor</td>
+                <th>Weapons</th>
+                <td colspan="8">@( string.Join(", ", animal.Weapons.Select(s => s.Name + " " + s.Damage)))</td>
+            </tr>
+            <tr>
+                <th colspan="2">Attacks on</th>
+                <td colspan="3">@animal.Attack </td>
+                <th>Flees on</th>
+                <td colspan="3">@animal.Flee</td>
+            </tr>
+            <tr>
+                <td colspan="11">
+                    <hr/>
+                </td>
+            </tr>
+        }
+
+    </table>
+
+}

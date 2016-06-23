@@ -1,15 +1,13 @@
 ﻿namespace Grauenwolf.TravellerTools.Animals.AE
 {
 
-
-
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
     public partial class AnimalTemplates
     {
 
-        private AnimalTemplatesAnimalClasses animalClassesField;
+        private AnimalTemplatesAnimalClass[] animalClassesField;
 
         private AnimalTemplatesTerrain[] terrainsField;
 
@@ -28,7 +26,8 @@
         private AnimalTemplatesPack[] numberTableField;
 
         /// <remarks/>
-        public AnimalTemplatesAnimalClasses AnimalClasses
+        [System.Xml.Serialization.XmlArrayItemAttribute("AnimalClass", IsNullable = false)]
+        public AnimalTemplatesAnimalClass[] AnimalClasses
         {
             get
             {
@@ -155,43 +154,22 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClasses
+    public partial class AnimalTemplatesAnimalClass
     {
 
-        private AnimalTemplatesAnimalClassesAnimalClass animalClassField;
+        private AnimalTemplatesAnimalClassOption[] dietsField;
 
-        /// <remarks/>
-        public AnimalTemplatesAnimalClassesAnimalClass AnimalClass
-        {
-            get
-            {
-                return this.animalClassField;
-            }
-            set
-            {
-                this.animalClassField = value;
-            }
-        }
-    }
+        private AnimalTemplatesAnimalClassSkill[] skillsField;
 
-    /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClass
-    {
+        private AnimalTemplatesAnimalClassChart[] chartField;
 
-        private AnimalTemplatesAnimalClassesAnimalClassDiet[] dietsField;
-
-        private AnimalTemplatesAnimalClassesAnimalClassSkill[] skillsField;
-
-        private AnimalTemplatesAnimalClassesAnimalClassChart[] chartField;
-
-        private AnimalTemplatesAnimalClassesAnimalClassOption[] quirksField;
+        private AnimalTemplatesAnimalClassOption2[] quirksField;
 
         private string nameField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayItemAttribute("Diet", IsNullable = false)]
-        public AnimalTemplatesAnimalClassesAnimalClassDiet[] Diets
+        [System.Xml.Serialization.XmlArrayItemAttribute("Option", IsNullable = false)]
+        public AnimalTemplatesAnimalClassOption[] Diets
         {
             get
             {
@@ -205,7 +183,7 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("Skill", IsNullable = false)]
-        public AnimalTemplatesAnimalClassesAnimalClassSkill[] Skills
+        public AnimalTemplatesAnimalClassSkill[] Skills
         {
             get
             {
@@ -219,7 +197,7 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("Chart")]
-        public AnimalTemplatesAnimalClassesAnimalClassChart[] Chart
+        public AnimalTemplatesAnimalClassChart[] Chart
         {
             get
             {
@@ -233,7 +211,7 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("Option", IsNullable = false)]
-        public AnimalTemplatesAnimalClassesAnimalClassOption[] Quirks
+        public AnimalTemplatesAnimalClassOption2[] Quirks
         {
             get
             {
@@ -262,14 +240,14 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassDiet
+    public partial class AnimalTemplatesAnimalClassOption
     {
 
-        private AnimalTemplatesAnimalClassesAnimalClassDietAttribute[] attributeField;
+        private AnimalTemplatesAnimalClassOptionAttribute[] attributeField;
 
-        private AnimalTemplatesAnimalClassesAnimalClassDietSkill skillField;
+        private AnimalTemplatesAnimalClassOptionSkill skillField;
 
-        private AnimalTemplatesAnimalClassesAnimalClassDietOption[] behaviorsField;
+        private AnimalTemplatesAnimalClassOptionOption[] behaviorsField;
 
         private byte oddsField;
 
@@ -277,7 +255,7 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("Attribute")]
-        public AnimalTemplatesAnimalClassesAnimalClassDietAttribute[] Attribute
+        public AnimalTemplatesAnimalClassOptionAttribute[] Attribute
         {
             get
             {
@@ -290,7 +268,7 @@
         }
 
         /// <remarks/>
-        public AnimalTemplatesAnimalClassesAnimalClassDietSkill Skill
+        public AnimalTemplatesAnimalClassOptionSkill Skill
         {
             get
             {
@@ -304,7 +282,7 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("Option", IsNullable = false)]
-        public AnimalTemplatesAnimalClassesAnimalClassDietOption[] Behaviors
+        public AnimalTemplatesAnimalClassOptionOption[] Behaviors
         {
             get
             {
@@ -347,7 +325,7 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassDietAttribute
+    public partial class AnimalTemplatesAnimalClassOptionAttribute
     {
 
         private string nameField;
@@ -385,7 +363,7 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassDietSkill
+    public partial class AnimalTemplatesAnimalClassOptionSkill
     {
 
         private string nameField;
@@ -423,7 +401,7 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassDietOption
+    public partial class AnimalTemplatesAnimalClassOptionOption
     {
 
         private byte rollField;
@@ -477,7 +455,7 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassSkill
+    public partial class AnimalTemplatesAnimalClassSkill
     {
 
         private string nameField;
@@ -515,16 +493,16 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassChart
+    public partial class AnimalTemplatesAnimalClassChart
     {
 
-        private AnimalTemplatesAnimalClassesAnimalClassChartOption[] optionField;
+        private AnimalTemplatesAnimalClassChartOption[] optionField;
 
         private string nameField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("Option")]
-        public AnimalTemplatesAnimalClassesAnimalClassChartOption[] Option
+        public AnimalTemplatesAnimalClassChartOption[] Option
         {
             get
             {
@@ -553,17 +531,17 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassChartOption
+    public partial class AnimalTemplatesAnimalClassChartOption
     {
 
-        private AnimalTemplatesAnimalClassesAnimalClassChartOptionSkill skillField;
+        private AnimalTemplatesAnimalClassChartOptionSkill skillField;
 
-        private AnimalTemplatesAnimalClassesAnimalClassChartOptionAttribute[] attributeField;
+        private AnimalTemplatesAnimalClassChartOptionAttribute[] attributeField;
 
         private byte rollField;
 
         /// <remarks/>
-        public AnimalTemplatesAnimalClassesAnimalClassChartOptionSkill Skill
+        public AnimalTemplatesAnimalClassChartOptionSkill Skill
         {
             get
             {
@@ -577,7 +555,7 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("Attribute")]
-        public AnimalTemplatesAnimalClassesAnimalClassChartOptionAttribute[] Attribute
+        public AnimalTemplatesAnimalClassChartOptionAttribute[] Attribute
         {
             get
             {
@@ -606,7 +584,7 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassChartOptionSkill
+    public partial class AnimalTemplatesAnimalClassChartOptionSkill
     {
 
         private string nameField;
@@ -644,7 +622,7 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassChartOptionAttribute
+    public partial class AnimalTemplatesAnimalClassChartOptionAttribute
     {
 
         private string nameField;
@@ -682,21 +660,21 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassOption
+    public partial class AnimalTemplatesAnimalClassOption2
     {
 
-        private AnimalTemplatesAnimalClassesAnimalClassOptionFeature featureField;
+        private AnimalTemplatesAnimalClassOptionFeature featureField;
 
-        private AnimalTemplatesAnimalClassesAnimalClassOptionAttribute attributeField;
+        private AnimalTemplatesAnimalClassOptionAttribute1 attributeField;
 
-        private AnimalTemplatesAnimalClassesAnimalClassOptionSkill skillField;
+        private AnimalTemplatesAnimalClassOptionSkill1 skillField;
 
-        private AnimalTemplatesAnimalClassesAnimalClassOptionChart chartField;
+        private AnimalTemplatesAnimalClassOptionChart chartField;
 
         private byte rollField;
 
         /// <remarks/>
-        public AnimalTemplatesAnimalClassesAnimalClassOptionFeature Feature
+        public AnimalTemplatesAnimalClassOptionFeature Feature
         {
             get
             {
@@ -709,7 +687,7 @@
         }
 
         /// <remarks/>
-        public AnimalTemplatesAnimalClassesAnimalClassOptionAttribute Attribute
+        public AnimalTemplatesAnimalClassOptionAttribute1 Attribute
         {
             get
             {
@@ -722,7 +700,7 @@
         }
 
         /// <remarks/>
-        public AnimalTemplatesAnimalClassesAnimalClassOptionSkill Skill
+        public AnimalTemplatesAnimalClassOptionSkill1 Skill
         {
             get
             {
@@ -735,7 +713,7 @@
         }
 
         /// <remarks/>
-        public AnimalTemplatesAnimalClassesAnimalClassOptionChart Chart
+        public AnimalTemplatesAnimalClassOptionChart Chart
         {
             get
             {
@@ -764,7 +742,7 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassOptionFeature
+    public partial class AnimalTemplatesAnimalClassOptionFeature
     {
 
         private string textField;
@@ -786,7 +764,7 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassOptionAttribute
+    public partial class AnimalTemplatesAnimalClassOptionAttribute1
     {
 
         private string nameField;
@@ -824,7 +802,7 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassOptionSkill
+    public partial class AnimalTemplatesAnimalClassOptionSkill1
     {
 
         private string nameField;
@@ -910,16 +888,16 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassOptionChart
+    public partial class AnimalTemplatesAnimalClassOptionChart
     {
 
-        private AnimalTemplatesAnimalClassesAnimalClassOptionChartOption[] optionField;
+        private AnimalTemplatesAnimalClassOptionChartOption[] optionField;
 
         private string rollField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute("Option")]
-        public AnimalTemplatesAnimalClassesAnimalClassOptionChartOption[] Option
+        public AnimalTemplatesAnimalClassOptionChartOption[] Option
         {
             get
             {
@@ -948,19 +926,19 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassOptionChartOption
+    public partial class AnimalTemplatesAnimalClassOptionChartOption
     {
 
-        private AnimalTemplatesAnimalClassesAnimalClassOptionChartOptionFeature featureField;
+        private AnimalTemplatesAnimalClassOptionChartOptionFeature featureField;
 
-        private AnimalTemplatesAnimalClassesAnimalClassOptionChartOptionAttribute attributeField;
+        private AnimalTemplatesAnimalClassOptionChartOptionAttribute attributeField;
 
-        private AnimalTemplatesAnimalClassesAnimalClassOptionChartOptionSkill skillField;
+        private AnimalTemplatesAnimalClassOptionChartOptionSkill skillField;
 
         private byte rollField;
 
         /// <remarks/>
-        public AnimalTemplatesAnimalClassesAnimalClassOptionChartOptionFeature Feature
+        public AnimalTemplatesAnimalClassOptionChartOptionFeature Feature
         {
             get
             {
@@ -973,7 +951,7 @@
         }
 
         /// <remarks/>
-        public AnimalTemplatesAnimalClassesAnimalClassOptionChartOptionAttribute Attribute
+        public AnimalTemplatesAnimalClassOptionChartOptionAttribute Attribute
         {
             get
             {
@@ -986,7 +964,7 @@
         }
 
         /// <remarks/>
-        public AnimalTemplatesAnimalClassesAnimalClassOptionChartOptionSkill Skill
+        public AnimalTemplatesAnimalClassOptionChartOptionSkill Skill
         {
             get
             {
@@ -1015,7 +993,7 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassOptionChartOptionFeature
+    public partial class AnimalTemplatesAnimalClassOptionChartOptionFeature
     {
 
         private string textField;
@@ -1037,7 +1015,7 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassOptionChartOptionAttribute
+    public partial class AnimalTemplatesAnimalClassOptionChartOptionAttribute
     {
 
         private string nameField;
@@ -1075,7 +1053,7 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesAnimalClassesAnimalClassOptionChartOptionSkill
+    public partial class AnimalTemplatesAnimalClassOptionChartOptionSkill
     {
 
         private string nameField;
@@ -1116,16 +1094,17 @@
     public partial class AnimalTemplatesTerrain
     {
 
-        private AnimalTemplatesTerrainAnimalClasses animalClassesField;
+        private AnimalTemplatesTerrainOption[] animalClassesField;
 
-        private AnimalTemplatesTerrainOption[] movementChartField;
+        private AnimalTemplatesTerrainOption1[] movementChartField;
 
         private string nameField;
 
         private string sizeDMField;
 
         /// <remarks/>
-        public AnimalTemplatesTerrainAnimalClasses AnimalClasses
+        [System.Xml.Serialization.XmlArrayItemAttribute("Option", IsNullable = false)]
+        public AnimalTemplatesTerrainOption[] AnimalClasses
         {
             get
             {
@@ -1139,7 +1118,7 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayItemAttribute("Option", IsNullable = false)]
-        public AnimalTemplatesTerrainOption[] MovementChart
+        public AnimalTemplatesTerrainOption1[] MovementChart
         {
             get
             {
@@ -1182,35 +1161,14 @@
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesTerrainAnimalClasses
-    {
-
-        private AnimalTemplatesTerrainAnimalClassesOption optionField;
-
-        /// <remarks/>
-        public AnimalTemplatesTerrainAnimalClassesOption Option
-        {
-            get
-            {
-                return this.optionField;
-            }
-            set
-            {
-                this.optionField = value;
-            }
-        }
-    }
-
-    /// <remarks/>
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesTerrainAnimalClassesOption
+    public partial class AnimalTemplatesTerrainOption
     {
 
         private byte oddsField;
 
         private string animalClassField;
 
-        private sbyte penalityField;
+        private sbyte penaltyField;
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
@@ -1242,22 +1200,22 @@
 
         /// <remarks/>
         [System.Xml.Serialization.XmlAttributeAttribute()]
-        public sbyte Penality
+        public sbyte Penalty
         {
             get
             {
-                return this.penalityField;
+                return this.penaltyField;
             }
             set
             {
-                this.penalityField = value;
+                this.penaltyField = value;
             }
         }
     }
 
     /// <remarks/>
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public partial class AnimalTemplatesTerrainOption
+    public partial class AnimalTemplatesTerrainOption1
     {
 
         private byte rollField;
@@ -1707,7 +1665,5 @@
             }
         }
     }
-
-
 
 }

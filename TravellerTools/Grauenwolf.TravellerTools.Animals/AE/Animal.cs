@@ -5,6 +5,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 {
     public class Animal : ModelBase
     {
+        public string AnimalClass { get { return Get<string>(); } set { Set(value); } }
         public string TerrainType { get { return Get<string>(); } set { Set(value); } }
 
 

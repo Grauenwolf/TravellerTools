@@ -285,6 +285,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\TradeInfo.cshtml" />
     <Content Include="Views\Home\Animals.cshtml" />
+    <Content Include="Views\Home\AnimalEncounters.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

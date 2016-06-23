@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Tortuga.Anchor;
 
@@ -74,6 +75,31 @@ namespace Grauenwolf.TravellerTools
                 throw new ArgumentException(string.Format("Cannot parse '{0}'", dieCode), "dieCode", ex);
             }
         }
+
+        public T ChooseWithOdds<T>(ICollection<T> list) where T : IHasOdds
+        {
+            var max = list.Sum(option => option.Odds);
+            var roll = Next(1, max + 1);
+            foreach (var option in list)
+            {
+                roll -= option.Odds;
+                if (roll <= 0)
+                    return option;
+            }
+            throw new Exception("This cannot happen");
+        }
+
+        public T ChooseByRoll<T>(ICollection<T> list, string dieCode) where T : ITablePick
+        {
+            var roll = D(dieCode);
+
+            return list.Single(x => x.IsMatch(roll));
+        }
+    }
+
+    public interface IHasOdds
+    {
+        int Odds { get; }
     }
 
 }

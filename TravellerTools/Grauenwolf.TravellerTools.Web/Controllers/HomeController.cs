@@ -1,4 +1,5 @@
-﻿using Grauenwolf.TravellerTools.Animals.Mgt;
+﻿using AE = Grauenwolf.TravellerTools.Animals.AE;
+using Mgt = Grauenwolf.TravellerTools.Animals.Mgt;
 using Grauenwolf.TravellerTools.TradeCalculator;
 using Grauenwolf.TravellerTools.Web.Models;
 using System.Collections.Generic;
@@ -43,22 +44,45 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
 
         public ActionResult Animals(string terrainType = "", string animalType = "")
         {
-            Dictionary<string, List<Animal>> model;
+            Dictionary<string, List<Mgt.Animal>> model;
             if (!string.IsNullOrWhiteSpace(terrainType) && !string.IsNullOrWhiteSpace(animalType))
             {
-                var list = new List<Animal>();
-                model = new Dictionary<string, List<Animal>>();
+                var list = new List<Mgt.Animal>();
+                model = new Dictionary<string, List<Mgt.Animal>>();
                 model.Add(terrainType, list);
-                list.Add(AnimalBuilderMgt.BuildAnimal(terrainType, animalType));
+                list.Add(Mgt.AnimalBuilderMgt.BuildAnimal(terrainType, animalType));
             }
             else if (!string.IsNullOrWhiteSpace(terrainType))
             {
-                model = new Dictionary<string, List<Animal>>();
-                model.Add(terrainType, AnimalBuilderMgt.BuildTerrainSet(terrainType));
+                model = new Dictionary<string, List<Mgt.Animal>>();
+                model.Add(terrainType, Mgt.AnimalBuilderMgt.BuildTerrainSet(terrainType));
             }
             else
             {
-                model = AnimalBuilderMgt.BuildPlanetSet();
+                model = Mgt.AnimalBuilderMgt.BuildPlanetSet();
+            }
+
+            return View(model);
+        }
+
+        public ActionResult AnimalEncounters(string terrainType = "", string animalClass = "", int evolution = 0)
+        {
+            Dictionary<string, List<AE.Animal>> model;
+            if (!string.IsNullOrWhiteSpace(terrainType) && !string.IsNullOrWhiteSpace(animalClass))
+            {
+                var list = new List<AE.Animal>();
+                model = new Dictionary<string, List<AE.Animal>>();
+                model.Add(terrainType, list);
+                list.Add(AE.AnimalBuilderAE.BuildAnimal(terrainType, animalClass, evolution));
+            }
+            else if (!string.IsNullOrWhiteSpace(terrainType))
+            {
+                model = new Dictionary<string, List<AE.Animal>>();
+                model.Add(terrainType, AE.AnimalBuilderAE.BuildTerrainSet(terrainType));
+            }
+            else
+            {
+                model = AE.AnimalBuilderAE.BuildPlanetSet();
             }
 
             return View(model);
