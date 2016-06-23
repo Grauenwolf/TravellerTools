@@ -8,4 +8,6 @@ namespace Grauenwolf.TravellerTools.Characters
         public string Damage { get { return Get<string>(); } set { Set(value); } }
 
     }
+
+    
 }

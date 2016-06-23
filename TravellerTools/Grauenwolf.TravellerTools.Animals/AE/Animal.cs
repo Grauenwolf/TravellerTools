@@ -41,7 +41,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         public int PackDM { get { return DMCalc(Pack); } }
 
         /// <summary>
-        /// Roll used for encoutner tables.
+        /// Roll used for encounter tables.
         /// </summary>
         public int Roll { get { return Get<int>(); } set { Set(value); } }
 
@@ -50,6 +50,9 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
         public WeaponCollection Weapons { get { return GetNew<WeaponCollection>(); } }
 
+        public FeatureCollection Features { get { return GetNew<FeatureCollection>(); } }
+
+
         public int Armor { get { return Get<int>(); } set { Set(value); } }
 
         public int? Attack { get { return Get<int?>(); } set { Set(value); } }
@@ -57,6 +60,14 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         public int? Flee { get { return Get<int?>(); } set { Set(value); } }
 
         public string NumberEncountered { get { return Get<string>(); } set { Set(value); } }
+
+        public int QuirkRolls { get { return Get<int>(); } set { Set(value); } }
+        public int PhysicalSkills { get { return Get<int>(); } set { Set(value); } }
+        public int SocialSkills { get { return Get<int>(); } set { Set(value); } }
+        public int EvolutionSkills { get { return Get<int>(); } set { Set(value); } }
+        public int EvolutionDM { get { return Get<int>(); } set { Set(value); } }
+
+        public int EvolutionRolls { get { return Get<int>(); } set { Set(value); } }
 
         int DMCalc(int value)
         {
@@ -75,5 +86,55 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             //if (value >= 15)
             return 3;
         }
+
+        public void Increase(string attributeName, int bonus)
+        {
+            switch (attributeName)
+            {
+                case "Size": Size += bonus; return;
+
+                case "Strength":
+                case "Str":
+                    Strength += bonus; return;
+
+                case "Dexterity":
+                case "Dex":
+                    Dexterity += bonus; return;
+
+                case "Endurance":
+                case "End":
+                    Endurance += bonus; return;
+
+                case "Intelligence":
+                case "Int":
+                    Intelligence += bonus; return;
+
+                case "Instinct":
+                case "Ins":
+                    Instinct += bonus; return;
+
+                case "Pack": Pack += bonus; return;
+
+                case "Armor": Armor += bonus; return;
+
+                case "QuirkRolls":
+                case "Quirks":
+                    QuirkRolls += bonus; return;
+
+                case "PhysicalSkills": PhysicalSkills += bonus; return;
+                case "SocialSkills": SocialSkills += bonus; return;
+                case "EvolutionSkills": EvolutionSkills += bonus; return;
+                case "EvolutionDM": EvolutionDM += bonus; return;
+                case "EvolutionRolls": EvolutionRolls += bonus; return;
+
+                default:
+                    throw new System.ArgumentOutOfRangeException("attributeName", attributeName, "Unknown attribute " + attributeName);
+            }
+        }
+
     }
+
+
 }
+
+

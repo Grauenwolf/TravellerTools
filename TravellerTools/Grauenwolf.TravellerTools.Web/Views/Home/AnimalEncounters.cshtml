@@ -53,9 +53,30 @@
                 <th>Flees on</th>
                 <td colspan="3">@animal.Flee</td>
             </tr>
+            foreach (var item in animal.Features)
+            {
+                <tr>
+                    <td colspan="10"> @( item.Text )</td>
+                </tr>
+            }
+            <tr>
+                <th>Debug</th>
+                <th>Unused Physical Skills</th>
+                <td>@(animal.PhysicalSkills)</td>
+                <th>Unused Social Skills</th>
+                <td>@(animal.SocialSkills)</td>
+                <th>Unused Evolution Skills</th>
+                <td>@(animal.EvolutionSkills)</td>
+                <th>Unused Quirks</th>
+                <td>@(animal.QuirkRolls)</td>
+                <th>Unused Evolutions</th>
+                <td>@(animal.EvolutionRolls)</td>
+                
+            </tr>
+
             <tr>
                 <td colspan="11">
-                    <hr/>
+                    <hr />
                 </td>
             </tr>
         }

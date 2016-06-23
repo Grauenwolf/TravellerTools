@@ -37,7 +37,11 @@ namespace Grauenwolf.TravellerTools
                 var array = dieCode.ToUpperInvariant().Replace("-", "+-").Split(new[] { '+' });
                 foreach (var expression in array)
                 {
-                    if (expression.Contains("D"))
+                    if (expression.StartsWith("D"))
+                    {
+                        result += D(1, int.Parse(expression.Substring(1)));
+                    }
+                    else if (expression.Contains("D"))
                     {
                         var isNegative = 1;
                         var fixedExpression = expression;
@@ -93,7 +97,10 @@ namespace Grauenwolf.TravellerTools
         {
             var roll = D(dieCode);
 
-            return list.Single(x => x.IsMatch(roll));
+            var result = list.SingleOrDefault(x => x.IsMatch(roll));
+            if (result == null)
+                throw new Exception($"No entry for a roll of {roll}");
+            return result;
         }
     }
 

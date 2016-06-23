@@ -83,7 +83,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             return result;
         }
 
-        static public Animal BuildAnimal(string terrainType, string animalClassName = null, int evolution = 0)
+        static public Animal BuildAnimal(string terrainType, string animalClassName = null, int evolutionRolls = 0)
         {
             var dice = new Dice();
 
@@ -108,12 +108,23 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             var animalClass = AnimalClassList.Single(x => x.Name == animalClassName);
 
             //Type
-            var result = new Animal() { TerrainType = selectedTerrainType.Name, AnimalClass = animalClassName };
+            var result = new Animal() { TerrainType = selectedTerrainType.Name, AnimalClass = animalClassName, EvolutionRolls = evolutionRolls };
 
+            //Starting Skills
+            foreach (var skill in animalClass.Skills)
+                result.Skills.Add(skill.Name, skill.Score);
 
+            //Diet
             var diet = dice.ChooseWithOdds(animalClass.Diets);
             result.Diet = diet.Diet;
+            if (diet.Skill != null)
+                result.Skills.Add(diet.Skill.Name, diet.Skill.Score);
+            foreach (var att in diet.Attribute)
+            {
+                result.Increase(att.Name, dice.D(att.Bonus));
+            }
 
+            //Behavior
             var behaviorMeta = dice.ChooseByRoll(diet.Behaviors, "1D");
             var behavior = BehaviorList.Single(x => x.Name == behaviorMeta.Behavior);
 
@@ -125,9 +136,62 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             result.Attack -= behaviorMeta.Reaction;
             result.Flee -= behaviorMeta.Reaction;
 
+            if (behavior.Feature != null)
+                result.Features.Add(behavior.Feature.Text);
 
+            if (behavior.Chart != null)
+            {
+                var option = dice.ChooseByRoll(behavior.Chart.Option, behavior.Chart.Roll);
+                if (option.Feature != null)
+                    result.Features.Add(behavior.Feature.Text);
+                if (option.Attribute != null)
+                    result.Increase(option.Attribute.Name, dice.D(option.Attribute.Bonus));
+                if (option.Skill != null)
+                    result.Skills.Increase(option.Skill.Name, option.Skill.Bonus);
+            }
+
+            result.QuirkRolls += dice.Next(10) == 9 ? 1 : 0;
+
+            //Evolution Rolls
+
+
+            //Skill Rolls
+            while (result.PhysicalSkills > 0 || result.SocialSkills > 0 || result.EvolutionSkills > 0)
+            {
+                if (result.PhysicalSkills > 0)
+                {
+                    result.PhysicalSkills -= 1;
+                    RollOnChart(result, animalClass.Chart.Single(x => x.Name == "PhysicalSkills"), dice);
+                }
+
+                if (result.SocialSkills > 0)
+                {
+                    result.SocialSkills -= 1;
+                    RollOnChart(result, animalClass.Chart.Single(x => x.Name == "SocialSkills"), dice);
+                }
+
+                if (result.EvolutionSkills > 0)
+                {
+                    result.EvolutionSkills -= 1;
+                    RollOnChart(result, animalClass.Chart.Single(x => x.Name == "EvolutionSkills"), dice);
+                }
+            }
 
             return result;
+        }
+
+        static void RollOnChart(Animal result, AnimalTemplatesAnimalClassChart chart, Dice dice)
+        {
+            var option = dice.ChooseByRoll(chart.Option, "D6");
+
+            if (option.Attribute != null)
+                foreach (var att in option.Attribute)
+                    result.Increase(att.Name, dice.D(att.Bonus));
+
+            if (option.Skill != null)
+                result.Skills.Increase(option.Skill.Name, option.Skill.Bonus);
+
+
         }
     }
 }

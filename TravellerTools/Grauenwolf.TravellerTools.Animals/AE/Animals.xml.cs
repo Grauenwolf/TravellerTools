@@ -1326,6 +1326,12 @@
     public partial class AnimalTemplatesBehavior
     {
 
+        private AnimalTemplatesBehaviorAttribute attributeField;
+
+        private AnimalTemplatesBehaviorSkill skillField;
+
+        private AnimalTemplatesBehaviorChart chartField;
+
         private AnimalTemplatesBehaviorFeature featureField;
 
         private string nameField;
@@ -1333,6 +1339,45 @@
         private string attackField;
 
         private string fleeField;
+
+        /// <remarks/>
+        public AnimalTemplatesBehaviorAttribute Attribute
+        {
+            get
+            {
+                return this.attributeField;
+            }
+            set
+            {
+                this.attributeField = value;
+            }
+        }
+
+        /// <remarks/>
+        public AnimalTemplatesBehaviorSkill Skill
+        {
+            get
+            {
+                return this.skillField;
+            }
+            set
+            {
+                this.skillField = value;
+            }
+        }
+
+        /// <remarks/>
+        public AnimalTemplatesBehaviorChart Chart
+        {
+            get
+            {
+                return this.chartField;
+            }
+            set
+            {
+                this.chartField = value;
+            }
+        }
 
         /// <remarks/>
         public AnimalTemplatesBehaviorFeature Feature
@@ -1386,6 +1431,285 @@
             set
             {
                 this.fleeField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class AnimalTemplatesBehaviorAttribute
+    {
+
+        private string nameField;
+
+        private sbyte bonusField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public sbyte Bonus
+        {
+            get
+            {
+                return this.bonusField;
+            }
+            set
+            {
+                this.bonusField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class AnimalTemplatesBehaviorSkill
+    {
+
+        private string nameField;
+
+        private byte bonusField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte Bonus
+        {
+            get
+            {
+                return this.bonusField;
+            }
+            set
+            {
+                this.bonusField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class AnimalTemplatesBehaviorChart
+    {
+
+        private AnimalTemplatesBehaviorChartOption[] optionField;
+
+        private string rollField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute("Option")]
+        public AnimalTemplatesBehaviorChartOption[] Option
+        {
+            get
+            {
+                return this.optionField;
+            }
+            set
+            {
+                this.optionField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Roll
+        {
+            get
+            {
+                return this.rollField;
+            }
+            set
+            {
+                this.rollField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class AnimalTemplatesBehaviorChartOption
+    {
+
+        private AnimalTemplatesBehaviorChartOptionFeature featureField;
+
+        private AnimalTemplatesBehaviorChartOptionAttribute attributeField;
+
+        private AnimalTemplatesBehaviorChartOptionSkill skillField;
+
+        private byte rollField;
+
+        /// <remarks/>
+        public AnimalTemplatesBehaviorChartOptionFeature Feature
+        {
+            get
+            {
+                return this.featureField;
+            }
+            set
+            {
+                this.featureField = value;
+            }
+        }
+
+        /// <remarks/>
+        public AnimalTemplatesBehaviorChartOptionAttribute Attribute
+        {
+            get
+            {
+                return this.attributeField;
+            }
+            set
+            {
+                this.attributeField = value;
+            }
+        }
+
+        /// <remarks/>
+        public AnimalTemplatesBehaviorChartOptionSkill Skill
+        {
+            get
+            {
+                return this.skillField;
+            }
+            set
+            {
+                this.skillField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte Roll
+        {
+            get
+            {
+                return this.rollField;
+            }
+            set
+            {
+                this.rollField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class AnimalTemplatesBehaviorChartOptionFeature
+    {
+
+        private string textField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Text
+        {
+            get
+            {
+                return this.textField;
+            }
+            set
+            {
+                this.textField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class AnimalTemplatesBehaviorChartOptionAttribute
+    {
+
+        private string nameField;
+
+        private byte bonusField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte Bonus
+        {
+            get
+            {
+                return this.bonusField;
+            }
+            set
+            {
+                this.bonusField = value;
+            }
+        }
+    }
+
+    /// <remarks/>
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
+    public partial class AnimalTemplatesBehaviorChartOptionSkill
+    {
+
+        private string nameField;
+
+        private byte bonusField;
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public string Name
+        {
+            get
+            {
+                return this.nameField;
+            }
+            set
+            {
+                this.nameField = value;
+            }
+        }
+
+        /// <remarks/>
+        [System.Xml.Serialization.XmlAttributeAttribute()]
+        public byte Bonus
+        {
+            get
+            {
+                return this.bonusField;
+            }
+            set
+            {
+                this.bonusField = value;
             }
         }
     }

@@ -49,6 +49,21 @@
             return Roll == value;
         }
     }
+    partial class AnimalTemplatesAnimalClassChartOption : ITablePick
+    {
+        public bool IsMatch(int value)
+        {
+            return Roll == value;
+        }
+    }
+
+    partial class AnimalTemplatesBehaviorChartOption : ITablePick
+    {
+        public bool IsMatch(int value)
+        {
+            return Roll == value;
+        }
+    }
 
     partial class AnimalTemplatesSize : ITablePick
     {

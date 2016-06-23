@@ -148,6 +148,27 @@
       </Option>
     </Chart>
 
+    <Chart Name="EvolutionSkills">
+      <Option Roll="1">
+        <Feature Text="+1D6 Damage"/>
+      </Option>
+      <Option Roll="2" >
+        <Attribute Name="Armor" Bonus="1" />
+      </Option>
+      <Option Roll="3">
+        <Attribute Name="Int" Bonus="1" />
+      </Option>
+      <Option Roll="4">
+        <Attribute Name="PhysicalSkills" Bonus="1" />
+      </Option>
+      <Option Roll="5">
+        <Attribute Name="SocialSkills" Bonus="1" />
+      </Option>
+      <Option Roll="6">
+        <Feature Text="Exotic Weapon"/>
+      </Option>
+    </Chart>
+
     <Quirks>
       <Option Roll="2"> </Option>
       <Option Roll="3">
@@ -161,6 +182,7 @@
         <Skill Name="Survival" Bonus="2" />
       </Option>
       <Option Roll="7">
+        <Feature Text="Siren" />
         <Attribute Name="Pack" Bonus="-4"/>
         <Skill Name="Deception" Bonus="1"/>
         <Chart Roll="1D2">
@@ -433,13 +455,26 @@
     <Behavior Name="Grazer" Attack="8" Flee="6"></Behavior>
     <Behavior Name="Gatherer" Attack="9" Flee="7"></Behavior>
     <Behavior Name="Hunter" Attack="10" Flee="5">
-      <Feature Text="If heavier than for, attacks on 6+." />
+      <Feature Text="If heavier than foe, attacks on 6+." />
     </Behavior>
     <Behavior Name="Eater" Attack="5" Flee="4"></Behavior>
     <Behavior Name="Pouncer" Attack="" Flee=""></Behavior>
     <Behavior Name="Chaser" Attack="" Flee="5"></Behavior>
     <Behavior Name="Trapper" Attack="" Flee="5"></Behavior>
-    <Behavior Name="Siren" Attack="" Flee="4"></Behavior>
+    <Behavior Name="Siren" Attack="" Flee="4">
+      <Attribute Name="Pack" Bonus="-4"/>
+      <Skill Name="Deception" Bonus="1"/>
+      <Chart Roll="1D2">
+        <Option Roll="1">
+          <!-- No effect-->
+        </Option>
+        <Option Roll="2">
+          <Feature Text="Cannot Move" />
+          <Attribute Name="End" Bonus="2"/>
+          <Skill Name="Survival" Bonus="2" />
+        </Option>
+      </Chart>
+    </Behavior>
     <Behavior Name="Killer" Attack="6" Flee="3"></Behavior>
     <Behavior Name="Hijacker" Attack="7" Flee="6"></Behavior>
     <Behavior Name="Intimidator" Attack="8" Flee="7"></Behavior>

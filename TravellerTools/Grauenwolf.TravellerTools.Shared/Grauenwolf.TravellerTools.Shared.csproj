@@ -50,6 +50,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Characters\Feature.cs" />
+    <Compile Include="Characters\FeatureCollection.cs" />
     <Compile Include="Characters\Person.cs" />
     <Compile Include="Characters\Skill.cs" />
     <Compile Include="Characters\SkillCollection.cs" />
