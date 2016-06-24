@@ -71,7 +71,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
         int DMCalc(int value)
         {
-            if (value == 0)
+            if (value <= 0)
                 return -3;
             if (value <= 2)
                 return -2;
@@ -123,6 +123,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
                 case "PhysicalSkills": PhysicalSkills += bonus; return;
                 case "SocialSkills": SocialSkills += bonus; return;
+
                 case "EvolutionSkills": EvolutionSkills += bonus; return;
                 case "EvolutionDM": EvolutionDM += bonus; return;
                 case "EvolutionRolls": EvolutionRolls += bonus; return;

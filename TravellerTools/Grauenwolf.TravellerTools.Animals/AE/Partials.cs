@@ -2,7 +2,7 @@
 {
 
 
-    partial class AnimalTemplatesTerrain
+    partial class TerrainTemplate
     {
         public override string ToString()
         {
@@ -26,7 +26,7 @@
         }
     }
 
-    partial class AnimalTemplatesAnimalClassOption : IHasOdds
+    partial class DietOption : IHasOdds
     {
         int IHasOdds.Odds
         {
@@ -41,15 +41,22 @@
     //        return Roll == value;
     //    }
     //}
-
-    partial class AnimalTemplatesAnimalClassOptionOption : ITablePick
+    partial class AnimalTemplatesTerrainOption1 : ITablePick
     {
         public bool IsMatch(int value)
         {
             return Roll == value;
         }
     }
-    partial class AnimalTemplatesAnimalClassChartOption : ITablePick
+
+    partial class BehaviorOption : ITablePick
+    {
+        public bool IsMatch(int value)
+        {
+            return Roll == value;
+        }
+    }
+    partial class ChartOption : ITablePick
     {
         public bool IsMatch(int value)
         {
@@ -65,7 +72,7 @@
         }
     }
 
-    partial class AnimalTemplatesSize : ITablePick
+    partial class Size : ITablePick
     {
         public bool IsMatch(int value)
         {
@@ -74,7 +81,7 @@
     }
 
 
-    partial class AnimalTemplatesArmorOption : ITablePick
+    partial class ArmorOption : ITablePick
     {
         public bool IsMatch(int value)
         {

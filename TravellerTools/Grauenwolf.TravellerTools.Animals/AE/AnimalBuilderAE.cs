@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
@@ -13,23 +14,24 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         static public void SetDataPath(string dataPath)
         {
             var file = new FileInfo(Path.Combine(dataPath, "Animals-AE.xml"));
+
             var converter = new XmlSerializer(typeof(AnimalTemplates));
             using (var stream = file.OpenRead())
                 s_Templates = ((AnimalTemplates)converter.Deserialize(stream));
 
         }
 
-        static public ImmutableList<AnimalTemplatesTerrain> TerrainTypeList
+        static public ImmutableList<TerrainTemplate> TerrainTypeList
         {
             get { return ImmutableList.Create(s_Templates.Terrains); }
         }
 
-        static public ImmutableList<AnimalTemplatesAnimalClass> AnimalClassList
+        static public ImmutableList<AnimalClassTemplate> AnimalClassList
         {
             get { return ImmutableList.Create(s_Templates.AnimalClasses); }
         }
 
-        static public ImmutableList<AnimalTemplatesBehavior> BehaviorList
+        static public ImmutableList<Behavior> BehaviorList
         {
             get { return ImmutableList.Create(s_Templates.Behaviors); }
         }
@@ -109,20 +111,46 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
             //Type
             var result = new Animal() { TerrainType = selectedTerrainType.Name, AnimalClass = animalClassName, EvolutionRolls = evolutionRolls };
+            var movement = dice.ChooseByRoll(selectedTerrainType.MovementChart, "D6");
+            result.Movement = movement.Movement;
+
+            //Size
+            var sizeRoll = (dice.D(selectedTerrainType.SizeDM) + dice.D(movement.SizeDM) + dice.D(2, 6)).Limit(1, 13);
+            var size = s_Templates.SizeTable.Single(sizeRoll);
+            result.Size = sizeRoll;
+            result.Movement = movement.Movement;
+            result.WeightKG = size.WeightKG;
+
+            //Attributes
+            result.Strength = dice.D(size.Strength) - terrainPenalty;
+            result.Dexterity = dice.D(size.Dexterity) - terrainPenalty;
+            result.Endurance = dice.D(size.Endurance) - terrainPenalty;
+            result.Pack = dice.D(2, 6) - terrainPenalty;
+            result.Instinct = dice.D(2, 6) - terrainPenalty;
+            result.Intelligence = 0 - terrainPenalty;
+
+            if (dice.D(6) >= 5)
+                result.Intelligence += 1;
 
             //Starting Skills
             foreach (var skill in animalClass.Skills)
-                result.Skills.Add(skill.Name, skill.Score);
+                if (skill.ScoreSpecified)
+                    result.Skills.Add(skill.Name, skill.Score);
+                else
+                    result.Skills.Increase(skill.Name, skill.Bonus);
 
             //Diet
             var diet = dice.ChooseWithOdds(animalClass.Diets);
             result.Diet = diet.Diet;
-            if (diet.Skill != null)
-                result.Skills.Add(diet.Skill.Name, diet.Skill.Score);
+            if (diet.Skills != null)
+                foreach (var skill in diet.Skills)
+                    if (skill.ScoreSpecified)
+                        result.Skills.Add(skill.Name, skill.Score);
+                    else
+                        result.Skills.Increase(skill.Name, skill.Bonus);
+
             foreach (var att in diet.Attribute)
-            {
                 result.Increase(att.Name, dice.D(att.Bonus));
-            }
 
             //Behavior
             var behaviorMeta = dice.ChooseByRoll(diet.Behaviors, "1D");
@@ -150,10 +178,17 @@ namespace Grauenwolf.TravellerTools.Animals.AE
                     result.Skills.Increase(option.Skill.Name, option.Skill.Bonus);
             }
 
-            result.QuirkRolls += dice.Next(10) == 9 ? 1 : 0;
+            result.QuirkRolls += dice.D("D6") == 6 ? 1 : 0;
 
             //Evolution Rolls
-
+            while (result.EvolutionRolls > 0)
+            {
+                result.EvolutionRolls -= 1;
+                if (dice.D(2) == 0)
+                    RollOnChart(result, animalClass.Chart.Single(x => x.Name == "AdditionalSkills"), dice);
+                else
+                    RollOnChart(result, animalClass.Chart.Single(x => x.Name == "OtherBenefits"), dice);
+            }
 
             //Skill Rolls
             while (result.PhysicalSkills > 0 || result.SocialSkills > 0 || result.EvolutionSkills > 0)
@@ -177,20 +212,55 @@ namespace Grauenwolf.TravellerTools.Animals.AE
                 }
             }
 
+            result.QuirkRolls += dice.Next(10) == 9 ? 1 : 0;
+
+            //Evolution Rolls
+            while (result.QuirkRolls > 0)
+            {
+                result.QuirkRolls -= 1;
+
+                RollOnChart(result, animalClass.Chart.Single(x => x.Name == "Quirks"), dice, "2D");
+            }
+
+            //Finishing touches
+            result.NumberEncountered = s_Templates.NumberTable.Last(x => result.Pack.Limit(0, 15) >= x.MinValue).Number;
+
+            result.Strength = Math.Max(result.Strength, 0);
+            result.Dexterity = Math.Max(result.Dexterity, 0);
+            result.Endurance = Math.Max(result.Endurance, 0);
+            result.Pack = Math.Max(result.Pack, 0);
+            result.Instinct = Math.Max(result.Instinct, 0);
+            result.Intelligence = Math.Max(result.Intelligence, 0);
+
+            //TODO: Add initiative
+
             return result;
         }
 
-        static void RollOnChart(Animal result, AnimalTemplatesAnimalClassChart chart, Dice dice)
+        static void RollOnChart(Animal result, Chart chart, Dice dice, string dieCode = "D6")
         {
-            var option = dice.ChooseByRoll(chart.Option, "D6");
+            var option = dice.ChooseByRoll(chart.Option, dieCode);
 
-            if (option.Attribute != null)
-                foreach (var att in option.Attribute)
+            if (option.Attributes != null)
+                foreach (var att in option.Attributes)
                     result.Increase(att.Name, dice.D(att.Bonus));
 
-            if (option.Skill != null)
-                result.Skills.Increase(option.Skill.Name, option.Skill.Bonus);
+            if (option.Charts != null)
+                foreach (var subChart in option.Charts)
+                {
+                    RollOnChart(result, subChart, dice, subChart.Roll);
+                }
 
+            if (option.Features != null)
+                foreach (var feature in option.Features)
+                    result.Features.Add(feature.Text);
+
+            if (option.Skills != null)
+                foreach (var skill in option.Skills)
+                    if (skill.ScoreSpecified)
+                        result.Skills.Add(skill.Name, skill.Score);
+                    else
+                        result.Skills.Increase(skill.Name, skill.Bonus);
 
         }
     }
