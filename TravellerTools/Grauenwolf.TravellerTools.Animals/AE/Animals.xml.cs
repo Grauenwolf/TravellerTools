@@ -23,6 +23,9 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         /// <remarks/>
         [XmlArrayItem("Skill", IsNullable = false)]
         public SkillTemplate[] Skills { get; set; }
+
+        [XmlAttribute()]
+        public int InitiativeDM { get; set; }
     }
 
     /// <remarks/>
@@ -119,49 +122,11 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         public string Name { get; set; }
     }
 
-    /// <remarks/>
-    [XmlType(AnonymousType = true)]
-    public partial class AnimalTemplatesBehaviorAttribute
-    {
-        /// <remarks/>
-        [XmlAttribute()]
-        public sbyte Bonus { get; set; }
 
-        /// <remarks/>
-        [XmlAttribute()]
-        public string Name { get; set; }
-    }
 
-    /// <remarks/>
-    [XmlType(AnonymousType = true)]
-    public partial class AnimalTemplatesBehaviorChart
-    {
 
-        /// <remarks/>
-        [XmlElement("Option")]
-        public AnimalTemplatesBehaviorChartOption[] Option { get; set; }
 
-        /// <remarks/>
-        [XmlAttribute()]
-        public string Roll { get; set; }
-    }
 
-    /// <remarks/>
-    [XmlType(AnonymousType = true)]
-    public partial class AnimalTemplatesBehaviorChartOption
-    {
-        /// <remarks/>
-        public AnimalTemplatesBehaviorChartOptionAttribute Attribute { get; set; }
-
-        /// <remarks/>
-        public AnimalTemplatesBehaviorChartOptionFeature Feature { get; set; }
-        /// <remarks/>
-        [XmlAttribute()]
-        public byte Roll { get; set; }
-
-        /// <remarks/>
-        public AnimalTemplatesBehaviorChartOptionSkill Skill { get; set; }
-    }
 
     /// <remarks/>
     [XmlType(AnonymousType = true)]
@@ -211,28 +176,9 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         public string Name { get; set; }
     }
 
-    /// <remarks/>
-    [XmlType(AnonymousType = true)]
-    public partial class AnimalTemplatesBehaviorFeature
-    {
 
-        /// <remarks/>
-        [XmlAttribute()]
-        public string Text { get; set; }
-    }
 
-    /// <remarks/>
-    [XmlType(AnonymousType = true)]
-    public partial class AnimalTemplatesBehaviorSkill
-    {
-        /// <remarks/>
-        [XmlAttribute()]
-        public byte Bonus { get; set; }
 
-        /// <remarks/>
-        [XmlAttribute()]
-        public string Name { get; set; }
-    }
 
     /// <remarks/>
     [XmlType(AnonymousType = true)]
@@ -320,13 +266,20 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         public string Attack { get; set; }
 
         /// <remarks/>
-        public AnimalTemplatesBehaviorAttribute Attribute { get; set; }
+        [XmlElement("Attribute", typeof(AttributeTemplate))]
+        public AttributeTemplate[] Attributes { get; set; }
+
+
+        [XmlElement("Skill", typeof(SkillTemplate))]
+        public SkillTemplate[] Skills { get; set; }
 
         /// <remarks/>
-        public AnimalTemplatesBehaviorChart Chart { get; set; }
+        [XmlElement("Chart", typeof(Chart))]
+        public Chart[] Charts { get; set; }
 
         /// <remarks/>
-        public AnimalTemplatesBehaviorFeature Feature { get; set; }
+        [XmlElement("Feature", typeof(FeatureTemplate))]
+        public FeatureTemplate[] Features { get; set; }
 
         /// <remarks/>
         [XmlAttribute()]
@@ -336,8 +289,9 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         [XmlAttribute()]
         public string Name { get; set; }
 
-        /// <remarks/>
-        public AnimalTemplatesBehaviorSkill Skill { get; set; }
+        [XmlAttribute()]
+        public int InitiativeDM { get; set; }
+
     }
 
     /// <remarks/>

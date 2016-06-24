@@ -8,22 +8,22 @@
     <h2> @terrain.Key </h2>
 
     <table>
-        <tr>
-            <th width="50" align="center">Roll</th>
-            <th width="250" align="center" colspan="5">Type</th>
-            <th width="70" align="center">Move</th>
-            <th width="50" align="center">Num.</th>
-            <th width="50" align="center">Str</th>
-            <th width="50" align="center">Dex</th>
-            <th width="50" align="center">End</th>
-            <th width="50" align="center">Int</th>
-            <th width="50" align="center">Ins</th>
-            <th width="50" align="center">Pack</th>
-            <th width="50" align="center">Size</th>
-        </tr>
 
         @foreach (var animal in terrain.Value)
         {
+            <tr>
+                <th width="50" align="center">Roll</th>
+                <th width="250" align="center" colspan="5">Type</th>
+                <th width="70" align="center">Move</th>
+                <th width="50" align="center">Num.</th>
+                <th width="50" align="center">Str</th>
+                <th width="50" align="center">Dex</th>
+                <th width="50" align="center">End</th>
+                <th width="50" align="center">Int</th>
+                <th width="50" align="center">Ins</th>
+                <th width="50" align="center">Pack</th>
+                <th width="50" align="center">Size</th>
+            </tr>
             <tr>
                 <td>@animal.Roll</td>
                 <td colspan="5">@(animal.AnimalClass) (@animal.Diet / @animal.Behavior)</td>
@@ -42,6 +42,8 @@
                 <td colspan="10"> @( string.Join(", ", animal.Skills.Select(s => s.Name + " " + s.Level)))</td>
             </tr>
             <tr>
+                <th>Initiative DM</th>
+                <td>@animal.InitiativeDM</td>
                 <th>Armor</th>
                 <td>@animal.Armor</td>
                 <th>Weapons</th>

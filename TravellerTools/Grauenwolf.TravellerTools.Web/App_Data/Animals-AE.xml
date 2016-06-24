@@ -3,7 +3,7 @@
 
   <AnimalClasses>
 
-    <AnimalClass Name="Amphibian" >
+    <AnimalClass Name="Amphibian" InitiativeDM="0" >
       <Diets>
         <Option Odds="2" Diet="Carnivore" >
           <Attribute Name="PhysicalSkills" Bonus="1"/>
@@ -170,20 +170,26 @@
       </Chart>
 
       <Chart Name="Quirks">
-        <Option Roll="2"> </Option>
+        <Option Roll="2">
+          <Feature Text="Unusual Vocalization"/>
+        </Option>
         <Option Roll="3">
           <Feature Text="Blind" />
           <Skill Name="Recon" Bonus="-1"/>
         </Option>
         <Option Roll="4">
-          <Skill Name="Recon" Score="0"/>
+          <Feature Text="Silent"/>
+          <Skill Name="Stealth" Score="0"/>
         </Option>
-        <Option Roll="5"> </Option>
+        <Option Roll="5">
+          <Feature Text="Bright Colorization"/>
+        </Option>
         <Option Roll="6">
+          <Feature Text="Found everywhere"/>
           <Skill Name="Survival" Bonus="2" />
         </Option>
         <Option Roll="7">
-          <Feature Text="Siren" />
+          <Feature Text="Attractive Scent (Siren)" />
           <Attribute Name="Pack" Bonus="-4"/>
           <Skill Name="Deception" Bonus="1"/>
           <Chart Roll="1D2">
@@ -197,14 +203,18 @@
             </Option>
           </Chart>
         </Option>
-        <Option Roll="8"> </Option>
+        <Option Roll="8">
+          <Feature Text="Loud scream when threatened"/>
+        </Option>
         <Option Roll="9">
+          <Feature Text="Swarming"/>
           <Feature Text="Roll 2D6: On 2, becomes Killer for duration of encounter." />
         </Option>
         <Option Roll="10">
           <Feature Text="Stench Exotic Weapon" />
         </Option>
         <Option Roll="11">
+          <Feature Text="Ridged Shell"/>
           <Attribute Name="Armor" Bonus="2" />
         </Option>
         <Option Roll="12">
@@ -214,12 +224,12 @@
 
     </AnimalClass>
 
-    <AnimalClass Name="Aquatic" />
-    <AnimalClass Name="Avian" />
-    <AnimalClass Name="Fungal" />
-    <AnimalClass Name="Insect" />
-    <AnimalClass Name="Mammal" />
-    <AnimalClass Name="Reptile" />
+    <AnimalClass Name="Aquatic" InitiativeDM="1" />
+    <AnimalClass Name="Avian"   InitiativeDM="2" />
+    <AnimalClass Name="Fungal"  InitiativeDM="-2" />
+    <AnimalClass Name="Insect"  InitiativeDM="0" />
+    <AnimalClass Name="Mammal"  InitiativeDM="1" />
+    <AnimalClass Name="Reptile" InitiativeDM="1" />
 
 
   </AnimalClasses>
@@ -451,18 +461,51 @@
   </EncounterTable>
 
   <Behaviors>
-    <Behavior Name="Filter"   Attack="10" Flee="5"></Behavior>
-    <Behavior Name="Intermittent" Attack="10" Flee="4"></Behavior>
-    <Behavior Name="Grazer" Attack="8" Flee="6"></Behavior>
-    <Behavior Name="Gatherer" Attack="9" Flee="7"></Behavior>
-    <Behavior Name="Hunter" Attack="10" Flee="5">
+    <Behavior Name="Filter"   Attack="10" Flee="5" InitiativeDM="-4">
+      <Attribute Name="End" Bonus="4" />
+      <Attribute Name="Pack" Bonus="2" />
+    </Behavior>
+    <Behavior Name="Intermittent" Attack="10" Flee="4" InitiativeDM="-2">
+      <Attribute Name="Pack" Bonus="4"/>
+      <Attribute Name="Size" Bonus="2"/>
+    </Behavior>
+    <Behavior Name="Grazer" Attack="8" Flee="6" InitiativeDM="-1">
+      <Attribute Name="Instinct" Bonus="2"/>
+      <Attribute Name="Pack" Bonus="4"/>
+    </Behavior>
+    <Behavior Name="Gatherer" Attack="9" Flee="7" InitiativeDM="0">
+      <Attribute Name="Pack" Bonus="2"/>
+      <Attribute Name="Instinct" Bonus="1"/>
+      <Skill Name="Stealth" Bonus="1"/>
+    </Behavior>
+    <Behavior Name="Hunter" Attack="10" Flee="5" InitiativeDM="1" >
+      <Attribute Name="Instinct" Bonus="2"/>
+      <Skill Name="Survival" Bonus="1"/>
+      <Skill Name="Recon" Bonus="1"/>
       <Feature Text="If heavier than foe, attacks on 6+." />
     </Behavior>
-    <Behavior Name="Eater" Attack="5" Flee="4"></Behavior>
-    <Behavior Name="Pouncer" Attack="" Flee=""></Behavior>
-    <Behavior Name="Chaser" Attack="" Flee="5"></Behavior>
-    <Behavior Name="Trapper" Attack="" Flee="5"></Behavior>
-    <Behavior Name="Siren" Attack="" Flee="4">
+    <Behavior Name="Eater" Attack="5" Flee="4" InitiativeDM="1" >
+      <Attribute Name="End" Bonus="4" />
+      <Attribute Name="Pack" Bonus="4" />
+    </Behavior>
+    <Behavior Name="Pouncer" Attack="" Flee="" InitiativeDM="3">
+      <Attribute Name="Instinct" Bonus="2"/>
+      <Attribute Name="Dex" Bonus="2"/>
+      <Skill Name="Athletics" Bonus="1"/>
+      <Skill Name="Recon" Bonus="1"/>
+      <Skill Name="Stealth" Bonus="1"/>
+    </Behavior>
+    <Behavior Name="Chaser" Attack="" Flee="5" InitiativeDM="2">
+      <Attribute Name="Instinct" Bonus="2"/>
+      <Attribute Name="Dex" Bonus="4"/>
+      <Attribute Name="Pack" Bonus="2" />
+    </Behavior>
+    <Behavior Name="Trapper" Attack="" Flee="5" InitiativeDM="2">
+      <Skill Name="Stealth" Bonus="1"/>
+      <Attribute Name="End" Bonus="1"/>
+      <Attribute Name="Pack" Bonus="-2" />
+    </Behavior>
+    <Behavior Name="Siren" Attack="" Flee="4" InitiativeDM="0">
       <Attribute Name="Pack" Bonus="-4"/>
       <Skill Name="Deception" Bonus="1"/>
       <Chart Roll="1D2">
@@ -476,11 +519,37 @@
         </Option>
       </Chart>
     </Behavior>
-    <Behavior Name="Killer" Attack="6" Flee="3"></Behavior>
-    <Behavior Name="Hijacker" Attack="7" Flee="6"></Behavior>
-    <Behavior Name="Intimidator" Attack="8" Flee="7"></Behavior>
-    <Behavior Name="Carrion-Eater" Attack="11" Flee="7"></Behavior>
-    <Behavior Name="Reducer" Attack="10" Flee="7"></Behavior>
+    <Behavior Name="Killer" Attack="6" Flee="3" InitiativeDM="2">
+      <Skill Name="Melee" Bonus="1" />
+      <Attribute Name="Instinct" Bonus="4"/>
+      <Attribute Name="Pack" Bonus="-2"/>
+      <Chart Roll="1D2">
+        <Option Roll="1">
+          <Attribute Name="Str" Bonus="4"/>
+        </Option>
+        <Option Roll="2">
+          <Attribute Name="Dex" Bonus="4"/>
+        </Option>
+      </Chart>
+    
+    </Behavior>
+    <Behavior Name="Hijacker" Attack="7" Flee="6" InitiativeDM="1">
+      <Attribute Name="Str" Bonus="2"/>
+      <Attribute Name="Pack" Bonus="2"/>
+    </Behavior>
+    <Behavior Name="Intimidator" Attack="8" Flee="7" InitiativeDM="0">
+      <Attribute Name="Instinct" Bonus="2"/>
+      <Skill Name="Persuade" Bonus="1"/>
+    </Behavior>
+    <Behavior Name="Carrion-Eater" Attack="11" Flee="7" InitiativeDM="-1">
+      <Attribute Name="Instinct" Bonus="2"/>
+      <Attribute Name="Size" Bonus="-2"/>
+    </Behavior>
+    <Behavior Name="Reducer" Attack="10" Flee="7" InitiativeDM="-2">
+      <Attribute Name="End" Bonus="2"/>
+      <Attribute Name="Pack" Bonus="4"/>
+
+    </Behavior>
   </Behaviors>
 
   <!--

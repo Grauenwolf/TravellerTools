@@ -69,6 +69,8 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
         public int EvolutionRolls { get { return Get<int>(); } set { Set(value); } }
 
+        public int InitiativeDM { get; set; }
+
         int DMCalc(int value)
         {
             if (value <= 0)
@@ -127,6 +129,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
                 case "EvolutionSkills": EvolutionSkills += bonus; return;
                 case "EvolutionDM": EvolutionDM += bonus; return;
                 case "EvolutionRolls": EvolutionRolls += bonus; return;
+                case "InitiativeDM": InitiativeDM += bonus; return;
 
                 default:
                     throw new System.ArgumentOutOfRangeException("attributeName", attributeName, "Unknown attribute " + attributeName);

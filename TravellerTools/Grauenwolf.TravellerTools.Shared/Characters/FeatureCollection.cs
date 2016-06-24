@@ -1,3 +1,4 @@
+using System.Linq;
 using Tortuga.Anchor.Collections;
 
 namespace Grauenwolf.TravellerTools.Characters
@@ -8,6 +9,8 @@ namespace Grauenwolf.TravellerTools.Characters
     {
         public void Add(string text)
         {
+            if (this.Any(x => x.Text == text))
+                return;
             Add(new Feature(text));
         }
     }

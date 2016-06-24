@@ -113,24 +113,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             var result = new Animal() { TerrainType = selectedTerrainType.Name, AnimalClass = animalClassName, EvolutionRolls = evolutionRolls };
             var movement = dice.ChooseByRoll(selectedTerrainType.MovementChart, "D6");
             result.Movement = movement.Movement;
-
-            //Size
-            var sizeRoll = (dice.D(selectedTerrainType.SizeDM) + dice.D(movement.SizeDM) + dice.D(2, 6)).Limit(1, 13);
-            var size = s_Templates.SizeTable.Single(sizeRoll);
-            result.Size = sizeRoll;
-            result.Movement = movement.Movement;
-            result.WeightKG = size.WeightKG;
-
-            //Attributes
-            result.Strength = dice.D(size.Strength) - terrainPenalty;
-            result.Dexterity = dice.D(size.Dexterity) - terrainPenalty;
-            result.Endurance = dice.D(size.Endurance) - terrainPenalty;
-            result.Pack = dice.D(2, 6) - terrainPenalty;
-            result.Instinct = dice.D(2, 6) - terrainPenalty;
-            result.Intelligence = 0 - terrainPenalty;
-
-            if (dice.D(6) >= 5)
-                result.Intelligence += 1;
+            result.InitiativeDM += animalClass.InitiativeDM;
 
             //Starting Skills
             foreach (var skill in animalClass.Skills)
@@ -159,24 +142,23 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             result.Behavior = behaviorMeta.Behavior;
             result.Attack = behavior.Attack.ToIntOrNull();
             result.Flee = behavior.Flee.ToIntOrNull();
+            result.InitiativeDM += behavior.InitiativeDM;
 
             //subtract the reaction to make it act like a DM
             result.Attack -= behaviorMeta.Reaction;
             result.Flee -= behaviorMeta.Reaction;
 
-            if (behavior.Feature != null)
-                result.Features.Add(behavior.Feature.Text);
+            if (behavior.Attributes != null)
+                foreach (var att in behavior.Attributes)
+                    result.Increase(att.Name, dice.D(att.Bonus));
 
-            if (behavior.Chart != null)
-            {
-                var option = dice.ChooseByRoll(behavior.Chart.Option, behavior.Chart.Roll);
-                if (option.Feature != null)
-                    result.Features.Add(behavior.Feature.Text);
-                if (option.Attribute != null)
-                    result.Increase(option.Attribute.Name, dice.D(option.Attribute.Bonus));
-                if (option.Skill != null)
-                    result.Skills.Increase(option.Skill.Name, option.Skill.Bonus);
-            }
+            if (behavior.Features != null)
+                foreach (var feature in behavior.Features)
+                    result.Features.Add(feature.Text);
+
+            if (behavior.Charts != null)
+                foreach (var chart in behavior.Charts)
+                    RollOnChart(result, chart, dice, chart.Roll);
 
             result.QuirkRolls += dice.D("D6") == 6 ? 1 : 0;
 
@@ -222,6 +204,28 @@ namespace Grauenwolf.TravellerTools.Animals.AE
                 RollOnChart(result, animalClass.Chart.Single(x => x.Name == "Quirks"), dice, "2D");
             }
 
+            //Size
+            var sizeRoll = (dice.D(selectedTerrainType.SizeDM) + dice.D(movement.SizeDM) + dice.D(2, 6)).Limit(1, 13);
+            var size = s_Templates.SizeTable.Single(sizeRoll);
+            result.Size = sizeRoll;
+            result.Movement = movement.Movement;
+            result.WeightKG = size.WeightKG;
+
+            //Attributes
+            result.Strength = dice.D(size.Strength) - terrainPenalty;
+            result.Dexterity = dice.D(size.Dexterity) - terrainPenalty;
+            result.Endurance = dice.D(size.Endurance) - terrainPenalty;
+            result.Pack = dice.D(2, 6) - terrainPenalty;
+            result.Instinct = dice.D(2, 6) - terrainPenalty;
+            result.Intelligence = 0 - terrainPenalty;
+
+            if (dice.D(6) >= 5)
+                result.Intelligence += 1;
+
+            //Weapons
+
+            //TODO: Weapons
+
             //Finishing touches
             result.NumberEncountered = s_Templates.NumberTable.Last(x => result.Pack.Limit(0, 15) >= x.MinValue).Number;
 
@@ -232,7 +236,13 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             result.Instinct = Math.Max(result.Instinct, 0);
             result.Intelligence = Math.Max(result.Intelligence, 0);
 
-            //TODO: Add initiative
+
+            switch (result.Diet)
+            {
+                case "Carnivore": result.InitiativeDM += 1; break;
+                case "Omnivore": break;
+                case "Herbivore": result.InitiativeDM += -1; break;
+            }
 
             return result;
         }
