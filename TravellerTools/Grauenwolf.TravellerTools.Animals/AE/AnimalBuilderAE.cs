@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grauenwolf.TravellerTools.Characters;
+using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
@@ -135,6 +136,22 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             foreach (var att in diet.Attribute)
                 result.Increase(att.Name, dice.D(att.Bonus));
 
+            var weaponDM = 0;
+            switch (result.Diet)
+            {
+                case "Carnivore":
+                    result.InitiativeDM += 1;
+                    weaponDM = 8;
+                    break;
+                case "Omnivore":
+                    weaponDM = 4;
+                    break;
+                case "Herbivore":
+                    result.InitiativeDM += -1;
+                    weaponDM = -6;
+                    break;
+            }
+
             //Behavior
             var behaviorMeta = dice.ChooseByRoll(diet.Behaviors, "1D");
             var behavior = BehaviorList.Single(x => x.Name == behaviorMeta.Behavior);
@@ -223,8 +240,14 @@ namespace Grauenwolf.TravellerTools.Animals.AE
                 result.Intelligence += 1;
 
             //Weapons
+            var baseDamage = s_Templates.DamageTable.Last(x => result.Strength >= x.MinValue).Damage;
 
-            //TODO: Weapons
+            var weapon = s_Templates.WeaponTable.Single((dice.D("2D6") + weaponDM).Limit(1, 20));
+            if (weapon.Weapon != "None")
+                result.Weapons.Add(new Weapon() { Name = weapon.Weapon, Damage = (baseDamage + weapon.Bonus) + "d6" });
+
+            //Armor
+            result.Armor = s_Templates.ArmorTable.Single(dice.D(2, 6)).Armor;
 
             //Finishing touches
             result.NumberEncountered = s_Templates.NumberTable.Last(x => result.Pack.Limit(0, 15) >= x.MinValue).Number;
@@ -237,12 +260,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             result.Intelligence = Math.Max(result.Intelligence, 0);
 
 
-            switch (result.Diet)
-            {
-                case "Carnivore": result.InitiativeDM += 1; break;
-                case "Omnivore": break;
-                case "Herbivore": result.InitiativeDM += -1; break;
-            }
+
 
             return result;
         }

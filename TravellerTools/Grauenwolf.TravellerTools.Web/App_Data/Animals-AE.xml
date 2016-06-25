@@ -552,141 +552,8 @@
     </Behavior>
   </Behaviors>
 
-  <!--
-  <AnimalTypeList>
-
-    <AnimalType Name="Herbivore" WeaponDM="-6" >
-      <Behavior Name="Filter">
-        <Attribute Name="Endurance" Add="4" Atttack="10+" Flee="5-" />
-      </Behavior>
-      <Behavior Name="Intermittent">
-        <Attribute Name="Pack" Add="4" Attack="10+" Flee="4-"/>
-      </Behavior>
-      <Behavior Name="Grazer" Attack="8+" Flee="6-">
-        <Attribute Name="Instinct" Add="2"/>
-        <Attribute Name="Pack" Add="4"/>
-      </Behavior>
-      <Option Behavior="Filter" Roll="2" />
-      <Option Behavior="Filter" Roll="1" />
-      <Option Behavior="Intermittent" Roll="3" />
-      <Option Behavior="Intermittent" Roll="4" />
-      <Option Behavior="Intermittent" Roll="5" />
-      <Option Behavior="Intermittent" Roll="6" />
-      <Option Behavior="Grazer" Roll="7" />
-      <Option Behavior="Grazer" Roll="8" />
-      <Option Behavior="Grazer" Roll="9" />
-      <Option Behavior="Grazer" Roll="10" />
-      <Option Behavior="Grazer" Roll="11" />
-      <Option Behavior="Grazer" Roll="12" />
-      <Option Behavior="Grazer" Roll="13" />
-    </AnimalType>
-
-    <AnimalType Name="Omnivore" WeaponDM="4">
-      <Behavior Name="Gatherer" Attack="9+" Flee="7-">
-        <Skill Name="Stealth" />
-        <Attribute Name="Pack" Add="2"/>
-      </Behavior>
-      <Behavior Name="Eater" Attack="5+" Flee="4-">
-        <Attribute Name="Endurance" Add="4" />
-        <Attribute Name="Pack" Add="2" />
-      </Behavior>
-
-      <Behavior Name="Hunter" Attack="6+ or 10+" Flee="5-">
-        <Skill Name="Survival" />
-        <Attribute Name="Instinct" Add="2"/>
-
-      </Behavior>
-      <Option Behavior="Gatherer" Roll="1" />
-      <Option Behavior="Eater" Roll="2" />
-      <Option Behavior="Gatherer" Roll="3" />
-      <Option Behavior="Eater" Roll="4" />
-      <Option Behavior="Gatherer" Roll="5" />
-      <Option Behavior="Hunter" Roll="6" />
-      <Option Behavior="Hunter" Roll="7" />
-      <Option Behavior="Hunter" Roll="8" />
-      <Option Behavior="Gatherer" Roll="9" />
-      <Option Behavior="Eater" Roll="10" />
-      <Option Behavior="Hunter" Roll="11" />
-      <Option Behavior="Gatherer" Roll="12" />
-      <Option Behavior="Hunter" Roll="13" />
-    </AnimalType>
-
-    <AnimalType Name="Carnivore" WeaponDM="8">
-      <Behavior Name="Pouncer" Attack="Has Surprise" Flee="Surprised">
-        <Skill Name="Stealth" />
-        <Skill Name="Recon" />
-        <Skill Name="Athletics" />
-        <Attribute Name="Dexterity" Add="4"/>
-        <Attribute Name="Instinct" Add="4"/>
-      </Behavior>
-      <Behavior Name="Siren" Attack="Has Surprise" Flee="4-">
-        <Skill Name="Deception"/>
-        <Attribute Name="Pack" Add="4"/>
-      </Behavior>
-      <Behavior Name="Killer" Attack="6+" Flee="3-">
-        <Attribute Name="Instinct" Add="4"/>
-        <Attribute Name="Pack" Add="-4"/>
-      </Behavior>
-      <Behavior Name="Trapper" Attack="Has Surprise" Flee="5-">
-        <Attribute Name="Pack" Add="-2"/>
-      </Behavior>
-      <Behavior Name="Chaser" Attack="Outnumbers" Flee="5-">
-        <Skill Name="Athletics (Coordination)" />
-        <Skill Name="Athletics (Endurance)"  />
-        <Attribute Name="Dexterity" Add="4" />
-        <Attribute Name="Instinct" Add="2" />
-        <Attribute Name="Pack" Add="2" />
-      </Behavior>
-      <Option Behavior="Pouncer" Roll="2" />
-      <Option Behavior="Siren" Roll="1" />
-      <Option Behavior="Pouncer" Roll="3" />
-      <Option Behavior="Killer" Roll="4" />
-      <Option Behavior="Trapper" Roll="5" />
-      <Option Behavior="Pouncer" Roll="6" />
-      <Option Behavior="Chaser" Roll="7" />
-      <Option Behavior="Chaser" Roll="8" />
-      <Option Behavior="Chaser" Roll="9" />
-      <Option Behavior="Killer" Roll="10" />
-      <Option Behavior="Chaser" Roll="11" />
-      <Option Behavior="Siren" Roll="12" />
-      <Option Behavior="Chaser" Roll="13" />
-    </AnimalType>
-
-    <AnimalType Name="Scavenger" WeaponDM="0">
-      <Behavior Name="Carrion-Eater" Attack="11+" Flee="7-">
-        <Skill Name="Recon" />
-        <Attribute Name="Instinct" Add="2" />
-      </Behavior>
-      <Behavior Name="Reducer" Attack="10+" Flee="7-">
-        <Attribute Name="Pack" Add="4"/>
-      </Behavior>
-      <Behavior Name="Hijacker" Attack="7+" Flee="6-">
-        <Attribute Name="Strength" Add="2"/>
-        <Attribute Name="Pack" Add="2"/>
-      </Behavior>
-      <Behavior Name="Intimidator" Attack="8+" Flee="7-">
-        <Skill Name="Persuade" />
-      </Behavior>
-      <Option Behavior="Carrion-Eater" Roll="1" />
-      <Option Behavior="Reducer" Roll="2" />
-      <Option Behavior="Hijacker" Roll="3" />
-      <Option Behavior="Carrion-Eater" Roll="4" />
-      <Option Behavior="Intimidator" Roll="5" />
-      <Option Behavior="Reducer" Roll="6" />
-      <Option Behavior="Carrion-Eater" Roll="7" />
-      <Option Behavior="Reducer" Roll="8" />
-      <Option Behavior="Hijacker" Roll="9" />
-      <Option Behavior="Intimidator" Roll="10" />
-      <Option Behavior="Reducer" Roll="11" />
-      <Option Behavior="Hijacker" Roll="12" />
-      <Option Behavior="Intimidator" Roll="13" />
-    </AnimalType>
-
-  </AnimalTypeList>
-
-  -->
   <WeaponTable>
-    <Weapon Roll="1"  Weapon="None" Bonus="" />
+    <Weapon Roll="1"  Weapon="None" Bonus="0" />
     <Weapon Roll="2"  Weapon="Teeth" Bonus="0" />
     <Weapon Roll="3"  Weapon="Horns" Bonus="0" />
     <Weapon Roll="4"  Weapon="Hooves" Bonus="0" />
@@ -699,7 +566,13 @@
     <Weapon Roll="11" Weapon="Claws" Bonus="2" />
     <Weapon Roll="12" Weapon="Teeth" Bonus="2" />
     <Weapon Roll="13" Weapon="Thrasher" Bonus="2" />
-    <!-- TODO: Needs 14 thru 20 -->
+    <Weapon Roll="14" Weapon="Claws and Teeth" Bonus="2" />
+    <Weapon Roll="15" Weapon="Claws" Bonus="2" />
+    <Weapon Roll="16" Weapon="Stringer" Bonus="2" />
+    <Weapon Roll="17" Weapon="Thrasher" Bonus="2" />
+    <Weapon Roll="18" Weapon="Teeth" Bonus="3" />
+    <Weapon Roll="19" Weapon="Clasws and Teeth" Bonus="3" />
+    <Weapon Roll="20" Weapon="Thrasher" Bonus="3" />
   </WeaponTable>
 
 
@@ -740,18 +613,14 @@
     <ArmorOption Roll="16" Armor="7" />
   </ArmorTable>
 
-
-
-
-
   <DamageTable>
-    <Strength MinValue="1"  Damage="1D6" />
-    <Strength MinValue="11" Damage="2D6" />
-    <Strength MinValue="21" Damage="3D6" />
-    <Strength MinValue="31" Damage="4D6" />
-    <Strength MinValue="41" Damage="5D6" />
-    <Strength MinValue="51" Damage="6D6" />
-    <Strength MinValue="60" Damage="7D6" />
+    <Strength MinValue="1"  Damage="1" />
+    <Strength MinValue="11" Damage="2" />
+    <Strength MinValue="21" Damage="3" />
+    <Strength MinValue="31" Damage="4" />
+    <Strength MinValue="41" Damage="5" />
+    <Strength MinValue="51" Damage="6" />
+    <Strength MinValue="60" Damage="7" />
   </DamageTable>
 
   <NumberTable>

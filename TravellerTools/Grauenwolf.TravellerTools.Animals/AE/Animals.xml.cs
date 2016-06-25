@@ -216,11 +216,11 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
     /// <remarks/>
     [XmlType(AnonymousType = true)]
-    public partial class AnimalTemplatesWeapon
+    public partial class WeaponTemplate
     {
         /// <remarks/>
         [XmlAttribute()]
-        public string Bonus { get; set; }
+        public int Bonus { get; set; }
 
         /// <remarks/>
         [XmlAttribute()]
@@ -473,7 +473,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
     {
         /// <remarks/>
         [XmlAttribute()]
-        public string Damage { get; set; }
+        public int Damage { get; set; }
 
         /// <remarks/>
         [XmlAttribute()]

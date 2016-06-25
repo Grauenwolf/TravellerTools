@@ -58,7 +58,6 @@
     <Compile Include="AE\AnimalBuilderAE.cs" />
     <Compile Include="AE\Animals.xml.cs" />
     <Compile Include="AE\Partials.cs" />
-    <Compile Include="AE\WeaponTemplate.cs" />
     <Compile Include="Mgt\Animal.cs" />
     <Compile Include="Mgt\AnimalBuilderMgt.cs" />
     <Compile Include="Mgt\Animals.xml.cs" />

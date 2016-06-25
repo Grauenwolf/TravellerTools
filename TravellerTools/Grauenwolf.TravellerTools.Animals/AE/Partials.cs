@@ -83,7 +83,7 @@
         }
     }
 
-    partial class AnimalTemplatesWeapon : ITablePick
+    partial class WeaponTemplate : ITablePick
     {
         public bool IsMatch(int value)
         {
