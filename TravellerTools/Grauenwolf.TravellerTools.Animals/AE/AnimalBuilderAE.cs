@@ -113,7 +113,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             //Type
             var result = new Animal() { TerrainType = selectedTerrainType.Name, AnimalClass = animalClassName, EvolutionRolls = evolutionRolls };
             var movement = dice.ChooseByRoll(selectedTerrainType.MovementChart, "D6");
-            result.Movement = movement.Movement;
+            result.Movement = !string.IsNullOrWhiteSpace(animalClass.Movement) ? animalClass.Movement : movement.Movement;
             result.InitiativeDM += animalClass.InitiativeDM;
 
             //Starting Skills
@@ -165,67 +165,56 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             result.Attack -= behaviorMeta.Reaction;
             result.Flee -= behaviorMeta.Reaction;
 
-            if (behavior.Attributes != null)
-                foreach (var att in behavior.Attributes)
-                    result.Increase(att.Name, dice.D(att.Bonus));
-
-            if (behavior.Features != null)
-                foreach (var feature in behavior.Features)
-                    result.Features.Add(feature.Text);
-
-            if (behavior.Charts != null)
-                foreach (var chart in behavior.Charts)
-                    RollOnChart(result, chart, dice, chart.Roll);
+            AddBehavior(result, behavior, dice);
 
             result.QuirkRolls += dice.D("D6") == 6 ? 1 : 0;
 
-            //Evolution Rolls
-            while (result.EvolutionRolls > 0)
+            //We do this in a loop because each chart can add rolls to other charts
+            while (result.QuirkRolls > 0 || result.EvolutionRolls > 0 || result.PhysicalSkills > 0 || result.SocialSkills > 0 || result.EvolutionSkills > 0)
             {
-                result.EvolutionRolls -= 1;
-                if (dice.D(2) == 0)
-                    RollOnChart(result, animalClass.Chart.Single(x => x.Name == "AdditionalSkills"), dice);
-                else
-                    RollOnChart(result, animalClass.Chart.Single(x => x.Name == "OtherBenefits"), dice);
-            }
 
-            //Skill Rolls
-            while (result.PhysicalSkills > 0 || result.SocialSkills > 0 || result.EvolutionSkills > 0)
-            {
-                if (result.PhysicalSkills > 0)
+                //Evolution Rolls
+                while (result.EvolutionRolls > 0)
+                {
+                    result.EvolutionRolls -= 1;
+                    if (dice.D(2) == 0)
+                        RollOnChart(result, animalClass.Chart.Single(x => x.Name == "AdditionalSkills"), dice, $"1D6+{result.EvolutionDM}");
+                    else
+                        RollOnChart(result, animalClass.Chart.Single(x => x.Name == "OtherBenefits"), dice, $"1D6+{result.EvolutionDM}");
+                }
+
+                //Skill Rolls
+
+                while (result.PhysicalSkills > 0)
                 {
                     result.PhysicalSkills -= 1;
                     RollOnChart(result, animalClass.Chart.Single(x => x.Name == "PhysicalSkills"), dice);
                 }
 
-                if (result.SocialSkills > 0)
+                while (result.SocialSkills > 0)
                 {
                     result.SocialSkills -= 1;
                     RollOnChart(result, animalClass.Chart.Single(x => x.Name == "SocialSkills"), dice);
                 }
 
-                if (result.EvolutionSkills > 0)
+                while (result.EvolutionSkills > 0)
                 {
                     result.EvolutionSkills -= 1;
                     RollOnChart(result, animalClass.Chart.Single(x => x.Name == "EvolutionSkills"), dice);
                 }
-            }
 
-            result.QuirkRolls += dice.Next(10) == 9 ? 1 : 0;
-
-            //Evolution Rolls
-            while (result.QuirkRolls > 0)
-            {
-                result.QuirkRolls -= 1;
-
-                RollOnChart(result, animalClass.Chart.Single(x => x.Name == "Quirks"), dice, "2D");
+                //Quirk Rolls
+                while (result.QuirkRolls > 0)
+                {
+                    result.QuirkRolls -= 1;
+                    RollOnChart(result, animalClass.Chart.Single(x => x.Name == "Quirks"), dice, "2D");
+                }
             }
 
             //Size
             var sizeRoll = (dice.D(selectedTerrainType.SizeDM) + dice.D(movement.SizeDM) + dice.D(2, 6)).Limit(1, 13);
             var size = s_Templates.SizeTable.Single(sizeRoll);
             result.Size = sizeRoll;
-            result.Movement = movement.Movement;
             result.WeightKG = size.WeightKG;
 
             //Attributes
@@ -258,11 +247,27 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             result.Pack = Math.Max(result.Pack, 0);
             result.Instinct = Math.Max(result.Instinct, 0);
             result.Intelligence = Math.Max(result.Intelligence, 0);
+            result.Armor = Math.Max(result.Armor, 0);
 
 
 
 
             return result;
+        }
+
+        private static void AddBehavior(Animal result, Behavior behavior, Dice dice)
+        {
+            if (behavior.Attributes != null)
+                foreach (var att in behavior.Attributes)
+                    result.Increase(att.Name, dice.D(att.Bonus));
+
+            if (behavior.Features != null)
+                foreach (var feature in behavior.Features)
+                    result.Features.Add(feature.Text);
+
+            if (behavior.Charts != null)
+                foreach (var chart in behavior.Charts)
+                    RollOnChart(result, chart, dice, chart.Roll);
         }
 
         static void RollOnChart(Animal result, Chart chart, Dice dice, string dieCode = "D6")
@@ -289,6 +294,17 @@ namespace Grauenwolf.TravellerTools.Animals.AE
                         result.Skills.Add(skill.Name, skill.Score);
                     else
                         result.Skills.Increase(skill.Name, skill.Bonus);
+
+            if (option.Behaviors != null)
+                foreach (var behaviorMeta in option.Behaviors)
+                {
+                    var behavior = BehaviorList.SingleOrDefault(x => x.Name == behaviorMeta.Name);
+                    if (behavior == null)
+                        throw new BookException($"Chart {chart.Name} referes to unknown behavior named '{behaviorMeta.Name}'");
+                    result.Behavior = result.Behavior + ", " + behavior.Name;
+                    AddBehavior(result, behavior, dice);
+                }
+
 
         }
     }

@@ -189,19 +189,8 @@
           <Skill Name="Survival" Bonus="2" />
         </Option>
         <Option Roll="7">
-          <Feature Text="Attractive Scent (Siren)" />
-          <Attribute Name="Pack" Bonus="-4"/>
-          <Skill Name="Deception" Bonus="1"/>
-          <Chart Roll="1D2">
-            <Option Roll="1">
-              <!-- No effect-->
-            </Option>
-            <Option Roll="2">
-              <Feature Text="Cannot Move" />
-              <Attribute Name="End" Bonus="2"/>
-              <Skill Name="Survival" Bonus="2" />
-            </Option>
-          </Chart>
+          <Feature Text="Attractive Scent" />
+          <AddBehavior Name="Siren"/>
         </Option>
         <Option Roll="8">
           <Feature Text="Loud scream when threatened"/>
@@ -224,12 +213,1014 @@
 
     </AnimalClass>
 
-    <AnimalClass Name="Aquatic" InitiativeDM="1" />
-    <AnimalClass Name="Avian"   InitiativeDM="2" />
-    <AnimalClass Name="Fungal"  InitiativeDM="-2" />
-    <AnimalClass Name="Insect"  InitiativeDM="0" />
-    <AnimalClass Name="Mammal"  InitiativeDM="1" />
-    <AnimalClass Name="Reptile" InitiativeDM="1" />
+    <AnimalClass Name="Aquatic" InitiativeDM="1" Movement="Swimmer">
+      <Diets>
+        <Option Odds="3" Diet="Carnivore" >
+          <Attribute Name="Dex" Bonus="1"/>
+          <Attribute Name="Pack" Bonus="4"/>
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Skill Name="Melee" Score="0" />
+          <Behaviors>
+            <Option Roll="1" Behavior="Killer" Reaction="-1" />
+            <Option Roll="2" Behavior="Hunter" Reaction="-2" />
+            <Option Roll="3" Behavior="Killer" Reaction="-1"/>
+            <Option Roll="4" Behavior="Killer" Reaction="0" />
+            <Option Roll="5" Behavior="Killer" Reaction="1" />
+            <Option Roll="6" Behavior="Chaser" Reaction="-2" />
+          </Behaviors>
+        </Option>
+        <Option Odds="2" Diet="Herbivore" >
+          <Attribute Name="SocialSkills" Bonus="1"/>
+          <Attribute Name="End" Bonus="1D6"/>
+          <Behaviors>
+            <Option Roll="1" Behavior="Filter" Reaction="-1" />
+            <Option Roll="2" Behavior="Filter" Reaction="0" />
+            <Option Roll="3" Behavior="Filter" Reaction="1"/>
+            <Option Roll="4" Behavior="Intermittent" Reaction="-1" />
+            <Option Roll="5" Behavior="Intermittent" Reaction="0" />
+            <Option Roll="6" Behavior="Grazer" Reaction="-2" />
+          </Behaviors>
+        </Option>
+        <Option Odds="1" Diet="Omnivore" >
+          <Attribute Name="Instinct" Bonus="1"/>
+          <Attribute Name="Pack" Bonus="2"/>
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Attribute Name="SocialSkills" Bonus="1"/>
+          <Skill Name="Melee" Score="0" />
+          <Behaviors>
+            <Option Roll="1" Behavior="Carrion-Eater" Reaction="-1" />
+            <Option Roll="2" Behavior="Eater" Reaction="-1" />
+            <Option Roll="3" Behavior="Eater" Reaction="0"/>
+            <Option Roll="4" Behavior="Eater" Reaction="1" />
+            <Option Roll="5" Behavior="Reducer" Reaction="-1" />
+            <Option Roll="6" Behavior="Reducer" Reaction="-2" />
+          </Behaviors>
+        </Option>
+      </Diets>
+      <Skills>
+        <Skill Name="Athletics" Score="0" />
+        <Skill Name="Recon" Score="0" />
+        <Skill Name="Survival" Score="0" />
+      </Skills>
+      <Chart Name="AdditionalSkills">
+        <Option Roll="1">
+          <Attribute Name="SocialSkills" Bonus="1"/>
+        </Option>
+        <Option Roll="2" >
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+        </Option>
+        <Option Roll="3">
+          <Attribute Name="SocialSkills" Bonus="2"/>
+        </Option>
+        <Option Roll="4">
+          <Attribute Name="SocialSkills" Bonus="1"/>
+          <Attribute Name="EvolutionSkills" Bonus="1"/>
+        </Option>
+        <Option Roll="5">
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Attribute Name="EvolutionSkills" Bonus="1"/>
+        </Option>
+        <Option Roll="6">
+          <Attribute Name="SocialSkills" Bonus="1"/>
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Attribute Name="EvolutionSkills" Bonus="1"/>
+        </Option>
+        <Option Roll="7" >
+          <Attribute Name="SocialSkills" Bonus="2"/>
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Attribute Name="EvolutionSkills" Bonus="1"/>
+        </Option>
+      </Chart>
+      <Chart Name="OtherBenefits">
+        <Option Roll="1">
+          <Attribute Name="Instinct" Bonus="2"/>
+        </Option>
+        <Option Roll="2" >
+          <Attribute Name="Pack" Bonus="2"/>
+        </Option>
+        <Option Roll="3">
+          <Attribute Name="Int" Bonus="2"/>
+        </Option>
+        <Option Roll="4">
+          <Attribute Name="Dex" Bonus="1D6"/>
+        </Option>
+        <Option Roll="5">
+          <Attribute Name="End" Bonus="1D6"/>
+        </Option>
+        <Option Roll="6">
+          <Attribute Name="QuirkRolls" Bonus="2"/>
+        </Option>
+        <Option Roll="7" >
+          <Attribute Name="EvolutionRolls" Bonus="2"/>
+        </Option>
+      </Chart>
+
+      <Chart Name="PhysicalSkills">
+        <Option Roll="1">
+          <Attribute Name="Dex" Bonus="1"/>
+        </Option>
+        <Option Roll="2" >
+          <Attribute Name="Dex" Bonus="2"/>
+        </Option>
+        <Option Roll="3">
+          <Attribute Name="End" Bonus="2"/>
+        </Option>
+        <Option Roll="4">
+          <Attribute Name="End" Bonus="4"/>
+        </Option>
+        <Option Roll="5">
+          <Attribute Name="Dex" Bonus="1D6"/>
+        </Option>
+        <Option Roll="6">
+          <Skill Name="Melee" Bonus="1"/>
+        </Option>
+      </Chart>
+
+      <Chart Name="SocialSkills">
+        <Option Roll="1">
+          <Attribute Name="Pack" Bonus="2"/>
+        </Option>
+        <Option Roll="2" >
+          <Attribute Name="Instinct" Bonus="1"/>
+        </Option>
+        <Option Roll="3">
+          <Skill Name="Deception" Bonus="1"/>
+        </Option>
+        <Option Roll="4">
+          <Attribute Name="Instinct" Bonus="1"/>
+        </Option>
+        <Option Roll="5">
+          <Attribute Name="Pack" Bonus="5"/>
+        </Option>
+        <Option Roll="6">
+          <Skill Name="Recon" Bonus="1"/>
+        </Option>
+      </Chart>
+
+      <Chart Name="EvolutionSkills">
+        <Option Roll="1">
+          <Feature Text="+1D6 Weapon Damage"/>
+        </Option>
+        <Option Roll="2" >
+          <Skill Name="Melee" Bonus="1"/>
+        </Option>
+        <Option Roll="3">
+          <Attribute Name="Instinct" Bonus="1"/>
+        </Option>
+        <Option Roll="4">
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+        </Option>
+        <Option Roll="5">
+          <Attribute Name="SocialSkills" Bonus="1"/>
+        </Option>
+        <Option Roll="6">
+          <Feature Text="Exotic Weapon"/>
+        </Option>
+      </Chart>
+
+      <Chart Name="Quirks">
+        <Option Roll="2">
+          <Feature Text="Bioluminescent eyes"/>
+        </Option>
+        <Option Roll="3">
+          <Feature Text="Never found alone. Will die in 1D6 days if isolated."/>
+        </Option>
+        <Option Roll="4">
+          <Feature Text="Frail: Armor drops to 0."/>
+          <Attribute Name="Armor" Bonus="-99" />
+          <AddBehavior Name="Pouncer"/>
+        </Option>
+        <Option Roll="5">
+          <Feature Text="Can live on land for 1D6 days"/>
+          <Feature Text="Move: Walker"/>
+        </Option>
+        <Option Roll="6">
+          <Attribute Name="Size" Bonus="1"/>
+        </Option>
+        <Option Roll="7">
+          <Feature Text="Hibernates for 3D6 days betweeen feedings"/>
+        </Option>
+        <Option Roll="8">
+          <Feature Text="Prone to mutation"/>
+          <Attribute Name="EvolutionRolls" Bonus="1" />
+        </Option>
+        <Option Roll="9">
+          <Feature Text="Reproduces asexually. Also found alone."/>
+          <Attribute Name="Pack" Bonus="-99"/>
+          <Attribute Name="End" Bonus="1D6"/>
+        </Option>
+        <Option Roll="10">
+          <Feature Text="Viciou. +1 Attack/Damage if wounded or attacking wounded opponents"/>
+        </Option>
+        <Option Roll="11">
+          <Feature Text="Unusually clever. Instrinct raised to 9+. Intelligence raised to 2+."/>
+        </Option>
+        <Option Roll="12">
+          <Attribute Name="Quirks" Bonus="2"/>
+        </Option>
+      </Chart>
+    </AnimalClass>
+
+
+    <!--<AnimalClass Name="Avian"   InitiativeDM="2"  >
+      <Diets>
+        <Option Odds="3" Diet="Carnivore" >
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Skill Name="Melee" Score="0" />
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+        <Option Odds="2" Diet="Herbivore" >
+          <Attribute Name="SocialSkills" Bonus="1"/>
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+        <Option Odds="1" Diet="Omnivore" >
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Attribute Name="SocialSkills" Bonus="1"/>
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+      </Diets>
+      <Skills>
+        <Skill Name="Athletics" Score="0" />
+        <Skill Name="Recon" Score="0" />
+        <Skill Name="Survival" Score="0" />
+      </Skills>
+      <Chart Name="AdditionalSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+        <Option Roll="7" >
+        </Option>
+      </Chart>
+      <Chart Name="OtherBenefits">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+          <Attribute Name="QuirkRolls" Bonus="2"/>
+        </Option>
+        <Option Roll="7" >
+          <Attribute Name="EvolutionRolls" Bonus="2"/>
+        </Option>
+      </Chart>
+
+      <Chart Name="PhysicalSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="SocialSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="EvolutionSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="Quirks">
+        <Option Roll="2">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="3">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="4">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="5">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="6">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="7">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="8">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="9">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="10">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="11">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="12">
+          <Attribute Name="Quirks" Bonus="2"/>
+        </Option>
+      </Chart>
+    </AnimalClass>-->
+
+    <!--<AnimalClass Name="Fungal"  InitiativeDM="-2" >
+      <Diets>
+        <Option Odds="" Diet="Carnivore" >
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Skill Name="Melee" Score="0" />
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+        <Option Odds="1" Diet="Herbivore" >
+          <Attribute Name="SocialSkills" Bonus="1"/>
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+        <Option Odds="3" Diet="Omnivore" >
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Attribute Name="SocialSkills" Bonus="1"/>
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+      </Diets>
+      <Skills>
+        <Skill Name="Athletics" Score="0" />
+        <Skill Name="Recon" Score="0" />
+        <Skill Name="Survival" Score="0" />
+      </Skills>
+      <Chart Name="AdditionalSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+        <Option Roll="7" >
+        </Option>
+      </Chart>
+      <Chart Name="OtherBenefits">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+          <Attribute Name="QuirkRolls" Bonus="2"/>
+        </Option>
+        <Option Roll="7" >
+          <Attribute Name="EvolutionRolls" Bonus="2"/>
+        </Option>
+      </Chart>
+
+      <Chart Name="PhysicalSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="SocialSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="EvolutionSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="Quirks">
+        <Option Roll="2">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="3">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="4">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="5">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="6">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="7">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="8">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="9">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="10">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="11">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="12">
+          <Attribute Name="Quirks" Bonus="2"/>
+        </Option>
+      </Chart>
+    </AnimalClass>-->
+
+    <!--<AnimalClass Name="Insect"  InitiativeDM="0" >
+      <Diets>
+        <Option Odds="" Diet="Carnivore" >
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Skill Name="Melee" Score="0" />
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+        <Option Odds="1" Diet="Herbivore" >
+          <Attribute Name="SocialSkills" Bonus="1"/>
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+        <Option Odds="3" Diet="Omnivore" >
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Attribute Name="SocialSkills" Bonus="1"/>
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+      </Diets>
+      <Skills>
+        <Skill Name="Athletics" Score="0" />
+        <Skill Name="Recon" Score="0" />
+        <Skill Name="Survival" Score="0" />
+      </Skills>
+      <Chart Name="AdditionalSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+        <Option Roll="7" >
+        </Option>
+      </Chart>
+      <Chart Name="OtherBenefits">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+          <Attribute Name="QuirkRolls" Bonus="2"/>
+        </Option>
+        <Option Roll="7" >
+          <Attribute Name="EvolutionRolls" Bonus="2"/>
+        </Option>
+      </Chart>
+
+      <Chart Name="PhysicalSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="SocialSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="EvolutionSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="Quirks">
+        <Option Roll="2">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="3">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="4">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="5">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="6">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="7">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="8">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="9">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="10">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="11">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="12">
+          <Attribute Name="Quirks" Bonus="2"/>
+        </Option>
+      </Chart>
+    </AnimalClass>-->
+
+    <!--<AnimalClass Name="Mammal"  InitiativeDM="1" >
+      <Diets>
+        <Option Odds="" Diet="Carnivore" >
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Skill Name="Melee" Score="0" />
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+        <Option Odds="1" Diet="Herbivore" >
+          <Attribute Name="SocialSkills" Bonus="1"/>
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+        <Option Odds="3" Diet="Omnivore" >
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Attribute Name="SocialSkills" Bonus="1"/>
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+      </Diets>
+      <Skills>
+        <Skill Name="Athletics" Score="0" />
+        <Skill Name="Recon" Score="0" />
+        <Skill Name="Survival" Score="0" />
+      </Skills>
+      <Chart Name="AdditionalSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+        <Option Roll="7" >
+        </Option>
+      </Chart>
+      <Chart Name="OtherBenefits">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+          <Attribute Name="QuirkRolls" Bonus="2"/>
+        </Option>
+        <Option Roll="7" >
+          <Attribute Name="EvolutionRolls" Bonus="2"/>
+        </Option>
+      </Chart>
+
+      <Chart Name="PhysicalSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="SocialSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="EvolutionSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="Quirks">
+        <Option Roll="2">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="3">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="4">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="5">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="6">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="7">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="8">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="9">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="10">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="11">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="12">
+          <Attribute Name="Quirks" Bonus="2"/>
+        </Option>
+      </Chart>
+    </AnimalClass>-->
+
+    <!--<AnimalClass Name="Reptile" InitiativeDM="1" >
+      <Diets>
+        <Option Odds="" Diet="Carnivore" >
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Skill Name="Melee" Score="0" />
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+        <Option Odds="1" Diet="Herbivore" >
+          <Attribute Name="SocialSkills" Bonus="1"/>
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+        <Option Odds="3" Diet="Omnivore" >
+          <Attribute Name="PhysicalSkills" Bonus="1"/>
+          <Attribute Name="SocialSkills" Bonus="1"/>
+          <Behaviors>
+            <Option Roll="1" Behavior="" Reaction="" />
+            <Option Roll="2" Behavior="" Reaction="" />
+            <Option Roll="3" Behavior="" Reaction=""/>
+            <Option Roll="4" Behavior="" Reaction="" />
+            <Option Roll="5" Behavior="" Reaction="" />
+            <Option Roll="6" Behavior="" Reaction="" />
+          </Behaviors>
+        </Option>
+      </Diets>
+      <Skills>
+        <Skill Name="Athletics" Score="0" />
+        <Skill Name="Recon" Score="0" />
+        <Skill Name="Survival" Score="0" />
+      </Skills>
+      <Chart Name="AdditionalSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+        <Option Roll="7" >
+        </Option>
+      </Chart>
+      <Chart Name="OtherBenefits">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+          <Attribute Name="QuirkRolls" Bonus="2"/>
+        </Option>
+        <Option Roll="7" >
+          <Attribute Name="EvolutionRolls" Bonus="2"/>
+        </Option>
+      </Chart>
+
+      <Chart Name="PhysicalSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="SocialSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="EvolutionSkills">
+        <Option Roll="1">
+        </Option>
+        <Option Roll="2" >
+        </Option>
+        <Option Roll="3">
+        </Option>
+        <Option Roll="4">
+        </Option>
+        <Option Roll="5">
+        </Option>
+        <Option Roll="6">
+        </Option>
+      </Chart>
+
+      <Chart Name="Quirks">
+        <Option Roll="2">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="3">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="4">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="5">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="6">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="7">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="8">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="9">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="10">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="11">
+          <Feature Text=""/>
+        </Option>
+        <Option Roll="12">
+          <Attribute Name="Quirks" Bonus="2"/>
+        </Option>
+      </Chart>
+    </AnimalClass>-->
 
 
   </AnimalClasses>
@@ -237,7 +1228,6 @@
   <Terrains>
     <Terrain Name="Clear"    	SizeDM="" >
       <AnimalClasses>
-        <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
         <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
       </AnimalClasses>
       <MovementChart>
@@ -329,7 +1319,7 @@
     </Terrain>
     <Terrain Name="Jungle"    	SizeDM="-3"	>
       <AnimalClasses>
-        <Option Odds="5" AnimalClass="Amphibian"  Penalty="-2"   />
+        <Option Odds="5" AnimalClass="Amphibian"  Penalty="0"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM=""    />
@@ -368,7 +1358,8 @@
     </Terrain>
     <Terrain Name="Swamp, Marsh"   SizeDM="+4"	>
       <AnimalClasses>
-        <Option Odds="5" AnimalClass="Amphibian"  Penalty="-2"   />
+        <Option Odds="5" AnimalClass="Amphibian"  Penalty="0"   />
+        <Option Odds="5" AnimalClass="Aquatic"  Penalty="0"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="-6"    />
@@ -381,7 +1372,8 @@
     </Terrain>
     <Terrain Name="Beach, Shore"   SizeDM="+2"	>
       <AnimalClasses>
-        <Option Odds="5" AnimalClass="Amphibian"  Penalty="-2"   />
+        <Option Odds="5" AnimalClass="Amphibian"  Penalty="0"   />
+        <Option Odds="5" AnimalClass="Aquatic"  Penalty="0"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="+1"    />
@@ -394,7 +1386,8 @@
     </Terrain>
     <Terrain Name="Riverbank"  SizeDM="+1"	>
       <AnimalClasses>
-        <Option Odds="5" AnimalClass="Amphibian"  Penalty="-2"   />
+        <Option Odds="5" AnimalClass="Amphibian"  Penalty="0"   />
+        <Option Odds="5" AnimalClass="Aquatic"  Penalty="0"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="-4"    />
@@ -407,7 +1400,8 @@
     </Terrain>
     <Terrain Name="Ocean shallows"   SizeDM="+1"	>
       <AnimalClasses>
-        <Option Odds="5" AnimalClass="Amphibian"  Penalty="-2"   />
+        <Option Odds="5" AnimalClass="Amphibian"  Penalty="0"   />
+        <Option Odds="5" AnimalClass="Aquatic"  Penalty="0"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="+4"    />
@@ -421,6 +1415,7 @@
     <Terrain Name="Open ocean"    	SizeDM="-4"	>
       <AnimalClasses>
         <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
+        <Option Odds="5" AnimalClass="Aquatic"  Penalty="0"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="+6"    />
@@ -434,6 +1429,7 @@
     <Terrain Name="Deep ocean"   SizeDM="+2"	>
       <AnimalClasses>
         <Option Odds="1" AnimalClass="Amphibian"  Penalty="-2"   />
+        <Option Odds="5" AnimalClass="Aquatic"  Penalty="0"   />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="+8"    />
@@ -482,13 +1478,14 @@
       <Attribute Name="Instinct" Bonus="2"/>
       <Skill Name="Survival" Bonus="1"/>
       <Skill Name="Recon" Bonus="1"/>
-      <Feature Text="If heavier than foe, attacks on 6+." />
+      <Feature Text="If heavier than foe, reduce Attacks On by 4." />
     </Behavior>
     <Behavior Name="Eater" Attack="5" Flee="4" InitiativeDM="1" >
       <Attribute Name="End" Bonus="4" />
       <Attribute Name="Pack" Bonus="4" />
     </Behavior>
     <Behavior Name="Pouncer" Attack="" Flee="" InitiativeDM="3">
+      <Feature Text="Attacks if it has surprise. Flees otherwise."/>
       <Attribute Name="Instinct" Bonus="2"/>
       <Attribute Name="Dex" Bonus="2"/>
       <Skill Name="Athletics" Bonus="1"/>
@@ -501,6 +1498,7 @@
       <Attribute Name="Pack" Bonus="2" />
     </Behavior>
     <Behavior Name="Trapper" Attack="" Flee="5" InitiativeDM="2">
+      <Feature Text="Attacks if it has surprise."/>
       <Skill Name="Stealth" Bonus="1"/>
       <Attribute Name="End" Bonus="1"/>
       <Attribute Name="Pack" Bonus="-2" />
@@ -510,10 +1508,11 @@
       <Skill Name="Deception" Bonus="1"/>
       <Chart Roll="1D2">
         <Option Roll="1">
-          <!-- No effect-->
+          <Feature Text="Attacks if it has surprise."/>
         </Option>
         <Option Roll="2">
           <Feature Text="Cannot Move" />
+          <Feature Text="Always attacks" />
           <Attribute Name="End" Bonus="2"/>
           <Skill Name="Survival" Bonus="2" />
         </Option>
@@ -531,7 +1530,7 @@
           <Attribute Name="Dex" Bonus="4"/>
         </Option>
       </Chart>
-    
+
     </Behavior>
     <Behavior Name="Hijacker" Attack="7" Flee="6" InitiativeDM="1">
       <Attribute Name="Str" Bonus="2"/>

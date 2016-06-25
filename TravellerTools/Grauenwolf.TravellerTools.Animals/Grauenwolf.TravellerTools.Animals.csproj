@@ -57,6 +57,7 @@
     <Compile Include="AE\Animal.cs" />
     <Compile Include="AE\AnimalBuilderAE.cs" />
     <Compile Include="AE\Animals.xml.cs" />
+    <Compile Include="AE\BookException.cs" />
     <Compile Include="AE\Partials.cs" />
     <Compile Include="Mgt\Animal.cs" />
     <Compile Include="Mgt\AnimalBuilderMgt.cs" />
