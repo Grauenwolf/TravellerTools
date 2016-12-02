@@ -1,6 +1,10 @@
 
+using System;
+
 namespace Grauenwolf.TravellerTools.Names
 {
+
+
 
 
     public class UserRoot
@@ -24,8 +28,8 @@ namespace Grauenwolf.TravellerTools.Names
         public Location location { get; set; }
         public string email { get; set; }
         public Login login { get; set; }
-        public int registered { get; set; }
-        public int dob { get; set; }
+        public string dob { get; set; }
+        public string registered { get; set; }
         public string phone { get; set; }
         public string cell { get; set; }
         public Id id { get; set; }
@@ -72,3 +76,5 @@ namespace Grauenwolf.TravellerTools.Names
     }
 
 }
+
+
