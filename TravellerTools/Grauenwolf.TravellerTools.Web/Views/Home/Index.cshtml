@@ -74,7 +74,27 @@
     <h2>Animal Encounters</h2>
     <ul>
         <li>@Html.ActionLink("Mongoose Whole Planet", "Animals", "Home")</li>
-        <li>@Html.ActionLink("Animal Encounters Whole Planet", "AnimalEncounters", "Home") Note: this requires <a href="http://www.drivethrurpg.com/product/93227/Supplement-11-Animal-Encounters">Supplment 11: Animal Encounters</a> to make sense. <b>PREVIEW</b></li>
+        <li>@Html.ActionLink("Animal Encounters Whole Planet", "AnimalEncounters", "Home") Note: this requires <a href="http://www.drivethrurpg.com/product/93227/Supplement-11-Animal-Encounters">Supplment 11: Animal Encounters</a> to make sense. <b>PREVIEW</b>
+        <ul>
+            <li>@Html.ActionLink("Clear", "AnimalEncounters", new { terrainType = "Clear"})</li>
+            <li>@Html.ActionLink("Plain or Prairie", "AnimalEncounters", new { terrainType = "Plain or Prairie" })</li>
+            <li>@Html.ActionLink("Desert (hot or cold)", "AnimalEncounters", new { terrainType = "Desert (hot or cold)" })</li>
+            <li>@Html.ActionLink("Hills, Foothills", "AnimalEncounters", new { terrainType = "Hills, Foothills" })</li>
+            <li>@Html.ActionLink("Mountain", "AnimalEncounters", new { terrainType = "Mountain" })</li>
+            <li>@Html.ActionLink("Forest", "AnimalEncounters", new { terrainType = "Forest" })</li>
+            <li>@Html.ActionLink("Woods", "AnimalEncounters", new { terrainType = "Woods" })</li>
+            <li>@Html.ActionLink("Jungle", "AnimalEncounters", new { terrainType = "Jungle" })</li>
+            <li>@Html.ActionLink("Rainforest", "AnimalEncounters", new { terrainType = "Rainforest" })</li>
+            <li>@Html.ActionLink("Rough, Broken", "AnimalEncounters", new { terrainType = "Rough, Broken" })</li>
+            <li>@Html.ActionLink("Swamp, Marsh", "AnimalEncounters", new { terrainType = "Swamp, Marsh" })</li>
+            <li>@Html.ActionLink("Beach, Shore", "AnimalEncounters", new { terrainType = "Beach, Shore" })</li>
+            <li>@Html.ActionLink("Riverbank", "AnimalEncounters", new { terrainType = "Riverbank" })</li>
+            <li>@Html.ActionLink("Ocean shallows", "AnimalEncounters", new { terrainType = "Ocean shallows" })</li>
+            <li>@Html.ActionLink("Open ocean", "AnimalEncounters", new { terrainType = "Open ocean" })</li>
+            <li>@Html.ActionLink("Deep ocean", "AnimalEncounters", new { terrainType = "Deep ocean" })</li>
+        </ul>
+        
+        </li>
     </ul>
 </div>
 

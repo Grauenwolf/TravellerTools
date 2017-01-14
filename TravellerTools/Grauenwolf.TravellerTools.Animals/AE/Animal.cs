@@ -1,4 +1,5 @@
 using Grauenwolf.TravellerTools.Characters;
+using System.Collections.Generic;
 using Tortuga.Anchor.Modeling;
 
 namespace Grauenwolf.TravellerTools.Animals.AE
@@ -51,6 +52,13 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         public WeaponCollection Weapons { get { return GetNew<WeaponCollection>(); } }
 
         public FeatureCollection Features { get { return GetNew<FeatureCollection>(); } }
+
+
+        /// <summary>
+        /// Gets the scripts to run at the very end of character creation.
+        /// </summary>
+        /// <value>The scripts.</value>
+        public List<string> PostScripts { get { return GetNew<List<string>>(); } }
 
 
         public int Armor { get { return Get<int>(); } set { Set(value); } }

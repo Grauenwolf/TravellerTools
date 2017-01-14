@@ -1,4 +1,5 @@
-﻿using Grauenwolf.TravellerTools.Characters;
+﻿using CSScriptLibrary;
+using Grauenwolf.TravellerTools.Characters;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -238,6 +239,11 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             //Armor
             result.Armor = s_Templates.ArmorTable.Single(dice.D(2, 6)).Armor;
 
+            //Run post-scripts
+            foreach (var script in result.PostScripts)
+                RunScript(result, script);
+            result.PostScripts.Clear();
+
             //Finishing touches
             result.NumberEncountered = s_Templates.NumberTable.Last(x => result.Pack.Limit(0, 15) >= x.MinValue).Number;
 
@@ -288,6 +294,10 @@ namespace Grauenwolf.TravellerTools.Animals.AE
                 foreach (var feature in option.Features)
                     result.Features.Add(feature.Text);
 
+            if (option.PostScripts != null)
+                foreach (var script in option.PostScripts)
+                    result.PostScripts.Add(script.Text);
+
             if (option.Skills != null)
                 foreach (var skill in option.Skills)
                     if (skill.ScoreSpecified)
@@ -307,5 +317,23 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
 
         }
+
+        public static void RunScript(Animal animal, string script)
+        {
+            try
+            {
+                var sayHello = CSScript.RoslynEvaluator.LoadDelegate<Action<Animal>>(
+                                          @"void SayHello(Grauenwolf.TravellerTools.Animals.AE.Animal animal)
+                                                         {
+                                                             " + script + @";
+                                                         }");
+                sayHello(animal);
+            }
+            catch (Exception ex)
+            {
+                throw new BookException("Error running script: " + Environment.NewLine + script, ex);
+            }
+        }
     }
 }
+

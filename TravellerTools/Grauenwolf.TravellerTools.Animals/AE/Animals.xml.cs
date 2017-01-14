@@ -346,6 +346,8 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         [XmlElement("Feature", typeof(FeatureTemplate))]
         public FeatureTemplate[] Features { get; set; }
 
+        [XmlElement("PostScript", typeof(PostScriptTemplate))]
+        public PostScriptTemplate[] PostScripts { get; set; }
 
         [XmlAttribute()]
         public byte Roll { get; set; }
@@ -399,6 +401,14 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         public byte Roll { get; set; }
     }
 
+    [XmlType(AnonymousType = true)]
+    public partial class PostScriptTemplate
+    {
+
+
+        [XmlAttribute()]
+        public string Text { get; set; }
+    }
 
     [XmlType(AnonymousType = true)]
     public partial class FeatureTemplate

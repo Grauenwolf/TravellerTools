@@ -28,5 +28,12 @@ namespace Grauenwolf.TravellerTools.Characters
             else
                 skill.Level = Math.Max(skill.Level, minLevel);
         }
+
+        public void Remove(string name)
+        {
+            var skill = this[name];
+            if (skill != null)
+                Remove(skill);
+        }
     }
 }
