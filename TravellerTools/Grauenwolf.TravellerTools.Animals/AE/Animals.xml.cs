@@ -27,6 +27,10 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         [XmlArrayItem("Skill", IsNullable = false)]
         public SkillTemplate[] Skills { get; set; }
 
+
+        [XmlArrayItem("Feature", IsNullable = false)]
+        public FeatureTemplate[] Features { get; set; }
+
         [XmlAttribute()]
         public int InitiativeDM { get; set; }
     }

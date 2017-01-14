@@ -1,6 +1,7 @@
 ﻿using CSScriptLibrary;
 using Grauenwolf.TravellerTools.Characters;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
@@ -124,6 +125,11 @@ namespace Grauenwolf.TravellerTools.Animals.AE
                 else
                     result.Skills.Increase(skill.Name, skill.Bonus);
 
+            //Class features
+            if (animalClass.Features != null)
+                foreach (var feature in animalClass.Features)
+                    result.Features.Add(feature.Text);
+
             //Diet
             var diet = dice.ChooseWithOdds(animalClass.Diets);
             result.Diet = diet.Diet;
@@ -241,7 +247,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
             //Run post-scripts
             foreach (var script in result.PostScripts)
-                RunScript(result, script);
+                RunScript(result, dice, script);
             result.PostScripts.Clear();
 
             //Finishing touches
@@ -318,16 +324,20 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
         }
 
-        public static void RunScript(Animal animal, string script)
+        static RoslynEvaluator s_Engine = CSScript.RoslynEvaluator;
+        static ConcurrentDictionary<string, Action<Animal, Dice>> s_CachedScripts = new ConcurrentDictionary<string, Action<Animal, Dice>>();
+
+        public static void RunScript(Animal animal, Dice dice, string script)
         {
             try
             {
-                var sayHello = CSScript.RoslynEvaluator.LoadDelegate<Action<Animal>>(
-                                          @"void SayHello(Grauenwolf.TravellerTools.Animals.AE.Animal animal)
-                                                         {
-                                                             " + script + @";
-                                                         }");
-                sayHello(animal);
+                var runScript = s_CachedScripts.GetOrAdd(script, s =>
+                             s_Engine.LoadDelegate<Action<Animal, Dice>>(
+                                                   @"void SayHello(Grauenwolf.TravellerTools.Animals.AE.Animal animal, Grauenwolf.TravellerTools.Dice dice)
+                                                                                     {
+                                                                                         " + s + @";
+                                                                                     }"));
+                runScript(animal, dice);
             }
             catch (Exception ex)
             {
