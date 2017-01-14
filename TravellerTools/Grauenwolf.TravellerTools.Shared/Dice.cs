@@ -80,6 +80,13 @@ namespace Grauenwolf.TravellerTools
             }
         }
 
+        /// <summary>
+        /// Chooses an item from the list. Each item must implement IHasOdds.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">The list.</param>
+        /// <returns>T.</returns>
+        /// <exception cref="System.Exception">This cannot happen</exception>
         public T ChooseWithOdds<T>(ICollection<T> list) where T : IHasOdds
         {
             var max = list.Sum(option => option.Odds);
@@ -93,6 +100,14 @@ namespace Grauenwolf.TravellerTools
             throw new Exception("This cannot happen");
         }
 
+        /// <summary>
+        /// Chooses an item from the list. Each item must implement ITablePick.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">The list.</param>
+        /// <param name="dieCode">The die code.</param>
+        /// <returns>T.</returns>
+        /// <exception cref="System.Exception"></exception>
         public T ChooseByRoll<T>(ICollection<T> list, string dieCode) where T : ITablePick
         {
             var roll = D(dieCode);
@@ -102,11 +117,6 @@ namespace Grauenwolf.TravellerTools
                 throw new Exception($"No entry for a roll of {roll}");
             return result;
         }
-    }
-
-    public interface IHasOdds
-    {
-        int Odds { get; }
     }
 
 }

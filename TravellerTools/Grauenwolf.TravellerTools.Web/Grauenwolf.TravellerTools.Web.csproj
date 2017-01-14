@@ -237,9 +237,6 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\WorldLocation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scripting.evaluator.cs" />
-    <Compile Include="Scripting.Extensions.cs" />
-    <Compile Include="Scripting.native.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

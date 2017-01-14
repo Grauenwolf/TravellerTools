@@ -652,7 +652,7 @@
         <Option Odds="1" Diet="Carnivore" >
           <Attribute Name="PhysicalSkills" Bonus="1"/>
           <Attribute Name="EvolutionSkills" Bonus="1"/>
-          <Skill Name="Str" Score="2" />
+          <Attribute Name="Str" Score="2" />
           <Skill Name="Melee" Score="0" />
           <Attribute Name="EvolutionRolls" Score="1" />
           <Behaviors>
@@ -667,8 +667,8 @@
         <Option Odds="1" Diet="Herbivore" >
           <Attribute Name="SocialSkills" Bonus="1"/>
           <Attribute Name="EvolutionSkills" Bonus="1"/>
-          <Skill Name="End" Score="2" />
-          <Skill Name="Pack" Score="2" />
+          <Attribute Name="End" Score="2" />
+          <Attribute Name="Pack" Score="2" />
           <Behaviors>
             <Option Roll="1" Behavior="Intermittent" Reaction="-2" />
             <Option Roll="2" Behavior="Intermittent" Reaction="-1" />
@@ -681,7 +681,7 @@
         <Option Odds="4" Diet="Omnivore" >
           <Attribute Name="PhysicalSkills" Bonus="1"/>
           <Attribute Name="EvolutionSkills" Bonus="1"/>
-          <Skill Name="EvolutionRolls" Score="1" />
+          <Attribute Name="EvolutionRolls" Score="1" />
           <Behaviors>
             <Option Roll="1" Behavior="Carrion-Eater" Reaction="-1" />
             <Option Roll="2" Behavior="Carrion-Eater" Reaction="0" />
@@ -1066,7 +1066,7 @@
         </Option>
         <Option Roll="6">
           <Feature Text="Solitary"/>
-          <Feature Text="If flying, add Pouncer behavior. Otherwise add trapper."/>
+          <Feature Text="If flying, add Pouncer behavior. Otherwise add Trapper behavior."/>
           <PostScript Text='animal.Pack = 0' />
         </Option>
         <Option Roll="7">
@@ -1083,7 +1083,9 @@
           <Feature Text="Exotic Weapon"/>
         </Option>
         <Option Roll="10">
-          <Feature Text="Decentralized Nervious System. If injured, has 50% chance of dividing into 2, each with 1/2 of the remaining End and 1/2 of the original damage. Will die is new insect is End 3 or less."/>
+          <Feature Text="Decentralized Nervious System."/>
+          <Feature Text="If injured, has 50% chance of dividing into 2, each with 1/2 of the remaining End and 1/2 of the original damage."/>
+          <Feature Text="Will die if new insect is End 3 or less."/>
         </Option>
         <Option Roll="11">
           <Feature Text="Hypnotic droning"/>
@@ -1852,6 +1854,7 @@
   </ArmorTable>
 
   <DamageTable>
+    <Strength MinValue="-999"  Damage="0" />
     <Strength MinValue="1"  Damage="1" />
     <Strength MinValue="11" Damage="2" />
     <Strength MinValue="21" Damage="3" />

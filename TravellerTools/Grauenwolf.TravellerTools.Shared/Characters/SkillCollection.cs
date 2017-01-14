@@ -11,6 +11,11 @@ namespace Grauenwolf.TravellerTools.Characters
             get { return this.FirstOrDefault(x => x.Name == name); }
         }
 
+        /// <summary>
+        /// Adds or improves the indicated skill.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="levels">The levels.</param>
         public void Increase(string name, int levels)
         {
             var skill = this[name];
@@ -20,6 +25,11 @@ namespace Grauenwolf.TravellerTools.Characters
                 skill.Level += levels;
         }
 
+        /// <summary>
+        /// Adds a skill if it doesn't already exist with the indicated minimum level.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="minLevel">The minimum level.</param>
         public void Add(string name, int minLevel = 0)
         {
             var skill = this[name];

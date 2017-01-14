@@ -7,28 +7,51 @@
 {
     <h2> @terrain.Key </h2>
 
-    <table>
 
-        @foreach (var animal in terrain.Value)
-        {
+    foreach (var animal in terrain.Value)
+    {
+        <table class="gridtable">
+
             <tr>
-                <th width="50" align="center">Roll</th>
-                <th width="250" align="center" colspan="5">Type</th>
-                <th width="50" align="center">Num.</th>
-                <th width="70" align="center">Move</th>
-                <th width="50" align="center">Str</th>
-                <th width="50" align="center">Dex</th>
-                <th width="50" align="center">End</th>
-                <th width="50" align="center">Int</th>
-                <th width="50" align="center">Ins</th>
-                <th width="50" align="center">Pack</th>
-                <th width="50" align="center">Size</th>
+                <th width="150" style="text-align:Left;" colspan="3">Name</th>
+                <th width="150" style="text-align:Left;" colspan="3">Type</th>
+                <th width="70" style="text-align:center;">Move</th>
             </tr>
             <tr>
-                <td>@animal.Roll</td>
-                <td colspan="5">@(animal.AnimalClass) (@animal.Diet / @animal.Behavior)</td>
-                <td>@animal.NumberEncountered</td>
+                <td colspan="3"></td>
+                <td colspan="3">@(animal.AnimalClass) (@animal.Diet / @animal.Behavior)</td>
                 <td>@animal.Movement</td>
+            </tr>
+            <tr>
+                <th style="text-align:center;">Roll</th>
+                <th style="text-align:center;">Number<br/>Appearing</th>
+                <th style="text-align:center;">Initiative<br />DM</th>
+                <th style="text-align:center;">Armor</th>
+                <th style="text-align:center;">Attacks on</th>
+                <th style="text-align:center;">Flees on</th>
+                <td colspan="1" rowspan="2"> <!--spacer--></td>
+            </tr>
+            <tr>
+
+                <td style="text-align:center;">@animal.Roll</td>
+                <td style="text-align:center;">@animal.NumberEncountered</td>
+                <td style="text-align:center;">@animal.InitiativeDM</td>
+                <td style="text-align:center;">@animal.Armor</td>
+                <td style="text-align:center;">@animal.Attack </td>
+                <td style="text-align:center;">@animal.Flee</td>
+
+            </tr>
+
+            <tr>
+                <th width="50" style="text-align:center;">Str</th>
+                <th width="50" style="text-align:center;">Dex</th>
+                <th width="50" style="text-align:center;">End</th>
+                <th width="50" style="text-align:center;">Int</th>
+                <th width="50" style="text-align:center;">Ins</th>
+                <th width="50" style="text-align:center;">Pack</th>
+                <th width="50" style="text-align:center;">Size</th>
+            </tr>
+            <tr>
                 <td>@(animal.Strength) (@animal.StrengthDM)</td>
                 <td>@(animal.Dexterity) (@animal.DexterityDM)</td>
                 <td>@(animal.Endurance) (@animal.EnduranceDM)</td>
@@ -37,52 +60,25 @@
                 <td>@(animal.Pack) (@animal.PackDM)</td>
                 <td>@animal.WeightKG.ToString("N0") kg</td>
             </tr>
+
             <tr>
                 <th>Skills</th>
-                <td colspan="10"> @( string.Join(", ", animal.Skills.Select(s => s.Name + " " + s.Level)))</td>
+                <td colspan="15"> @( string.Join(", ", animal.Skills.Select(s => s.Name + " " + s.Level)))</td>
             </tr>
             <tr>
-                <th>Initiative DM</th>
-                <td>@animal.InitiativeDM</td>
-                <th>Armor</th>
-                <td>@animal.Armor</td>
                 <th>Weapons</th>
-                <td colspan="8">@( string.Join(", ", animal.Weapons.Select(s => s.Name + " " + s.Damage)))</td>
+                <td colspan="15">@( string.Join(", ", animal.Weapons.Select(s => s.Name + " " + s.Damage)))</td>
             </tr>
-            <tr>
-                <th colspan="2">Attacks on</th>
-                <td colspan="3">@animal.Attack </td>
-                <th>Flees on</th>
-                <td colspan="3">@animal.Flee</td>
-            </tr>
-            foreach (var item in animal.Features)
+
+            @foreach (var item in animal.Features)
             {
                 <tr>
-                    <td colspan="10"> @( item.Text )</td>
+                    <td colspan="15"> @( item.Text )</td>
                 </tr>
             }
-            @*<tr>
-                <th>Debug</th>
-                <th>Unused Physical Skills</th>
-                <td>@(animal.PhysicalSkills)</td>
-                <th>Unused Social Skills</th>
-                <td>@(animal.SocialSkills)</td>
-                <th>Unused Evolution Skills</th>
-                <td>@(animal.EvolutionSkills)</td>
-                <th>Unused Quirks</th>
-                <td>@(animal.QuirkRolls)</td>
-                <th>Unused Evolutions</th>
-                <td>@(animal.EvolutionRolls)</td>
-                
-            </tr>*@
+        </table>
+        <hr />
+    }
 
-            <tr>
-                <td colspan="11">
-                    <hr />
-                </td>
-            </tr>
-        }
-
-    </table>
 
 }

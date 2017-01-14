@@ -225,14 +225,13 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             result.WeightKG = size.WeightKG;
 
             //Attributes
-            result.Strength = dice.D(size.Strength) - terrainPenalty;
-            result.Dexterity = dice.D(size.Dexterity) - terrainPenalty;
-            result.Endurance = dice.D(size.Endurance) - terrainPenalty;
-            result.Pack = dice.D(2, 6) - terrainPenalty;
-            result.Instinct = dice.D(2, 6) - terrainPenalty;
-            result.Intelligence = 0 - terrainPenalty;
+            result.Strength += dice.D(size.Strength) + terrainPenalty;
+            result.Dexterity += dice.D(size.Dexterity) + terrainPenalty;
+            result.Endurance += dice.D(size.Endurance) + terrainPenalty;
+            result.Pack += dice.D(2, 6) + terrainPenalty;
+            result.Instinct += dice.D(2, 6) + terrainPenalty;
 
-            if (dice.D(6) >= 5)
+            if (dice.D(6) + terrainPenalty >= 5)
                 result.Intelligence += 1;
 
             //Weapons
@@ -242,8 +241,19 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             if (weapon.Weapon != "None")
                 result.Weapons.Add(new Weapon() { Name = weapon.Weapon, Damage = (baseDamage + weapon.Bonus) + "d6" });
 
+
+            if (result.Weapons.Count > 0)
+                result.Skills.Add("Melee"); //always have melee if you have any weapons. Page 23
+
             //Armor
-            result.Armor = s_Templates.ArmorTable.Single(dice.D(2, 6)).Armor;
+            result.Armor += s_Templates.ArmorTable.Single(dice.D(2, 6)).Armor;
+
+            //Bonus skills
+            if (result.Skills.Count > 0)
+            {
+                var bonusSkills = dice.D(1, 6);
+                dice.Choose(result.Skills).Level += 1;
+            }
 
             //Run post-scripts
             foreach (var script in result.PostScripts)

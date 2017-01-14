@@ -87,7 +87,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         public AnimalTemplatesAnimalClassChartOptionChartOptionFeature Feature { get; set; }
 
         [XmlAttribute()]
-        public byte Roll { get; set; }
+        public int Roll { get; set; }
 
 
         public AnimalTemplatesAnimalClassChartOptionChartOptionSkill Skill { get; set; }
@@ -99,7 +99,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
     {
 
         [XmlAttribute()]
-        public byte Bonus { get; set; }
+        public int Bonus { get; set; }
 
 
         [XmlAttribute()]
@@ -122,7 +122,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
     {
 
         [XmlAttribute()]
-        public byte Bonus { get; set; }
+        public int Bonus { get; set; }
 
 
         [XmlAttribute()]
@@ -141,7 +141,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
     {
 
         [XmlAttribute()]
-        public byte Bonus { get; set; }
+        public int Bonus { get; set; }
 
 
         [XmlAttribute()]
@@ -176,7 +176,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
     {
 
         [XmlAttribute()]
-        public byte Bonus { get; set; }
+        public int Bonus { get; set; }
 
 
         [XmlAttribute()]
@@ -198,7 +198,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
 
         [XmlAttribute()]
-        public byte Odds { get; set; }
+        public int Odds { get; set; }
 
         [XmlAttribute()]
         public sbyte Penalty { get; set; }
@@ -215,7 +215,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
 
         [XmlAttribute()]
-        public byte Roll { get; set; }
+        public int Roll { get; set; }
 
         [XmlAttribute()]
         public string SizeDM { get; set; }
@@ -231,7 +231,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
 
         [XmlAttribute()]
-        public byte Roll { get; set; }
+        public int Roll { get; set; }
 
 
         [XmlAttribute()]
@@ -244,11 +244,11 @@ namespace Grauenwolf.TravellerTools.Animals.AE
     {
 
         [XmlAttribute()]
-        public byte Armor { get; set; }
+        public int Armor { get; set; }
 
 
         [XmlAttribute()]
-        public byte Roll { get; set; }
+        public int Roll { get; set; }
     }
 
 
@@ -315,7 +315,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
 
         [XmlAttribute()]
-        public byte Roll { get; set; }
+        public int Roll { get; set; }
     }
 
 
@@ -354,7 +354,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         public PostScriptTemplate[] PostScripts { get; set; }
 
         [XmlAttribute()]
-        public byte Roll { get; set; }
+        public int Roll { get; set; }
 
         [XmlElement("Skill", typeof(SkillTemplate))]
         public SkillTemplate[] Skills { get; set; }
@@ -398,11 +398,11 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
 
         [XmlAttribute()]
-        public byte Evolution { get; set; }
+        public int Evolution { get; set; }
 
 
         [XmlAttribute()]
-        public byte Roll { get; set; }
+        public int Roll { get; set; }
     }
 
     [XmlType(AnonymousType = true)]
@@ -437,7 +437,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
 
         [XmlAttribute()]
-        public byte MinValue { get; set; }
+        public int MinValue { get; set; }
 
 
         [XmlAttribute()]
@@ -458,7 +458,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
 
         [XmlAttribute()]
-        public byte Roll { get; set; }
+        public int Roll { get; set; }
 
 
         [XmlAttribute()]
@@ -488,7 +488,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         public string Name { get; set; }
 
         [XmlAttribute()]
-        public byte Score { get; set; }
+        public int Score { get; set; }
 
 
         [System.Xml.Serialization.XmlIgnoreAttribute()]
@@ -505,7 +505,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
 
         [XmlAttribute()]
-        public byte MinValue { get; set; }
+        public int MinValue { get; set; }
     }
 
 

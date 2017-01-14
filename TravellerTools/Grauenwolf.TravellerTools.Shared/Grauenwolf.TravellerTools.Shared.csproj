@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookException.cs" />
     <Compile Include="Characters\Feature.cs" />
     <Compile Include="Characters\FeatureCollection.cs" />
     <Compile Include="Characters\Person.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Edition.cs" />
     <Compile Include="EHex.cs" />
     <Compile Include="Helpers.cs" />
+    <Compile Include="IHasOdds.cs" />
     <Compile Include="ITablePick.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

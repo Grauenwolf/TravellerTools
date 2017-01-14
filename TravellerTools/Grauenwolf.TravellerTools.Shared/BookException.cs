@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace Grauenwolf.TravellerTools.Animals.AE
+namespace Grauenwolf.TravellerTools
 {
     [Serializable]
-    internal class BookException : Exception
+    public class BookException : Exception
     {
         public BookException()
         {
