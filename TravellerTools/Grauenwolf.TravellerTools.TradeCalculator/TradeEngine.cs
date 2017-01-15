@@ -76,9 +76,16 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             result.HexY = hexY;
             result.MaxJumpDistance = maxJumpDistance;
             result.BerthingCost = CalculateBerthignCost(result.Origin, random);
+            result.AdvancedMode = advancedMode;
+            result.IllegalGoods = illegalGoods;
+            result.BrokerScore = brokerScore;
+
+            OnManifestsBuilt(result);
 
             return result;
         }
+
+        internal abstract void OnManifestsBuilt(ManifestCollection result);
 
         public TradeList BuildTradeList(World origin, bool advancedMode, bool illegalGoods, int brokerScore)
         {

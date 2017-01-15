@@ -35,9 +35,9 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             ManifestCollection model = null;
 
             if (edition == Edition.MGT)
-                model = await Global.TradeEngine1.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore);
+                model = await Global.TradeEngineMgt.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore);
             else if (edition == Edition.MGT2)
-                model = await Global.TradeEngine2.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore);
+                model = await Global.TradeEngineMgt2.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore);
 
             return View(model);
         }

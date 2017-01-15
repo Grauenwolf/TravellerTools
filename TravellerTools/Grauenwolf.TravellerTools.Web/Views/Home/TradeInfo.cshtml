@@ -57,10 +57,28 @@
 <h3>Available Trade Goods</h3>
 <p>Purchase DM does not include broker score.<br />Price modifier and current price include purchase DM, broker score, and random roll.</p>
 <table class="gridtable">
-    <tr><th>Type</th><th>Subtype</th><th>Tons</th><th>Base Price</th> <th>Purchase DM</th><th>Price Modifier</th><th>Current Price</th><th>Modified Roll</th></tr>
+    <tr>
+        <th>Type</th>
+        <th>Subtype</th>
+        <th>Tons</th>
+        <th>Base Price</th>
+        <th>Purchase DM</th>
+        <th>Modified Roll</th>
+        <th>Price Modifier</th>
+        <th>Current Price</th>
+    </tr>
     @foreach (var lot in Model.TradeList.Lots)
     {
-        <tr><td>@lot.Type</td><td>@lot.Subtype</td><td>@lot.Tons</td><td>@lot.BasePrice.ToString("N0")</td><td>@lot.PurchaseDM</td><td>@lot.PriceModifier.ToString("P2")</td><td>@lot.CurrentPrice.ToString("N0")</td><td>@lot.Roll.ToString("N0")</td></tr>
+        <tr>
+            <td>@lot.Type</td>
+            <td>@lot.Subtype</td>
+            <td>@lot.Tons</td>
+            <td>@lot.BasePrice.ToString("N0")</td>
+            <td>@lot.PurchaseDM</td>
+            <td>@lot.Roll.ToString("N0")</td>
+            <td>@lot.PriceModifier.ToString("P2")</td>
+            <td>@lot.CurrentPrice.ToString("N0")</td>
+        </tr>
     }
 </table>
 
@@ -68,10 +86,26 @@
 <h3>Desired Goods</h3>
 <p>Sale DM does not include broker score.<br />Price modifier and current price include sale DM, broker score, and random roll.</p>
 <table class="gridtable">
-    <tr><th>Type</th><th>Subtype</th><th>Base Price</th> <th>Sale DM</th><th>Price Modifier</th><th>Current Price</th><th>Modified Roll</th></tr>
+    <tr>
+        <th>Type</th>
+        <th>Subtype</th>
+        <th>Base Price</th>
+        <th>Sale DM</th>
+        <th>Modified Roll</th>
+        <th>Price Modifier</th>
+        <th>Current Price</th>
+    </tr>
     @foreach (var lot in Model.TradeList.Bids)
     {
-        <tr><td>@lot.Type</td><td>@lot.Subtype</td><td>@lot.BasePrice.ToString("N0")</td><td>@lot.SaleDM</td><td>@lot.PriceModifier.ToString("P2")</td><td>@lot.CurrentPrice.ToString("N0")</td><td>@lot.Roll.ToString("N0")</td></tr>
+        <tr>
+            <td>@lot.Type</td>
+            <td>@lot.Subtype</td>
+            <td>@lot.BasePrice.ToString("N0")</td>
+            <td>@lot.SaleDM</td>
+            <td>@lot.Roll.ToString("N0")</td>
+            <td>@lot.PriceModifier.ToString("P2")</td>
+            <td>@lot.CurrentPrice.ToString("N0")</td>
+        </tr>
     }
 </table>
 
@@ -80,58 +114,63 @@
     current = manifest.Destination;
 
     <hr />
-    <a href=@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}", @current.SectorX, @current.SectorY, @current.HexX, @current.HexY, @Model.MaxJumpDistance)><h2>Destination: @current.Name</h2></a>
+    <a href=@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}",
+           current.SectorX, current.SectorY, current.HexX, current.HexY, Model.MaxJumpDistance,
+           Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition
+           )><h2>Destination: @current.Name</h2></a>
 
-    <h3>Planet Info</h3>
-    <table class="gridtable">
 
-        <tr>
-            <th>Planet</th>
-            <td><a href=@string.Format("http://wiki.travellerrpg.com/{0}_(world)", current.Name) target="_blank">@current.Name</a></td>
-            <th>Subsector</th>
-            <td><a href=@string.Format("http://wiki.travellerrpg.com/{0}_Subsector", current.SubsectorName) target="_blank">@current.SubsectorName</a></td>
-            <th>Sector</th>
-            <td><a href=@string.Format("http://wiki.travellerrpg.com/{0}_Sector", current.Sector) target="_blank">@current.Sector</a></td>
-            <th>Coordinates</th>
-            <td>
-                <a href=@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", current.SectorX, current.SectorY, current.HexX, current.HexY) target="_blank">@current.SectorX,@current.SectorY Hex @current.Hex</a>
-            </td>
-        </tr>
-    </table>
-    <div>&nbsp;</div>
-    <table class="gridtable">
 
-        <tr><th>Starport</th><td>@current.StarportCode</td><td colspan="5" width="500">@current.StarportDescription</td></tr>
-        <tr><th>Berthing Cost</th><td /><td colspan="5">@Model.BerthingCost.ToString("N0")</td></tr>
-        <tr><th>Size</th><td>@current.SizeCode</td><td colspan="5">@current.SizeKM.ToString("N0")</td></tr>
-        <tr><th>Atmosphere</th><td>@current.AtmosphereCode</td><td colspan="5">@current.AtmosphereDescription</td></tr>
-
-        <tr><th>Hydrographics</th><td>@current.HydrographicsCode</td><td colspan="5">@current.Hydrographics</td></tr>
-
-        <tr><th>Population</th><td>@current.PopulationCode</td><td colspan="5">@current.Population.ToString("N0")</td></tr>
-        <tr><th>Government</th><td>@current.GovernmentCode</td><td colspan="5">@current.GovernmentType</td></tr>
-        <tr><th>Law</th><td>@current.LawCode</td><td colspan="5">@current.LawLevel</td></tr>
-        <tr><th>Tech</th><td>@current.TechCode</td><td colspan="5">@current.TechLevel</td></tr>
-        <tr><th>Remarks</th><td colspan="6">@current.RemarksDescription</td></tr>
-    </table>
-
-    <h3>Travel Info</h3>
-    <div style="display: inline-block; vertical-align: top">
-
+        <h3>Planet Info</h3>
         <table class="gridtable">
-            <tr><th>Thrust</th><th>Transit Time to Jump Point</th></tr>
-            <tr><td>1</td><td>@current.TransitTimeJumpPoint(1).ToString("h'h 'm'm 's's'")</td></tr>
-            <tr><td>2</td><td>@current.TransitTimeJumpPoint(2).ToString("h'h 'm'm 's's'")</td></tr>
-            <tr><td>3</td><td>@current.TransitTimeJumpPoint(3).ToString("h'h 'm'm 's's'")</td></tr>
-            <tr><td>4</td><td>@current.TransitTimeJumpPoint(4).ToString("h'h 'm'm 's's'")</td></tr>
-            <tr><td>5</td><td>@current.TransitTimeJumpPoint(5).ToString("h'h 'm'm 's's'")</td></tr>
-            <tr><td>6</td><td>@current.TransitTimeJumpPoint(6).ToString("h'h 'm'm 's's'")</td></tr>
+
+            <tr>
+                <th>Planet</th>
+                <td><a href=@string.Format("http://wiki.travellerrpg.com/{0}_(world)", current.Name) target="_blank">@current.Name</a></td>
+                <th>Subsector</th>
+                <td><a href=@string.Format("http://wiki.travellerrpg.com/{0}_Subsector", current.SubsectorName) target="_blank">@current.SubsectorName</a></td>
+                <th>Sector</th>
+                <td><a href=@string.Format("http://wiki.travellerrpg.com/{0}_Sector", current.Sector) target="_blank">@current.Sector</a></td>
+                <th>Coordinates</th>
+                <td>
+                    <a href=@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", current.SectorX, current.SectorY, current.HexX, current.HexY) target="_blank">@current.SectorX,@current.SectorY Hex @current.Hex</a>
+                </td>
+            </tr>
         </table>
-    </div>
-    <div style="display: inline-block; vertical-align: top">
-        <img src=@String.Format("http://travellermap.com/api/jumpmap?sx={0}&sy={1}&hx={2}&hy={3}&jump={4}&scale=48&style=print", @current.SectorX, @current.SectorY, @current.HexX, @current.HexY, @Model.MaxJumpDistance) />
-    </div>
-    <h3>Passengers</h3>
+        <div>&nbsp;</div>
+        <table class="gridtable">
+
+            <tr><th>Starport</th><td>@current.StarportCode</td><td colspan="5" width="500">@current.StarportDescription</td></tr>
+            <tr><th>Berthing Cost</th><td /><td colspan="5">@Model.BerthingCost.ToString("N0")</td></tr>
+            <tr><th>Size</th><td>@current.SizeCode</td><td colspan="5">@current.SizeKM.ToString("N0")</td></tr>
+            <tr><th>Atmosphere</th><td>@current.AtmosphereCode</td><td colspan="5">@current.AtmosphereDescription</td></tr>
+
+            <tr><th>Hydrographics</th><td>@current.HydrographicsCode</td><td colspan="5">@current.Hydrographics</td></tr>
+
+            <tr><th>Population</th><td>@current.PopulationCode</td><td colspan="5">@current.Population.ToString("N0")</td></tr>
+            <tr><th>Government</th><td>@current.GovernmentCode</td><td colspan="5">@current.GovernmentType</td></tr>
+            <tr><th>Law</th><td>@current.LawCode</td><td colspan="5">@current.LawLevel</td></tr>
+            <tr><th>Tech</th><td>@current.TechCode</td><td colspan="5">@current.TechLevel</td></tr>
+            <tr><th>Remarks</th><td colspan="6">@current.RemarksDescription</td></tr>
+        </table>
+
+        <h3>Travel Info</h3>
+        <div style="display: inline-block; vertical-align: top">
+
+            <table class="gridtable">
+                <tr><th>Thrust</th><th>Transit Time to Jump Point</th></tr>
+                <tr><td>1</td><td>@current.TransitTimeJumpPoint(1).ToString("h'h 'm'm 's's'")</td></tr>
+                <tr><td>2</td><td>@current.TransitTimeJumpPoint(2).ToString("h'h 'm'm 's's'")</td></tr>
+                <tr><td>3</td><td>@current.TransitTimeJumpPoint(3).ToString("h'h 'm'm 's's'")</td></tr>
+                <tr><td>4</td><td>@current.TransitTimeJumpPoint(4).ToString("h'h 'm'm 's's'")</td></tr>
+                <tr><td>5</td><td>@current.TransitTimeJumpPoint(5).ToString("h'h 'm'm 's's'")</td></tr>
+                <tr><td>6</td><td>@current.TransitTimeJumpPoint(6).ToString("h'h 'm'm 's's'")</td></tr>
+            </table>
+        </div>
+        <div style="display: inline-block; vertical-align: top">
+            <img src=@String.Format("http://travellermap.com/api/jumpmap?sx={0}&sy={1}&hx={2}&hy={3}&jump={4}&scale=48&style=print", @current.SectorX, @current.SectorY, @current.HexX, @current.HexY, @Model.MaxJumpDistance) />
+        </div>
+        <h3>Passengers</h3>
 
     if (manifest.PassengerList.Passengers.Count > 0)
     {

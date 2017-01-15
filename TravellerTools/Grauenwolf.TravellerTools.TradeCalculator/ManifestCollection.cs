@@ -15,5 +15,13 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public TradeList TradeList { get; set; }
 
         public int BerthingCost { get; set; }
+
+
+
+        public int BrokerScore { get; set; }
+        public bool? AdvancedMode { get; set; }
+        public bool? IllegalGoods { get; set; }
+        public Edition Edition { get; set; }
+
     }
 }

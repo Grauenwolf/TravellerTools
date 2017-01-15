@@ -242,6 +242,10 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             }
 
         }
+        internal override void OnManifestsBuilt(ManifestCollection result)
+        {
+            result.Edition = Edition.MGT2;
+        }
     }
 }
 

@@ -19,14 +19,14 @@ namespace Grauenwolf.TravellerTools.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             string appDataPath = Server.MapPath("~/app_data");
-            TradeEngine1.SetDataPath(appDataPath);
-            TradeEngine2.SetDataPath(appDataPath);
+            TradeEngineMgt.SetDataPath(appDataPath);
+            TradeEngineMgt2.SetDataPath(appDataPath);
             AnimalBuilderMgt.SetDataPath(appDataPath);
             AnimalBuilderAE.SetDataPath(appDataPath);
 
         }
 
-        public static readonly TradeEngine TradeEngine1 = new TradeEngineMgt();
-        public static readonly TradeEngine TradeEngine2 = new TradeEngineMgt2();
+        public static readonly TradeEngine TradeEngineMgt = new TradeEngineMgt();
+        public static readonly TradeEngine TradeEngineMgt2 = new TradeEngineMgt2();
     }
 }
