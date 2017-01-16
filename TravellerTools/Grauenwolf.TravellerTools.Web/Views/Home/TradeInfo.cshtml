@@ -5,6 +5,7 @@
 
 @{
     var current = Model.Origin;
+    var timeFormat = "h'h 'm'm 's's'";
 }
 <h2>Origin: @current.Name</h2>
 <h3>Planet Info</h3>
@@ -28,7 +29,7 @@
 
     <tr><th>Starport</th><td>@current.StarportCode</td><td colspan="5" width="500">@current.StarportDescription</td></tr>
     <tr><th>Berthing Cost</th><td /><td colspan="5">@Model.BerthingCost.ToString("N0")</td></tr>
-    <tr><th>Size</th><td>@current.SizeCode</td><td colspan="5">@current.SizeKM.ToString("N0")</td></tr>
+    <tr><th>Size</th><td>@current.SizeCode</td><td colspan="5">@current.SizeKM.ToString("N0") km</td></tr>
     <tr><th>Atmosphere</th><td>@current.AtmosphereCode</td><td colspan="5">@current.AtmosphereDescription</td></tr>
 
     <tr><th>Hydrographics</th><td>@current.HydrographicsCode</td><td colspan="5">@current.Hydrographics</td></tr>
@@ -42,13 +43,14 @@
 <h3>Travel Info</h3>
 <div style="display: inline-block; vertical-align: top">
     <table class="gridtable">
-        <tr><th>Thrust</th><th>Transit Time to Jump Point</th></tr>
-        <tr><td>1</td><td>@current.TransitTimeJumpPoint(1).ToString("h'h 'm'm 's's'")</td></tr>
-        <tr><td>2</td><td>@current.TransitTimeJumpPoint(2).ToString("h'h 'm'm 's's'")</td></tr>
-        <tr><td>3</td><td>@current.TransitTimeJumpPoint(3).ToString("h'h 'm'm 's's'")</td></tr>
-        <tr><td>4</td><td>@current.TransitTimeJumpPoint(4).ToString("h'h 'm'm 's's'")</td></tr>
-        <tr><td>5</td><td>@current.TransitTimeJumpPoint(5).ToString("h'h 'm'm 's's'")</td></tr>
-        <tr><td>6</td><td>@current.TransitTimeJumpPoint(6).ToString("h'h 'm'm 's's'")</td></tr>
+        <tr><th>Thrust</th><th>Transit Time to Jump Point</th><th>Early Jump</th><th>Late Jump</th></tr>
+        <tr><th>Min. Distance</th><td>@current.JumpDistanceKM(100).ToString("N0") km</td><td>@current.JumpDistanceKM(90).ToString("N0") km</td><td>@current.JumpDistanceKM(150).ToString("N0") km</td></tr>
+        <tr><td>1</td><td>@current.TransitTimeJumpPoint(1).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(1, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(1, 150).ToString(timeFormat)</td></tr>
+        <tr><td>2</td><td>@current.TransitTimeJumpPoint(2).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(2, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(2, 150).ToString(timeFormat)</td></tr>
+        <tr><td>3</td><td>@current.TransitTimeJumpPoint(3).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(3, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(3, 150).ToString(timeFormat)</td></tr>
+        <tr><td>4</td><td>@current.TransitTimeJumpPoint(4).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(4, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(4, 150).ToString(timeFormat)</td></tr>
+        <tr><td>5</td><td>@current.TransitTimeJumpPoint(5).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(5, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(5, 150).ToString(timeFormat)</td></tr>
+        <tr><td>6</td><td>@current.TransitTimeJumpPoint(6).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(6, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(6, 150).ToString(timeFormat)</td></tr>
     </table>
 </div>
 <div style="display: inline-block; vertical-align: top">
@@ -142,7 +144,7 @@
 
             <tr><th>Starport</th><td>@current.StarportCode</td><td colspan="5" width="500">@current.StarportDescription</td></tr>
             <tr><th>Berthing Cost</th><td /><td colspan="5">@Model.BerthingCost.ToString("N0")</td></tr>
-            <tr><th>Size</th><td>@current.SizeCode</td><td colspan="5">@current.SizeKM.ToString("N0")</td></tr>
+            <tr><th>Size</th><td>@current.SizeCode</td><td colspan="5">@current.SizeKM.ToString("N0") km    </td></tr>
             <tr><th>Atmosphere</th><td>@current.AtmosphereCode</td><td colspan="5">@current.AtmosphereDescription</td></tr>
 
             <tr><th>Hydrographics</th><td>@current.HydrographicsCode</td><td colspan="5">@current.Hydrographics</td></tr>
@@ -158,13 +160,14 @@
         <div style="display: inline-block; vertical-align: top">
 
             <table class="gridtable">
-                <tr><th>Thrust</th><th>Transit Time to Jump Point</th></tr>
-                <tr><td>1</td><td>@current.TransitTimeJumpPoint(1).ToString("h'h 'm'm 's's'")</td></tr>
-                <tr><td>2</td><td>@current.TransitTimeJumpPoint(2).ToString("h'h 'm'm 's's'")</td></tr>
-                <tr><td>3</td><td>@current.TransitTimeJumpPoint(3).ToString("h'h 'm'm 's's'")</td></tr>
-                <tr><td>4</td><td>@current.TransitTimeJumpPoint(4).ToString("h'h 'm'm 's's'")</td></tr>
-                <tr><td>5</td><td>@current.TransitTimeJumpPoint(5).ToString("h'h 'm'm 's's'")</td></tr>
-                <tr><td>6</td><td>@current.TransitTimeJumpPoint(6).ToString("h'h 'm'm 's's'")</td></tr>
+                <tr><th>Thrust</th><th>Transit Time to Jump Point</th><th>Early Jump</th><th>Late Jump</th></tr>
+                <tr><th>Min. Distance</th><td>@current.JumpDistanceKM(100).ToString("N0") km</td><td>@current.JumpDistanceKM(90).ToString("N0") km</td><td>@current.JumpDistanceKM(150).ToString("N0") km</td></tr>
+                <tr><td>1</td><td>@current.TransitTimeJumpPoint(1).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(1, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(1, 150).ToString(timeFormat)</td></tr>
+                <tr><td>2</td><td>@current.TransitTimeJumpPoint(2).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(2, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(2, 150).ToString(timeFormat)</td></tr>
+                <tr><td>3</td><td>@current.TransitTimeJumpPoint(3).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(3, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(3, 150).ToString(timeFormat)</td></tr>
+                <tr><td>4</td><td>@current.TransitTimeJumpPoint(4).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(4, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(4, 150).ToString(timeFormat)</td></tr>
+                <tr><td>5</td><td>@current.TransitTimeJumpPoint(5).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(5, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(5, 150).ToString(timeFormat)</td></tr>
+                <tr><td>6</td><td>@current.TransitTimeJumpPoint(6).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(6, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(6, 150).ToString(timeFormat)</td></tr>
             </table>
         </div>
         <div style="display: inline-block; vertical-align: top">
