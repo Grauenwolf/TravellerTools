@@ -31,6 +31,9 @@ namespace Grauenwolf.TravellerTools
         {
             if (string.IsNullOrWhiteSpace(dieCode))
                 return 0;
+            if (string.Equals(dieCode, "D66", StringComparison.OrdinalIgnoreCase))
+                return D66();
+
             try
             {
                 var result = 0;

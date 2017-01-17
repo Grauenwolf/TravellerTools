@@ -40,7 +40,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
                 //List the goods that are readily available or usually cheap on this planet
                 var purchaseDM = PurchaseDM(destination, good);
-                if (purchaseDM > 0 || (purchaseDM >= 0 && good.Availability == "*") || (good.AvailabilityList.Any(a => destination.ContainsRemark(a))))
+                if (good.BasePrice > 0 && purchaseDM > 0) //(purchaseDM > 0 || (purchaseDM >= 0 && good.Availability == "*") || (good.AvailabilityList.Any(a => destination.ContainsRemark(a)))))
                     offers.Add(new TradeOffer() { Type = good.Name, PurchaseDM = purchaseDM });
 
                 //List the goods that are usually desired on this planet
@@ -113,20 +113,44 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             if (!advancedMode)
                 foreach (var good in goods)
                 {
-                    var bid = new TradeBid()
+                    if (good.BasePrice == 0) //special case
                     {
-                        Type = good.Name,
-                        Subtype = null,
-                        BasePrice = good.BasePrice * 1000,
-                        SaleDM = SaleDM(origin, good),
-                    };
+                        foreach (var detail in good.Details)
+                            foreach (var name in detail.NameList)
+                            {
+                                var bid = new TradeBid()
+                                {
+                                    Type = good.Name,
+                                    Subtype = name,
+                                    BasePrice = detail.Price * 1000,
+                                    SaleDM = SaleDM(origin, good),
+                                };
 
-                    //TODO: Auto-bump the price so that the merchant isn't buying from the PCs at a higher price than he would sell to them 
-                    int roll;
-                    bid.PriceModifier = SalePriceModifier(random, bid.SaleDM, brokerScore, out roll);
-                    bid.Roll = roll;
+                                //TODO: Auto-bump the price so that the merchant isn't buying from the PCs at a higher price than he would sell to them 
+                                int roll;
+                                bid.PriceModifier = SalePriceModifier(random, bid.SaleDM, brokerScore, out roll);
+                                bid.Roll = roll;
 
-                    requests.Add(bid);
+                                requests.Add(bid);
+                            }
+                    }
+                    else
+                    {
+                        var bid = new TradeBid()
+                        {
+                            Type = good.Name,
+                            Subtype = null,
+                            BasePrice = good.BasePrice * 1000,
+                            SaleDM = SaleDM(origin, good),
+                        };
+
+                        //TODO: Auto-bump the price so that the merchant isn't buying from the PCs at a higher price than he would sell to them 
+                        int roll;
+                        bid.PriceModifier = SalePriceModifier(random, bid.SaleDM, brokerScore, out roll);
+                        bid.Roll = roll;
+
+                        requests.Add(bid);
+                    }
                 }
             else
                 foreach (var good in goods)
@@ -230,14 +254,33 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             if (string.IsNullOrEmpty(good.Tons))
                 throw new ArgumentException("good.Tons is empty for " + good.Name);
 
-            var tonsRemaining = random.D(good.Tons);
-            if (!advancedMode)
+
+            if (good.BasePrice == 0) //special case
+            {
+                var detail = good.ChooseRandomDetail(random);
+                var lot = new TradeOffer()
+                {
+                    Type = good.Name,
+                    Subtype = random.Choose(detail.NameList),
+                    Tons = Math.Max(1, random.D(detail.Tons)),
+                    BasePrice = detail.Price * 1000,
+                    PurchaseDM = PurchaseDM(origin, good)
+                };
+
+                int roll;
+                lot.PriceModifier = PurchasePriceModifier(random, lot.PurchaseDM, brokerScore, out roll);
+                lot.Roll = roll;
+
+
+                result.Add(lot);
+            }
+            else if (!advancedMode)
             {
                 var lot = new TradeOffer()
                 {
                     Type = good.Name,
                     Subtype = null,
-                    Tons = tonsRemaining,
+                    Tons = random.D(good.Tons),
                     BasePrice = good.BasePrice * 1000,
                     PurchaseDM = PurchaseDM(origin, good)
                 };
@@ -249,6 +292,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 result.Add(lot);
             }
             else
+            {
+                var tonsRemaining = random.D(good.Tons);
                 while (tonsRemaining > 0)
                 {
                     var detail = good.ChooseRandomDetail(random);
@@ -270,6 +315,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
                     tonsRemaining -= lot.Tons;
                 }
+            }
         }
 
         async Task<ManifestCollection> BuildManifestsAsync(List<World> worlds, Dice random, bool illegalGoods)

@@ -193,7 +193,7 @@ namespace Grauenwolf.TravellerTools.Maps
         public TimeSpan TransitTimeJumpPoint(int thrustRating, int jumpDistanceFactor = 100)
         {
             const double G = 9.80665; //meters per second per second
-            var distanceM = SizeKM * 1000 * jumpDistanceFactor;
+            var distanceM = (double)SizeKM * 1000 * jumpDistanceFactor;
             var timeSeconds = 2 * Math.Sqrt(distanceM / (G * thrustRating));
             return TimeSpan.FromSeconds(timeSeconds);
         }
