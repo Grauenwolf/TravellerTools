@@ -3,33 +3,6 @@
     ViewBag.Title = "Home Page";
 }
 
-@*<div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-    </div>
-
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </div>
-    </div>*@
 
 <div class="row">
     <h2>Location</h2>
@@ -63,10 +36,14 @@
             <td>
                 <label> <input type="checkbox" id="illegalGoods" /> Allow Illegal Goods</label>
             </td>
-            <th>Jump Distance</th>
-            <td><input type="number" id="jumpDistance" value="3" /></td>
-            <th>Broker Score</th>
-            <td><input type="number" id="brokerScore" value="0" /></td>
+            <td>
+                <label>Jump Distance</label>
+                <input type="number" id="jumpDistance" value="3" />
+            </td>
+            <td>
+                <label>Broker Score</label>
+                <input type="number" id="brokerScore" value="0" />
+            </td>
             <td>
                 <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo($('#sector')[0].value, $('#world')[0].value, $('#advancedMode')[0].checked, $('#illegalGoods')[0].checked, $('#jumpDistance')[0].value, $('#brokerScore')[0].value, $('#mongoose2')[0].checked)" style="display:none" />
                 <span id="selectWorldForTrade">Select a world</span>
@@ -76,51 +53,83 @@
 </div>
 
 <div class="row">
-    <h2>Animal Encounters</h2>
+    <h2>Animals</h2>
     <table class="gridtable">
         <tr>
-            <th>Terrain</th>
+            <th>Mongoose 1</th>
             <td>
+                <label>Terrain</label>
                 @Html.DropDownList("terrain", Model.TerrainList())
             </td>
             <td>
-                <label> <input type="checkbox" checked="checked" id="animalChart" /> Generate Random Encounter Chart</label>
-            </td>
-            <td>
-                <label> <input type="checkbox" id="animalEncounters" /> Use Animal Encounters</label>
+                <label>Animal Type</label>
+                @Html.DropDownList("animalType", Model.AnimalTypeList())
                 <br />
-                Note: this requires <a target="_blank" href="http://www.drivethrurpg.com/product/93227/Supplement-11-Animal-Encounters">Supplment 11: Animal Encounters</a> to make sense.
+                (only used when a terrain is selected)
             </td>
+
             <td>
-                <input id="showAnimalScreen" type="button" value="Generate Animals" onclick="GenerateAnimals($('#sector')[0].value, $('#world')[0].value, $('#animalEncounters')[0].checked, $('#terrain')[0].value, $('#animalChart')[0].checked)"  />
+                <input id="showAnimalScreen" type="button" value="Generate Animals" onclick="GenerateAnimals($('#terrain')[0].value, $('#animalType')[0].value)" />
             </td>
         </tr>
     </table>
-    <ul>
-        <li>@Html.ActionLink("Mongoose Whole Planet", "Animals", "Home")</li>
-        <li>
-            @Html.ActionLink("Animal Encounters Whole Planet", "AnimalEncounters", "Home")  <b>PREVIEW</b>
-            <ul>
-                <li>@Html.ActionLink("Clear", "AnimalEncounters", new { terrainType = "Clear" })</li>
-                <li>@Html.ActionLink("Plain or Prairie", "AnimalEncounters", new { terrainType = "Plain or Prairie" })</li>
-                <li>@Html.ActionLink("Desert (hot or cold)", "AnimalEncounters", new { terrainType = "Desert (hot or cold)" })</li>
-                <li>@Html.ActionLink("Hills, Foothills", "AnimalEncounters", new { terrainType = "Hills, Foothills" })</li>
-                <li>@Html.ActionLink("Mountain", "AnimalEncounters", new { terrainType = "Mountain" })</li>
-                <li>@Html.ActionLink("Forest", "AnimalEncounters", new { terrainType = "Forest" })</li>
-                <li>@Html.ActionLink("Woods", "AnimalEncounters", new { terrainType = "Woods" })</li>
-                <li>@Html.ActionLink("Jungle", "AnimalEncounters", new { terrainType = "Jungle" })</li>
-                <li>@Html.ActionLink("Rainforest", "AnimalEncounters", new { terrainType = "Rainforest" })</li>
-                <li>@Html.ActionLink("Rough, Broken", "AnimalEncounters", new { terrainType = "Rough, Broken" })</li>
-                <li>@Html.ActionLink("Swamp, Marsh", "AnimalEncounters", new { terrainType = "Swamp, Marsh" })</li>
-                <li>@Html.ActionLink("Beach, Shore", "AnimalEncounters", new { terrainType = "Beach, Shore" })</li>
-                <li>@Html.ActionLink("Riverbank", "AnimalEncounters", new { terrainType = "Riverbank" })</li>
-                <li>@Html.ActionLink("Ocean shallows", "AnimalEncounters", new { terrainType = "Ocean shallows" })</li>
-                <li>@Html.ActionLink("Open ocean", "AnimalEncounters", new { terrainType = "Open ocean" })</li>
-                <li>@Html.ActionLink("Deep ocean", "AnimalEncounters", new { terrainType = "Deep ocean" })</li>
-            </ul>
+    <div>&nbsp;</div>
+    <table class="gridtable">
+        <tr>
+            <th rowspan="3">Animal Encounters (preview)</th>
+            <td>
+                <label>Terrain</label>
+                @Html.DropDownList("terrain2", Model.TerrainList())
+            </td>
+            <td>
+                <label>Animal Class</label>
+                @Html.DropDownList("animalClass", Model.AnimalClassList())
+                <br />
+                (only used when a terrain is selected)
+            </td>
 
-        </li>
-    </ul>
+            <td>
+                <input id="showAnimalEncountersScreen" type="button" value="Generate Animals" onclick="GenerateAnimalEncounters($('#sector')[0].value, $('#world')[0].value, $('#terrain2')[0].value, $('#animalClass')[0].value)" />
+            </td>
+        </tr>
+        <tr style="display:none">
+            <!-- Do we want these as individual options or should we always read from the selected world?-->
+            <td>
+                <label>Gravity</label> <select id="gravity">
+                    <option value=""></option>
+                    <option value="Low">Low</option>
+                    <option value="Medium">Medium</option>
+                    <option value="High">High</option>
+                </select>
+            </td>
+            <td>
+                <label>Atmosphere</label>
+                <select id="Atmosphere">
+                    <option value=""></option>
+                </select>
+            </td>
+            <td>
+                <label>Temperature</label>
+                <select id="Temperature">
+                    <option value=""></option>
+                </select>
+            </td>
+            <td>
+                <label>Hydrographics</label>
+                <select id="Hydrographics">
+                    <option value=""></option>
+                </select>
+            </td>
+            <td>
+                <label>Specials</label>
+                <select id="Specials">
+                    <option value=""></option>
+                </select>
+            </td>
+        </tr>
+        <tr><td colspan="10">Note: this requires <a target="_blank" href="http://www.drivethrurpg.com/product/93227/Supplement-11-Animal-Encounters">Supplment 11: Animal Encounters</a> to make sense. If you don't have that book, use the Mongoose 1 tool.</td></tr>
+    </table>
+
 </div>
 
 @section Scripts {

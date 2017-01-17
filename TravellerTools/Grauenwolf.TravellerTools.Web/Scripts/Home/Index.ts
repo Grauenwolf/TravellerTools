@@ -71,28 +71,26 @@ function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, 
     var edition = mongoose2 ? 2016 : 2008;
     window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition;
 
-    //window.open("Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + b + "&maxJumpDistance=3");
 }
 
-function GenerateAnimals(sectorCoordinates: string, worldCoordinates: string, animalEncounters: boolean, terrain: string, fullChart: boolean): void {
+function GenerateAnimals(terrain: string, animalType: string): void {
     "use strict";
 
-    var fc = fullChart ? "true" : "false";
+    window.location.href = "/Home/Animals?terrainType=" + encodeURIComponent(terrain) + "&animalType=" + encodeURIComponent(animalType);
+}
+
+
+function GenerateAnimalEncounters(sectorCoordinates: string, worldCoordinates: string, terrain: string, animalClass: string): void {
+    "use strict";
 
     if (worldCoordinates != null && worldCoordinates != "") {
         var a = sectorCoordinates.split(",");
         var b = worldCoordinates.substring(0, 2);
         var c = worldCoordinates.substring(2, 4);
 
-        if (animalEncounters)
-            window.location.href = "/Home/AnimalEncounters?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&terrainType=" + encodeURIComponent(terrain) + '&fullChart=' + fc;
-        else
-            window.location.href = "/Home/Animals?terrainType=" + encodeURIComponent(terrain) + '&fullChart=' + fc;
+        window.location.href = "/Home/AnimalEncounters?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&terrainType=" + encodeURIComponent(terrain) + "&animalClass=" + encodeURIComponent(animalClass);
     }
     else {
-        if (animalEncounters)
-            window.location.href = "/Home/AnimalEncounters?terrainType=" + encodeURIComponent(terrain) + '&fullChart=' + fc;
-        else
-            window.location.href = "/Home/Animals?terrainType=" + encodeURIComponent(terrain) + '&fullChart=' + fc;
+        window.location.href = "/Home/AnimalEncounters?terrainType=" + encodeURIComponent(terrain) + "&animalClass=" + encodeURIComponent(animalClass);
     }
 }
