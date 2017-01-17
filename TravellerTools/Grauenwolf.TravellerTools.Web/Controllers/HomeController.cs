@@ -1,10 +1,11 @@
-﻿using AE = Grauenwolf.TravellerTools.Animals.AE;
-using Mgt = Grauenwolf.TravellerTools.Animals.Mgt;
-using Grauenwolf.TravellerTools.TradeCalculator;
+﻿using Grauenwolf.TravellerTools.TradeCalculator;
 using Grauenwolf.TravellerTools.Web.Models;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using AE = Grauenwolf.TravellerTools.Animals.AE;
+using Mgt = Grauenwolf.TravellerTools.Animals.Mgt;
 
 namespace Grauenwolf.TravellerTools.Web.Controllers
 {
@@ -12,7 +13,7 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            var model = new HomeIndexViewModel(await Maps.TravellerMapService.FetchUniverseAsync());
+            var model = new HomeIndexViewModel(await Maps.TravellerMapService.FetchUniverseAsync(), AE.AnimalBuilderAE.TerrainTypeList.Select(t => t.Name).ToList());
             return View(model);
         }
 

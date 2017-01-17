@@ -1,35 +1,35 @@
 ﻿/// <reference path="../typings/jquery/jquery.d.ts" />
 
 interface ISubsector {
-	Name: string;
-	Index: string;
+    Name: string;
+    Index: string;
 }
 
 interface IWorldLocation {
-	Name: string;
-	Hex: string;
+    Name: string;
+    Hex: string;
 }
 
 //Calling REST endpoints
 //https://visualstudiomagazine.com/articles/2013/10/01/calling-web-services-with-typescript.aspx
 
 function SectorChanged(sectorCoordinates: string, subsector: HTMLSelectElement): void {
-	"use strict";
+    "use strict";
 
-	$(subsector).empty();
+    $(subsector).empty();
 
 
-	$.getJSON("WorldApi/Subsectors?sectorCoordinates=" + sectorCoordinates,
-		cs => {
-			var myList = <ISubsector[]>cs;
+    $.getJSON("/WorldApi/Subsectors?sectorCoordinates=" + sectorCoordinates,
+        cs => {
+            var myList = <ISubsector[]>cs;
 
-			subsector.appendChild(new Option("",""));
+            subsector.appendChild(new Option("", ""));
 
-			for (var i = 0; i < myList.length; i++) {
-				var opt = new Option(myList[i].Name, myList[i].Index);
-				subsector.appendChild(opt);
-			}
-		});
+            for (var i = 0; i < myList.length; i++) {
+                var opt = new Option(myList[i].Name, myList[i].Index);
+                subsector.appendChild(opt);
+            }
+        });
 
 
 
@@ -37,38 +37,62 @@ function SectorChanged(sectorCoordinates: string, subsector: HTMLSelectElement):
 
 
 function SubsectorChanged(sectorCoordinates: string, subsectorIndex: string, world: HTMLSelectElement): void {
-	"use strict";
+    "use strict";
 
-	$(world).empty();
+    $(world).empty();
 
-	$.getJSON("WorldApi/WorldsInSubsector?sectorCoordinates=" + sectorCoordinates + "&subsectorIndex=" + subsectorIndex,
-		cs => {
-			var myList = <IWorldLocation[]>cs;
+    $.getJSON("/WorldApi/WorldsInSubsector?sectorCoordinates=" + sectorCoordinates + "&subsectorIndex=" + subsectorIndex,
+        cs => {
+            var myList = <IWorldLocation[]>cs;
 
-			world.appendChild(new Option("", ""));
+            world.appendChild(new Option("", ""));
 
-			for (var i = 0; i < myList.length; i++) {
-				var opt = new Option(myList[i].Name, myList[i].Hex);
-				world.appendChild(opt);
-			}
-		});
+            for (var i = 0; i < myList.length; i++) {
+                var opt = new Option(myList[i].Name, myList[i].Hex);
+                world.appendChild(opt);
+            }
+        });
 }
 
-function WorldChanged(sectorCoordinates: string, worldCoordinates: string, button: HTMLInputElement): void {
-	"use strict";
+function WorldChanged(sectorCoordinates: string, worldCoordinates: string, button: HTMLInputElement, label: HTMLElement): void {
+    "use strict";
 
-	button.style.visibility = 'visible';
+    button.style.display = '';
+    label.style.display = 'none';
 }
 
-function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, advancedMode: boolean, illegalGoods: boolean, jumpDistance: number, brokerScore: number, mongoose2:boolean): void {
-	"use strict";
-	var a = sectorCoordinates.split(",");
-	var b = worldCoordinates.substring(0, 2);
-	var c = worldCoordinates.substring(2, 4);
-	var am = advancedMode ? "true" : "false";
-	var ig = illegalGoods ? "true" : "false";
+function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, advancedMode: boolean, illegalGoods: boolean, jumpDistance: number, brokerScore: number, mongoose2: boolean): void {
+    "use strict";
+    var a = sectorCoordinates.split(",");
+    var b = worldCoordinates.substring(0, 2);
+    var c = worldCoordinates.substring(2, 4);
+    var am = advancedMode ? "true" : "false";
+    var ig = illegalGoods ? "true" : "false";
     var edition = mongoose2 ? 2016 : 2008;
-    window.location.href = "Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition;
+    window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition;
 
-	//window.open("Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + b + "&maxJumpDistance=3");
+    //window.open("Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + b + "&maxJumpDistance=3");
+}
+
+function GenerateAnimals(sectorCoordinates: string, worldCoordinates: string, animalEncounters: boolean, terrain: string, fullChart: boolean): void {
+    "use strict";
+
+    var fc = fullChart ? "true" : "false";
+
+    if (worldCoordinates != null && worldCoordinates != "") {
+        var a = sectorCoordinates.split(",");
+        var b = worldCoordinates.substring(0, 2);
+        var c = worldCoordinates.substring(2, 4);
+
+        if (animalEncounters)
+            window.location.href = "/Home/AnimalEncounters?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&terrainType=" + encodeURIComponent(terrain) + '&fullChart=' + fc;
+        else
+            window.location.href = "/Home/Animals?terrainType=" + encodeURIComponent(terrain) + '&fullChart=' + fc;
+    }
+    else {
+        if (animalEncounters)
+            window.location.href = "/Home/AnimalEncounters?terrainType=" + encodeURIComponent(terrain) + '&fullChart=' + fc;
+        else
+            window.location.href = "/Home/Animals?terrainType=" + encodeURIComponent(terrain) + '&fullChart=' + fc;
+    }
 }

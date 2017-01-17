@@ -2,28 +2,35 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using System;
 
 namespace Grauenwolf.TravellerTools.Web.Models
 {
-	public class HomeIndexViewModel
-	{
-		readonly IReadOnlyList<Sector> m_Sectors;
+    public class HomeIndexViewModel
+    {
+        readonly IReadOnlyList<Sector> m_Sectors;
+        readonly IReadOnlyList<string> m_Terrains;
 
-		public HomeIndexViewModel(IReadOnlyList<Sector> sectors)
-		{
-			m_Sectors = sectors;
-		}
+        public HomeIndexViewModel(IReadOnlyList<Sector> sectors, IReadOnlyList<string> terrains)
+        {
+            m_Terrains = terrains;
+            m_Sectors = sectors;
+        }
 
-		public IEnumerable<SelectListItem> SectorList()
-		{
-			yield return new SelectListItem() { Text = "", Value = "" };
+        public IEnumerable<SelectListItem> SectorList()
+        {
+            yield return new SelectListItem() { Text = "", Value = "" };
 
-			foreach (var sector in m_Sectors.OrderBy(s => s.Name).Distinct(new SectorComparer()))
-			{
-				yield return new SelectListItem() { Text = sector.Name, Value = string.Format("{0},{1}", sector.X, sector.Y) };
-			}
-		}
+            foreach (var sector in m_Sectors.OrderBy(s => s.Name).Distinct(new SectorComparer()))
+                yield return new SelectListItem() { Text = sector.Name, Value = string.Format("{0},{1}", sector.X, sector.Y) };
+        }
+
+        public IEnumerable<SelectListItem> TerrainList()
+        {
+            yield return new SelectListItem() { Text = "All", Value = "" };
+
+            foreach (var terrain in m_Terrains.OrderBy(s => s))
+                yield return new SelectListItem() { Text = terrain, Value = terrain };
+        }
 
         private class SectorComparer : IEqualityComparer<Sector>
         {
