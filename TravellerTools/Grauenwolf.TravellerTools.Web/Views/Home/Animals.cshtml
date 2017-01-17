@@ -7,7 +7,7 @@
 {
     <h2> @terrain.Key </h2>
 
-    <table>
+    <table class="gridtable">
         <tr>
             <th width="50" align="center">Roll</th>
             <th width="250" align="center" colspan="5">Type</th>
@@ -39,25 +39,28 @@
             </tr>
             <tr>
                 <th>Skills</th>
-                <td colspan="10"> @( string.Join(", ", animal.Skills.Select(s => s.Name + " " + s.Level)))</td>
+                <td colspan="14"> @( string.Join(", ", animal.Skills.Select(s => s.Name + " " + s.Level)))</td>
             </tr>
             <tr>
                 <th>Armor</th>
                 <td>@animal.Armor</td>
                 <th>Weapons</th>
-                <td colspan="8">@( string.Join(", ", animal.Weapons.Select(s => s.Name + " " + s.Damage)))</td>
+                <td colspan="14">@( string.Join(", ", animal.Weapons.Select(s => s.Name + " " + s.Damage)))</td>
             </tr>
             <tr>
                 <th colspan="2">Attacks on</th>
                 <td colspan="3">@animal.Attack </td>
                 <th>Flees on</th>
                 <td colspan="3">@animal.Flee</td>
+                <td colspan="6" />
             </tr>
-            <tr>
+            <!--
+                <tr>
                 <td colspan="11">
                     <hr/>
                 </td>
             </tr>
+                -->
         }
 
     </table>
