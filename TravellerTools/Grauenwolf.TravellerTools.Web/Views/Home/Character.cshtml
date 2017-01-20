@@ -4,7 +4,7 @@
     ViewBag.Title = "Character";
 }
 
-<h2>@Model.Name</h2>
+<h2>@((Model.Title + " " + Model.Name).TrimStart())</h2>
 
 <table class="gridtable">
 
@@ -30,12 +30,43 @@
 
 <div>&nbsp;</div>
 
-<table class="gridtable">
-    <tr><th>Skills</th></tr>
-    @foreach (var line in Model.Skills.OrderBy(s=>s.Name).ThenBy(s=>s.Specialty))
-    {
-        <tr><td>@line</td></tr>
-    }
+
+<table>
+    <tr>
+
+        <td>
+
+
+            <table class="gridtable" valign="top">
+                <tr><th>Skills</th></tr>
+                @foreach (var line in Model.Skills.OrderBy(s => s.Name).ThenBy(s => s.Specialty))
+                {
+                    <tr><td>@line</td></tr>
+                }
+            </table>
+
+
+        </td>
+        
+      <td width="20"></td>  
+              <td valign="top">
+            <table class="gridtable">
+                <tr><th>Career</th><th>Assignment</th><th>Title</th><th>Rank</th><th>Terms</th></tr>
+                @foreach (var line in Model.CareerHistory)
+                {
+                    <tr>
+                        <td>@line.Name</td>
+                        <td>@line.Assignment</td>
+                        <td>@line.Title</td>
+                        <td>@line.Rank</td>
+                        <td>@line.Terms</td>
+                    </tr>
+                }
+            </table>
+
+        </td>
+  
+    </tr>
 </table>
 
 <div>&nbsp;</div>

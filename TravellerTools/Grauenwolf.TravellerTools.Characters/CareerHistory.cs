@@ -15,5 +15,13 @@
         public int Rank { get; set; }
         public int CommissionRank { get; set; }
         public int Terms { get; set; }
+
+        public string ShortName
+        {
+            get { return Assignment ?? Name; }
+        }
+        public string Title { get; set; }
+
+
     }
 }

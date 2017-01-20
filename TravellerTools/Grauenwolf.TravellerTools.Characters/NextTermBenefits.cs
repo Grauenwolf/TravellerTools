@@ -14,6 +14,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         public int GraduationDM { get; set; }
         public int QualificationDM { get; set; }
         public bool MusterOut { get; set; }
+        public int AdvancementDM { get; set; }
 
 
     }

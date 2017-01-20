@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Tortuga.Anchor.Collections;
 
@@ -23,7 +22,7 @@ namespace Grauenwolf.TravellerTools.Characters
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="levels">The levels.</param>
-        public void Increase(string name, int levels)
+        public void Increase(string name, int levels = 1)
         {
             var skill = this[name, null];
             if (skill == null)
@@ -37,7 +36,7 @@ namespace Grauenwolf.TravellerTools.Characters
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="levels">The levels.</param>
-        public void Increase(string name, string specialty, int levels)
+        public void Increase(string name, string specialty, int levels = 1)
         {
             var skill = this[name, specialty];
             if (skill == null)
@@ -46,9 +45,9 @@ namespace Grauenwolf.TravellerTools.Characters
                 skill.Level += levels;
         }
 
-        public void Increase(SkillTemplate skillA, int levels)
+        public void Increase(SkillTemplate skill, int levels = 1)
         {
-            Increase(skillA.Name, skillA.Specialty, levels);
+            Increase(skill.Name, skill.Specialty, levels);
         }
 
         /// <summary>
@@ -99,6 +98,22 @@ namespace Grauenwolf.TravellerTools.Characters
             var skill = this[name, null];
             if (skill != null)
                 Remove(skill);
+        }
+        public int BestSkillLevel(params string[] skillNames)
+        {
+            var bestScore = -3; //unskilled penalty
+            foreach (var skill in this)
+            {
+                foreach (var name in skillNames)
+                    if (skill.Name == name)
+                        bestScore = Math.Max(bestScore, skill.Level);
+
+                if (skill.Name == "Jack-of-All-Trades" && bestScore < 0)
+                    bestScore = skill.Level - 3;
+            }
+
+
+            return bestScore;
         }
     }
 }

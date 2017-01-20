@@ -49,13 +49,13 @@ namespace Grauenwolf.TravellerTools.Characters
             s_RandomSkills = ImmutableArray.CreateRange(skills);
         }
 
-        internal static IEnumerable<SkillTemplate> SpecialtiesFor(string skillName)
+        internal static List<SkillTemplate> SpecialtiesFor(string skillName)
         {
             var skill = s_Templates.Skills.FirstOrDefault(s => s.Name == skillName);
             if (skill != null && skill.Specialty != null)
-                return skill.Specialty.Select(s => new SkillTemplate(skillName, s.Name));
+                return skill.Specialty.Select(s => new SkillTemplate(skillName, s.Name)).ToList();
             else
-                return Enumerable.Empty<SkillTemplate>();
+                return new List<SkillTemplate>() { new SkillTemplate(skillName) };
         }
 
         public static Character Build(CharacterBuilderOptions options)
@@ -106,6 +106,7 @@ namespace Grauenwolf.TravellerTools.Characters
         {
             var careers = new List<Career>();
 
+            //Forced picks (e.g. Draft)
             if (character.NextTermBenefits.MustEnroll != null)
             {
                 foreach (var career in s_Careers)
@@ -116,7 +117,28 @@ namespace Grauenwolf.TravellerTools.Characters
                     }
                 }
             }
-            else
+
+            if (!character.NextTermBenefits.MusterOut && careers.Count == 0 && character.LastCareer != null)
+            {
+                if (dice.D(10) > 1) //continue career
+                {
+                    foreach (var career in s_Careers)
+                    {
+                        if (character.LastCareer.Name == career.Name && character.LastCareer.Assignment == career.Assignment)
+                        {
+                            careers.Add(career);
+                        }
+                    }
+                }
+                else
+                {
+                    character.NextTermBenefits.MusterOut = true;
+                    character.AddHistory("Voluntarily left " + character.LastCareer.ShortName);
+                }
+            }
+
+            //Random picks
+            if (careers.Count == 0)
             {
                 foreach (var career in s_Careers)
                 {
@@ -170,7 +192,36 @@ namespace Grauenwolf.TravellerTools.Characters
             return false;
         }
 
-        static void LifeEvent(Character character, Dice dice)
+        public static void UnusualLifeEvent(Character character, Dice dice)
+        {
+            switch (dice.D(6))
+            {
+                case 1:
+                    character.AddHistory("Encounter a Psionic institute.");
+                    TestPsionic(character, dice);
+                    return;
+                case 2:
+                    character.AddHistory("Spend time with an alien race. Gain a contact.");
+                    var skillList = new SkillTemplateCollection(SpecialtiesFor("Science"));
+                    skillList.RemoveOverlap(character.Skills, 1);
+                    character.Skills.Increase(dice.Choose(skillList), 1);
+                    return;
+                case 3:
+                    character.AddHistory("Find an Alien Artifact.");
+                    return;
+                case 4:
+                    character.AddHistory("Amnesia.");
+                    return;
+                case 5:
+                    character.AddHistory("Contact with Government.");
+                    return;
+                case 6:
+                    character.AddHistory("Find Ancient Technology.");
+                    return;
+            }
+
+        }
+        public static void LifeEvent(Character character, Dice dice)
         {
             switch (dice.D(2, 6))
             {
@@ -211,34 +262,12 @@ namespace Grauenwolf.TravellerTools.Characters
                         character.NextTermBenefits.MustEnroll = "Prisoner";
                     return;
                 case 12:
-                    switch (dice.D(6))
-                    {
-                        case 1:
-                            character.AddHistory("Encounter a Psionic institute.");
-                            TestPsionic(character, dice);
-                            return;
-                        case 2:
-                            character.AddHistory("Spend time with an alien race. Gain a contact.");
-                            var skillList = new SkillTemplateCollection(SpecialtiesFor("Science"));
-                            skillList.RemoveOverlap(character.Skills, 1);
-                            character.Skills.Increase(dice.Choose(skillList), 1);
-                            return;
-                        case 3:
-                            character.AddHistory("Find an Alien Artifact.");
-                            return;
-                        case 4:
-                            character.AddHistory("Amnesia.");
-                            return;
-                        case 5:
-                            character.AddHistory("Contact with Government.");
-                            return;
-                        case 6:
-                            character.AddHistory("Find Ancient Technology.");
-                            return;
-                    }
+                    UnusualLifeEvent(character, dice);
                     return;
             }
         }
+
+
 
         public static void PreCareerEvents(Character character, Dice dice, params SkillTemplate[] skills)
         {
@@ -357,13 +386,117 @@ namespace Grauenwolf.TravellerTools.Characters
         {
             get { return s_RandomSkills; }
         }
-        static void Injury(Character character, Dice dice)
+        public static void Injury(Character character, Dice dice, bool severe = false)
         {
-            throw new NotImplementedException();
+            //TODO: Add medical bills support. Page 47
+
+            var roll = dice.D(6);
+            if (severe)
+                roll = Math.Min(roll, dice.D(6));
+
+            switch (roll)
+            {
+                case 1:
+                    character.AddHistory("Nearly killed");
+                    switch (dice.D(3))
+                    {
+                        case 1:
+                            character.Strength -= dice.D(6);
+                            character.Dexterity -= 2;
+                            character.Endurance -= 2;
+                            return;
+                        case 2:
+                            character.Strength -= 2;
+                            character.Dexterity -= dice.D(6);
+                            character.Endurance -= 2;
+                            return;
+                        case 3:
+                            character.Strength -= 2;
+                            character.Dexterity -= 2;
+                            character.Endurance -= dice.D(6);
+                            return;
+                    }
+                    return;
+                case 2:
+                    character.AddHistory("Severely injured");
+                    switch (dice.D(3))
+                    {
+                        case 1:
+                            character.Strength -= dice.D(6);
+                            return;
+                        case 2:
+                            character.Dexterity -= dice.D(6);
+                            return;
+                        case 3:
+                            character.Endurance -= dice.D(6);
+                            return;
+                    }
+                    return;
+                case 3:
+                    character.AddHistory("Lost eye or limb");
+                    switch (dice.D(2))
+                    {
+                        case 1:
+                            character.Strength -= 2;
+                            return;
+                        case 2:
+                            character.Dexterity -= 2;
+                            return;
+                    }
+                    return;
+                case 4:
+                    character.AddHistory("Scarred");
+                    switch (dice.D(3))
+                    {
+                        case 1:
+                            character.Strength -= 2;
+                            return;
+                        case 2:
+                            character.Dexterity -= 2;
+                            return;
+                        case 3:
+                            character.Endurance -= 2;
+                            return;
+                    }
+                    return;
+                case 5:
+                    character.AddHistory("Injured");
+                    switch (dice.D(3))
+                    {
+                        case 1:
+                            character.Strength -= 1;
+                            return;
+                        case 2:
+                            character.Dexterity -= 1;
+                            return;
+                        case 3:
+                            character.Endurance -= 1;
+                            return;
+                    }
+                    return;
+
+                case 6:
+                    character.AddHistory("Lightly injured, no permanent damage,");
+                    return;
+            }
         }
         static void TestPsionic(Character character, Dice dice)
         {
             throw new NotImplementedException();
+        }
+
+        public static string RollDraft(Dice dice)
+        {
+            switch (dice.D(6))
+            {
+                case 1: return "Navy";
+                case 2: return "Army";
+                case 3: return "Marine";
+                case 4: return "Merchant Marine";
+                case 5: return "Scout";
+                case 6: return "Law Enforcement";
+            }
+            return null;
         }
     }
 }

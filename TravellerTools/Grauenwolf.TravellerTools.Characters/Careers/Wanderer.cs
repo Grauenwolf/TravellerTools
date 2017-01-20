@@ -31,10 +31,37 @@ namespace Grauenwolf.TravellerTools.Characters
             switch (roll)
             {
                 case 1:
+                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
+                    return;
+                case 2:
+                    character.Skills.Increase("Deception");
+                    return;
+                case 3:
+                    character.Skills.Increase("Recon");
+                    return;
+                case 4:
+                    character.Skills.Increase("Stealth");
+                    return;
+                case 5:
+                    character.Skills.Increase("Streetwise");
+                    return;
+                case 6:
+                    character.Skills.Increase("Survival");
+                    return;
+            }
+        }
+
+        internal override void UpdateTitle(Character character, CareerHistory careerHistory, Dice dice)
+        {
+            switch (careerHistory.Rank)
+            {
+                case 1:
+                    character.Skills.Add("Streetwise", 1);
                     return;
                 case 2:
                     return;
                 case 3:
+                    character.Skills.Add("Deception", 1);
                     return;
                 case 4:
                     return;
@@ -43,11 +70,6 @@ namespace Grauenwolf.TravellerTools.Characters
                 case 6:
                     return;
             }
-        }
-
-        internal override void UpdateTitle(Character character, CareerHistory careerHistory)
-        {
-
         }
     }
 }

@@ -36,9 +36,14 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     careerHistory = new CareerHistory(Name, Assignment, 0); //TODO: Carry-over rank
                     character.CareerHistory.Add(careerHistory);
                 }
+                else if (character.LastCareer?.Assignment == Assignment)
+                {
+                    character.AddHistory($"Continued as {Assignment} at age {character.Age}");
+                    careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
+                }
                 else
                 {
-                    character.AddHistory($"Continued as {Assignment}");
+                    character.AddHistory($"Returned to {Assignment} at age {character.Age}");
                     careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
                 }
 
@@ -62,13 +67,13 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
                 Event(character, dice);
 
-                var advancementRoll = dice.D(1, 2);
+                var advancementRoll = dice.D(2, 6);
                 if (advancementRoll == 12)
                 {
                     character.AddHistory("Forced to continue current assignment");
                     character.NextTermBenefits.MustEnroll = Assignment;
                 }
-                advancementRoll += character.GetDM(AdvancementAttribute);
+                advancementRoll += character.GetDM(AdvancementAttribute) + character.CurrentTermBenefits.AdvancementDM;
 
                 if (advancementRoll <= careerHistory.Terms)
                 {
@@ -87,7 +92,14 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                         careerHistory.Rank += 1;
                         character.AddHistory($"Promoted to rank {careerHistory.Rank}");
                     }
-                    UpdateTitle(character, careerHistory);
+                    var oldTitle = character.Title;
+                    UpdateTitle(character, careerHistory, dice);
+                    var newTitle = character.Title;
+                    if (oldTitle != newTitle)
+                    {
+                        character.AddHistory($"Is now a {newTitle}");
+                        careerHistory.Title = newTitle;
+                    }
 
                     //advancement skill
                     var skillTables = new List<SkillTable>();
@@ -111,7 +123,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             character.Age += 4;
         }
 
-        internal abstract void UpdateTitle(Character character, CareerHistory careerHistory);
+        internal abstract void UpdateTitle(Character character, CareerHistory careerHistory, Dice dice);
         internal abstract void Mishap(Character character, Dice dice);
         internal abstract void Event(Character character, Dice dice);
         protected abstract void ServiceSkill(Character character, Dice dice, int roll, bool level0);
