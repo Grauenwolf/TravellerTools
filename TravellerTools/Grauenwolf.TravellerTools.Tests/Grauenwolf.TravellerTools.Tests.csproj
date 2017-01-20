@@ -56,18 +56,29 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CharacterTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.Characters\Grauenwolf.TravellerTools.Characters.csproj">
+      <Project>{e290f501-5b89-4e7d-b48e-7c5694a34914}</Project>
+      <Name>Grauenwolf.TravellerTools.Characters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Grauenwolf.TravellerTools.Services\Grauenwolf.TravellerTools.Services.csproj">
       <Project>{9dfccb72-0df3-40b1-869e-bd1c0cc2ed98}</Project>
       <Name>Grauenwolf.TravellerTools.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.Shared\Grauenwolf.TravellerTools.Shared.csproj">
+      <Project>{BA1AAE89-F357-4174-A756-47E73FF72FF4}</Project>
+      <Name>Grauenwolf.TravellerTools.Shared</Name>
     </ProjectReference>
     <ProjectReference Include="..\Grauenwolf.TravellerTools.Web\Grauenwolf.TravellerTools.Web.csproj">
       <Project>{664A83DB-E410-47C2-98D2-31952BD4C7D2}</Project>
@@ -77,6 +88,12 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Grauenwolf.TravellerTools.Web\App_Data\CharacterBuilder.xml">
+      <Link>CharacterBuilder.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

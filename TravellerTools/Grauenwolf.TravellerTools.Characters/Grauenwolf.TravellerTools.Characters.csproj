@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BA1AAE89-F357-4174-A756-47E73FF72FF4}</ProjectGuid>
+    <ProjectGuid>{E290F501-5B89-4E7D-B48E-7C5694A34914}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Grauenwolf.TravellerTools</RootNamespace>
-    <AssemblyName>Grauenwolf.TravellerTools.Shared</AssemblyName>
+    <RootNamespace>Grauenwolf.TravellerTools.Characters</RootNamespace>
+    <AssemblyName>Grauenwolf.TravellerTools.Characters</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,7 +29,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -37,7 +36,6 @@
       <HintPath>..\packages\System.Collections.Immutable.1.3.1\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -53,24 +51,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BookException.cs" />
-    <Compile Include="Characters\Feature.cs" />
-    <Compile Include="Characters\FeatureCollection.cs" />
-    <Compile Include="Characters\Person.cs" />
-    <Compile Include="Characters\Skill.cs" />
-    <Compile Include="Characters\SkillCollection.cs" />
-    <Compile Include="Characters\SkillTemplateCollection.cs" />
-    <Compile Include="Characters\Weapon.cs" />
-    <Compile Include="Characters\WeaponCollection.cs" />
-    <Compile Include="Dice.cs" />
-    <Compile Include="Edition.cs" />
-    <Compile Include="EHex.cs" />
-    <Compile Include="Helpers.cs" />
-    <Compile Include="IHasOdds.cs" />
-    <Compile Include="ITablePick.cs" />
+    <Compile Include="Book.cs" />
+    <Compile Include="Career.cs" />
+    <Compile Include="Character.cs" />
+    <Compile Include="CharacterBuilder.cs" />
+    <Compile Include="CharacterBuilderOptions.cs" />
+    <Compile Include="Drifter.cs" />
+    <Compile Include="History.cs" />
+    <Compile Include="HistoryCollection.cs" />
+    <Compile Include="MilitaryAcademy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="University.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.Services\Grauenwolf.TravellerTools.Services.csproj">
+      <Project>{9dfccb72-0df3-40b1-869e-bd1c0cc2ed98}</Project>
+      <Name>Grauenwolf.TravellerTools.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.Shared\Grauenwolf.TravellerTools.Shared.csproj">
+      <Project>{ba1aae89-f357-4174-a756-47e73ff72ff4}</Project>
+      <Name>Grauenwolf.TravellerTools.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />

@@ -79,7 +79,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
 
         public int InitiativeDM { get; set; }
 
-        int DMCalc(int value)
+        static int DMCalc(int value)
         {
             if (value <= 0)
                 return -3;

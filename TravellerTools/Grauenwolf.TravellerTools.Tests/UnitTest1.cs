@@ -1,7 +1,10 @@
-﻿using Grauenwolf.TravellerTools.Maps;
+﻿using Grauenwolf.TravellerTools.Characters;
+using Grauenwolf.TravellerTools.Maps;
+using Grauenwolf.TravellerTools.Names;
 using Grauenwolf.TravellerTools.Web.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -41,7 +44,7 @@ namespace Grauenwolf.TravellerTools.Tests
             var universe = await TravellerMapService.FetchUniverseAsync();
             foreach (var item in universe.Where(s => s.Name.Contains("Spin")))
             {
-                var coordinates = new[] { item.X, item.Y }; 
+                var coordinates = new[] { item.X, item.Y };
                 var meta = await TravellerMapService.FetchSectorMetadataAsync(coordinates[0], coordinates[1]);
 
                 var worldList = await TravellerMapService.FetchWorldsInSectorAsync(coordinates[0], coordinates[1]);
@@ -66,5 +69,9 @@ namespace Grauenwolf.TravellerTools.Tests
         //        var result = list.Where(w => w.SubSectorIndex == subsectorIndex && !string.IsNullOrWhiteSpace(w.Name)).Select(w => new WorldLocation() { Name = w.Name, Hex = w.Hex }).OrderBy(w => w.Name).ToList();
         //    }
         //}
+
+
     }
 }
+
+

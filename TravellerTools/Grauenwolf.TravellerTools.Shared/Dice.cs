@@ -120,6 +120,25 @@ namespace Grauenwolf.TravellerTools
                 throw new Exception($"No entry for a roll of {roll}");
             return result;
         }
+
+        /// <summary>
+        /// Rolls 2D6, returns true if equal or greater than target.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        public bool RollHigh(int target)
+        {
+            return D(2, 6) >= target;
+        }
+
+        /// <summary>
+        /// Rolls 2D6, returns true if equal or greater than target.
+        /// </summary>
+        /// <param name="dm">The dm.</param>
+        /// <param name="target">The target.</param>
+        public bool RollHigh(int dm, int target)
+        {
+            return D(2, 6) + dm >= target;
+        }
     }
 
 }

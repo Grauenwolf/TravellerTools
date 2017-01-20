@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace Grauenwolf.TravellerTools.Animals.AE
 {
-    public class AnimalBuilderAE
+    public static class AnimalBuilderAE
     {
         static AnimalTemplates s_Templates;
 
