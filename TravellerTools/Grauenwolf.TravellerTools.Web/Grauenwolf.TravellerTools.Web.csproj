@@ -270,9 +270,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="Properties\PublishProfiles\TravellerTools - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\TravellerTools - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\TravellerTools - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\TravellerTools - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -331,6 +329,7 @@
     <Content Include="Views\Home\AnimalEncounters.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <Content Include="Views\Home\Character.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -345,6 +344,10 @@
     <ProjectReference Include="..\Grauenwolf.TravellerTools.Animals\Grauenwolf.TravellerTools.Animals.csproj">
       <Project>{a25cceeb-1ed4-4213-b168-8ec5ddd514b5}</Project>
       <Name>Grauenwolf.TravellerTools.Animals</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.Characters\Grauenwolf.TravellerTools.Characters.csproj">
+      <Project>{e290f501-5b89-4e7d-b48e-7c5694a34914}</Project>
+      <Name>Grauenwolf.TravellerTools.Characters</Name>
     </ProjectReference>
     <ProjectReference Include="..\Grauenwolf.TravellerTools.Services\Grauenwolf.TravellerTools.Services.csproj">
       <Project>{9dfccb72-0df3-40b1-869e-bd1c0cc2ed98}</Project>

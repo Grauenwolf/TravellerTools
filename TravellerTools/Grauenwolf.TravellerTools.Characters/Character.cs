@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Grauenwolf.TravellerTools.Characters.Careers;
+using System;
 using System.Collections.Generic;
 using Tortuga.Anchor.Collections;
 using Tortuga.Anchor.Modeling;
@@ -14,11 +15,8 @@ namespace Grauenwolf.TravellerTools.Characters
         public int Education { get { return Get<int>(); } set { Set(value); } }
         public int SocialStanding { get { return Get<int>(); } set { Set(value); } }
 
-        [CalculatedField(nameof(CurrentTerm))]
-        public int Age { get { return 18 + (CurrentTerm - 1) * 4; } }
 
-        //public int ApparentAge { get { return Get<int>(); } set { Set(value); } }
-
+        public int Age { get { return GetDefault<int>(18); } set { Set(value); } }
         public int CurrentTerm { get { return Get<int>(); } set { Set(value); } }
 
 
@@ -147,6 +145,11 @@ namespace Grauenwolf.TravellerTools.Characters
 
         //public FeatureCollection Features { get { return GetNew<FeatureCollection>(); } }
 
+        public void AddHistory(string text)
+        {
+            History.Add(new History(CurrentTerm, text));
+        }
+
         public HistoryCollection History { get { return GetNew<HistoryCollection>(); } }
 
         public ObservableCollectionExtended<string> Trace { get; } = new ObservableCollectionExtended<string>();
@@ -161,6 +164,9 @@ namespace Grauenwolf.TravellerTools.Characters
 
         internal List<int> BenefitRollDMs { get; } = new List<int>();
         public int BenefitRolls { get; set; }
+
+        public List<CareerHistory> CareerHistory { get; } = new List<CareerHistory>();
+        public CareerHistory LastCareer { get; set; }
 
         internal int GetEnlistmentBonus(string career, string branch)
         {
@@ -180,6 +186,11 @@ namespace Grauenwolf.TravellerTools.Characters
 
             return result;
         }
+        //public void IncreaseAge()
+        //{
+        //    Age += 4;
+        //    CurrentTerm += 1;
+        //}
     }
 }
 

@@ -51,17 +51,24 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Careers\Barbarian.cs" />
     <Compile Include="Book.cs" />
-    <Compile Include="Career.cs" />
+    <Compile Include="Careers\Career.cs" />
+    <Compile Include="CareerHistory.cs" />
+    <Compile Include="Careers\NormalCareer.cs" />
+    <Compile Include="LongTermBenefits.cs" />
+    <Compile Include="NextTermBenefits.cs" />
+    <Compile Include="Careers\Scavenger.cs" />
+    <Compile Include="Careers\Wanderer.cs" />
     <Compile Include="Character.cs" />
     <Compile Include="CharacterBuilder.cs" />
     <Compile Include="CharacterBuilderOptions.cs" />
-    <Compile Include="Drifter.cs" />
+    <Compile Include="Careers\Drifter.cs" />
     <Compile Include="History.cs" />
     <Compile Include="HistoryCollection.cs" />
-    <Compile Include="MilitaryAcademy.cs" />
+    <Compile Include="Careers\MilitaryAcademy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="University.cs" />
+    <Compile Include="Careers\University.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Grauenwolf.TravellerTools.Services\Grauenwolf.TravellerTools.Services.csproj">

@@ -1,3 +1,4 @@
+using Grauenwolf.TravellerTools.Characters.Careers;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
@@ -27,7 +28,9 @@ namespace Grauenwolf.TravellerTools.Characters
             //careers.Add(new MilitaryAcademy("Army", "End", 8));
             //careers.Add(new MilitaryAcademy("Marine", "End", 9));
             //careers.Add(new MilitaryAcademy("Navy", "Int", 9));
-            careers.Add(new Drifter());
+            careers.Add(new Barbarian());
+            careers.Add(new Wanderer());
+            careers.Add(new Scavenger());
             s_Careers = careers.ToImmutableArray();
 
             var skills = new List<SkillTemplate>();
@@ -81,22 +84,18 @@ namespace Grauenwolf.TravellerTools.Characters
             character.CurrentTerm = 1;
             character.NextTermBenefits = new NextTermBenefits();
 
-            if (IsDone()) return character;
-
-            var nextCareer = PickNextCareer(options, character, dice);
-            if (nextCareer != null)
+            while (!IsDone())
             {
+                var nextCareer = PickNextCareer(options, character, dice);
                 character.CurrentTermBenefits = character.NextTermBenefits;
                 character.NextTermBenefits = new NextTermBenefits();
                 nextCareer.Run(character, dice);
+
+                character.CurrentTerm += 1;
             }
 
-            //while (true)
-            //{
-            //    if (IsDone()) return result;
-            //    Career(result);
-            //}
-
+            if (options.MaxAge.HasValue)
+                character.Age = options.MaxAge.Value;
 
 
 
@@ -107,18 +106,33 @@ namespace Grauenwolf.TravellerTools.Characters
         {
             var careers = new List<Career>();
 
-            foreach (var career in s_Careers)
+            if (character.NextTermBenefits.MustEnroll != null)
             {
-                if (career.Qualify(character, dice))
+                foreach (var career in s_Careers)
                 {
-                    careers.Add(career);
-                    character.Trace.Add("Qualified for " + career.Name + " at age " + character.Age);
+                    if (character.NextTermBenefits.MustEnroll == career.Name || character.NextTermBenefits.MustEnroll == career.Assignment)
+                    {
+                        careers.Add(career);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var career in s_Careers)
+                {
+                    if (character.NextTermBenefits.MusterOut && character.LastCareer.Name == career.Name && character.LastCareer.Assignment == career.Assignment)
+                        continue;
+
+                    if (career.Qualify(character, dice))
+                    {
+                        careers.Add(career);
+                        character.Trace.Add("Qualified for " + career.Name + " at age " + character.Age);
+                    }
                 }
             }
 
-
             var result = dice.Choose(careers);
-            character.Trace.Add("Elected " + result.Name + " at age " + character.Age);
+            character.Trace.Add("Selected " + result.Name + " at age " + character.Age);
             return result;
         }
 
@@ -164,33 +178,33 @@ namespace Grauenwolf.TravellerTools.Characters
                     Injury(character, dice);
                     return;
                 case 3:
-                    character.History.Add("Birth or Death involving a family member or close friend.");
+                    character.AddHistory("Birth or Death involving a family member or close friend.");
                     return;
                 case 4:
-                    character.History.Add("A romantic relationship ends badly. Gain a Rival or Enemy.");
+                    character.AddHistory("A romantic relationship ends badly. Gain a Rival or Enemy.");
                     return;
                 case 5:
-                    character.History.Add("A romantic relationship deepens, possibly leading to marriage. Gain an Ally.");
+                    character.AddHistory("A romantic relationship deepens, possibly leading to marriage. Gain an Ally.");
                     return;
                 case 6:
-                    character.History.Add("A new romantic starts. Gain an Ally.");
+                    character.AddHistory("A new romantic starts. Gain an Ally.");
                     return;
                 case 7:
-                    character.History.Add("Gained a contact.");
+                    character.AddHistory("Gained a contact.");
                     return;
                 case 8:
-                    character.History.Add("Betrayal. Convert an Ally into a Rival or Enemy.");
+                    character.AddHistory("Betrayal. Convert an Ally into a Rival or Enemy.");
                     return;
                 case 9:
-                    character.History.Add("Moved to a new world.");
+                    character.AddHistory("Moved to a new world.");
                     character.NextTermBenefits.QualificationDM += 1;
                     return;
                 case 10:
-                    character.History.Add("Good fortune");
+                    character.AddHistory("Good fortune");
                     character.BenefitRollDMs.Add(2);
                     return;
                 case 11:
-                    character.History.Add("Accused of a crime");
+                    character.AddHistory("Accused of a crime");
                     if (character.BenefitRolls > 0)
                         character.BenefitRolls -= 1;
                     else
@@ -200,26 +214,26 @@ namespace Grauenwolf.TravellerTools.Characters
                     switch (dice.D(6))
                     {
                         case 1:
-                            character.History.Add("Encounter a Psionic institute.");
+                            character.AddHistory("Encounter a Psionic institute.");
                             TestPsionic(character, dice);
                             return;
                         case 2:
-                            character.History.Add("Spend time with an alien race. Gain a contact.");
+                            character.AddHistory("Spend time with an alien race. Gain a contact.");
                             var skillList = new SkillTemplateCollection(SpecialtiesFor("Science"));
                             skillList.RemoveOverlap(character.Skills, 1);
                             character.Skills.Increase(dice.Choose(skillList), 1);
                             return;
                         case 3:
-                            character.History.Add("Find an Alien Artifact.");
+                            character.AddHistory("Find an Alien Artifact.");
                             return;
                         case 4:
-                            character.History.Add("Amnesia.");
+                            character.AddHistory("Amnesia.");
                             return;
                         case 5:
-                            character.History.Add("Contact with Government.");
+                            character.AddHistory("Contact with Government.");
                             return;
                         case 6:
-                            character.History.Add("Find Ancient Technology.");
+                            character.AddHistory("Find Ancient Technology.");
                             return;
                     }
                     return;
@@ -231,30 +245,30 @@ namespace Grauenwolf.TravellerTools.Characters
             switch (dice.D(2, 6))
             {
                 case 2:
-                    character.History.Add("Contacted by an underground psionic group");
+                    character.AddHistory("Contacted by an underground psionic group");
                     character.LongTermBenefits.MayTestPsi = true;
                     return;
                 case 3:
-                    character.History.Add("Suffered a deep tragedy.");
+                    character.AddHistory("Suffered a deep tragedy.");
                     character.CurrentTermBenefits.GraduationDM = -100;
                     return;
                 case 4:
-                    character.History.Add("A prank goes horribly wrong.");
+                    character.AddHistory("A prank goes horribly wrong.");
                     var roll = dice.D(2, 6) + character.SocialStandingDM;
 
                     if (roll >= 8)
-                        character.History.Add("Gain a Rival.");
+                        character.AddHistory("Gain a Rival.");
                     else if (roll > 2)
-                        character.History.Add("Gain an Enemy.");
+                        character.AddHistory("Gain an Enemy.");
                     else
                         character.NextTermBenefits.MustEnroll = "Prisoner";
                     return;
                 case 5:
-                    character.History.Add("Spent the college years partying.");
+                    character.AddHistory("Spent the college years partying.");
                     character.Skills.Add("Carouse", 1);
                     return;
                 case 6:
-                    character.History.Add($"Made lifelong friends. Gain {dice.D(3)} Allies.");
+                    character.AddHistory($"Made lifelong friends. Gain {dice.D(3)} Allies.");
                     return;
                 case 7:
                     LifeEvent(character, dice);
@@ -262,11 +276,11 @@ namespace Grauenwolf.TravellerTools.Characters
                 case 8:
                     if (dice.RollHigh(character.SocialStandingDM, 8))
                     {
-                        character.History.Add("Become leader in social movement.");
-                        character.History.Add("Gain an Ally and an Enemy.");
+                        character.AddHistory("Become leader in social movement.");
+                        character.AddHistory("Gain an Ally and an Enemy.");
                     }
                     else
-                        character.History.Add("Join a social movement.");
+                        character.AddHistory("Join a social movement.");
                     return;
                 case 9:
                     {
@@ -275,7 +289,7 @@ namespace Grauenwolf.TravellerTools.Characters
 
                         var skill = dice.Choose(skillList);
                         character.Skills.Add(skill);
-                        character.History.Add($"Study {skill} as a hobby.");
+                        character.AddHistory($"Study {skill} as a hobby.");
                     }
                     return;
                 case 10:
@@ -284,19 +298,19 @@ namespace Grauenwolf.TravellerTools.Characters
                     {
                         var skill = dice.Choose(skills);
                         character.Skills.Increase(skill, 1);
-                        character.History.Add($"Expand the field of {skill}, but gain a Rival in your former tutor.");
+                        character.AddHistory($"Expand the field of {skill}, but gain a Rival in your former tutor.");
                     }
                     return;
                 case 11:
-                    character.History.Add("War breaks out, triggering a mandatory draft.");
+                    character.AddHistory("War breaks out, triggering a mandatory draft.");
                     if (dice.RollHigh(character.SocialStandingDM, 9))
-                        character.History.Add("Used social standing to avoid the draft.");
+                        character.AddHistory("Used social standing to avoid the draft.");
                     else
                     {
                         character.CurrentTermBenefits.GraduationDM -= 100;
                         if (dice.D(2) == 1)
                         {
-                            character.History.Add("Fled from the draft.");
+                            character.AddHistory("Fled from the draft.");
                             character.NextTermBenefits.MustEnroll = "Drifter";
                         }
                         else
@@ -312,7 +326,7 @@ namespace Grauenwolf.TravellerTools.Characters
                     }
                     return;
                 case 12:
-                    character.History.Add("Widely recognized.");
+                    character.AddHistory("Widely recognized.");
                     character.SocialStanding += 1;
                     return;
             }

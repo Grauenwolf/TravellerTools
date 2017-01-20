@@ -1,0 +1,49 @@
+﻿@model Grauenwolf.TravellerTools.Characters.Character
+
+@{
+    ViewBag.Title = "Character";
+}
+
+<h2>@Model.Name</h2>
+
+<table class="gridtable">
+
+    <tr>
+        <th width="50" style="text-align:center;">Age</th>
+        <th width="50" style="text-align:center;">Str</th>
+        <th width="50" style="text-align:center;">Dex</th>
+        <th width="50" style="text-align:center;">End</th>
+        <th width="50" style="text-align:center;">Int</th>
+        <th width="50" style="text-align:center;">Edu</th>
+        <th width="50" style="text-align:center;">Soc</th>
+    </tr>
+    <tr>
+        <td>@(Model.Age)</td>
+        <td>@(Model.Strength) (@Model.StrengthDM)</td>
+        <td>@(Model.Dexterity) (@Model.DexterityDM)</td>
+        <td>@(Model.Endurance) (@Model.EnduranceDM)</td>
+        <td>@(Model.Intellect) (@Model.IntellectDM)</td>
+        <td>@(Model.Education) (@Model.EducationDM)</td>
+        <td>@(Model.SocialStanding) (@Model.SocialStandingDM)</td>
+    </tr>
+</table>
+
+<div>&nbsp;</div>
+
+<table class="gridtable">
+    <tr><th>Skills</th></tr>
+    @foreach (var line in Model.Skills.OrderBy(s=>s.Name).ThenBy(s=>s.Specialty))
+    {
+        <tr><td>@line</td></tr>
+    }
+</table>
+
+<div>&nbsp;</div>
+
+<table class="gridtable">
+    <tr><th>Term</th><th>History</th></tr>
+    @foreach (var line in Model.History)
+    {
+        <tr><td>@line.Term</td><td>@line</td></tr>
+    }
+</table>

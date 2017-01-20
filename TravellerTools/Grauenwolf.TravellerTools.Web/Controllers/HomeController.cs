@@ -1,4 +1,6 @@
-﻿using Grauenwolf.TravellerTools.TradeCalculator;
+﻿using Grauenwolf.TravellerTools.Characters;
+using Grauenwolf.TravellerTools.Names;
+using Grauenwolf.TravellerTools.TradeCalculator;
 using Grauenwolf.TravellerTools.Web.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,6 +92,28 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             {
                 model = AE.AnimalBuilderAE.BuildPlanetSet();
             }
+
+            return View(model);
+        }
+
+        public async Task<ActionResult> Character(int? minAge = null, int? maxAge = null, string name = null)
+        {
+            var dice = new Dice();
+            var options = new CharacterBuilderOptions();
+
+            if (!string.IsNullOrEmpty(name))
+                options.Name = name;
+            else
+                options.Name = (await NameService.CreateRandomPersonAsync()).FullName;
+
+            if (minAge.HasValue && maxAge.HasValue)
+                options.MaxAge = minAge.Value + dice.D(1, maxAge.Value - minAge.Value);
+            else if (maxAge.HasValue)
+                options.MaxAge = 12 + dice.D(1, maxAge.Value - 12);
+            else
+                options.MaxAge = 12 + dice.D(1, 60);
+
+            var model = CharacterBuilder.Build(options);
 
             return View(model);
         }

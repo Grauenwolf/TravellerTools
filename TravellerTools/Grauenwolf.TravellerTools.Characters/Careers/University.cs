@@ -1,10 +1,8 @@
-using System.Collections.Generic;
-
-namespace Grauenwolf.TravellerTools.Characters
+namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class University : Career
     {
-        public University() : base("University")
+        public University() : base("University", null)
         {
 
         }
@@ -13,14 +11,14 @@ namespace Grauenwolf.TravellerTools.Characters
         {
             if (!character.LongTermBenefits.MayEnrollInSchool)
                 return false;
+            if (character.CurrentTerm > 3)
+                return false;
 
             var dm = character.GetDM("Edu");
             if (character.CurrentTerm == 2)
-                dm -= 1;
+                dm += -1;
             if (character.CurrentTerm == 3)
-                dm -= 2;
-            if (character.CurrentTerm > 3)
-                dm = -100;
+                dm += -2;
             if (character.SocialStanding >= 9)
                 dm += 1;
 
@@ -34,7 +32,7 @@ namespace Grauenwolf.TravellerTools.Characters
         {
             character.LongTermBenefits.MayEnrollInSchool = false;
 
-            character.History.Add($"Entered University at age {character.Age}");
+            character.AddHistory($"Entered University at age {character.Age}");
 
             var skillChoices = new SkillTemplateCollection();
             skillChoices.Add("Admin");
@@ -66,7 +64,7 @@ namespace Grauenwolf.TravellerTools.Characters
             character.Skills.Add(skillB);
 
 
-            character.CurrentTerm += 1;
+            character.Age += 4;
             character.Education += 1;
 
             CharacterBuilder.PreCareerEvents(character, dice, skillA, skillB);
@@ -74,19 +72,19 @@ namespace Grauenwolf.TravellerTools.Characters
             var graduation = dice.D(2, 6) + character.IntellectDM + character.CurrentTermBenefits.GraduationDM;
             if (graduation < 7)
             {
-                character.History.Add("Dropped out of university.");
+                character.AddHistory("Dropped out of university.");
             }
             else
             {
                 int bonus;
                 if (graduation >= 11)
                 {
-                    character.History.Add($"Graduated with honors at age {character.Age}.");
+                    character.AddHistory($"Graduated with honors at age {character.Age}.");
                     bonus = 2;
                 }
                 else
                 {
-                    character.History.Add($"Graduated at age {character.Age}.");
+                    character.AddHistory($"Graduated at age {character.Age}.");
                     bonus = 1;
                 }
 
@@ -108,30 +106,6 @@ namespace Grauenwolf.TravellerTools.Characters
             }
 
 
-
         }
-    }
-
-    class LongTermBenefits
-    {
-        public Dictionary<string, int> EnlistmentDM { get; } = new Dictionary<string, int>();
-
-        public bool MayEnrollInSchool { get; set; } = true;
-        public bool MayTestPsi { get; set; }
-    }
-
-    class NextTermBenefits
-    {
-        public string MustEnroll { get; set; }
-
-        public bool FreeCommissionRoll { get; set; }
-
-        public int CommissionDM { get; set; }
-
-        public Dictionary<string, int> EnlistmentDM { get; } = new Dictionary<string, int>();
-        public int GraduationDM { get; set; }
-        public int QualificationDM { get; set; }
-
-
     }
 }

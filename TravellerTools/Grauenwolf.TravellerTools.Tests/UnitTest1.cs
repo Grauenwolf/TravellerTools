@@ -1,5 +1,4 @@
-﻿using Grauenwolf.TravellerTools.Characters;
-using Grauenwolf.TravellerTools.Maps;
+﻿using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Names;
 using Grauenwolf.TravellerTools.Web.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

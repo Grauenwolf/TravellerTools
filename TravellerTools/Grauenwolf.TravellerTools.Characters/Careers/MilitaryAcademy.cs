@@ -1,11 +1,10 @@
 using System;
-using System.Collections.Generic;
 
-namespace Grauenwolf.TravellerTools.Characters
+namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class MilitaryAcademy : Career
     {
-        public MilitaryAcademy(string type, string qualifyAttribute, int qualifyTarget) : base("MilitaryAcademy: " + type)
+        public MilitaryAcademy(string type, string qualifyAttribute, int qualifyTarget) : base("MilitaryAcademy", type)
         {
             Type = type;
             QualifyTarget = qualifyTarget;
@@ -14,13 +13,16 @@ namespace Grauenwolf.TravellerTools.Characters
 
         public override bool Qualify(Character character, Dice dice)
         {
+            if (!character.LongTermBenefits.MayEnrollInSchool)
+                return false;
+            if (character.CurrentTerm > 3)
+                return false;
+
             var dm = character.GetDM(QualifyAttribute);
             if (character.CurrentTerm == 2)
-                dm -= 2;
+                dm += -2;
             if (character.CurrentTerm == 3)
-                dm -= 4;
-            if (character.CurrentTerm > 3)
-                dm = -100;
+                dm += -4;
 
             return dice.RollHigh(QualifyTarget);
         }
