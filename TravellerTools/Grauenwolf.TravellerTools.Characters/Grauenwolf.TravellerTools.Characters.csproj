@@ -54,6 +54,7 @@
     <Compile Include="Careers\Colonist.cs" />
     <Compile Include="Careers\Fixer.cs" />
     <Compile Include="Careers\Inmate.cs" />
+    <Compile Include="Careers\MilitaryCareer.cs" />
     <Compile Include="Careers\Prisoner.cs" />
     <Compile Include="Careers\Thug.cs" />
     <Compile Include="Careers\Retired.cs" />

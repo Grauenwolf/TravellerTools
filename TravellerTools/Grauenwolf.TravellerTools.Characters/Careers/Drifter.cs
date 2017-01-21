@@ -9,6 +9,11 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         }
 
+        protected override bool RankCarryover
+        {
+            get { return false; }
+        }
+
         protected override void BasicTraining(Character character, Dice dice, bool firstCareer)
         {
             if (firstCareer)
@@ -29,11 +34,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         }
 
         protected override void AdvancedEducation(Character character, Dice dice, int roll, bool level0)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void OfficerTraining(Character character, Dice dice, int roll, bool level0)
         {
             throw new NotImplementedException();
         }

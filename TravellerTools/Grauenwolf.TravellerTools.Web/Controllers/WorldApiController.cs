@@ -15,7 +15,7 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
         public async Task<IReadOnlyList<WorldLocation>> WorldsInSector(string sectorCoordinates)
         {
             var coordinates = sectorCoordinates.Split(',').Select(s => int.Parse(s)).ToList();
-            var list = await TravellerMapService.FetchWorldsInSectorAsync(coordinates[0], coordinates[1]);
+            var list = await Global.MapService.FetchWorldsInSectorAsync(coordinates[0], coordinates[1]);
             return list.Select(w => new WorldLocation() { Name = w.Name, Hex = w.Hex }).OrderBy(w => w.Name).ToList();
         }
 
@@ -24,9 +24,9 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
         public async Task<IReadOnlyList<Subsector>> Subsectors(string sectorCoordinates)
         {
             var coordinates = sectorCoordinates.Split(',').Select(s => int.Parse(s)).ToList();
-            var meta = await TravellerMapService.FetchSectorMetadataAsync(coordinates[0], coordinates[1]);
+            var meta = await Global.MapService.FetchSectorMetadataAsync(coordinates[0], coordinates[1]);
 
-            var worldList = await TravellerMapService.FetchWorldsInSectorAsync(coordinates[0], coordinates[1]);
+            var worldList = await Global.MapService.FetchWorldsInSectorAsync(coordinates[0], coordinates[1]);
 
             var result = new List<Subsector>();
             foreach (var subsector in meta.Subsectors)
@@ -41,7 +41,7 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
         public async Task<IReadOnlyList<WorldLocation>> WorldsInSubsector(string sectorCoordinates, string subsectorIndex)
         {
             var coordinates = sectorCoordinates.Split(',').Select(s => int.Parse(s)).ToList();
-            var list = await TravellerMapService.FetchWorldsInSectorAsync(coordinates[0], coordinates[1]);
+            var list = await Global.MapService.FetchWorldsInSectorAsync(coordinates[0], coordinates[1]);
             return list.Where(w => w.SubSectorIndex == subsectorIndex && !string.IsNullOrWhiteSpace(w.Name)).Select(w => new WorldLocation() { Name = w.Name, Hex = w.Hex }).OrderBy(w => w.Name).ToList();
 
         }

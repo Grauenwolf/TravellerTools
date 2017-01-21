@@ -13,10 +13,25 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 {
     public abstract class TradeEngine
     {
-        protected ImmutableList<TradeGood> m_LegalTradeGoods;
-        protected ImmutableList<TradeGood> m_TradeGoods;
+        public TradeEngine(MapService mapService, string dataPath)
+        {
+            MapService = mapService;
+
+            var file = new FileInfo(Path.Combine(dataPath, DataFileName));
+            var converter = new XmlSerializer(typeof(TradeGoods));
+            using (var stream = file.OpenRead())
+                m_TradeGoods = ((TradeGoods)converter.Deserialize(stream)).TradeGood.ToImmutableList();
+
+            m_LegalTradeGoods = m_TradeGoods.Where(g => g.Legal).ToImmutableList();
+
+        }
+
+        protected readonly ImmutableList<TradeGood> m_LegalTradeGoods;
+        protected readonly ImmutableList<TradeGood> m_TradeGoods;
 
         protected abstract string DataFileName { get; }
+
+        public MapService MapService { get; }
 
 
         public async Task<Manifest> BuildManifestAsync(World origin, World destination, Dice random, bool illegalGoods)
@@ -65,7 +80,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         {
             var random = new Dice();
 
-            var worlds = await TravellerMapService.WorldsNearAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance).ConfigureAwait(false);
+            var worlds = await MapService.WorldsNearAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance).ConfigureAwait(false);
             var result = await BuildManifestsAsync(worlds, random, illegalGoods).ConfigureAwait(false);
 
             result.TradeList = BuildTradeList(result.Origin, advancedMode, illegalGoods, brokerScore);
@@ -239,15 +254,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return null;
         }
 
-        public void SetDataPath(string dataPath)
-        {
-            var file = new FileInfo(Path.Combine(dataPath, DataFileName));
-            var converter = new XmlSerializer(typeof(TradeGoods));
-            using (var stream = file.OpenRead())
-                m_TradeGoods = ((TradeGoods)converter.Deserialize(stream)).TradeGood.ToImmutableList();
-
-            m_LegalTradeGoods = m_TradeGoods.Where(g => g.Legal).ToImmutableList();
-        }
 
         private void AddTradeGood(World origin, Dice random, IList<TradeOffer> result, TradeGood good, bool advancedMode, int brokerScore)
         {
@@ -323,7 +329,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             var result = new ManifestCollection();
             result.Origin = worlds[0];
             for (var i = 1; i < worlds.Count; i++)
-                result.Add(await BuildManifestAsync(result.Origin, worlds[i], random, illegalGoods).ConfigureAwait(false));
+                if (!worlds[i].UWP.Contains("?")) //skip uncharted words
+                    result.Add(await BuildManifestAsync(result.Origin, worlds[i], random, illegalGoods).ConfigureAwait(false));
             return result;
         }
 

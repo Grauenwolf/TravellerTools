@@ -300,14 +300,14 @@ namespace Grauenwolf.TravellerTools.Characters
             return result;
         }
 
-        static int OddsOfSuccess(Character character, string attributeName, int target)
+        public static int OddsOfSuccess(Character character, string attributeName, int target)
 
         {
             var dm = character.GetDM(attributeName);
             return OddsOfSuccess(target - dm);
         }
 
-        static int OddsOfSuccess(int target)
+        public static int OddsOfSuccess(int target)
         {
             if (target <= 2) return 100;
             if (target == 3) return 97;
@@ -408,7 +408,7 @@ namespace Grauenwolf.TravellerTools.Characters
                     character.BenefitRollDMs.Add(2);
                     return;
                 case 11:
-                    if (dice.D(2)==1)
+                    if (dice.D(2) == 1)
                     {
                         character.BenefitRolls -= 1;
                         character.AddHistory("Victim of a crime");

@@ -52,71 +52,85 @@
         <tr><td>5</td><td>@current.TransitTimeJumpPoint(5).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(5, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(5, 150).ToString(timeFormat)</td></tr>
         <tr><td>6</td><td>@current.TransitTimeJumpPoint(6).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(6, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(6, 150).ToString(timeFormat)</td></tr>
     </table>
+
+
+
+
+
 </div>
 <div style="display: inline-block; vertical-align: top">
     <img src=@string.Format("http://travellermap.com/api/jumpmap?sx={0}&sy={1}&hx={2}&hy={3}&jump={4}&scale=48&style=print", @Model.SectorX, @Model.SectorY, @Model.HexX, @Model.HexY, @Model.MaxJumpDistance) />
 </div>
-<h3>Available Trade Goods</h3>
-<p>Purchase DM does not include broker score.<br />Price modifier and current price include purchase DM, broker score, and random roll.</p>
-<table class="gridtable">
-    <tr>
-        <th>Type</th>
-        <th>Subtype</th>
-        <th>Tons</th>
-        <th>Base Price</th>
-        <th>Purchase DM</th>
-        <th>Modified Roll</th>
-        <th>Price Modifier</th>
-        <th>Current Price</th>
-    </tr>
-    @foreach (var lot in Model.TradeList.Lots)
-    {
+<div style="display: inline-block; vertical-align: top">
+    <ul id="listofthings">
+        @foreach (var manifest in @Model)
+        {
+            <li><a href="@string.Format("#{0}_{1}_{2}_{3}",  manifest.Destination.SectorX, manifest.Destination.SectorY, manifest.Destination.HexX, manifest.Destination.HexY)">@manifest.Destination.Name</a></li>
+        }
+    </ul>
+</div>
+
+    <h3>Available Trade Goods</h3>
+    <p>Purchase DM does not include broker score.<br />Price modifier and current price include purchase DM, broker score, and random roll.</p>
+    <table class="gridtable">
         <tr>
-            <td>@lot.Type</td>
-            <td>@lot.Subtype</td>
-            <td>@lot.Tons</td>
-            <td>@lot.BasePrice.ToString("N0")</td>
-            <td>@lot.PurchaseDM</td>
-            <td>@lot.Roll.ToString("N0")</td>
-            <td>@lot.PriceModifier.ToString("P2")</td>
-            <td>@lot.CurrentPrice.ToString("N0")</td>
+            <th>Type</th>
+            <th>Subtype</th>
+            <th>Tons</th>
+            <th>Base Price</th>
+            <th>Purchase DM</th>
+            <th>Modified Roll</th>
+            <th>Price Modifier</th>
+            <th>Current Price</th>
         </tr>
-    }
-</table>
+        @foreach (var lot in Model.TradeList.Lots)
+        {
+            <tr>
+                <td>@lot.Type</td>
+                <td>@lot.Subtype</td>
+                <td>@lot.Tons</td>
+                <td>@lot.BasePrice.ToString("N0")</td>
+                <td>@lot.PurchaseDM</td>
+                <td>@lot.Roll.ToString("N0")</td>
+                <td>@lot.PriceModifier.ToString("P2")</td>
+                <td>@lot.CurrentPrice.ToString("N0")</td>
+            </tr>
+        }
+    </table>
 
 
-<h3>Desired Goods</h3>
-<p>Sale DM does not include broker score.<br />Price modifier and current price include sale DM, broker score, and random roll.</p>
-<table class="gridtable">
-    <tr>
-        <th>Type</th>
-        <th>Subtype</th>
-        <th>Base Price</th>
-        <th>Sale DM</th>
-        <th>Modified Roll</th>
-        <th>Price Modifier</th>
-        <th>Current Price</th>
-    </tr>
-    @foreach (var lot in Model.TradeList.Bids)
-    {
+    <h3>Desired Goods</h3>
+    <p>Sale DM does not include broker score.<br />Price modifier and current price include sale DM, broker score, and random roll.</p>
+    <table class="gridtable">
         <tr>
-            <td>@lot.Type</td>
-            <td>@lot.Subtype</td>
-            <td>@lot.BasePrice.ToString("N0")</td>
-            <td>@lot.SaleDM</td>
-            <td>@lot.Roll.ToString("N0")</td>
-            <td>@lot.PriceModifier.ToString("P2")</td>
-            <td>@lot.CurrentPrice.ToString("N0")</td>
+            <th>Type</th>
+            <th>Subtype</th>
+            <th>Base Price</th>
+            <th>Sale DM</th>
+            <th>Modified Roll</th>
+            <th>Price Modifier</th>
+            <th>Current Price</th>
         </tr>
-    }
-</table>
+        @foreach (var lot in Model.TradeList.Bids)
+        {
+            <tr>
+                <td>@lot.Type</td>
+                <td>@lot.Subtype</td>
+                <td>@lot.BasePrice.ToString("N0")</td>
+                <td>@lot.SaleDM</td>
+                <td>@lot.Roll.ToString("N0")</td>
+                <td>@lot.PriceModifier.ToString("P2")</td>
+                <td>@lot.CurrentPrice.ToString("N0")</td>
+            </tr>
+        }
+    </table>
 
-@foreach (var manifest in @Model)
-{
-    current = manifest.Destination;
-
-    <hr />
-    <a href=@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}",
+    @foreach (var manifest in @Model)
+    {
+        current = manifest.Destination;
+        <a name="@string.Format("{0}_{1}_{2}_{3}",  current.SectorX, current.SectorY, current.HexX, current.HexY)" />
+        <hr />
+        <a href=@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}",
            current.SectorX, current.SectorY, current.HexX, current.HexY, Model.MaxJumpDistance,
            Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition
            )><h2>Destination: @current.Name</h2></a>
@@ -175,67 +189,67 @@
         </div>
         <h3>Passengers</h3>
 
-    if (manifest.PassengerList.Passengers.Count > 0)
-    {
-        <ul id="listofthings">
-            @foreach (var passenger in manifest.PassengerList.Passengers)
-            {
-                <li>
-                    <h4>@passenger.FirstName @passenger.LastName</h4>
-                    <div>Age: @passenger.ApparentAge (@passenger.Gender)</div>
-                    <div>UPP: @passenger.Upp</div>
-                    <div>Passage Desired: @passenger.TravelType</div>
-                    @if (@passenger.TravelType == "Low")
-                    {
-                        <div>Endurance DM: @passenger.EnduranceDM</div>}
-                    <div>Notes: @passenger.PassengerType, @passenger.Trait</div>
-                </li>}
-        </ul>
-    }
-
-    if (manifest.FreightList.Lots.Count > 0)
-    {
-        <h3>Freight</h3>
-        <ul id="listofthings">
-            @foreach (var lot in manifest.FreightList.Lots)
-            {
-                <li>
-                    <h4>@lot.Size Tons for @lot.ShippingFee.ToString("N0"). </h4>
-                    <div>Contents: @lot.Contents </div>
-                    <div>Value: @lot.ActualValue.ToString("N0") </div>
-                </li>}
-        </ul>
-    }
-
-    <h3>Trade Preview</h3>
-
-    <table>
-        <td valign="top">
-            <h4>Readily Available Goods</h4>
-            <table class="gridtable">
-                <tr><th>Type</th><th>Purchase DM</th></tr>
-                @foreach (var lot in manifest.Offers)
+        if (manifest.PassengerList.Passengers.Count > 0)
+        {
+            <ul id="listofthings">
+                @foreach (var passenger in manifest.PassengerList.Passengers)
                 {
-                    <tr><td>@lot.Type</td><td>@lot.PurchaseDM</td></tr>
-                }
-            </table>
+                    <li>
+                        <h4>@passenger.FirstName @passenger.LastName</h4>
+                        <div>Age: @passenger.ApparentAge (@passenger.Gender)</div>
+                        <div>UPP: @passenger.Upp</div>
+                        <div>Passage Desired: @passenger.TravelType</div>
+                        @if (@passenger.TravelType == "Low")
+                        {
+                            <div>Endurance DM: @passenger.EnduranceDM</div>}
+                        <div>Notes: @passenger.PassengerType, @passenger.Trait</div>
+                    </li>}
+            </ul>
+        }
 
-        </td>
-        <td> </td>
-        <td valign="top">
-            <h4>Desired Goods</h4>
-            <table class="gridtable">
-                <tr><th>Type</th><th>Sale DM</th></tr>
-                @foreach (var lot in manifest.Bids)
+        if (manifest.FreightList.Lots.Count > 0)
+        {
+            <h3>Freight</h3>
+            <ul id="listofthings">
+                @foreach (var lot in manifest.FreightList.Lots)
                 {
-                    <tr><td>@lot.Type</td><td>@lot.SaleDM</td></tr>
-                }
-            </table>
-        </td>
-    </table>
+                    <li>
+                        <h4>@lot.Size Tons for @lot.ShippingFee.ToString("N0"). </h4>
+                        <div>Contents: @lot.Contents </div>
+                        <div>Value: @lot.ActualValue.ToString("N0") </div>
+                    </li>}
+            </ul>
+        }
+
+        <h3>Trade Preview</h3>
+
+        <table>
+            <td valign="top">
+                <h4>Readily Available Goods</h4>
+                <table class="gridtable">
+                    <tr><th>Type</th><th>Purchase DM</th></tr>
+                    @foreach (var lot in manifest.Offers)
+                {
+                        <tr><td>@lot.Type</td><td>@lot.PurchaseDM</td></tr>
+                    }
+                </table>
+
+            </td>
+            <td> </td>
+            <td valign="top">
+                <h4>Desired Goods</h4>
+                <table class="gridtable">
+                    <tr><th>Type</th><th>Sale DM</th></tr>
+                    @foreach (var lot in manifest.Bids)
+                {
+                        <tr><td>@lot.Type</td><td>@lot.SaleDM</td></tr>
+                    }
+                </table>
+            </td>
+        </table>
 
 
 
-}
+    }
 
 

@@ -1,7 +1,9 @@
 ﻿using Grauenwolf.TravellerTools.Animals.AE;
 using Grauenwolf.TravellerTools.Animals.Mgt;
 using Grauenwolf.TravellerTools.Characters;
+using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.TradeCalculator;
+using System.Web.Configuration;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -20,15 +22,20 @@ namespace Grauenwolf.TravellerTools.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             string appDataPath = Server.MapPath("~/app_data");
-            TradeEngineMgt.SetDataPath(appDataPath);
-            TradeEngineMgt2.SetDataPath(appDataPath);
+            var filterUnpopulatedSectors = bool.Parse(WebConfigurationManager.AppSettings["FilterUnpopulatedSectors"]);
+
+            MapService = new TravellerMapService(filterUnpopulatedSectors);
+            TradeEngineMgt = new TradeEngineMgt(MapService, appDataPath);
+            TradeEngineMgt2 = new TradeEngineMgt2(MapService, appDataPath);
+
             AnimalBuilderMgt.SetDataPath(appDataPath);
             AnimalBuilderAE.SetDataPath(appDataPath);
             CharacterBuilder.SetDataPath(appDataPath);
 
         }
 
-        public static readonly TradeEngine TradeEngineMgt = new TradeEngineMgt();
-        public static readonly TradeEngine TradeEngineMgt2 = new TradeEngineMgt2();
+        public static TradeEngine TradeEngineMgt;
+        public static TradeEngine TradeEngineMgt2;
+        public static MapService MapService;
     }
 }

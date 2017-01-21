@@ -16,6 +16,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         protected abstract int AdvancementTarget { get; }
 
         protected abstract int AdvancedEductionMin { get; }
+        protected abstract bool RankCarryover { get; }
 
         public override void Run(Character character, Dice dice)
         {
@@ -33,7 +34,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 if (!character.CareerHistory.Any(pc => pc.Assignment == Assignment))
                 {
                     character.AddHistory($"Switched to {Assignment} at age {character.Age}");
-                    careerHistory = new CareerHistory(Name, Assignment, 0); //TODO: Carry-over rank?
+                    careerHistory = new CareerHistory(Name, Assignment, 0);
                     character.CareerHistory.Add(careerHistory);
                 }
                 else if (character.LastCareer?.Assignment == Assignment)
@@ -53,12 +54,16 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 skillTables.Add(AssignmentSkills);
                 if (character.Education >= AdvancedEductionMin)
                     skillTables.Add(AdvancedEducation);
-                if (careerHistory.CommissionRank > 0)
-                    skillTables.Add(OfficerTraining);
 
                 dice.Choose(skillTables)(character, dice, dice.D(1, 6), false);
             }
             careerHistory.Terms += 1;
+
+            if (RankCarryover)
+            {
+                careerHistory.Rank = character.CareerHistory.Where(c => c.Name == Name).Max(c => c.Rank);
+                careerHistory.CommissionRank = character.CareerHistory.Where(c => c.Name == Name).Max(c => c.CommissionRank);
+            }
 
             var survived = dice.RollHigh(character.GetDM(SurvivalAttribute) + character.NextTermBenefits.SurvivalDM, SurvivalTarget);
             if (survived)
@@ -82,16 +87,10 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 }
                 if (advancementRoll > AdvancementTarget)
                 {
-                    if (careerHistory.CommissionRank > 0)
-                    {
-                        careerHistory.CommissionRank += 1;
-                        character.AddHistory($"Promoted to officer rank {careerHistory.CommissionRank}");
-                    }
-                    else
-                    {
-                        careerHistory.Rank += 1;
-                        character.AddHistory($"Promoted to rank {careerHistory.Rank}");
-                    }
+
+                    careerHistory.Rank += 1;
+                    character.AddHistory($"Promoted to rank {careerHistory.Rank}");
+
                     var oldTitle = character.Title;
                     UpdateTitle(character, careerHistory, dice);
                     var newTitle = character.Title;
@@ -108,8 +107,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     skillTables.Add(AssignmentSkills);
                     if (character.Education >= AdvancedEductionMin)
                         skillTables.Add(AdvancedEducation);
-                    if (careerHistory.CommissionRank > 0)
-                        skillTables.Add(OfficerTraining);
                     dice.Choose(skillTables)(character, dice, dice.D(1, 6), false);
                 }
             }
@@ -129,7 +126,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         protected abstract void ServiceSkill(Character character, Dice dice, int roll, bool level0);
         protected abstract void PersonalDevelopment(Character character, Dice dice, int roll, bool level0);
         protected abstract void AdvancedEducation(Character character, Dice dice, int roll, bool level0);
-        protected abstract void OfficerTraining(Character character, Dice dice, int roll, bool level0);
         protected abstract void AssignmentSkills(Character character, Dice dice, int roll, bool level0);
 
 

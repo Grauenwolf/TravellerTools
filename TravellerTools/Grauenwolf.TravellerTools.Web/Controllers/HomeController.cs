@@ -16,7 +16,7 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
         public async Task<ActionResult> Index()
         {
             var model = new HomeIndexViewModel(
-                await Maps.TravellerMapService.FetchUniverseAsync(),
+                await Global.MapService.FetchUniverseAsync(),
                 AE.AnimalBuilderAE.TerrainTypeList.Select(t => t.Name).ToList(),
                 Mgt.AnimalBuilderMgt.AnimalTypeList.Select(at => at.Name).ToList(),
                 AE.AnimalBuilderAE.AnimalClassList.Select(ac => ac.Name).ToList()

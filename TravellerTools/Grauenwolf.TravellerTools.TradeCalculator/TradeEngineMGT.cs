@@ -8,6 +8,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
     public class TradeEngineMgt : TradeEngine
     {
+
+        public TradeEngineMgt(MapService mapService, string dataPath) : base(mapService, dataPath) { }
+
         protected override string DataFileName
         {
             get { return "TradeGoods-MGT.xml"; }

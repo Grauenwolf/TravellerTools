@@ -59,9 +59,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
         }
 
-        protected override void OfficerTraining(Character character, Dice dice, int roll, bool level0)
+        protected override bool RankCarryover
         {
-            throw new NotImplementedException();
+            get { return false; }
         }
 
         protected override void PersonalDevelopment(Character character, Dice dice, int roll, bool level0)
