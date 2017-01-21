@@ -174,10 +174,11 @@ namespace Grauenwolf.TravellerTools.Characters
         public string Title { get; set; }
         public int? Parole { get; set; }
         public bool IsDead { get; set; }
+        public int Debt { get; set; }
 
         internal int GetEnlistmentBonus(string career, string branch)
         {
-            var result = NextTermBenefits.QualificationDM;
+            var result = NextTermBenefits.QualificationDM + LongTermBenefits.QualificationDM;
 
             if (NextTermBenefits.EnlistmentDM.ContainsKey(career))
                 result += NextTermBenefits.EnlistmentDM[career];

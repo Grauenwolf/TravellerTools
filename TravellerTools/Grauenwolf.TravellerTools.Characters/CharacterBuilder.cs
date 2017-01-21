@@ -37,6 +37,7 @@ namespace Grauenwolf.TravellerTools.Characters
             careers.Add(new Inmate());
             careers.Add(new Fixer());
             careers.Add(new Thug());
+            careers.Add(new Retired());
             s_Careers = careers.ToImmutableArray();
 
             var skills = new List<SkillTemplate>();
@@ -76,11 +77,10 @@ namespace Grauenwolf.TravellerTools.Characters
                 character.Endurance += -2;
                 switch (dice.D(3))
                 {
-                    case 1: character.Intellect += -1; return;
-                    case 2: character.Education += -1; return;
-                    case 3: character.SocialStanding += -1; return;
+                    case 1: character.Intellect += -1; break;
+                    case 2: character.Education += -1; break;
+                    case 3: character.SocialStanding += -1; break;
                 }
-                return;
             }
             else if (roll == -5)
             {
@@ -96,17 +96,17 @@ namespace Grauenwolf.TravellerTools.Characters
                         character.Strength += -2;
                         character.Dexterity += -2;
                         character.Endurance += -1;
-                        return;
+                        break;
                     case 2:
                         character.Strength += -1;
                         character.Dexterity += -2;
                         character.Endurance += -2;
-                        return;
+                        break;
                     case 3:
                         character.Strength += -2;
                         character.Dexterity += -1;
                         character.Endurance += -2;
-                        return;
+                        break;
                 }
             }
             else if (roll == -3)
@@ -117,17 +117,17 @@ namespace Grauenwolf.TravellerTools.Characters
                         character.Strength += -2;
                         character.Dexterity += -1;
                         character.Endurance += -1;
-                        return;
+                        break;
                     case 2:
                         character.Strength += -1;
                         character.Dexterity += -2;
                         character.Endurance += -1;
-                        return;
+                        break;
                     case 3:
                         character.Strength += -1;
                         character.Dexterity += -1;
                         character.Endurance += -2;
-                        return;
+                        break;
                 }
             }
             else if (roll == -2)
@@ -143,15 +143,15 @@ namespace Grauenwolf.TravellerTools.Characters
                     case 1:
                         character.Strength += -1;
                         character.Dexterity += -1;
-                        return;
+                        break;
                     case 2:
                         character.Strength += -1;
                         character.Endurance += -1;
-                        return;
+                        break;
                     case 3:
                         character.Dexterity += -1;
                         character.Endurance += -1;
-                        return;
+                        break;
                 }
             }
             else if (roll == 0)
@@ -160,17 +160,40 @@ namespace Grauenwolf.TravellerTools.Characters
                 {
                     case 1:
                         character.Strength += -1;
-                        return;
+                        break;
                     case 2:
                         character.Dexterity += -1;
-                        return;
+                        break;
                     case 3:
                         character.Endurance += -1;
-                        return;
+                        break;
                 }
             }
+            else
+            {
+                return; //no again crisis possible.
+            }
 
-            //TODO: Aging Crisis page 47
+            if (character.Strength <= 0 ||
+                    character.Dexterity <= 0 ||
+                    character.Endurance <= 0 ||
+                    character.Intellect <= 0 ||
+                    character.Education <= 0 ||
+                    character.SocialStanding <= 0)
+            {
+                var bills = dice.D(6) * 10000;
+                character.Debt += bills;
+                character.AddHistory($"Aging Crisis. Owe {bills:N0} for medical bills.");
+
+                if (character.Strength < 1) character.Strength = 1;
+                if (character.Dexterity < 1) character.Dexterity = 1;
+                if (character.Endurance < 1) character.Endurance = 1;
+                if (character.Intellect < 1) character.Intellect = 1;
+                if (character.Education < 1) character.Education = 1;
+                if (character.SocialStanding < 1) character.SocialStanding = 1;
+                character.LongTermBenefits.QualificationDM = -100;
+                character.LongTermBenefits.Retired = true;
+            }
         }
 
         public static Character Build(CharacterBuilderOptions options)
@@ -385,11 +408,16 @@ namespace Grauenwolf.TravellerTools.Characters
                     character.BenefitRollDMs.Add(2);
                     return;
                 case 11:
-                    character.AddHistory("Accused of a crime");
-                    if (character.BenefitRolls > 0)
+                    if (dice.D(2)==1)
+                    {
                         character.BenefitRolls -= 1;
+                        character.AddHistory("Victim of a crime");
+                    }
                     else
+                    {
+                        character.AddHistory("Accused of a crime");
                         character.NextTermBenefits.MustEnroll = "Prisoner";
+                    }
                     return;
                 case 12:
                     UnusualLifeEvent(character, dice);

@@ -25,7 +25,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         public override bool Qualify(Character character, Dice dice)
         {
-            return true;
+            return !character.LongTermBenefits.Retired;
         }
 
         protected override void AdvancedEducation(Character character, Dice dice, int roll, bool level0)
