@@ -18,15 +18,15 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         {
 
             CareerHistory careerHistory;
-            if (!character.CareerHistory.Any(pc => pc.Name == Name))
+            if (!character.CareerHistory.Any(pc => pc.Name == "Retired"))
             {
                 character.AddHistory($"Retired at age {character.Age}");
-                careerHistory = new CareerHistory(Name, Assignment, 0);
+                careerHistory = new CareerHistory("Retired", null, 0);
                 character.CareerHistory.Add(careerHistory);
             }
             else
             {
-                careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
+                careerHistory = character.CareerHistory.Single(pc => pc.Name == "Retired");
             }
             careerHistory.Terms += 1;
 
@@ -34,7 +34,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
             character.LastCareer = careerHistory;
             character.Age += 4;
-
+            character.NextTermBenefits.MustEnroll = "Retired";
 
 
         }
