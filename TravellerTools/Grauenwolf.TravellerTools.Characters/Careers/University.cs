@@ -14,7 +14,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             if (character.CurrentTerm > 3)
                 return false;
 
-            var dm = character.GetDM("Edu");
+            var dm = character.EducationDM;
             if (character.CurrentTerm == 2)
                 dm += -1;
             if (character.CurrentTerm == 3)
@@ -24,7 +24,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
             dm += character.GetEnlistmentBonus("University", null);
 
-            return dice.RollHigh(7);
+            return dice.RollHigh(dm, 7);
 
         }
 

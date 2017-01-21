@@ -51,11 +51,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Careers\Colonist.cs" />
+    <Compile Include="Careers\Worker.cs" />
+    <Compile Include="Careers\Corporate.cs" />
     <Compile Include="Careers\Barbarian.cs" />
     <Compile Include="Book.cs" />
     <Compile Include="Careers\Career.cs" />
     <Compile Include="CareerHistory.cs" />
+    <Compile Include="Careers\Citizen.cs" />
     <Compile Include="Careers\NormalCareer.cs" />
+    <Compile Include="Careers\SkillTable.cs" />
     <Compile Include="EducationHistory.cs" />
     <Compile Include="LongTermBenefits.cs" />
     <Compile Include="NextTermBenefits.cs" />

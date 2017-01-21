@@ -60,7 +60,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
             careerHistory.Terms += 1;
 
-            var survived = dice.RollHigh(character.GetDM(SurvivalAttribute), SurvivalTarget);
+            var survived = dice.RollHigh(character.GetDM(SurvivalAttribute) + character.NextTermBenefits.SurvivalDM, SurvivalTarget);
             if (survived)
             {
                 character.BenefitRolls += 1;

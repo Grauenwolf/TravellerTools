@@ -31,6 +31,9 @@ namespace Grauenwolf.TravellerTools.Characters
             careers.Add(new Barbarian());
             careers.Add(new Wanderer());
             careers.Add(new Scavenger());
+            careers.Add(new Corporate());
+            careers.Add(new Worker());
+            careers.Add(new Colonist());
             s_Careers = careers.ToImmutableArray();
 
             var skills = new List<SkillTemplate>();
@@ -58,12 +61,119 @@ namespace Grauenwolf.TravellerTools.Characters
                 return new List<SkillTemplate>() { new SkillTemplate(skillName) };
         }
 
+        static void AgingRoll(Character character, Dice dice)
+        {
+            //TODO: Anagathics page 47
+
+            var roll = dice.D(2, 6) - character.CurrentTerm;
+            if (roll <= -6)
+            {
+                character.Strength += -2;
+                character.Dexterity += -2;
+                character.Endurance += -2;
+                switch (dice.D(3))
+                {
+                    case 1: character.Intellect += -1; return;
+                    case 2: character.Education += -1; return;
+                    case 3: character.SocialStanding += -1; return;
+                }
+                return;
+            }
+            else if (roll == -5)
+            {
+                character.Strength += -2;
+                character.Dexterity += -2;
+                character.Endurance += -2;
+            }
+            else if (roll == -4)
+            {
+                switch (dice.D(3))
+                {
+                    case 1:
+                        character.Strength += -2;
+                        character.Dexterity += -2;
+                        character.Endurance += -1;
+                        return;
+                    case 2:
+                        character.Strength += -1;
+                        character.Dexterity += -2;
+                        character.Endurance += -2;
+                        return;
+                    case 3:
+                        character.Strength += -2;
+                        character.Dexterity += -1;
+                        character.Endurance += -2;
+                        return;
+                }
+            }
+            else if (roll == -3)
+            {
+                switch (dice.D(3))
+                {
+                    case 1:
+                        character.Strength += -2;
+                        character.Dexterity += -1;
+                        character.Endurance += -1;
+                        return;
+                    case 2:
+                        character.Strength += -1;
+                        character.Dexterity += -2;
+                        character.Endurance += -1;
+                        return;
+                    case 3:
+                        character.Strength += -1;
+                        character.Dexterity += -1;
+                        character.Endurance += -2;
+                        return;
+                }
+            }
+            else if (roll == -2)
+            {
+                character.Strength += -1;
+                character.Dexterity += -1;
+                character.Endurance += -1;
+            }
+            else if (roll == -1)
+            {
+                switch (dice.D(3))
+                {
+                    case 1:
+                        character.Strength += -1;
+                        character.Dexterity += -1;
+                        return;
+                    case 2:
+                        character.Strength += -1;
+                        character.Endurance += -1;
+                        return;
+                    case 3:
+                        character.Dexterity += -1;
+                        character.Endurance += -1;
+                        return;
+                }
+            }
+            else if (roll == 0)
+            {
+                switch (dice.D(3))
+                {
+                    case 1:
+                        character.Strength += -1;
+                        return;
+                    case 2:
+                        character.Dexterity += -1;
+                        return;
+                    case 3:
+                        character.Endurance += -1;
+                        return;
+                }
+            }
+
+            //TODO: Aging Crisis page 47
+        }
+
         public static Character Build(CharacterBuilderOptions options)
         {
             var dice = new Dice();
             var character = new Character();
-
-            Func<bool> IsDone = () => CharacterDone(options, character, dice);
 
             character.Name = options.Name;
 
@@ -87,7 +197,7 @@ namespace Grauenwolf.TravellerTools.Characters
             if (!string.IsNullOrEmpty(options.FirstCareer))
                 character.NextTermBenefits.MustEnroll = options.FirstCareer;
 
-            while (!IsDone())
+            while (!IsDone(options, character, dice))
             {
                 var nextCareer = PickNextCareer(options, character, dice);
                 character.CurrentTermBenefits = character.NextTermBenefits;
@@ -95,6 +205,9 @@ namespace Grauenwolf.TravellerTools.Characters
                 nextCareer.Run(character, dice);
 
                 character.CurrentTerm += 1;
+
+                if (character.CurrentTerm >= 4)
+                    AgingRoll(character, dice);
             }
 
             if (options.MaxAge.HasValue)
@@ -185,12 +298,10 @@ namespace Grauenwolf.TravellerTools.Characters
         }
 
 
-        static bool CharacterDone(CharacterBuilderOptions options, Character character, Dice dice)
-
+        static bool IsDone(CharacterBuilderOptions options, Character character, Dice dice)
         {
-            if (character.Age >= options.MaxAge)
+            if ((character.Age + 3) >= options.MaxAge) //+3 because terms are 4 years long
                 return true;
-
 
             return false;
         }
@@ -485,7 +596,7 @@ namespace Grauenwolf.TravellerTools.Characters
         }
         static void TestPsionic(Character character, Dice dice)
         {
-            throw new NotImplementedException();
+            //TODO
         }
 
         public static string RollDraft(Dice dice)

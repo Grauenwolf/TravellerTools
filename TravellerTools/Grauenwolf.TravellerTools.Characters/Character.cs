@@ -84,6 +84,7 @@ namespace Grauenwolf.TravellerTools.Characters
                     return EducationDM;
 
                 case "SS":
+                case "Soc":
                 case "SocialStanding":
                     return SocialStandingDM;
 

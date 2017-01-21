@@ -2,7 +2,6 @@
 
 namespace Grauenwolf.TravellerTools.Characters.Careers
 {
-    delegate void SkillTable(Character character, Dice dice, int roll, bool level0);
     abstract class Drifter : NormalCareer
     {
         public Drifter(string assignment) : base("Drifter", assignment)
@@ -138,12 +137,12 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                         var roll = dice.D(6);
                         if (roll == 1)
                         {
-                            character.AddHistory("Attemped a risky adventure and was injured.");
+                            character.AddHistory("Attempted a risky adventure and was injured.");
                             CharacterBuilder.Injury(character, dice);
                         }
                         else if (roll == 2)
                         {
-                            character.AddHistory("Attemped a risky adventure and was sent to prison.");
+                            character.AddHistory("Attempted a risky adventure and was sent to prison.");
                             character.NextTermBenefits.MustEnroll = "Prisoner";
                         }
                         else if (roll < 5)
@@ -152,7 +151,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                         }
                         else
                         {
-                            character.AddHistory("Attemped a risky adventure and was wildly successful.");
+                            character.AddHistory("Attempted a risky adventure and was wildly successful.");
                             character.BenefitRollDMs.Add(4);
                         }
                     }
@@ -176,16 +175,26 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             switch (dice.D(6))
             {
                 case 1:
+                    CharacterBuilder.Injury(character, dice, true);
                     return;
                 case 2:
+                    CharacterBuilder.Injury(character, dice);
                     return;
                 case 3:
+                    character.AddHistory("run afoul of a criminal gang, corrupt bureaucrat or other foe. Gain an Enemy.");
                     return;
+
                 case 4:
+                    character.AddHistory("Suffer from a life-threatening illness.");
+                    character.Endurance -= 1;
                     return;
                 case 5:
+                    character.AddHistory("Betrayed by a friend. One of your Contacts or Allies betrays you, ending your career. That Contact or Ally becomes a Rival or Enemy.");
+                    if (dice.D(2, 12) == 2)
+                        character.NextTermBenefits.MustEnroll = "Prisoner";
                     return;
                 case 6:
+                    character.AddHistory("You do not know what happened to you. There is a gap in your memory.");
                     return;
             }
         }
