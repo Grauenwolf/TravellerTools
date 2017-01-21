@@ -56,6 +56,7 @@
     <Compile Include="Careers\Career.cs" />
     <Compile Include="CareerHistory.cs" />
     <Compile Include="Careers\NormalCareer.cs" />
+    <Compile Include="EducationHistory.cs" />
     <Compile Include="LongTermBenefits.cs" />
     <Compile Include="NextTermBenefits.cs" />
     <Compile Include="Careers\Scavenger.cs" />

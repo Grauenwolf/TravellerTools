@@ -96,7 +96,7 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Character(int? minAge = null, int? maxAge = null, string name = null)
+        public async Task<ActionResult> Character(int? minAge = null, int? maxAge = null, string name = null, string career = null)
         {
             var dice = new Dice();
             var options = new CharacterBuilderOptions();
@@ -112,6 +112,8 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
                 options.MaxAge = 12 + dice.D(1, maxAge.Value - 12);
             else
                 options.MaxAge = 12 + dice.D(1, 60);
+
+            options.FirstCareer = career;
 
             var model = CharacterBuilder.Build(options);
 

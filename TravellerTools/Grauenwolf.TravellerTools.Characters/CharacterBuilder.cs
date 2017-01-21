@@ -84,6 +84,9 @@ namespace Grauenwolf.TravellerTools.Characters
             character.CurrentTerm = 1;
             character.NextTermBenefits = new NextTermBenefits();
 
+            if (!string.IsNullOrEmpty(options.FirstCareer))
+                character.NextTermBenefits.MustEnroll = options.FirstCareer;
+
             while (!IsDone())
             {
                 var nextCareer = PickNextCareer(options, character, dice);
@@ -111,7 +114,7 @@ namespace Grauenwolf.TravellerTools.Characters
             {
                 foreach (var career in s_Careers)
                 {
-                    if (character.NextTermBenefits.MustEnroll == career.Name || character.NextTermBenefits.MustEnroll == career.Assignment)
+                    if (string.Equals(character.NextTermBenefits.MustEnroll, career.Name, StringComparison.OrdinalIgnoreCase) || string.Equals(character.NextTermBenefits.MustEnroll, career.Assignment, StringComparison.OrdinalIgnoreCase))
                     {
                         careers.Add(career);
                     }

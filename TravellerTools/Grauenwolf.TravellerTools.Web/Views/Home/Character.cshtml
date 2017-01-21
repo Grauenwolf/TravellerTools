@@ -47,9 +47,9 @@
 
 
         </td>
-        
-      <td width="20"></td>  
-              <td valign="top">
+
+        <td width="20"></td>
+        <td valign="top">
             <table class="gridtable">
                 <tr><th>Career</th><th>Assignment</th><th>Title</th><th>Rank</th><th>Terms</th></tr>
                 @foreach (var line in Model.CareerHistory)
@@ -64,8 +64,20 @@
                 }
             </table>
 
+            @if (Model.EducationHistory != null)
+            {
+                <div>&nbsp;</div>
+
+                <table class="gridtable">
+                    <tr><th>Education</th><th>Graduated</th></tr>
+                    <tr>
+                        <td>@Model.EducationHistory.Name</td>
+                        <td>@Model.EducationHistory.Status</td>
+                    </tr>
+                </table>
+            }
         </td>
-  
+
     </tr>
 </table>
 

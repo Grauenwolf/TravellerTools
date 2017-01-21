@@ -66,6 +66,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
             character.Age += 4;
             character.Education += 1;
+            character.EducationHistory = new EducationHistory();
+            character.EducationHistory.Name = "University";
+
 
             CharacterBuilder.PreCareerEvents(character, dice, skillA, skillB);
 
@@ -73,17 +76,20 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             if (graduation < 7)
             {
                 character.AddHistory("Dropped out of university.");
+                character.EducationHistory.Status = "Failed";
             }
             else
             {
                 int bonus;
                 if (graduation >= 11)
                 {
+                    character.EducationHistory.Status = "Honors";
                     character.AddHistory($"Graduated with honors at age {character.Age}.");
                     bonus = 2;
                 }
                 else
                 {
+                    character.EducationHistory.Status = "Graduated";
                     character.AddHistory($"Graduated at age {character.Age}.");
                     bonus = 1;
                 }

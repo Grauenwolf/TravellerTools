@@ -166,6 +166,9 @@ namespace Grauenwolf.TravellerTools.Characters
         public int BenefitRolls { get; set; }
 
         public List<CareerHistory> CareerHistory { get; } = new List<CareerHistory>();
+
+        public EducationHistory EducationHistory;
+
         public CareerHistory LastCareer { get; set; }
         public string Title { get; set; }
 
