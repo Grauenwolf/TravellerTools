@@ -34,6 +34,9 @@ namespace Grauenwolf.TravellerTools.Characters
             careers.Add(new Corporate());
             careers.Add(new Worker());
             careers.Add(new Colonist());
+            careers.Add(new Inmate());
+            careers.Add(new Fixer());
+            careers.Add(new Thug());
             s_Careers = careers.ToImmutableArray();
 
             var skills = new List<SkillTemplate>();
@@ -210,7 +213,7 @@ namespace Grauenwolf.TravellerTools.Characters
                     AgingRoll(character, dice);
             }
 
-            if (options.MaxAge.HasValue)
+            if (options.MaxAge.HasValue && !character.IsDead)
                 character.Age = options.MaxAge.Value;
 
 
@@ -302,6 +305,19 @@ namespace Grauenwolf.TravellerTools.Characters
         {
             if ((character.Age + 3) >= options.MaxAge) //+3 because terms are 4 years long
                 return true;
+
+            if (character.Strength <= 0 ||
+                character.Dexterity <= 0 ||
+                character.Endurance <= 0 ||
+                character.Intellect <= 0 ||
+                character.Education <= 0 ||
+                character.SocialStanding <= 0)
+            {
+                character.AddHistory($"Died at age {character.Age}");
+                character.IsDead = true;
+                return true;
+
+            }
 
             return false;
         }

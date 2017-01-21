@@ -4,7 +4,12 @@
     ViewBag.Title = "Character";
 }
 
-<h2>@((Model.Title + " " + Model.Name).TrimStart())</h2>
+<h2>@((Model.Title + " " + Model.Name).TrimStart())
+    @if(Model.IsDead)
+    {
+        <span style="color:red">DECEASED</span>
+    }
+    </h2>
 
 <table class="gridtable">
 

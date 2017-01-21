@@ -33,7 +33,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 if (!character.CareerHistory.Any(pc => pc.Assignment == Assignment))
                 {
                     character.AddHistory($"Switched to {Assignment} at age {character.Age}");
-                    careerHistory = new CareerHistory(Name, Assignment, 0); //TODO: Carry-over rank
+                    careerHistory = new CareerHistory(Name, Assignment, 0); //TODO: Carry-over rank?
                     character.CareerHistory.Add(careerHistory);
                 }
                 else if (character.LastCareer?.Assignment == Assignment)

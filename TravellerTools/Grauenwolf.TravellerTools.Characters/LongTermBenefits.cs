@@ -8,5 +8,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         public bool MayEnrollInSchool { get; set; } = true;
         public bool MayTestPsi { get; set; }
+        public int PrisonSurvivalDM { get; set; }
     }
 }

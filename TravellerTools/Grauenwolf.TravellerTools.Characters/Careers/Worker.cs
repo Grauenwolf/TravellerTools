@@ -27,26 +27,53 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         protected override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
         {
-            switch (roll)
+            if (level0)
             {
-                case 1:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
-                    return;
-                case 2:
-                    character.Skills.Increase("Mechanic");
-                    return;
-                case 3:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Electronics")));
-                    return;
-                case 4:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Engineer")));
-                    return;
-                case 5:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
-                    return;
-                case 6:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Science")));
-                    return;
+                switch (roll)
+                {
+                    case 1:
+                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
+                        return;
+                    case 2:
+                        character.Skills.Add("Mechanic");
+                        return;
+                    case 3:
+                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Electronics")));
+                        return;
+                    case 4:
+                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Engineer")));
+                        return;
+                    case 5:
+                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
+                        return;
+                    case 6:
+                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Science")));
+                        return;
+                }
+            }
+            else
+            {
+                switch (roll)
+                {
+                    case 1:
+                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
+                        return;
+                    case 2:
+                        character.Skills.Increase("Mechanic");
+                        return;
+                    case 3:
+                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Electronics")));
+                        return;
+                    case 4:
+                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Engineer")));
+                        return;
+                    case 5:
+                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
+                        return;
+                    case 6:
+                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Science")));
+                        return;
+                }
             }
         }
 

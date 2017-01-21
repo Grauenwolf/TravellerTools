@@ -115,5 +115,18 @@ namespace Grauenwolf.TravellerTools.Characters
 
             return bestScore;
         }
+        public int GetLevel(string name, string specialty)
+        {
+            var skill = this[name, specialty];
+            if (skill != null)
+                return skill.Level;
+
+            skill = this["Jack-of-All-Trades"];
+            if (skill != null)
+                return skill.Level - 3;
+
+            return -3;
+
+        }
     }
 }

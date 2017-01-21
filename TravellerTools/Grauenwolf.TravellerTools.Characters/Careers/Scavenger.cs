@@ -27,27 +27,55 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         protected override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
         {
-            switch (roll)
+            if (level0)
             {
-                case 1:
-                    character.Skills.Increase("Pilot", "Small Craft");
-                    return;
-                case 2:
-                    character.Skills.Increase("Mechanic");
-                    return;
-                case 3:
-                    character.Skills.Increase("Astrogation");
-                    return;
-                case 4:
-                    character.Skills.Increase("Vacc Suit");
-                    return;
-                case 5:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
+                switch (roll)
+                {
+                    case 1:
+                        character.Skills.Add("Pilot", "Small Craft");
+                        return;
+                    case 2:
+                        character.Skills.Add("Mechanic");
+                        return;
+                    case 3:
+                        character.Skills.Add("Astrogation");
+                        return;
+                    case 4:
+                        character.Skills.Add("Vacc Suit");
+                        return;
+                    case 5:
+                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
 
-                    return;
-                case 6:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Gun Combat")));
-                    return;
+                        return;
+                    case 6:
+                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Gun Combat")));
+                        return;
+                }
+            }
+            else
+            {
+                switch (roll)
+                {
+                    case 1:
+                        character.Skills.Increase("Pilot", "Small Craft");
+                        return;
+                    case 2:
+                        character.Skills.Increase("Mechanic");
+                        return;
+                    case 3:
+                        character.Skills.Increase("Astrogation");
+                        return;
+                    case 4:
+                        character.Skills.Increase("Vacc Suit");
+                        return;
+                    case 5:
+                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
+
+                        return;
+                    case 6:
+                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Gun Combat")));
+                        return;
+                }
             }
         }
 

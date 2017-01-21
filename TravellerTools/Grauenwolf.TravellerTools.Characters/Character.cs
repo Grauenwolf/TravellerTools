@@ -172,6 +172,8 @@ namespace Grauenwolf.TravellerTools.Characters
 
         public CareerHistory LastCareer { get; set; }
         public string Title { get; set; }
+        public int? Parole { get; set; }
+        public bool IsDead { get; set; }
 
         internal int GetEnlistmentBonus(string career, string branch)
         {
