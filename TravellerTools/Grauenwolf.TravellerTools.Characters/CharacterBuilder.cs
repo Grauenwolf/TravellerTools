@@ -38,6 +38,8 @@ namespace Grauenwolf.TravellerTools.Characters
             careers.Add(new Fixer());
             careers.Add(new Thug());
             careers.Add(new Retired());
+            careers.Add(new LawEnforcement());
+
             s_Careers = careers.ToImmutableArray();
 
             var skills = new List<SkillTemplate>();

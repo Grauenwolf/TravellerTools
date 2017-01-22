@@ -10,11 +10,10 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         {
         }
 
-        protected abstract string SurvivalAttribute { get; }
-        protected abstract int SurvivalTarget { get; }
         protected abstract string AdvancementAttribute { get; }
         protected abstract int AdvancementTarget { get; }
-
+        protected abstract string SurvivalAttribute { get; }
+        protected abstract int SurvivalTarget { get; }
         public override bool Qualify(Character character, Dice dice)
         {
             return false;
@@ -111,77 +110,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
             character.LastCareer = careerHistory;
             character.Age += 4;
-        }
-
-        internal void UpdateTitle(Character character, CareerHistory careerHistory, Dice dice)
-        {
-            switch (careerHistory.Rank)
-            {
-                case 1:
-                    return;
-                case 2:
-                    var skillList = new SkillTemplateCollection(CharacterBuilder.SpecialtiesFor("Athletics"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-
-                    return;
-                case 3:
-                    return;
-                case 4:
-                    character.Skills.Add("Advocate");
-                    return;
-                case 5:
-                    return;
-                case 6:
-                    character.Endurance += 1;
-                    return;
-            }
-        }
-
-        internal void Mishap(Character character, Dice dice)
-        {
-            switch (dice.D(6))
-            {
-                case 1:
-                    CharacterBuilder.Injury(character, dice, true);
-                    return;
-                case 2:
-                    character.AddHistory("Accused of assaulting a prison guard.");
-                    character.Parole += 2;
-                    return;
-                case 3:
-                    if (dice.D(2) == 1)
-                    {
-                        character.AddHistory("Persecuted by a prison gang.");
-                        character.BenefitRolls = 0;
-                    }
-                    else
-                    {
-                        if (dice.RollHigh(character.Skills.GetLevel("Melee", "Unarmed"), 8))
-                        {
-                            character.AddHistory("Beaten by a prison gang.");
-                            CharacterBuilder.Injury(character, dice, true);
-                        }
-                        else
-                        {
-                            character.AddHistory("Defeated a prison gang. Gain an Enemy.");
-                            character.Parole += 1;
-                        }
-                    }
-                    return;
-                case 4:
-                    character.AddHistory("A guard takes a dislike to you.");
-                    character.Parole += 1;
-                    return;
-                case 5:
-                    character.AddHistory("Disgraced. Word of your criminal past reaches your homeworld.");
-                    character.SocialStanding += -1;
-                    return;
-                case 6:
-                    CharacterBuilder.Injury(character, dice, false);
-                    return;
-            }
         }
 
         internal void Event(Character character, Dice dice)
@@ -336,6 +264,116 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
         }
 
+        internal void Mishap(Character character, Dice dice)
+        {
+            switch (dice.D(6))
+            {
+                case 1:
+                    CharacterBuilder.Injury(character, dice, true);
+                    return;
+                case 2:
+                    character.AddHistory("Accused of assaulting a prison guard.");
+                    character.Parole += 2;
+                    return;
+                case 3:
+                    if (dice.D(2) == 1)
+                    {
+                        character.AddHistory("Persecuted by a prison gang.");
+                        character.BenefitRolls = 0;
+                    }
+                    else
+                    {
+                        if (dice.RollHigh(character.Skills.GetLevel("Melee", "Unarmed"), 8))
+                        {
+                            character.AddHistory("Beaten by a prison gang.");
+                            CharacterBuilder.Injury(character, dice, true);
+                        }
+                        else
+                        {
+                            character.AddHistory("Defeated a prison gang. Gain an Enemy.");
+                            character.Parole += 1;
+                        }
+                    }
+                    return;
+                case 4:
+                    character.AddHistory("A guard takes a dislike to you.");
+                    character.Parole += 1;
+                    return;
+                case 5:
+                    character.AddHistory("Disgraced. Word of your criminal past reaches your homeworld.");
+                    character.SocialStanding += -1;
+                    return;
+                case 6:
+                    CharacterBuilder.Injury(character, dice, false);
+                    return;
+            }
+        }
+
+        internal void UpdateTitle(Character character, CareerHistory careerHistory, Dice dice)
+        {
+            switch (careerHistory.Rank)
+            {
+                case 1:
+                    return;
+                case 2:
+                    var skillList = new SkillTemplateCollection(CharacterBuilder.SpecialtiesFor("Athletics"));
+                    skillList.RemoveOverlap(character.Skills, 1);
+                    if (skillList.Count > 0)
+                        character.Skills.Add(dice.Choose(skillList), 1);
+
+                    return;
+                case 3:
+                    return;
+                case 4:
+                    character.Skills.Add("Advocate");
+                    return;
+                case 5:
+                    return;
+                case 6:
+                    character.Endurance += 1;
+                    return;
+            }
+        }
+        protected abstract void AssignmentSkills(Character character, Dice dice, int roll, bool level0);
+
+        protected virtual void BasicTraining(Character character, Dice dice, bool firstCareer)
+        {
+            //Rank 0 skill
+            character.Skills.Add("Melee", "Unarmed", 1);
+
+            if (firstCareer)
+                for (var i = 1; i < 7; i++)
+                    ServiceSkill(character, dice, i, true);
+            else
+                ServiceSkill(character, dice, dice.D(6), true);
+
+        }
+
+        protected void PersonalDevelopment(Character character, Dice dice, int roll, bool level0)
+        {
+            switch (roll)
+            {
+                case 1:
+                    character.Strength += 1;
+                    return;
+                case 2:
+                    character.Skills.Increase("Melee", "Unarmed");
+                    return;
+                case 3:
+                    character.Endurance += 1;
+                    return;
+                case 4:
+                    character.Skills.Increase("Jack-of-All-Trades");
+                    return;
+                case 5:
+                    character.Education += 1;
+                    return;
+                case 6:
+                    character.Skills.Increase("Gambler");
+                    return;
+            }
+        }
+
         protected void ServiceSkill(Character character, Dice dice, int roll, bool level0)
         {
             if (level0)
@@ -387,51 +425,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 }
             }
         }
-
-        protected void PersonalDevelopment(Character character, Dice dice, int roll, bool level0)
-        {
-            switch (roll)
-            {
-                case 1:
-                    character.Strength += 1;
-                    return;
-                case 2:
-                    character.Skills.Increase("Melee", "Unarmed");
-                    return;
-                case 3:
-                    character.Endurance += 1;
-                    return;
-                case 4:
-                    character.Skills.Increase("Jack-of-All-Trades");
-                    return;
-                case 5:
-                    character.Education += 1;
-                    return;
-                case 6:
-                    character.Skills.Increase("Gambler");
-                    return;
-            }
-        }
-
-
-        protected abstract void AssignmentSkills(Character character, Dice dice, int roll, bool level0);
-
-
-
-        protected virtual void BasicTraining(Character character, Dice dice, bool firstCareer)
-        {
-            //Rank 0 skill
-            character.Skills.Add("Melee", "Unarmed", 1);
-
-            if (firstCareer)
-                for (var i = 1; i < 7; i++)
-                    ServiceSkill(character, dice, i, true);
-            else
-                ServiceSkill(character, dice, dice.D(6), true);
-
-        }
-
-
     }
 }
 

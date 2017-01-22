@@ -25,7 +25,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             get { return 6; }
         }
 
-        protected override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
+        internal override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
         {
             if (level0)
             {
@@ -77,26 +77,26 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
         }
 
-        internal override void UpdateTitle(Character character, CareerHistory careerHistory, Dice dice)
+        internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
         {
             switch (careerHistory.Rank)
             {
                 case 1:
                     return;
                 case 2:
-                    character.Title = "Manager";
+                    careerHistory.Title = "Manager";
                     character.Skills.Add("Admin", 1);
                     return;
                 case 3:
                     return;
                 case 4:
-                    character.Title = "Senior Manager";
+                    careerHistory.Title = "Senior Manager";
                     character.Skills.Add("Advocate", 1);
                     return;
                 case 5:
                     return;
                 case 6:
-                    character.Title = "Director";
+                    careerHistory.Title = "Director";
                     character.SocialStanding += 1;
                     return;
             }

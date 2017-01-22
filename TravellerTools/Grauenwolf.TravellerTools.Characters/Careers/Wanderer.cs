@@ -26,7 +26,7 @@ namespace Grauenwolf.TravellerTools.Characters
             get { return 7; }
         }
 
-        protected override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
+        internal override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
         {
             if (level0)
             {
@@ -78,7 +78,7 @@ namespace Grauenwolf.TravellerTools.Characters
             }
         }
 
-        internal override void UpdateTitle(Character character, CareerHistory careerHistory, Dice dice)
+        internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
         {
             switch (careerHistory.Rank)
             {

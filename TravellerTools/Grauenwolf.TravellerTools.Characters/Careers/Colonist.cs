@@ -1,5 +1,4 @@
-﻿
-namespace Grauenwolf.TravellerTools.Characters.Careers
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class Colonist : Citizen
     {
@@ -25,7 +24,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             get { return 7; }
         }
 
-        protected override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
+        internal override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
         {
             if (level0)
             {
@@ -77,20 +76,20 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
         }
 
-        internal override void UpdateTitle(Character character, CareerHistory careerHistory, Dice dice)
+        internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
         {
             switch (careerHistory.Rank)
             {
                 case 1:
                     return;
                 case 2:
-                    character.Title = "Settler";
+                    careerHistory.Title = "Settler";
                     character.Skills.Add("Survival", 1);
                     return;
                 case 3:
                     return;
                 case 4:
-                    character.Title = "Explorer";
+                    careerHistory.Title = "Explorer";
                     character.Skills.Add("Navigation", 1);
                     return;
                 case 5:

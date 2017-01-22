@@ -4,18 +4,12 @@ using System.Linq;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers
 {
-    abstract class NormalCareer : Career
+    abstract class NormalCareer : FullCareer
     {
         protected NormalCareer(string name, string assignment) : base(name, assignment)
         {
         }
 
-        protected abstract string SurvivalAttribute { get; }
-        protected abstract int SurvivalTarget { get; }
-        protected abstract string AdvancementAttribute { get; }
-        protected abstract int AdvancementTarget { get; }
-
-        protected abstract int AdvancedEductionMin { get; }
         protected abstract bool RankCarryover { get; }
 
         public override void Run(Character character, Dice dice)
@@ -28,6 +22,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
                 careerHistory = new CareerHistory(Name, Assignment, 0);
                 character.CareerHistory.Add(careerHistory);
+                UpdateTitle(character, dice, careerHistory);
             }
             else
             {
@@ -36,6 +31,10 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.AddHistory($"Switched to {Assignment} at age {character.Age}");
                     careerHistory = new CareerHistory(Name, Assignment, 0);
                     character.CareerHistory.Add(careerHistory);
+
+                    if (!RankCarryover) //then this is a new career
+                        UpdateTitle(character, dice, careerHistory);
+
                 }
                 else if (character.LastCareer?.Assignment == Assignment)
                 {
@@ -91,14 +90,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     careerHistory.Rank += 1;
                     character.AddHistory($"Promoted to rank {careerHistory.Rank}");
 
-                    var oldTitle = character.Title;
-                    UpdateTitle(character, careerHistory, dice);
-                    var newTitle = character.Title;
-                    if (oldTitle != newTitle)
-                    {
-                        character.AddHistory($"Is now a {newTitle}");
-                        careerHistory.Title = newTitle;
-                    }
+                    UpdateTitle(character, dice, careerHistory);
 
                     //advancement skill
                     var skillTables = new List<SkillTable>();
@@ -119,16 +111,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             character.LastCareer = careerHistory;
             character.Age += 4;
         }
-
-        internal abstract void UpdateTitle(Character character, CareerHistory careerHistory, Dice dice);
-        internal abstract void Mishap(Character character, Dice dice);
-        internal abstract void Event(Character character, Dice dice);
-        protected abstract void ServiceSkill(Character character, Dice dice, int roll, bool level0);
-        protected abstract void PersonalDevelopment(Character character, Dice dice, int roll, bool level0);
-        protected abstract void AdvancedEducation(Character character, Dice dice, int roll, bool level0);
-        protected abstract void AssignmentSkills(Character character, Dice dice, int roll, bool level0);
-
-
 
         protected virtual void BasicTraining(Character character, Dice dice, bool firstCareer)
         {

@@ -25,7 +25,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             get { return 4; }
         }
 
-        protected override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
+        internal override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
         {
             if (level0)
             {
@@ -77,14 +77,14 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
         }
 
-        internal override void UpdateTitle(Character character, CareerHistory careerHistory, Dice dice)
+        internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
         {
             switch (careerHistory.Rank)
             {
                 case 1:
                     return;
                 case 2:
-                    character.Title = "Technician";
+                    careerHistory.Title = "Technician";
                     {
                         var skillList = new SkillTemplateCollection(CharacterBuilder.SpecialtiesFor("Profession"));
                         skillList.RemoveOverlap(character.Skills, 1);
@@ -94,13 +94,13 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 case 3:
                     return;
                 case 4:
-                    character.Title = "Craftsman";
+                    careerHistory.Title = "Craftsman";
                     character.Skills.Add("Mechanic", 1);
                     return;
                 case 5:
                     return;
                 case 6:
-                    character.Title = "Master Technician";
+                    careerHistory.Title = "Master Technician";
                     {
                         var skillList = new SkillTemplateCollection(CharacterBuilder.SpecialtiesFor("Engineer"));
                         skillList.RemoveOverlap(character.Skills, 1);

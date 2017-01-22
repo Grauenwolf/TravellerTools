@@ -9,36 +9,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         }
 
-        public override bool Qualify(Character character, Dice dice)
-        {
-            return character.LongTermBenefits.Retired;
-        }
-
-        public override void Run(Character character, Dice dice)
-        {
-
-            CareerHistory careerHistory;
-            if (!character.CareerHistory.Any(pc => pc.Name == "Retired"))
-            {
-                character.AddHistory($"Retired at age {character.Age}");
-                careerHistory = new CareerHistory("Retired", null, 0);
-                character.CareerHistory.Add(careerHistory);
-            }
-            else
-            {
-                careerHistory = character.CareerHistory.Single(pc => pc.Name == "Retired");
-            }
-            careerHistory.Terms += 1;
-
-            LifeEvent(character, dice);
-
-            character.LastCareer = careerHistory;
-            character.Age += 4;
-            character.NextTermBenefits.MustEnroll = "Retired";
-
-
-        }
-
         public static void LifeEvent(Character character, Dice dice)
         {
             switch (dice.D(2, 6))
@@ -88,6 +58,36 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     CharacterBuilder.UnusualLifeEvent(character, dice);
                     return;
             }
+        }
+
+        public override bool Qualify(Character character, Dice dice)
+        {
+            return character.LongTermBenefits.Retired;
+        }
+
+        public override void Run(Character character, Dice dice)
+        {
+
+            CareerHistory careerHistory;
+            if (!character.CareerHistory.Any(pc => pc.Name == "Retired"))
+            {
+                character.AddHistory($"Retired at age {character.Age}");
+                careerHistory = new CareerHistory("Retired", null, 0);
+                character.CareerHistory.Add(careerHistory);
+            }
+            else
+            {
+                careerHistory = character.CareerHistory.Single(pc => pc.Name == "Retired");
+            }
+            careerHistory.Terms += 1;
+
+            LifeEvent(character, dice);
+
+            character.LastCareer = careerHistory;
+            character.Age += 4;
+            character.NextTermBenefits.MustEnroll = "Retired";
+
+
         }
     }
 }

@@ -11,6 +11,12 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             QualifyAttribute = qualifyAttribute;
         }
 
+        public string QualifyAttribute { get; }
+
+        public int QualifyTarget { get; }
+
+        public string Type { get; }
+
         public override bool Qualify(Character character, Dice dice)
         {
             if (!character.LongTermBenefits.MayEnrollInSchool)
@@ -31,9 +37,5 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         {
             throw new NotImplementedException();
         }
-
-        public string QualifyAttribute { get; }
-        public int QualifyTarget { get; }
-        public string Type { get; }
     }
 }

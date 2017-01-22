@@ -4,18 +4,13 @@ using System.Linq;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers
 {
-    abstract class MilitaryCareer : Career
+    abstract class MilitaryCareer : FullCareer
     {
         protected MilitaryCareer(string name, string assignment) : base(name, assignment)
         {
         }
 
-        protected abstract string SurvivalAttribute { get; }
-        protected abstract int SurvivalTarget { get; }
-        protected abstract string AdvancementAttribute { get; }
-        protected abstract int AdvancementTarget { get; }
 
-        protected abstract int AdvancedEductionMin { get; }
 
         public override void Run(Character character, Dice dice)
         {
@@ -27,6 +22,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
                 careerHistory = new CareerHistory(Name, Assignment, 0);
                 character.CareerHistory.Add(careerHistory);
+
+                UpdateTitle(character, dice, careerHistory);
             }
             else
             {
@@ -110,14 +107,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                             careerHistory.Rank += 1;
                             character.AddHistory($"Promoted to rank {careerHistory.Rank}");
                         }
-                        var oldTitle = character.Title;
-                        UpdateTitle(character, careerHistory, dice);
-                        var newTitle = character.Title;
-                        if (oldTitle != newTitle)
-                        {
-                            character.AddHistory($"Is now a {newTitle}");
-                            careerHistory.Title = newTitle;
-                        }
+                        UpdateTitle(character, dice, careerHistory);
 
                         //advancement skill
                         var skillTables = new List<SkillTable>();
@@ -142,39 +132,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             character.Age += 4;
         }
 
-        private void AttemptCommission(Character character, Dice dice, CareerHistory careerHistory)
-        {
-            if (dice.RollHigh(character.SocialStandingDM + character.CurrentTermBenefits.CommissionDM - careerHistory.Terms + 1, 8))
-            {
-                character.AddHistory($"Commissioned in {Name}/{Assignment}");
-                careerHistory.CommissionRank = 1;
-
-                var oldTitle = character.Title;
-                UpdateTitle(character, careerHistory, dice);
-                var newTitle = character.Title;
-                if (oldTitle != newTitle)
-                {
-                    character.AddHistory($"Is now a {newTitle}");
-                    careerHistory.Title = newTitle;
-                }
-            }
-            else
-            {
-                character.AddHistory($"Attempt at commissioned failed.");
-            }
-        }
-
-        internal abstract void UpdateTitle(Character character, CareerHistory careerHistory, Dice dice);
-        internal abstract void Mishap(Character character, Dice dice);
-        internal abstract void Event(Character character, Dice dice);
-        protected abstract void ServiceSkill(Character character, Dice dice, int roll, bool level0);
-        protected abstract void PersonalDevelopment(Character character, Dice dice, int roll, bool level0);
-        protected abstract void AdvancedEducation(Character character, Dice dice, int roll, bool level0);
-        protected abstract void OfficerTraining(Character character, Dice dice, int roll, bool level0);
-        protected abstract void AssignmentSkills(Character character, Dice dice, int roll, bool level0);
-
-
-
         protected virtual void BasicTraining(Character character, Dice dice, bool firstCareer)
         {
             if (firstCareer)
@@ -183,6 +140,23 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             else
                 ServiceSkill(character, dice, dice.D(6), true);
 
+        }
+
+        protected abstract void OfficerTraining(Character character, Dice dice, int roll, bool level0);
+
+        private void AttemptCommission(Character character, Dice dice, CareerHistory careerHistory)
+        {
+            if (dice.RollHigh(character.SocialStandingDM + character.CurrentTermBenefits.CommissionDM - careerHistory.Terms + 1, 8))
+            {
+                character.AddHistory($"Commissioned in {Name}/{Assignment}");
+                careerHistory.CommissionRank = 1;
+
+                UpdateTitle(character, dice, careerHistory);
+            }
+            else
+            {
+                character.AddHistory($"Attempt at commissioned failed.");
+            }
         }
     }
 }

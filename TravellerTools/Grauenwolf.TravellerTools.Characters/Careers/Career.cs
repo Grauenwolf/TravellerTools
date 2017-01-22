@@ -9,12 +9,10 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             Assignment = assignment;
         }
 
-        public string Name { get; }
-
         public string Assignment { get; }
+        public string Name { get; }
+        public abstract bool Qualify(Character character, Dice dice);
 
         public abstract void Run(Character character, Dice dice);
-
-        public abstract bool Qualify(Character character, Dice dice);
     }
 }

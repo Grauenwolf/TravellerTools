@@ -9,83 +9,19 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         }
 
-        protected override bool RankCarryover
-        {
-            get { return false; }
-        }
-
-        protected override void BasicTraining(Character character, Dice dice, bool firstCareer)
-        {
-            if (firstCareer)
-                for (var i = 1; i < 7; i++)
-                    AssignmentSkills(character, dice, i, true);
-            else
-                AssignmentSkills(character, dice, dice.D(6), true);
-        }
-
         protected override int AdvancedEductionMin
         {
             get { return int.MaxValue; }
         }
 
+        protected override bool RankCarryover
+        {
+            get { return false; }
+        }
+
         public override bool Qualify(Character character, Dice dice)
         {
             return !character.LongTermBenefits.Retired;
-        }
-
-        protected override void AdvancedEducation(Character character, Dice dice, int roll, bool level0)
-        {
-            throw new NotImplementedException();
-        }
-
-        protected override void PersonalDevelopment(Character character, Dice dice, int roll, bool level0)
-        {
-            switch (roll)
-            {
-                case 1:
-                    character.Strength += 1;
-                    return;
-                case 2:
-                    character.Endurance += 1;
-                    return;
-                case 3:
-                    character.Dexterity += 1;
-                    return;
-                case 4:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Language")));
-                    return;
-                case 5:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
-                    return;
-                case 6:
-                    character.Skills.Increase("Jack-of-All-Trades");
-                    return;
-            }
-        }
-
-        protected override void ServiceSkill(Character character, Dice dice, int roll, bool level0)
-        {
-            switch (roll)
-            {
-                case 1:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
-                    return;
-                case 2:
-                    character.Skills.Increase("Melee", "Unarmed");
-                    return;
-                case 3:
-                    character.Skills.Increase("Recon");
-                    return;
-                case 4:
-                    character.Skills.Increase("Streetwise");
-                    return;
-                case 5:
-                    character.Skills.Increase("Stealth");
-                    return;
-                case 6:
-                    character.Skills.Increase("Survival");
-                    return;
-            }
         }
 
         internal override void Event(Character character, Dice dice)
@@ -195,6 +131,69 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     return;
                 case 6:
                     character.AddHistory("You do not know what happened to you. There is a gap in your memory.");
+                    return;
+            }
+        }
+
+        protected override void AdvancedEducation(Character character, Dice dice, int roll, bool level0)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected override void BasicTraining(Character character, Dice dice, bool firstCareer)
+        {
+            if (firstCareer)
+                for (var i = 1; i < 7; i++)
+                    AssignmentSkills(character, dice, i, true);
+            else
+                AssignmentSkills(character, dice, dice.D(6), true);
+        }
+        protected override void PersonalDevelopment(Character character, Dice dice, int roll, bool level0)
+        {
+            switch (roll)
+            {
+                case 1:
+                    character.Strength += 1;
+                    return;
+                case 2:
+                    character.Endurance += 1;
+                    return;
+                case 3:
+                    character.Dexterity += 1;
+                    return;
+                case 4:
+                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Language")));
+                    return;
+                case 5:
+                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
+                    return;
+                case 6:
+                    character.Skills.Increase("Jack-of-All-Trades");
+                    return;
+            }
+        }
+
+        protected override void ServiceSkill(Character character, Dice dice, int roll, bool level0)
+        {
+            switch (roll)
+            {
+                case 1:
+                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
+                    return;
+                case 2:
+                    character.Skills.Increase("Melee", "Unarmed");
+                    return;
+                case 3:
+                    character.Skills.Increase("Recon");
+                    return;
+                case 4:
+                    character.Skills.Increase("Streetwise");
+                    return;
+                case 5:
+                    character.Skills.Increase("Stealth");
+                    return;
+                case 6:
+                    character.Skills.Increase("Survival");
                     return;
             }
         }

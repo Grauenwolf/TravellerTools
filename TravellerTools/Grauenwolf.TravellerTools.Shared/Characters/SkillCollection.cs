@@ -115,7 +115,7 @@ namespace Grauenwolf.TravellerTools.Characters
 
             return bestScore;
         }
-        public int GetLevel(string name, string specialty)
+        public int GetLevel(string name, string specialty = null)
         {
             var skill = this[name, specialty];
             if (skill != null)
