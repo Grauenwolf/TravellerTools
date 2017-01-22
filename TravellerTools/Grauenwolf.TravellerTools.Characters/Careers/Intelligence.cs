@@ -1,9 +1,9 @@
 ﻿
 namespace Grauenwolf.TravellerTools.Characters.Careers
 {
-    class LawEnforcement : Agent
+    class Intelligence : Agent
     {
-        public LawEnforcement() : base("Law Enforcement") { }
+        public Intelligence() : base("Intelligence") { }
 
         protected override string AdvancementAttribute
         {
@@ -12,17 +12,17 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         protected override int AdvancementTarget
         {
-            get { return 6; }
+            get { return 5; }
         }
 
         protected override string SurvivalAttribute
         {
-            get { return "End"; }
+            get { return "Int"; }
         }
 
         protected override int SurvivalTarget
         {
-            get { return 6; }
+            get { return 7; }
         }
 
         internal override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
@@ -37,16 +37,16 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.Skills.Increase("Recon");
                     return;
                 case 3:
-                    character.Skills.Increase("Streetwise");
+                    character.Skills.Increase("Electronics", "Comms");
                     return;
                 case 4:
                     character.Skills.Increase("Stealth");
                     return;
                 case 5:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Melee")));
+                    character.Skills.Increase("Persuade");
                     return;
                 case 6:
-                    character.Skills.Increase("Advocate");
+                    character.Skills.Increase("Deception");
                     return;
             }
 
@@ -57,30 +57,30 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             switch (careerHistory.Rank)
             {
                 case 0:
-
-                    careerHistory.Title = "Rookie";
                     return;
                 case 1:
-                    careerHistory.Title = "Corporal";
-                    character.Skills.Add("Streetwise", 1);
+                    careerHistory.Title = "Agent";
+                    character.Skills.Add("Deception", 1);
                     return;
                 case 2:
-                    careerHistory.Title = "Sergeant";
-                    return;
-                case 3:
-                    careerHistory.Title = "Detective";
-                    return;
-                case 4:
-                    careerHistory.Title = "Lieutenant";
+                    careerHistory.Title = "Field Agent";
                     character.Skills.Add("Investigate", 1);
                     return;
+                case 3:
+                    return;
+                case 4:
+                    careerHistory.Title = "Special Agent";
+                    var skillList = new SkillTemplateCollection(CharacterBuilder.SpecialtiesFor("Gun Combat"));
+                    skillList.RemoveOverlap(character.Skills, 1);
+                    if (skillList.Count > 0)
+                        character.Skills.Add(dice.Choose(skillList), 1);
+
+                    return;
                 case 5:
-                    careerHistory.Title = "Chief";
-                    character.Skills.Add("Admin", 1);
+                    careerHistory.Title = "Assistant Director";
                     return;
                 case 6:
-                    careerHistory.Title = "Commissioner";
-                    character.SocialStanding += 1;
+                    careerHistory.Title = "Director";
                     return;
             }
         }

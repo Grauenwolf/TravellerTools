@@ -39,6 +39,11 @@ namespace Grauenwolf.TravellerTools.Characters
             careers.Add(new Thug());
             careers.Add(new Retired());
             careers.Add(new LawEnforcement());
+            careers.Add(new Intelligence());
+            careers.Add(new CorporateAgent());
+            careers.Add(new Enforcer());
+            careers.Add(new Thief());
+            careers.Add(new Pirate());
 
             s_Careers = careers.ToImmutableArray();
 
@@ -241,8 +246,8 @@ namespace Grauenwolf.TravellerTools.Characters
             if (options.MaxAge.HasValue && !character.IsDead)
                 character.Age = options.MaxAge.Value;
 
-
-
+            character.Title = character.CareerHistory.Where(c => c.Title != null).OrderByDescending(c => c.Rank + c.CommissionRank).Select(c => c.Title).FirstOrDefault();
+            
             return character;
         }
 

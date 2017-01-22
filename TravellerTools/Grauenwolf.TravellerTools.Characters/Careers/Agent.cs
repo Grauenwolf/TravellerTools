@@ -13,10 +13,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             careers.Add(new Corporate());
             careers.Add(new Worker());
             careers.Add(new Colonist());
-            //TODO enable these when rogue is finished
-            //careers.Add(new Thief());
-            //careers.Add(new Enforcer());
-            //careers.Add(new Pirate());
+            careers.Add(new Thief());
+            careers.Add(new Enforcer());
+            careers.Add(new Pirate());
             m_Careers = careers.ToImmutableArray();
         }
 

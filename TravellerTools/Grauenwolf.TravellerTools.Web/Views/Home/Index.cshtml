@@ -132,7 +132,7 @@
 
 </div>
 @{
-    var careers = new[] { "University", "Barbarian", "Colonist", "Corporate", "Scavenger", "Wanderer", "Worker", "Inmate", "Fixer", "Thug" ,"Law Enforcement"};
+    var careers = new[] { "University", "Barbarian", "Colonist", "Corporate", "Scavenger", "Wanderer", "Worker", "Inmate", "Fixer", "Thug" ,"Law Enforcement","Intelligence", "Corporate Agent","Enforcer","Thief","Pirate"};
 }
 <div class="row">
     <h2>Characters</h2>
@@ -150,7 +150,7 @@
             }
         </tr>
 
-        @foreach (var career in careers)
+        @foreach (var career in careers.OrderBy(s=>s))
         {
             <tr>
                 <th><a href=@string.Format("/Home/Character?Career={0}", Url.Encode( career))>@career</a></th>
