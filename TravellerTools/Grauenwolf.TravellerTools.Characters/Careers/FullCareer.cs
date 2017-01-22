@@ -30,7 +30,7 @@
             var oldTitle = character.Title;
             TitleTable(character, careerHistory, dice);
             var newTitle = careerHistory.Title;
-            if (oldTitle != newTitle)
+            if (oldTitle != newTitle && newTitle != null)
             {
                 character.AddHistory($"Is now a {newTitle}");
                 character.Title = newTitle;
