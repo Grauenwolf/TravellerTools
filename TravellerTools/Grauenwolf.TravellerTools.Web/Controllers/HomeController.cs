@@ -39,14 +39,14 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             return View();
         }
 
-        public async Task<ActionResult> TradeInfo(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT)
+        public async Task<ActionResult> TradeInfo(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT, int? seed = null, bool advancedCharacters = false)
         {
             ManifestCollection model = null;
 
             if (edition == Edition.MGT)
-                model = await Global.TradeEngineMgt.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore);
+                model = await Global.TradeEngineMgt.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters);
             else if (edition == Edition.MGT2)
-                model = await Global.TradeEngineMgt2.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore);
+                model = await Global.TradeEngineMgt2.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters);
 
             return View(model);
         }
@@ -97,7 +97,7 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Character(int? minAge = null, int? maxAge = null, string name = null, string career = null)
+        public async Task<ActionResult> Character(int? minAge = null, int? maxAge = null, string name = null, string career = null, int? seed = null)
         {
             var dice = new Dice();
             var options = new CharacterBuilderOptions();
@@ -107,7 +107,9 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             else
                 options.Name = (await NameService.CreateRandomPersonAsync()).FullName;
 
-            if (minAge.HasValue && maxAge.HasValue)
+            if (minAge.HasValue && minAge == maxAge)
+                options.MaxAge = maxAge;
+            else if (minAge.HasValue && maxAge.HasValue)
                 options.MaxAge = minAge.Value + dice.D(1, maxAge.Value - minAge.Value);
             else if (maxAge.HasValue)
                 options.MaxAge = 12 + dice.D(1, maxAge.Value - 12);
@@ -115,6 +117,8 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
                 options.MaxAge = 12 + dice.D(1, 60);
 
             options.FirstCareer = career;
+
+            options.Seed = seed;
 
             var model = Global.CharacterBuilder.Build(options);
 

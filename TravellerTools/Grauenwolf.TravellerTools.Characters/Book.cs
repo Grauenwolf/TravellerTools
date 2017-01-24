@@ -76,7 +76,8 @@ namespace Grauenwolf.TravellerTools.Characters
                     character.AddHistory("Spend time with an alien race. Gain a contact.");
                     var skillList = new SkillTemplateCollection(SpecialtiesFor("Science"));
                     skillList.RemoveOverlap(character.Skills, 1);
-                    character.Skills.Increase(dice.Choose(skillList), 1);
+                    if (skillList.Count > 0)
+                        character.Skills.Add(dice.Choose(skillList), 1);
                     return;
                 case 3:
                     character.AddHistory("Find an Alien Artifact.");
@@ -192,9 +193,12 @@ namespace Grauenwolf.TravellerTools.Characters
                         var skillList = new SkillTemplateCollection(m_RandomSkills);
                         skillList.RemoveOverlap(character.Skills, 0);
 
-                        var skill = dice.Choose(skillList);
-                        character.Skills.Add(skill);
-                        character.AddHistory($"Study {skill} as a hobby.");
+                        if (skillList.Count > 0)
+                        {
+                            var skill = dice.Choose(skillList);
+                            character.Skills.Add(skill);
+                            character.AddHistory($"Study {skill} as a hobby.");
+                        }
                     }
                     return;
                 case 10:

@@ -6,10 +6,11 @@
 
 <h2>
     @((Model.Title + " " + Model.Name).TrimStart())
-@if (Model.IsDead)
-{
-    <span style="color:red">DECEASED</span>
-}
+    @if (Model.IsDead)
+    {
+        <span style="color:red">DECEASED</span>
+    }
+    <a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}", Url.Encode(Model.Name), Model.Seed, Model.Age, Model.Age)">permalink</a>
 </h2>
 
 <table class="gridtable">

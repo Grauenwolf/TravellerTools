@@ -6,6 +6,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
     {
         public string PassengerType { get; set; }
         public string TravelType { get; set; }
+        public int? Seed { get; set; }
+        public string Skills { get; set; }
 
 
 

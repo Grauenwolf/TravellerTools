@@ -51,7 +51,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return "10D";
         }
 
-        public override async Task<PassengerList> PassengersAsync(World origin, World destination, Dice random)
+        public override async Task<PassengerList> PassengersAsync(World origin, World destination, Dice random, bool advancedCharacters)
         {
 
             var baseDM = 0;
@@ -85,13 +85,13 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             result.HighPassengers = random.D(PassengerTraffic(baseDM + highDM, random));
 
             for (var i = 0; i < result.HighPassengers; i++)
-                result.Passengers.Add(await PassengerDetailAsync(random, "High").ConfigureAwait(false));
+                result.Passengers.Add(await PassengerDetailAsync(random, "High", advancedCharacters).ConfigureAwait(false));
             for (var i = 0; i < result.MiddlePassengers; i++)
-                result.Passengers.Add(await PassengerDetailAsync(random, "Middle").ConfigureAwait(false));
+                result.Passengers.Add(await PassengerDetailAsync(random, "Middle", advancedCharacters).ConfigureAwait(false));
             for (var i = 0; i < result.BasicPassengers; i++)
-                result.Passengers.Add(await PassengerDetailAsync(random, "Basic").ConfigureAwait(false));
+                result.Passengers.Add(await PassengerDetailAsync(random, "Basic", advancedCharacters).ConfigureAwait(false));
             for (var i = 0; i < result.LowPassengers; i++)
-                result.Passengers.Add(await PassengerDetailAsync(random, "Low").ConfigureAwait(false));
+                result.Passengers.Add(await PassengerDetailAsync(random, "Low", advancedCharacters).ConfigureAwait(false));
 
             return result;
         }

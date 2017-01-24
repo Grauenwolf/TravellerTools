@@ -74,6 +74,10 @@
     <Compile Include="TradeOffer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.Characters\Grauenwolf.TravellerTools.Characters.csproj">
+      <Project>{e290f501-5b89-4e7d-b48e-7c5694a34914}</Project>
+      <Name>Grauenwolf.TravellerTools.Characters</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Grauenwolf.TravellerTools.Services\Grauenwolf.TravellerTools.Services.csproj">
       <Project>{9dfccb72-0df3-40b1-869e-bd1c0cc2ed98}</Project>
       <Name>Grauenwolf.TravellerTools.Services</Name>

@@ -89,13 +89,13 @@ namespace Grauenwolf.TravellerTools.Characters
             if (person.Education.Value > 15) { person.Education = 15; }
             if (person.Social.Value > 15) { person.Social = 15; }
 
-            //Aging crisis 
-            if (person.Strength.Value <= 0) { person.Strength = 1; person.AgingCrisis = true; }
-            if (person.Dexterity.Value <= 0) { person.Dexterity = 1; person.AgingCrisis = true; }
-            if (person.Endurance.Value <= 0) { person.Endurance = 1; person.AgingCrisis = true; }
-            if (person.Intellect.Value <= 0) { person.Intellect = 1; person.AgingCrisis = true; }
-            if (person.Education.Value <= 0) { person.Education = 1; person.AgingCrisis = true; }
-            if (person.Social.Value <= 0) { person.Social = 1; person.AgingCrisis = true; }
+            ////Aging crisis 
+            //if (person.Strength.Value <= 0) { person.Strength = 1; person.AgingCrisis = true; }
+            //if (person.Dexterity.Value <= 0) { person.Dexterity = 1; person.AgingCrisis = true; }
+            //if (person.Endurance.Value <= 0) { person.Endurance = 1; person.AgingCrisis = true; }
+            //if (person.Intellect.Value <= 0) { person.Intellect = 1; person.AgingCrisis = true; }
+            //if (person.Education.Value <= 0) { person.Education = 1; person.AgingCrisis = true; }
+            //if (person.Social.Value <= 0) { person.Social = 1; person.AgingCrisis = true; }
         }
 
         static void AlterRandomPhysical(Person person, Dice random, int amount)

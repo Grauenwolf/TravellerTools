@@ -478,7 +478,7 @@
 		<Detail Roll="12"   Name="Disintegrators/Psi-Weaponry/Weapons of Mass Destruction" Tons="1D6" Price="450"/>
 	</TradeGood>
 
-	<TradeGood Name="Exotic Goods" Roll="66" Availability="*" BasePrice="0" Tons="0" DetailRoll="D66"  Legal="false">
+	<TradeGood Name="Exotic Goods" Roll="66" Availability="" BasePrice="0" Tons="0" DetailRoll="D66"  Legal="false">
 
 		<Detail Roll="11-13" Name="Alien Super-Science" Tons="1D6-3" Price="2000" />
 		<Detail Roll="14-16" Name="Alien Ancient Relic" Tons="1D6-4" Price="2500" />

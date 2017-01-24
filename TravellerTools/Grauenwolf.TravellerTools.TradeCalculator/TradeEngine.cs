@@ -23,9 +23,10 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 m_TradeGoods = ((TradeGoods)converter.Deserialize(stream)).TradeGood.ToImmutableList();
 
             m_LegalTradeGoods = m_TradeGoods.Where(g => g.Legal).ToImmutableList();
-
+            m_CharacterBuilder = new CharacterBuilder(dataPath);
         }
 
+        readonly CharacterBuilder m_CharacterBuilder;
         protected readonly ImmutableList<TradeGood> m_LegalTradeGoods;
         protected readonly ImmutableList<TradeGood> m_TradeGoods;
 
@@ -34,10 +35,12 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public MapService MapService { get; }
 
 
-        public async Task<Manifest> BuildManifestAsync(World origin, World destination, Dice random, bool illegalGoods)
+        public async Task<Manifest> BuildManifestAsync(World origin, World destination, Dice random, bool illegalGoods, bool advancedCharacters)
         {
             var result = new Manifest() { Origin = origin, Destination = destination };
-            result.PassengerList = await PassengersAsync(origin, destination, random).ConfigureAwait(false);
+
+            result.PassengerList = await PassengersAsync(origin, destination, random, advancedCharacters).ConfigureAwait(false);
+
             result.FreightList = Freight(origin, destination, random);
 
             IReadOnlyList<TradeGood> goods;
@@ -76,14 +79,16 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return result;
         }
 
-        public async Task<ManifestCollection> BuildManifestsAsync(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode, bool illegalGoods, int brokerScore)
+        public async Task<ManifestCollection> BuildManifestsAsync(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters)
         {
-            var random = new Dice();
+
+            var actualSeed = seed ?? (new Random()).Next();
+            var random = new Dice(actualSeed);
 
             var worlds = await MapService.WorldsNearAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance).ConfigureAwait(false);
-            var result = await BuildManifestsAsync(worlds, random, illegalGoods).ConfigureAwait(false);
+            var result = await BuildManifestsAsync(worlds, random, illegalGoods, advancedCharacters).ConfigureAwait(false);
 
-            result.TradeList = BuildTradeList(result.Origin, advancedMode, illegalGoods, brokerScore);
+            result.TradeList = BuildTradeList(result.Origin, advancedMode, illegalGoods, brokerScore, random);
 
             result.SectorX = sectorX;
             result.SectorY = sectorY;
@@ -94,6 +99,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             result.AdvancedMode = advancedMode;
             result.IllegalGoods = illegalGoods;
             result.BrokerScore = brokerScore;
+            result.Seed = actualSeed;
+            result.AdvancedCharacters = advancedCharacters;
 
             OnManifestsBuilt(result);
 
@@ -102,27 +109,48 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         internal abstract void OnManifestsBuilt(ManifestCollection result);
 
-        public TradeList BuildTradeList(World origin, bool advancedMode, bool illegalGoods, int brokerScore)
+        public TradeList BuildTradeList(World origin, bool advancedMode, bool illegalGoods, int brokerScore, Dice random)
         {
             IReadOnlyList<TradeGood> goods;
             if (!illegalGoods)
                 goods = m_LegalTradeGoods;
             else
                 goods = m_TradeGoods;
-
-            var random = new Dice();
             var result = new TradeList();
 
             List<TradeOffer> availableLots = new List<TradeOffer>();
 
+
+            var randomGoods = new List<TradeGood>();
+
+            /*
+             * Goods with *: Always available
+             * Good with no mark: Only 1 chance
+             * Other goods: 5 chances plus 20 chances per matching remark
+             */
             foreach (var good in goods)
-                if (good.Availability == "*" || (good.AvailabilityList.Any(a => origin.ContainsRemark(a))))
+            {
+                if (good.Availability == "*")
+                {
                     AddTradeGood(origin, random, availableLots, good, advancedMode, brokerScore);
+                }
+                else if (good.Availability == "") //extremely rare
+                {
+                    randomGoods.Add(good);
+                }
+                else
+                {
+                    for (var i = 0; i < 1 + (5 * good.AvailabilityList.Count(a => origin.ContainsRemark(a))); i++)
+                        randomGoods.Add(good);
+                }
+            }
 
-            foreach (var good in random.Choose(goods, 6))
+            for (var i = 0; i < 6; i++)
+            {
+                var good = random.Choose(randomGoods);
                 AddTradeGood(origin, random, availableLots, good, advancedMode, brokerScore);
-
-            //TODO - deduplicator
+                randomGoods = randomGoods.Where(g => g != good).ToList();
+            }
 
             List<TradeBid> requests = new List<TradeBid>();
             if (!advancedMode)
@@ -197,7 +225,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public abstract FreightList Freight(World origin, World destination, Dice random);
 
 
-        public abstract Task<PassengerList> PassengersAsync(World origin, World destination, Dice random);
+        public abstract Task<PassengerList> PassengersAsync(World origin, World destination, Dice random, bool advancedCharacters);
+
 
 
 
@@ -324,13 +353,13 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             }
         }
 
-        async Task<ManifestCollection> BuildManifestsAsync(List<World> worlds, Dice random, bool illegalGoods)
+        async Task<ManifestCollection> BuildManifestsAsync(List<World> worlds, Dice random, bool illegalGoods, bool advancedCharacters)
         {
             var result = new ManifestCollection();
             result.Origin = worlds[0];
             for (var i = 1; i < worlds.Count; i++)
                 if (!worlds[i].UWP.Contains("?")) //skip uncharted words
-                    result.Add(await BuildManifestAsync(result.Origin, worlds[i], random, illegalGoods).ConfigureAwait(false));
+                    result.Add(await BuildManifestAsync(result.Origin, worlds[i], random, illegalGoods, advancedCharacters).ConfigureAwait(false));
             return result;
         }
 
@@ -347,7 +376,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         }
 
 
-        protected async Task<Passenger> PassengerDetailAsync(Dice random, string travelType)
+        protected async Task<Passenger> PassengerDetailAsync(Dice random, string travelType, bool advancedCharacters)
         {
             var user = await NameService.CreateRandomPersonAsync().ConfigureAwait(false);
 
@@ -356,15 +385,35 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             var result = new Passenger()
             {
                 TravelType = travelType,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
+                Name = $"{user.FirstName} {user.LastName}",
                 Gender = user.Gender,
                 ApparentAge = 12 + random.D(1, 60),
             };
             Passenger.AddPassengerType(result, random);
 
             SimpleCharacterEngine.AddTrait(result, random);
-            SimpleCharacterEngine.AddCharacteristics(result, random);
+
+            if (!advancedCharacters)
+            {
+                SimpleCharacterEngine.AddCharacteristics(result, random);
+            }
+            else
+            {
+                result.Seed = random.Next();
+                var options = new CharacterBuilderOptions() { MaxAge = result.ApparentAge, Name = result.Name, Seed = result.Seed };
+                var character = m_CharacterBuilder.Build(options);
+
+                result.Strength += character.Strength;
+                result.Dexterity += character.Dexterity;
+                result.Endurance += character.Endurance;
+                result.Intellect += character.Intellect;
+                result.Education += character.Education;
+                result.Social += character.SocialStanding;
+
+                result.Skills = string.Join(", ", character.Skills.Where(s => s.Level > 0).Select(s => s.ToString()).OrderBy(s => s));
+
+                result.Title = character.Title;
+            }
 
 
             if (isPatron)

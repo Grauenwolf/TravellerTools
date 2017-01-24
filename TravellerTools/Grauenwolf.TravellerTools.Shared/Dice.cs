@@ -8,6 +8,23 @@ namespace Grauenwolf.TravellerTools
 
     public class Dice : RandomExtended
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Dice"/> class.
+        /// </summary>
+        public Dice()
+        {
+
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Dice"/> class.
+        /// </summary>
+        /// <param name="seed">A number used to calculate a starting value for the pseudo-random number sequence. If a negative number is specified, the absolute value of the number is used.</param>
+        public Dice(int seed) : base(seed)
+        {
+
+        }
+
         public int D(int count, int die)
         {
             var result = 0;

@@ -7,7 +7,13 @@
     var current = Model.Origin;
     var timeFormat = "h'h 'm'm 's's'";
 }
-<h2>Origin: @current.Name</h2>
+<h2>Origin: @current.Name
+    <a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href=@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}&seed={9}&advancedCharacters={10}",
+           current.SectorX, current.SectorY, current.HexX, current.HexY, Model.MaxJumpDistance,
+           Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.Seed, Model.AdvancedCharacters
+           )>permalink</a>
+
+    </h2>
 <h3>Planet Info</h3>
 <table class="gridtable">
 
@@ -130,9 +136,9 @@
         current = manifest.Destination;
         <a name="@string.Format("{0}_{1}_{2}_{3}",  current.SectorX, current.SectorY, current.HexX, current.HexY)" />
         <hr />
-        <a href=@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}",
+        <a href=@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}&advancedCharacters={9}",
            current.SectorX, current.SectorY, current.HexX, current.HexY, Model.MaxJumpDistance,
-           Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition
+           Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.AdvancedCharacters
            )><h2>Destination: @current.Name</h2></a>
 
 
@@ -195,7 +201,14 @@
                 @foreach (var passenger in manifest.PassengerList.Passengers)
                 {
                     <li>
-                        <h4>@passenger.FirstName @passenger.LastName</h4>
+                        @if (Model.AdvancedCharacters)
+                        {
+                            <h4><a target="_blank" href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}", Url.Encode(passenger.Name), passenger.Seed, passenger.ApparentAge, passenger.ApparentAge)">@passenger.Title @passenger.Name</a></h4>
+                        }
+                        else
+                        {
+                            <h4>@passenger.Name</h4>
+                        }
                         <div>Age: @passenger.ApparentAge (@passenger.Gender)</div>
                         <div>UPP: @passenger.Upp</div>
                         <div>Passage Desired: @passenger.TravelType</div>
@@ -203,6 +216,10 @@
                         {
                             <div>Endurance DM: @passenger.EnduranceDM</div>}
                         <div>Notes: @passenger.PassengerType, @passenger.Trait</div>
+                        @if (Model.AdvancedCharacters)
+                        {
+                            <div>@passenger.Skills</div>
+                        }
                     </li>}
             </ul>
         }

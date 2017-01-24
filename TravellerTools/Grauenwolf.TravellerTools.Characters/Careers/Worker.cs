@@ -79,7 +79,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     {
                         var skillList = new SkillTemplateCollection(SpecialtiesFor("Profession"));
                         skillList.RemoveOverlap(character.Skills, 1);
-                        character.Skills.Add(dice.Choose(skillList), 1);
+                        if (skillList.Count > 0)
+                            character.Skills.Add(dice.Choose(skillList), 1);
                     }
                     return;
                 case 3:
@@ -95,7 +96,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     {
                         var skillList = new SkillTemplateCollection(SpecialtiesFor("Engineer"));
                         skillList.RemoveOverlap(character.Skills, 1);
-                        character.Skills.Add(dice.Choose(skillList), 1);
+                        if (skillList.Count > 0)
+                            character.Skills.Add(dice.Choose(skillList), 1);
                     }
                     return;
             }

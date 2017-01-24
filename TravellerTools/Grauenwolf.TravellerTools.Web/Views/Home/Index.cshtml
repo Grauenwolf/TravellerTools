@@ -37,6 +37,9 @@
                 <label> <input type="checkbox" id="illegalGoods" /> Allow Illegal Goods</label>
             </td>
             <td>
+                <label> <input type="checkbox" id="advancedCharacters" />Advanced Characters</label>
+            </td>
+            <td>
                 <label>Jump Distance</label>
                 <input type="number" id="jumpDistance" value="3" />
             </td>
@@ -45,7 +48,7 @@
                 <input type="number" id="brokerScore" value="0" />
             </td>
             <td>
-                <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo($('#sector')[0].value, $('#world')[0].value, $('#advancedMode')[0].checked, $('#illegalGoods')[0].checked, $('#jumpDistance')[0].value, $('#brokerScore')[0].value, $('#mongoose2')[0].checked)" style="display:none" />
+                <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo($('#sector')[0].value, $('#world')[0].value, $('#advancedMode')[0].checked, $('#illegalGoods')[0].checked, $('#jumpDistance')[0].value, $('#brokerScore')[0].value, $('#mongoose2')[0].checked, $('#advancedCharacters')[0].checked)" style="display:none" />
                 <span id="selectWorldForTrade">Select a world</span>
             </td>
         </tr>
@@ -148,7 +151,7 @@
             }
         </tr>
 
-        @foreach (var career in Model.Careers.OrderBy(s=>s.Key))
+        @foreach (var career in Model.Careers.OrderBy(s => s.Key))
         {
             <tr>
                 <th><a href=@string.Format("/Home/Character?Career={0}", Url.Encode( career.Key ))>@career</a></th>
@@ -161,7 +164,8 @@
 
     </table>
 </div>
-<div>Warning: Psionics are not yet included.</div>
+<div>Note: Psionics are not yet included.</div>
+<div><span style="color:red;font-weight:700;font-size:larger">Warning: </span>Permalinks become invalid whenever a new version of Traveller Tools is created.</div>
 
 
 

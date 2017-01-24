@@ -176,6 +176,12 @@ namespace Grauenwolf.TravellerTools.Characters
         public bool IsDead { get; set; }
         public int Debt { get; set; }
 
+        /// <summary>
+        /// Gets or sets the seed used to randomly create the character.
+        /// </summary>
+        /// <value>The seed.</value>
+        public int Seed { get; set; }
+
         internal int GetEnlistmentBonus(string career, string branch)
         {
             var result = NextTermBenefits.QualificationDM + LongTermBenefits.QualificationDM;

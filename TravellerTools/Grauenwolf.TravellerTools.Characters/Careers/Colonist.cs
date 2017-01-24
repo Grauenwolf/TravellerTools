@@ -90,7 +90,8 @@
                     {
                         var skillList = new SkillTemplateCollection(SpecialtiesFor("Gun Combat"));
                         skillList.RemoveOverlap(character.Skills, 1);
-                        character.Skills.Add(dice.Choose(skillList), 1);
+                        if (skillList.Count > 0)
+                            character.Skills.Add(dice.Choose(skillList), 1);
                     }
                     return;
             }

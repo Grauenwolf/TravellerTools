@@ -48,7 +48,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                         skillList.Add("Animals", "Training");
                         skillList.Add("Recon");
                         skillList.RemoveOverlap(character.Skills, 1);
-                        character.Skills.Add(dice.Choose(skillList), 1);
+                        if (skillList.Count > 0)
+                            character.Skills.Add(dice.Choose(skillList), 1);
                     }
                     return;
                 case 4:
@@ -61,7 +62,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                         skillList.Add("Persuade");
                         skillList.Add("Recon");
                         skillList.RemoveOverlap(character.Skills, 1);
-                        character.Skills.Add(dice.Choose(skillList), 1);
+                        if (skillList.Count > 0)
+                            character.Skills.Add(dice.Choose(skillList), 1);
                     }
 
                     return;
@@ -268,7 +270,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     var skillList = new SkillTemplateCollection();
                     skillList.AddRange(SpecialtiesFor("Drive"));
                     skillList.Add("Vacc Suit");
-                    character.Skills.Add(dice.Choose(skillList));
+                    skillList.RemoveOverlap(character.Skills, 0);
+                    if (skillList.Count > 0)
+                        character.Skills.Add(dice.Choose(skillList));
                 }
             }
 

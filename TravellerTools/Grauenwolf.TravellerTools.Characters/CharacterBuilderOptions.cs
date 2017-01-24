@@ -15,6 +15,7 @@ namespace Grauenwolf.TravellerTools.Characters
         //        return Characters.CareerChoice.Default;
         //}
         public string FirstCareer { get; set; }
+        public int? Seed { get; set; }
 
     }
 

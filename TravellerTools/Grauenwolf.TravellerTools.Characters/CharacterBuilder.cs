@@ -189,9 +189,11 @@ namespace Grauenwolf.TravellerTools.Characters
 
         public Character Build(CharacterBuilderOptions options)
         {
-            var dice = new Dice();
+            var seed = options.Seed ?? (new Random()).Next();
+            var dice = new Dice(seed);
             var character = new Character();
 
+            character.Seed = seed;
             character.Name = options.Name;
 
             character.Strength = dice.D(2, 6);

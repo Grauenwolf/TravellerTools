@@ -16,7 +16,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             get { return "TradeGoods-MGT.xml"; }
         }
 
-        public override async Task<PassengerList> PassengersAsync(World origin, World destination, Dice random)
+        public override async Task<PassengerList> PassengersAsync(World origin, World destination, Dice random, bool advancedCharacters)
         {
             var result = new PassengerList();
 
@@ -96,11 +96,11 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             if (result.HighPassengers < 0) result.HighPassengers = 0;
 
             for (var i = 0; i < result.HighPassengers; i++)
-                result.Passengers.Add(await PassengerDetailAsync(random, "High").ConfigureAwait(false));
+                result.Passengers.Add(await PassengerDetailAsync(random, "High", advancedCharacters).ConfigureAwait(false));
             for (var i = 0; i < result.MiddlePassengers; i++)
-                result.Passengers.Add(await PassengerDetailAsync(random, "Middle").ConfigureAwait(false));
+                result.Passengers.Add(await PassengerDetailAsync(random, "Middle", advancedCharacters).ConfigureAwait(false));
             for (var i = 0; i < result.LowPassengers; i++)
-                result.Passengers.Add(await PassengerDetailAsync(random, "Low").ConfigureAwait(false));
+                result.Passengers.Add(await PassengerDetailAsync(random, "Low", advancedCharacters).ConfigureAwait(false));
 
             return result;
         }

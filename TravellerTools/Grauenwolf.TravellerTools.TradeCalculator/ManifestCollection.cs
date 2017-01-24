@@ -22,6 +22,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public bool? AdvancedMode { get; set; }
         public bool? IllegalGoods { get; set; }
         public Edition Edition { get; set; }
+        public int? Seed { get; set; }
+        public bool AdvancedCharacters { get; set; }
 
     }
 }
