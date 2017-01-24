@@ -6,7 +6,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     abstract class Prisoner : Career
     {
-        protected Prisoner(string assignment) : base("Prisoner", assignment)
+        protected Prisoner(string assignment, Book book) : base("Prisoner", assignment, book)
         {
         }
 
@@ -14,12 +14,12 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         protected abstract int AdvancementTarget { get; }
         protected abstract string SurvivalAttribute { get; }
         protected abstract int SurvivalTarget { get; }
-        public override bool Qualify(Character character, Dice dice)
+        internal override bool Qualify(Character character, Dice dice)
         {
             return false;
         }
 
-        public override void Run(Character character, Dice dice)
+        internal override void Run(Character character, Dice dice)
         {
             CareerHistory careerHistory;
             if (!character.CareerHistory.Any(pc => pc.Name == Name))
@@ -137,7 +137,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     {
                         character.Parole += -1;
                         var skills = new SkillTemplateCollection();
-                        skills.AddRange(CharacterBuilder.SpecialtiesFor("Athletics"));
+                        skills.AddRange(SpecialtiesFor("Athletics"));
                         skills.Add("Mechanic");
                         skills.Add("Melee", "Unarmed");
                         skills.RemoveOverlap(character.Skills, 1);
@@ -174,7 +174,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.AddHistory("Vocational Training.");
                     if (dice.RollHigh(character.EducationDM, 8))
                     {
-                        character.Skills.Increase(dice.Choose(CharacterBuilder.RandomSkills), 1);
+                        character.Skills.Increase(dice.Choose(RandomSkills), 1);
                     }
                     return;
                 case 7:
@@ -184,7 +184,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                             character.AddHistory("A riot engulfs the prison.");
                             if (dice.D(6) <= 2)
                             {
-                                CharacterBuilder.Injury(character, dice);
+                                Injury(character, dice);
                             }
                             else
                             {
@@ -217,7 +217,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                             character.AddHistory("Attacked by another prisoner.");
                             if (!dice.RollHigh(character.Skills.GetLevel("Melee", "Unarmed"), 8))
                             {
-                                CharacterBuilder.Injury(character, dice);
+                                Injury(character, dice);
                             }
                             return;
                     }
@@ -258,7 +258,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     else
                     {
                         character.AddHistory("Attmped but failed to save a guard or prison officer.");
-                        CharacterBuilder.Injury(character, dice, false);
+                        Injury(character, dice, false);
                     }
                     return;
             }
@@ -269,7 +269,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             switch (dice.D(6))
             {
                 case 1:
-                    CharacterBuilder.Injury(character, dice, true);
+                    Injury(character, dice, true);
                     return;
                 case 2:
                     character.AddHistory("Accused of assaulting a prison guard.");
@@ -286,7 +286,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                         if (dice.RollHigh(character.Skills.GetLevel("Melee", "Unarmed"), 8))
                         {
                             character.AddHistory("Beaten by a prison gang.");
-                            CharacterBuilder.Injury(character, dice, true);
+                            Injury(character, dice, true);
                         }
                         else
                         {
@@ -304,7 +304,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.SocialStanding += -1;
                     return;
                 case 6:
-                    CharacterBuilder.Injury(character, dice, false);
+                    Injury(character, dice, false);
                     return;
             }
         }
@@ -316,7 +316,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 case 1:
                     return;
                 case 2:
-                    var skillList = new SkillTemplateCollection(CharacterBuilder.SpecialtiesFor("Athletics"));
+                    var skillList = new SkillTemplateCollection(SpecialtiesFor("Athletics"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);
@@ -372,11 +372,11 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             var roll = dice.D(6);
 
             if (all || roll == 1)
-                character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
+                character.Skills.Add(dice.Choose(SpecialtiesFor("Athletics")));
             if (all || roll == 2)
                 character.Skills.Add("Deception");
             if (all || roll == 3)
-                character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
+                character.Skills.Add(dice.Choose(SpecialtiesFor("Profession")));
             if (all || roll == 4)
                 character.Skills.Add("Streetwise");
             if (all || roll == 5)
@@ -390,13 +390,13 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             switch (dice.D(6))
             {
                 case 1:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
                     return;
                 case 2:
                     character.Skills.Increase("Deception");
                     return;
                 case 3:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Profession")));
                     return;
                 case 4:
                     character.Skills.Increase("Streetwise");

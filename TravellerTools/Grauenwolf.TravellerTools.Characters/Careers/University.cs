@@ -2,12 +2,12 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class University : Career
     {
-        public University() : base("University", null)
+        public University(Book book) : base("University", null, book)
         {
 
         }
 
-        public override bool Qualify(Character character, Dice dice)
+        internal override bool Qualify(Character character, Dice dice)
         {
             if (!character.LongTermBenefits.MayEnrollInSchool)
                 return false;
@@ -28,7 +28,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         }
 
-        public override void Run(Character character, Dice dice)
+        internal override void Run(Character character, Dice dice)
         {
             character.LongTermBenefits.MayEnrollInSchool = false;
 
@@ -39,15 +39,15 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             skillChoices.Add("Advocate");
             skillChoices.Add("Animals", "Training");
             skillChoices.Add("Animals", "Veterinary");
-            skillChoices.AddRange(CharacterBuilder.SpecialtiesFor("Art"));
+            skillChoices.AddRange(SpecialtiesFor("Art"));
             skillChoices.Add("Astrogation");
-            skillChoices.AddRange(CharacterBuilder.SpecialtiesFor("Electronics"));
-            skillChoices.AddRange(CharacterBuilder.SpecialtiesFor("Engineer"));
-            skillChoices.AddRange(CharacterBuilder.SpecialtiesFor("Language"));
+            skillChoices.AddRange(SpecialtiesFor("Electronics"));
+            skillChoices.AddRange(SpecialtiesFor("Engineer"));
+            skillChoices.AddRange(SpecialtiesFor("Language"));
             skillChoices.Add("Medic");
             skillChoices.Add("Navigation");
-            skillChoices.AddRange(CharacterBuilder.SpecialtiesFor("Profession"));
-            skillChoices.AddRange(CharacterBuilder.SpecialtiesFor("Science"));
+            skillChoices.AddRange(SpecialtiesFor("Profession"));
+            skillChoices.AddRange(SpecialtiesFor("Science"));
 
 
             //Remove skills we already have at level 1
@@ -70,7 +70,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             character.EducationHistory.Name = "University";
 
 
-            CharacterBuilder.PreCareerEvents(character, dice, skillA, skillB);
+            Book.PreCareerEvents(character, dice, skillA, skillB);
 
             var graduation = dice.D(2, 6) + character.IntellectDM + character.CurrentTermBenefits.GraduationDM;
             if (graduation < 7)

@@ -51,6 +51,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Book.cs" />
     <Compile Include="Careers\Army.cs" />
     <Compile Include="Careers\Agent.cs" />
     <Compile Include="Careers\Pirate.cs" />
@@ -72,7 +73,7 @@
     <Compile Include="Careers\Worker.cs" />
     <Compile Include="Careers\Corporate.cs" />
     <Compile Include="Careers\Barbarian.cs" />
-    <Compile Include="Book.cs" />
+    <Compile Include="CharacterBuilder.xml.cs" />
     <Compile Include="Careers\Career.cs" />
     <Compile Include="CareerHistory.cs" />
     <Compile Include="Careers\Citizen.cs" />

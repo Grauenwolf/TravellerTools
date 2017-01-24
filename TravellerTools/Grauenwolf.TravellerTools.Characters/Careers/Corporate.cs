@@ -3,7 +3,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class Corporate : Citizen
     {
-        public Corporate() : base("Corporate") { }
+        public Corporate(Book book) : base("Corporate", book) { }
 
         protected override string AdvancementAttribute
         {

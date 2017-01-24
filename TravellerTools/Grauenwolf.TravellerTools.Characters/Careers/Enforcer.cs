@@ -3,7 +3,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class Enforcer : Rogue
     {
-        public Enforcer() : base("Enforcer") { }
+        public Enforcer(Book book) : base("Enforcer", book) { }
 
         protected override string AdvancementAttribute
         {
@@ -31,10 +31,10 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             switch (dice.D(6))
             {
                 case 1:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Gun Combat")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
                     return;
                 case 2:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Melee")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
                     return;
                 case 3:
                     character.Skills.Increase("Streetwise");
@@ -43,10 +43,10 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.Skills.Increase("Persuade");
                     return;
                 case 5:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
                     return;
                 case 6:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
                     return;
             }
 
@@ -65,8 +65,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     return;
                 case 3:
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(CharacterBuilder.SpecialtiesFor("Gun Combat"));
-                    skillList.AddRange(CharacterBuilder.SpecialtiesFor("Melee"));
+                    skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                    skillList.AddRange(SpecialtiesFor("Melee"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);

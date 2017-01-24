@@ -2,7 +2,7 @@
 {
     class Inmate : Prisoner
     {
-        public Inmate() : base("Inmate") { }
+        public Inmate(Book book) : base("Inmate", book) { }
 
         protected override string AdvancementAttribute
         {

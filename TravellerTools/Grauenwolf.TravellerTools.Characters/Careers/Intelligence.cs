@@ -3,7 +3,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class Intelligence : Agent
     {
-        public Intelligence() : base("Intelligence") { }
+        public Intelligence(Book book) : base("Intelligence", book) { }
 
         protected override string AdvancementAttribute
         {
@@ -70,7 +70,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     return;
                 case 4:
                     careerHistory.Title = "Special Agent";
-                    var skillList = new SkillTemplateCollection(CharacterBuilder.SpecialtiesFor("Gun Combat"));
+                    var skillList = new SkillTemplateCollection(SpecialtiesFor("Gun Combat"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);

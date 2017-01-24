@@ -4,17 +4,17 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class Retired : Career
     {
-        public Retired() : base("Retired", null)
+        public Retired(Book book) : base("Retired", null, book)
         {
 
         }
 
-        public static void LifeEvent(Character character, Dice dice)
+        public void Event(Character character, Dice dice)
         {
             switch (dice.D(2, 6))
             {
                 case 2:
-                    CharacterBuilder.Injury(character, dice);
+                    Injury(character, dice);
                     return;
                 case 3:
                     character.AddHistory("Birth or Death involving a family member or close friend.");
@@ -55,17 +55,17 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     }
                     return;
                 case 12:
-                    CharacterBuilder.UnusualLifeEvent(character, dice);
+                    UnusualLifeEvent(character, dice);
                     return;
             }
         }
 
-        public override bool Qualify(Character character, Dice dice)
+        internal override bool Qualify(Character character, Dice dice)
         {
             return character.LongTermBenefits.Retired;
         }
 
-        public override void Run(Character character, Dice dice)
+        internal override void Run(Character character, Dice dice)
         {
 
             CareerHistory careerHistory;
@@ -81,7 +81,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
             careerHistory.Terms += 1;
 
-            LifeEvent(character, dice);
+            Event(character, dice);
 
             character.LastCareer = careerHistory;
             character.Age += 4;

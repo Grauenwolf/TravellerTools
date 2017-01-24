@@ -2,7 +2,7 @@
 {
     class Colonist : Citizen
     {
-        public Colonist() : base("Colonist") { }
+        public Colonist(Book book) : base("Colonist", book) { }
 
         protected override string AdvancementAttribute
         {
@@ -29,13 +29,13 @@
             var roll = dice.D(6);
 
             if (all || roll == 1)
-                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Animals"));
+                character.Skills.AddRange(SpecialtiesFor("Animals"));
             if (all || roll == 2)
-                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Athletics"));
+                character.Skills.AddRange(SpecialtiesFor("Athletics"));
             //if (all || roll == 3)
             //character.Skills.Add("Jack-of-all-Trades");
             if (all || roll == 4)
-                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Drive"));
+                character.Skills.AddRange(SpecialtiesFor("Drive"));
             if (all || roll == 5)
                 character.Skills.Add("Survival");
             if (all || roll == 6)
@@ -48,16 +48,16 @@
             switch (dice.D(6))
             {
                 case 1:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Animals")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Animals")));
                     return;
                 case 2:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
                     return;
                 case 3:
                     character.Skills.Increase("Jack-of-all-Trades");
                     return;
                 case 4:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
                     return;
                 case 5:
                     character.Skills.Increase("Survival");
@@ -88,7 +88,7 @@
                     return;
                 case 6:
                     {
-                        var skillList = new SkillTemplateCollection(CharacterBuilder.SpecialtiesFor("Gun Combat"));
+                        var skillList = new SkillTemplateCollection(SpecialtiesFor("Gun Combat"));
                         skillList.RemoveOverlap(character.Skills, 1);
                         character.Skills.Add(dice.Choose(skillList), 1);
                     }

@@ -19,7 +19,8 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
                 await Global.MapService.FetchUniverseAsync(),
                 AE.AnimalBuilderAE.TerrainTypeList.Select(t => t.Name).ToList(),
                 Mgt.AnimalBuilderMgt.AnimalTypeList.Select(at => at.Name).ToList(),
-                AE.AnimalBuilderAE.AnimalClassList.Select(ac => ac.Name).ToList()
+                AE.AnimalBuilderAE.AnimalClassList.Select(ac => ac.Name).ToList(),
+                Global.CharacterBuilder.Careers
                 );
             return View(model);
         }
@@ -115,7 +116,7 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
 
             options.FirstCareer = career;
 
-            var model = CharacterBuilder.Build(options);
+            var model = Global.CharacterBuilder.Build(options);
 
             return View(model);
         }

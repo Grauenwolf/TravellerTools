@@ -3,7 +3,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class LawEnforcement : Agent
     {
-        public LawEnforcement() : base("Law Enforcement") { }
+        public LawEnforcement(Book book) : base("Law Enforcement", book) { }
 
         protected override string AdvancementAttribute
         {
@@ -43,7 +43,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.Skills.Increase("Stealth");
                     return;
                 case 5:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Melee")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
                     return;
                 case 6:
                     character.Skills.Increase("Advocate");

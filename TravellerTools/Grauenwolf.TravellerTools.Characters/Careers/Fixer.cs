@@ -2,7 +2,7 @@
 {
     class Fixer : Prisoner
     {
-        public Fixer() : base("Fixer") { }
+        public Fixer(Book book) : base("Fixer", book) { }
 
         protected override string AdvancementAttribute
         {

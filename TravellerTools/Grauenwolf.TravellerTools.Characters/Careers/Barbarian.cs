@@ -3,7 +3,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class Barbarian : Drifter
     {
-        public Barbarian() : base("Barbarian") { }
+        public Barbarian(Book book) : base("Barbarian", book) { }
 
         protected override string AdvancementAttribute
         {
@@ -30,7 +30,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             var roll = dice.D(6);
 
             if (all || roll == 1)
-                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Animals"));
+                character.Skills.AddRange(SpecialtiesFor("Animals"));
             if (all || roll == 2)
                 character.Skills.Add("Carouse");
             if (all || roll == 3)
@@ -51,7 +51,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             switch (dice.D(6))
             {
                 case 1:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Animals")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Animals")));
                     return;
                 case 2:
                     character.Skills.Increase("Carouse");

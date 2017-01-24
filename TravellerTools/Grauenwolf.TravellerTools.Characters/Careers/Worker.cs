@@ -3,7 +3,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class Worker : Citizen
     {
-        public Worker() : base("Worker") { }
+        public Worker(Book book) : base("Worker", book) { }
 
         protected override string AdvancementAttribute
         {
@@ -30,17 +30,17 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             var roll = dice.D(6);
 
             if (all || roll == 1)
-                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Drive"));
+                character.Skills.AddRange(SpecialtiesFor("Drive"));
             if (all || roll == 2)
                 character.Skills.Add("Mechanic");
             if (all || roll == 3)
-                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Electronics"));
+                character.Skills.AddRange(SpecialtiesFor("Electronics"));
             if (all || roll == 4)
-                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Engineer"));
+                character.Skills.AddRange(SpecialtiesFor("Engineer"));
             if (all || roll == 5)
-                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Profession"));
+                character.Skills.AddRange(SpecialtiesFor("Profession"));
             if (all || roll == 6)
-                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Science"));
+                character.Skills.AddRange(SpecialtiesFor("Science"));
         }
 
         internal override void AssignmentSkills(Character character, Dice dice)
@@ -48,22 +48,22 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             switch (dice.D(6))
             {
                 case 1:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
                     return;
                 case 2:
                     character.Skills.Increase("Mechanic");
                     return;
                 case 3:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Electronics")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
                     return;
                 case 4:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Engineer")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
                     return;
                 case 5:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Profession")));
                     return;
                 case 6:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Science")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Science")));
                     return;
             }
         }
@@ -77,7 +77,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 case 2:
                     careerHistory.Title = "Technician";
                     {
-                        var skillList = new SkillTemplateCollection(CharacterBuilder.SpecialtiesFor("Profession"));
+                        var skillList = new SkillTemplateCollection(SpecialtiesFor("Profession"));
                         skillList.RemoveOverlap(character.Skills, 1);
                         character.Skills.Add(dice.Choose(skillList), 1);
                     }
@@ -93,7 +93,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 case 6:
                     careerHistory.Title = "Master Technician";
                     {
-                        var skillList = new SkillTemplateCollection(CharacterBuilder.SpecialtiesFor("Engineer"));
+                        var skillList = new SkillTemplateCollection(SpecialtiesFor("Engineer"));
                         skillList.RemoveOverlap(character.Skills, 1);
                         character.Skills.Add(dice.Choose(skillList), 1);
                     }

@@ -4,7 +4,7 @@ namespace Grauenwolf.TravellerTools.Characters
 {
     class Wanderer : Drifter
     {
-        public Wanderer() : base("Wanderer") { }
+        public Wanderer(Book book) : base("Wanderer", book) { }
 
         protected override string AdvancementAttribute
         {
@@ -31,7 +31,7 @@ namespace Grauenwolf.TravellerTools.Characters
             var roll = dice.D(6);
 
             if (all || roll == 1)
-                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Drive"));
+                character.Skills.AddRange(SpecialtiesFor("Drive"));
             if (all || roll == 2)
                 character.Skills.Add("Deception");
             if (all || roll == 3)
@@ -49,7 +49,7 @@ namespace Grauenwolf.TravellerTools.Characters
             switch (dice.D(6))
             {
                 case 1:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
                     return;
                 case 2:
                     character.Skills.Increase("Deception");

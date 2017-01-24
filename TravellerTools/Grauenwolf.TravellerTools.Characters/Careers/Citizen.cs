@@ -2,7 +2,7 @@
 {
     abstract class Citizen : NormalCareer
     {
-        public Citizen(string assignment) : base("Citizen", assignment)
+        public Citizen(string assignment, Book book) : base("Citizen", assignment, book)
         {
 
         }
@@ -17,7 +17,7 @@
             get { return false; }
         }
 
-        public override bool Qualify(Character character, Dice dice)
+        internal override bool Qualify(Character character, Dice dice)
         {
             var dm = character.EducationDM;
             dm += -1 * character.CareerHistory.Count;
@@ -57,10 +57,10 @@
                     character.AddHistory("Spent time maintaining and using heavy vehicles.");
                     var skills = new SkillTemplateCollection();
                     skills.Add("Mechanic");
-                    skills.AddRange(CharacterBuilder.SpecialtiesFor("Drive"));
-                    skills.AddRange(CharacterBuilder.SpecialtiesFor("Electronics"));
-                    skills.AddRange(CharacterBuilder.SpecialtiesFor("Flyer"));
-                    skills.AddRange(CharacterBuilder.SpecialtiesFor("Engineer"));
+                    skills.AddRange(SpecialtiesFor("Drive"));
+                    skills.AddRange(SpecialtiesFor("Electronics"));
+                    skills.AddRange(SpecialtiesFor("Flyer"));
+                    skills.AddRange(SpecialtiesFor("Engineer"));
                     character.Skills.Increase(dice.Choose(skills));
                     return;
                 case 5:
@@ -71,13 +71,13 @@
                     character.AddHistory("Advanced training in a specialist field.");
                     if (dice.RollHigh(character.EducationDM, 10))
                     {
-                        var skillList = new SkillTemplateCollection(CharacterBuilder.RandomSkills);
+                        var skillList = new SkillTemplateCollection(RandomSkills);
                         skillList.RemoveOverlap(character.Skills, 1);
                         character.Skills.Add(dice.Choose(skillList), 1);
                     }
                     return;
                 case 7:
-                    CharacterBuilder.LifeEvent(character, dice);
+                    LifeEvent(character, dice);
                     return;
                 case 8:
                     character.AddHistory("You learn something you should not have – a corporate secret, a political scandal – which you can profit from illegally.");
@@ -104,8 +104,8 @@
 
                     {
                         var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(CharacterBuilder.SpecialtiesFor("Electronics"));
-                        skillList.AddRange(CharacterBuilder.SpecialtiesFor("Engineer"));
+                        skillList.AddRange(SpecialtiesFor("Electronics"));
+                        skillList.AddRange(SpecialtiesFor("Engineer"));
                         character.Skills.Increase(dice.Choose(skillList));
                     }
                     return;
@@ -133,7 +133,7 @@
             switch (dice.D(6))
             {
                 case 1:
-                    CharacterBuilder.Injury(character, dice, true);
+                    Injury(character, dice, true);
                     return;
                 case 2:
                     character.AddHistory("Life ruined by a criminal gang. Gain the gang as an Enemy");
@@ -160,7 +160,7 @@
                         dice.Choose(character.Skills).Level += 1;
                     return;
                 case 6:
-                    CharacterBuilder.Injury(character, dice, false);
+                    Injury(character, dice, false);
                     return;
             }
         }
@@ -170,7 +170,7 @@
             switch (dice.D(6))
             {
                 case 1:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Art")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Art")));
                     return;
                 case 2:
                     character.Skills.Increase("Advocate");
@@ -179,7 +179,7 @@
                     character.Skills.Increase("Diplomat");
                     return;
                 case 4:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Language")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Language")));
                     return;
                 case 5:
                     character.Skills.Increase("Electronics", "Computers");
@@ -207,7 +207,7 @@
                     character.Skills.Increase("Gambler");
                     return;
                 case 5:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
                     return;
                 case 6:
                     character.Skills.Increase("Jack-of-All-Trades");
@@ -220,22 +220,22 @@
             switch (dice.D(6))
             {
                 case 1:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
                     return;
                 case 2:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Flyer")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Flyer")));
                     return;
                 case 3:
                     character.Skills.Increase("Streetwise");
                     return;
                 case 4:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Melee")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
                     return;
                 case 5:
                     character.Skills.Increase("Steward");
                     return;
                 case 6:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Profession")));
                     return;
             }
         }

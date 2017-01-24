@@ -3,7 +3,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class Scavenger : Drifter
     {
-        public Scavenger() : base("Scavenger") { }
+        public Scavenger(Book book) : base("Scavenger", book) { }
 
         protected override string AdvancementAttribute
         {
@@ -38,9 +38,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             if (all || roll == 4)
                 character.Skills.Add("Vacc Suit");
             if (all || roll == 5)
-                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Profession"));
+                character.Skills.AddRange(SpecialtiesFor("Profession"));
             if (all || roll == 6)
-                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Gun Combat"));
+                character.Skills.AddRange(SpecialtiesFor("Gun Combat"));
         }
 
         internal override void AssignmentSkills(Character character, Dice dice)
@@ -60,11 +60,11 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.Skills.Increase("Vacc Suit");
                     return;
                 case 5:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Profession")));
 
                     return;
                 case 6:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Gun Combat")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
                     return;
             }
         }

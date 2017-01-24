@@ -131,9 +131,7 @@
     </table>
 
 </div>
-@{
-    var careers = new[] { "University", "Barbarian", "Colonist", "Corporate", "Scavenger", "Wanderer", "Worker", "Inmate", "Fixer", "Thug" ,"Law Enforcement","Intelligence", "Corporate Agent","Enforcer","Thief","Pirate","Support"};
-}
+
 <div class="row">
     <h2>Characters</h2>
     <div>This is used for creating NPCs only. Certain liberties where taken with the rules to allow for random character generation.</div>
@@ -150,13 +148,13 @@
             }
         </tr>
 
-        @foreach (var career in careers.OrderBy(s=>s))
+        @foreach (var career in Model.Careers.OrderBy(s=>s.Key))
         {
             <tr>
-                <th><a href=@string.Format("/Home/Character?Career={0}", Url.Encode( career))>@career</a></th>
+                <th><a href=@string.Format("/Home/Character?Career={0}", Url.Encode( career.Key ))>@career</a></th>
                 @for (var terms = 1; terms <= 15; terms++)
                 {
-                    <td><a href=@string.Format("/Home/Character?Career={0}&MinAge={1}&MaxAge={2}", Url.Encode(career), 18+(terms*4), 18 + (terms * 4) + 3)>@terms Terms</a></td>
+                    <td><a href=@string.Format("/Home/Character?Career={0}&MinAge={1}&MaxAge={2}", Url.Encode(career.Key), 18+(terms*4), 18 + (terms * 4) + 3)>@terms Terms</a></td>
                 }
             </tr>
         }

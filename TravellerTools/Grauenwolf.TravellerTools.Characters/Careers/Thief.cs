@@ -3,7 +3,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class Thief : Rogue
     {
-        public Thief() : base("Thief") { }
+        public Thief(Book book) : base("Thief", book) { }
 
         protected override string AdvancementAttribute
         {
@@ -34,7 +34,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.Skills.Increase("Stealth");
                     return;
                 case 2:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Electronics")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
                     return;
                 case 3:
                     character.Skills.Increase("Recon");
@@ -46,7 +46,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.Skills.Increase("Deception");
                     return;
                 case 6:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
                     return;
             }
 

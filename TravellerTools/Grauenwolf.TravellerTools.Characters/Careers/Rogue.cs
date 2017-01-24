@@ -4,7 +4,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     abstract class Rogue : NormalCareer
     {
-        public Rogue(string assignment) : base("Rogue", assignment)
+        public Rogue(string assignment, Book book) : base("Rogue", assignment, book)
         {
 
         }
@@ -14,7 +14,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             get { return 10; }
         }
 
-        public override bool Qualify(Character character, Dice dice)
+        internal override bool Qualify(Character character, Dice dice)
         {
             var dm = character.DexterityDM;
             dm += -1 * character.CareerHistory.Count;
@@ -30,7 +30,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             switch (dice.D(6))
             {
                 case 1:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Electronics")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
                     return;
                 case 2:
                     character.Skills.Increase("Navigation");
@@ -72,10 +72,10 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.Skills.Increase("Gambler");
                     return;
                 case 5:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Melee")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
                     return;
                 case 6:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Gun Combat")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
                     return;
             }
         }
@@ -89,9 +89,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             if (all || roll == 2)
                 character.Skills.Add("Recon");
             if (all || roll == 3)
-                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Athletics"));
+                character.Skills.AddRange(SpecialtiesFor("Athletics"));
             if (all || roll == 4)
-                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Gun Combat"));
+                character.Skills.AddRange(SpecialtiesFor("Gun Combat"));
             if (all || roll == 5)
                 character.Skills.Add("Stealth");
             if (all || roll == 6)
@@ -109,10 +109,10 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.Skills.Increase("Recon");
                     return;
                 case 3:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
                     return;
                 case 4:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Gun Combat")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
                     return;
                 case 5:
                     character.Skills.Increase("Stealth");
@@ -156,7 +156,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.AddHistory("Involved in the planning of an impressive heist.");
                     {
                         var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(CharacterBuilder.SpecialtiesFor("Electronics"));
+                        skillList.AddRange(SpecialtiesFor("Electronics"));
                         skillList.Add("Mechanic");
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
@@ -181,7 +181,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     }
                     return;
                 case 7:
-                    CharacterBuilder.LifeEvent(character, dice);
+                    LifeEvent(character, dice);
                     return;
                 case 8:
                     character.AddHistory("You spend months in the dangerous criminal underworld.");
@@ -189,8 +189,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                         var skillList = new SkillTemplateCollection();
                         skillList.Add("Streetwise");
                         skillList.Add("Stealth");
-                        skillList.AddRange(CharacterBuilder.SpecialtiesFor("Melee"));
-                        skillList.AddRange(CharacterBuilder.SpecialtiesFor("Gun Combat"));
+                        skillList.AddRange(SpecialtiesFor("Melee"));
+                        skillList.AddRange(SpecialtiesFor("Gun Combat"));
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
                             character.Skills.Add(dice.Choose(skillList), 1);
@@ -201,7 +201,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     if (dice.RollHigh(character.Skills.BestSkillLevel("Stealth", "Gun Combat"), 8))
                         character.BenefitRolls += 1;
                     else
-                        CharacterBuilder.Injury(character, dice);
+                        Injury(character, dice);
                     return;
                 case 10:
                     character.AddHistory("Involved in a gambling ring. ");
@@ -238,7 +238,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             switch (dice.D(6))
             {
                 case 1:
-                    CharacterBuilder.Injury(character, dice, true);
+                    Injury(character, dice, true);
                     return;
                 case 2:
                     character.AddHistory("Arrested");
@@ -260,7 +260,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                         skillList.Add("Pilot", "Small Craft");
                         skillList.Add("Pilot", "Spacecraft");
                         skillList.Add("Athletics", "Dexterity");
-                        skillList.AddRange(CharacterBuilder.SpecialtiesFor("Gunner"));
+                        skillList.AddRange(SpecialtiesFor("Gunner"));
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
                             character.Skills.Add(dice.Choose(skillList), 1);
@@ -271,7 +271,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.AddHistory("A police detective or rival criminal forces you to flee and vows to hunt you down. Gain an Enemy.");
                     return;
                 case 6:
-                    CharacterBuilder.Injury(character, dice, false);
+                    Injury(character, dice, false);
                     return;
             }
         }

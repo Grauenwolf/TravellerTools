@@ -6,13 +6,13 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     abstract class MilitaryCareer : FullCareer
     {
-        protected MilitaryCareer(string name, string assignment) : base(name, assignment)
+        protected MilitaryCareer(string name, string assignment, Book book) : base(name, assignment, book)
         {
         }
 
 
 
-        public override void Run(Character character, Dice dice)
+        internal override void Run(Character character, Dice dice)
         {
             CareerHistory careerHistory;
             if (!character.CareerHistory.Any(pc => pc.Name == Name))
@@ -80,7 +80,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
 
                 //Not all people will attempt a commission even when possible
-                var attemptCommission = (totalTermsInCareer == 1 || character.SocialStanding >= 9) && dice.D(100) < CharacterBuilder.OddsOfSuccess(character, "Soc", 8 - character.CurrentTermBenefits.CommissionDM);
+                var attemptCommission = (totalTermsInCareer == 1 || character.SocialStanding >= 9) && dice.D(100) < Book.OddsOfSuccess(character, "Soc", 8 - character.CurrentTermBenefits.CommissionDM);
 
                 var commissionEarned = false;
 

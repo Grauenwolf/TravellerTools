@@ -1,9 +1,8 @@
-﻿
-namespace Grauenwolf.TravellerTools.Characters.Careers
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class Pirate : Rogue
     {
-        public Pirate() : base("Pirate") { }
+        public Pirate(Book book) : base("Pirate", book) { }
 
         protected override string AdvancementAttribute
         {
@@ -25,28 +24,29 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             get { return 6; }
         }
 
+
         internal override void AssignmentSkills(Character character, Dice dice)
         {
 
             switch (dice.D(6))
             {
                 case 1:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Pilot")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Pilot")));
                     return;
                 case 2:
                     character.Skills.Increase("Astrogation");
                     return;
                 case 3:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Gunner")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Gunner")));
                     return;
                 case 4:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Engineer")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
                     return;
                 case 5:
                     character.Skills.Increase("Vacc Suit");
                     return;
                 case 6:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Melee")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
                     return;
             }
 
@@ -63,8 +63,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     careerHistory.Title = "Henchman";
                     {
                         var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(CharacterBuilder.SpecialtiesFor("Pilot"));
-                        skillList.AddRange(CharacterBuilder.SpecialtiesFor("Gunner"));
+                        skillList.AddRange(SpecialtiesFor("Pilot"));
+                        skillList.AddRange(SpecialtiesFor("Gunner"));
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
                             character.Skills.Add(dice.Choose(skillList), 1);
@@ -77,8 +77,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     careerHistory.Title = "Sergeant";
                     {
                         var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(CharacterBuilder.SpecialtiesFor("Gun Combat"));
-                        skillList.AddRange(CharacterBuilder.SpecialtiesFor("Melee"));
+                        skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                        skillList.AddRange(SpecialtiesFor("Melee"));
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
                             character.Skills.Add(dice.Choose(skillList), 1);
@@ -92,7 +92,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     careerHistory.Title = "Leader";
                     {
                         var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(CharacterBuilder.SpecialtiesFor("Engineer"));
+                        skillList.AddRange(SpecialtiesFor("Engineer"));
                         skillList.Add("Navigation");
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)

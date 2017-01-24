@@ -30,12 +30,13 @@ namespace Grauenwolf.TravellerTools.Web
 
             AnimalBuilderMgt.SetDataPath(appDataPath);
             AnimalBuilderAE.SetDataPath(appDataPath);
-            CharacterBuilder.SetDataPath(appDataPath);
+            CharacterBuilder = new CharacterBuilder(appDataPath);
 
         }
 
         public static TradeEngine TradeEngineMgt;
         public static TradeEngine TradeEngineMgt2;
         public static MapService MapService;
+        public static CharacterBuilder CharacterBuilder;
     }
 }

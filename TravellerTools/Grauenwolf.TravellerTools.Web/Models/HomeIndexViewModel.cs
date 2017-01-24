@@ -1,4 +1,5 @@
-﻿using Grauenwolf.TravellerTools.Maps;
+﻿using Grauenwolf.TravellerTools.Characters.Careers;
+using Grauenwolf.TravellerTools.Maps;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -12,8 +13,9 @@ namespace Grauenwolf.TravellerTools.Web.Models
         readonly IReadOnlyList<Sector> m_Sectors;
         readonly IReadOnlyList<string> m_Terrains;
 
-        public HomeIndexViewModel(IReadOnlyList<Sector> sectors, IReadOnlyList<string> terrains, IReadOnlyList<string> animalTypes, IReadOnlyList<string> animalClasses)
+        public HomeIndexViewModel(IReadOnlyList<Sector> sectors, IReadOnlyList<string> terrains, IReadOnlyList<string> animalTypes, IReadOnlyList<string> animalClasses, IReadOnlyList<Career> careers)
         {
+            Careers = careers;
             m_AnimalClasses = animalClasses;
             m_AnimalTypes = animalTypes;
             m_Terrains = terrains;
@@ -64,5 +66,6 @@ namespace Grauenwolf.TravellerTools.Web.Models
                 return obj.Name.GetHashCode();
             }
         }
+        public IReadOnlyList<Career> Careers { get; }
     }
 }

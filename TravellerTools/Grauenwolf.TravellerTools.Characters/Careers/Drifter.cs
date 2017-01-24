@@ -4,7 +4,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     abstract class Drifter : NormalCareer
     {
-        public Drifter(string assignment) : base("Drifter", assignment)
+        public Drifter(string assignment, Book book) : base("Drifter", assignment, book)
         {
 
         }
@@ -19,7 +19,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             get { return false; }
         }
 
-        public override bool Qualify(Character character, Dice dice)
+        internal override bool Qualify(Character character, Dice dice)
         {
             return !character.LongTermBenefits.Retired;
         }
@@ -42,7 +42,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     skills.Add("Jack-of-All-Trades");
                     skills.Add("Survival");
                     skills.Add("Streetwise");
-                    skills.AddRange(CharacterBuilder.SpecialtiesFor("Melee"));
+                    skills.AddRange(SpecialtiesFor("Melee"));
                     character.Skills.Increase(dice.Choose(skills));
                     return;
                 case 5:
@@ -50,10 +50,10 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.BenefitRollDMs.Add(1);
                     return;
                 case 6:
-                    CharacterBuilder.UnusualLifeEvent(character, dice);
+                    UnusualLifeEvent(character, dice);
                     return;
                 case 7:
-                    CharacterBuilder.LifeEvent(character, dice);
+                    LifeEvent(character, dice);
                     return;
                 case 8:
                     var bestSkill = character.Skills.BestSkillLevel("Melee", "Gun Combat", "Stealth");
@@ -64,7 +64,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     else
                     {
                         character.AddHistory("Attacked by enemies and injured.");
-                        CharacterBuilder.Injury(character, dice);
+                        Injury(character, dice);
                     }
                     character.AddHistory("Gain Enemy if you don't already have one.");
                     return;
@@ -74,7 +74,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                         if (roll == 1)
                         {
                             character.AddHistory("Attempted a risky adventure and was injured.");
-                            CharacterBuilder.Injury(character, dice);
+                            Injury(character, dice);
                         }
                         else if (roll == 2)
                         {
@@ -97,7 +97,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     return;
                 case 11:
                     character.NextTermBenefits.MusterOut = true;
-                    character.NextTermBenefits.MustEnroll = CharacterBuilder.RollDraft(dice);
+                    character.NextTermBenefits.MustEnroll = Book.RollDraft(dice);
                     character.AddHistory("Drafted into " + character.NextTermBenefits.MustEnroll);
                     return;
                 case 12:
@@ -111,10 +111,10 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             switch (dice.D(6))
             {
                 case 1:
-                    CharacterBuilder.Injury(character, dice, true);
+                    Injury(character, dice, true);
                     return;
                 case 2:
-                    CharacterBuilder.Injury(character, dice);
+                    Injury(character, dice);
                     return;
                 case 3:
                     character.AddHistory("run afoul of a criminal gang, corrupt bureaucrat or other foe. Gain an Enemy.");
@@ -155,10 +155,10 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.Dexterity += 1;
                     return;
                 case 4:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Language")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Language")));
                     return;
                 case 5:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Profession")));
                     return;
                 case 6:
                     character.Skills.Increase("Jack-of-All-Trades");
@@ -171,7 +171,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             switch (dice.D(6))
             {
                 case 1:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
                     return;
                 case 2:
                     character.Skills.Increase("Melee", "Unarmed");

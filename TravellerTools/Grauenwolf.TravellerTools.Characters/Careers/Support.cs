@@ -2,7 +2,7 @@
 {
     class Support : Army
     {
-        public Support() : base("Support")
+        public Support(Book book) : base("Support", book)
         {
 
         }
@@ -40,13 +40,13 @@
                 case 2:
                     {
                         var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(CharacterBuilder.SpecialtiesFor("Drive"));
-                        skillList.AddRange(CharacterBuilder.SpecialtiesFor("Flyer"));
+                        skillList.AddRange(SpecialtiesFor("Drive"));
+                        skillList.AddRange(SpecialtiesFor("Flyer"));
                         character.Skills.Increase(dice.Choose(skillList));
                     }
                     return;
                 case 3:
-                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Profession")));
                     return;
                 case 4:
                     character.Skills.Increase("Explosives");

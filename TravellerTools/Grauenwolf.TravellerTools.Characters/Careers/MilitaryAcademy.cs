@@ -4,7 +4,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     class MilitaryAcademy : Career
     {
-        public MilitaryAcademy(string type, string qualifyAttribute, int qualifyTarget) : base("MilitaryAcademy", type)
+        public MilitaryAcademy(string type, string qualifyAttribute, int qualifyTarget, Book book) : base("MilitaryAcademy", type, book)
         {
             Type = type;
             QualifyTarget = qualifyTarget;
@@ -17,7 +17,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         public string Type { get; }
 
-        public override bool Qualify(Character character, Dice dice)
+        internal override bool Qualify(Character character, Dice dice)
         {
             if (!character.LongTermBenefits.MayEnrollInSchool)
                 return false;
@@ -33,7 +33,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             return dice.RollHigh(QualifyTarget);
         }
 
-        public override void Run(Character character, Dice dice)
+        internal override void Run(Character character, Dice dice)
         {
             throw new NotImplementedException();
         }

@@ -6,13 +6,13 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     abstract class NormalCareer : FullCareer
     {
-        protected NormalCareer(string name, string assignment) : base(name, assignment)
+        protected NormalCareer(string name, string assignment, Book book) : base(name, assignment, book)
         {
         }
 
         protected abstract bool RankCarryover { get; }
 
-        public override void Run(Character character, Dice dice)
+        internal override void Run(Character character, Dice dice)
         {
             CareerHistory careerHistory;
             if (!character.CareerHistory.Any(pc => pc.Name == Name))
