@@ -53,9 +53,10 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 if (careerHistory.CommissionRank > 0)
                     skillTables.Add(OfficerTraining);
 
-                dice.Choose(skillTables)(character, dice, dice.D(1, 6), false);
+                dice.Choose(skillTables)(character, dice);
             }
             careerHistory.Terms += 1;
+            character.LastCareer = careerHistory;
 
             //rank carry-over
             careerHistory.Rank = character.CareerHistory.Where(c => c.Name == Name).Max(c => c.Rank);
@@ -75,13 +76,20 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
                 Event(character, dice);
 
-                if (careerHistory.CommissionRank == 0 && (careerHistory.Terms == 1 || character.SocialStanding >= 9) && dice.D(100) < CharacterBuilder.OddsOfSuccess(character, "Soc", 8 - character.CurrentTermBenefits.CommissionDM))
+                var totalTermsInCareer = character.CareerHistory.Where(pc => pc.Name == Name).Sum(c => c.Terms);
+
+
+                //Not all people will attempt a commission even when possible
+                var attemptCommission = (totalTermsInCareer == 1 || character.SocialStanding >= 9) && dice.D(100) < CharacterBuilder.OddsOfSuccess(character, "Soc", 8 - character.CurrentTermBenefits.CommissionDM);
+
+                var commissionEarned = false;
+
+                if (careerHistory.CommissionRank == 0 && (attemptCommission || character.CurrentTermBenefits.FreeCommissionRoll))
+                    commissionEarned = AttemptCommission(character, dice, careerHistory);
+
+                if (!commissionEarned)
                 {
-                    AttemptCommission(character, dice, careerHistory);
-                }
-                else
-                {
-                    //advancement
+                    //try for advancement only if failed to earn a commission.
                     var advancementRoll = dice.D(2, 6);
                     if (advancementRoll == 12)
                     {
@@ -118,7 +126,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                             skillTables.Add(AdvancedEducation);
                         if (careerHistory.CommissionRank > 0)
                             skillTables.Add(OfficerTraining);
-                        dice.Choose(skillTables)(character, dice, dice.D(1, 6), false);
+                        dice.Choose(skillTables)(character, dice);
                     }
                 }
             }
@@ -128,7 +136,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 Mishap(character, dice);
             }
 
-            character.LastCareer = careerHistory;
             character.Age += 4;
         }
 
@@ -136,27 +143,41 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         {
             if (firstCareer)
                 for (var i = 1; i < 7; i++)
-                    ServiceSkill(character, dice, i, true);
+                    ServiceSkill(character, dice);
             else
-                ServiceSkill(character, dice, dice.D(6), true);
+                ServiceSkill(character, dice);
 
         }
 
-        protected abstract void OfficerTraining(Character character, Dice dice, int roll, bool level0);
+        protected abstract void OfficerTraining(Character character, Dice dice);
 
-        private void AttemptCommission(Character character, Dice dice, CareerHistory careerHistory)
+        private bool AttemptCommission(Character character, Dice dice, CareerHistory careerHistory)
         {
-            if (dice.RollHigh(character.SocialStandingDM + character.CurrentTermBenefits.CommissionDM - careerHistory.Terms + 1, 8))
+            var commissionDM =
+                   character.SocialStandingDM +
+                   character.CurrentTermBenefits.AdvancementDM +
+                   character.CurrentTermBenefits.CommissionDM +
+                   (1 - careerHistory.Terms);
+
+            character.CurrentTermBenefits.FreeCommissionRoll = false;
+            character.CurrentTermBenefits.CommissionDM = 0;
+
+            if (dice.RollHigh(commissionDM, 8))
             {
                 character.AddHistory($"Commissioned in {Name}/{Assignment}");
                 careerHistory.CommissionRank = 1;
 
                 UpdateTitle(character, dice, careerHistory);
+                return true;
             }
             else
             {
                 character.AddHistory($"Attempt at commissioned failed.");
+                return false;
             }
+
+
+
         }
     }
 }

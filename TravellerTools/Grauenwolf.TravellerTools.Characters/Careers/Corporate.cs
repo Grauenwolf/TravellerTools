@@ -25,55 +25,46 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             get { return 6; }
         }
 
-        internal override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
+        internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
         {
-            if (level0)
+            var roll = dice.D(6);
+
+            if (all || roll == 1)
+                character.Skills.Add("Advocate");
+            if (all || roll == 2)
+                character.Skills.Add("Admin");
+            if (all || roll == 3)
+                character.Skills.Add("Broker");
+            if (all || roll == 4)
+                character.Skills.Add("Electronics", "Computer");
+            if (all || roll == 5)
+                character.Skills.Add("Diplomat");
+            if (all || roll == 6)
+                character.Skills.Add("Leadership");
+        }
+
+        internal override void AssignmentSkills(Character character, Dice dice)
+        {
+            switch (dice.D(6))
             {
-                switch (roll)
-                {
-                    case 1:
-                        character.Skills.Add("Advocate");
-                        return;
-                    case 2:
-                        character.Skills.Add("Admin");
-                        return;
-                    case 3:
-                        character.Skills.Add("Broker");
-                        return;
-                    case 4:
-                        character.Skills.Add("Electronics", "Computer");
-                        return;
-                    case 5:
-                        character.Skills.Add("Diplomat");
-                        return;
-                    case 6:
-                        character.Skills.Add("Leadership");
-                        return;
-                }
-            }
-            else
-            {
-                switch (roll)
-                {
-                    case 1:
-                        character.Skills.Increase("Advocate");
-                        return;
-                    case 2:
-                        character.Skills.Increase("Admin");
-                        return;
-                    case 3:
-                        character.Skills.Increase("Broker");
-                        return;
-                    case 4:
-                        character.Skills.Increase("Electronics", "Computer");
-                        return;
-                    case 5:
-                        character.Skills.Increase("Diplomat");
-                        return;
-                    case 6:
-                        character.Skills.Increase("Leadership");
-                        return;
-                }
+                case 1:
+                    character.Skills.Increase("Advocate");
+                    return;
+                case 2:
+                    character.Skills.Increase("Admin");
+                    return;
+                case 3:
+                    character.Skills.Increase("Broker");
+                    return;
+                case 4:
+                    character.Skills.Increase("Electronics", "Computer");
+                    return;
+                case 5:
+                    character.Skills.Increase("Diplomat");
+                    return;
+                case 6:
+                    character.Skills.Increase("Leadership");
+                    return;
             }
         }
 

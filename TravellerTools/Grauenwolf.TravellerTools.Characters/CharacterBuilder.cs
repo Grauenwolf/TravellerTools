@@ -24,26 +24,27 @@ namespace Grauenwolf.TravellerTools.Characters
 
 
             var careers = new List<Career>();
-            careers.Add(new University());
             //careers.Add(new MilitaryAcademy("Army", "End", 8));
             //careers.Add(new MilitaryAcademy("Marine", "End", 9));
             //careers.Add(new MilitaryAcademy("Navy", "Int", 9));
             careers.Add(new Barbarian());
-            careers.Add(new Wanderer());
-            careers.Add(new Scavenger());
-            careers.Add(new Corporate());
-            careers.Add(new Worker());
             careers.Add(new Colonist());
-            careers.Add(new Inmate());
-            careers.Add(new Fixer());
-            careers.Add(new Thug());
-            careers.Add(new Retired());
-            careers.Add(new LawEnforcement());
-            careers.Add(new Intelligence());
+            careers.Add(new Corporate());
             careers.Add(new CorporateAgent());
             careers.Add(new Enforcer());
-            careers.Add(new Thief());
+            careers.Add(new Fixer());
+            careers.Add(new Inmate());
+            careers.Add(new Intelligence());
+            careers.Add(new LawEnforcement());
             careers.Add(new Pirate());
+            careers.Add(new Retired());
+            careers.Add(new Scavenger());
+            careers.Add(new Support());
+            careers.Add(new Thief());
+            careers.Add(new Thug());
+            careers.Add(new University());
+            careers.Add(new Wanderer());
+            careers.Add(new Worker());
 
             s_Careers = careers.ToImmutableArray();
 
@@ -247,7 +248,7 @@ namespace Grauenwolf.TravellerTools.Characters
                 character.Age = options.MaxAge.Value;
 
             character.Title = character.CareerHistory.Where(c => c.Title != null).OrderByDescending(c => c.Rank + c.CommissionRank).Select(c => c.Title).FirstOrDefault();
-            
+
             return character;
         }
 

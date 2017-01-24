@@ -51,11 +51,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Careers\Army.cs" />
     <Compile Include="Careers\Agent.cs" />
     <Compile Include="Careers\Pirate.cs" />
     <Compile Include="Careers\FullCareer.cs" />
     <Compile Include="Careers\CorporateAgent.cs" />
     <Compile Include="Careers\Enforcer.cs" />
+    <Compile Include="Careers\Support.cs" />
     <Compile Include="Careers\Thief.cs" />
     <Compile Include="Careers\Intelligence.cs" />
     <Compile Include="Careers\LawEnforcement.cs" />

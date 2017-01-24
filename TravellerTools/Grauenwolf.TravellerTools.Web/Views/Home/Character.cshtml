@@ -4,12 +4,13 @@
     ViewBag.Title = "Character";
 }
 
-<h2>@((Model.Title + " " + Model.Name).TrimStart())
-    @if(Model.IsDead)
-    {
-        <span style="color:red">DECEASED</span>
-    }
-    </h2>
+<h2>
+    @((Model.Title + " " + Model.Name).TrimStart())
+@if (Model.IsDead)
+{
+    <span style="color:red">DECEASED</span>
+}
+</h2>
 
 <table class="gridtable">
 
@@ -63,7 +64,15 @@
                         <td>@line.Name</td>
                         <td>@line.Assignment</td>
                         <td>@line.Title</td>
-                        <td>@line.Rank</td>
+                        @if (line.CommissionRank > 0)
+                        {
+                            <td>@(line.CommissionRank + " / " + line.Rank)</td>
+                        }
+                        else
+                        {
+                            <td>@line.Rank</td>
+
+                        }
                         <td>@line.Terms</td>
                     </tr>
                 }

@@ -36,10 +36,6 @@
       <HintPath>..\packages\CS-Script.bin.3.19.0.0\lib\net46\CSScriptLibrary.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Flexo, Version=1.0.24.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\flexo.1.0.24.0\lib\Flexo.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Microsoft.CodeAnalysis, Version=1.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CS-Script.bin.3.19.0.0\lib\net46\Microsoft.CodeAnalysis.dll</HintPath>
       <Private>True</Private>

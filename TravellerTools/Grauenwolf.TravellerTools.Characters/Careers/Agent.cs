@@ -91,7 +91,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                         if (dice.RollHigh(character.Skills.GetLevel("Deception"), 8))
                         {
                             career.Event(character, dice);
-                            career.AssignmentSkills(character, dice, dice.D(6), false);
+                            career.AssignmentSkills(character, dice);
                         }
                         else
                         {
@@ -104,13 +104,14 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.CurrentTermBenefits.AdvancementDM += 2;
                     return;
                 case 10:
-                    character.AddHistory(" given specialist training in vehicles. ");
+                    character.AddHistory("Given specialist training in vehicles.");
                     {
                         var skillList = new SkillTemplateCollection();
                         skillList.AddRange(CharacterBuilder.SpecialtiesFor("Drive"));
                         skillList.AddRange(CharacterBuilder.SpecialtiesFor("Flyer"));
                         skillList.AddRange(CharacterBuilder.SpecialtiesFor("Pilot"));
                         skillList.AddRange(CharacterBuilder.SpecialtiesFor("Gunner"));
+                        skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
                             character.Skills.Add(dice.Choose(skillList), 1);
                     }
@@ -169,9 +170,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
         }
 
-        protected override void AdvancedEducation(Character character, Dice dice, int roll, bool level0)
+        protected override void AdvancedEducation(Character character, Dice dice)
         {
-            switch (roll)
+            switch (dice.D(6))
             {
                 case 1:
                     character.Skills.Increase("Advocate");
@@ -194,17 +195,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
         }
 
-        protected override void BasicTraining(Character character, Dice dice, bool firstCareer)
+        protected override void PersonalDevelopment(Character character, Dice dice)
         {
-            if (firstCareer)
-                for (var i = 1; i < 7; i++)
-                    ServiceSkill(character, dice, i, true);
-            else
-                ServiceSkill(character, dice, dice.D(6), true);
-        }
-        protected override void PersonalDevelopment(Character character, Dice dice, int roll, bool level0)
-        {
-            switch (roll)
+            switch (dice.D(6))
             {
                 case 1:
                     character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Gun Combat")));
@@ -227,55 +220,47 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
         }
 
-        protected override void ServiceSkill(Character character, Dice dice, int roll, bool level0)
+        internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
         {
-            if (level0)
+            var roll = dice.D(6);
+
+            if (all || roll == 1)
+                character.Skills.Add("Streetwise");
+            if (all || roll == 2)
+                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Drive"));
+            if (all || roll == 3)
+                character.Skills.Add("Investigate");
+            if (all || roll == 4)
+                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Flyer"));
+            if (all || roll == 5)
+                character.Skills.Add("Recon");
+            if (all || roll == 6)
+                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Gun Combat"));
+        }
+
+
+        protected override void ServiceSkill(Character character, Dice dice)
+        {
+            switch (dice.D(6))
             {
-                switch (roll)
-                {
-                    case 1:
-                        character.Skills.Add("Streetwise");
-                        return;
-                    case 2:
-                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
-                        return;
-                    case 3:
-                        character.Skills.Add("Investigate");
-                        return;
-                    case 4:
-                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Flyer")));
-                        return;
-                    case 5:
-                        character.Skills.Add("Recon");
-                        return;
-                    case 6:
-                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Gun Combat")));
-                        return;
-                }
-            }
-            else
-            {
-                switch (roll)
-                {
-                    case 1:
-                        character.Skills.Increase("Streetwise");
-                        return;
-                    case 2:
-                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
-                        return;
-                    case 3:
-                        character.Skills.Increase("Investigate");
-                        return;
-                    case 4:
-                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Flyer")));
-                        return;
-                    case 5:
-                        character.Skills.Increase("Recon");
-                        return;
-                    case 6:
-                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Gun Combat")));
-                        return;
-                }
+                case 1:
+                    character.Skills.Increase("Streetwise");
+                    return;
+                case 2:
+                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
+                    return;
+                case 3:
+                    character.Skills.Increase("Investigate");
+                    return;
+                case 4:
+                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Flyer")));
+                    return;
+                case 5:
+                    character.Skills.Increase("Recon");
+                    return;
+                case 6:
+                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Gun Combat")));
+                    return;
             }
         }
     }

@@ -11,7 +11,10 @@
         protected abstract int AdvancementTarget { get; }
         protected abstract string SurvivalAttribute { get; }
         protected abstract int SurvivalTarget { get; }
-        internal abstract void AssignmentSkills(Character character, Dice dice, int roll, bool level0);
+
+        internal abstract void BasicTrainingSkills(Character character, Dice dice, bool all);
+
+        internal abstract void AssignmentSkills(Character character, Dice dice);
 
         internal abstract void Event(Character character, Dice dice);
 
@@ -19,11 +22,11 @@
 
         internal abstract void TitleTable(Character character, CareerHistory careerHistory, Dice dice);
 
-        protected abstract void AdvancedEducation(Character character, Dice dice, int roll, bool level0);
+        protected abstract void AdvancedEducation(Character character, Dice dice);
 
-        protected abstract void PersonalDevelopment(Character character, Dice dice, int roll, bool level0);
+        protected abstract void PersonalDevelopment(Character character, Dice dice);
 
-        protected abstract void ServiceSkill(Character character, Dice dice, int roll, bool level0);
+        protected abstract void ServiceSkill(Character character, Dice dice);
 
         protected void UpdateTitle(Character character, Dice dice, CareerHistory careerHistory)
         {

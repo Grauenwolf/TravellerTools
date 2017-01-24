@@ -135,22 +135,15 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
         }
 
-        protected override void AdvancedEducation(Character character, Dice dice, int roll, bool level0)
+        protected override void AdvancedEducation(Character character, Dice dice)
         {
             throw new NotImplementedException();
         }
 
-        protected override void BasicTraining(Character character, Dice dice, bool firstCareer)
+
+        protected override void PersonalDevelopment(Character character, Dice dice)
         {
-            if (firstCareer)
-                for (var i = 1; i < 7; i++)
-                    AssignmentSkills(character, dice, i, true);
-            else
-                AssignmentSkills(character, dice, dice.D(6), true);
-        }
-        protected override void PersonalDevelopment(Character character, Dice dice, int roll, bool level0)
-        {
-            switch (roll)
+            switch (dice.D(6))
             {
                 case 1:
                     character.Strength += 1;
@@ -173,9 +166,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
         }
 
-        protected override void ServiceSkill(Character character, Dice dice, int roll, bool level0)
+        protected override void ServiceSkill(Character character, Dice dice)
         {
-            switch (roll)
+            switch (dice.D(6))
             {
                 case 1:
                     character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));

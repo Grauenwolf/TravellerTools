@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Tortuga.Anchor.Collections;
 
@@ -127,6 +128,12 @@ namespace Grauenwolf.TravellerTools.Characters
 
             return -3;
 
+        }
+
+        public void AddRange(List<SkillTemplate> skillList, int minLevel = 0)
+        {
+            foreach (var skill in skillList)
+                Add(skill, minLevel);
         }
     }
 }

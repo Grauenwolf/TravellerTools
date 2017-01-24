@@ -24,9 +24,9 @@
             get { return 9; }
         }
 
-        protected override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
+        protected override void AssignmentSkills(Character character, Dice dice)
         {
-            switch (roll)
+            switch (dice.D(6))
             {
                 case 1:
                     character.Skills.Increase("Investigate");

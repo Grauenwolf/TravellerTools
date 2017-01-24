@@ -25,10 +25,10 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             get { return 7; }
         }
 
-        internal override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
+        internal override void AssignmentSkills(Character character, Dice dice)
         {
 
-            switch (roll)
+            switch (dice.D(6))
             {
                 case 1:
                     character.Skills.Increase("Investigate");

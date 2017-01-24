@@ -24,55 +24,47 @@
             get { return 7; }
         }
 
-        internal override void AssignmentSkills(Character character, Dice dice, int roll, bool level0)
+        internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
         {
-            if (level0)
+            var roll = dice.D(6);
+
+            if (all || roll == 1)
+                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Animals"));
+            if (all || roll == 2)
+                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Athletics"));
+            //if (all || roll == 3)
+            //character.Skills.Add("Jack-of-all-Trades");
+            if (all || roll == 4)
+                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Drive"));
+            if (all || roll == 5)
+                character.Skills.Add("Survival");
+            if (all || roll == 6)
+                character.Skills.Add("Recon");
+        }
+
+
+        internal override void AssignmentSkills(Character character, Dice dice)
+        {
+            switch (dice.D(6))
             {
-                switch (roll)
-                {
-                    case 1:
-                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Animals")));
-                        return;
-                    case 2:
-                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
-                        return;
-                    case 3:
-                        //character.Skills.Add("Jack-of-all-Trades");
-                        return;
-                    case 4:
-                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
-                        return;
-                    case 5:
-                        character.Skills.Add("Survival");
-                        return;
-                    case 6:
-                        character.Skills.Add("Recon");
-                        return;
-                }
-            }
-            else
-            {
-                switch (roll)
-                {
-                    case 1:
-                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Animals")));
-                        return;
-                    case 2:
-                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
-                        return;
-                    case 3:
-                        character.Skills.Increase("Jack-of-all-Trades");
-                        return;
-                    case 4:
-                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
-                        return;
-                    case 5:
-                        character.Skills.Increase("Survival");
-                        return;
-                    case 6:
-                        character.Skills.Increase("Recon");
-                        return;
-                }
+                case 1:
+                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Animals")));
+                    return;
+                case 2:
+                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
+                    return;
+                case 3:
+                    character.Skills.Increase("Jack-of-all-Trades");
+                    return;
+                case 4:
+                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Drive")));
+                    return;
+                case 5:
+                    character.Skills.Increase("Survival");
+                    return;
+                case 6:
+                    character.Skills.Increase("Recon");
+                    return;
             }
         }
 

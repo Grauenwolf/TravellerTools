@@ -9,15 +9,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         }
 
-        protected override void BasicTraining(Character character, Dice dice, bool firstCareer)
-        {
-            if (firstCareer)
-                for (var i = 1; i < 7; i++)
-                    ServiceSkill(character, dice, i, true);
-            else
-                ServiceSkill(character, dice, dice.D(6), true);
-        }
-
         protected override int AdvancedEductionMin
         {
             get { return 10; }
@@ -34,9 +25,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         }
 
-        protected override void AdvancedEducation(Character character, Dice dice, int roll, bool level0)
+        protected override void AdvancedEducation(Character character, Dice dice)
         {
-            switch (roll)
+            switch (dice.D(6))
             {
                 case 1:
                     character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Electronics")));
@@ -64,9 +55,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             get { return false; }
         }
 
-        protected override void PersonalDevelopment(Character character, Dice dice, int roll, bool level0)
+        protected override void PersonalDevelopment(Character character, Dice dice)
         {
-            switch (roll)
+            switch (dice.D(6))
             {
                 case 1:
                     character.Skills.Increase("Carouse");
@@ -89,55 +80,46 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
         }
 
-        protected override void ServiceSkill(Character character, Dice dice, int roll, bool level0)
+        internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
         {
-            if (level0)
+            var roll = dice.D(6);
+
+            if (all || roll == 1)
+                character.Skills.Add("Deception");
+            if (all || roll == 2)
+                character.Skills.Add("Recon");
+            if (all || roll == 3)
+                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Athletics"));
+            if (all || roll == 4)
+                character.Skills.AddRange(CharacterBuilder.SpecialtiesFor("Gun Combat"));
+            if (all || roll == 5)
+                character.Skills.Add("Stealth");
+            if (all || roll == 6)
+                character.Skills.Add("Streetwise");
+        }
+
+        protected override void ServiceSkill(Character character, Dice dice)
+        {
+            switch (dice.D(6))
             {
-                switch (roll)
-                {
-                    case 1:
-                        character.Skills.Add("Deception");
-                        return;
-                    case 2:
-                        character.Skills.Add("Recon");
-                        return;
-                    case 3:
-                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
-                        return;
-                    case 4:
-                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Gun Combat")));
-                        return;
-                    case 5:
-                        character.Skills.Add("Stealth");
-                        return;
-                    case 6:
-                        character.Skills.Add("Streetwise");
-                        return;
-                }
-            }
-            else
-            {
-                switch (roll)
-                {
-                    case 1:
-                        character.Skills.Increase("Deception");
-                        return;
-                    case 2:
-                        character.Skills.Increase("Recon");
-                        return;
-                    case 3:
-                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
-                        return;
-                    case 4:
-                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Gun Combat")));
-                        return;
-                    case 5:
-                        character.Skills.Increase("Stealth");
-                        return;
-                    case 6:
-                        character.Skills.Increase("Streetwise");
-                        return;
-                }
+                case 1:
+                    character.Skills.Increase("Deception");
+                    return;
+                case 2:
+                    character.Skills.Increase("Recon");
+                    return;
+                case 3:
+                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
+                    return;
+                case 4:
+                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Gun Combat")));
+                    return;
+                case 5:
+                    character.Skills.Increase("Stealth");
+                    return;
+                case 6:
+                    character.Skills.Increase("Streetwise");
+                    return;
             }
         }
 

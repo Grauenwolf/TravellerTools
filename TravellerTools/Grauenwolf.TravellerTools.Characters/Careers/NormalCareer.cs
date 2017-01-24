@@ -18,7 +18,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             if (!character.CareerHistory.Any(pc => pc.Name == Name))
             {
                 character.AddHistory($"Became a {Assignment} at age {character.Age}");
-                BasicTraining(character, dice, character.CareerHistory.Count == 0);
+                BasicTrainingSkills(character, dice, character.CareerHistory.Count == 0);
 
                 careerHistory = new CareerHistory(Name, Assignment, 0);
                 character.CareerHistory.Add(careerHistory);
@@ -33,7 +33,10 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.CareerHistory.Add(careerHistory);
 
                     if (!RankCarryover) //then this is a new career
+                    {
                         UpdateTitle(character, dice, careerHistory);
+                        BasicTrainingSkills(character, dice, false);
+                    }
 
                 }
                 else if (character.LastCareer?.Assignment == Assignment)
@@ -54,7 +57,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 if (character.Education >= AdvancedEductionMin)
                     skillTables.Add(AdvancedEducation);
 
-                dice.Choose(skillTables)(character, dice, dice.D(1, 6), false);
+                dice.Choose(skillTables)(character, dice);
             }
             careerHistory.Terms += 1;
 
@@ -99,7 +102,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     skillTables.Add(AssignmentSkills);
                     if (character.Education >= AdvancedEductionMin)
                         skillTables.Add(AdvancedEducation);
-                    dice.Choose(skillTables)(character, dice, dice.D(1, 6), false);
+                    dice.Choose(skillTables)(character, dice);
                 }
             }
             else
@@ -112,15 +115,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             character.Age += 4;
         }
 
-        protected virtual void BasicTraining(Character character, Dice dice, bool firstCareer)
-        {
-            if (firstCareer)
-                for (var i = 1; i < 7; i++)
-                    ServiceSkill(character, dice, i, true);
-            else
-                ServiceSkill(character, dice, dice.D(6), true);
-
-        }
     }
 }
 

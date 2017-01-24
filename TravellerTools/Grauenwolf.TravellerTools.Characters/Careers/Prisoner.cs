@@ -25,7 +25,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             if (!character.CareerHistory.Any(pc => pc.Name == Name))
             {
                 character.AddHistory($"Became a {Assignment} at age {character.Age}");
-                BasicTraining(character, dice, character.CareerHistory.Count == 0);
+                BasicTrainingSkills(character, dice, character.CareerHistory.Count == 0);
 
                 careerHistory = new CareerHistory(Name, Assignment, 0);
                 character.CareerHistory.Add(careerHistory);
@@ -55,7 +55,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 skillTables.Add(AssignmentSkills);
 
 
-                dice.Choose(skillTables)(character, dice, dice.D(1, 6), false);
+                dice.Choose(skillTables)(character, dice);
             }
             careerHistory.Terms += 1;
 
@@ -87,7 +87,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     skillTables.Add(PersonalDevelopment);
                     skillTables.Add(ServiceSkill);
                     skillTables.Add(AssignmentSkills);
-                    dice.Choose(skillTables)(character, dice, dice.D(1, 6), false);
+                    dice.Choose(skillTables)(character, dice);
                 }
 
                 if (character.NextTermBenefits.MusterOut)
@@ -334,24 +334,13 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     return;
             }
         }
-        protected abstract void AssignmentSkills(Character character, Dice dice, int roll, bool level0);
+        protected abstract void AssignmentSkills(Character character, Dice dice);
 
-        protected virtual void BasicTraining(Character character, Dice dice, bool firstCareer)
+
+
+        protected void PersonalDevelopment(Character character, Dice dice)
         {
-            //Rank 0 skill
-            character.Skills.Add("Melee", "Unarmed", 1);
-
-            if (firstCareer)
-                for (var i = 1; i < 7; i++)
-                    ServiceSkill(character, dice, i, true);
-            else
-                ServiceSkill(character, dice, dice.D(6), true);
-
-        }
-
-        protected void PersonalDevelopment(Character character, Dice dice, int roll, bool level0)
-        {
-            switch (roll)
+            switch (dice.D(6))
             {
                 case 1:
                     character.Strength += 1;
@@ -374,55 +363,50 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
         }
 
-        protected void ServiceSkill(Character character, Dice dice, int roll, bool level0)
+        internal void BasicTrainingSkills(Character character, Dice dice, bool all)
         {
-            if (level0)
+            //Rank 0 skill
+            character.Skills.Add("Melee", "Unarmed", 1);
+
+
+            var roll = dice.D(6);
+
+            if (all || roll == 1)
+                character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
+            if (all || roll == 2)
+                character.Skills.Add("Deception");
+            if (all || roll == 3)
+                character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
+            if (all || roll == 4)
+                character.Skills.Add("Streetwise");
+            if (all || roll == 5)
+                character.Skills.Add("Melee", "Unarmed");
+            if (all || roll == 6)
+                character.Skills.Add("Persuade");
+        }
+
+        protected void ServiceSkill(Character character, Dice dice)
+        {
+            switch (dice.D(6))
             {
-                switch (roll)
-                {
-                    case 1:
-                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
-                        return;
-                    case 2:
-                        character.Skills.Add("Deception");
-                        return;
-                    case 3:
-                        character.Skills.Add(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
-                        return;
-                    case 4:
-                        character.Skills.Add("Streetwise");
-                        return;
-                    case 5:
-                        character.Skills.Add("Melee", "Unarmed");
-                        return;
-                    case 6:
-                        character.Skills.Add("Persuade");
-                        return;
-                }
-            }
-            else
-            {
-                switch (roll)
-                {
-                    case 1:
-                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
-                        return;
-                    case 2:
-                        character.Skills.Increase("Deception");
-                        return;
-                    case 3:
-                        character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
-                        return;
-                    case 4:
-                        character.Skills.Increase("Streetwise");
-                        return;
-                    case 5:
-                        character.Skills.Increase("Melee", "Unarmed");
-                        return;
-                    case 6:
-                        character.Skills.Increase("Persuade");
-                        return;
-                }
+                case 1:
+                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Athletics")));
+                    return;
+                case 2:
+                    character.Skills.Increase("Deception");
+                    return;
+                case 3:
+                    character.Skills.Increase(dice.Choose(CharacterBuilder.SpecialtiesFor("Profession")));
+                    return;
+                case 4:
+                    character.Skills.Increase("Streetwise");
+                    return;
+                case 5:
+                    character.Skills.Increase("Melee", "Unarmed");
+                    return;
+                case 6:
+                    character.Skills.Increase("Persuade");
+                    return;
             }
         }
     }
