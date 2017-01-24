@@ -135,5 +135,20 @@ namespace Grauenwolf.TravellerTools.Characters
             foreach (var skill in skillList)
                 Add(skill, minLevel);
         }
+
+        public void Collapse()
+        {
+            ////Remove all level 0 skills for which there is a level 1 + skill with the same name.
+            //var tempList = this.Where(s => s.Level == 0).ToList();
+            //foreach (var skill in tempList)
+            //    if (this.Any(s => s.Name == skill.Name && s.Level > 0))
+            //        this.Remove(skill);
+
+            //Remove level 0 skills if there are other skills with the same name
+            var tempList = this.Where(s => s.Level == 0).ToList();
+            foreach (var skill in tempList)
+                if (this.Any(s => s != skill && s.Name == skill.Name))
+                    this.Remove(skill);
+        }
     }
 }

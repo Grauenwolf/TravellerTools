@@ -29,11 +29,13 @@ namespace Grauenwolf.TravellerTools.Characters
             //careers.Add(new MilitaryAcademy("Marine", "End", 9));
             //careers.Add(new MilitaryAcademy("Navy", "Int", 9));
             careers.Add(new Barbarian(book));
+            careers.Add(new Cavalry(book));
             careers.Add(new Colonist(book));
             careers.Add(new Corporate(book));
             careers.Add(new CorporateAgent(book));
             careers.Add(new Enforcer(book));
             careers.Add(new Fixer(book));
+            careers.Add(new Infantry(book));
             careers.Add(new Inmate(book));
             careers.Add(new Intelligence(book));
             careers.Add(new LawEnforcement(book));
@@ -225,10 +227,13 @@ namespace Grauenwolf.TravellerTools.Characters
                     AgingRoll(character, dice);
             }
 
+            //Fixups
             if (options.MaxAge.HasValue && !character.IsDead)
                 character.Age = options.MaxAge.Value;
 
             character.Title = character.CareerHistory.Where(c => c.Title != null).OrderByDescending(c => c.Rank + c.CommissionRank).Select(c => c.Title).FirstOrDefault();
+
+            character.Skills.Collapse();
 
             return character;
         }

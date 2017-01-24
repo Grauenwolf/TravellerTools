@@ -44,7 +44,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                         var skillList = new SkillTemplateCollection();
                         skillList.Add("Vacc Suit");
                         skillList.AddRange(SpecialtiesFor("Engineer"));
-                        skillList.Add("Animals", "Riding");
+                        skillList.Add("Animals", "Handling");
                         skillList.Add("Animals", "Training");
                         skillList.Add("Recon");
                         skillList.RemoveOverlap(character.Skills, 1);
