@@ -277,15 +277,15 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
 
             if (all || roll == 2)
-                character.Skills.Add(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.AddRange(SpecialtiesFor("Athletics"));
             if (all || roll == 3)
-                character.Skills.Add(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.AddRange(SpecialtiesFor("Gun Combat"));
             if (all || roll == 4)
                 character.Skills.Add("Recon");
             if (all || roll == 5)
-                character.Skills.Add(dice.Choose(SpecialtiesFor("Melee")));
+                character.Skills.AddRange(SpecialtiesFor("Melee"));
             if (all || roll == 6)
-                character.Skills.Add(dice.Choose(SpecialtiesFor("Heavy Weapons")));
+                character.Skills.AddRange(SpecialtiesFor("Heavy Weapons"));
         }
 
         protected override void ServiceSkill(Character character, Dice dice)

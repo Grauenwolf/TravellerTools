@@ -102,7 +102,7 @@
       <Specialty Name="Polymers"/>
     </Skill>
     <Skill Name="Recon"/>
-    <Skill Name="Science   ">
+    <Skill Name="Science">
       <Specialty Name="Archaeology"/>
       <Specialty Name="Biology"/>
       <Specialty Name="Chemistry"/>

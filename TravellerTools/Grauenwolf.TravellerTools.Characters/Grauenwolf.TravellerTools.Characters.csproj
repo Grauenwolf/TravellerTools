@@ -52,9 +52,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
+    <Compile Include="Careers\Performer.cs" />
+    <Compile Include="Careers\Journalist.cs" />
+    <Compile Include="Careers\Entertainer.cs" />
     <Compile Include="Careers\Army.cs" />
     <Compile Include="Careers\Agent.cs" />
     <Compile Include="Careers\Cavalry.cs" />
+    <Compile Include="Careers\Artist.cs" />
     <Compile Include="Careers\Pirate.cs" />
     <Compile Include="Careers\FullCareer.cs" />
     <Compile Include="Careers\CorporateAgent.cs" />

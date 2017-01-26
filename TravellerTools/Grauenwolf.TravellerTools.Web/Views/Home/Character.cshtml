@@ -10,7 +10,7 @@
     {
         <span style="color:red">DECEASED</span>
     }
-    <a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}", Url.Encode(Model.Name), Model.Seed, Model.Age, Model.Age)">permalink</a>
+    <a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}&Career={4}", Url.Encode(Model.Name), Model.Seed, Model.Age, Model.Age, Model.FirstCareer)">permalink</a>
 </h2>
 
 <table class="gridtable">

@@ -28,6 +28,7 @@ namespace Grauenwolf.TravellerTools.Characters
             //careers.Add(new MilitaryAcademy("Army", "End", 8));
             //careers.Add(new MilitaryAcademy("Marine", "End", 9));
             //careers.Add(new MilitaryAcademy("Navy", "Int", 9));
+            careers.Add(new Artist(book));
             careers.Add(new Barbarian(book));
             careers.Add(new Cavalry(book));
             careers.Add(new Colonist(book));
@@ -38,7 +39,9 @@ namespace Grauenwolf.TravellerTools.Characters
             careers.Add(new Infantry(book));
             careers.Add(new Inmate(book));
             careers.Add(new Intelligence(book));
+            careers.Add(new Journalist(book));
             careers.Add(new LawEnforcement(book));
+            careers.Add(new Performer(book));
             careers.Add(new Pirate(book));
             careers.Add(new Retired(book));
             careers.Add(new Scavenger(book));
@@ -194,6 +197,7 @@ namespace Grauenwolf.TravellerTools.Characters
             var character = new Character();
 
             character.Seed = seed;
+            character.FirstCareer = options.FirstCareer;
             character.Name = options.Name;
 
             character.Strength = dice.D(2, 6);
