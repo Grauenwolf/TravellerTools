@@ -28,6 +28,7 @@ namespace Grauenwolf.TravellerTools.Characters
             //careers.Add(new MilitaryAcademy("Army", "End", 8));
             //careers.Add(new MilitaryAcademy("Marine", "End", 9));
             //careers.Add(new MilitaryAcademy("Navy", "Int", 9));
+            careers.Add(new ArmySupport(book));
             careers.Add(new Artist(book));
             careers.Add(new Barbarian(book));
             careers.Add(new Cavalry(book));
@@ -36,16 +37,18 @@ namespace Grauenwolf.TravellerTools.Characters
             careers.Add(new CorporateAgent(book));
             careers.Add(new Enforcer(book));
             careers.Add(new Fixer(book));
+            careers.Add(new GroundAssault(book));
             careers.Add(new Infantry(book));
             careers.Add(new Inmate(book));
             careers.Add(new Intelligence(book));
             careers.Add(new Journalist(book));
             careers.Add(new LawEnforcement(book));
+            careers.Add(new MarineSupport(book));
             careers.Add(new Performer(book));
             careers.Add(new Pirate(book));
             careers.Add(new Retired(book));
             careers.Add(new Scavenger(book));
-            careers.Add(new Support(book));
+            careers.Add(new StarMarine(book));
             careers.Add(new Thief(book));
             careers.Add(new Thug(book));
             careers.Add(new University(book));

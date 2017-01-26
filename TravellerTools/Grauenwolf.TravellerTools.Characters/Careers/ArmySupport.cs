@@ -1,8 +1,8 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers
 {
-    class Support : Army
+    class ArmySupport : Army
     {
-        public Support(Book book) : base("Support", book)
+        public ArmySupport(Book book) : base("Army Support", book)
         {
 
         }

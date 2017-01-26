@@ -1,8 +1,8 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers
 {
-    abstract class Army : MilitaryCareer
+    abstract class Marine : MilitaryCareer
     {
-        public Army(string assignment, Book book) : base("Army", assignment, book)
+        public Marine(string assignment, Book book) : base("Marine", assignment, book)
         {
         }
 
@@ -21,7 +21,7 @@
 
             dm += character.GetEnlistmentBonus(Name, Assignment);
 
-            return dice.RollHigh(dm, 5);
+            return dice.RollHigh(dm, 6);
 
         }
 
@@ -34,78 +34,102 @@
                     character.NextTermBenefits.MusterOut = false;
                     return;
                 case 3:
-                    character.AddHistory("Assigned to a planet with a hostile or wild environment.");
+                    character.AddHistory("Trapped behind enemy lines.");
                     {
 
                         var skillList = new SkillTemplateCollection();
-                        skillList.Add("Vacc Suit");
-                        skillList.AddRange(SpecialtiesFor("Engineer"));
-                        skillList.Add("Animals", "Handling");
-                        skillList.Add("Animals", "Training");
-                        skillList.Add("Recon");
+                        skillList.Add("Survival");
+                        skillList.Add("Stealth");
+                        skillList.Add("Deception");
+                        skillList.Add("Streetwise");
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
                             character.Skills.Add(dice.Choose(skillList), 1);
                     }
                     return;
                 case 4:
-                    character.AddHistory("Assigned to an urbanised planet torn by war.");
+                    character.AddHistory("Assigned to the security staff of a space station.");
                     {
 
                         var skillList = new SkillTemplateCollection();
-                        skillList.Add("Stealth");
-                        skillList.Add("Streetwise");
-                        skillList.Add("Persuade");
-                        skillList.Add("Recon");
-                        skillList.RemoveOverlap(character.Skills, 1);
-                        if (skillList.Count > 0)
-                            character.Skills.Add(dice.Choose(skillList), 1);
+                        skillList.Add("Vacc Suit");
+                        skillList.Add("Athletics", "Dexterity");
+                        character.Skills.Increase(dice.Choose(skillList));
                     }
 
                     return;
                 case 5:
-                    character.AddHistory($"Given a special assignment or duty in your unit.");
-                    character.BenefitRollDMs.Add(1);
-                    return;
-                case 6:
-                    character.AddHistory("Thrown into a brutal ground war");
+                    character.AddHistory($"Advanced training in a specialist field");
                     if (dice.RollHigh(character.EducationDM, 8))
                     {
 
                         var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                        skillList.AddRange(RandomSkills);
+                        skillList.RemoveOverlap(character.Skills, 1);
+                        if (skillList.Count > 0)
+                            character.Skills.Add(dice.Choose(skillList), 1);
+                    }
+                    return;
+                case 6:
+                    character.AddHistory("Assigned to an assault on an enemy fortress.");
+                    if (dice.RollHigh(character.Skills.BestSkillLevel("Gun Combat", "Melee"), 8))
+                    {
+
+                        var skillList = new SkillTemplateCollection();
+                        skillList.Add("Tactics", "Military");
                         skillList.Add("Leadership");
                         character.Skills.Increase(dice.Choose(skillList));
                     }
                     else
                     {
-                        Injury(character, dice);
+                        character.AddHistory("Injured");
+                        switch (dice.D(3))
+                        {
+                            case 1:
+                                character.Strength -= 1;
+                                return;
+                            case 2:
+                                character.Dexterity -= 1;
+                                return;
+                            case 3:
+                                character.Endurance -= 1;
+                                return;
+                        }
                     }
                     return;
                 case 7:
                     LifeEvent(character, dice);
                     return;
                 case 8:
-                    character.AddHistory("Advanced training in a specialist field");
-                    if (dice.RollHigh(character.EducationDM, 8))
-                        dice.Choose(character.Skills).Level += 1;
-                    return;
-                case 9:
-                    character.AddHistory("Surrounded and outnumbered by the enemy, you hold out until relief arrives. ");
-                    character.CurrentTermBenefits.AdvancementDM += 2;
-                    return;
-                case 10:
-                    character.AddHistory("Assigned to a peacekeeping role.");
+                    character.AddHistory("On the front lines of a planetary assault and occupation.");
                     {
+
                         var skillList = new SkillTemplateCollection();
-                        skillList.Add("Admin");
-                        skillList.Add("Admin");
-                        skillList.Add("Deception");
                         skillList.Add("Recon");
+                        skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                        skillList.Add("Leadership");
+                        skillList.Add("Electronics", "Comms");
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
                             character.Skills.Add(dice.Choose(skillList), 1);
                     }
+                    return;
+                case 9:
+                    character.AddHistory("A mission goes disastrously wrong due to your commander’s error or incompetence, but you survive.");
+                    if (dice.D(2) == 1)
+                    {
+                        character.AddHistory("Report commander and gain an Enemy.");
+                        character.CurrentTermBenefits.AdvancementDM += 2;
+                    }
+                    else
+                    {
+                        character.AddHistory("Cover for the commander and gain an Ally.");
+                    }
+                    return;
+                case 10:
+                    character.AddHistory("Assigned to a black ops mission.");
+                    character.CurrentTermBenefits.AdvancementDM += 2;
+
                     return;
                 case 11:
                     character.AddHistory("Commanding officer takes an interest in your career.");
@@ -139,14 +163,15 @@
                     Injury(character, dice, true);
                     return;
                 case 2:
-                    character.AddHistory("Unit is slaughtered in a disastrous battle, for which you blame your commander. Gain commander as Enemy.");
+                    character.AddHistory("A mission goes wrong; you and several others are captured and mistreated by the enemy. Gain your jailer as an Enemy.");
+                    character.Strength += -1;
+                    character.Dexterity += -1;
                     return;
                 case 3:
-                    character.AddHistory("Sent to a very unpleasant region (jungle, swamp, desert, icecap, urban) to battle against guerrilla fighters and rebels. Discharged because of stress, injury or because the government wishes to bury the whole incident.");
-                    character.AddHistory("Gain rebels as Enemy");
+                    character.AddHistory("A mission goes wrong and you are stranded behind enemy lines. Ejected from the service.");
                     {
                         var skillList = new SkillTemplateCollection();
-                        skillList.Add("Recon");
+                        skillList.Add("Stealth");
                         skillList.Add("Survival");
                         character.Skills.Increase(dice.Choose(skillList));
                     }
@@ -155,12 +180,12 @@
                 case 4:
                     if (dice.D(2) == 1)
                     {
-                        character.AddHistory("Joined commanding officer is engaged in some illegal activity, such as weapon smuggling. Gain an Ally.");
+                        character.AddHistory("Refused to take part in a black ops mission that goes against the conscience and ejected from the service.");
                     }
                     else
                     {
-                        character.AddHistory("Forced out after co-operating with military investigation in commanding officer's illegal activity.");
-                        character.BenefitRolls += 1;
+                        character.AddHistory("You are ordered to take part in a black ops mission that goes against your conscience. Gain the lone survivor as an Enemy.");
+                        character.CurrentTermBenefits.MusterOut = false;
                     }
                     return;
                 case 5:
@@ -177,22 +202,22 @@
             switch (dice.D(6))
             {
                 case 1:
-                    character.Skills.Increase("Tactics", "Military");
+                    character.Skills.Increase("Medic");
                     return;
                 case 2:
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                    character.Skills.Increase("Survival");
                     return;
                 case 3:
-                    character.Skills.Increase("Navigation");
-                    return;
-                case 4:
                     character.Skills.Increase("Explosives");
                     return;
-                case 5:
+                case 4:
                     character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
                     return;
+                case 5:
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Pilot")));
+                    return;
                 case 6:
-                    character.Skills.Increase("Survival");
+                    character.Skills.Increase("Navigation");
                     return;
             }
         }
@@ -202,22 +227,22 @@
             switch (dice.D(6))
             {
                 case 1:
-                    character.Skills.Increase("Tactics", "Military");
-                    return;
-                case 2:
-                    character.Skills.Increase("Leadership");
-                    return;
-                case 3:
-                    character.Skills.Increase("Advocate");
-                    return;
-                case 4:
-                    character.Skills.Increase("Diplomat");
-                    return;
-                case 5:
                     character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
                     return;
-                case 6:
+                case 2:
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Tactics")));
+                    return;
+                case 3:
                     character.Skills.Increase("Admin");
+                    return;
+                case 4:
+                    character.Skills.Increase("Advocate");
+                    return;
+                case 5:
+                    character.Skills.Increase("Vacc Suit");
+                    return;
+                case 6:
+                    character.Skills.Increase("Leadership");
                     return;
             }
         }
@@ -239,10 +264,10 @@
                     character.Skills.Increase("Gambler");
                     return;
                 case 5:
-                    character.Skills.Increase("Medic");
+                    character.Skills.Increase("Melee", "Unarmed");
                     return;
                 case 6:
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                    character.Skills.Increase("Melee", "Unarmed");
                     return;
             }
         }
@@ -252,33 +277,17 @@
             var roll = dice.D(6);
 
             if (all || roll == 1)
-            {
-                if (all)
-                {
-                    character.Skills.AddRange(SpecialtiesFor("Drive"));
-                    character.Skills.Add("Vacc Suit");
-                }
-                else
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Drive"));
-                    skillList.Add("Vacc Suit");
-                    skillList.RemoveOverlap(character.Skills, 0);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList));
-                }
-            }
-
+                character.Skills.Add(dice.Choose(SpecialtiesFor("Athletics")));
             if (all || roll == 2)
-                character.Skills.AddRange(SpecialtiesFor("Athletics"));
+                character.Skills.Add("Vacc Suit");
             if (all || roll == 3)
-                character.Skills.AddRange(SpecialtiesFor("Gun Combat"));
+                character.Skills.Add(dice.Choose(SpecialtiesFor("Tactics")));
             if (all || roll == 4)
-                character.Skills.Add("Recon");
+                character.Skills.Add(dice.Choose(SpecialtiesFor("Heavy Weapons")));
             if (all || roll == 5)
-                character.Skills.AddRange(SpecialtiesFor("Melee"));
+                character.Skills.Add(dice.Choose(SpecialtiesFor("Gun Combat")));
             if (all || roll == 6)
-                character.Skills.AddRange(SpecialtiesFor("Heavy Weapons"));
+                character.Skills.Add("Stealth");
         }
 
         protected override void ServiceSkill(Character character, Dice dice)
@@ -286,27 +295,22 @@
             switch (dice.D(6))
             {
                 case 1:
-                    {
-                        var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor("Drive"));
-                        skillList.Add("Vacc Suit");
-                        character.Skills.Increase(dice.Choose(skillList));
-                    }
-                    return;
-                case 2:
                     character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
                     return;
+                case 2:
+                    character.Skills.Increase("Vacc Suit");
+                    return;
                 case 3:
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Tactics")));
                     return;
                 case 4:
-                    character.Skills.Increase("Recon");
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Heavy Weapons")));
                     return;
                 case 5:
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
                     return;
                 case 6:
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Heavy Weapons")));
+                    character.Skills.Increase("Stealth");
                     return;
             }
         }
@@ -318,12 +322,25 @@
                 switch (careerHistory.Rank)
                 {
                     case 0:
-                        careerHistory.Title = "Private";
-                        character.Skills.Add(dice.Choose(SpecialtiesFor("Gun Combat")), 1);
+                        careerHistory.Title = "Marine";
+                        {
+                            var skillList = new SkillTemplateCollection();
+                            skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                            skillList.Add("Melee", "Blade");
+                            skillList.RemoveOverlap(character.Skills, 1);
+                            if (skillList.Count > 0)
+                                character.Skills.Add(dice.Choose(skillList), 1);
+                        }
                         return;
                     case 1:
                         careerHistory.Title = "Lance Corporal";
-                        character.Skills.Add("Recon", 1);
+                        {
+                            var skillList = new SkillTemplateCollection();
+                            skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                            skillList.RemoveOverlap(character.Skills, 1);
+                            if (skillList.Count > 0)
+                                character.Skills.Add(dice.Choose(skillList), 1);
+                        }
                         return;
                     case 2:
                         careerHistory.Title = "Corporal";
@@ -337,6 +354,7 @@
                         return;
                     case 5:
                         careerHistory.Title = "Gunnery Sergeant";
+                        character.Endurance += 1;
                         return;
                     case 6:
                         careerHistory.Title = "Sergeant Major";
@@ -355,21 +373,27 @@
                         careerHistory.Title = "Captain";
                         return;
                     case 3:
-                        careerHistory.Title = "Major";
-                        character.Skills.Add("Tactics", "Military", 1);
+                        careerHistory.Title = "Force Commander";
+                        {
+                            var skillList = new SkillTemplateCollection();
+                            skillList.AddRange(SpecialtiesFor("Tatics"));
+                            skillList.RemoveOverlap(character.Skills, 1);
+                            if (skillList.Count > 0)
+                                character.Skills.Add(dice.Choose(skillList), 1);
+                        }
                         return;
                     case 4:
                         careerHistory.Title = "Lieutenant Colonel";
                         return;
                     case 5:
                         careerHistory.Title = "Colonel";
-                        return;
-                    case 6:
-                        careerHistory.Title = "General";
                         if (character.SocialStanding < 10)
                             character.SocialStanding = 10;
                         else
                             character.SocialStanding += 1;
+                        return;
+                    case 6:
+                        careerHistory.Title = "Brigadier";
                         return;
                 }
             }

@@ -52,6 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
+    <Compile Include="Careers\GroundAssault.cs" />
+    <Compile Include="Careers\StarMarine.cs" />
+    <Compile Include="Careers\MarineSupport.cs" />
+    <Compile Include="Careers\Marine.cs" />
     <Compile Include="Careers\Performer.cs" />
     <Compile Include="Careers\Journalist.cs" />
     <Compile Include="Careers\Entertainer.cs" />
@@ -64,7 +68,7 @@
     <Compile Include="Careers\CorporateAgent.cs" />
     <Compile Include="Careers\Enforcer.cs" />
     <Compile Include="Careers\Infantry.cs" />
-    <Compile Include="Careers\Support.cs" />
+    <Compile Include="Careers\ArmySupport.cs" />
     <Compile Include="Careers\Thief.cs" />
     <Compile Include="Careers\Intelligence.cs" />
     <Compile Include="Careers\LawEnforcement.cs" />
