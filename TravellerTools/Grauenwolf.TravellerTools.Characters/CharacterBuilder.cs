@@ -31,12 +31,14 @@ namespace Grauenwolf.TravellerTools.Characters
             careers.Add(new ArmySupport(book));
             careers.Add(new Artist(book));
             careers.Add(new Barbarian(book));
+            careers.Add(new Broker(book));
             careers.Add(new Cavalry(book));
             careers.Add(new Colonist(book));
             careers.Add(new Corporate(book));
             careers.Add(new CorporateAgent(book));
             careers.Add(new Enforcer(book));
             careers.Add(new Fixer(book));
+            careers.Add(new FreeTrader(book));
             careers.Add(new GroundAssault(book));
             careers.Add(new Infantry(book));
             careers.Add(new Inmate(book));
@@ -44,6 +46,7 @@ namespace Grauenwolf.TravellerTools.Characters
             careers.Add(new Journalist(book));
             careers.Add(new LawEnforcement(book));
             careers.Add(new MarineSupport(book));
+            careers.Add(new MerchantMarine(book));
             careers.Add(new Performer(book));
             careers.Add(new Pirate(book));
             careers.Add(new Retired(book));

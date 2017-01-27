@@ -9,25 +9,21 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         public Agent(string assignment, Book book) : base("Agent", assignment, book)
         {
-            var careers = new List<NormalCareer>();
-            careers.Add(new Corporate(book));
-            careers.Add(new Worker(book));
-            careers.Add(new Colonist(book));
-            careers.Add(new Thief(book));
-            careers.Add(new Enforcer(book));
-            careers.Add(new Pirate(book));
+            var careers = new List<NormalCareer>
+            {
+                new Corporate(book),
+                new Worker(book),
+                new Colonist(book),
+                new Thief(book),
+                new Enforcer(book),
+                new Pirate(book)
+            };
             m_Careers = careers.ToImmutableArray();
         }
 
-        protected override int AdvancedEductionMin
-        {
-            get { return 8; }
-        }
+        protected override int AdvancedEductionMin => 8;
 
-        protected override bool RankCarryover
-        {
-            get { return false; }
-        }
+        protected override bool RankCarryover => false;
 
         internal override bool Qualify(Character character, Dice dice)
         {

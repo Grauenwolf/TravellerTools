@@ -9,10 +9,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         }
 
-        protected override int AdvancedEductionMin
-        {
-            get { return 10; }
-        }
+        protected override int AdvancedEductionMin => 10;
 
         internal override bool Qualify(Character character, Dice dice)
         {
@@ -50,10 +47,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
         }
 
-        protected override bool RankCarryover
-        {
-            get { return false; }
-        }
+        protected override bool RankCarryover => false;
 
         protected override void PersonalDevelopment(Character character, Dice dice)
         {

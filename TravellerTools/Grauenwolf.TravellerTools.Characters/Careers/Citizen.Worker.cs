@@ -5,25 +5,13 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
     {
         public Worker(Book book) : base("Worker", book) { }
 
-        protected override string AdvancementAttribute
-        {
-            get { return "Edu"; }
-        }
+        protected override string AdvancementAttribute => "Edu";
 
-        protected override int AdvancementTarget
-        {
-            get { return 8; }
-        }
+        protected override int AdvancementTarget => 8;
 
-        protected override string SurvivalAttribute
-        {
-            get { return "End"; }
-        }
+        protected override string SurvivalAttribute => "End";
 
-        protected override int SurvivalTarget
-        {
-            get { return 4; }
-        }
+        protected override int SurvivalTarget => 4;
 
         internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
         {

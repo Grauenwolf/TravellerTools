@@ -14,10 +14,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         protected abstract int AdvancementTarget { get; }
         protected abstract string SurvivalAttribute { get; }
         protected abstract int SurvivalTarget { get; }
-        internal override bool Qualify(Character character, Dice dice)
-        {
-            return false;
-        }
+        internal override bool Qualify(Character character, Dice dice) => false;
 
         internal override void Run(Character character, Dice dice)
         {

@@ -6,10 +6,7 @@
         {
         }
 
-        protected override int AdvancedEductionMin
-        {
-            get { return 8; }
-        }
+        protected override int AdvancedEductionMin => 8;
 
 
         internal override bool Qualify(Character character, Dice dice)

@@ -4,25 +4,13 @@
     {
         public Thug(Book book) : base("Thug", book) { }
 
-        protected override string AdvancementAttribute
-        {
-            get { return "End"; }
-        }
+        protected override string AdvancementAttribute => "End";
 
-        protected override int AdvancementTarget
-        {
-            get { return 6; }
-        }
+        protected override int AdvancementTarget => 6;
 
-        protected override string SurvivalAttribute
-        {
-            get { return "Str"; }
-        }
+        protected override string SurvivalAttribute => "Str";
 
-        protected override int SurvivalTarget
-        {
-            get { return 8; }
-        }
+        protected override int SurvivalTarget => 8;
 
         protected override void AssignmentSkills(Character character, Dice dice)
         {

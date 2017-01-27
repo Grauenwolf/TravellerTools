@@ -5,25 +5,13 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
     {
         public Thief(Book book) : base("Thief", book) { }
 
-        protected override string AdvancementAttribute
-        {
-            get { return "Dex"; }
-        }
+        protected override string AdvancementAttribute => "Dex";
 
-        protected override int AdvancementTarget
-        {
-            get { return 6; }
-        }
+        protected override int AdvancementTarget => 6;
 
-        protected override string SurvivalAttribute
-        {
-            get { return "Int"; }
-        }
+        protected override string SurvivalAttribute => "Int";
 
-        protected override int SurvivalTarget
-        {
-            get { return 6; }
-        }
+        protected override int SurvivalTarget => 6;
 
         internal override void AssignmentSkills(Character character, Dice dice)
         {

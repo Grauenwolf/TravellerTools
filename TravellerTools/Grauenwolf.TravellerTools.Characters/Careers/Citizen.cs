@@ -7,15 +7,9 @@
 
         }
 
-        protected override int AdvancedEductionMin
-        {
-            get { return 10; }
-        }
+        protected override int AdvancedEductionMin => 10;
 
-        protected override bool RankCarryover
-        {
-            get { return false; }
-        }
+        protected override bool RankCarryover => false;
 
         internal override bool Qualify(Character character, Dice dice)
         {

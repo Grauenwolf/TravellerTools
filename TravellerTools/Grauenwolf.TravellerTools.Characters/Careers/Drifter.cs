@@ -9,15 +9,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         }
 
-        protected override int AdvancedEductionMin
-        {
-            get { return int.MaxValue; }
-        }
+        protected override int AdvancedEductionMin => int.MaxValue;
 
-        protected override bool RankCarryover
-        {
-            get { return false; }
-        }
+        protected override bool RankCarryover => false;
 
         internal override bool Qualify(Character character, Dice dice)
         {

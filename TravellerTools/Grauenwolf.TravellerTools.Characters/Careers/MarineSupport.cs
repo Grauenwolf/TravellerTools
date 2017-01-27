@@ -7,27 +7,13 @@
 
         }
 
-        protected override string AdvancementAttribute
-        {
-            get { return "Edu"; }
-        }
+        protected override string AdvancementAttribute => "Edu";
 
-        protected override int AdvancementTarget
-        {
-            get { return 7; }
+        protected override int AdvancementTarget => 7;
 
-        }
+        protected override string SurvivalAttribute => "End";
 
-        protected override string SurvivalAttribute
-        {
-            get { return "End"; }
-
-        }
-
-        protected override int SurvivalTarget
-        {
-            get { return 5; }
-        }
+        protected override int SurvivalTarget => 5;
 
         internal override void AssignmentSkills(Character character, Dice dice)
         {

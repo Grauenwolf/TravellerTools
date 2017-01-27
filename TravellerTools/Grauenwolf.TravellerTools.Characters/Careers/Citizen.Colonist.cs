@@ -4,25 +4,13 @@
     {
         public Colonist(Book book) : base("Colonist", book) { }
 
-        protected override string AdvancementAttribute
-        {
-            get { return "End"; }
-        }
+        protected override string AdvancementAttribute => "End";
 
-        protected override int AdvancementTarget
-        {
-            get { return 5; }
-        }
+        protected override int AdvancementTarget => 5;
 
-        protected override string SurvivalAttribute
-        {
-            get { return "Int"; }
-        }
+        protected override string SurvivalAttribute => "Int";
 
-        protected override int SurvivalTarget
-        {
-            get { return 7; }
-        }
+        protected override int SurvivalTarget => 7;
 
         internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
         {
