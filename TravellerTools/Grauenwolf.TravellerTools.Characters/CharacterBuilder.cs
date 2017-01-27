@@ -57,6 +57,9 @@ namespace Grauenwolf.TravellerTools.Characters
             careers.Add(new University(book));
             careers.Add(new Wanderer(book));
             careers.Add(new Worker(book));
+            careers.Add(new Flight(book));
+            careers.Add(new EngineerGunner(book));
+            careers.Add(new LineCrew(book));
 
             m_Careers = careers.ToImmutableArray();
 

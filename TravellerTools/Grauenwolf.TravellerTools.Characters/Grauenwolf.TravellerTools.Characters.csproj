@@ -52,6 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
+    <Compile Include="Careers\Navy.Flight.cs" />
+    <Compile Include="Careers\Navy.EngineerGunner.cs" />
+    <Compile Include="Careers\Navy.LineCrew.cs" />
+    <Compile Include="Careers\Navy.cs" />
     <Compile Include="Careers\Merchant.Broker.cs" />
     <Compile Include="Careers\Merchant.FreeTrader.cs" />
     <Compile Include="Careers\Merchant.MerchantMarine.cs" />
