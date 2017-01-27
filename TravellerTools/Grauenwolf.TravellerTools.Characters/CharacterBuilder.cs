@@ -25,10 +25,11 @@ namespace Grauenwolf.TravellerTools.Characters
 
 
             var careers = new List<Career>();
-            //careers.Add(new MilitaryAcademy("Army", "End", 8));
-            //careers.Add(new MilitaryAcademy("Marine", "End", 9));
-            //careers.Add(new MilitaryAcademy("Navy", "Int", 9));
+            careers.Add(new MilitaryAcademy("Army Academy", "End", 8, book));
+            careers.Add(new MilitaryAcademy("Marine Academy", "End", 9, book));
+            careers.Add(new MilitaryAcademy("Naval Academy", "Int", 9, book));
             careers.Add(new ArmySupport(book));
+            careers.Add(new Administrator(book));
             careers.Add(new Artist(book));
             careers.Add(new Barbarian(book));
             careers.Add(new Broker(book));
@@ -60,10 +61,16 @@ namespace Grauenwolf.TravellerTools.Characters
             careers.Add(new Flight(book));
             careers.Add(new EngineerGunner(book));
             careers.Add(new LineCrew(book));
+            careers.Add(new Dilettante(book));
+            careers.Add(new Diplomat(book));
+            careers.Add(new FieldResearcher(book));
+            careers.Add(new Scientist(book));
+            careers.Add(new Physician(book));
+            careers.Add(new Courier(book));
+            careers.Add(new Surveyor(book));
+            careers.Add(new Explorer(book));
 
             m_Careers = careers.ToImmutableArray();
-
-
         }
 
 

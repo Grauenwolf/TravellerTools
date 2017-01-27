@@ -26,7 +26,7 @@
 
         protected abstract void PersonalDevelopment(Character character, Dice dice);
 
-        protected abstract void ServiceSkill(Character character, Dice dice);
+        internal abstract void ServiceSkill(Character character, Dice dice);
 
         protected void UpdateTitle(Character character, Dice dice, CareerHistory careerHistory)
         {

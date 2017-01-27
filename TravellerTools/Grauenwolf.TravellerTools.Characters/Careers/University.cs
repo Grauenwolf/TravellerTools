@@ -70,7 +70,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             character.EducationHistory.Name = "University";
 
 
-            Book.PreCareerEvents(character, dice, skillA, skillB);
+            Book.PreCareerEvents(character, dice, skillA.Name, skillB.Name);
 
             var graduation = dice.D(2, 6) + character.IntellectDM + character.CurrentTermBenefits.GraduationDM;
             if (graduation < 7)

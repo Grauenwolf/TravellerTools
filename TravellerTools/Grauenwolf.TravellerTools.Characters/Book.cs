@@ -146,7 +146,7 @@ namespace Grauenwolf.TravellerTools.Characters
             }
         }
 
-        public void PreCareerEvents(Character character, Dice dice, params SkillTemplate[] skills)
+        public void PreCareerEvents(Character character, Dice dice, params string[] skills)
         {
             switch (dice.D(2, 6))
             {

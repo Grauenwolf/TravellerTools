@@ -305,7 +305,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat ")));
         }
 
-        protected override void ServiceSkill(Character character, Dice dice)
+        internal override void ServiceSkill(Character character, Dice dice)
         {
             switch (dice.D(6))
             {

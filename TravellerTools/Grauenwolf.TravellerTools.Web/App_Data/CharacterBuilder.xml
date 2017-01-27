@@ -121,7 +121,7 @@
       <Specialty Name="Sophontology"/>
       <Specialty Name="Xenology"/>
     </Skill>
-    <Skill Name="Seafarer  ">
+    <Skill Name="Seafarer">
       <Specialty Name="Ocean Ships"/>
       <Specialty Name="Personal"/>
       <Specialty Name="Sail"/>
@@ -131,7 +131,7 @@
     <Skill Name="Steward"/>
     <Skill Name="Streetwise"/>
     <Skill Name="Survival"/>
-    <Skill Name="Tactics   ">
+    <Skill Name="Tactics">
       <Specialty Name="Military"/>
       <Specialty Name="Naval"/>
     </Skill>

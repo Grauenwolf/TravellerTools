@@ -278,7 +278,7 @@
                 character.Skills.AddRange(SpecialtiesFor("Heavy Weapons"));
         }
 
-        protected override void ServiceSkill(Character character, Dice dice)
+        internal override void ServiceSkill(Character character, Dice dice)
         {
             switch (dice.D(6))
             {

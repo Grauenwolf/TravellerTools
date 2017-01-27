@@ -52,6 +52,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
+    <Compile Include="Careers\Scout.Explorer.cs" />
+    <Compile Include="Careers\Scout.Surveyor.cs" />
+    <Compile Include="Careers\Scout.Courier.cs" />
+    <Compile Include="Careers\Scout.cs" />
+    <Compile Include="Careers\Scholar.Physician.cs" />
+    <Compile Include="Careers\Scholar.Scientist.cs" />
+    <Compile Include="Careers\Scholar.FieldResearcher.cs" />
+    <Compile Include="Careers\Scholar.cs" />
+    <Compile Include="Careers\Noble.Dilettante.cs" />
+    <Compile Include="Careers\Noble.Diplomat.cs" />
+    <Compile Include="Careers\Noble.Administrator.cs" />
+    <Compile Include="Careers\Noble.cs" />
     <Compile Include="Careers\Navy.Flight.cs" />
     <Compile Include="Careers\Navy.EngineerGunner.cs" />
     <Compile Include="Careers\Navy.LineCrew.cs" />
