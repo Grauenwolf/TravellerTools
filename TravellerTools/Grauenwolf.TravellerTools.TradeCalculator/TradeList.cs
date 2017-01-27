@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
-    public class TradeList
+    public class TradeGoodsList
     {
         readonly List<TradeOffer> m_Offers = new List<TradeOffer>();
         readonly List<TradeBid> m_Bids = new List<TradeBid>();

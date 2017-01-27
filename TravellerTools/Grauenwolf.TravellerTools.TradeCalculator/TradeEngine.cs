@@ -35,6 +35,15 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public MapService MapService { get; }
 
 
+        /// <summary>
+        /// This has the cargo, people, etc. that want to travel from one location to another.
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <param name="destination"></param>
+        /// <param name="random"></param>
+        /// <param name="illegalGoods"></param>
+        /// <param name="advancedCharacters"></param>
+        /// <returns></returns>
         public async Task<Manifest> BuildManifestAsync(World origin, World destination, Dice random, bool illegalGoods, bool advancedCharacters)
         {
             var result = new Manifest() { Origin = origin, Destination = destination };
@@ -79,6 +88,20 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return result;
         }
 
+        /// <summary>
+        /// This builds all of the manifests for a given location, plus the avaiable trade goods.
+        /// </summary>
+        /// <param name="sectorX"></param>
+        /// <param name="sectorY"></param>
+        /// <param name="hexX"></param>
+        /// <param name="hexY"></param>
+        /// <param name="maxJumpDistance"></param>
+        /// <param name="advancedMode"></param>
+        /// <param name="illegalGoods"></param>
+        /// <param name="brokerScore"></param>
+        /// <param name="seed"></param>
+        /// <param name="advancedCharacters"></param>
+        /// <returns></returns>
         public async Task<ManifestCollection> BuildManifestsAsync(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters)
         {
 
@@ -88,7 +111,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             var worlds = await MapService.WorldsNearAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance).ConfigureAwait(false);
             var result = await BuildManifestsAsync(worlds, random, illegalGoods, advancedCharacters).ConfigureAwait(false);
 
-            result.TradeList = BuildTradeList(result.Origin, advancedMode, illegalGoods, brokerScore, random);
+            result.TradeList = BuildTradeGoodsList(result.Origin, advancedMode, illegalGoods, brokerScore, random);
 
             result.SectorX = sectorX;
             result.SectorY = sectorY;
@@ -109,14 +132,14 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         internal abstract void OnManifestsBuilt(ManifestCollection result);
 
-        public TradeList BuildTradeList(World origin, bool advancedMode, bool illegalGoods, int brokerScore, Dice random)
+        public TradeGoodsList BuildTradeGoodsList(World origin, bool advancedMode, bool illegalGoods, int brokerScore, Dice random)
         {
             IReadOnlyList<TradeGood> goods;
             if (!illegalGoods)
                 goods = m_LegalTradeGoods;
             else
                 goods = m_TradeGoods;
-            var result = new TradeList();
+            var result = new TradeGoodsList();
 
             List<TradeOffer> availableLots = new List<TradeOffer>();
 
@@ -230,7 +253,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
 
 
-        public string PassengerTrait(Dice random, ref bool isPatron)
+        public string PassengerQuirk(Dice random, ref bool isPatron)
         {
             int roll1 = random.D66();
 

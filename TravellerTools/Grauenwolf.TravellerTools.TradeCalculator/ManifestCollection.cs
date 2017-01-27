@@ -12,7 +12,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public int MaxJumpDistance { get; set; }
 
         public World Origin { get; set; }
-        public TradeList TradeList { get; set; }
+        public TradeGoodsList TradeList { get; set; }
 
         public int BerthingCost { get; set; }
 

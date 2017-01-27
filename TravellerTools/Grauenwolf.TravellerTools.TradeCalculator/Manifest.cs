@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
+    /// <summary>
+    /// A manifest is the cargo, people, etc. that want to travel from one location to another.
+    /// </summary>
     public class Manifest
     {
         readonly List<TradeBid> m_Bids = new List<TradeBid>();

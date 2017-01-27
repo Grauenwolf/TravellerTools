@@ -1,5 +1,8 @@
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
+    /// <summary>
+    /// A bid is the desire to buy a trade good [from the players].
+    /// </summary>
     public class TradeBid
     {
         public string Type { get; set; }
