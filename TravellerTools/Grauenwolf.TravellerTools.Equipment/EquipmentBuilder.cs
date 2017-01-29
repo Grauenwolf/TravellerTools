@@ -56,14 +56,17 @@ namespace Grauenwolf.TravellerTools.Equipment
                     var item = new Item
                     {
                         Book = sectionXml.Book,
-                        Category = itemXml.Category,
-                        Law = itemXml.Law,
+                        Category = (itemXml.Category > 0) ? itemXml.Category : sectionXml.Category,
+                        Law = (itemXml.Law > 0) ? itemXml.Law : sectionXml.Law,
                         TechLevel = itemXml.TL,
-                        Price = itemXml.Price,
+                        Price = itemXml.PriceCredits,
                         Name = itemXml.Name,
-                        Mod = itemXml.Mod
+                        Mod = itemXml.Mod,
+                        Mass = itemXml.Mass
                     };
 
+                    if (item.Category == 0)
+                        item.Category = 1; //force a minimum category
 
                     var availabilityDM = 0;
                     if (string.Equals(item.Mod, "Specialized", OrdinalIgnoreCase))
@@ -72,10 +75,13 @@ namespace Grauenwolf.TravellerTools.Equipment
                         availabilityDM += -2;
 
 
-                    var techDiff = Math.Abs(options.TechLevel.Value - item.TechLevel);
-                    if (3 <= techDiff && techDiff <= 4) availabilityDM += -1;
+                    var techDiff = options.TechLevel.Value - item.TechLevel;
+                    if (techDiff < 0)
+                        continue; //item is not avaiable.
+                    else if (3 <= techDiff && techDiff <= 4) availabilityDM += -1;
                     else if (5 <= techDiff && techDiff <= 9) availabilityDM += -2;
                     else if (10 <= techDiff) availabilityDM += -4;
+
 
                     if (options.Starport == "A" || options.Starport == "B") availabilityDM += 1;
                     else if (options.Starport == "X") availabilityDM += -4;
@@ -89,7 +95,7 @@ namespace Grauenwolf.TravellerTools.Equipment
                     else if (9 <= options.Population && options.Population <= 11) availabilityDM += 1;
                     else if (12 <= options.Population) availabilityDM += 2;
 
-                    if (options.LawLevel >= item.Law)
+                    if (item.Law > 0 && options.LawLevel >= item.Law)
                     {
                         item.BlackMarket = true;
 

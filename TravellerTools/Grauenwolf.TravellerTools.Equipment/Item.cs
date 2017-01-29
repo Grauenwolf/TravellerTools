@@ -20,5 +20,8 @@
         public bool BlackMarket { get; set; }
         public int? SentencingDM { get; set; }
 
+        public string Mass { get; set; }
+
+
     }
 }

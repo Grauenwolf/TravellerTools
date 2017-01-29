@@ -6,6 +6,12 @@
 <div class="row">
     <h2>Store @(Model.Options.Name != null ? " for " + Model.Options.Name : "")</h2>
 
+    <table>
+        <tr>
+            <td>
+
+
+
     <table class="gridtable">
         <tr><th colspan="4">World Settings</th></tr>
         <tr>
@@ -27,35 +33,78 @@
         <tr>
             <th colspan="4">Character Settings</th>
         </tr>
-        <tr>
-            <td>Broker Score</td>
-            <td>@Model.Options.BrokerScore</td>
-            <td>Streetwise</td>
-            <td>@Model.Options.StreetwiseScore</td>
-        </tr>
-        <tr>
-            @if (Model.Options.Roll)
+
+
+        @if (Model.Options.Roll)
             {
+            <tr>
+                <td>Broker Score</td>
+                <td>@Model.Options.BrokerScore</td>
+                <td>Streetwise</td>
+                <td>@Model.Options.StreetwiseScore</td>
+            </tr>
+            <tr>
+
                 <td colspan="4">Rolling for each item.</td>
-            }
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">
+                    DM +1 for 2x price. DM +2 for 3x price.
+                    <br />
+                    Normal: Broker or Streetwise
+                    <br />
+                    Black Market Item: Streetwise only
+                </td>
+            </tr>
+
+        }
+
+    </table>
+            </td>
+            <td>
+
+
+    <ul>
+        @foreach (var section in Model.Sections.OrderBy(s => s.Name))
+        {
+            <li><a href="@("#" + section.Name.Substring(4))">@(section.Name)</a></li>
+        }
+    </ul>
+            </td>
         </tr>
     </table>
-
     @foreach (var section in Model.Sections.OrderBy(s => s.Name))
     {
-        <h3>@(section.Name)</h3>
+        var showMass = section.Items.Any(i => !string.IsNullOrEmpty(i.Mass));
+        var showLaw = section.Items.Any(i => i.Law > 0);
+
+        <a name="@(section.Name.Substring(4))">   <h3>@(section.Name)</h3></a>
+
+
+
 
         <table class="gridtable">
             <tr>
                 <th>Name</th>
                 <th>TL</th>
+                @if (showMass)
+                {
+                    <th>Mass</th>
+                }
                 <th>Price</th>
                 @if (!Model.Options.Roll)
                 {
                     <th>Availability Roll</th>
                 }
-                <th>Black Market</th>
-                <th>Sentencing DM</th>
+                @if (showLaw)
+                {
+                    <th>Law</th>
+                    <th>Black Market</th>
+                    <th>Sentencing DM</th>
+                }
                 <th>Book</th>
             </tr>
 
@@ -64,13 +113,21 @@
                 <tr>
                     <td>@item.Name</td>
                     <td>@item.TechLevel</td>
+                    @if (showMass)
+                    {
+                        <td>@item.Mass</td>
+                    }
                     <td align="right">@item.Price.ToString("N0")</td>
                     @if (!Model.Options.Roll)
                     {
                         <td>@item.Availability</td>
                     }
-                    <td>@(item.BlackMarket ? "Yes" : "")</td>
-                    <td>@(item.SentencingDM)</td>
+                    @if (showLaw)
+                    {
+                        <td>@(item.Law )</td>
+                        <td>@(item.BlackMarket ? "Category " + item.Category : "")</td>
+                        <td>@(item.SentencingDM)</td>
+                    }
                     <td>@(item.Book)</td>
                 </tr>
             }
