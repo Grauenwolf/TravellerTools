@@ -66,11 +66,16 @@
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CharacterTests.cs" />
+    <Compile Include="UnitTest2.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Grauenwolf.TravellerTools.Characters\Grauenwolf.TravellerTools.Characters.csproj">
       <Project>{e290f501-5b89-4e7d-b48e-7c5694a34914}</Project>
       <Name>Grauenwolf.TravellerTools.Characters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.Equipment\Grauenwolf.TravellerTools.Equipment.csproj">
+      <Project>{4d91960b-19b6-4639-8b69-f13e90db6596}</Project>
+      <Name>Grauenwolf.TravellerTools.Equipment</Name>
     </ProjectReference>
     <ProjectReference Include="..\Grauenwolf.TravellerTools.Services\Grauenwolf.TravellerTools.Services.csproj">
       <Project>{9dfccb72-0df3-40b1-869e-bd1c0cc2ed98}</Project>
@@ -92,6 +97,11 @@
   <ItemGroup>
     <Content Include="..\Grauenwolf.TravellerTools.Web\App_Data\CharacterBuilder.xml">
       <Link>CharacterBuilder.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Grauenwolf.TravellerTools.Web\App_Data\Equipment.xml">
+      <Link>Equipment.xml</Link>
+      <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

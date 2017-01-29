@@ -13,8 +13,18 @@ interface IWorldLocation {
 //Calling REST endpoints
 //https://visualstudiomagazine.com/articles/2013/10/01/calling-web-services-with-typescript.aspx
 
+
+function readValue(controlName: string): string {
+    var control = <HTMLSelectElement>$('#' + controlName)[0];
+    return control.value;
+}
+
+function readChecked(controlName: string): boolean {
+    var control = <HTMLInputElement>$('#' + controlName)[0];
+    return control.checked;
+}
+
 function SectorChanged(sectorCoordinates: string, subsector: HTMLSelectElement): void {
-    "use strict";
 
     $(subsector).empty();
 
@@ -37,7 +47,6 @@ function SectorChanged(sectorCoordinates: string, subsector: HTMLSelectElement):
 
 
 function SubsectorChanged(sectorCoordinates: string, subsectorIndex: string, world: HTMLSelectElement): void {
-    "use strict";
 
     $(world).empty();
 
@@ -55,14 +64,13 @@ function SubsectorChanged(sectorCoordinates: string, subsectorIndex: string, wor
 }
 
 function WorldChanged(sectorCoordinates: string, worldCoordinates: string, button: HTMLInputElement, label: HTMLElement): void {
-    "use strict";
 
     button.style.display = '';
     label.style.display = 'none';
 }
 
-function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, advancedMode: boolean, illegalGoods: boolean, jumpDistance: number, brokerScore: number, mongoose2: boolean, advancedCharacters: boolean): void {
-    "use strict";
+function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, advancedMode: boolean, illegalGoods: boolean, jumpDistance: number, brokerScore: number, mongoose2: boolean, advancedCharacters: boolean, streetwiseScore: number): void {
+
     var a = sectorCoordinates.split(",");
     var b = worldCoordinates.substring(0, 2);
     var c = worldCoordinates.substring(2, 4);
@@ -70,12 +78,11 @@ function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, 
     var ig = illegalGoods ? "true" : "false";
     var ac = advancedCharacters ? "true" : "false";
     var edition = mongoose2 ? 2016 : 2008;
-    window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac ;
+    window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore;
 
 }
 
 function GenerateAnimals(terrain: string, animalType: string): void {
-    "use strict";
 
     window.location.href = "/Home/Animals?terrainType=" + encodeURIComponent(terrain) + "&animalType=" + encodeURIComponent(animalType);
 }
@@ -94,4 +101,11 @@ function GenerateAnimalEncounters(sectorCoordinates: string, worldCoordinates: s
     else {
         window.location.href = "/Home/AnimalEncounters?terrainType=" + encodeURIComponent(terrain) + "&animalClass=" + encodeURIComponent(animalClass);
     }
+}
+
+function GenerateStoreInfo(lawLevel: string, population: string, roll: boolean, starport: string, techLevel: string, tradeCodes: string, name: string, brokerScore: number, streetwiseScore: number): void {
+
+    var r = roll ? "true" : "false";
+
+    window.location.href = "/Home/Store?lawLevel=" + lawLevel + "&population=" + population + "&roll=" + r + "&starport=" + starport + "&techLevel=" + techLevel + "&tradeCodes=" + encodeURIComponent(tradeCodes) + "&name=" + encodeURIComponent(name) + "&brokerScore=" + brokerScore + "&streetwiseScore=" + streetwiseScore;
 }

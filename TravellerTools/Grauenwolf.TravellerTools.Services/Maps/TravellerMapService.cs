@@ -25,6 +25,8 @@ namespace Grauenwolf.TravellerTools.Maps
         ConcurrentDictionary<Tuple<int, int>, ImmutableList<World>> m_WorldsInSector = new ConcurrentDictionary<Tuple<int, int>, ImmutableList<World>>();
         readonly bool m_FilterUnpopulatedSectors;
 
+        public event EventHandler UniverseUpdated;
+
         public override async Task<SectorMetadata> FetchSectorMetadataAsync(int sectorX, int sectorY)
         {
             SectorMetadata result;
@@ -82,6 +84,8 @@ namespace Grauenwolf.TravellerTools.Maps
 
 
                    m_SectorList = ImmutableList.CreateRange(populatedSectors);
+
+                   UniverseUpdated?.Invoke(this, EventArgs.Empty);
 
                }).RunConcurrently();
             }

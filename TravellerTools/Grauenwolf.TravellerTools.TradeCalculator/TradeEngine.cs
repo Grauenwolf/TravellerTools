@@ -102,7 +102,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         /// <param name="seed"></param>
         /// <param name="advancedCharacters"></param>
         /// <returns></returns>
-        public async Task<ManifestCollection> BuildManifestsAsync(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters)
+        public async Task<ManifestCollection> BuildManifestsAsync(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters, int streetwiseScore)
         {
 
             var actualSeed = seed ?? (new Random()).Next();
@@ -122,6 +122,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             result.AdvancedMode = advancedMode;
             result.IllegalGoods = illegalGoods;
             result.BrokerScore = brokerScore;
+            result.StreetwiseScore = streetwiseScore;
             result.Seed = actualSeed;
             result.AdvancedCharacters = advancedCharacters;
 

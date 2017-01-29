@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26020.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grauenwolf.TravellerTools.Web", "Grauenwolf.TravellerTools.Web\Grauenwolf.TravellerTools.Web.csproj", "{664A83DB-E410-47C2-98D2-31952BD4C7D2}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grauenwolf.TravellerTools.Animals.Tests", "Grauenwolf.TravellerTools.Animals.Tests\Grauenwolf.TravellerTools.Animals.Tests.csproj", "{0519F826-BA3C-46FA-A651-2809A3F06636}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grauenwolf.TravellerTools.Characters", "Grauenwolf.TravellerTools.Characters\Grauenwolf.TravellerTools.Characters.csproj", "{E290F501-5B89-4E7D-B48E-7C5694A34914}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grauenwolf.TravellerTools.Equipment", "Grauenwolf.TravellerTools.Equipment\Grauenwolf.TravellerTools.Equipment.csproj", "{4D91960B-19B6-4639-8B69-F13E90DB6596}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{E290F501-5B89-4E7D-B48E-7C5694A34914}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E290F501-5B89-4E7D-B48E-7C5694A34914}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E290F501-5B89-4E7D-B48E-7C5694A34914}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D91960B-19B6-4639-8B69-F13E90DB6596}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D91960B-19B6-4639-8B69-F13E90DB6596}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D91960B-19B6-4639-8B69-F13E90DB6596}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D91960B-19B6-4639-8B69-F13E90DB6596}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

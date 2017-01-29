@@ -1,26 +1,46 @@
-﻿using Grauenwolf.TravellerTools.Characters.Careers;
+﻿using Grauenwolf.TravellerTools.Characters;
+using Grauenwolf.TravellerTools.Characters.Careers;
+using Grauenwolf.TravellerTools.Equipment;
 using Grauenwolf.TravellerTools.Maps;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Grauenwolf.TravellerTools.Web.Models
 {
     public class HomeIndexViewModel
     {
-        readonly IReadOnlyList<string> m_AnimalClasses; //Animal Encounters
-        readonly IReadOnlyList<string> m_AnimalTypes; //Mongoose 1
-        readonly IReadOnlyList<Sector> m_Sectors;
-        readonly IReadOnlyList<string> m_Terrains;
+        IReadOnlyList<string> m_AnimalClasses; //Animal Encounters
+        IReadOnlyList<string> m_AnimalTypes; //Mongoose 1
+        IReadOnlyList<Sector> m_Sectors;
+        IReadOnlyList<string> m_Terrains;
 
-        public HomeIndexViewModel(IReadOnlyList<Sector> sectors, IReadOnlyList<string> terrains, IReadOnlyList<string> animalTypes, IReadOnlyList<string> animalClasses, IReadOnlyList<Career> careers)
+        private HomeIndexViewModel() { }
+
+        public static async Task<HomeIndexViewModel> GetHomeIndexViewModel(TravellerMapService mapService, CharacterBuilder characterBuilder, EquipmentBuilder equipmentBuilder)
         {
-            Careers = careers;
-            m_AnimalClasses = animalClasses;
-            m_AnimalTypes = animalTypes;
-            m_Terrains = terrains;
-            m_Sectors = sectors;
+            var result = new HomeIndexViewModel()
+            {
+                Careers = characterBuilder.Careers,
+                m_AnimalClasses = Animals.AE.AnimalBuilderAE.AnimalClassList.Select(ac => ac.Name).ToList(),
+                m_AnimalTypes = Animals.Mgt.AnimalBuilderMgt.AnimalTypeList.Select(at => at.Name).ToList(),
+                m_Terrains = Animals.AE.AnimalBuilderAE.TerrainTypeList.Select(t => t.Name).ToList(),
+            };
+
+            mapService.UniverseUpdated += async (s, e) => result.m_Sectors = await mapService.FetchUniverseAsync();
+
+            result.m_Sectors = await mapService.FetchUniverseAsync(); //do this after hooking up the event to avoid race condition.
+
+            return result;
         }
+
+        public IEnumerable<SelectListItem> Scores()
+        {
+            for (var i = -6; i <= 8; i++)
+                yield return new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = (i == 0) };
+        }
+
 
         public IEnumerable<SelectListItem> SectorList()
         {
@@ -38,6 +58,30 @@ namespace Grauenwolf.TravellerTools.Web.Models
                 yield return new SelectListItem() { Text = terrain, Value = terrain };
         }
 
+        public IEnumerable<SelectListItem> Starports()
+        {
+            foreach (var code in Tables.StarportCodes)
+                yield return new SelectListItem() { Text = $"{code} {Tables.Starport(code)}", Value = code.Value.ToString() };
+        }
+        public IEnumerable<SelectListItem> Populations()
+        {
+            foreach (var code in Tables.PopulationCodes)
+                yield return new SelectListItem() { Text = $"{code.FlexString} {Tables.PopulationExponent(code).ToString("N0")}", Value = code.Value.ToString() };
+        }
+
+        public IEnumerable<SelectListItem> TechLevels()
+        {
+            foreach (var code in Tables.TechLevelCodes)
+                yield return new SelectListItem() { Text = $"{code.FlexString} {Tables.TechLevel(code)}", Value = code.Value.ToString() };
+        }
+
+        public IEnumerable<SelectListItem> LawLevels()
+        {
+            foreach (var code in Tables.LawLevelCodes)
+                yield return new SelectListItem() { Text = $"{code.FlexString} {Tables.LawLevel(code)}", Value = code.Value.ToString() };
+        }
+
+
         public IEnumerable<SelectListItem> AnimalTypeList()
         {
             yield return new SelectListItem() { Text = "", Value = "" };
@@ -45,6 +89,8 @@ namespace Grauenwolf.TravellerTools.Web.Models
             foreach (var terrain in m_AnimalTypes.OrderBy(s => s))
                 yield return new SelectListItem() { Text = terrain, Value = terrain };
         }
+
+
 
         public IEnumerable<SelectListItem> AnimalClassList()
         {
@@ -66,6 +112,6 @@ namespace Grauenwolf.TravellerTools.Web.Models
                 return obj.Name.GetHashCode();
             }
         }
-        public IReadOnlyList<Career> Careers { get; }
+        public IReadOnlyList<Career> Careers { get; private set; }
     }
 }

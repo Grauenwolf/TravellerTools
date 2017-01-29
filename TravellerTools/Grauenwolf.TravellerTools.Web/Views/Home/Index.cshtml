@@ -23,12 +23,29 @@
         </tr>
     </table>
 
+    <h2>Character</h2>
+    <table class="gridtable">
+        <tr>
+            <th>Broker Score (INT)</th>
+            <td>
+                @Html.DropDownList("broker", Model.Scores())
+            </td>
+            <th>Streetwise Score (INT)</th>
+            <td>
+                @Html.DropDownList("streetwise", Model.Scores())
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="row">
+
     <h2>Trade Calculator</h2>
 
     <table class="gridtable">
         <tr>
             <td>
-                <label> <input type="checkbox" id="mongoose2" /> Mongoose 2</label>
+                <label> <input type="checkbox" checked="checked" id="mongoose2" /> Mongoose 2</label>
             </td>
             <td>
                 <label> <input type="checkbox" id="advancedMode" /> Advanced Mode</label>
@@ -44,17 +61,51 @@
                 <input type="number" id="jumpDistance" value="3" />
             </td>
             <td>
-                <label>Broker Score</label>
-                <input type="number" id="brokerScore" value="0" />
-            </td>
-            <td>
-                <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo($('#sector')[0].value, $('#world')[0].value, $('#advancedMode')[0].checked, $('#illegalGoods')[0].checked, $('#jumpDistance')[0].value, $('#brokerScore')[0].value, $('#mongoose2')[0].checked, $('#advancedCharacters')[0].checked)" style="display:none" />
+                <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo(readValue('sector'), readValue('world'), readChecked('advancedMode'), readChecked('illegalGoods'), readValue('jumpDistance'), readValue('broker'), readChecked('mongoose2'), readChecked('advancedCharacters'), readValue('streetwise'))" style="display:none" />
                 <span id="selectWorldForTrade">Select a world</span>
             </td>
         </tr>
     </table>
 </div>
 
+<div class="row">
+
+    <h2>Shopping</h2>
+    <table class="gridtable">
+        <tr>
+            <th>World</th>
+            <td>
+                <label>Law Level</label>
+                @Html.DropDownList("lawLevel", Model.LawLevels())
+            </td>
+            <td>
+                <label>Tech Level</label>
+                @Html.DropDownList("techLevel", Model.TechLevels())
+            </td>
+            <td>
+                <label>Starport</label>
+                @Html.DropDownList("starport", Model.Starports())
+            </td>
+            <td>
+                <label>Population</label>
+                @Html.DropDownList("population", Model.Populations())
+            </td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td>
+                <label> <input type="checkbox" id="shopRoll" /> Auto-Roll</label>
+                <br />
+                If you don't check this, all items are printed with the roll the player needs.
+            </td>
+            <td>
+                <input id="showTradeScreen" type="button" value="Generate Store Info" onclick="
+    GenerateStoreInfo(readValue('lawLevel'), readValue('population'), readChecked('shopRoll'), readValue('starport'), readValue('techLevel'), '', '', readValue('broker'),readValue('streetwise'))"  />
+            </td>
+        </tr>
+    </table>
+
+</div>
 <div class="row">
     <h2>Animals</h2>
     <table class="gridtable">
@@ -98,7 +149,8 @@
         <tr style="display:none">
             <!-- Do we want these as individual options or should we always read from the selected world?-->
             <td>
-                <label>Gravity</label> <select id="gravity">
+                <label>Gravity</label>
+                <select id="gravity">
                     <option value=""></option>
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
@@ -144,20 +196,20 @@
             <th colspan="15">Specific Age</th>
         </tr>
         <tr>
-            <th><a href=@string.Format("/Home/Character")>Any</a></th>
+            <th><a href="@string.Format("/Home/Character")">Any</a></th>
             @for (var terms = 1; terms <= 15; terms++)
             {
-                <td><a href=@string.Format("/Home/Character?MinAge={0}&MaxAge={1}", 18+(terms*4), 18 + (terms * 4) + 3)>@terms Terms</a></td>
+                <td><a href="@string.Format("/Home/Character?MinAge={0}&MaxAge={1}", 18+(terms*4), 18 + (terms * 4) + 3)">@terms Terms</a></td>
             }
         </tr>
 
         @foreach (var career in Model.Careers.OrderBy(s => s.Key))
-        {
+            {
             <tr>
-                <th><a href=@string.Format("/Home/Character?Career={0}", Url.Encode( career.Key ))>@career</a></th>
+                <th><a href="@string.Format("/Home/Character?Career={0}", Url.Encode( career.Key ))">@career</a></th>
                 @for (var terms = 1; terms <= 15; terms++)
                 {
-                    <td><a href=@string.Format("/Home/Character?Career={0}&MinAge={1}&MaxAge={2}", Url.Encode(career.Key), 18+(terms*4), 18 + (terms * 4) + 3)>@terms Terms</a></td>
+                    <td><a href="@string.Format("/Home/Character?Career={0}&MinAge={1}&MaxAge={2}", Url.Encode(career.Key), 18+(terms*4), 18 + (terms * 4) + 3)">@terms Terms</a></td>
                 }
             </tr>
         }

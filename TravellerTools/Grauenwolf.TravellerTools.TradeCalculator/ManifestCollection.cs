@@ -19,6 +19,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
 
         public int BrokerScore { get; set; }
+        public int StreetwiseScore { get; set; }
         public bool? AdvancedMode { get; set; }
         public bool? IllegalGoods { get; set; }
         public Edition Edition { get; set; }

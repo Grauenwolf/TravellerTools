@@ -21,7 +21,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>2.1</TypeScriptToolsVersion>
     <TargetFrameworkProfile />
     <UseGlobalApplicationHostFile />
   </PropertyGroup>
@@ -250,6 +250,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Data\CharacterBuilder.xml" />
+    <Content Include="App_Data\Equipment.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="App_Data\TradeGoods-MGT.xml" />
     <Content Include="App_Data\TradeGoods-MGT2.xml" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -331,6 +334,7 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Home\Character.cshtml" />
+    <Content Include="Views\Home\Store.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -349,6 +353,10 @@
     <ProjectReference Include="..\Grauenwolf.TravellerTools.Characters\Grauenwolf.TravellerTools.Characters.csproj">
       <Project>{e290f501-5b89-4e7d-b48e-7c5694a34914}</Project>
       <Name>Grauenwolf.TravellerTools.Characters</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.Equipment\Grauenwolf.TravellerTools.Equipment.csproj">
+      <Project>{4D91960B-19B6-4639-8B69-F13E90DB6596}</Project>
+      <Name>Grauenwolf.TravellerTools.Equipment</Name>
     </ProjectReference>
     <ProjectReference Include="..\Grauenwolf.TravellerTools.Services\Grauenwolf.TravellerTools.Services.csproj">
       <Project>{9dfccb72-0df3-40b1-869e-bd1c0cc2ed98}</Project>

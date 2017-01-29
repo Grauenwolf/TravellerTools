@@ -1,8 +1,15 @@
 /// <reference path="../typings/jquery/jquery.d.ts" />
 //Calling REST endpoints
 //https://visualstudiomagazine.com/articles/2013/10/01/calling-web-services-with-typescript.aspx
+function readValue(controlName) {
+    var control = $('#' + controlName)[0];
+    return control.value;
+}
+function readChecked(controlName) {
+    var control = $('#' + controlName)[0];
+    return control.checked;
+}
 function SectorChanged(sectorCoordinates, subsector) {
-    "use strict";
     $(subsector).empty();
     $.getJSON("/WorldApi/Subsectors?sectorCoordinates=" + sectorCoordinates, function (cs) {
         var myList = cs;
@@ -14,7 +21,6 @@ function SectorChanged(sectorCoordinates, subsector) {
     });
 }
 function SubsectorChanged(sectorCoordinates, subsectorIndex, world) {
-    "use strict";
     $(world).empty();
     $.getJSON("/WorldApi/WorldsInSubsector?sectorCoordinates=" + sectorCoordinates + "&subsectorIndex=" + subsectorIndex, function (cs) {
         var myList = cs;
@@ -26,12 +32,10 @@ function SubsectorChanged(sectorCoordinates, subsectorIndex, world) {
     });
 }
 function WorldChanged(sectorCoordinates, worldCoordinates, button, label) {
-    "use strict";
     button.style.display = '';
     label.style.display = 'none';
 }
-function GenerateTradeInfo(sectorCoordinates, worldCoordinates, advancedMode, illegalGoods, jumpDistance, brokerScore, mongoose2, advancedCharacters) {
-    "use strict";
+function GenerateTradeInfo(sectorCoordinates, worldCoordinates, advancedMode, illegalGoods, jumpDistance, brokerScore, mongoose2, advancedCharacters, streetwiseScore) {
     var a = sectorCoordinates.split(",");
     var b = worldCoordinates.substring(0, 2);
     var c = worldCoordinates.substring(2, 4);
@@ -39,10 +43,9 @@ function GenerateTradeInfo(sectorCoordinates, worldCoordinates, advancedMode, il
     var ig = illegalGoods ? "true" : "false";
     var ac = advancedCharacters ? "true" : "false";
     var edition = mongoose2 ? 2016 : 2008;
-    window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac;
+    window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore;
 }
 function GenerateAnimals(terrain, animalType) {
-    "use strict";
     window.location.href = "/Home/Animals?terrainType=" + encodeURIComponent(terrain) + "&animalType=" + encodeURIComponent(animalType);
 }
 function GenerateAnimalEncounters(sectorCoordinates, worldCoordinates, terrain, animalClass) {
@@ -56,5 +59,9 @@ function GenerateAnimalEncounters(sectorCoordinates, worldCoordinates, terrain, 
     else {
         window.location.href = "/Home/AnimalEncounters?terrainType=" + encodeURIComponent(terrain) + "&animalClass=" + encodeURIComponent(animalClass);
     }
+}
+function GenerateStoreInfo(lawLevel, population, roll, starport, techLevel, tradeCodes, name, brokerScore, streetwiseScore) {
+    var r = roll ? "true" : "false";
+    window.location.href = "/Home/Store?lawLevel=" + lawLevel + "&population=" + population + "&roll=" + r + "&starport=" + starport + "&techLevel=" + techLevel + "&tradeCodes=" + encodeURIComponent(tradeCodes) + "&name=" + encodeURIComponent(name) + "&brokerScore=" + brokerScore + "&streetwiseScore=" + streetwiseScore;
 }
 //# sourceMappingURL=Index.js.map

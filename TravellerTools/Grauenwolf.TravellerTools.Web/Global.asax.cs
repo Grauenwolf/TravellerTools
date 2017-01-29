@@ -1,8 +1,10 @@
 ﻿using Grauenwolf.TravellerTools.Animals.AE;
 using Grauenwolf.TravellerTools.Animals.Mgt;
 using Grauenwolf.TravellerTools.Characters;
+using Grauenwolf.TravellerTools.Equipment;
 using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.TradeCalculator;
+using Grauenwolf.TravellerTools.Web.Models;
 using System.Web.Configuration;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -13,7 +15,7 @@ namespace Grauenwolf.TravellerTools.Web
 {
     public class Global : System.Web.HttpApplication
     {
-        protected void Application_Start()
+        protected async void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -31,12 +33,16 @@ namespace Grauenwolf.TravellerTools.Web
             AnimalBuilderMgt.SetDataPath(appDataPath);
             AnimalBuilderAE.SetDataPath(appDataPath);
             CharacterBuilder = new CharacterBuilder(appDataPath);
+            EquipmentBuilder = new EquipmentBuilder(appDataPath);
 
+            HomeIndexViewModel = HomeIndexViewModel.GetHomeIndexViewModel(MapService, CharacterBuilder, EquipmentBuilder).Result;
         }
 
         public static TradeEngine TradeEngineMgt;
         public static TradeEngine TradeEngineMgt2;
-        public static MapService MapService;
+        public static TravellerMapService MapService;
         public static CharacterBuilder CharacterBuilder;
+        public static EquipmentBuilder EquipmentBuilder;
+        public static HomeIndexViewModel HomeIndexViewModel;
     }
 }

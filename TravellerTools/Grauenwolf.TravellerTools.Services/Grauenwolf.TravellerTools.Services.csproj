@@ -63,7 +63,6 @@
     <Compile Include="Maps\Allegiance.cs" />
     <Compile Include="Maps\Border.cs" />
     <Compile Include="Maps\Datafile.cs" />
-    <Compile Include="Maps\HexDigit.cs" />
     <Compile Include="Maps\LocalMapService.cs" />
     <Compile Include="Maps\MapService.cs" />
     <Compile Include="Maps\Name.cs" />

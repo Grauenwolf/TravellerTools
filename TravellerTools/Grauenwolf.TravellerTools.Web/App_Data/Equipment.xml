@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Catalog>
+  <Section Name="Armor" Book="Core 2">
+    <Item Name="Jack" TL="1" Price="50" Law="8" Category="1" />
+    <Item Name="Mesh" TL="6" Price="150" Law="5" Category="1"/>
+    <Item Name="Cloth" TL="7" Price="250"  Law="4" Category="3" Mod="Military"/>
+    <Item Name="Cloth" TL="10" Price="500" Law="4" Category="3" Mod="Military"/>
+    <Item Name="Flak Jacket" TL="8" Price="300" Law="3" Category="3" Mod="Military"/>
+    <Item Name="Flak Jacket" TL="7" Price="100" Law="3" Category="3" Mod="Military"/>
+
+    <Item Name="Reflec" TL="10" Price="1500" Law="9" Category="3"/>
+    <Item Name="Ablat" TL="9" Price="75" Law="9" Category="3"/>
+    <Item Name="Combat Armour" TL="10" Price="96000"  Law="2" Category="4" Mod="Military"/>
+    <Item Name="Combat Armour" TL="12" Price="88000"  Law="2" Category="4" Mod="Military"/>
+    <Item Name="Combat Armour" TL="14" Price="160000" Law="2" Category="4" Mod="Military"/>
+    <Item Name="Vacc Suit" TL="8" Price="12000"  Law="9" Category= "1"/>
+    <Item Name="Vacc Suit" TL="10" Price="11000" Law="9" Category="1"/>
+    <Item Name="Vacc Suit" TL="12" Price="20000" Law="9" Category="1"/>
+    <Item Name="Hostile Environment Vacc Suit" TL="9"  Price="24000" Law="9" Category="1" Mod="Specialized"/>
+    <Item Name="Hostile Environment Vacc Suit" TL="10" Price="20000" Law="9" Category="1" Mod="Specialized"/>
+    <Item Name="Hostile Environment Vacc Suit" TL="11" Price="22000" Law="9" Category="1" Mod="Specialized"/>
+    <Item Name="Hostile Environment Vacc Suit" TL="13" Price="40000" Law="9" Category="1" Mod="Specialized"/>
+    <Item Name="Hostile Environment Vacc Suit" TL="14" Price="60000" Law="9" Category="1" Mod="Specialized"/>
+    <Item Name="Battle Dress" TL="13" Price="200000" Law="1" Category="5" Mod="Military"/>
+    <Item Name="Battle Dress" TL="14" Price="220000" Law="1" Category="5" Mod="Military"/>
+  </Section>
+</Catalog>

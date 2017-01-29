@@ -7,26 +7,27 @@
     var current = Model.Origin;
     var timeFormat = "h'h 'm'm 's's'";
 }
-<h2>Origin: @current.Name
-    <a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href=@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}&seed={9}&advancedCharacters={10}",
+<h2>
+    Origin: @current.Name
+    <a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}&seed={9}&advancedCharacters={10}&streetwiseScore={11}",
            current.SectorX, current.SectorY, current.HexX, current.HexY, Model.MaxJumpDistance,
-           Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.Seed, Model.AdvancedCharacters
-           )>permalink</a>
+           Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.Seed, Model.AdvancedCharacters, Model.StreetwiseScore
+           )">permalink</a>
 
-    </h2>
+</h2>
 <h3>Planet Info</h3>
 <table class="gridtable">
 
     <tr>
         <th>Planet</th>
-        <td><a href=@string.Format("http://wiki.travellerrpg.com/{0}_(world)", current.Name) target="_blank">@current.Name</a></td>
+        <td><a href="@string.Format("http://wiki.travellerrpg.com/{0}_(world)", current.Name)" target="_blank">@current.Name</a></td>
         <th>Subsector</th>
-        <td><a href=@string.Format("http://wiki.travellerrpg.com/{0}_Subsector", current.SubsectorName) target="_blank">@current.SubsectorName</a></td>
+        <td><a href="@string.Format("http://wiki.travellerrpg.com/{0}_Subsector", current.SubsectorName)" target="_blank">@current.SubsectorName</a></td>
         <th>Sector</th>
-        <td><a href=@string.Format("http://wiki.travellerrpg.com/{0}_Sector", current.Sector) target="_blank">@current.Sector</a></td>
+        <td><a href="@string.Format("http://wiki.travellerrpg.com/{0}_Sector", current.Sector)" target="_blank">@current.Sector</a></td>
         <th>Coordinates</th>
         <td>
-            <a href=@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", current.SectorX, current.SectorY, current.HexX, current.HexY) target="_blank">@current.SectorX,@current.SectorY Hex @current.Hex</a>
+            <a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", current.SectorX, current.SectorY, current.HexX, current.HexY)" target="_blank">@current.SectorX,@current.SectorY Hex @current.Hex</a>
         </td>
     </tr>
 </table>
@@ -34,7 +35,7 @@
 <table class="gridtable">
 
     <tr><th>Starport</th><td>@current.StarportCode</td><td colspan="5" width="500">@current.StarportDescription</td></tr>
-    <tr><th>Berthing Cost</th><td /><td colspan="5">@Model.BerthingCost.ToString("N0")</td></tr>
+    <tr><th>Berthing Cost</th><td>&nbsp;</td><td colspan="5">@Model.BerthingCost.ToString("N0")</td></tr>
     <tr><th>Size</th><td>@current.SizeCode</td><td colspan="5">@current.SizeKM.ToString("N0") km</td></tr>
     <tr><th>Atmosphere</th><td>@current.AtmosphereCode</td><td colspan="5">@current.AtmosphereDescription</td></tr>
 
@@ -45,6 +46,17 @@
     <tr><th>Law</th><td>@current.LawCode</td><td colspan="5">@current.LawLevel</td></tr>
     <tr><th>Tech</th><td>@current.TechCode</td><td colspan="5">@current.TechLevel</td></tr>
     <tr><th>Remarks</th><td colspan="6">@current.RemarksDescription</td></tr>
+    <tr>
+        <th>Shopping</th>
+        <td>
+            <a target="_blank" href="@string.Format("/Home/Store?lawLevel={0}&population={1}&roll=false&starport={2}&techLevel={3}&tradeCodes={4}&name={5}&brokerScore={6}&streetwiseScore={7}", current.LawCode, current.PopulationCode, current.StarportCode, current.TechCode, Url.Encode( current.Remarks),Url.Encode(current.Name), Model.BrokerScore, Model.StreetwiseScore)">Full List</a>
+            </td>
+        <td>
+            <a target="_blank" href="@string.Format("/Home/Store?lawLevel={0}&population={1}&roll=true&starport={2}&techLevel={3}&tradeCodes={4}&name={5}&brokerScore={6}&streetwiseScore={7}", current.LawCode, current.PopulationCode, current.StarportCode, current.TechCode, Url.Encode( current.Remarks),Url.Encode(current.Name), Model.BrokerScore, Model.StreetwiseScore)">Random</a>
+
+
+        </td>
+    </tr>
 </table>
 <h3>Travel Info</h3>
 <div style="display: inline-block; vertical-align: top">
@@ -65,7 +77,7 @@
 
 </div>
 <div style="display: inline-block; vertical-align: top">
-    <img src=@string.Format("http://travellermap.com/api/jumpmap?sx={0}&sy={1}&hx={2}&hy={3}&jump={4}&scale=48&style=print", @Model.SectorX, @Model.SectorY, @Model.HexX, @Model.HexY, @Model.MaxJumpDistance) />
+    <img src="@string.Format("http://travellermap.com/api/jumpmap?sx={0}&sy={1}&hx={2}&hy={3}&jump={4}&scale=48&style=print", @Model.SectorX, @Model.SectorY, @Model.HexX, @Model.HexY, @Model.MaxJumpDistance)" />
 </div>
 <div style="display: inline-block; vertical-align: top">
     <ul id="listofthings">
@@ -76,70 +88,70 @@
     </ul>
 </div>
 
-    <h3>Available Trade Goods</h3>
-    <p>Purchase DM does not include broker score.<br />Price modifier and current price include purchase DM, broker score, and random roll.</p>
-    <table class="gridtable">
-        <tr>
-            <th>Type</th>
-            <th>Subtype</th>
-            <th>Tons</th>
-            <th>Base Price</th>
-            <th>Purchase DM</th>
-            <th>Modified Roll</th>
-            <th>Price Modifier</th>
-            <th>Current Price</th>
-        </tr>
-        @foreach (var lot in Model.TradeList.Lots)
-        {
-            <tr>
-                <td>@lot.Type</td>
-                <td>@lot.Subtype</td>
-                <td>@lot.Tons</td>
-                <td>@lot.BasePrice.ToString("N0")</td>
-                <td>@lot.PurchaseDM</td>
-                <td>@lot.Roll.ToString("N0")</td>
-                <td>@lot.PriceModifier.ToString("P2")</td>
-                <td>@lot.CurrentPrice.ToString("N0")</td>
-            </tr>
-        }
-    </table>
-
-
-    <h3>Desired Goods</h3>
-    <p>Sale DM does not include broker score.<br />Price modifier and current price include sale DM, broker score, and random roll.</p>
-    <table class="gridtable">
-        <tr>
-            <th>Type</th>
-            <th>Subtype</th>
-            <th>Base Price</th>
-            <th>Sale DM</th>
-            <th>Modified Roll</th>
-            <th>Price Modifier</th>
-            <th>Current Price</th>
-        </tr>
-        @foreach (var lot in Model.TradeList.Bids)
-        {
-            <tr>
-                <td>@lot.Type</td>
-                <td>@lot.Subtype</td>
-                <td>@lot.BasePrice.ToString("N0")</td>
-                <td>@lot.SaleDM</td>
-                <td>@lot.Roll.ToString("N0")</td>
-                <td>@lot.PriceModifier.ToString("P2")</td>
-                <td>@lot.CurrentPrice.ToString("N0")</td>
-            </tr>
-        }
-    </table>
-
-    @foreach (var manifest in @Model)
+<h3>Available Trade Goods</h3>
+<p>Purchase DM does not include broker score.<br />Price modifier and current price include purchase DM, broker score, and random roll.</p>
+<table class="gridtable">
+    <tr>
+        <th>Type</th>
+        <th>Subtype</th>
+        <th>Tons</th>
+        <th>Base Price</th>
+        <th>Purchase DM</th>
+        <th>Modified Roll</th>
+        <th>Price Modifier</th>
+        <th>Current Price</th>
+    </tr>
+    @foreach (var lot in Model.TradeList.Lots)
     {
-        current = manifest.Destination;
-        <a name="@string.Format("{0}_{1}_{2}_{3}",  current.SectorX, current.SectorY, current.HexX, current.HexY)" />
-        <hr />
-        <a href=@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}&advancedCharacters={9}",
+        <tr>
+            <td>@lot.Type</td>
+            <td>@lot.Subtype</td>
+            <td>@lot.Tons</td>
+            <td>@lot.BasePrice.ToString("N0")</td>
+            <td>@lot.PurchaseDM</td>
+            <td>@lot.Roll.ToString("N0")</td>
+            <td>@lot.PriceModifier.ToString("P2")</td>
+            <td>@lot.CurrentPrice.ToString("N0")</td>
+        </tr>
+    }
+</table>
+
+
+<h3>Desired Goods</h3>
+<p>Sale DM does not include broker score.<br />Price modifier and current price include sale DM, broker score, and random roll.</p>
+<table class="gridtable">
+    <tr>
+        <th>Type</th>
+        <th>Subtype</th>
+        <th>Base Price</th>
+        <th>Sale DM</th>
+        <th>Modified Roll</th>
+        <th>Price Modifier</th>
+        <th>Current Price</th>
+    </tr>
+    @foreach (var lot in Model.TradeList.Bids)
+    {
+        <tr>
+            <td>@lot.Type</td>
+            <td>@lot.Subtype</td>
+            <td>@lot.BasePrice.ToString("N0")</td>
+            <td>@lot.SaleDM</td>
+            <td>@lot.Roll.ToString("N0")</td>
+            <td>@lot.PriceModifier.ToString("P2")</td>
+            <td>@lot.CurrentPrice.ToString("N0")</td>
+        </tr>
+    }
+</table>
+
+@foreach (var manifest in @Model)
+{
+    current = manifest.Destination;
+    <a name="@string.Format("{0}_{1}_{2}_{3}",  current.SectorX, current.SectorY, current.HexX, current.HexY)" ></a>
+    <hr />
+        <a href="@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}&advancedCharacters={9}&streetwiseScore={10}",
            current.SectorX, current.SectorY, current.HexX, current.HexY, Model.MaxJumpDistance,
-           Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.AdvancedCharacters
-           )><h2>Destination: @current.Name</h2></a>
+           Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.AdvancedCharacters, Model.StreetwiseScore
+           )"><h2>Destination: @current.Name</h2></a>
 
 
 
@@ -148,14 +160,14 @@
 
             <tr>
                 <th>Planet</th>
-                <td><a href=@string.Format("http://wiki.travellerrpg.com/{0}_(world)", current.Name) target="_blank">@current.Name</a></td>
+                <td><a href="@string.Format("http://wiki.travellerrpg.com/{0}_(world)", current.Name)" target="_blank">@current.Name</a></td>
                 <th>Subsector</th>
-                <td><a href=@string.Format("http://wiki.travellerrpg.com/{0}_Subsector", current.SubsectorName) target="_blank">@current.SubsectorName</a></td>
+                <td><a href="@string.Format("http://wiki.travellerrpg.com/{0}_Subsector", current.SubsectorName)" target="_blank">@current.SubsectorName</a></td>
                 <th>Sector</th>
-                <td><a href=@string.Format("http://wiki.travellerrpg.com/{0}_Sector", current.Sector) target="_blank">@current.Sector</a></td>
+                <td><a href="@string.Format("http://wiki.travellerrpg.com/{0}_Sector", current.Sector)" target="_blank">@current.Sector</a></td>
                 <th>Coordinates</th>
                 <td>
-                    <a href=@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", current.SectorX, current.SectorY, current.HexX, current.HexY) target="_blank">@current.SectorX,@current.SectorY Hex @current.Hex</a>
+                    <a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", current.SectorX, current.SectorY, current.HexX, current.HexY)" target="_blank">@current.SectorX,@current.SectorY Hex @current.Hex</a>
                 </td>
             </tr>
         </table>
@@ -163,7 +175,7 @@
         <table class="gridtable">
 
             <tr><th>Starport</th><td>@current.StarportCode</td><td colspan="5" width="500">@current.StarportDescription</td></tr>
-            <tr><th>Berthing Cost</th><td /><td colspan="5">@Model.BerthingCost.ToString("N0")</td></tr>
+            <tr><th>Berthing Cost</th><td>&nbsp;</td><td colspan="5">@Model.BerthingCost.ToString("N0")</td></tr>
             <tr><th>Size</th><td>@current.SizeCode</td><td colspan="5">@current.SizeKM.ToString("N0") km    </td></tr>
             <tr><th>Atmosphere</th><td>@current.AtmosphereCode</td><td colspan="5">@current.AtmosphereDescription</td></tr>
 
@@ -191,56 +203,57 @@
             </table>
         </div>
         <div style="display: inline-block; vertical-align: top">
-            <img src=@String.Format("http://travellermap.com/api/jumpmap?sx={0}&sy={1}&hx={2}&hy={3}&jump={4}&scale=48&style=print", @current.SectorX, @current.SectorY, @current.HexX, @current.HexY, @Model.MaxJumpDistance) />
+            <img src="@String.Format("http://travellermap.com/api/jumpmap?sx={0}&sy={1}&hx={2}&hy={3}&jump={4}&scale=48&style=print", @current.SectorX, @current.SectorY, @current.HexX, @current.HexY, @Model.MaxJumpDistance)" />
         </div>
         <h3>Passengers</h3>
 
-        if (manifest.PassengerList.Passengers.Count > 0)
-        {
-            <ul id="listofthings">
-                @foreach (var passenger in manifest.PassengerList.Passengers)
-                {
-                    <li>
-                        @if (Model.AdvancedCharacters)
+    if (manifest.PassengerList.Passengers.Count > 0)
+    {
+        <ul id="listofthings">
+            @foreach (var passenger in manifest.PassengerList.Passengers)
+            {
+                <li>
+                    @if (Model.AdvancedCharacters)
                         {
-                            <h4><a target="_blank" href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}", Url.Encode(passenger.Name), passenger.Seed, passenger.ApparentAge, passenger.ApparentAge)">@passenger.Title @passenger.Name</a></h4>
-                        }
-                        else
+                        <h4><a target="_blank" href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}", Url.Encode(passenger.Name), passenger.Seed, passenger.ApparentAge, passenger.ApparentAge)">@passenger.Title @passenger.Name</a></h4>
+                    }
+                    else
+                    {
+                        <h4>@passenger.Name</h4>
+                    }
+                    <div>Age: @passenger.ApparentAge (@passenger.Gender)</div>
+                    <div>UPP: @passenger.Upp</div>
+                    <div>Passage Desired: @passenger.TravelType</div>
+                    @if (@passenger.TravelType == "Low")
                         {
-                            <h4>@passenger.Name</h4>
-                        }
-                        <div>Age: @passenger.ApparentAge (@passenger.Gender)</div>
-                        <div>UPP: @passenger.Upp</div>
-                        <div>Passage Desired: @passenger.TravelType</div>
-                        @if (@passenger.TravelType == "Low")
+                        <div>Endurance DM: @passenger.EnduranceDM</div>}
+                    <div>Notes: @passenger.PassengerType, @passenger.Trait</div>
+                    @if (Model.AdvancedCharacters)
                         {
-                            <div>Endurance DM: @passenger.EnduranceDM</div>}
-                        <div>Notes: @passenger.PassengerType, @passenger.Trait</div>
-                        @if (Model.AdvancedCharacters)
-                        {
-                            <div>@passenger.Skills</div>
-                        }
-                    </li>}
-            </ul>
-        }
+                        <div>@passenger.Skills</div>
+                    }
+                </li>}
+        </ul>
+    }
 
-        if (manifest.FreightList.Lots.Count > 0)
-        {
-            <h3>Freight</h3>
-            <ul id="listofthings">
-                @foreach (var lot in manifest.FreightList.Lots)
-                {
-                    <li>
-                        <h4>@lot.Size Tons for @lot.ShippingFee.ToString("N0"). </h4>
-                        <div>Contents: @lot.Contents </div>
-                        <div>Value: @lot.ActualValue.ToString("N0") </div>
-                    </li>}
-            </ul>
-        }
+    if (manifest.FreightList.Lots.Count > 0)
+    {
+        <h3>Freight</h3>
+        <ul id="listofthings">
+            @foreach (var lot in manifest.FreightList.Lots)
+            {
+                <li>
+                    <h4>@lot.Size Tons for @lot.ShippingFee.ToString("N0"). </h4>
+                    <div>Contents: @lot.Contents </div>
+                    <div>Value: @lot.ActualValue.ToString("N0") </div>
+                </li>}
+        </ul>
+    }
 
-        <h3>Trade Preview</h3>
+    <h3>Trade Preview</h3>
 
-        <table>
+    <table>
+        <tr>
             <td valign="top">
                 <h4>Readily Available Goods</h4>
                 <table class="gridtable">
@@ -263,10 +276,11 @@
                     }
                 </table>
             </td>
-        </table>
+        </tr>
+    </table>
 
 
 
-    }
+}
 
 

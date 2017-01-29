@@ -1,9 +1,8 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
+using Grauenwolf.TravellerTools.Equipment;
 using Grauenwolf.TravellerTools.Names;
 using Grauenwolf.TravellerTools.TradeCalculator;
-using Grauenwolf.TravellerTools.Web.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AE = Grauenwolf.TravellerTools.Animals.AE;
@@ -15,14 +14,7 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
     {
         public async Task<ActionResult> Index()
         {
-            var model = new HomeIndexViewModel(
-                await Global.MapService.FetchUniverseAsync(),
-                AE.AnimalBuilderAE.TerrainTypeList.Select(t => t.Name).ToList(),
-                Mgt.AnimalBuilderMgt.AnimalTypeList.Select(at => at.Name).ToList(),
-                AE.AnimalBuilderAE.AnimalClassList.Select(ac => ac.Name).ToList(),
-                Global.CharacterBuilder.Careers
-                );
-            return View(model);
+            return View(Global.HomeIndexViewModel);
         }
 
         public ActionResult About()
@@ -39,14 +31,14 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             return View();
         }
 
-        public async Task<ActionResult> TradeInfo(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT, int? seed = null, bool advancedCharacters = false)
+        public async Task<ActionResult> TradeInfo(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT, int? seed = null, bool advancedCharacters = false, int streetwiseScore = 0)
         {
             ManifestCollection model = null;
 
             if (edition == Edition.MGT)
-                model = await Global.TradeEngineMgt.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters);
+                model = await Global.TradeEngineMgt.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore);
             else if (edition == Edition.MGT2)
-                model = await Global.TradeEngineMgt2.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters);
+                model = await Global.TradeEngineMgt2.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore);
 
             return View(model);
         }
@@ -123,6 +115,38 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             var model = Global.CharacterBuilder.Build(options);
 
             return View(model);
+        }
+
+        public ActionResult Store(int brokerScore = 0,
+             string lawLevel = "0",
+             string population = "0",
+             bool roll = false,
+             int? seed = null,
+             string starport = "X",
+             int streetwiseScore = 0,
+             string techLevel = "0",
+             string tradeCodes = null,
+             string name = null)
+        {
+            var options = new StoreOptions()
+            {
+                BrokerScore = brokerScore,
+                LawLevel = lawLevel,
+                Population = population,
+                Roll = roll,
+                Seed = seed,
+                Starport = starport,
+                StreetwiseScore = streetwiseScore,
+                TechLevel = techLevel,
+                Name = (name == "") ? null : name
+            };
+            options.TradeCodes.AddRange((tradeCodes ?? "").Split(' '));
+
+
+            var model = Global.EquipmentBuilder.AvailabilityTable(options);
+
+            return View(model);
+
         }
     }
 }
