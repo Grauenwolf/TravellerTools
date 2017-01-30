@@ -537,4 +537,11 @@
     <Item  Category="5" Mod="Military" Law="2" Name="Plasma Rifle" TL="16" Mass="6" Price="Cr100000" />
   </Section>
 
+  <Section Name="Survival Gear: Aerial" Book="CSC2">
+    <Item Name="Grav Parachute" TL="10" Mass="4" Price="2000" />
+    <Iten Name="Parachute" TL="4" Mass="3" Price="250" />
+    <Item Name="Parawing" TL="7" Mass="8" Price="400"/>
+    <Item Name="Squirrel Suit" TL="7" Mass="1" Price="500"/>
+</Section>
+  
 </Catalog>

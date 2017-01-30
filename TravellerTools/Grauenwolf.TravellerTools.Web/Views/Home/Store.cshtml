@@ -12,67 +12,67 @@
 
 
 
-    <table class="gridtable">
-        <tr><th colspan="4">World Settings</th></tr>
-        <tr>
-            <td>Law Level</td>
-            <td>@Model.Options.LawLevel</td>
-            <td>Population</td>
-            <td>@Model.Options.Population</td>
-        </tr>
-        <tr>
-            <td>Starport</td>
-            <td>@Model.Options.Starport</td>
-            <td>Tech Level</td>
-            <td>@Model.Options.TechLevel</td>
-        </tr>
-        <tr>
-            <td>Trade Codes</td>
-            <td colspan="3">@string.Join(" ", Model.Options.TradeCodes)</td>
-        </tr>
-        <tr>
-            <th colspan="4">Character Settings</th>
-        </tr>
+                <table class="gridtable">
+                    <tr><th colspan="4">World Settings</th></tr>
+                    <tr>
+                        <td>Law Level</td>
+                        <td>@Model.Options.LawLevel</td>
+                        <td>Population</td>
+                        <td>@Model.Options.Population</td>
+                    </tr>
+                    <tr>
+                        <td>Starport</td>
+                        <td>@Model.Options.Starport</td>
+                        <td>Tech Level</td>
+                        <td>@Model.Options.TechLevel</td>
+                    </tr>
+                    <tr>
+                        <td>Trade Codes</td>
+                        <td colspan="3">@string.Join(" ", Model.Options.TradeCodes)</td>
+                    </tr>
+                    <tr>
+                        <th colspan="4">Character Settings</th>
+                    </tr>
 
 
-        @if (Model.Options.Roll)
+                    @if (Model.Options.Roll)
             {
-            <tr>
-                <td>Broker Score</td>
-                <td>@Model.Options.BrokerScore</td>
-                <td>Streetwise</td>
-                <td>@Model.Options.StreetwiseScore</td>
-            </tr>
-            <tr>
+                        <tr>
+                            <td>Broker Score</td>
+                            <td>@Model.Options.BrokerScore</td>
+                            <td>Streetwise</td>
+                            <td>@Model.Options.StreetwiseScore</td>
+                        </tr>
+                        <tr>
 
-                <td colspan="4">Rolling for each item.</td>
-            </tr>
-        }
-        else
-        {
-            <tr>
-                <td colspan="4">
-                    DM +1 for 2x price. DM +2 for 3x price.
-                    <br />
-                    Normal: Broker or Streetwise
-                    <br />
-                    Black Market Item: Streetwise only
-                </td>
-            </tr>
+                            <td colspan="4">Rolling for each item.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="4">
+                                DM +1 for 2x price. DM +2 for 3x price.
+                                <br />
+                                Normal: Broker or Streetwise
+                                <br />
+                                Black Market Item: Streetwise only
+                            </td>
+                        </tr>
 
-        }
+                    }
 
-    </table>
+                </table>
             </td>
             <td>
 
 
-    <ul>
-        @foreach (var section in Model.Sections.OrderBy(s => s.Name))
-        {
-            <li><a href="@("#" + section.Name.Substring(4))">@(section.Name)</a></li>
-        }
-    </ul>
+                <ul>
+                    @foreach (var section in Model.Sections.OrderBy(s => s.Name))
+                    {
+                        <li><a href="@("#" + section.Key)">@(section.Name)</a></li>
+                    }
+                </ul>
             </td>
         </tr>
     </table>
@@ -81,7 +81,7 @@
         var showMass = section.Items.Any(i => !string.IsNullOrEmpty(i.Mass));
         var showLaw = section.Items.Any(i => i.Law > 0);
 
-        <a name="@(section.Name.Substring(4))">   <h3>@(section.Name)</h3></a>
+        <a name="@(section.Key)">   <h3>@(section.Name)</h3></a>
 
 
 
