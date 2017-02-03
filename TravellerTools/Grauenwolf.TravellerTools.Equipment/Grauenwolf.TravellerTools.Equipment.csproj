@@ -49,6 +49,7 @@
     <Compile Include="Section.cs" />
     <Compile Include="Store.cs" />
     <Compile Include="StoreOptions.cs" />
+    <Compile Include="Subsection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Grauenwolf.TravellerTools.Services\Grauenwolf.TravellerTools.Services.csproj">

@@ -45,6 +45,20 @@ namespace Grauenwolf.TravellerTools.Equipment
         [XmlAttribute()]
         public int Category { get; set; }
 
+        [XmlAttribute()]
+        public string Page { get; set; }
+
+        [XmlElement("Subsection")]
+        public CatalogSection[] Subsection { get; set; }
+
+        [XmlAttribute()]
+        public string Skill { get; set; }
+
+        [XmlAttribute()]
+        public int TL { get; set; }
+
+        [XmlAttribute()]
+        public string Mod { get; set; }
 
     }
 
@@ -67,28 +81,65 @@ namespace Grauenwolf.TravellerTools.Equipment
         [XmlAttribute()]
         public string Price { get; set; }
 
+        /// <remarks/>
+        [XmlAttribute()]
+        public string AmmoPrice { get; set; }
+
         [XmlAttribute()]
         public string Mass { get; set; }
 
-        public int PriceCredits
+        [XmlAttribute()]
+        public string Weapon { get; set; }
+
+        public decimal PriceCredits
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(Price))
-                    return 0;
-                if (Price.StartsWith("Cr"))
-                    return int.Parse(Price.Substring(2));
-                if (Price.StartsWith("KCr"))
-                    return int.Parse(Price.Substring(3)) * 1000 * 1000;
-                if (Price.StartsWith("MCr"))
-                    return int.Parse(Price.Substring(3)) * 1000 * 1000;
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(Price))
+                        return 0;
+                    if (Price.StartsWith("Cr"))
+                        return decimal.Parse(Price.Substring(2));
+                    if (Price.StartsWith("KCr"))
+                        return decimal.Parse(Price.Substring(3)) * 1000M;
+                    if (Price.StartsWith("MCr"))
+                        return decimal.Parse(Price.Substring(3)) * 1000M * 1000M;
 
-                return int.Parse(Price);
+                    return decimal.Parse(Price);
+                }
+                catch (Exception ex)
+                {
+                    throw new BookException($"Cannot parse price of '{Price}'", ex);
 
-                //throw new BookException($"Cannot parse price of '{Price}'");
+                }
+
             }
         }
+        public decimal AmmoPriceCredits
+        {
+            get
+            {
+                try
+                {
+                    if (string.IsNullOrWhiteSpace(AmmoPrice))
+                        return 0;
+                    if (AmmoPrice.StartsWith("Cr"))
+                        return decimal.Parse(AmmoPrice.Substring(2));
+                    if (AmmoPrice.StartsWith("KCr"))
+                        return decimal.Parse(AmmoPrice.Substring(3)) * 1000M;
+                    if (AmmoPrice.StartsWith("MCr"))
+                        return decimal.Parse(AmmoPrice.Substring(3)) * 1000M * 1000M;
 
+                    return decimal.Parse(AmmoPrice);
+                }
+                catch (Exception ex)
+                {
+                    throw new BookException($"Cannot parse price of '{AmmoPrice}'", ex);
+
+                }
+            }
+        }
         /// <remarks/>
         [XmlAttribute()]
         public int Law { get; set; }
@@ -100,6 +151,16 @@ namespace Grauenwolf.TravellerTools.Equipment
         /// <remarks/>
         [XmlAttribute()]
         public string Mod { get; set; }
+
+        [XmlAttribute()]
+        public string Page { get; set; }
+
+        [XmlAttribute()]
+        public string Book { get; set; }
+
+
+        [XmlAttribute()]
+        public string Skill { get; set; }
     }
 
 

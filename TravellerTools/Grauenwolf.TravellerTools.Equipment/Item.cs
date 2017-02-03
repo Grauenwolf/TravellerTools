@@ -6,7 +6,7 @@
 
         public int TechLevel { get; set; }
 
-        public int Price { get; set; }
+        public decimal Price { get; set; }
 
         public int Law { get; set; }
 
@@ -21,7 +21,13 @@
         public int? SentencingDM { get; set; }
 
         public string Mass { get; set; }
+        public decimal AmmoPrice { get; set; }
+        public string Skill { get; set; }
+        public string Page { get; set; }
 
 
+        public bool NotAvailable { get; set; }
+
+        public string BookAndPage => string.IsNullOrEmpty(Page) ? Book : $"{Book} ({Page})";
     }
 }

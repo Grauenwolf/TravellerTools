@@ -7,10 +7,10 @@ using System.Reflection;
 namespace Grauenwolf.TravellerTools.Tests
 {
     [TestClass]
-    public class UnitTest2
+    public class EquipmentTests
     {
         [TestMethod]
-        public void TestMethod1()
+        public void EquipmentTest1()
         {
             var eb = new EquipmentBuilder(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
             var options = new StoreOptions() { LawLevel = 2, Population = 6, Starport = "B", TechLevel = 10, Roll = true };

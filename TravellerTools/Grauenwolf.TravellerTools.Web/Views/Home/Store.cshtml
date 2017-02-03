@@ -8,7 +8,7 @@
 
     <table>
         <tr>
-            <td>
+            <td valign="top">
 
 
 
@@ -36,7 +36,7 @@
 
 
                     @if (Model.Options.Roll)
-            {
+                    {
                         <tr>
                             <td>Broker Score</td>
                             <td>@Model.Options.BrokerScore</td>
@@ -70,71 +70,194 @@
                 <ul>
                     @foreach (var section in Model.Sections.OrderBy(s => s.Name))
                     {
-                        <li><a href="@("#" + section.Key)">@(section.Name)</a></li>
+                        <li><a href="@("#" + section.Key)">@(section.Name)</a>
+
+                            @if(section.Subsections.Count> 0)
+                            {
+                                <ul>
+                                    @foreach (var subsection in section.Subsections.OrderBy(s => s.Name))
+                                    {
+                                        <li><a href="@("#" + subsection.Key)">@(subsection.Name)</a></li>
+                                    }
+                                </ul>
+                            }
+                        </li>
                     }
                 </ul>
             </td>
         </tr>
     </table>
+
     @foreach (var section in Model.Sections.OrderBy(s => s.Name))
     {
-        var showMass = section.Items.Any(i => !string.IsNullOrEmpty(i.Mass));
-        var showLaw = section.Items.Any(i => i.Law > 0);
 
-        <a name="@(section.Key)">   <h3>@(section.Name)</h3></a>
+        <a name="@(section.Key)"><h3>@(section.Name)</h3></a>
 
 
 
+        if (section.Items.Count > 0)
+        {
+            var showMass = section.Items.Any(i => !string.IsNullOrEmpty(i.Mass));
+            var showLaw = section.Items.Any(i => i.Law > 0);
+            var showSkill = section.Items.Any(i => !string.IsNullOrEmpty(i.Skill));
+            var showAmmoPrice = section.Items.Any(i => i.AmmoPrice > 0);
 
-        <table class="gridtable">
-            <tr>
-                <th>Name</th>
-                <th>TL</th>
-                @if (showMass)
-                {
-                    <th>Mass</th>
-                }
-                <th>Price</th>
-                @if (!Model.Options.Roll)
-                {
-                    <th>Availability Roll</th>
-                }
-                @if (showLaw)
-                {
-                    <th>Law</th>
-                    <th>Black Market</th>
-                    <th>Sentencing DM</th>
-                }
-                <th>Book</th>
-            </tr>
-
-            @foreach (var item in section.Items.OrderBy(s => s.Name).ThenBy(s => s.TechLevel))
-                {
+            <table class="gridtable">
                 <tr>
-                    <td>@item.Name</td>
-                    <td>@item.TechLevel</td>
+                    <th>Name</th>
+                    <th>TL</th>
                     @if (showMass)
                     {
-                        <td>@item.Mass</td>
+                        <th>Mass</th>
                     }
-                    <td align="right">@item.Price.ToString("N0")</td>
+                    <th>Price</th>
+                    @if (showAmmoPrice)
+                    {
+                        <th>Ammo Price</th>
+                    }
                     @if (!Model.Options.Roll)
                     {
-                        <td>@item.Availability</td>
+                        <th>Availability Roll</th>
                     }
                     @if (showLaw)
                     {
-                        <td>@(item.Law )</td>
-                        <td>@(item.BlackMarket ? "Category " + item.Category : "")</td>
-                        <td>@(item.SentencingDM)</td>
+                        <th>Law</th>
+                        <th>Black Market</th>
+                        <th>Sentencing DM</th>
                     }
-                    <td>@(item.Book)</td>
+                    <th>Book (page)</th>
+                    @if (showSkill)
+                    {
+                        <th>Skill</th>
+                    }
                 </tr>
+
+                @foreach (var item in section.Items.OrderBy(s => s.Name).ThenBy(s => s.TechLevel))
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.TechLevel</td>
+                        @if (showMass)
+                        {
+                            <td>@item.Mass</td>
+                        }
+                        <td align="right">@item.Price.ToString("N0")</td>
+                        @if (showAmmoPrice)
+                        {
+                            if (item.AmmoPrice > 0)
+                            {
+                                <td align="right">@item.AmmoPrice.ToString("N0")</td>
+                            }
+                            else
+                            {
+                                <td>-</td>
+                            }
+                        }
+                        @if (!Model.Options.Roll)
+                        {
+                            <td>@item.Availability</td>
+                        }
+                        @if (showLaw)
+                        {
+                            <td>@(item.Law )</td>
+                            <td>@(item.BlackMarket ? "Category " + item.Category : "")</td>
+                            <td>@(item.SentencingDM)</td>
+                        }
+                        <td>@(item.BookAndPage)</td>
+                        @if (showSkill)
+                        {
+                            <td>@(item.Skill)</td>
+                        }
+                    </tr>
+                }
+
+            </table>
+        }
+
+        foreach (var subsection in section.Subsections.OrderBy(s => s.Name))
+        {
+            <a name="@(subsection.Key)"><h4>@(subsection.Name)</h4></a>
+
+
+            if (subsection.Items.Count > 0)
+            {
+                var showMass = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Mass));
+                var showLaw = subsection.Items.Any(i => i.Law > 0);
+                var showSkill = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Skill));
+                var showAmmoPrice = subsection.Items.Any(i => i.AmmoPrice > 0);
+
+                <table class="gridtable">
+                    <tr>
+                        <th>Name</th>
+                        <th>TL</th>
+                        @if (showMass)
+                        {
+                            <th>Mass</th>
+                        }
+                        <th>Price</th>
+                        @if (showAmmoPrice)
+                        {
+                            <th>Ammo Price</th>
+                        }
+                        @if (!Model.Options.Roll)
+                        {
+                            <th>Availability Roll</th>
+                        }
+                        @if (showLaw)
+                        {
+                            <th>Law</th>
+                            <th>Black Market</th>
+                            <th>Sentencing DM</th>
+                        }
+                        <th>Book (page)</th>
+                        @if (showSkill)
+                        {
+                            <th>Skill</th>
+                        }
+                    </tr>
+
+                    @foreach (var item in subsection.Items.OrderBy(s => s.Name).ThenBy(s => s.TechLevel))
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.TechLevel</td>
+                            @if (showMass)
+                            {
+                                <td>@item.Mass</td>
+                            }
+                            <td align="right">@item.Price.ToString("N0")</td>
+                            @if (showAmmoPrice)
+                            {
+                                if (item.AmmoPrice > 0)
+                                {
+                                    <td align="right">@item.AmmoPrice.ToString("N0")</td>
+                                }
+                                else
+                                {
+                                    <td>-</td>
+                                }
+                            }
+                            @if (!Model.Options.Roll)
+                            {
+                                <td>@item.Availability</td>
+                            }
+                            @if (showLaw)
+                            {
+                                <td>@(item.Law )</td>
+                                <td>@(item.BlackMarket ? "Category " + item.Category : "")</td>
+                                <td>@(item.SentencingDM)</td>
+                            }
+                            <td>@(item.BookAndPage)</td>
+                            @if (showSkill)
+                            {
+                                <td>@(item.Skill)</td>
+                            }
+                        </tr>
+                    }
+
+                </table>
             }
-
-        </table>
-
-
+        }
 
 
     }
