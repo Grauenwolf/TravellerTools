@@ -35,7 +35,6 @@
 <table class="gridtable">
 
     <tr><th>Starport</th><td>@current.StarportCode</td><td colspan="5" width="500">@current.StarportDescription</td></tr>
-    <tr><th>Berthing Cost</th><td>&nbsp;</td><td colspan="5">@Model.BerthingCost.ToString("N0")</td></tr>
     <tr><th>Size</th><td>@current.SizeCode</td><td colspan="5">@current.SizeKM.ToString("N0") km</td></tr>
     <tr><th>Atmosphere</th><td>@current.AtmosphereCode</td><td colspan="5">@current.AtmosphereDescription</td></tr>
 
@@ -50,7 +49,7 @@
         <th>Shopping</th>
         <td>
             <a target="_blank" href="@string.Format("/Home/Store?lawLevel={0}&population={1}&roll=false&starport={2}&techLevel={3}&tradeCodes={4}&name={5}&brokerScore={6}&streetwiseScore={7}", current.LawCode, current.PopulationCode, current.StarportCode, current.TechCode, Url.Encode( current.Remarks),Url.Encode(current.Name), Model.BrokerScore, Model.StreetwiseScore)">Full List</a>
-            </td>
+        </td>
         <td>
             <a target="_blank" href="@string.Format("/Home/Store?lawLevel={0}&population={1}&roll=true&starport={2}&techLevel={3}&tradeCodes={4}&name={5}&brokerScore={6}&streetwiseScore={7}", current.LawCode, current.PopulationCode, current.StarportCode, current.TechCode, Url.Encode( current.Remarks),Url.Encode(current.Name), Model.BrokerScore, Model.StreetwiseScore)">Random</a>
 
@@ -58,6 +57,111 @@
         </td>
     </tr>
 </table>
+<h3>Starport Info</h3>
+<div style="display: inline-block; vertical-align: top">
+    @{
+        var hasHighport = Model.HighportDetails != null;
+        var highport = Model.HighportDetails;
+        var downport = Model.DownportDetails;
+    }
+    <table class="gridtable">
+        <tr>
+            <th colspan="2">&nbsp;</th>
+            <th>Downport</th>
+            @if (hasHighport)
+            {
+                <th>Highport</th>
+            }
+        </tr>
+        <tr>
+            <th colspan="2">Birthing Cost</th>
+            <td>@(downport.BerthingCost.ToString("N0"))</td>
+            @if (hasHighport)
+            {
+                <td>@(highport.BerthingCost.ToString("N0"))</td>
+            }
+        </tr>
+        <tr>
+            <th colspan="2">...per day</th>
+            <td>@(downport.BerthingCostPerDay.ToString("N0"))</td>
+            @if (hasHighport)
+            {
+                <td>@(highport.BerthingCostPerDay.ToString("N0"))</td>
+            }
+        </tr>
+        <tr>
+            <th rowspan="3">Birthing Wait Time</th>
+            <th>Small Craft</th>
+            <td>@(downport.BerthingWaitTimeSmall)</td>
+            @if (hasHighport)
+            {
+                <td>@(highport.BerthingWaitTimeSmall)</td>
+            }
+        </tr>
+        <tr>
+            <th>Starcraft</th>
+            <td>@(downport.BerthingWaitTimeStar)</td>
+            @if (hasHighport)
+            {
+                <td>@(highport.BerthingWaitTimeStar)</td>
+            }
+        </tr>
+        <tr>
+            <th>Capital</th>
+            <td>@(downport.BerthingWaitTimeCapital)</td>
+            @if (hasHighport)
+            {
+                <td>@(highport.BerthingWaitTimeCapital)</td>
+            }
+        </tr>
+
+
+        <tr>
+            <th colspan="2">Refined Fuel Cost</th>
+            <td>@(downport.RefinedFuelCost)</td>
+            @if (hasHighport)
+            {
+                <td>@(highport.RefinedFuelCost)</td>
+            }
+        </tr>
+        <tr>
+            <th colspan="2">Unrefined Fuel Cost</th>
+            <td>@(downport.UnrefinedFuelCost)</td>
+            @if (hasHighport)
+            {
+                <td>@(highport.UnrefinedFuelCost)</td>
+            }
+        </tr>
+        <tr>
+            <th rowspan="3">Fuel Wait Time</th>
+            <th>Small Craft</th>
+            <td>@(downport.FuelWaitTimeSmall)</td>
+            @if (hasHighport)
+            {
+                <td>@(highport.FuelWaitTimeSmall)</td>
+            }
+        </tr>
+        <tr>
+            <th>Starcraft</th>
+            <td>@(downport.FuelWaitTimeStar)</td>
+            @if (hasHighport)
+            {
+                <td>@(highport.FuelWaitTimeStar)</td>
+            }
+        </tr>
+        <tr>
+            <th>Capital</th>
+            <td>@(downport.FuelWaitTimeCapital)</td>
+            @if (hasHighport)
+            {
+                <td>@(highport.FuelWaitTimeCapital)</td>
+            }
+        </tr>
+
+
+    </table>
+</div>
+
 <h3>Travel Info</h3>
 <div style="display: inline-block; vertical-align: top">
     <table class="gridtable">
@@ -79,6 +183,7 @@
 <div style="display: inline-block; vertical-align: top">
     <img src="@string.Format("http://travellermap.com/api/jumpmap?sx={0}&sy={1}&hx={2}&hy={3}&jump={4}&scale=48&style=print", @Model.SectorX, @Model.SectorY, @Model.HexX, @Model.HexY, @Model.MaxJumpDistance)" />
 </div>
+<h4>Destinations</h4>
 <div style="display: inline-block; vertical-align: top">
     <ul id="listofthings">
         @foreach (var manifest in @Model)
@@ -146,9 +251,9 @@
 @foreach (var manifest in @Model)
 {
     current = manifest.Destination;
-    <a name="@string.Format("{0}_{1}_{2}_{3}",  current.SectorX, current.SectorY, current.HexX, current.HexY)" ></a>
+    <a name="@string.Format("{0}_{1}_{2}_{3}",  current.SectorX, current.SectorY, current.HexX, current.HexY)"></a>
     <hr />
-        <a href="@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}&advancedCharacters={9}&streetwiseScore={10}",
+    <a href="@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}&advancedCharacters={9}&streetwiseScore={10}",
            current.SectorX, current.SectorY, current.HexX, current.HexY, Model.MaxJumpDistance,
            Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.AdvancedCharacters, Model.StreetwiseScore
            )"><h2>Destination: @current.Name</h2></a>
@@ -175,7 +280,6 @@
         <table class="gridtable">
 
             <tr><th>Starport</th><td>@current.StarportCode</td><td colspan="5" width="500">@current.StarportDescription</td></tr>
-            <tr><th>Berthing Cost</th><td>&nbsp;</td><td colspan="5">@Model.BerthingCost.ToString("N0")</td></tr>
             <tr><th>Size</th><td>@current.SizeCode</td><td colspan="5">@current.SizeKM.ToString("N0") km    </td></tr>
             <tr><th>Atmosphere</th><td>@current.AtmosphereCode</td><td colspan="5">@current.AtmosphereDescription</td></tr>
 

@@ -14,9 +14,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public World Origin { get; set; }
         public TradeGoodsList TradeList { get; set; }
 
-        public int BerthingCost { get; set; }
-
-
 
         public int BrokerScore { get; set; }
         public int StreetwiseScore { get; set; }
@@ -25,6 +22,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public Edition Edition { get; set; }
         public int? Seed { get; set; }
         public bool AdvancedCharacters { get; set; }
-
+        public StarportDetails DownportDetails { get; internal set; }
+        public StarportDetails HighportDetails { get; internal set; }
     }
 }

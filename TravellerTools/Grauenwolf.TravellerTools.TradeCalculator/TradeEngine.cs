@@ -118,7 +118,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             result.HexX = hexX;
             result.HexY = hexY;
             result.MaxJumpDistance = maxJumpDistance;
-            result.BerthingCost = CalculateBerthignCost(result.Origin, random);
+            result.HighportDetails = CalculateStarportDetails(result.Origin, random, true);
+            result.DownportDetails = CalculateStarportDetails(result.Origin, random, false);
             result.AdvancedMode = advancedMode;
             result.IllegalGoods = illegalGoods;
             result.BrokerScore = brokerScore;
@@ -129,6 +130,132 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             OnManifestsBuilt(result);
 
             return result;
+        }
+
+        string WaitTime(Dice dice, int roll)
+        {
+            if (roll < 0)
+                roll = 0;
+
+            switch (roll)
+            {
+                case 0: return "No wait";
+                case 1: return $"{dice.D(6)} minutes";
+                case 2: return $"{dice.D(6) * 10} minutes";
+                case 3: return $"1 hour";
+                case 4: return $"{dice.D(6) } hours";
+                case 5: return $"{dice.D(2, 6) } hours";
+                case 6: return $"1 day";
+                default: return $"{dice.D(6) } days";
+            }
+        }
+
+        private StarportDetails CalculateStarportDetails(World origin, Dice dice, bool highPort)
+        {
+            var result = new StarportDetails();
+            switch (origin.StarportCode.ToString())
+            {
+                case "A":
+                    result.BerthingCost = dice.D(1, 6) * 1000;
+                    result.BerthingCostPerDay = 500;
+                    result.RefinedFuelCost = 500;
+                    result.UnrefinedFuelCost = 100;
+
+                    if (highPort)
+                    {
+                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
+                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
+                        result.BerthingWaitTimeCapital = WaitTime(dice, dice.D("1D6-4"));
+
+                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
+                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
+                        result.FuelWaitTimeCapital = WaitTime(dice, dice.D("1D6-3"));
+                    }
+                    else
+                    {
+                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
+                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-5"));
+
+                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
+                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
+                    }
+                    return result;
+                case "B":
+                    result.BerthingCost = dice.D(1, 6) * 500;
+                    result.BerthingCostPerDay = 200;
+                    result.RefinedFuelCost = 500;
+                    result.UnrefinedFuelCost = 100;
+
+                    if (highPort)
+                    {
+                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
+                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
+                        result.BerthingWaitTimeCapital = WaitTime(dice, dice.D("1D6-3"));
+
+                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+                        result.FuelWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
+                    }
+                    else
+                    {
+                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-4"));
+                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-3"));
+
+                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+                    }
+                    return result;
+                case "C":
+                    result.BerthingCost = dice.D(1, 6) * 100;
+                    result.BerthingCostPerDay = 100;
+                    result.RefinedFuelCost = 500;
+                    result.UnrefinedFuelCost = 100;
+
+                    if (highPort)
+                    {
+                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+                        result.BerthingWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
+
+                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+                        result.FuelWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
+                    }
+                    else
+                    {
+                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+
+                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+                    }
+                    return result;
+                case "D":
+                    if (highPort) return null;
+
+                    result.BerthingCost = dice.D(1, 6) * 10;
+                    result.BerthingCostPerDay = 10;
+                    result.UnrefinedFuelCost = 100;
+
+                    result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                    result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+
+                    result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-1"));
+                    result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6"));
+                    return result;
+                case "E":
+                    if (highPort) return null;
+
+                    result.BerthingCost = 0;
+                    result.BerthingCostPerDay = 0;
+
+                    result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-2"));
+                    result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-1"));
+
+                    return result;
+
+                default: return null;
+            }
         }
 
         internal abstract void OnManifestsBuilt(ManifestCollection result);
@@ -387,17 +514,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return result;
         }
 
-        private int CalculateBerthignCost(World origin, Dice random)
-        {
-            switch (origin.StarportCode.ToString())
-            {
-                case "A": return random.D(1, 6) * 1000;
-                case "B": return random.D(1, 6) * 500;
-                case "C": return random.D(1, 6) * 100;
-                case "D": return random.D(1, 6) * 10;
-                default: return 0;
-            }
-        }
 
 
         protected async Task<Passenger> PassengerDetailAsync(Dice random, string travelType, bool advancedCharacters)

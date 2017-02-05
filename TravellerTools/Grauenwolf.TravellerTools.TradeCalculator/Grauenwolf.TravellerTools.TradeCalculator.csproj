@@ -61,6 +61,7 @@
     <Compile Include="Manifest.cs" />
     <Compile Include="ManifestCollection.cs" />
     <Compile Include="Mod.cs" />
+    <Compile Include="StarportDetails.cs" />
     <Compile Include="TradeBid.cs" />
     <Compile Include="TradeEngine.cs" />
     <Compile Include="TradeEngineMgt.cs" />
