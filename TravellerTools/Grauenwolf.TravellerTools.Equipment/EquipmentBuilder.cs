@@ -61,12 +61,12 @@ namespace Grauenwolf.TravellerTools.Equipment
                     foreach (var subsectionXml in sectionXml.Subsection)
                     {
                         subsectionXml.Book = subsectionXml.Book ?? sectionXml.Book;
-                        subsectionXml.Category = (subsectionXml.Category > 0) ? subsectionXml.Category : sectionXml.Category;
-                        subsectionXml.Law = (subsectionXml.Law > 0) ? subsectionXml.Law : sectionXml.Law;
+                        subsectionXml.Category = ReadString(  subsectionXml.Category ,sectionXml.Category);
+                        subsectionXml.Law = ReadString(subsectionXml.Law , sectionXml.Law);
                         subsectionXml.Mod = subsectionXml.Mod ?? sectionXml.Mod;
                         subsectionXml.Page = subsectionXml.Page ?? sectionXml.Page;
                         subsectionXml.Skill = subsectionXml.Skill ?? sectionXml.Skill;
-                        subsectionXml.TL = (subsectionXml.TL > 0) ? subsectionXml.TL : sectionXml.TL;
+                        subsectionXml.TL = ReadString(subsectionXml.TL , sectionXml.TL);
 
 
                         var subsection = section.Subsections.SingleOrDefault(s => s.Name == subsectionXml.Name);
@@ -104,6 +104,28 @@ namespace Grauenwolf.TravellerTools.Equipment
             return result;
         }
 
+        private static string ReadString(string arg1, string arg2)
+        {
+            if (!string.IsNullOrWhiteSpace(arg1))
+                return arg1;
+
+            if (!string.IsNullOrWhiteSpace(arg2))
+                return arg2;
+
+            return null;
+        }
+
+        private static int ParseInt(string arg1, string arg2)
+        {
+            if (!string.IsNullOrWhiteSpace(arg1))
+                return int.Parse(arg1);
+
+            if (!string.IsNullOrWhiteSpace(arg2))
+                return int.Parse(arg2);
+
+            return 0;
+        }
+
         private static void ProcessItem(StoreOptions options, Dice dice, CatalogSection sectionXml, IHasItems section, CatalogSectionItem itemXml)
         {
             if (options == null)
@@ -120,9 +142,9 @@ namespace Grauenwolf.TravellerTools.Equipment
             var item = new Item
             {
                 Book = itemXml.Book ?? sectionXml.Book,
-                Category = (itemXml.Category > 0) ? itemXml.Category : sectionXml.Category,
-                Law = (itemXml.Law > 0) ? itemXml.Law : sectionXml.Law,
-                TechLevel = (itemXml.TL > 0) ? itemXml.TL : sectionXml.TL,
+                Category = ParseInt( itemXml.Category , sectionXml.Category),
+                Law = ParseInt(itemXml.Law ,  sectionXml.Law),
+                TechLevel = ParseInt(itemXml.TL , sectionXml.TL),
                 Price = itemXml.PriceCredits,
                 Name = itemXml.Name,
                 Mod = itemXml.Mod ?? sectionXml.Mod,

@@ -39,11 +39,11 @@ namespace Grauenwolf.TravellerTools.Equipment
 
         /// <remarks/>
         [XmlAttribute()]
-        public int Law { get; set; }
+        public string Law { get; set; }
 
         /// <remarks/>
         [XmlAttribute()]
-        public int Category { get; set; }
+        public string Category { get; set; }
 
         [XmlAttribute()]
         public string Page { get; set; }
@@ -55,7 +55,7 @@ namespace Grauenwolf.TravellerTools.Equipment
         public string Skill { get; set; }
 
         [XmlAttribute()]
-        public int TL { get; set; }
+        public string TL { get; set; }
 
         [XmlAttribute()]
         public string Mod { get; set; }
@@ -75,22 +75,17 @@ namespace Grauenwolf.TravellerTools.Equipment
 
         /// <remarks/>
         [XmlAttribute()]
-        public int TL { get; set; }
+        public string TL { get; set; }
 
         /// <remarks/>
-        [XmlAttribute()]
-        public string Price { get; set; }
+        [XmlAttribute()] public string Price { get; set; }
 
         /// <remarks/>
-        [XmlAttribute()]
-        public string AmmoPrice { get; set; }
+        [XmlAttribute()] public string AmmoPrice { get; set; }
 
-        [XmlAttribute()]
-        public string Mass { get; set; }
+        [XmlAttribute()] public string Mass { get; set; }
 
-        [XmlAttribute()]
-        public string Weapon { get; set; }
-
+        
         public decimal PriceCredits
         {
             get
@@ -141,26 +136,26 @@ namespace Grauenwolf.TravellerTools.Equipment
             }
         }
         /// <remarks/>
-        [XmlAttribute()]
-        public int Law { get; set; }
+        [XmlAttribute()] public string Law { get; set; }
 
         /// <remarks/>
-        [XmlAttribute()]
-        public int Category { get; set; }
+        [XmlAttribute()] public string Category { get; set; }
 
         /// <remarks/>
-        [XmlAttribute()]
-        public string Mod { get; set; }
+        [XmlAttribute()] public string Mod { get; set; }
 
-        [XmlAttribute()]
-        public string Page { get; set; }
+        [XmlAttribute()] public string Book { get; set; }
 
-        [XmlAttribute()]
-        public string Book { get; set; }
+        [XmlAttribute()] public string Page { get; set; }
 
 
-        [XmlAttribute()]
-        public string Skill { get; set; }
+
+        [XmlAttribute()] public string Skill { get; set; }
+
+
+        [XmlAttribute()] public string Computer { get; set; }
+        [XmlAttribute()] public string Difficulty { get; set; }
+        [XmlAttribute()] public string Bandwidth { get; set; }
     }
 
 

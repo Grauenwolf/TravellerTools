@@ -29,5 +29,10 @@
         public bool NotAvailable { get; set; }
 
         public string BookAndPage => string.IsNullOrEmpty(Page) ? Book : $"{Book} ({Page})";
+
+        public override string ToString()
+        {
+            return $"{Name}    TL {TechLevel} Price {Price} Law {Law}/{Category} Book {BookAndPage} Skill {Skill} Mass {Mass} Ammo Price {AmmoPrice}";
+        }
     }
 }
