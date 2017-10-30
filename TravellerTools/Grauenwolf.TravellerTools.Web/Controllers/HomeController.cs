@@ -1,6 +1,5 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
 using Grauenwolf.TravellerTools.Equipment;
-using Grauenwolf.TravellerTools.Names;
 using Grauenwolf.TravellerTools.TradeCalculator;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -97,7 +96,7 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             if (!string.IsNullOrEmpty(name))
                 options.Name = name;
             else
-                options.Name = (await NameService.CreateRandomPersonAsync()).FullName;
+                options.Name = (await Global.NameService.CreateRandomPersonAsync(dice)).FullName;
 
             if (minAge.HasValue && minAge == maxAge)
                 options.MaxAge = maxAge;

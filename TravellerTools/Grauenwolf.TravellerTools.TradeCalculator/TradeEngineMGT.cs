@@ -1,4 +1,5 @@
 ﻿using Grauenwolf.TravellerTools.Maps;
+using Grauenwolf.TravellerTools.Names;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
     public class TradeEngineMgt : TradeEngine
     {
 
-        public TradeEngineMgt(MapService mapService, string dataPath) : base(mapService, dataPath) { }
+        public TradeEngineMgt(MapService mapService, string dataPath, INameService nameService) : base(mapService, dataPath, nameService) { }
 
         protected override string DataFileName
         {

@@ -156,6 +156,15 @@ namespace Grauenwolf.TravellerTools
         {
             return D(2, 6) + dm >= target;
         }
+
+        /// <summary>
+        /// Returns the next boolean.
+        /// </summary>
+        /// <returns></returns>
+        public bool NextBoolean()
+        {
+            return D(2) == 2;
+        }
     }
 
 }

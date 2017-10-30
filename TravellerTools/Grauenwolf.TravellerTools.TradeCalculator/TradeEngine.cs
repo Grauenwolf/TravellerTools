@@ -13,10 +13,10 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 {
     public abstract class TradeEngine
     {
-        public TradeEngine(MapService mapService, string dataPath)
+        public TradeEngine(MapService mapService, string dataPath, INameService nameService)
         {
             MapService = mapService;
-
+            m_NameService = nameService;
             var file = new FileInfo(Path.Combine(dataPath, DataFileName));
             var converter = new XmlSerializer(typeof(TradeGoods));
             using (var stream = file.OpenRead())
@@ -29,6 +29,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         readonly CharacterBuilder m_CharacterBuilder;
         protected readonly ImmutableList<TradeGood> m_LegalTradeGoods;
         protected readonly ImmutableList<TradeGood> m_TradeGoods;
+        readonly INameService m_NameService;
 
         protected abstract string DataFileName { get; }
 
@@ -562,7 +563,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         protected async Task<Passenger> PassengerDetailAsync(Dice random, string travelType, bool advancedCharacters)
         {
-            var user = await NameService.CreateRandomPersonAsync().ConfigureAwait(false);
+            var user = await m_NameService.CreateRandomPersonAsync(random);
 
             bool isPatron = false;
 

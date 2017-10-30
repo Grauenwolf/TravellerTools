@@ -10,9 +10,9 @@
 <h2>
     Origin: @current.Name
     <a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}&seed={9}&advancedCharacters={10}&streetwiseScore={11}",
-           current.SectorX, current.SectorY, current.HexX, current.HexY, Model.MaxJumpDistance,
-           Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.Seed, Model.AdvancedCharacters, Model.StreetwiseScore
-           )">permalink</a>
+current.SectorX, current.SectorY, current.HexX, current.HexY, Model.MaxJumpDistance,
+Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.Seed, Model.AdvancedCharacters, Model.StreetwiseScore
+)">permalink</a>
 
 </h2>
 <h3>Planet Info</h3>
@@ -48,26 +48,33 @@
     <tr>
         <th>Shopping</th>
         <td>
-            <a target="_blank" href="@string.Format("/Home/Store?lawLevel={0}&population={1}&roll=false&starport={2}&techLevel={3}&tradeCodes={4}&name={5}&brokerScore={6}&streetwiseScore={7}", current.LawCode, current.PopulationCode, current.StarportCode, current.TechCode, Url.Encode( current.Remarks),Url.Encode(current.Name), Model.BrokerScore, Model.StreetwiseScore)">Full List</a>
+            <a target="_blank" href="@string.Format("/Home/Store?lawLevel={0}&population={1}&roll=false&starport={2}&techLevel={3}&tradeCodes={4}&name={5}&brokerScore={6}&streetwiseScore={7}", current.LawCode, current.PopulationCode, current.StarportCode, current.TechCode, Url.Encode(current.Remarks), Url.Encode(current.Name), Model.BrokerScore, Model.StreetwiseScore)">Full List</a>
         </td>
         <td>
-            <a target="_blank" href="@string.Format("/Home/Store?lawLevel={0}&population={1}&roll=true&starport={2}&techLevel={3}&tradeCodes={4}&name={5}&brokerScore={6}&streetwiseScore={7}", current.LawCode, current.PopulationCode, current.StarportCode, current.TechCode, Url.Encode( current.Remarks),Url.Encode(current.Name), Model.BrokerScore, Model.StreetwiseScore)">Random</a>
+            <a target="_blank" href="@string.Format("/Home/Store?lawLevel={0}&population={1}&roll=true&starport={2}&techLevel={3}&tradeCodes={4}&name={5}&brokerScore={6}&streetwiseScore={7}", current.LawCode, current.PopulationCode, current.StarportCode, current.TechCode, Url.Encode(current.Remarks), Url.Encode(current.Name), Model.BrokerScore, Model.StreetwiseScore)">Random</a>
 
 
         </td>
     </tr>
 </table>
+@{
+    var hasHighport = Model.HighportDetails != null;
+    var hasDownport = Model.DownportDetails != null;
+    var highport = Model.HighportDetails;
+    var downport = Model.DownportDetails;
+}
+
+@if (hasDownport || hasHighport)
+{
 <h3>Starport Info</h3>
 <div style="display: inline-block; vertical-align: top">
-    @{
-        var hasHighport = Model.HighportDetails != null;
-        var highport = Model.HighportDetails;
-        var downport = Model.DownportDetails;
-    }
     <table class="gridtable">
         <tr>
             <th colspan="2">&nbsp;</th>
-            <th>Downport</th>
+            @if (hasDownport)
+            {
+                <th>Downport</th>
+            }
             @if (hasHighport)
             {
                 <th>Highport</th>
@@ -75,7 +82,10 @@
         </tr>
         <tr>
             <th colspan="2">Birthing Cost</th>
-            <td>@(downport.BerthingCost.ToString("N0"))</td>
+            @if (hasDownport)
+            {
+                <td>@(downport.BerthingCost.ToString("N0"))</td>
+            }
             @if (hasHighport)
             {
                 <td>@(highport.BerthingCost.ToString("N0"))</td>
@@ -83,7 +93,10 @@
         </tr>
         <tr>
             <th colspan="2">...per day</th>
-            <td>@(downport.BerthingCostPerDay.ToString("N0"))</td>
+            @if (hasDownport)
+            {
+                <td>@(downport.BerthingCostPerDay.ToString("N0"))</td>
+            }
             @if (hasHighport)
             {
                 <td>@(highport.BerthingCostPerDay.ToString("N0"))</td>
@@ -92,7 +105,10 @@
         <tr>
             <th rowspan="3">Birthing Wait Time</th>
             <th>Small Craft</th>
-            <td>@(downport.BerthingWaitTimeSmall)</td>
+            @if (hasDownport)
+            {
+                <td>@(downport.BerthingWaitTimeSmall)</td>
+            }
             @if (hasHighport)
             {
                 <td>@(highport.BerthingWaitTimeSmall)</td>
@@ -100,7 +116,10 @@
         </tr>
         <tr>
             <th>Starcraft</th>
-            <td>@(downport.BerthingWaitTimeStar)</td>
+            @if (hasDownport)
+            {
+                <td>@(downport.BerthingWaitTimeStar)</td>
+            }
             @if (hasHighport)
             {
                 <td>@(highport.BerthingWaitTimeStar)</td>
@@ -108,7 +127,10 @@
         </tr>
         <tr>
             <th>Capital</th>
-            <td>@(downport.BerthingWaitTimeCapital)</td>
+            @if (hasDownport)
+            {
+                <td>@(downport.BerthingWaitTimeCapital)</td>
+            }
             @if (hasHighport)
             {
                 <td>@(highport.BerthingWaitTimeCapital)</td>
@@ -118,7 +140,10 @@
 
         <tr>
             <th colspan="2">Refined Fuel Cost</th>
-            <td>@(downport.RefinedFuelCost)</td>
+            @if (hasDownport)
+            {
+                <td>@(downport.RefinedFuelCost)</td>
+            }
             @if (hasHighport)
             {
                 <td>@(highport.RefinedFuelCost)</td>
@@ -126,7 +151,10 @@
         </tr>
         <tr>
             <th colspan="2">Unrefined Fuel Cost</th>
-            <td>@(downport.UnrefinedFuelCost)</td>
+            @if (hasDownport)
+            {
+                <td>@(downport.UnrefinedFuelCost)</td>
+            }
             @if (hasHighport)
             {
                 <td>@(highport.UnrefinedFuelCost)</td>
@@ -135,7 +163,10 @@
         <tr>
             <th rowspan="3">Fuel Wait Time</th>
             <th>Small Craft</th>
-            <td>@(downport.FuelWaitTimeSmall)</td>
+            @if (hasDownport)
+            {
+                <td>@(downport.FuelWaitTimeSmall)</td>
+            }
             @if (hasHighport)
             {
                 <td>@(highport.FuelWaitTimeSmall)</td>
@@ -143,7 +174,10 @@
         </tr>
         <tr>
             <th>Starcraft</th>
-            <td>@(downport.FuelWaitTimeStar)</td>
+            @if (hasDownport)
+            {
+                <td>@(downport.FuelWaitTimeStar)</td>
+            }
             @if (hasHighport)
             {
                 <td>@(highport.FuelWaitTimeStar)</td>
@@ -151,7 +185,10 @@
         </tr>
         <tr>
             <th>Capital</th>
-            <td>@(downport.FuelWaitTimeCapital)</td>
+            @if (hasDownport)
+            {
+                <td>@(downport.FuelWaitTimeCapital)</td>
+            }
             @if (hasHighport)
             {
                 <td>@(highport.FuelWaitTimeCapital)</td>
@@ -161,6 +198,7 @@
 
     </table>
 </div>
+}
 
 <h3>Travel Info</h3>
 <div style="display: inline-block; vertical-align: top">

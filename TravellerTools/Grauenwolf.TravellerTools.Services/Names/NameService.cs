@@ -1,26 +1,29 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Immutable;
+using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Grauenwolf.TravellerTools.Names
 {
-    public static class NameService
+    public class RandomuserNameService : INameService
     {
-        readonly static ConcurrentQueue<RandomPerson> s_Users = new ConcurrentQueue<RandomPerson>();
-        readonly static HttpClient s_HttpClient = new HttpClient();
-        static DateTime? s_LastError;
+        readonly ConcurrentQueue<RandomPerson> m_Users = new ConcurrentQueue<RandomPerson>();
+        readonly HttpClient m_HttpClient = new HttpClient();
+        static DateTime? m_LastError;
 
-        public static async Task<RandomPerson> CreateRandomPersonAsync()
+        public async Task<RandomPerson> CreateRandomPersonAsync(Dice random)
         {
             RandomPerson result = null;
 
-            s_Users.TryDequeue(out result);
+            m_Users.TryDequeue(out result);
 
             if (result == null)
             {
-                if (s_LastError?.AddMinutes(5) > DateTime.Now)
+                if (m_LastError?.AddMinutes(5) > DateTime.Now)
                 {
                     result = new RandomPerson("Error", "Error", "?");
                 }
@@ -29,19 +32,19 @@ namespace Grauenwolf.TravellerTools.Names
                     try
                     {
 
-                        var rawString = await s_HttpClient.GetStringAsync(new Uri("http://api.randomuser.me/?results=100")).ConfigureAwait(false);
+                        var rawString = await m_HttpClient.GetStringAsync(new Uri("http://api.randomuser.me/?results=100")).ConfigureAwait(false);
                         var collection = JsonConvert.DeserializeObject<UserRoot>(rawString);
 
                         result = new RandomPerson(collection.results[0]);
                         for (var i = 1; i < collection.results.Length; i++)
-                            s_Users.Enqueue(new RandomPerson(collection.results[i]));
+                            m_Users.Enqueue(new RandomPerson(collection.results[i]));
 
-                        s_LastError = null;
+                        m_LastError = null;
                     }
                     catch
                     {
                         result = new RandomPerson("Error", "Error", "?");
-                        s_LastError = DateTime.Now;
+                        m_LastError = DateTime.Now;
 
                     }
                 }

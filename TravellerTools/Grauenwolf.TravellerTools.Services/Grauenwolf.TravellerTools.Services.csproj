@@ -75,6 +75,8 @@
     <Compile Include="Maps\Universe.cs" />
     <Compile Include="Maps\World.cs" />
     <Compile Include="Maps\WorldList.cs" />
+    <Compile Include="Names\INameService.cs" />
+    <Compile Include="Names\LocalNameService.cs" />
     <Compile Include="Names\NameService.cs" />
     <Compile Include="Names\RandomPerson.cs" />
     <Compile Include="Names\UserRoot.cs" />
