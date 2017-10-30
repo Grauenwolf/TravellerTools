@@ -41,6 +41,17 @@ namespace Grauenwolf.TravellerTools.Web.Models
                 yield return new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = (i == 0) };
         }
 
+        public IEnumerable<SelectListItem> MilieuList()
+        {
+            //yield return new SelectListItem() { Text = "The Interstellar Wars", Value = "????" };
+            yield return new SelectListItem() { Text = "0 – Early Imperium", Value = "M0" };
+            yield return new SelectListItem() { Text = "990 – Solomani Rim War", Value = "M990" };
+            yield return new SelectListItem() { Text = "1105 – The Golden Age", Value = "M1105", Selected = true };
+            yield return new SelectListItem() { Text = "1120 – The Rebellion", Value = "M1120" };
+            yield return new SelectListItem() { Text = "1201 – The New Era", Value = "M1201" };
+            yield return new SelectListItem() { Text = "1248 – The New, New Era", Value = "M1248" };
+            yield return new SelectListItem() { Text = "1900 – The Far Far Future", Value = "M1900" };
+        }
 
         public IEnumerable<SelectListItem> SectorList()
         {

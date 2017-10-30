@@ -6,6 +6,8 @@ using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Names;
 using Grauenwolf.TravellerTools.TradeCalculator;
 using Grauenwolf.TravellerTools.Web.Models;
+using System;
+using System.Collections.Concurrent;
 using System.Web.Configuration;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -24,28 +26,51 @@ namespace Grauenwolf.TravellerTools.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            string appDataPath = Server.MapPath("~/app_data");
-            var filterUnpopulatedSectors = bool.Parse(WebConfigurationManager.AppSettings["FilterUnpopulatedSectors"]);
+            s_AppDataPath = Server.MapPath("~/app_data");
+            s_FilterUnpopulatedSectors = bool.Parse(WebConfigurationManager.AppSettings["FilterUnpopulatedSectors"]);
 
-            MapService = new TravellerMapService(filterUnpopulatedSectors);
-            NameService = new LocalNameService(appDataPath);
-            TradeEngineMgt = new TradeEngineMgt(MapService, appDataPath, NameService);
-            TradeEngineMgt2 = new TradeEngineMgt2(MapService, appDataPath, NameService);
+            //MapService = new TravellerMapService(filterUnpopulatedSectors);
+            NameService = new LocalNameService(s_AppDataPath);
+            //TradeEngineMgt = new TradeEngineMgt(MapService, appDataPath, NameService);
+            //TradeEngineMgt2 = new TradeEngineMgt2(MapService, appDataPath, NameService);
 
-            AnimalBuilderMgt.SetDataPath(appDataPath);
-            AnimalBuilderAE.SetDataPath(appDataPath);
-            CharacterBuilder = new CharacterBuilder(appDataPath);
-            EquipmentBuilder = new EquipmentBuilder(appDataPath);
+            AnimalBuilderMgt.SetDataPath(s_AppDataPath);
+            AnimalBuilderAE.SetDataPath(s_AppDataPath);
+            CharacterBuilder = new CharacterBuilder(s_AppDataPath);
+            EquipmentBuilder = new EquipmentBuilder(s_AppDataPath);
 
-            HomeIndexViewModel = HomeIndexViewModel.GetHomeIndexViewModel(MapService, CharacterBuilder, EquipmentBuilder).Result;
+            HomeIndexViewModel = HomeIndexViewModel.GetHomeIndexViewModel(GetMapService("M1105"), CharacterBuilder, EquipmentBuilder).Result;
         }
 
-        public static TradeEngine TradeEngineMgt;
+        //public static TradeEngine TradeEngineMgt;
         public static INameService NameService;
-        public static TradeEngine TradeEngineMgt2;
-        public static TravellerMapService MapService;
+        //public static TradeEngine TradeEngineMgt2;
+        //public static TravellerMapService MapService;
         public static CharacterBuilder CharacterBuilder;
         public static EquipmentBuilder EquipmentBuilder;
         public static HomeIndexViewModel HomeIndexViewModel;
+        readonly static ConcurrentDictionary<string, TravellerMapService> s_MapServices = new ConcurrentDictionary<string, TravellerMapService>();
+        static string s_AppDataPath;
+        static bool s_FilterUnpopulatedSectors;
+
+
+        public static TravellerMapService GetMapService(string milieu)
+        {
+            return s_MapServices.GetOrAdd(milieu, (x) => new TravellerMapService(s_FilterUnpopulatedSectors, x));
+        }
+
+        public static TradeEngine GetTradeEngine(string milieu, Edition edition)
+        {
+            var mapService = s_MapServices.GetOrAdd(milieu, (x) => new TravellerMapService(s_FilterUnpopulatedSectors, x));
+
+            switch (edition)
+            {
+                case Edition.Mongoose:
+                    return new TradeEngineMgt(mapService, s_AppDataPath, NameService);
+                case Edition.Mongoose2:
+                    return new TradeEngineMgt2(mapService, s_AppDataPath, NameService);
+            }
+            throw new NotSupportedException();
+        }
     }
 }

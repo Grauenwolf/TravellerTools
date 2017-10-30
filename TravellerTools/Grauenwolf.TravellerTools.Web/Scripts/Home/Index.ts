@@ -1,5 +1,12 @@
 ﻿/// <reference path="../typings/jquery/jquery.d.ts" />
 
+interface ISector {
+    Name: string;
+    X: number;
+    Y: number;
+}
+
+
 interface ISubsector {
     Name: string;
     Index: string;
@@ -25,12 +32,33 @@ function readChecked(controlName: string): boolean {
 }
 
 
-function SectorChanged(sectorCoordinates: string, subsector: HTMLSelectElement): void {
+function MilieuChanged(milieu: string, sector: HTMLSelectElement): void {
+
+    $(sector).empty();
+
+
+    $.getJSON("/WorldApi/Sectors?milieu=" + milieu,
+        cs => {
+            var myList = <ISector[]>cs;
+
+            sector.appendChild(new Option("", ""));
+
+            for (var i = 0; i < myList.length; i++) {
+                var opt = new Option(myList[i].Name, myList[i].X + ',' + myList[i].Y);
+                sector.appendChild(opt);
+            }
+        });
+
+
+
+}
+
+function SectorChanged(sectorCoordinates: string, subsector: HTMLSelectElement, milieu: string): void {
 
     $(subsector).empty();
 
 
-    $.getJSON("/WorldApi/Subsectors?sectorCoordinates=" + sectorCoordinates,
+    $.getJSON("/WorldApi/Subsectors?sectorCoordinates=" + sectorCoordinates + "&milieu=" + milieu,
         cs => {
             var myList = <ISubsector[]>cs;
 
@@ -47,11 +75,11 @@ function SectorChanged(sectorCoordinates: string, subsector: HTMLSelectElement):
 }
 
 
-function SubsectorChanged(sectorCoordinates: string, subsectorIndex: string, world: HTMLSelectElement): void {
+function SubsectorChanged(sectorCoordinates: string, subsectorIndex: string, world: HTMLSelectElement, milieu: string): void {
 
     $(world).empty();
 
-    $.getJSON("/WorldApi/WorldsInSubsector?sectorCoordinates=" + sectorCoordinates + "&subsectorIndex=" + subsectorIndex,
+    $.getJSON("/WorldApi/WorldsInSubsector?sectorCoordinates=" + sectorCoordinates + "&subsectorIndex=" + subsectorIndex + "&milieu=" + milieu,
         cs => {
             var myList = <IWorldLocation[]>cs;
 
@@ -80,7 +108,7 @@ function UwpChanged(originUwp: string, distinationUwp: string, button: HTMLInput
 }
 
 
-function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, advancedMode: boolean, illegalGoods: boolean, maxJumpDistance: number, brokerScore: number, mongoose2: boolean, advancedCharacters: boolean, streetwiseScore: number, raffle: boolean, originUwp: string, distinationUwp: string, jumpDistance: number): void {
+function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, advancedMode: boolean, illegalGoods: boolean, maxJumpDistance: number, brokerScore: number, mongoose2: boolean, advancedCharacters: boolean, streetwiseScore: number, raffle: boolean, originUwp: string, distinationUwp: string, jumpDistance: number, milieu: string): void {
 
     var a = sectorCoordinates.split(",");
     var b = worldCoordinates.substring(0, 2);
@@ -92,10 +120,10 @@ function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, 
     var edition = mongoose2 ? 2016 : 2008;
 
     if (originUwp != null && originUwp.length > 0 && distinationUwp != null && distinationUwp.length > 0) {
-        window.location.href = "/Home/QuickTradeInfo?originUwp=" + originUwp + "&destinationUwp=" + distinationUwp + "&jumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle;
+        window.location.href = "/Home/QuickTradeInfo?originUwp=" + originUwp + "&destinationUwp=" + distinationUwp + "&jumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle + "&milieu=" + milieu;
     }
     else {
-        window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + maxJumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle;
+        window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + maxJumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle + "&milieu=" + milieu;
     }
 }
 
@@ -105,7 +133,7 @@ function GenerateAnimals(terrain: string, animalType: string): void {
 }
 
 
-function GenerateAnimalEncounters(sectorCoordinates: string, worldCoordinates: string, terrain: string, animalClass: string): void {
+function GenerateAnimalEncounters(sectorCoordinates: string, worldCoordinates: string, terrain: string, animalClass: string, milieu: string): void {
     "use strict";
 
     if (worldCoordinates != null && worldCoordinates != "") {
@@ -113,16 +141,16 @@ function GenerateAnimalEncounters(sectorCoordinates: string, worldCoordinates: s
         var b = worldCoordinates.substring(0, 2);
         var c = worldCoordinates.substring(2, 4);
 
-        window.location.href = "/Home/AnimalEncounters?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&terrainType=" + encodeURIComponent(terrain) + "&animalClass=" + encodeURIComponent(animalClass);
+        window.location.href = "/Home/AnimalEncounters?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&terrainType=" + encodeURIComponent(terrain) + "&animalClass=" + encodeURIComponent(animalClass) + "&milieu=" + milieu;
     }
     else {
         window.location.href = "/Home/AnimalEncounters?terrainType=" + encodeURIComponent(terrain) + "&animalClass=" + encodeURIComponent(animalClass);
     }
 }
 
-function GenerateStoreInfo(lawLevel: string, population: string, roll: boolean, starport: string, techLevel: string, tradeCodes: string, name: string, brokerScore: number, streetwiseScore: number): void {
+function GenerateStoreInfo(lawLevel: string, population: string, roll: boolean, starport: string, techLevel: string, tradeCodes: string, name: string, brokerScore: number, streetwiseScore: number, milieu: string): void {
 
     var r = roll ? "true" : "false";
 
-    window.location.href = "/Home/Store?lawLevel=" + lawLevel + "&population=" + population + "&roll=" + r + "&starport=" + starport + "&techLevel=" + techLevel + "&tradeCodes=" + encodeURIComponent(tradeCodes) + "&name=" + encodeURIComponent(name) + "&brokerScore=" + brokerScore + "&streetwiseScore=" + streetwiseScore;
+    window.location.href = "/Home/Store?lawLevel=" + lawLevel + "&population=" + population + "&roll=" + r + "&starport=" + starport + "&techLevel=" + techLevel + "&tradeCodes=" + encodeURIComponent(tradeCodes) + "&name=" + encodeURIComponent(name) + "&brokerScore=" + brokerScore + "&streetwiseScore=" + streetwiseScore + "&milieu=" + milieu;
 }

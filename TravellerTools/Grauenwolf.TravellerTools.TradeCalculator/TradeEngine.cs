@@ -104,7 +104,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         /// <param name="seed"></param>
         /// <param name="advancedCharacters"></param>
         /// <returns></returns>
-        public async Task<ManifestCollection> BuildManifestsAsync(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters, int streetwiseScore, bool raffleGoods)
+        public async Task<ManifestCollection> BuildManifestsAsync(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters, int streetwiseScore, bool raffleGoods, string milieu)
         {
 
             var actualSeed = seed ?? (new Random()).Next();
@@ -129,13 +129,14 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             result.StreetwiseScore = streetwiseScore;
             result.Seed = actualSeed;
             result.AdvancedCharacters = advancedCharacters;
+            result.Milieu = milieu;
 
             OnManifestsBuilt(result);
 
             return result;
         }
 
-        public async Task<ManifestCollection> BuildManifestsAsync(string originUwp, string destinationUwp, int distance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters, int streetwiseScore, bool raffleGoods)
+        public async Task<ManifestCollection> BuildManifestsAsync(string originUwp, string destinationUwp, int distance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters, int streetwiseScore, bool raffleGoods, string milieu)
         {
 
             var actualSeed = seed ?? (new Random()).Next();
@@ -158,6 +159,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             result.StreetwiseScore = streetwiseScore;
             result.Seed = actualSeed;
             result.AdvancedCharacters = advancedCharacters;
+            result.Milieu = milieu;
 
             OnManifestsBuilt(result);
 

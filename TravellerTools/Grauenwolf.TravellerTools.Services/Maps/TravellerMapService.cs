@@ -14,9 +14,15 @@ namespace Grauenwolf.TravellerTools.Maps
 {
     public class TravellerMapService : MapService
     {
-        public TravellerMapService(bool filterUnpopulatedSectors)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TravellerMapService"/> class.
+        /// </summary>
+        /// <param name="filterUnpopulatedSectors">if set to <c>true</c> [filter unpopulated sectors].</param>
+        /// <param name="milieu">The milieu. The "default" is "M1105".</param>
+        public TravellerMapService(bool filterUnpopulatedSectors, string milieu)
         {
             m_FilterUnpopulatedSectors = filterUnpopulatedSectors;
+            Milieu = milieu;
         }
 
         static HttpClient s_Client = new HttpClient();
@@ -24,6 +30,8 @@ namespace Grauenwolf.TravellerTools.Maps
         ConcurrentDictionary<Tuple<int, int>, SectorMetadata> m_SectorMetadata = new ConcurrentDictionary<Tuple<int, int>, SectorMetadata>();
         ConcurrentDictionary<Tuple<int, int>, ImmutableList<World>> m_WorldsInSector = new ConcurrentDictionary<Tuple<int, int>, ImmutableList<World>>();
         readonly bool m_FilterUnpopulatedSectors;
+
+        public string Milieu { get; }
 
         public event EventHandler UniverseUpdated;
 
@@ -35,10 +43,9 @@ namespace Grauenwolf.TravellerTools.Maps
                 return result;
 
 
-            const string uriFormat = "http://travellermap.com/api/metadata?sx={0}&sy={1}";
 
 
-            var rawList = await s_Client.GetStringAsync(new Uri(String.Format(uriFormat, sectorX, sectorY))).ConfigureAwait(false);
+            var rawList = await s_Client.GetStringAsync(new Uri($"http://travellermap.com/api/metadata?sx={sectorX}&sy={sectorY}&milieu={Milieu}")).ConfigureAwait(false);
             result = JsonConvert.DeserializeObject<SectorMetadata>(rawList);
             m_SectorMetadata.TryAdd(cacheKey, result);
             return result;
@@ -50,7 +57,7 @@ namespace Grauenwolf.TravellerTools.Maps
                 return m_SectorList;
 
 
-            var rawSectorList = await s_Client.GetStringAsync(new Uri("http://travellermap.com/api/universe")).ConfigureAwait(false);
+            var rawSectorList = await s_Client.GetStringAsync(new Uri($"http://travellermap.com/api/universe?milieu={Milieu}")).ConfigureAwait(false);
 
             var sectors = JsonConvert.DeserializeObject<Universe>(rawSectorList).Sectors.Where(s => s.Names.First().Text != "Legend").ToList();
 
@@ -102,7 +109,7 @@ namespace Grauenwolf.TravellerTools.Maps
                 return result;
 
 
-            var baseUri = new Uri(string.Format("http://travellermap.com/api/sec?sx={0}&sy={1}&type=TabDelimited", sectorX, sectorY));
+            var baseUri = new Uri($"http://travellermap.com/api/sec?sx={sectorX}&sy={sectorY}&type=TabDelimited&milieu={Milieu}");
             var rawFile = await s_Client.GetStringAsync(baseUri).ConfigureAwait(false);
             if (rawFile.Length == 0)
                 return ImmutableList.Create<World>();
@@ -178,12 +185,11 @@ namespace Grauenwolf.TravellerTools.Maps
         public override async Task<List<World>> WorldsNearAsync(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance)
         {
             //http://travellermap.com/api/jumpworlds?sector=Spinward%20Marches&hex=1910&jump=4
-            const string uriFormat = "http://travellermap.com/api/jumpworlds?sx={0}&sy={1}&hx={2:00}&hy={3:00}&jump={4}";
 
             var result = new List<World>();
             for (var jumpDistance = 0; jumpDistance <= maxJumpDistance; jumpDistance++)
             {
-                var rawList = await s_Client.GetStringAsync(new Uri(String.Format(uriFormat, sectorX, sectorY, hexX, hexY, jumpDistance))).ConfigureAwait(false);
+                var rawList = await s_Client.GetStringAsync(new Uri($"http://travellermap.com/api/jumpworlds?sx={sectorX}&sy={sectorY}&hx={hexX:00}&hy={hexY:00}&jump={jumpDistance}&milieu={Milieu}")).ConfigureAwait(false);
 
                 var set = JsonConvert.DeserializeObject<WorldList>(rawList).Worlds;
                 foreach (var world in set.Where(w => !result.Any(ww => ww.Hex == w.Hex && ww.Sector == w.Sector)))

@@ -25,5 +25,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public bool AdvancedCharacters { get; set; }
         public StarportDetails DownportDetails { get; internal set; }
         public StarportDetails HighportDetails { get; internal set; }
+
+        public string Milieu { get; set; }
     }
 }

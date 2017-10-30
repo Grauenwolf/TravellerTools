@@ -8,13 +8,17 @@
     <h2>Location</h2>
     <table class="gridtable">
         <tr>
+            <th>Milieu</th>
+            <td>
+                @Html.DropDownList("milieu", Model.MilieuList(), new { onchange = "MilieuChanged($('#milieu')[0].value, $('#sector')[0])" })
+            </td>
             <th>Sector</th>
             <td>
-                @Html.DropDownList("sector", Model.SectorList(), new { onchange = "SectorChanged($('#sector')[0].value, $('#subsector')[0])" })
+                @Html.DropDownList("sector", Model.SectorList(), new { onchange = "SectorChanged($('#sector')[0].value, $('#subsector')[0],$('#milieu')[0].value)" })
             </td>
             <th>Subsector</th>
             <td>
-                <select id="subsector" onchange="SubsectorChanged($('#sector')[0].value, $('#subsector')[0].value, $('#world')[0])"></select>
+                <select id="subsector" onchange="SubsectorChanged($('#sector')[0].value, $('#subsector')[0].value, $('#world')[0], $('#milieu')[0].value)"></select>
             </td>
             <th>World</th>
             <td>
@@ -73,7 +77,7 @@
                 <input type="number" id="jumpDistance" value="3" />
             </td>
             <td>
-                <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo(readValue('sector'), readValue('world'), readChecked('advancedMode'), readChecked('illegalGoods'), readValue('jumpDistance'), readValue('broker'), readChecked('mongoose2'), readChecked('advancedCharacters'), readValue('streetwise'), readChecked('raffle'), readValue('originUwp'), readValue('destinationUwp'), readValue('jumpDistance'))" style="display:none" />
+                <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo(readValue('sector'), readValue('world'), readChecked('advancedMode'), readChecked('illegalGoods'), readValue('jumpDistance'), readValue('broker'), readChecked('mongoose2'), readChecked('advancedCharacters'), readValue('streetwise'), readChecked('raffle'), readValue('originUwp'), readValue('destinationUwp'), readValue('jumpDistance'), readValue('milieu'))" style="display:none" />
                 <span id="selectWorldForTrade">Select a world</span>
             </td>
         </tr>
@@ -112,7 +116,7 @@
             </td>
             <td>
                 <input id="showTradeScreen" type="button" value="Generate Store Info" onclick="
-    GenerateStoreInfo(readValue('lawLevel'), readValue('population'), readChecked('shopRoll'), readValue('starport'), readValue('techLevel'), '', '', readValue('broker'),readValue('streetwise'))" />
+    GenerateStoreInfo(readValue('lawLevel'), readValue('population'), readChecked('shopRoll'), readValue('starport'), readValue('techLevel'), '', '', readValue('broker'),readValue('streetwise'), readValue('milieu'))" />
             </td>
         </tr>
     </table>
@@ -155,7 +159,7 @@
             </td>
 
             <td>
-                <input id="showAnimalEncountersScreen" type="button" value="Generate Animals" onclick="GenerateAnimalEncounters($('#sector')[0].value, $('#world')[0].value, $('#terrain2')[0].value, $('#animalClass')[0].value)" />
+                <input id="showAnimalEncountersScreen" type="button" value="Generate Animals" onclick="GenerateAnimalEncounters($('#sector')[0].value, $('#world')[0].value, $('#terrain2')[0].value, $('#animalClass')[0].value, readValue('milieu'))" />
             </td>
         </tr>
         <tr style="display:none">
