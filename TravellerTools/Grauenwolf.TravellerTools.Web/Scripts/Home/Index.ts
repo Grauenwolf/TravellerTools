@@ -24,6 +24,7 @@ function readChecked(controlName: string): boolean {
     return control.checked;
 }
 
+
 function SectorChanged(sectorCoordinates: string, subsector: HTMLSelectElement): void {
 
     $(subsector).empty();
@@ -63,13 +64,23 @@ function SubsectorChanged(sectorCoordinates: string, subsectorIndex: string, wor
         });
 }
 
-function WorldChanged(sectorCoordinates: string, worldCoordinates: string, button: HTMLInputElement, label: HTMLElement): void {
-
+function WorldChanged(originUwp: HTMLInputElement, distinationUwp: HTMLInputElement, button: HTMLInputElement, label: HTMLElement): void {
+    originUwp.value = '';
+    distinationUwp.value = '';
     button.style.display = '';
     label.style.display = 'none';
 }
 
-function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, advancedMode: boolean, illegalGoods: boolean, jumpDistance: number, brokerScore: number, mongoose2: boolean, advancedCharacters: boolean, streetwiseScore: number, raffle: boolean): void {
+function UwpChanged(originUwp: string, distinationUwp: string, button: HTMLInputElement, label: HTMLElement): void {
+
+    if (originUwp != null && originUwp.length > 0 && distinationUwp != null && distinationUwp.length > 0) {
+        button.style.display = '';
+        label.style.display = 'none';
+    }
+}
+
+
+function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, advancedMode: boolean, illegalGoods: boolean, maxJumpDistance: number, brokerScore: number, mongoose2: boolean, advancedCharacters: boolean, streetwiseScore: number, raffle: boolean, originUwp: string, distinationUwp: string, jumpDistance: number): void {
 
     var a = sectorCoordinates.split(",");
     var b = worldCoordinates.substring(0, 2);
@@ -79,8 +90,13 @@ function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, 
     var ac = advancedCharacters ? "true" : "false";
     var r = raffle ? "true" : "false";
     var edition = mongoose2 ? 2016 : 2008;
-    window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle;
 
+    if (originUwp != null && originUwp.length > 0 && distinationUwp != null && distinationUwp.length > 0) {
+        window.location.href = "/Home/QuickTradeInfo?originUwp=" + originUwp + "&destinationUwp=" + distinationUwp + "&jumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle;
+    }
+    else {
+        window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + maxJumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle;
+    }
 }
 
 function GenerateAnimals(terrain: string, animalType: string): void {

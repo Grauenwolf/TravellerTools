@@ -1,9 +1,10 @@
 using System;
+using System.Linq;
 
 namespace Grauenwolf.TravellerTools
 {
 
-    public struct EHex
+    public struct EHex : IEquatable<EHex>
     {
 
 
@@ -120,6 +121,35 @@ namespace Grauenwolf.TravellerTools
                 case 33: return "Z";
                 default: return "_";
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is EHex && Equals((EHex)obj);
+        }
+
+        public bool Equals(EHex other)
+        {
+            return m_Value == other.m_Value;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -592410294;
+            hashCode = hashCode * -1521134295 + m_Value.GetHashCode();
+            return hashCode;
+        }
+
+        /// <summary>
+        /// True if the value is withing the specified range, inclusive.
+        /// </summary>
+        public bool Between(int low, int high)
+        {
+            return low <= Value && low <= high;
+        }
+        public bool AnyOf(params int[] values)
+        {
+            return values.Contains(Value);
         }
 
         public static implicit operator EHex(char value)

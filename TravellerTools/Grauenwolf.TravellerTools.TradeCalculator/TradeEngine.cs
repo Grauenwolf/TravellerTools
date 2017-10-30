@@ -36,6 +36,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public MapService MapService { get; }
 
 
+
         /// <summary>
         /// This has the cargo, people, etc. that want to travel from one location to another.
         /// </summary>
@@ -133,6 +134,36 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
             return result;
         }
+
+        public async Task<ManifestCollection> BuildManifestsAsync(string originUwp, string destinationUwp, int distance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters, int streetwiseScore, bool raffleGoods)
+        {
+
+            var actualSeed = seed ?? (new Random()).Next();
+            var random = new Dice(actualSeed);
+
+            var origin = new World(originUwp, "Origin", 0);
+            var destination = new World(destinationUwp, "Destination", distance);
+
+            var worlds = new World[] { origin, destination };
+            var result = await BuildManifestsAsync(worlds, random, illegalGoods, advancedCharacters).ConfigureAwait(false);
+
+            result.TradeList = BuildTradeGoodsList(result.Origin, advancedMode, illegalGoods, brokerScore, random, raffleGoods);
+
+            result.HighportDetails = CalculateStarportDetails(result.Origin, random, true);
+            result.DownportDetails = CalculateStarportDetails(result.Origin, random, false);
+            result.AdvancedMode = advancedMode;
+            result.IllegalGoods = illegalGoods;
+            result.Raffle = raffleGoods;
+            result.BrokerScore = brokerScore;
+            result.StreetwiseScore = streetwiseScore;
+            result.Seed = actualSeed;
+            result.AdvancedCharacters = advancedCharacters;
+
+            OnManifestsBuilt(result);
+
+            return result;
+        }
+
 
         string WaitTime(Dice dice, int roll)
         {
@@ -549,7 +580,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         /// <param name="illegalGoods">if set to <c>true</c> [illegal goods].</param>
         /// <param name="advancedCharacters">if set to <c>true</c> [advanced characters].</param>
         /// <returns></returns>
-        async Task<ManifestCollection> BuildManifestsAsync(List<World> worlds, Dice random, bool illegalGoods, bool advancedCharacters)
+        async Task<ManifestCollection> BuildManifestsAsync(IReadOnlyList<World> worlds, Dice random, bool illegalGoods, bool advancedCharacters)
         {
             var result = new ManifestCollection();
             result.Origin = worlds[0];

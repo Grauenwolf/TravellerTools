@@ -31,11 +31,19 @@ function SubsectorChanged(sectorCoordinates, subsectorIndex, world) {
         }
     });
 }
-function WorldChanged(sectorCoordinates, worldCoordinates, button, label) {
+function WorldChanged(originUwp, distinationUwp, button, label) {
+    originUwp.value = '';
+    distinationUwp.value = '';
     button.style.display = '';
     label.style.display = 'none';
 }
-function GenerateTradeInfo(sectorCoordinates, worldCoordinates, advancedMode, illegalGoods, jumpDistance, brokerScore, mongoose2, advancedCharacters, streetwiseScore, raffle) {
+function UwpChanged(originUwp, distinationUwp, button, label) {
+    if (originUwp != null && originUwp.length > 0 && distinationUwp != null && distinationUwp.length > 0) {
+        button.style.display = '';
+        label.style.display = 'none';
+    }
+}
+function GenerateTradeInfo(sectorCoordinates, worldCoordinates, advancedMode, illegalGoods, maxJumpDistance, brokerScore, mongoose2, advancedCharacters, streetwiseScore, raffle, originUwp, distinationUwp, jumpDistance) {
     var a = sectorCoordinates.split(",");
     var b = worldCoordinates.substring(0, 2);
     var c = worldCoordinates.substring(2, 4);
@@ -44,7 +52,12 @@ function GenerateTradeInfo(sectorCoordinates, worldCoordinates, advancedMode, il
     var ac = advancedCharacters ? "true" : "false";
     var r = raffle ? "true" : "false";
     var edition = mongoose2 ? 2016 : 2008;
-    window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle;
+    if (originUwp != null && originUwp.length > 0 && distinationUwp != null && distinationUwp.length > 0) {
+        window.location.href = "/Home/QuickTradeInfo?originUwp=" + originUwp + "&destinationUwp=" + distinationUwp + "&jumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle;
+    }
+    else {
+        window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + maxJumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle;
+    }
 }
 function GenerateAnimals(terrain, animalType) {
     window.location.href = "/Home/Animals?terrainType=" + encodeURIComponent(terrain) + "&animalType=" + encodeURIComponent(animalType);

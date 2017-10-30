@@ -9,6 +9,7 @@ using Mgt = Grauenwolf.TravellerTools.Animals.Mgt;
 
 namespace Grauenwolf.TravellerTools.Web.Controllers
 {
+    [RoutePrefix("Home")]
     public class HomeController : Controller
     {
         public ActionResult Index()
@@ -38,6 +39,20 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
                 model = await Global.TradeEngineMgt.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore, raffleGoods);
             else if (edition == Edition.MGT2)
                 model = await Global.TradeEngineMgt2.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore, raffleGoods);
+
+            return View(model);
+        }
+
+
+        [Route("QuickTradeInfo")]
+        public async Task<ActionResult> TradeInfo(string originUwp, string destinationUwp, int jumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT, int? seed = null, bool advancedCharacters = false, int streetwiseScore = 0, bool raffleGoods = false)
+        {
+            ManifestCollection model = null;
+
+            if (edition == Edition.MGT)
+                model = await Global.TradeEngineMgt.BuildManifestsAsync(originUwp, destinationUwp, jumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore, raffleGoods);
+            else if (edition == Edition.MGT2)
+                model = await Global.TradeEngineMgt2.BuildManifestsAsync(originUwp, destinationUwp, jumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore, raffleGoods);
 
             return View(model);
         }

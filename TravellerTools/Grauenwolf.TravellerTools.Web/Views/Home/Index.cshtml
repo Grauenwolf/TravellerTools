@@ -18,8 +18,16 @@
             </td>
             <th>World</th>
             <td>
-                <select id="world" onchange="WorldChanged($('#sector')[0].value, $('#world')[0].value, $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"></select>
+                <select id="world" onchange="WorldChanged($('#originUwp')[0], $('#destinationUwp')[0], $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"></select>
             </td>
+        </tr>
+        <tr>
+            <th>Origin UWP</th>
+            <td><input type="text" id="originUwp" onchange="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"/> </td>
+            <th>Destination UWP</th>
+            <td><input type="text" id="destinationUwp" onchange="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"/> </td>
+            <th>Destination UWP</th>
+            <td><input type="number" value="1" id="jumpDistance" onchange="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"/> </td>
         </tr>
     </table>
 
@@ -65,7 +73,7 @@
                 <input type="number" id="jumpDistance" value="3" />
             </td>
             <td>
-                <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo(readValue('sector'), readValue('world'), readChecked('advancedMode'), readChecked('illegalGoods'), readValue('jumpDistance'), readValue('broker'), readChecked('mongoose2'), readChecked('advancedCharacters'), readValue('streetwise'), readChecked('raffle'))" style="display:none" />
+                <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo(readValue('sector'), readValue('world'), readChecked('advancedMode'), readChecked('illegalGoods'), readValue('jumpDistance'), readValue('broker'), readChecked('mongoose2'), readChecked('advancedCharacters'), readValue('streetwise'), readChecked('raffle'), readValue('originUwp'), readValue('destinationUwp'), readValue('jumpDistance'))" style="display:none" />
                 <span id="selectWorldForTrade">Select a world</span>
             </td>
         </tr>

@@ -11,61 +11,113 @@ namespace Grauenwolf.TravellerTools.Maps
 
         static World()
         {
+            s_RemarkMap.Add("Ab", "Data Repository.");
+            s_RemarkMap.Add("Ag", "Agricultural.");
+            s_RemarkMap.Add("An", "Ancient Site.");
             s_RemarkMap.Add("As", "Asteroid Belt.");
+            s_RemarkMap.Add("Ba", "Barren.");
+            s_RemarkMap.Add("Co", "Cold.");
+            s_RemarkMap.Add("Da", "Danger");
             s_RemarkMap.Add("De", "Desert.");
+            s_RemarkMap.Add("Di", "Dieback.");
+            s_RemarkMap.Add("Ex", "Exile Camp.");
+            s_RemarkMap.Add("Fa", "Farming.");
             s_RemarkMap.Add("Fl", "Fluid Hydrographics (in place of water).");
+            s_RemarkMap.Add("Fo", "Forbidden.");
+            s_RemarkMap.Add("Fr", "Frozen.");
             s_RemarkMap.Add("Ga", "Garden World.");
             s_RemarkMap.Add("He", "Hellworld.");
-            s_RemarkMap.Add("Ic", "Ice Capped.");
-            s_RemarkMap.Add("Oc", "Ocean World.");
-            s_RemarkMap.Add("Va", "Vacuum World.");
-            s_RemarkMap.Add("Wa", "Water World.");
-            s_RemarkMap.Add("Di", "Dieback.");
-            s_RemarkMap.Add("Ba", "Barren.");
-            s_RemarkMap.Add("Lo", "Low Population.");
-            s_RemarkMap.Add("Ni", "Non-Industrial.");
-            s_RemarkMap.Add("Ph", "Pre-High Population.");
             s_RemarkMap.Add("Hi", "High Population.");
-            s_RemarkMap.Add("Pa", "Pre-Agricultural.");
-            s_RemarkMap.Add("Ag", "Agricultural.");
-            s_RemarkMap.Add("Na", "Non-Agricultural.");
-            s_RemarkMap.Add("Pi", "Pre-Industrial.");
-            s_RemarkMap.Add("In", "Industrialized.");
-            s_RemarkMap.Add("Po", "Poor.");
-            s_RemarkMap.Add("Pr", "Pre-Rich.");
-            s_RemarkMap.Add("Ri", "Rich.");
-            s_RemarkMap.Add("Fr", "Frozen.");
             s_RemarkMap.Add("Ho", "Hot.");
-            s_RemarkMap.Add("Co", "Cold.");
+            s_RemarkMap.Add("Ht", "High Technology.");
+            s_RemarkMap.Add("Ic", "Ice Capped.");
+            s_RemarkMap.Add("In", "Industrialized.");
             s_RemarkMap.Add("Lk", "Locked.");
-            s_RemarkMap.Add("Tr", "Tropic.");
-            s_RemarkMap.Add("Tu", "Tundra.");
-            s_RemarkMap.Add("Tz", "Twilight Zone.");
-            s_RemarkMap.Add("Fa", "Farming.");
+            s_RemarkMap.Add("Lo", "Low Population.");
+            s_RemarkMap.Add("Lt", "Low Technology.");
             s_RemarkMap.Add("Mi", "Mining.");
             s_RemarkMap.Add("Mr", "Military Rule.");
-            s_RemarkMap.Add("Px", "Prison, Exile Camp.");
+            s_RemarkMap.Add("Na", "Non-Agricultural.");
+            s_RemarkMap.Add("Ni", "Non-Industrial.");
+            s_RemarkMap.Add("Oc", "Ocean World.");
+            s_RemarkMap.Add("Pa", "Pre-Agricultural.");
             s_RemarkMap.Add("Pe", "Penal Colony.");
-            s_RemarkMap.Add("Re", "Reserve.");
-            s_RemarkMap.Add("Sa", "Satellite.");
-            s_RemarkMap.Add("Fo", "Forbidden.");
+            s_RemarkMap.Add("Ph", "Pre-High Population.");
+            s_RemarkMap.Add("Pi", "Pre-Industrial.");
+            s_RemarkMap.Add("Po", "Poor.");
+            s_RemarkMap.Add("Pr", "Pre-Rich.");
+            s_RemarkMap.Add("Px", "Prison, Exile Camp.");
             s_RemarkMap.Add("Pz", "Puzzle.");
-            s_RemarkMap.Add("Da", "Danger");
-            s_RemarkMap.Add("Ab", "Data Repository.");
-            s_RemarkMap.Add("An", "Ancient Site.");
+            s_RemarkMap.Add("Re", "Reserve.");
+            s_RemarkMap.Add("Ri", "Rich.");
             s_RemarkMap.Add("Rs", "Research Station.");
             s_RemarkMap.Add("RsA", "Research Station Alpha.");
             s_RemarkMap.Add("RsB", "Research Station Beta.");
             s_RemarkMap.Add("RsG", "Research Station Gamma.");
-            s_RemarkMap.Add("Lt", "Low Technology.");
-            s_RemarkMap.Add("Ht", "High Technology.");
-            //s_RemarkMap.Add("Fa", "Fascinating.");
+            s_RemarkMap.Add("Sa", "Satellite.");
             s_RemarkMap.Add("St", "Steppeworld.");
-            s_RemarkMap.Add("Ex", "Exile Camp.");
-            //s_RemarkMap.Add("Pr", "Prison World.");
+            s_RemarkMap.Add("Tr", "Tropic.");
+            s_RemarkMap.Add("Tu", "Tundra.");
+            s_RemarkMap.Add("Tz", "Twilight Zone.");
+            s_RemarkMap.Add("Va", "Vacuum World.");
+            s_RemarkMap.Add("Wa", "Water World.");
             s_RemarkMap.Add("Xb", "Xboat Station.");
+
+            //s_RemarkMap.Add("Fa", "Fascinating.");
+            //s_RemarkMap.Add("Pr", "Prison World.");
         }
 
+
+        public World() { }
+        public World(string uwp, string name, int jumpDistance)
+        {
+            uwp = uwp.Trim();
+            if (!uwp.Contains("-") && uwp.Length == 8)
+                uwp = uwp.Substring(0, 7) + "-" + uwp.Substring(7); //add the missing dash
+
+            UWP = uwp;
+            Name = name;
+            JumpDistance = jumpDistance;
+            var remarkList = new List<string>();
+            if (AtmosphereCode.Between(4, 9) && HydrographicsCode.Between(4, 8) && PopulationCode.Between(5, 7))
+                remarkList.Add("Ag");
+            if (SizeCode == 0 && AtmosphereCode == 0 && HydrographicsCode == 0)
+                remarkList.Add("As");
+            if (PopulationCode == 0 & GovernmentCode == 0 && LawCode == 0)
+                remarkList.Add("Ba");
+            if (AtmosphereCode >= 2 && HydrographicsCode == 0)
+                remarkList.Add("De");
+            if (AtmosphereCode >= 10 && HydrographicsCode >= 1)
+                remarkList.Add("Fl");
+            if (SizeCode.Between(6, 8) && AtmosphereCode.AnyOf(5, 6, 8) && HydrographicsCode.Between(5, 7))
+                remarkList.Add("Ga");
+            if (PopulationCode >= 9)
+                remarkList.Add("Hi");
+            if (TechCode >= 12)
+                remarkList.Add("Ht");
+            if (AtmosphereCode.Between(0, 1) && HydrographicsCode >= 1)
+                remarkList.Add("Ic");
+            if (AtmosphereCode.AnyOf(0, 1, 2, 4, 7, 9) && PopulationCode >= 9)
+                remarkList.Add("In");
+            if (PopulationCode <= 3)
+                remarkList.Add("Lo");
+            if (TechCode <= 5)
+                remarkList.Add("Lt");
+            if (AtmosphereCode <= 3 && HydrographicsCode <= 3 && PopulationCode >= 6)
+                remarkList.Add("Na");
+            if (PopulationCode <= 6)
+                remarkList.Add("Ni");
+            if (AtmosphereCode.Between(2, 5) && HydrographicsCode <= 3)
+                remarkList.Add("Po");
+            if (AtmosphereCode.AnyOf(6, 8) && PopulationCode.Between(6, 8) && GovernmentCode.Between(4, 9))
+                remarkList.Add("Ri");
+            if (AtmosphereCode == 0)
+                remarkList.Add("Va");
+            if (HydrographicsCode >= 10)
+                remarkList.Add("Wa");
+
+            Remarks = string.Join(" ", remarkList);
+        }
 
         public string Name { get; set; }
         public string Hex { get; set; }
@@ -316,8 +368,8 @@ namespace Grauenwolf.TravellerTools.Maps
 
 
 
-        public string HexX { get { return Hex.Substring(0, 2); } }
-        public string HexY { get { return Hex.Substring(2, 2); } }
+        public string HexX { get { return Hex?.Substring(0, 2); } }
+        public string HexY { get { return Hex?.Substring(2, 2); } }
 
 
         //These are added later
@@ -328,7 +380,7 @@ namespace Grauenwolf.TravellerTools.Maps
         {
             get
             {
-                var source = Remarks.Split(' ');
+                var source = (Remarks ?? "").Split(' ');
                 var result = new List<string>();
                 foreach (var remark in source)
                 {

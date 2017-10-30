@@ -145,9 +145,10 @@ namespace Grauenwolf.TravellerTools.Maps
                     world.Ex = fields[headers["(Ex)"]];
                     world.Cx = fields[headers["[Cx]"]];
                     world.Nobility = fields[headers["Nobility"]];
-                    int tmp;
-                    int.TryParse(fields[headers["W"]], out tmp);
+
+                    int.TryParse(fields[headers["W"]], out int tmp);
                     world.Worlds = tmp;
+
                     world.ResourceUnits = int.Parse(fields[headers["RU"]]);
 
 
