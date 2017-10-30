@@ -10,6 +10,7 @@ namespace Grauenwolf.TravellerTools.Names
     {
         readonly static ConcurrentQueue<RandomPerson> s_Users = new ConcurrentQueue<RandomPerson>();
         readonly static HttpClient s_HttpClient = new HttpClient();
+        static DateTime? s_LastError;
 
         public static async Task<RandomPerson> CreateRandomPersonAsync()
         {
@@ -19,19 +20,30 @@ namespace Grauenwolf.TravellerTools.Names
 
             if (result == null)
             {
-                try
-                {
-
-                    var rawString = await s_HttpClient.GetStringAsync(new Uri("http://api.randomuser.me/?results=100")).ConfigureAwait(false);
-                    var collection = JsonConvert.DeserializeObject<UserRoot>(rawString);
-
-                    result = new RandomPerson(collection.results[0]);
-                    for (var i = 1; i < collection.results.Length; i++)
-                        s_Users.Enqueue(new RandomPerson(collection.results[i]));
-                }
-                catch
+                if (s_LastError?.AddMinutes(5) > DateTime.Now)
                 {
                     result = new RandomPerson("Error", "Error", "?");
+                }
+                else
+                {
+                    try
+                    {
+
+                        var rawString = await s_HttpClient.GetStringAsync(new Uri("http://api.randomuser.me/?results=100")).ConfigureAwait(false);
+                        var collection = JsonConvert.DeserializeObject<UserRoot>(rawString);
+
+                        result = new RandomPerson(collection.results[0]);
+                        for (var i = 1; i < collection.results.Length; i++)
+                            s_Users.Enqueue(new RandomPerson(collection.results[i]));
+
+                        s_LastError = null;
+                    }
+                    catch
+                    {
+                        result = new RandomPerson("Error", "Error", "?");
+                        s_LastError = DateTime.Now;
+
+                    }
                 }
             }
             return result;

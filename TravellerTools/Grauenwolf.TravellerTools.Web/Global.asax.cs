@@ -15,7 +15,7 @@ namespace Grauenwolf.TravellerTools.Web
 {
     public class Global : System.Web.HttpApplication
     {
-        protected async void Application_Start()
+        protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);

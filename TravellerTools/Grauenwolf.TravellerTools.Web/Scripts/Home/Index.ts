@@ -69,7 +69,7 @@ function WorldChanged(sectorCoordinates: string, worldCoordinates: string, butto
     label.style.display = 'none';
 }
 
-function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, advancedMode: boolean, illegalGoods: boolean, jumpDistance: number, brokerScore: number, mongoose2: boolean, advancedCharacters: boolean, streetwiseScore: number): void {
+function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, advancedMode: boolean, illegalGoods: boolean, jumpDistance: number, brokerScore: number, mongoose2: boolean, advancedCharacters: boolean, streetwiseScore: number, raffle: boolean): void {
 
     var a = sectorCoordinates.split(",");
     var b = worldCoordinates.substring(0, 2);
@@ -77,8 +77,9 @@ function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, 
     var am = advancedMode ? "true" : "false";
     var ig = illegalGoods ? "true" : "false";
     var ac = advancedCharacters ? "true" : "false";
+    var r = raffle ? "true" : "false";
     var edition = mongoose2 ? 2016 : 2008;
-    window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore;
+    window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle;
 
 }
 

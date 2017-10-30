@@ -51,6 +51,10 @@
                 <label> <input type="checkbox" id="advancedMode" /> Advanced Mode</label>
             </td>
             <td>
+                <label> <input type="checkbox" id="raffle" /> Raffle</label><br />
+                Lowers the odds of finding rare goods. Adjusts the amount of goods available based on population.
+            </td>
+            <td>
                 <label> <input type="checkbox" id="illegalGoods" /> Allow Illegal Goods</label>
             </td>
             <td>
@@ -61,7 +65,7 @@
                 <input type="number" id="jumpDistance" value="3" />
             </td>
             <td>
-                <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo(readValue('sector'), readValue('world'), readChecked('advancedMode'), readChecked('illegalGoods'), readValue('jumpDistance'), readValue('broker'), readChecked('mongoose2'), readChecked('advancedCharacters'), readValue('streetwise'))" style="display:none" />
+                <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo(readValue('sector'), readValue('world'), readChecked('advancedMode'), readChecked('illegalGoods'), readValue('jumpDistance'), readValue('broker'), readChecked('mongoose2'), readChecked('advancedCharacters'), readValue('streetwise'), readChecked('raffle'))" style="display:none" />
                 <span id="selectWorldForTrade">Select a world</span>
             </td>
         </tr>

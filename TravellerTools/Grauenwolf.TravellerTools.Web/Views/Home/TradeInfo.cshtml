@@ -253,9 +253,9 @@
     current = manifest.Destination;
     <a name="@string.Format("{0}_{1}_{2}_{3}",  current.SectorX, current.SectorY, current.HexX, current.HexY)"></a>
     <hr />
-    <a href="@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}&advancedCharacters={9}&streetwiseScore={10}",
+    <a href="@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}&advancedCharacters={9}&streetwiseScore={10}&raffle={11}",
            current.SectorX, current.SectorY, current.HexX, current.HexY, Model.MaxJumpDistance,
-           Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.AdvancedCharacters, Model.StreetwiseScore
+           Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.AdvancedCharacters, Model.StreetwiseScore, Model.Raffle
            )"><h2>Destination: @current.Name</h2></a>
 
 

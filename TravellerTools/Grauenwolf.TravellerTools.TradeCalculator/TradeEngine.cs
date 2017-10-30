@@ -102,7 +102,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         /// <param name="seed"></param>
         /// <param name="advancedCharacters"></param>
         /// <returns></returns>
-        public async Task<ManifestCollection> BuildManifestsAsync(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters, int streetwiseScore)
+        public async Task<ManifestCollection> BuildManifestsAsync(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters, int streetwiseScore, bool raffleGoods)
         {
 
             var actualSeed = seed ?? (new Random()).Next();
@@ -111,7 +111,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             var worlds = await MapService.WorldsNearAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance).ConfigureAwait(false);
             var result = await BuildManifestsAsync(worlds, random, illegalGoods, advancedCharacters).ConfigureAwait(false);
 
-            result.TradeList = BuildTradeGoodsList(result.Origin, advancedMode, illegalGoods, brokerScore, random);
+            result.TradeList = BuildTradeGoodsList(result.Origin, advancedMode, illegalGoods, brokerScore, random, raffleGoods);
 
             result.SectorX = sectorX;
             result.SectorY = sectorY;
@@ -122,6 +122,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             result.DownportDetails = CalculateStarportDetails(result.Origin, random, false);
             result.AdvancedMode = advancedMode;
             result.IllegalGoods = illegalGoods;
+            result.Raffle = raffleGoods;
             result.BrokerScore = brokerScore;
             result.StreetwiseScore = streetwiseScore;
             result.Seed = actualSeed;
@@ -260,7 +261,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         internal abstract void OnManifestsBuilt(ManifestCollection result);
 
-        public TradeGoodsList BuildTradeGoodsList(World origin, bool advancedMode, bool illegalGoods, int brokerScore, Dice random)
+        public TradeGoodsList BuildTradeGoodsList(World origin, bool advancedMode, bool illegalGoods, int brokerScore, Dice random, bool raffleGoods)
         {
             IReadOnlyList<TradeGood> goods;
             if (!illegalGoods)
@@ -274,33 +275,68 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
             var randomGoods = new List<TradeGood>();
 
-            /*
-             * Goods with *: Always available
-             * Good with no mark: Only 1 chance
-             * Other goods: 5 chances plus 20 chances per matching remark
-             */
-            foreach (var good in goods)
+            if (raffleGoods)
             {
-                if (good.Availability == "*")
+                /*
+                 * Goods with *: Always available
+                 * Good with no mark: Only 1 chance
+                 * Other goods: 5 chances plus 20 chances per matching remark (trade code)
+                 * 6 goods are selected by the raffle
+                 */
+                foreach (var good in goods)
                 {
-                    AddTradeGood(origin, random, availableLots, good, advancedMode, brokerScore);
-                }
-                else if (good.Availability == "") //extremely rare
-                {
-                    randomGoods.Add(good);
-                }
-                else
-                {
-                    for (var i = 0; i < 1 + (5 * good.AvailabilityList.Count(a => origin.ContainsRemark(a))); i++)
+                    if (good.Availability == "*")
+                    {
+                        AddTradeGood(origin, random, availableLots, good, advancedMode, brokerScore);
+                    }
+                    else if (good.Availability == "") //extremely rare
+                    {
                         randomGoods.Add(good);
+                    }
+                    else
+                    {
+                        for (var i = 0; i < 5 + (20 * good.AvailabilityList.Count(a => origin.ContainsRemark(a))); i++)
+                            randomGoods.Add(good);
+                    }
+                }
+
+                for (var i = 0; i < origin.PopulationCode.Value; i++)
+                {
+                    var good = random.Choose(randomGoods);
+                    AddTradeGood(origin, random, availableLots, good, advancedMode, brokerScore);
+                    randomGoods = randomGoods.Where(g => g != good).ToList();
                 }
             }
-
-            for (var i = 0; i < 6; i++)
+            else
             {
-                var good = random.Choose(randomGoods);
-                AddTradeGood(origin, random, availableLots, good, advancedMode, brokerScore);
-                randomGoods = randomGoods.Where(g => g != good).ToList();
+                /*
+                 * Goods with *: Always available
+                 * Matching Trade remakrs: Always available
+                 * Other goods: 1 chance. 1d6 Selected
+                 */
+
+                foreach (var good in goods)
+                {
+                    if (good.Availability == "*")
+                    {
+                        AddTradeGood(origin, random, availableLots, good, advancedMode, brokerScore);
+                    }
+                    else if (good.AvailabilityList.Any(a => origin.ContainsRemark(a)))
+                    {
+                        AddTradeGood(origin, random, availableLots, good, advancedMode, brokerScore);
+                    }
+                    else
+                    {
+                        randomGoods.Add(good);
+                    }
+                }
+
+                var picks = random.D(6);
+                for (var i = 0; i < picks; i++)
+                {
+                    var good = random.Pick(randomGoods);
+                    AddTradeGood(origin, random, availableLots, good, advancedMode, brokerScore);
+                }
             }
 
             List<TradeBid> requests = new List<TradeBid>();
@@ -504,6 +540,14 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             }
         }
 
+        /// <summary>
+        /// This has the cargo, people, etc. that want to travel from one location to another.
+        /// </summary>
+        /// <param name="worlds">The worlds.</param>
+        /// <param name="random">The random.</param>
+        /// <param name="illegalGoods">if set to <c>true</c> [illegal goods].</param>
+        /// <param name="advancedCharacters">if set to <c>true</c> [advanced characters].</param>
+        /// <returns></returns>
         async Task<ManifestCollection> BuildManifestsAsync(List<World> worlds, Dice random, bool illegalGoods, bool advancedCharacters)
         {
             var result = new ManifestCollection();

@@ -214,7 +214,7 @@
 		<Detail Roll="12"   Name="Exotic Desserts/Exotic Liquor" Tons="2D6" Price="50"/>
 	</TradeGood>
 
-	<TradeGood Name="Luxury Goods" Roll="35" Availability="1D6" BasePrice="200" Tons="1D6">
+	<TradeGood Name="Luxury Goods" Roll="35" Availability="Hi" BasePrice="200" Tons="1D6">
 		<Purchase Tag="Hi" Bonus="1"/>
 		<Sale			Tag="Ri" Bonus="4"/>
 
