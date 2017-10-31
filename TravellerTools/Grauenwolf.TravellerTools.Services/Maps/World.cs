@@ -78,45 +78,59 @@ namespace Grauenwolf.TravellerTools.Maps
             UWP = uwp;
             Name = name;
             JumpDistance = jumpDistance;
-            var remarkList = new List<string>();
-            if (AtmosphereCode.Between(4, 9) && HydrographicsCode.Between(4, 8) && PopulationCode.Between(5, 7))
-                remarkList.Add("Ag");
-            if (SizeCode == 0 && AtmosphereCode == 0 && HydrographicsCode == 0)
-                remarkList.Add("As");
-            if (PopulationCode == 0 & GovernmentCode == 0 && LawCode == 0)
-                remarkList.Add("Ba");
-            if (AtmosphereCode >= 2 && HydrographicsCode == 0)
-                remarkList.Add("De");
-            if (AtmosphereCode >= 10 && HydrographicsCode >= 1)
-                remarkList.Add("Fl");
-            if (SizeCode.Between(6, 8) && AtmosphereCode.AnyOf(5, 6, 8) && HydrographicsCode.Between(5, 7))
-                remarkList.Add("Ga");
-            if (PopulationCode >= 9)
-                remarkList.Add("Hi");
-            if (TechCode >= 12)
-                remarkList.Add("Ht");
-            if (AtmosphereCode.Between(0, 1) && HydrographicsCode >= 1)
-                remarkList.Add("Ic");
-            if (AtmosphereCode.AnyOf(0, 1, 2, 4, 7, 9) && PopulationCode >= 9)
-                remarkList.Add("In");
-            if (PopulationCode <= 3)
-                remarkList.Add("Lo");
-            if (TechCode <= 5)
-                remarkList.Add("Lt");
-            if (AtmosphereCode <= 3 && HydrographicsCode <= 3 && PopulationCode >= 6)
-                remarkList.Add("Na");
-            if (PopulationCode <= 6)
-                remarkList.Add("Ni");
-            if (AtmosphereCode.Between(2, 5) && HydrographicsCode <= 3)
-                remarkList.Add("Po");
-            if (AtmosphereCode.AnyOf(6, 8) && PopulationCode.Between(6, 8) && GovernmentCode.Between(4, 9))
-                remarkList.Add("Ri");
-            if (AtmosphereCode == 0)
-                remarkList.Add("Va");
-            if (HydrographicsCode >= 10)
-                remarkList.Add("Wa");
 
-            Remarks = string.Join(" ", remarkList);
+            AddMissingRemarks();
+        }
+
+        public void AddMissingRemarks()
+        {
+
+            var remarks = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+            //Copy the existing list
+            foreach (var item in RemarksList)
+                remarks.Add(item);
+
+            //Add any missing items
+            if (AtmosphereCode.Between(4, 9) && HydrographicsCode.Between(4, 8) && PopulationCode.Between(5, 7))
+                remarks.Add("Ag");
+            if (SizeCode == 0 && AtmosphereCode == 0 && HydrographicsCode == 0)
+                remarks.Add("As");
+            if (PopulationCode == 0 & GovernmentCode == 0 && LawCode == 0)
+                remarks.Add("Ba");
+            if (AtmosphereCode >= 2 && HydrographicsCode == 0)
+                remarks.Add("De");
+            if (AtmosphereCode >= 10 && HydrographicsCode >= 1)
+                remarks.Add("Fl");
+            if (SizeCode.Between(6, 8) && AtmosphereCode.AnyOf(5, 6, 8) && HydrographicsCode.Between(5, 7))
+                remarks.Add("Ga");
+            if (PopulationCode >= 9)
+                remarks.Add("Hi");
+            if (TechCode >= 12)
+                remarks.Add("Ht");
+            if (AtmosphereCode.Between(0, 1) && HydrographicsCode >= 1)
+                remarks.Add("Ic");
+            if (AtmosphereCode.AnyOf(0, 1, 2, 4, 7, 9) && PopulationCode >= 9)
+                remarks.Add("In");
+            if (PopulationCode <= 3)
+                remarks.Add("Lo");
+            if (TechCode <= 5)
+                remarks.Add("Lt");
+            if (AtmosphereCode <= 3 && HydrographicsCode <= 3 && PopulationCode >= 6)
+                remarks.Add("Na");
+            if (PopulationCode <= 6)
+                remarks.Add("Ni");
+            if (AtmosphereCode.Between(2, 5) && HydrographicsCode <= 3)
+                remarks.Add("Po");
+            if (AtmosphereCode.AnyOf(6, 8) && PopulationCode.Between(6, 8) && GovernmentCode.Between(4, 9))
+                remarks.Add("Ri");
+            if (AtmosphereCode == 0)
+                remarks.Add("Va");
+            if (HydrographicsCode >= 10)
+                remarks.Add("Wa");
+
+            Remarks = string.Join(" ", remarks);
+
         }
 
         public string Name { get; set; }
@@ -144,7 +158,7 @@ namespace Grauenwolf.TravellerTools.Maps
             }
             set
             {
-                m_Remarks = value;
+                m_Remarks = value ?? "";
                 m_RemarksList.Clear();
                 foreach (var item in m_Remarks.Split(' '))
                     m_RemarksList.Add(item);

@@ -158,7 +158,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
                     world.ResourceUnits = int.Parse(fields[headers["RU"]]);
 
-
+                    world.AddMissingRemarks();
 
                     temp.Add(world);
                 }
@@ -204,6 +204,8 @@ namespace Grauenwolf.TravellerTools.Maps
                 var sector = await FindSectorByNameAsync(world.Sector).ConfigureAwait(false);
                 world.SectorX = sector.X;
                 world.SectorY = sector.Y;
+
+                world.AddMissingRemarks();
             }
 
             return result;
