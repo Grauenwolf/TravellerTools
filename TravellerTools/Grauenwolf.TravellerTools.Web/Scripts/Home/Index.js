@@ -45,14 +45,14 @@ function SubsectorChanged(sectorCoordinates, subsectorIndex, world, milieu) {
 function WorldChanged(originUwp, distinationUwp, button, label) {
     originUwp.value = '';
     distinationUwp.value = '';
-    button.style.display = '';
-    label.style.display = 'none';
+    //button.style.display = '';
+    //label.style.display = 'none';
 }
 function UwpChanged(originUwp, distinationUwp, button, label) {
-    if (originUwp != null && originUwp.length > 0 && distinationUwp != null && distinationUwp.length > 0) {
-        button.style.display = '';
-        label.style.display = 'none';
-    }
+    //if (originUwp != null && originUwp.length > 0 && distinationUwp != null && distinationUwp.length > 0) {
+    //    button.style.display = '';
+    //    label.style.display = 'none';
+    //}
 }
 function GenerateTradeInfo(sectorCoordinates, worldCoordinates, advancedMode, illegalGoods, maxJumpDistance, brokerScore, mongoose2, advancedCharacters, streetwiseScore, raffle, originUwp, distinationUwp, jumpDistance, milieu) {
     var a = sectorCoordinates.split(",");

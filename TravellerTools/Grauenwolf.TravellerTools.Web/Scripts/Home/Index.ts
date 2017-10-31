@@ -95,16 +95,16 @@ function SubsectorChanged(sectorCoordinates: string, subsectorIndex: string, wor
 function WorldChanged(originUwp: HTMLInputElement, distinationUwp: HTMLInputElement, button: HTMLInputElement, label: HTMLElement): void {
     originUwp.value = '';
     distinationUwp.value = '';
-    button.style.display = '';
-    label.style.display = 'none';
+    //button.style.display = '';
+    //label.style.display = 'none';
 }
 
 function UwpChanged(originUwp: string, distinationUwp: string, button: HTMLInputElement, label: HTMLElement): void {
 
-    if (originUwp != null && originUwp.length > 0 && distinationUwp != null && distinationUwp.length > 0) {
-        button.style.display = '';
-        label.style.display = 'none';
-    }
+    //if (originUwp != null && originUwp.length > 0 && distinationUwp != null && distinationUwp.length > 0) {
+    //    button.style.display = '';
+    //    label.style.display = 'none';
+    //}
 }
 
 

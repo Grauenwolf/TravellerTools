@@ -25,13 +25,14 @@
                 <select id="world" onchange="WorldChanged($('#originUwp')[0], $('#destinationUwp')[0], $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"></select>
             </td>
         </tr>
+        <tr><td colspan="8" >Choose a world above or enter the UWP for the origin and destination.</td></tr>
         <tr>
             <th>Origin UWP</th>
-            <td><input type="text" id="originUwp" onchange="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"/> </td>
+            <td><input type="text" id="originUwp" onkeypress="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"/> </td>
             <th>Destination UWP</th>
-            <td><input type="text" id="destinationUwp" onchange="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"/> </td>
-            <th>Destination UWP</th>
-            <td><input type="number" value="1" id="jumpDistance" onchange="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"/> </td>
+            <td><input type="text" id="destinationUwp" onkeypress="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"/> </td>
+            <th>Distance between Origin and Destination</th>
+            <td colspan="3"><input type="number" value="1" id="jumpDistance" onkeypress="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"/> </td>
         </tr>
     </table>
 
@@ -62,7 +63,7 @@
             <td>
                 <label> <input type="checkbox" id="advancedMode" /> Advanced Mode</label>
             </td>
-            <td>
+            <td style="max-width:200px" >
                 <label> <input type="checkbox" id="raffle" /> Raffle</label><br />
                 Lowers the odds of finding rare goods. Adjusts the amount of goods available based on population.
             </td>
@@ -74,11 +75,11 @@
             </td>
             <td>
                 <label>Jump Distance</label>
-                <input type="number" id="jumpDistance" value="3" />
+                <input type="number" id="maxJumpDistance" value="3" />
             </td>
             <td>
-                <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo(readValue('sector'), readValue('world'), readChecked('advancedMode'), readChecked('illegalGoods'), readValue('jumpDistance'), readValue('broker'), readChecked('mongoose2'), readChecked('advancedCharacters'), readValue('streetwise'), readChecked('raffle'), readValue('originUwp'), readValue('destinationUwp'), readValue('jumpDistance'), readValue('milieu'))" style="display:none" />
-                <span id="selectWorldForTrade">Select a world</span>
+                <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo(readValue('sector'), readValue('world'), readChecked('advancedMode'), readChecked('illegalGoods'), readValue('maxJumpDistance'), readValue('broker'), readChecked('mongoose2'), readChecked('advancedCharacters'), readValue('streetwise'), readChecked('raffle'), readValue('originUwp'), readValue('destinationUwp'), readValue('jumpDistance'), readValue('milieu'))" />
+                @*<span id="selectWorldForTrade">Select a world</span>*@
             </td>
         </tr>
     </table>
