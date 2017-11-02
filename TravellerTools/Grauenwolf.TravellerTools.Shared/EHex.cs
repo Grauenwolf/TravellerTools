@@ -145,7 +145,7 @@ namespace Grauenwolf.TravellerTools
         /// </summary>
         public bool Between(int low, int high)
         {
-            return low <= Value && low <= high;
+            return low <= Value && Value <= high;
         }
         public bool AnyOf(params int[] values)
         {
