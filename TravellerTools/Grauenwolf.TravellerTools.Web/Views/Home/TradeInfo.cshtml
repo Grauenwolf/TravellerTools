@@ -347,10 +347,10 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
         <div style="display: inline-block; vertical-align: top">
             <img src="@String.Format("http://travellermap.com/api/jumpmap?sx={0}&sy={1}&hx={2}&hy={3}&jump={4}&scale=48&style=print", @current.SectorX, @current.SectorY, @current.HexX, @current.HexY, @Model.MaxJumpDistance)" />
         </div>
-        <h3>Passengers</h3>
 
     if (manifest.PassengerList.Passengers.Count > 0)
     {
+        <h3>Passengers</h3>
         <ul id="listofthings">
             @foreach (var passenger in manifest.PassengerList.Passengers)
             {
@@ -369,7 +369,7 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
                     @if (@passenger.TravelType == "Low")
                         {
                         <div>Endurance DM: @passenger.EnduranceDM</div>}
-                    <div>Notes: @passenger.PassengerType, @passenger.Trait</div>
+                    <div>Notes: @passenger.PassengerType, @passenger.Trait, @passenger.PersonalityList</div>
                     @if (Model.AdvancedCharacters)
                         {
                         <div>@passenger.Skills</div>

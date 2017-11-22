@@ -11,6 +11,7 @@ namespace Grauenwolf.TravellerTools.Characters
     public class CharacterBuilder
     {
         ImmutableArray<Career> m_Careers;
+        ImmutableArray<string> m_Personalities;
 
 
         public CharacterBuilder(string dataPath)
@@ -71,6 +72,10 @@ namespace Grauenwolf.TravellerTools.Characters
             careers.Add(new Explorer(book));
 
             m_Careers = careers.ToImmutableArray();
+
+            var personalityFile = new FileInfo(Path.Combine(dataPath, "personality.txt"));
+            m_Personalities = File.ReadAllLines(personalityFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableArray();
+
         }
 
 
@@ -236,9 +241,9 @@ namespace Grauenwolf.TravellerTools.Characters
             if (!string.IsNullOrEmpty(options.FirstCareer))
                 character.NextTermBenefits.MustEnroll = options.FirstCareer;
 
-            while (!IsDone(options, character, dice))
+            while (!IsDone(options, character))
             {
-                var nextCareer = PickNextCareer(options, character, dice);
+                var nextCareer = PickNextCareer(character, dice);
                 character.CurrentTermBenefits = character.NextTermBenefits;
                 character.NextTermBenefits = new NextTermBenefits();
                 nextCareer.Run(character, dice);
@@ -248,6 +253,12 @@ namespace Grauenwolf.TravellerTools.Characters
                 if (character.CurrentTerm >= 4)
                     AgingRoll(character, dice);
             }
+
+            //Add personality
+            int personalityTraits = dice.D(3);
+            for (var i = 0; i < personalityTraits; i++)
+                character.Personality.Add(dice.Choose(m_Personalities));
+
 
             //Fixups
             if (options.MaxAge.HasValue && !character.IsDead)
@@ -260,7 +271,7 @@ namespace Grauenwolf.TravellerTools.Characters
             return character;
         }
 
-        Career PickNextCareer(CharacterBuilderOptions options, Character character, Dice dice)
+        Career PickNextCareer(Character character, Dice dice)
         {
             var careers = new List<Career>();
 
@@ -319,10 +330,8 @@ namespace Grauenwolf.TravellerTools.Characters
 
 
 
-        static bool IsDone(CharacterBuilderOptions options, Character character, Dice dice)
+        static bool IsDone(CharacterBuilderOptions options, Character character)
         {
-            if ((character.Age + 3) >= options.MaxAge) //+3 because terms are 4 years long
-                return true;
 
             if (character.Strength <= 0 ||
                 character.Dexterity <= 0 ||
@@ -337,17 +346,11 @@ namespace Grauenwolf.TravellerTools.Characters
 
             }
 
+            if ((character.Age + 3) >= options.MaxAge) //+3 because terms are 4 years long
+                return true;
+
             return false;
         }
-
-
-
-
-
-
-
-
-
 
         static readonly ImmutableList<string> m_BackgroundSkills = ImmutableList.Create(
             "Admin",
@@ -372,11 +375,6 @@ namespace Grauenwolf.TravellerTools.Characters
         {
             get { return m_Careers; }
         }
-
-
-
-
-
 
     }
 }

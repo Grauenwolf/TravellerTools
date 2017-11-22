@@ -13,6 +13,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 {
     public abstract class TradeEngine
     {
+
+        ImmutableArray<string> m_Personalities;
+
         public TradeEngine(MapService mapService, string dataPath, INameService nameService)
         {
             MapService = mapService;
@@ -24,6 +27,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
             m_LegalTradeGoods = m_TradeGoods.Where(g => g.Legal).ToImmutableList();
             m_CharacterBuilder = new CharacterBuilder(dataPath);
+
+            var personalityFile = new FileInfo(Path.Combine(dataPath, "personality.txt"));
+            m_Personalities = File.ReadAllLines(personalityFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableArray();
         }
 
         readonly CharacterBuilder m_CharacterBuilder;
@@ -614,6 +620,11 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             if (!advancedCharacters)
             {
                 SimpleCharacterEngine.AddCharacteristics(result, random);
+
+                //Add personality
+                int personalityTraits = random.D(3);
+                for (var i = 0; i < personalityTraits; i++)
+                    result.Personality.Add(random.Choose(m_Personalities));
             }
             else
             {
@@ -631,6 +642,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 result.Skills = string.Join(", ", character.Skills.Where(s => s.Level > 0).Select(s => s.ToString()).OrderBy(s => s));
 
                 result.Title = character.Title;
+                result.Personality.AddRange(character.Personality);
             }
 
 

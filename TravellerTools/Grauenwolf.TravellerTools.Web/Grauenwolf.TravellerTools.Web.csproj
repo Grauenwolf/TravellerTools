@@ -276,6 +276,7 @@
     <Content Include="App_Data\male_first.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="App_Data\personality.txt" />
     <Content Include="App_Data\TradeGoods-MGT.xml" />
     <Content Include="App_Data\TradeGoods-MGT2.xml" />
     <Content Include="Content\bootstrap-theme.css" />

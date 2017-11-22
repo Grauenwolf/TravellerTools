@@ -166,7 +166,14 @@ namespace Grauenwolf.TravellerTools.Characters
         internal List<int> BenefitRollDMs { get; } = new List<int>();
         public int BenefitRolls { get; set; }
 
-        public List<CareerHistory> CareerHistory { get; } = new List<CareerHistory>();
+        public ObservableCollectionExtended<CareerHistory> CareerHistory { get; } = new ObservableCollectionExtended<CareerHistory>();
+
+        public ObservableCollectionExtended<string> Personality { get; } = new ObservableCollectionExtended<string>();
+
+
+        [CalculatedField("Personality")]
+        public string PersonalityList => string.Join(", ", Personality);
+
 
         public EducationHistory EducationHistory;
 
@@ -201,11 +208,6 @@ namespace Grauenwolf.TravellerTools.Characters
 
             return result;
         }
-        //public void IncreaseAge()
-        //{
-        //    Age += 4;
-        //    CurrentTerm += 1;
-        //}
     }
 }
 
