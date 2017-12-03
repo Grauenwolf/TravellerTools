@@ -103,9 +103,15 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             var options = new CharacterBuilderOptions();
 
             if (!string.IsNullOrEmpty(name))
+            {
                 options.Name = name;
+            }
             else
-                options.Name = (await Global.NameService.CreateRandomPersonAsync(dice)).FullName;
+            {
+                var temp = await Global.NameService.CreateRandomPersonAsync(dice);
+                options.Name = temp.FullName;
+                options.Gender = temp.Gender;
+            }
 
             if (minAge.HasValue && minAge == maxAge)
                 options.MaxAge = maxAge;

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
@@ -18,7 +17,7 @@ namespace Grauenwolf.TravellerTools.Names
             var lastFile = new FileInfo(Path.Combine(dataPath, "last.txt"));
             var maleFile = new FileInfo(Path.Combine(dataPath, "male_first.txt"));
 
-            m_LastNames = File.ReadAllLines(maleFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableList();
+            m_LastNames = File.ReadAllLines(lastFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableList();
             m_FemaleNames = File.ReadAllLines(femaleFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableList();
             m_MaleNames = File.ReadAllLines(maleFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableList();
         }
@@ -28,7 +27,7 @@ namespace Grauenwolf.TravellerTools.Names
             var isMale = random.NextBoolean();
 
             return Task.FromResult(new RandomPerson(
-                 isMale ? random.Choose(m_LastNames) : random.Choose(m_FemaleNames),
+                 isMale ? random.Choose(m_MaleNames) : random.Choose(m_FemaleNames),
                  random.Choose(m_LastNames),
                  isMale ? "M" : "F"
                 ));

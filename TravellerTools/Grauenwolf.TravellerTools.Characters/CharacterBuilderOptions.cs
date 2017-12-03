@@ -4,6 +4,7 @@ namespace Grauenwolf.TravellerTools.Characters
     {
         public int? MaxAge { get; set; }
         public string Name { get; set; }
+        public string Gender { get; set; }
 
         //readonly Dictionary<string, CareerChoice> m_CareerChoices = new Dictionary<string, CareerChoice>(StringComparer.OrdinalIgnoreCase);
 

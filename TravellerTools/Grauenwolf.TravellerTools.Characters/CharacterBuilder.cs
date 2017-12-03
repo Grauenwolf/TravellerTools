@@ -220,6 +220,7 @@ namespace Grauenwolf.TravellerTools.Characters
             character.Seed = seed;
             character.FirstCareer = options.FirstCareer;
             character.Name = options.Name;
+            character.Gender = options.Gender;
 
             character.Strength = dice.D(2, 6);
             character.Dexterity = dice.D(2, 6);

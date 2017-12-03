@@ -18,6 +18,7 @@ namespace Grauenwolf.TravellerTools.Characters
 
         public int Age { get { return GetDefault<int>(18); } set { Set(value); } }
         public int CurrentTerm { get { return Get<int>(); } set { Set(value); } }
+        public string Gender { get { return Get<string>(); } set { Set(value); } }
 
 
 

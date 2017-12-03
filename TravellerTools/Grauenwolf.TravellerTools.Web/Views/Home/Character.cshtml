@@ -17,6 +17,7 @@
 
     <tr>
         <th width="50" style="text-align:center;">Age</th>
+        <th width="50" style="text-align:center;">Sex</th>
         <th width="50" style="text-align:center;">Str</th>
         <th width="50" style="text-align:center;">Dex</th>
         <th width="50" style="text-align:center;">End</th>
@@ -26,6 +27,7 @@
     </tr>
     <tr>
         <td>@(Model.Age)</td>
+        <td>@(Model.Gender)</td>
         <td>@(Model.Strength) (@Model.StrengthDM)</td>
         <td>@(Model.Dexterity) (@Model.DexterityDM)</td>
         <td>@(Model.Endurance) (@Model.EnduranceDM)</td>
@@ -33,7 +35,7 @@
         <td>@(Model.Education) (@Model.EducationDM)</td>
         <td>@(Model.SocialStanding) (@Model.SocialStandingDM)</td>
     </tr>
-    <tr><td colspan="7">@(Model.PersonalityList)</td></tr>
+    <tr><td colspan="8">@(Model.PersonalityList)</td></tr>
 </table>
 
 <div>&nbsp;</div>
