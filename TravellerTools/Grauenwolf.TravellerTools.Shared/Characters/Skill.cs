@@ -40,10 +40,10 @@ namespace Grauenwolf.TravellerTools.Characters
             Level = level;
         }
 
-        public string Name { get { return Get<string>(); } set { Set(value); } }
+        public string Name { get => Get<string>(); set => Set(value); }
 
-        public int Level { get { return Get<int>(); } set { Set(value); } }
-        public string Specialty { get { return Get<string>(); } set { Set(value); } }
+        public int Level { get => Get<int>(); set => Set(value); }
+        public string Specialty { get => Get<string>(); set => Set(value); }
 
         public override string ToString()
         {

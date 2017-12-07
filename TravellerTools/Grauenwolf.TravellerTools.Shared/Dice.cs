@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Tortuga.Anchor;
 
@@ -25,6 +26,7 @@ namespace Grauenwolf.TravellerTools
 
         }
 
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "D")]
         public int D(int count, int die)
         {
             var result = 0;
@@ -34,6 +36,7 @@ namespace Grauenwolf.TravellerTools
             return result;
         }
 
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "D")]
         public int D(int die)
         {
             return D(1, die);
@@ -44,6 +47,7 @@ namespace Grauenwolf.TravellerTools
             return (Next(1, 7) * 10) + Next(1, 7);
         }
 
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "D")]
         public int D(string dieCode)
         {
             if (string.IsNullOrWhiteSpace(dieCode))
@@ -82,7 +86,7 @@ namespace Grauenwolf.TravellerTools
                         else
                             result += D(parts[0], parts[1]) * isNegative;
                     }
-                    else if (expression == "")
+                    else if (expression.Length == 0)
                     {
                         //skip
                     }
@@ -109,6 +113,9 @@ namespace Grauenwolf.TravellerTools
         /// <exception cref="System.Exception">This cannot happen</exception>
         public T ChooseWithOdds<T>(ICollection<T> list) where T : IHasOdds
         {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
             var max = list.Sum(option => option.Odds);
             var roll = Next(1, max + 1);
             foreach (var option in list)
@@ -117,7 +124,7 @@ namespace Grauenwolf.TravellerTools
                 if (roll <= 0)
                     return option;
             }
-            throw new Exception("This cannot happen");
+            throw new InvalidOperationException("This cannot happen");
         }
 
         /// <summary>
@@ -134,7 +141,7 @@ namespace Grauenwolf.TravellerTools
 
             var result = list.SingleOrDefault(x => x.IsMatch(roll));
             if (result == null)
-                throw new Exception($"No entry for a roll of {roll}");
+                throw new InvalidOperationException($"No entry for a roll of {roll}");
             return result;
         }
 
@@ -152,6 +159,7 @@ namespace Grauenwolf.TravellerTools
         /// </summary>
         /// <param name="dm">The dm.</param>
         /// <param name="target">The target.</param>
+        [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "dm")]
         public bool RollHigh(int dm, int target)
         {
             return D(2, 6) + dm >= target;

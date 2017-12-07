@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
     /// <remarks/>
-    [Serializable()]
+    //[Serializable()]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true)]
     public class TradeGood
@@ -46,12 +46,15 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         public TradeGoodDetail ChooseRandomDetail(Dice random)
         {
+            if (random == null)
+                throw new ArgumentNullException(nameof(random), $"{nameof(random)} is null.");
+
             int roll = random.D(DetailRoll);
 
             foreach (var detail in Details)
                 if (detail.MinRoll <= roll && roll <= detail.MaxRoll)
                     return detail;
-            throw new Exception("Could not find a detail for the roll " + roll + " in the trade good " + Name);
+            throw new InvalidOperationException("Could not find a detail for the roll " + roll + " in the trade good " + Name);
         }
 
         /// <remarks/>

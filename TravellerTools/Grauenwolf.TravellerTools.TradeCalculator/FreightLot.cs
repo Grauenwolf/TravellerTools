@@ -10,9 +10,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             ShippingFee = shippingFee;
         }
 
-        public int Size { get; set; }
-        public int ShippingFee { get; set; }
-        public string Contents { get; set; }
         public decimal ActualValue { get; set; }
+        public string Contents { get; set; }
+        public int ShippingFee { get; set; }
+        public int Size { get; set; }
     }
 }

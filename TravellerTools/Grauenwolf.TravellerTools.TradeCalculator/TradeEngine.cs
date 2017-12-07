@@ -5,6 +5,7 @@ using Grauenwolf.TravellerTools.Names;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,35 +15,31 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
     public abstract class TradeEngine
     {
 
+        readonly CharacterBuilder m_CharacterBuilder;
+        readonly INameService m_NameService;
         ImmutableArray<string> m_Personalities;
 
-        public TradeEngine(MapService mapService, string dataPath, INameService nameService)
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        protected TradeEngine(MapService mapService, string dataPath, INameService nameService)
         {
             MapService = mapService;
             m_NameService = nameService;
             var file = new FileInfo(Path.Combine(dataPath, DataFileName));
             var converter = new XmlSerializer(typeof(TradeGoods));
             using (var stream = file.OpenRead())
-                m_TradeGoods = ((TradeGoods)converter.Deserialize(stream)).TradeGood.ToImmutableList();
+                TradeGoods = ((TradeGoods)converter.Deserialize(stream)).TradeGood.ToImmutableList();
 
-            m_LegalTradeGoods = m_TradeGoods.Where(g => g.Legal).ToImmutableList();
+            LegalTradeGoods = TradeGoods.Where(g => g.Legal).ToImmutableList();
             m_CharacterBuilder = new CharacterBuilder(dataPath);
 
             var personalityFile = new FileInfo(Path.Combine(dataPath, "personality.txt"));
             m_Personalities = File.ReadAllLines(personalityFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableArray();
         }
 
-        readonly CharacterBuilder m_CharacterBuilder;
-        protected readonly ImmutableList<TradeGood> m_LegalTradeGoods;
-        protected readonly ImmutableList<TradeGood> m_TradeGoods;
-        readonly INameService m_NameService;
-
-        protected abstract string DataFileName { get; }
-
         public MapService MapService { get; }
-
-
-
+        protected abstract string DataFileName { get; }
+        protected ImmutableList<TradeGood> LegalTradeGoods { get; }
+        protected ImmutableList<TradeGood> TradeGoods { get; }
         /// <summary>
         /// This has the cargo, people, etc. that want to travel from one location to another.
         /// </summary>
@@ -62,9 +59,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
             IReadOnlyList<TradeGood> goods;
             if (!illegalGoods)
-                goods = m_LegalTradeGoods;
+                goods = LegalTradeGoods;
             else
-                goods = m_TradeGoods;
+                goods = TradeGoods;
 
 
             var offers = new List<TradeOffer>();
@@ -148,10 +145,12 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             var actualSeed = seed ?? (new Random()).Next();
             var random = new Dice(actualSeed);
 
-            var origin = new World(originUwp, "Origin", 0);
-            var destination = new World(destinationUwp, "Destination", distance);
+            var origin = new World(originUwp, "Origin " + originUwp, 0);
 
-            var worlds = new World[] { origin, destination };
+            var worlds = new List<World>() { origin };
+            if (!string.IsNullOrEmpty(destinationUwp))
+                worlds.Add(new World(destinationUwp, "Destination " + destinationUwp, distance));
+
             var result = await BuildManifestsAsync(worlds, random, illegalGoods, advancedCharacters).ConfigureAwait(false);
 
             result.TradeList = BuildTradeGoodsList(result.Origin, advancedMode, illegalGoods, brokerScore, random, raffleGoods);
@@ -173,141 +172,19 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         }
 
 
-        string WaitTime(Dice dice, int roll)
-        {
-            if (roll < 0)
-                roll = 0;
-
-            switch (roll)
-            {
-                case 0: return "No wait";
-                case 1: return $"{dice.D(6)} minutes";
-                case 2: return $"{dice.D(6) * 10} minutes";
-                case 3: return $"1 hour";
-                case 4: return $"{dice.D(6) } hours";
-                case 5: return $"{dice.D(2, 6) } hours";
-                case 6: return $"1 day";
-                default: return $"{dice.D(6) } days";
-            }
-        }
-
-        private StarportDetails CalculateStarportDetails(World origin, Dice dice, bool highPort)
-        {
-            var result = new StarportDetails();
-            switch (origin.StarportCode.ToString())
-            {
-                case "A":
-                    result.BerthingCost = dice.D(1, 6) * 1000;
-                    result.BerthingCostPerDay = 500;
-                    result.RefinedFuelCost = 500;
-                    result.UnrefinedFuelCost = 100;
-
-                    if (highPort)
-                    {
-                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
-                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
-                        result.BerthingWaitTimeCapital = WaitTime(dice, dice.D("1D6-4"));
-
-                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
-                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
-                        result.FuelWaitTimeCapital = WaitTime(dice, dice.D("1D6-3"));
-                    }
-                    else
-                    {
-                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
-                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-5"));
-
-                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
-                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
-                    }
-                    return result;
-                case "B":
-                    result.BerthingCost = dice.D(1, 6) * 500;
-                    result.BerthingCostPerDay = 200;
-                    result.RefinedFuelCost = 500;
-                    result.UnrefinedFuelCost = 100;
-
-                    if (highPort)
-                    {
-                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
-                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
-                        result.BerthingWaitTimeCapital = WaitTime(dice, dice.D("1D6-3"));
-
-                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
-                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
-                        result.FuelWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
-                    }
-                    else
-                    {
-                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-4"));
-                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-3"));
-
-                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
-                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
-                    }
-                    return result;
-                case "C":
-                    result.BerthingCost = dice.D(1, 6) * 100;
-                    result.BerthingCostPerDay = 100;
-                    result.RefinedFuelCost = 500;
-                    result.UnrefinedFuelCost = 100;
-
-                    if (highPort)
-                    {
-                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
-                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
-                        result.BerthingWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
-
-                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
-                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
-                        result.FuelWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
-                    }
-                    else
-                    {
-                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
-                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
-
-                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
-                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
-                    }
-                    return result;
-                case "D":
-                    if (highPort) return null;
-
-                    result.BerthingCost = dice.D(1, 6) * 10;
-                    result.BerthingCostPerDay = 10;
-                    result.UnrefinedFuelCost = 100;
-
-                    result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
-                    result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
-
-                    result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-1"));
-                    result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6"));
-                    return result;
-                case "E":
-                    if (highPort) return null;
-
-                    result.BerthingCost = 0;
-                    result.BerthingCostPerDay = 0;
-
-                    result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-2"));
-                    result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-1"));
-
-                    return result;
-
-                default: return null;
-            }
-        }
-
-        internal abstract void OnManifestsBuilt(ManifestCollection result);
-
         public TradeGoodsList BuildTradeGoodsList(World origin, bool advancedMode, bool illegalGoods, int brokerScore, Dice random, bool raffleGoods)
         {
+            if (origin == null)
+                throw new ArgumentNullException(nameof(origin), $"{nameof(origin)} is null.");
+
+            if (random == null)
+                throw new ArgumentNullException(nameof(random), $"{nameof(random)} is null.");
+
             IReadOnlyList<TradeGood> goods;
             if (!illegalGoods)
-                goods = m_LegalTradeGoods;
+                goods = LegalTradeGoods;
             else
-                goods = m_TradeGoods;
+                goods = TradeGoods;
             var result = new TradeGoodsList();
 
             List<TradeOffer> availableLots = new List<TradeOffer>();
@@ -451,65 +328,123 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         public abstract FreightList Freight(World origin, World destination, Dice random);
 
+        //TODO: What was this for?
+        //public string PassengerQuirk(Dice random, ref bool isPatron)
+        //{
+        //    int roll1 = random.D66();
+
+        //    switch (roll1)
+        //    {
+        //        case 11: return "Loyal";
+        //        case 12: return "Distracted by other worries";
+        //        case 13: return "In debt to criminals";
+        //        case 14: return "Makes very bad jokes";
+        //        case 15: return "Will betray characters";
+        //        case 16: return "Aggressive";
+
+        //        case 21: return "Has secret allies";
+        //        case 22: return "Secret anagathic user";
+        //        case 23: return "Looking for something";
+        //        case 24: return "Helpful";
+        //        case 25: return "Forgetful";
+        //        case 26:
+        //            isPatron = true;
+        //            return "Wants to hire the characters";
+
+        //        case 31: return "Has useful contacts";
+        //        case 32: return "Artistic";
+        //        case 33: return "Easily confused";
+        //        case 34: return "Unusually ugly";
+        //        case 35: return "Worried about current situation";
+        //        case 36: return "Shows pictures of children";
+
+        //        case 41: return "Rumor-monger";
+        //        case 42: return "Unusually provincial";
+        //        case 43: return "Drunkard or drug addict";
+        //        case 44: return "Government informant";
+        //        case 45: return "Mistakes a PC for someone else";
+        //        case 46: return "Possess unusually advanced technology";
+
+        //        case 51: return "Unusually handsome or beautiful";
+        //        case 52: return "Spying on the characters";
+        //        case 53: return "Possesses a TAS membership";
+        //        case 54: return "Is secretly hostile to characters";
+        //        case 55: return "Wants to borrow money";
+        //        case 56: return "Is convinced the PCs are dangerous";
+
+        //        case 61: return "Involved in political intrigue";
+        //        case 62: return "Has a dangerous secret";
+        //        case 63: return "Wants to get off-planet as soon as possible";
+        //        case 64: return "Attracted to a player character";
+        //        case 65: return "From offworld";
+        //        case 66: return "Possesses telepathy or other usual ability";
+        //    }
+        //    return null;
+        //}
 
         public abstract Task<PassengerList> PassengersAsync(World origin, World destination, Dice random, bool advancedCharacters);
 
+        internal abstract void OnManifestsBuilt(ManifestCollection result);
 
-
-
-        public string PassengerQuirk(Dice random, ref bool isPatron)
+        protected async Task<Passenger> PassengerDetailAsync(Dice random, string travelType, bool advancedCharacters)
         {
-            int roll1 = random.D66();
+            var user = await m_NameService.CreateRandomPersonAsync(random);
 
-            switch (roll1)
+            bool isPatron = false;
+
+            var result = new Passenger()
             {
-                case 11: return "Loyal";
-                case 12: return "Distracted by other worries";
-                case 13: return "In debt to criminals";
-                case 14: return "Makes very bad jokes";
-                case 15: return "Will betray characters";
-                case 16: return "Aggressive";
+                TravelType = travelType,
+                Name = $"{user.FirstName} {user.LastName}",
+                Gender = user.Gender,
+                ApparentAge = 12 + random.D(1, 60),
+            };
+            Passenger.AddPassengerType(result, random);
 
-                case 21: return "Has secret allies";
-                case 22: return "Secret anagathic user";
-                case 23: return "Looking for something";
-                case 24: return "Helpful";
-                case 25: return "Forgetful";
-                case 26:
-                    isPatron = true;
-                    return "Wants to hire the characters";
+            SimpleCharacterEngine.AddTrait(result, random);
 
-                case 31: return "Has useful contacts";
-                case 32: return "Artistic";
-                case 33: return "Easily confused";
-                case 34: return "Unusually ugly";
-                case 35: return "Worried about current situation";
-                case 36: return "Shows pictures of children";
+            if (!advancedCharacters)
+            {
+                SimpleCharacterEngine.AddCharacteristics(result, random);
 
-                case 41: return "Rumor-monger";
-                case 42: return "Unusually provincial";
-                case 43: return "Drunkard or drug addict";
-                case 44: return "Government informant";
-                case 45: return "Mistakes a PC for someone else";
-                case 46: return "Possess unusually advanced technology";
-
-                case 51: return "Unusually handsome or beautiful";
-                case 52: return "Spying on the characters";
-                case 53: return "Possesses a TAS membership";
-                case 54: return "Is secretly hostile to characters";
-                case 55: return "Wants to borrow money";
-                case 56: return "Is convinced the PCs are dangerous";
-
-                case 61: return "Involved in political intrigue";
-                case 62: return "Has a dangerous secret";
-                case 63: return "Wants to get off-planet as soon as possible";
-                case 64: return "Attracted to a player character";
-                case 65: return "From offworld";
-                case 66: return "Possesses telepathy or other usual ability";
+                //Add personality
+                int personalityTraits = random.D(3);
+                for (var i = 0; i < personalityTraits; i++)
+                    result.Personality.Add(random.Choose(m_Personalities));
             }
-            return null;
+            else
+            {
+                result.Seed = random.Next();
+                var options = new CharacterBuilderOptions() { MaxAge = result.ApparentAge, Name = result.Name, Seed = result.Seed };
+                var character = m_CharacterBuilder.Build(options);
+
+                result.Strength += character.Strength;
+                result.Dexterity += character.Dexterity;
+                result.Endurance += character.Endurance;
+                result.Intellect += character.Intellect;
+                result.Education += character.Education;
+                result.Social += character.SocialStanding;
+
+                result.Skills = string.Join(", ", character.Skills.Where(s => s.Level > 0).Select(s => s.ToString()).OrderBy(s => s));
+
+                result.Title = character.Title;
+                result.Personality.AddRange(character.Personality);
+            }
+
+
+            if (isPatron)
+            {
+                //TODO: add support for patron features
+            }
+
+            return result;
         }
 
+        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#")]
+        protected abstract decimal PurchasePriceModifier(Dice random, int purchaseBonus, int brokerScore, out int roll);
+
+        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#")]
+        protected abstract decimal SalePriceModifier(Dice random, int saleBonus, int brokerScore, out int roll);
 
         private void AddTradeGood(World origin, Dice random, IList<TradeOffer> result, TradeGood good, bool advancedMode, int brokerScore)
         {
@@ -598,63 +533,115 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return result;
         }
 
-
-
-        protected async Task<Passenger> PassengerDetailAsync(Dice random, string travelType, bool advancedCharacters)
+        static StarportDetails CalculateStarportDetails(World origin, Dice dice, bool highPort)
         {
-            var user = await m_NameService.CreateRandomPersonAsync(random);
-
-            bool isPatron = false;
-
-            var result = new Passenger()
+            var result = new StarportDetails();
+            switch (origin.StarportCode.ToString())
             {
-                TravelType = travelType,
-                Name = $"{user.FirstName} {user.LastName}",
-                Gender = user.Gender,
-                ApparentAge = 12 + random.D(1, 60),
-            };
-            Passenger.AddPassengerType(result, random);
+                case "A":
+                    result.BerthingCost = dice.D(1, 6) * 1000;
+                    result.BerthingCostPerDay = 500;
+                    result.RefinedFuelCost = 500;
+                    result.UnrefinedFuelCost = 100;
 
-            SimpleCharacterEngine.AddTrait(result, random);
+                    if (highPort)
+                    {
+                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
+                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
+                        result.BerthingWaitTimeCapital = WaitTime(dice, dice.D("1D6-4"));
 
-            if (!advancedCharacters)
-            {
-                SimpleCharacterEngine.AddCharacteristics(result, random);
+                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
+                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
+                        result.FuelWaitTimeCapital = WaitTime(dice, dice.D("1D6-3"));
+                    }
+                    else
+                    {
+                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
+                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-5"));
 
-                //Add personality
-                int personalityTraits = random.D(3);
-                for (var i = 0; i < personalityTraits; i++)
-                    result.Personality.Add(random.Choose(m_Personalities));
+                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
+                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
+                    }
+                    return result;
+                case "B":
+                    result.BerthingCost = dice.D(1, 6) * 500;
+                    result.BerthingCostPerDay = 200;
+                    result.RefinedFuelCost = 500;
+                    result.UnrefinedFuelCost = 100;
+
+                    if (highPort)
+                    {
+                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
+                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
+                        result.BerthingWaitTimeCapital = WaitTime(dice, dice.D("1D6-3"));
+
+                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+                        result.FuelWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
+                    }
+                    else
+                    {
+                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-4"));
+                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-3"));
+
+                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+                    }
+                    return result;
+                case "C":
+                    result.BerthingCost = dice.D(1, 6) * 100;
+                    result.BerthingCostPerDay = 100;
+                    result.RefinedFuelCost = 500;
+                    result.UnrefinedFuelCost = 100;
+
+                    if (highPort)
+                    {
+                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+                        result.BerthingWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
+
+                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+                        result.FuelWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
+                    }
+                    else
+                    {
+                        result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+
+                        result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+                    }
+                    return result;
+                case "D":
+                    if (highPort) return null;
+
+                    result.BerthingCost = dice.D(1, 6) * 10;
+                    result.BerthingCostPerDay = 10;
+                    result.UnrefinedFuelCost = 100;
+
+                    result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                    result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+
+                    result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-1"));
+                    result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6"));
+                    return result;
+                case "E":
+                    if (highPort) return null;
+
+                    result.BerthingCost = 0;
+                    result.BerthingCostPerDay = 0;
+
+                    result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-2"));
+                    result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-1"));
+
+                    return result;
+
+                default: return null;
             }
-            else
-            {
-                result.Seed = random.Next();
-                var options = new CharacterBuilderOptions() { MaxAge = result.ApparentAge, Name = result.Name, Seed = result.Seed };
-                var character = m_CharacterBuilder.Build(options);
-
-                result.Strength += character.Strength;
-                result.Dexterity += character.Dexterity;
-                result.Endurance += character.Endurance;
-                result.Intellect += character.Intellect;
-                result.Education += character.Education;
-                result.Social += character.SocialStanding;
-
-                result.Skills = string.Join(", ", character.Skills.Where(s => s.Level > 0).Select(s => s.ToString()).OrderBy(s => s));
-
-                result.Title = character.Title;
-                result.Personality.AddRange(character.Personality);
-            }
-
-
-            if (isPatron)
-            {
-                //TODO: add support for patron features
-            }
-
-            return result;
         }
 
-        int PurchaseDM(World world, TradeGood good)
+        static int PurchaseDM(World world, TradeGood good)
         {
             int purchase = int.MinValue;
             int sale = int.MinValue;
@@ -675,17 +662,30 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return purchase - sale;
         }
 
-        protected abstract decimal PurchasePriceModifier(Dice random, int purchaseBonus, int brokerScore, out int roll);
-
-
-
-        int SaleDM(World world, TradeGood good)
+        static int SaleDM(World world, TradeGood good)
         {
             return -PurchaseDM(world, good);
         }
 
-        protected abstract decimal SalePriceModifier(Dice random, int saleBonus, int brokerScore, out int roll);
+        static string WaitTime(Dice dice, int roll)
+        {
+            if (roll < 0)
+                roll = 0;
 
+            switch (roll)
+            {
+                case 0: return "No wait";
+                case 1: return $"{dice.D(6)} minutes";
+                case 2: return $"{dice.D(6) * 10} minutes";
+                case 3: return $"1 hour";
+                case 4: return $"{dice.D(6) } hours";
+                case 5: return $"{dice.D(2, 6) } hours";
+                case 6: return $"1 day";
+                default: return $"{dice.D(6) } days";
+            }
+        }
+
+        public abstract World GenerateRandomWorld();
     }
 
 

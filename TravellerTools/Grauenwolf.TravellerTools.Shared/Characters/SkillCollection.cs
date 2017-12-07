@@ -48,6 +48,9 @@ namespace Grauenwolf.TravellerTools.Characters
 
         public void Increase(SkillTemplate skill, int levels = 1)
         {
+            if (skill == null)
+                throw new ArgumentNullException(nameof(skill), $"{nameof(skill)} is null.");
+
             Increase(skill.Name, skill.Specialty, levels);
         }
 
@@ -82,6 +85,9 @@ namespace Grauenwolf.TravellerTools.Characters
 
         public void Add(SkillTemplate skill, int minLevel = 0)
         {
+            if (skill == null)
+                throw new ArgumentNullException(nameof(skill), $"{nameof(skill)} is null.");
+
             Add(skill.Name, skill.Specialty, minLevel);
         }
 
@@ -102,6 +108,9 @@ namespace Grauenwolf.TravellerTools.Characters
         }
         public int BestSkillLevel(params string[] skillNames)
         {
+            if (skillNames == null || skillNames.Length == 0)
+                throw new ArgumentException($"{nameof(skillNames)} is null or empty.", nameof(skillNames));
+
             var bestScore = -3; //unskilled penalty
             foreach (var skill in this)
             {
@@ -132,6 +141,9 @@ namespace Grauenwolf.TravellerTools.Characters
 
         public void AddRange(List<SkillTemplate> skillList, int minLevel = 0)
         {
+            if (skillList == null)
+                throw new ArgumentNullException(nameof(skillList));
+
             foreach (var skill in skillList)
                 Add(skill, minLevel);
         }

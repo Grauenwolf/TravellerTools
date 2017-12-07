@@ -42,11 +42,24 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
 
 
         [Route("QuickTradeInfo")]
-        public async Task<ActionResult> TradeInfo(string originUwp, string destinationUwp, int jumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT, int? seed = null, bool advancedCharacters = false, int streetwiseScore = 0, bool raffleGoods = false, string milieu = "M1105")
+        public async Task<ActionResult> TradeInfo(string originUwp, string destinationUwp, int jumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT2, int? seed = null, bool advancedCharacters = false, int streetwiseScore = 0, bool raffleGoods = false, string milieu = "M1105")
         {
             var tradeEngine = Global.GetTradeEngine(milieu, edition);
 
             ManifestCollection model = await tradeEngine.BuildManifestsAsync(originUwp, destinationUwp, jumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore, raffleGoods, milieu);
+
+            return View(model);
+        }
+
+        [Route("RandomWorld")]
+        public async Task<ActionResult> TradeInfo(bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT2, int? seed = null, bool advancedCharacters = false, int streetwiseScore = 0, bool raffleGoods = false, string milieu = "M1105")
+        {
+            var tradeEngine = Global.GetTradeEngine(milieu, edition);
+
+            var world = tradeEngine.GenerateRandomWorld();
+
+            ManifestCollection model = await tradeEngine.BuildManifestsAsync(world.UWP, null, 1, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore, raffleGoods, milieu);
+
 
             return View(model);
         }

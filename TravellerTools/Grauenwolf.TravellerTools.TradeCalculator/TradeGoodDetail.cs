@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
     /// <remarks/>
-    [Serializable()]
+    //[Serializable()]
     [DesignerCategory("code")]
     [XmlType(AnonymousType = true)]
     public class TradeGoodDetail

@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using Tortuga.Anchor.Collections;
 
@@ -28,6 +28,9 @@ namespace Grauenwolf.TravellerTools.Characters
 
         public void AddRange(string name, IEnumerable<string> specialties)
         {
+            if (specialties == null)
+                throw new System.ArgumentNullException(nameof(specialties));
+
             foreach (var specialty in specialties)
                 Add(name, specialty);
         }
@@ -49,6 +52,9 @@ namespace Grauenwolf.TravellerTools.Characters
 
         public void AddRange(IEnumerable<string> skills)
         {
+            if (skills == null)
+                throw new ArgumentNullException(nameof(skills), $"{nameof(skills)} is null.");
+
             foreach (var skill in skills)
                 Add(skill);
         }

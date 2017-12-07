@@ -19,14 +19,14 @@ namespace Grauenwolf.TravellerTools.Characters
         public EHex Education { get; set; }
         public EHex Social { get; set; }
 
-        public int StrengthDM { get { return DMCalc(Strength); } }
-        public int DexterityDM { get { return DMCalc(Dexterity); } }
-        public int EnduranceDM { get { return DMCalc(Endurance); } }
-        public int IntellectDM { get { return DMCalc(Intellect); } }
-        public int EducationDM { get { return DMCalc(Education); } }
-        public int SocialDM { get { return DMCalc(Social); } }
+        public int StrengthDM => DMCalc(Strength);
+        public int DexterityDM => DMCalc(Dexterity);
+        public int EnduranceDM => DMCalc(Endurance);
+        public int IntellectDM => DMCalc(Intellect);
+        public int EducationDM => DMCalc(Education);
+        public int SocialDM => DMCalc(Social);
 
-        int DMCalc(EHex characteristic)
+        static int DMCalc(EHex characteristic)
         {
             var value = characteristic.Value;
             if (value == 0)

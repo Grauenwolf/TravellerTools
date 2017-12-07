@@ -69,6 +69,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
 
         public World() { }
+
         public World(string uwp, string name, int jumpDistance)
         {
             uwp = uwp.Trim();

@@ -54,12 +54,14 @@ namespace Grauenwolf.TravellerTools
                 case 'X': return 31;
                 case 'Y': return 32;
                 case 'Z': return 33;
-                default: throw new ArgumentOutOfRangeException();
+                default: throw new ArgumentOutOfRangeException(nameof(value));
             }
         }
 
         public EHex(string value)
         {
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
 
             if (int.TryParse(value, out m_Value))
                 return;
@@ -72,10 +74,7 @@ namespace Grauenwolf.TravellerTools
 
         public EHex(int value)
         {
-            //if (value >= 0 && value <= 33)
             m_Value = value;
-            //else
-            //	throw new ArgumentOutOfRangeException("value", value, "value must be less than 33");
         }
 
         public string FlexString => m_Value <= 9 ? ToString() : m_Value + "/" + ToString();
@@ -220,6 +219,28 @@ namespace Grauenwolf.TravellerTools
         public static bool operator >=(EHex left, int right)
         {
             return left.Value >= right;
+        }
+
+
+
+        public static bool operator <(int left, EHex right)
+        {
+            return left < right.Value;
+        }
+
+        public static bool operator >(int left, EHex right)
+        {
+            return left > right.Value;
+        }
+
+        public static bool operator <(EHex left, int right)
+        {
+            return left.Value < right;
+        }
+
+        public static bool operator >(EHex left, int right)
+        {
+            return left.Value > right;
         }
     }
 }

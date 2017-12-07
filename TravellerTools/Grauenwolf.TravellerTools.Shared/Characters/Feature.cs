@@ -10,7 +10,7 @@ namespace Grauenwolf.TravellerTools.Characters
             Text = text;
         }
 
-        public string Text { get { return Get<string>(); } set { Set(value); } }
+        public string Text { get => Get<string>(); set => Set(value); }
 
 
     }

@@ -10,17 +10,12 @@ namespace Grauenwolf.TravellerTools
             return list.Single(x => x.IsMatch(roll));
         }
 
-        //public static IEnumerable<T> Where<T>(this IEnumerable<T> list, int roll) where T : ITablePick
-        //{
-        //    return list.Where(x => x.IsMatch(roll));
-        //}
-
-        public static int Limit(this int value, int MinValue, int MaxValue)
+        public static int Limit(this int value, int minValue, int maxValue)
         {
-            if (value < MinValue)
-                return MinValue;
-            if (value > MaxValue)
-                return MaxValue;
+            if (value < minValue)
+                return minValue;
+            if (value > maxValue)
+                return maxValue;
             return value;
         }
 

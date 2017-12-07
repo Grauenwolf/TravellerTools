@@ -1,4 +1,5 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
+using System;
 using System.Collections.Generic;
 
 namespace Grauenwolf.TravellerTools.TradeCalculator
@@ -6,16 +7,18 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
     public class Passenger : Person
     {
         public string PassengerType { get; set; }
-        public string TravelType { get; set; }
-        public int? Seed { get; set; }
-        public string Skills { get; set; }
-
         public List<string> Personality { get; } = new List<string>();
         public string PersonalityList => string.Join(", ", Personality);
-
-
+        public int? Seed { get; set; }
+        public string Skills { get; set; }
+        public string TravelType { get; set; }
         public static void AddPassengerType(Passenger passenger, Dice random)
         {
+            if (passenger == null)
+                throw new ArgumentNullException(nameof(passenger));
+            if (random == null)
+                throw new ArgumentNullException(nameof(random), $"{nameof(random)} is null.");
+
             int roll1 = random.D66();
             int roll2 = random.D(6);
             int roll3 = random.D(6);

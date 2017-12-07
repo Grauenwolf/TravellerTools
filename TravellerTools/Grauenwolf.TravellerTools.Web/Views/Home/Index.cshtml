@@ -25,15 +25,22 @@
                 <select id="world" onchange="WorldChanged($('#originUwp')[0], $('#destinationUwp')[0], $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"></select>
             </td>
         </tr>
-        <tr><td colspan="8" >Choose a world above or enter the UWP for the origin and destination.</td></tr>
+        <tr><td colspan="8">Choose a world above or enter the UWP for the origin and destination.</td></tr>
         <tr>
             <th>Origin UWP</th>
-            <td><input type="text" id="originUwp" onkeypress="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"/> </td>
+            <td><input type="text" id="originUwp" onkeypress="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])" /> </td>
             <th>Destination UWP</th>
-            <td><input type="text" id="destinationUwp" onkeypress="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"/> </td>
+            <td><input type="text" id="destinationUwp" onkeypress="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])" /> </td>
             <th>Distance between Origin and Destination</th>
-            <td colspan="3"><input type="number" value="1" id="jumpDistance" onkeypress="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])"/> </td>
+            <td colspan="3"><input type="number" value="1" id="jumpDistance" onkeypress="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])" /> </td>
         </tr>
+
+        <tr>
+            <th>Random World</th>
+            <td> <input id="showTradeScreen" type="button" value="Generate World" onclick="GenerateRandomWorld(readChecked('advancedMode'), readChecked('illegalGoods'), readValue('maxJumpDistance'), readValue('broker'), readChecked('mongoose2'), readChecked('advancedCharacters'), readValue('streetwise'), readChecked('raffle'), readValue('milieu'))" /></td>
+        </tr>
+
+
     </table>
 
     <h2>Character</h2>
@@ -63,7 +70,7 @@
             <td>
                 <label> <input type="checkbox" id="advancedMode" /> Advanced Mode</label>
             </td>
-            <td style="max-width:200px" >
+            <td style="max-width:200px">
                 <label> <input type="checkbox" id="raffle" /> Raffle</label><br />
                 Lowers the odds of finding rare goods. Adjusts the amount of goods available based on population.
             </td>
@@ -250,5 +257,5 @@
 
 
 @section Scripts {
-    @Scripts.Render("~/Scripts/Home/Index.js")
+    @Scripts.Render("~/Scripts/Home/Index.js?1")
 }

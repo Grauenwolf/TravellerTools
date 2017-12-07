@@ -1,5 +1,8 @@
-﻿namespace Grauenwolf.TravellerTools
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace Grauenwolf.TravellerTools
 {
+    [SuppressMessage("Microsoft.Design", "CA1008:EnumsShouldHaveZeroValue")]
     public enum Edition
     {
         Classic = 1997,
@@ -16,10 +19,13 @@
 
         CT = 1997,
         MT = 1986,
+        [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "TNE")]
         TNE = 1992,
         GT = 1998,
         TH = 2007,
+        [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "MGT")]
         MGT = 2008,
+        [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "MGT")]
         MGT2 = 2016
 
     }

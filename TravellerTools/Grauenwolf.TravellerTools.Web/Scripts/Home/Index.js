@@ -63,12 +63,20 @@ function GenerateTradeInfo(sectorCoordinates, worldCoordinates, advancedMode, il
     var ac = advancedCharacters ? "true" : "false";
     var r = raffle ? "true" : "false";
     var edition = mongoose2 ? 2016 : 2008;
-    if (originUwp != null && originUwp.length > 0 && distinationUwp != null && distinationUwp.length > 0) {
+    if (originUwp != null && originUwp.length > 0) {
         window.location.href = "/Home/QuickTradeInfo?originUwp=" + originUwp + "&destinationUwp=" + distinationUwp + "&jumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle + "&milieu=" + milieu;
     }
     else {
         window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + maxJumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle + "&milieu=" + milieu;
     }
+}
+function GenerateRandomWorld(advancedMode, illegalGoods, maxJumpDistance, brokerScore, mongoose2, advancedCharacters, streetwiseScore, raffle, milieu) {
+    var am = advancedMode ? "true" : "false";
+    var ig = illegalGoods ? "true" : "false";
+    var ac = advancedCharacters ? "true" : "false";
+    var r = raffle ? "true" : "false";
+    var edition = mongoose2 ? 2016 : 2008;
+    window.location.href = "/Home/RandomWorld?brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle + "&milieu=" + milieu;
 }
 function GenerateAnimals(terrain, animalType) {
     window.location.href = "/Home/Animals?terrainType=" + encodeURIComponent(terrain) + "&animalType=" + encodeURIComponent(animalType);
