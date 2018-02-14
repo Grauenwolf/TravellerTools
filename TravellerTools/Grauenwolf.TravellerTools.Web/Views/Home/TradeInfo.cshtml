@@ -66,138 +66,138 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
 
 @if (hasDownport || hasHighport)
 {
-<h3>Starport Info</h3>
-<div style="display: inline-block; vertical-align: top">
-    <table class="gridtable">
-        <tr>
-            <th colspan="2">&nbsp;</th>
-            @if (hasDownport)
-            {
-                <th>Downport</th>
-            }
-            @if (hasHighport)
-            {
-                <th>Highport</th>
-            }
-        </tr>
-        <tr>
-            <th colspan="2">Berthing Cost</th>
-            @if (hasDownport)
-            {
-                <td>@(downport.BerthingCost.ToString("N0"))</td>
-            }
-            @if (hasHighport)
-            {
-                <td>@(highport.BerthingCost.ToString("N0"))</td>
-            }
-        </tr>
-        <tr>
-            <th colspan="2">...per day</th>
-            @if (hasDownport)
-            {
-                <td>@(downport.BerthingCostPerDay.ToString("N0"))</td>
-            }
-            @if (hasHighport)
-            {
-                <td>@(highport.BerthingCostPerDay.ToString("N0"))</td>
-            }
-        </tr>
-        <tr>
-            <th rowspan="3">Berthing Wait Time</th>
-            <th>Small Craft</th>
-            @if (hasDownport)
-            {
-                <td>@(downport.BerthingWaitTimeSmall)</td>
-            }
-            @if (hasHighport)
-            {
-                <td>@(highport.BerthingWaitTimeSmall)</td>
-            }
-        </tr>
-        <tr>
-            <th>Starcraft</th>
-            @if (hasDownport)
-            {
-                <td>@(downport.BerthingWaitTimeStar)</td>
-            }
-            @if (hasHighport)
-            {
-                <td>@(highport.BerthingWaitTimeStar)</td>
-            }
-        </tr>
-        <tr>
-            <th>Capital</th>
-            @if (hasDownport)
-            {
-                <td>@(downport.BerthingWaitTimeCapital)</td>
-            }
-            @if (hasHighport)
-            {
-                <td>@(highport.BerthingWaitTimeCapital)</td>
-            }
-        </tr>
+    <h3>Starport Info</h3>
+    <div style="display: inline-block; vertical-align: top">
+        <table class="gridtable">
+            <tr>
+                <th colspan="2">&nbsp;</th>
+                @if (hasDownport)
+                {
+                    <th>Downport</th>
+                }
+                @if (hasHighport)
+                {
+                    <th>Highport</th>
+                }
+            </tr>
+            <tr>
+                <th colspan="2">Berthing Cost</th>
+                @if (hasDownport)
+                {
+                    <td>@(downport.BerthingCost.ToString("N0"))</td>
+                }
+                @if (hasHighport)
+                {
+                    <td>@(highport.BerthingCost.ToString("N0"))</td>
+                }
+            </tr>
+            <tr>
+                <th colspan="2">...per day</th>
+                @if (hasDownport)
+                {
+                    <td>@(downport.BerthingCostPerDay.ToString("N0"))</td>
+                }
+                @if (hasHighport)
+                {
+                    <td>@(highport.BerthingCostPerDay.ToString("N0"))</td>
+                }
+            </tr>
+            <tr>
+                <th rowspan="3">Berthing Wait Time</th>
+                <th>Small Craft</th>
+                @if (hasDownport)
+                {
+                    <td>@(downport.BerthingWaitTimeSmall)</td>
+                }
+                @if (hasHighport)
+                {
+                    <td>@(highport.BerthingWaitTimeSmall)</td>
+                }
+            </tr>
+            <tr>
+                <th>Starcraft</th>
+                @if (hasDownport)
+                {
+                    <td>@(downport.BerthingWaitTimeStar)</td>
+                }
+                @if (hasHighport)
+                {
+                    <td>@(highport.BerthingWaitTimeStar)</td>
+                }
+            </tr>
+            <tr>
+                <th>Capital</th>
+                @if (hasDownport)
+                {
+                    <td>@(downport.BerthingWaitTimeCapital)</td>
+                }
+                @if (hasHighport)
+                {
+                    <td>@(highport.BerthingWaitTimeCapital)</td>
+                }
+            </tr>
 
 
-        <tr>
-            <th colspan="2">Refined Fuel Cost</th>
-            @if (hasDownport)
-            {
-                <td>@(downport.RefinedFuelCost)</td>
-            }
-            @if (hasHighport)
-            {
-                <td>@(highport.RefinedFuelCost)</td>
-            }
-        </tr>
-        <tr>
-            <th colspan="2">Unrefined Fuel Cost</th>
-            @if (hasDownport)
-            {
-                <td>@(downport.UnrefinedFuelCost)</td>
-            }
-            @if (hasHighport)
-            {
-                <td>@(highport.UnrefinedFuelCost)</td>
-            }
-        </tr>
-        <tr>
-            <th rowspan="3">Fuel Wait Time</th>
-            <th>Small Craft</th>
-            @if (hasDownport)
-            {
-                <td>@(downport.FuelWaitTimeSmall)</td>
-            }
-            @if (hasHighport)
-            {
-                <td>@(highport.FuelWaitTimeSmall)</td>
-            }
-        </tr>
-        <tr>
-            <th>Starcraft</th>
-            @if (hasDownport)
-            {
-                <td>@(downport.FuelWaitTimeStar)</td>
-            }
-            @if (hasHighport)
-            {
-                <td>@(highport.FuelWaitTimeStar)</td>
-            }
-        </tr>
-        <tr>
-            <th>Capital</th>
-            @if (hasDownport)
-            {
-                <td>@(downport.FuelWaitTimeCapital)</td>
-            }
-            @if (hasHighport)
-            {
-                <td>@(highport.FuelWaitTimeCapital)</td>
-            }
-        </tr>
+            <tr>
+                <th colspan="2">Refined Fuel Cost</th>
+                @if (hasDownport)
+                {
+                    <td>@(downport.RefinedFuelCost)</td>
+                }
+                @if (hasHighport)
+                {
+                    <td>@(highport.RefinedFuelCost)</td>
+                }
+            </tr>
+            <tr>
+                <th colspan="2">Unrefined Fuel Cost</th>
+                @if (hasDownport)
+                {
+                    <td>@(downport.UnrefinedFuelCost)</td>
+                }
+                @if (hasHighport)
+                {
+                    <td>@(highport.UnrefinedFuelCost)</td>
+                }
+            </tr>
+            <tr>
+                <th rowspan="3">Fuel Wait Time</th>
+                <th>Small Craft</th>
+                @if (hasDownport)
+                {
+                    <td>@(downport.FuelWaitTimeSmall)</td>
+                }
+                @if (hasHighport)
+                {
+                    <td>@(highport.FuelWaitTimeSmall)</td>
+                }
+            </tr>
+            <tr>
+                <th>Starcraft</th>
+                @if (hasDownport)
+                {
+                    <td>@(downport.FuelWaitTimeStar)</td>
+                }
+                @if (hasHighport)
+                {
+                    <td>@(highport.FuelWaitTimeStar)</td>
+                }
+            </tr>
+            <tr>
+                <th>Capital</th>
+                @if (hasDownport)
+                {
+                    <td>@(downport.FuelWaitTimeCapital)</td>
+                }
+                @if (hasHighport)
+                {
+                    <td>@(highport.FuelWaitTimeCapital)</td>
+                }
+            </tr>
 
 
-    </table>
-</div>
+        </table>
+    </div>
 }
 
 <h3>Travel Info</h3>
@@ -348,81 +348,85 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
             <img src="@String.Format("http://travellermap.com/api/jumpmap?sx={0}&sy={1}&hx={2}&hy={3}&jump={4}&scale=48&style=print", @current.SectorX, @current.SectorY, @current.HexX, @current.HexY, @Model.MaxJumpDistance)" />
         </div>
 
-    if (manifest.PassengerList.Passengers.Count > 0)
-    {
-        <h3>Passengers</h3>
-        <ul id="listofthings">
-            @foreach (var passenger in manifest.PassengerList.Passengers)
-            {
-                <li>
-                    @if (Model.AdvancedCharacters)
-                        {
-                        <h4><a target="_blank" href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}", Url.Encode(passenger.Name), passenger.Seed, passenger.ApparentAge, passenger.ApparentAge)">@passenger.Title @passenger.Name</a></h4>
-                    }
-                    else
-                    {
-                        <h4>@passenger.Name</h4>
-                    }
-                    <div>Age: @passenger.ApparentAge (@passenger.Gender)</div>
-                    <div>UPP: @passenger.Upp</div>
-                    <div>Passage Desired: @passenger.TravelType</div>
-                    @if (@passenger.TravelType == "Low")
-                        {
-                        <div>Endurance DM: @passenger.EnduranceDM</div>}
-                    <div>Notes: @passenger.PassengerType, @passenger.Trait, @passenger.PersonalityList</div>
-                    @if (Model.AdvancedCharacters)
-                        {
-                        <div>@passenger.Skills</div>
-                    }
-                </li>}
-        </ul>
-    }
-
-    if (manifest.FreightList.Lots.Count > 0)
-    {
-        <h3>Freight</h3>
-        <ul id="listofthings">
-            @foreach (var lot in manifest.FreightList.Lots)
-            {
-                <li>
-                    <h4>@lot.Size Tons for @lot.ShippingFee.ToString("N0"). </h4>
-                    <div>Contents: @lot.Contents </div>
-                    <div>Value: @lot.ActualValue.ToString("N0") </div>
-                </li>}
-        </ul>
-    }
-
-    <h3>Trade Preview</h3>
-
-    <table>
-        <tr>
-            <td valign="top">
-                <h4>Readily Available Goods</h4>
-                <table class="gridtable">
-                    <tr><th>Type</th><th>Purchase DM</th></tr>
-                    @foreach (var lot in manifest.Offers)
+        if (manifest.PassengerList.Passengers.Count > 0)
+        {
+            <h3>Passengers</h3>
+            <ul id="listofthings">
+                @foreach (var passenger in manifest.PassengerList.Passengers)
                 {
-                        <tr><td>@lot.Type</td><td>@lot.PurchaseDM</td></tr>
-                    }
-                </table>
+                    <li>
+                        @if (Model.AdvancedCharacters)
+                        {
+                            <h4><a target="_blank" href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}", Url.Encode(passenger.Name), passenger.Seed, passenger.ApparentAge, passenger.ApparentAge)">@passenger.Title @passenger.Name</a></h4>
+                        }
+                        else
+                        {
+                            <h4>@passenger.Name</h4>
+                        }
+                        <div>Age: @passenger.ApparentAge (@passenger.Gender)</div>
+                        <div>UPP: @passenger.Upp</div>
+                        <div>Passage Desired: @passenger.TravelType</div>
+                        @if (@passenger.TravelType == "Low")
+                        {
+                            <div>Endurance DM: @passenger.EnduranceDM</div>}
+                        <div>Notes: @passenger.PassengerType, @passenger.Trait, @passenger.PersonalityList</div>
+                        @if (Model.AdvancedCharacters)
+                        {
+                            <div>@passenger.Skills</div>
+                        }
+                    </li>}
+            </ul>
+        }
 
-            </td>
-            <td> </td>
-            <td valign="top">
-                <h4>Desired Goods</h4>
-                <table class="gridtable">
-                    <tr><th>Type</th><th>Sale DM</th></tr>
-                    @foreach (var lot in manifest.Bids)
+        if (manifest.FreightList.Lots.Count > 0)
+        {
+            <h3>Freight</h3>
+            <table class="gridtable">
+                <tr><th>Tons</th><th>Fee</th><th>Value</th><th>Contents</th></tr>
+
+                @foreach (var lot in manifest.FreightList.Lots)
                 {
-                        <tr><td>@lot.Type</td><td>@lot.SaleDM</td></tr>
-                    }
-                </table>
-            </td>
-        </tr>
-    </table>
+                    <tr>
+                        <td>@lot.Size</td>
+                        <td>@lot.ShippingFee.ToString("N0")</td>
+                        <td>@lot.ActualValue.ToString("N0")</td>
+                        <td>@lot.Contents</td>
+                    </tr>
+                }
+            </table>
+        }
+
+        <h3>Trade Preview</h3>
+
+        <table>
+            <tr>
+                <td valign="top">
+                    <h4>Readily Available Goods</h4>
+                    <table class="gridtable">
+                        <tr><th>Type</th><th>Purchase DM</th></tr>
+                        @foreach (var lot in manifest.Offers)
+                        {
+                            <tr><td>@lot.Type</td><td>@lot.PurchaseDM</td></tr>
+                        }
+                    </table>
+
+                </td>
+                <td> </td>
+                <td valign="top">
+                    <h4>Desired Goods</h4>
+                    <table class="gridtable">
+                        <tr><th>Type</th><th>Sale DM</th></tr>
+                        @foreach (var lot in manifest.Bids)
+                        {
+                            <tr><td>@lot.Type</td><td>@lot.SaleDM</td></tr>
+                        }
+                    </table>
+                </td>
+            </tr>
+        </table>
 
 
 
-}
+    }
 
 
