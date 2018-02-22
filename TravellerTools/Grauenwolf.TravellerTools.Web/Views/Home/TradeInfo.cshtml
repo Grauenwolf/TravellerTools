@@ -81,7 +81,8 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
                 }
             </tr>
             <tr>
-                <th colspan="2">Berthing Cost</th>
+                <th rowspan="2" >Berthing Cost</th>
+                <th>To Dock</th>
                 @if (hasDownport)
                 {
                     <td>@(downport.BerthingCost.ToString("N0"))</td>
@@ -92,7 +93,7 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
                 }
             </tr>
             <tr>
-                <th colspan="2">...per day</th>
+                <th >Per day</th>
                 @if (hasDownport)
                 {
                     <td>@(downport.BerthingCostPerDay.ToString("N0"))</td>
