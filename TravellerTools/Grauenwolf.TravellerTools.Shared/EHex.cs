@@ -54,6 +54,7 @@ namespace Grauenwolf.TravellerTools
                 case 'X': return 31;
                 case 'Y': return 32;
                 case 'Z': return 33;
+                case '?': return 0;
                 default: throw new ArgumentOutOfRangeException(nameof(value));
             }
         }
