@@ -61,9 +61,12 @@
     <Compile Include="Characters\Feature.cs" />
     <Compile Include="Characters\FeatureCollection.cs" />
     <Compile Include="Characters\Person.cs" />
+    <Compile Include="Characters\PsionicSkillTemplate.cs" />
+    <Compile Include="Characters\PsionicSkillTemplateCollection.cs" />
     <Compile Include="Characters\Skill.cs" />
     <Compile Include="Characters\SkillCollection.cs" />
     <Compile Include="Characters\SkillTemplateCollection.cs" />
+    <Compile Include="Characters\SkillTemplateCollection`1.cs" />
     <Compile Include="Characters\Weapon.cs" />
     <Compile Include="Characters\WeaponCollection.cs" />
     <Compile Include="Dice.cs" />

@@ -52,6 +52,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Book.cs" />
+    <Compile Include="Careers\Psion.PsiWarrrior.cs" />
+    <Compile Include="Careers\Psion.Adept.cs" />
+    <Compile Include="Careers\Psion.WildTalent.cs" />
+    <Compile Include="Careers\Psion.cs" />
     <Compile Include="Careers\Scout.Explorer.cs" />
     <Compile Include="Careers\Scout.Surveyor.cs" />
     <Compile Include="Careers\Scout.Courier.cs" />

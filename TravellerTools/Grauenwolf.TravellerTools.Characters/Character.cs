@@ -6,213 +6,208 @@ using Tortuga.Anchor.Modeling;
 
 namespace Grauenwolf.TravellerTools.Characters
 {
-    public class Character : ModelBase
-    {
-        public int Strength { get { return Get<int>(); } set { Set(value); } }
-        public int Dexterity { get { return Get<int>(); } set { Set(value); } }
-        public int Endurance { get { return Get<int>(); } set { Set(value); } }
-        public int Intellect { get { return Get<int>(); } set { Set(value); } }
-        public int Education { get { return Get<int>(); } set { Set(value); } }
-        public int SocialStanding { get { return Get<int>(); } set { Set(value); } }
+	public class Character : ModelBase
+	{
+		public int Strength { get { return Get<int>(); } set { Set(value); } }
+		public int Dexterity { get { return Get<int>(); } set { Set(value); } }
+		public int Endurance { get { return Get<int>(); } set { Set(value); } }
+		public int Intellect { get { return Get<int>(); } set { Set(value); } }
+		public int Education { get { return Get<int>(); } set { Set(value); } }
+		public int SocialStanding { get { return Get<int>(); } set { Set(value); } }
+		public int? Psi { get { return Get<int?>(); } set { Set(value); } }
 
+		public int Age { get { return GetDefault<int>(18); } set { Set(value); } }
+		public int CurrentTerm { get { return Get<int>(); } set { Set(value); } }
+		public string Gender { get { return Get<string>(); } set { Set(value); } }
 
-        public int Age { get { return GetDefault<int>(18); } set { Set(value); } }
-        public int CurrentTerm { get { return Get<int>(); } set { Set(value); } }
-        public string Gender { get { return Get<string>(); } set { Set(value); } }
+		[CalculatedField("Psi")]
+		public int PsiDM { get { return Psi == null ? -100 : DMCalc(Psi.Value); } }
 
+		[CalculatedField("Strength")]
+		public int StrengthDM { get { return DMCalc(Strength); } }
 
+		[CalculatedField("Dexterity")]
+		public int DexterityDM { get { return DMCalc(Dexterity); } }
 
+		[CalculatedField("Endurance")]
+		public int EnduranceDM { get { return DMCalc(Endurance); } }
 
-        [CalculatedField("Strength")]
-        public int StrengthDM { get { return DMCalc(Strength); } }
+		[CalculatedField("Intellect")]
+		public int IntellectDM { get { return DMCalc(Intellect); } }
 
-        [CalculatedField("Dexterity")]
-        public int DexterityDM { get { return DMCalc(Dexterity); } }
+		[CalculatedField("Education")]
+		public int EducationDM { get { return DMCalc(Education); } }
 
-        [CalculatedField("Endurance")]
-        public int EnduranceDM { get { return DMCalc(Endurance); } }
+		[CalculatedField("SocialStanding")]
+		public int SocialStandingDM { get { return DMCalc(SocialStanding); } }
 
-        [CalculatedField("Intellect")]
-        public int IntellectDM { get { return DMCalc(Intellect); } }
+		static int DMCalc(int value)
+		{
+			if (value <= 0)
+				return -3;
+			if (value <= 2)
+				return -2;
+			if (value <= 5)
+				return -1;
+			if (value <= 8)
+				return 0;
+			if (value <= 11)
+				return 1;
+			if (value <= 14)
+				return 2;
+			//if (value >= 15)
+			return 3;
+		}
 
-        [CalculatedField("Education")]
-        public int EducationDM { get { return DMCalc(Education); } }
+		public int GetDM(string attributeName)
+		{
+			switch (attributeName)
+			{
+				case "Strength":
+				case "Str":
+					return StrengthDM;
 
-        [CalculatedField("SocialStanding")]
-        public int SocialStandingDM { get { return DMCalc(SocialStanding); } }
+				case "Dexterity":
+				case "Dex":
+					return DexterityDM;
 
+				case "Endurance":
+				case "End":
+					return EnduranceDM;
 
-        static int DMCalc(int value)
-        {
-            if (value <= 0)
-                return -3;
-            if (value <= 2)
-                return -2;
-            if (value <= 5)
-                return -1;
-            if (value <= 8)
-                return 0;
-            if (value <= 11)
-                return 1;
-            if (value <= 14)
-                return 2;
-            //if (value >= 15)
-            return 3;
-        }
+				case "Intellect":
+				case "Int":
+					return IntellectDM;
 
-        public int GetDM(string attributeName)
-        {
-            switch (attributeName)
-            {
-                case "Strength":
-                case "Str":
-                    return StrengthDM;
+				case "Education":
+				case "Edu":
+					return EducationDM;
 
-                case "Dexterity":
-                case "Dex":
-                    return DexterityDM;
+				case "SS":
+				case "Soc":
+				case "SocialStanding":
+					return SocialStandingDM;
 
-                case "Endurance":
-                case "End":
-                    return EnduranceDM;
+				default:
+					throw new ArgumentOutOfRangeException("attributeName", attributeName, "Unknown attribute " + attributeName);
+			}
+		}
 
-                case "Intellect":
-                case "Int":
-                    return IntellectDM;
+		public void Increase(string attributeName, int bonus)
+		{
+			switch (attributeName)
+			{
+				case "Strength":
+				case "Str":
+					Strength += bonus; return;
 
-                case "Education":
-                case "Edu":
-                    return EducationDM;
+				case "Dexterity":
+				case "Dex":
+					Dexterity += bonus; return;
 
-                case "SS":
-                case "Soc":
-                case "SocialStanding":
-                    return SocialStandingDM;
+				case "Endurance":
+				case "End":
+					Endurance += bonus; return;
 
-                default:
-                    throw new ArgumentOutOfRangeException("attributeName", attributeName, "Unknown attribute " + attributeName);
-            }
-        }
+				case "Intellect":
+				case "Int":
+					Intellect += bonus; return;
 
-        public void Increase(string attributeName, int bonus)
-        {
-            switch (attributeName)
-            {
-                case "Strength":
-                case "Str":
-                    Strength += bonus; return;
+				case "Education":
+				case "Edu":
+					Education += bonus; return;
 
-                case "Dexterity":
-                case "Dex":
-                    Dexterity += bonus; return;
+				case "SS":
+				case "SocialStanding":
+					SocialStanding += bonus; return;
 
-                case "Endurance":
-                case "End":
-                    Endurance += bonus; return;
+				//case "Armor": Armor += bonus; return;
 
-                case "Intellect":
-                case "Int":
-                    Intellect += bonus; return;
+				//case "QuirkRolls":
+				//case "Quirks":
+				//    QuirkRolls += bonus; return;
 
-                case "Education":
-                case "Edu":
-                    Education += bonus; return;
+				//case "PhysicalSkills": PhysicalSkills += bonus; return;
+				//case "SocialSkills": SocialSkills += bonus; return;
 
-                case "SS":
-                case "SocialStanding":
-                    SocialStanding += bonus; return;
+				//case "EvolutionSkills": EvolutionSkills += bonus; return;
+				//case "EvolutionDM": EvolutionDM += bonus; return;
+				//case "EvolutionRolls": EvolutionRolls += bonus; return;
+				//case "InitiativeDM": InitiativeDM += bonus; return;
 
-                //case "Armor": Armor += bonus; return;
+				default:
+					throw new ArgumentOutOfRangeException("attributeName", attributeName, "Unknown attribute " + attributeName);
+			}
+		}
 
-                //case "QuirkRolls":
-                //case "Quirks":
-                //    QuirkRolls += bonus; return;
+		public SkillCollection Skills { get { return GetNew<SkillCollection>(); } }
 
-                //case "PhysicalSkills": PhysicalSkills += bonus; return;
-                //case "SocialSkills": SocialSkills += bonus; return;
+		public WeaponCollection Weapons { get { return GetNew<WeaponCollection>(); } }
 
-                //case "EvolutionSkills": EvolutionSkills += bonus; return;
-                //case "EvolutionDM": EvolutionDM += bonus; return;
-                //case "EvolutionRolls": EvolutionRolls += bonus; return;
-                //case "InitiativeDM": InitiativeDM += bonus; return;
+		//public FeatureCollection Features { get { return GetNew<FeatureCollection>(); } }
 
-                default:
-                    throw new ArgumentOutOfRangeException("attributeName", attributeName, "Unknown attribute " + attributeName);
-            }
-        }
+		public void AddHistory(string text)
+		{
+			History.Add(new History(CurrentTerm, text));
+		}
 
-        public SkillCollection Skills { get { return GetNew<SkillCollection>(); } }
+		public HistoryCollection History { get { return GetNew<HistoryCollection>(); } }
 
-        public WeaponCollection Weapons { get { return GetNew<WeaponCollection>(); } }
+		public ObservableCollectionExtended<string> Trace { get; } = new ObservableCollectionExtended<string>();
 
-        //public FeatureCollection Features { get { return GetNew<FeatureCollection>(); } }
+		public string Name { get { return Get<string>(); } set { Set(value); } }
 
-        public void AddHistory(string text)
-        {
-            History.Add(new History(CurrentTerm, text));
-        }
+		internal NextTermBenefits CurrentTermBenefits { get; set; }
 
-        public HistoryCollection History { get { return GetNew<HistoryCollection>(); } }
+		internal NextTermBenefits NextTermBenefits { get; set; }
 
-        public ObservableCollectionExtended<string> Trace { get; } = new ObservableCollectionExtended<string>();
+		internal LongTermBenefits LongTermBenefits { get { return GetNew<LongTermBenefits>(); } }
 
-        public string Name { get { return Get<string>(); } set { Set(value); } }
+		internal List<int> BenefitRollDMs { get; } = new List<int>();
+		public int BenefitRolls { get; set; }
 
-        internal NextTermBenefits CurrentTermBenefits { get; set; }
+		public ObservableCollectionExtended<CareerHistory> CareerHistory { get; } = new ObservableCollectionExtended<CareerHistory>();
 
-        internal NextTermBenefits NextTermBenefits { get; set; }
+		public ObservableCollectionExtended<string> Personality { get; } = new ObservableCollectionExtended<string>();
 
-        internal LongTermBenefits LongTermBenefits { get { return GetNew<LongTermBenefits>(); } }
+		[CalculatedField("Personality")]
+		public string PersonalityList => string.Join(", ", Personality);
 
-        internal List<int> BenefitRollDMs { get; } = new List<int>();
-        public int BenefitRolls { get; set; }
+		public EducationHistory EducationHistory;
 
-        public ObservableCollectionExtended<CareerHistory> CareerHistory { get; } = new ObservableCollectionExtended<CareerHistory>();
+		public CareerHistory LastCareer { get; set; }
+		public string Title { get; set; }
+		public int? Parole { get; set; }
+		public bool IsDead { get; set; }
+		public int Debt { get; set; }
 
-        public ObservableCollectionExtended<string> Personality { get; } = new ObservableCollectionExtended<string>();
+		/// <summary>
+		/// Gets or sets the seed used to randomly create the character.
+		/// </summary>
+		/// <value>The seed.</value>
+		public int Seed { get; set; }
 
+		public string FirstCareer { get; set; }
 
-        [CalculatedField("Personality")]
-        public string PersonalityList => string.Join(", ", Personality);
+		internal int GetEnlistmentBonus(string career, string branch)
+		{
+			var result = NextTermBenefits.QualificationDM + LongTermBenefits.QualificationDM;
 
+			if (NextTermBenefits.EnlistmentDM.ContainsKey(career))
+				result += NextTermBenefits.EnlistmentDM[career];
+			if (LongTermBenefits.EnlistmentDM.ContainsKey(career))
+				result += LongTermBenefits.EnlistmentDM[career];
+			if (branch != null)
+			{
+				if (NextTermBenefits.EnlistmentDM.ContainsKey(branch))
+					result += NextTermBenefits.EnlistmentDM[branch];
+				if (LongTermBenefits.EnlistmentDM.ContainsKey(branch))
+					result += LongTermBenefits.EnlistmentDM[branch];
+			}
 
-        public EducationHistory EducationHistory;
+			return result;
+		}
 
-        public CareerHistory LastCareer { get; set; }
-        public string Title { get; set; }
-        public int? Parole { get; set; }
-        public bool IsDead { get; set; }
-        public int Debt { get; set; }
-
-        /// <summary>
-        /// Gets or sets the seed used to randomly create the character.
-        /// </summary>
-        /// <value>The seed.</value>
-        public int Seed { get; set; }
-        public string FirstCareer { get; set; }
-
-        internal int GetEnlistmentBonus(string career, string branch)
-        {
-            var result = NextTermBenefits.QualificationDM + LongTermBenefits.QualificationDM;
-
-            if (NextTermBenefits.EnlistmentDM.ContainsKey(career))
-                result += NextTermBenefits.EnlistmentDM[career];
-            if (LongTermBenefits.EnlistmentDM.ContainsKey(career))
-                result += LongTermBenefits.EnlistmentDM[career];
-            if (branch != null)
-            {
-                if (NextTermBenefits.EnlistmentDM.ContainsKey(branch))
-                    result += NextTermBenefits.EnlistmentDM[branch];
-                if (LongTermBenefits.EnlistmentDM.ContainsKey(branch))
-                    result += LongTermBenefits.EnlistmentDM[branch];
-            }
-
-            return result;
-        }
-    }
+		public int PreviousPsiAttempts { get; set; }
+	}
 }
-
-
-
-
-

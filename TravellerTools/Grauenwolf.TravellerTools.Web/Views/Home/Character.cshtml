@@ -1,110 +1,120 @@
 ﻿@model Grauenwolf.TravellerTools.Characters.Character
 
 @{
-    ViewBag.Title = "Character";
+	ViewBag.Title = "Character";
 }
 
 <h2>
-    @((Model.Title + " " + Model.Name).TrimStart())
-    @if (Model.IsDead)
-    {
-        <span style="color:red">DECEASED</span>
-    }
-    <a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}&Career={4}", Url.Encode(Model.Name), Model.Seed, Model.Age, Model.Age, Model.FirstCareer)">permalink</a>
+	@((Model.Title + " " + Model.Name).TrimStart())
+	@if (Model.IsDead)
+	{
+		<span style="color:red">DECEASED</span>
+	}
+	<a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}&Career={4}", Url.Encode(Model.Name), Model.Seed, Model.Age, Model.Age, Model.FirstCareer)">permalink</a>
 </h2>
 
 <table class="gridtable">
 
-    <tr>
-        <th width="50" style="text-align:center;">Age</th>
-        <th width="50" style="text-align:center;">Sex</th>
-        <th width="50" style="text-align:center;">Str</th>
-        <th width="50" style="text-align:center;">Dex</th>
-        <th width="50" style="text-align:center;">End</th>
-        <th width="50" style="text-align:center;">Int</th>
-        <th width="50" style="text-align:center;">Edu</th>
-        <th width="50" style="text-align:center;">Soc</th>
-    </tr>
-    <tr>
-        <td>@(Model.Age)</td>
-        <td>@(Model.Gender)</td>
-        <td>@(Model.Strength) (@Model.StrengthDM)</td>
-        <td>@(Model.Dexterity) (@Model.DexterityDM)</td>
-        <td>@(Model.Endurance) (@Model.EnduranceDM)</td>
-        <td>@(Model.Intellect) (@Model.IntellectDM)</td>
-        <td>@(Model.Education) (@Model.EducationDM)</td>
-        <td>@(Model.SocialStanding) (@Model.SocialStandingDM)</td>
-    </tr>
-    <tr><td colspan="8">@(Model.PersonalityList)</td></tr>
+	<tr>
+		<th width="50" style="text-align:center;">Age</th>
+		<th width="50" style="text-align:center;">Sex</th>
+		<th width="50" style="text-align:center;">Str</th>
+		<th width="50" style="text-align:center;">Dex</th>
+		<th width="50" style="text-align:center;">End</th>
+		<th width="50" style="text-align:center;">Int</th>
+		<th width="50" style="text-align:center;">Edu</th>
+		<th width="50" style="text-align:center;">Soc</th>
+		@if (Model.Psi.HasValue)
+		{
+			<th width="50" style="text-align:center;">Psi</th>
+		}
+	</tr>
+	<tr>
+		<td>@(Model.Age)</td>
+		<td>@(Model.Gender)</td>
+		<td>@(Model.Strength) (@Model.StrengthDM)</td>
+		<td>@(Model.Dexterity) (@Model.DexterityDM)</td>
+		<td>@(Model.Endurance) (@Model.EnduranceDM)</td>
+		<td>@(Model.Intellect) (@Model.IntellectDM)</td>
+		<td>@(Model.Education) (@Model.EducationDM)</td>
+		<td>@(Model.SocialStanding) (@Model.SocialStandingDM)</td>
+		@if (Model.Psi.HasValue)
+		{
+			if (Model.Psi > 0)
+			{
+				<td>@(Model.Psi) (@Model.PsiDM)</td>
+			}
+			else
+			{
+				<td>None</td>
+			}
+		}
+	</tr>
+	<tr><td colspan="8">@(Model.PersonalityList)</td></tr>
 </table>
 
 <div>&nbsp;</div>
 
-
 <table>
-    <tr>
+	<tr>
 
-        <td>
+		<td>
 
+			<table class="gridtable" valign="top">
+				<tr><th>Skills</th></tr>
+				@foreach (var line in Model.Skills.OrderBy(s => s.Name).ThenBy(s => s.Specialty))
+				{
+					<tr><td>@line</td></tr>
+				}
+			</table>
+		</td>
 
-            <table class="gridtable" valign="top">
-                <tr><th>Skills</th></tr>
-                @foreach (var line in Model.Skills.OrderBy(s => s.Name).ThenBy(s => s.Specialty))
-                {
-                    <tr><td>@line</td></tr>
-                }
-            </table>
+		<td width="20"></td>
+		<td valign="top">
+			<table class="gridtable">
+				<tr><th>Career</th><th>Assignment</th><th>Title</th><th>Rank</th><th>Terms</th></tr>
+				@foreach (var line in Model.CareerHistory)
+				{
+					<tr>
+						<td>@line.Name</td>
+						<td>@line.Assignment</td>
+						<td>@line.Title</td>
+						@if (line.CommissionRank > 0)
+						{
+							<td>@(line.CommissionRank + " / " + line.Rank)</td>
+						}
+						else
+						{
+							<td>@line.Rank</td>
 
+						}
+						<td>@line.Terms</td>
+					</tr>
+				}
+			</table>
 
-        </td>
+			@if (Model.EducationHistory != null)
+			{
+				<div>&nbsp;</div>
 
-        <td width="20"></td>
-        <td valign="top">
-            <table class="gridtable">
-                <tr><th>Career</th><th>Assignment</th><th>Title</th><th>Rank</th><th>Terms</th></tr>
-                @foreach (var line in Model.CareerHistory)
-                {
-                    <tr>
-                        <td>@line.Name</td>
-                        <td>@line.Assignment</td>
-                        <td>@line.Title</td>
-                        @if (line.CommissionRank > 0)
-                        {
-                            <td>@(line.CommissionRank + " / " + line.Rank)</td>
-                        }
-                        else
-                        {
-                            <td>@line.Rank</td>
-
-                        }
-                        <td>@line.Terms</td>
-                    </tr>
-                }
-            </table>
-
-            @if (Model.EducationHistory != null)
-            {
-                <div>&nbsp;</div>
-
-                <table class="gridtable">
-                    <tr><th>Education</th><th>Graduated</th></tr>
-                    <tr>
-                        <td>@Model.EducationHistory.Name</td>
-                        <td>@Model.EducationHistory.Status</td>
-                    </tr>
-                </table>
-            }
-        </td>
-
-    </tr>
+				<table class="gridtable">
+					<tr><th>Education</th><th>Graduated</th></tr>
+					<tr>
+						<td>@Model.EducationHistory.Name</td>
+						<td>@Model.EducationHistory.Status</td>
+					</tr>
+				</table>
+			}
+		</td>
+	</tr>
 </table>
 
 <div>&nbsp;</div>
 
 <table class="gridtable">
-    <tr><th>Term</th><th>History</th></tr>
-    @foreach (var line in Model.History)
-    {
-        <tr><td>@line.Term</td><td>@line</td></tr>
-    }
+	<tr><th>Term</th><th>History</th></tr>
+	@foreach (var line in Model.History)
+	{
+		<tr><td>@line.Term</td><td>@line</td></tr>
+	}
 </table>

@@ -9,120 +9,128 @@ using System.Web.Mvc;
 
 namespace Grauenwolf.TravellerTools.Web.Models
 {
-    public class HomeIndexViewModel
-    {
-        IReadOnlyList<string> m_AnimalClasses; //Animal Encounters
-        IReadOnlyList<string> m_AnimalTypes; //Mongoose 1
-        IReadOnlyList<Sector> m_Sectors;
-        IReadOnlyList<string> m_Terrains;
+	public class HomeIndexViewModel
+	{
+		IReadOnlyList<string> m_AnimalClasses; //Animal Encounters
+		IReadOnlyList<string> m_AnimalTypes; //Mongoose 1
+		IReadOnlyList<Sector> m_Sectors;
+		IReadOnlyList<string> m_Terrains;
 
-        private HomeIndexViewModel() { }
+		private HomeIndexViewModel()
+		{
+		}
 
-        public static async Task<HomeIndexViewModel> GetHomeIndexViewModel(TravellerMapService mapService, CharacterBuilder characterBuilder, EquipmentBuilder equipmentBuilder)
-        {
-            var result = new HomeIndexViewModel()
-            {
-                Careers = characterBuilder.Careers,
-                m_AnimalClasses = Animals.AE.AnimalBuilderAE.AnimalClassList.Select(ac => ac.Name).ToList(),
-                m_AnimalTypes = Animals.Mgt.AnimalBuilderMgt.AnimalTypeList.Select(at => at.Name).ToList(),
-                m_Terrains = Animals.AE.AnimalBuilderAE.TerrainTypeList.Select(t => t.Name).ToList(),
-            };
+		public IReadOnlyList<Career> Careers { get; private set; }
 
-            mapService.UniverseUpdated += async (s, e) => result.m_Sectors = await mapService.FetchUniverseAsync();
+		public static async Task<HomeIndexViewModel> GetHomeIndexViewModel(TravellerMapService mapService, CharacterBuilder characterBuilder, EquipmentBuilder equipmentBuilder)
+		{
+			var result = new HomeIndexViewModel()
+			{
+				Careers = characterBuilder.Careers,
+				m_AnimalClasses = Animals.AE.AnimalBuilderAE.AnimalClassList.Select(ac => ac.Name).ToList(),
+				m_AnimalTypes = Animals.Mgt.AnimalBuilderMgt.AnimalTypeList.Select(at => at.Name).ToList(),
+				m_Terrains = Animals.AE.AnimalBuilderAE.TerrainTypeList.Select(t => t.Name).ToList(),
+			};
 
-            result.m_Sectors = await mapService.FetchUniverseAsync(); //do this after hooking up the event to avoid race condition.
+			mapService.UniverseUpdated += async (s, e) => result.m_Sectors = await mapService.FetchUniverseAsync();
 
-            return result;
-        }
+			try
+			{
+				result.m_Sectors = await mapService.FetchUniverseAsync(); //do this after hooking up the event to avoid race condition.
+			}
+			catch
+			{
+				result.m_Sectors = new List<Sector>(); //off-line mode
+			}
 
-        public IEnumerable<SelectListItem> Scores()
-        {
-            for (var i = -6; i <= 8; i++)
-                yield return new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = (i == 0) };
-        }
+			return result;
+		}
 
-        public IEnumerable<SelectListItem> MilieuList()
-        {
-            //yield return new SelectListItem() { Text = "The Interstellar Wars", Value = "????" };
-            yield return new SelectListItem() { Text = "0 – Early Imperium", Value = "M0" };
-            yield return new SelectListItem() { Text = "990 – Solomani Rim War", Value = "M990" };
-            yield return new SelectListItem() { Text = "1105 – The Golden Age", Value = "M1105", Selected = true };
-            yield return new SelectListItem() { Text = "1120 – The Rebellion", Value = "M1120" };
-            yield return new SelectListItem() { Text = "1201 – The New Era", Value = "M1201" };
-            yield return new SelectListItem() { Text = "1248 – The New, New Era", Value = "M1248" };
-            yield return new SelectListItem() { Text = "1900 – The Far Far Future", Value = "M1900" };
-        }
+		public IEnumerable<SelectListItem> AnimalClassList()
+		{
+			yield return new SelectListItem() { Text = "", Value = "" };
 
-        public IEnumerable<SelectListItem> SectorList()
-        {
-            yield return new SelectListItem() { Text = "", Value = "" };
+			foreach (var terrain in m_AnimalClasses.OrderBy(s => s))
+				yield return new SelectListItem() { Text = terrain, Value = terrain };
+		}
 
-            foreach (var sector in m_Sectors.OrderBy(s => s.Name).Distinct(new SectorComparer()))
-                yield return new SelectListItem() { Text = sector.Name, Value = string.Format("{0},{1}", sector.X, sector.Y) };
-        }
+		public IEnumerable<SelectListItem> AnimalTypeList()
+		{
+			yield return new SelectListItem() { Text = "", Value = "" };
 
-        public IEnumerable<SelectListItem> TerrainList()
-        {
-            yield return new SelectListItem() { Text = "(All)", Value = "" };
+			foreach (var terrain in m_AnimalTypes.OrderBy(s => s))
+				yield return new SelectListItem() { Text = terrain, Value = terrain };
+		}
 
-            foreach (var terrain in m_Terrains.OrderBy(s => s))
-                yield return new SelectListItem() { Text = terrain, Value = terrain };
-        }
+		public IEnumerable<SelectListItem> LawLevels()
+		{
+			foreach (var code in Tables.LawLevelCodes)
+				yield return new SelectListItem() { Text = $"{code.FlexString} {Tables.LawLevel(code)}", Value = code.Value.ToString() };
+		}
 
-        public IEnumerable<SelectListItem> Starports()
-        {
-            foreach (var code in Tables.StarportCodes)
-                yield return new SelectListItem() { Text = $"{code} {Tables.Starport(code)}", Value = code.Value.ToString() };
-        }
-        public IEnumerable<SelectListItem> Populations()
-        {
-            foreach (var code in Tables.PopulationCodes)
-                yield return new SelectListItem() { Text = $"{code.FlexString} {Tables.PopulationExponent(code).ToString("N0")}", Value = code.Value.ToString() };
-        }
+		public IEnumerable<SelectListItem> MilieuList()
+		{
+			//yield return new SelectListItem() { Text = "The Interstellar Wars", Value = "????" };
+			yield return new SelectListItem() { Text = "0 – Early Imperium", Value = "M0" };
+			yield return new SelectListItem() { Text = "990 – Solomani Rim War", Value = "M990" };
+			yield return new SelectListItem() { Text = "1105 – The Golden Age", Value = "M1105", Selected = true };
+			yield return new SelectListItem() { Text = "1120 – The Rebellion", Value = "M1120" };
+			yield return new SelectListItem() { Text = "1201 – The New Era", Value = "M1201" };
+			yield return new SelectListItem() { Text = "1248 – The New, New Era", Value = "M1248" };
+			yield return new SelectListItem() { Text = "1900 – The Far Far Future", Value = "M1900" };
+		}
 
-        public IEnumerable<SelectListItem> TechLevels()
-        {
-            foreach (var code in Tables.TechLevelCodes)
-                yield return new SelectListItem() { Text = $"{code.FlexString} {Tables.TechLevel(code)}", Value = code.Value.ToString() };
-        }
+		public IEnumerable<SelectListItem> Populations()
+		{
+			foreach (var code in Tables.PopulationCodes)
+				yield return new SelectListItem() { Text = $"{code.FlexString} {Tables.PopulationExponent(code).ToString("N0")}", Value = code.Value.ToString() };
+		}
 
-        public IEnumerable<SelectListItem> LawLevels()
-        {
-            foreach (var code in Tables.LawLevelCodes)
-                yield return new SelectListItem() { Text = $"{code.FlexString} {Tables.LawLevel(code)}", Value = code.Value.ToString() };
-        }
+		public IEnumerable<SelectListItem> Scores()
+		{
+			for (var i = -6; i <= 8; i++)
+				yield return new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = (i == 0) };
+		}
 
+		public IEnumerable<SelectListItem> SectorList()
+		{
+			yield return new SelectListItem() { Text = "", Value = "" };
 
-        public IEnumerable<SelectListItem> AnimalTypeList()
-        {
-            yield return new SelectListItem() { Text = "", Value = "" };
+			foreach (var sector in m_Sectors.OrderBy(s => s.Name).Distinct(new SectorComparer()))
+				yield return new SelectListItem() { Text = sector.Name, Value = string.Format("{0},{1}", sector.X, sector.Y) };
+		}
 
-            foreach (var terrain in m_AnimalTypes.OrderBy(s => s))
-                yield return new SelectListItem() { Text = terrain, Value = terrain };
-        }
+		public IEnumerable<SelectListItem> Starports()
+		{
+			foreach (var code in Tables.StarportCodes)
+				yield return new SelectListItem() { Text = $"{code} {Tables.Starport(code)}", Value = code.Value.ToString() };
+		}
 
+		public IEnumerable<SelectListItem> TechLevels()
+		{
+			foreach (var code in Tables.TechLevelCodes)
+				yield return new SelectListItem() { Text = $"{code.FlexString} {Tables.TechLevel(code)}", Value = code.Value.ToString() };
+		}
 
+		public IEnumerable<SelectListItem> TerrainList()
+		{
+			yield return new SelectListItem() { Text = "(All)", Value = "" };
 
-        public IEnumerable<SelectListItem> AnimalClassList()
-        {
-            yield return new SelectListItem() { Text = "", Value = "" };
+			foreach (var terrain in m_Terrains.OrderBy(s => s))
+				yield return new SelectListItem() { Text = terrain, Value = terrain };
+		}
 
-            foreach (var terrain in m_AnimalClasses.OrderBy(s => s))
-                yield return new SelectListItem() { Text = terrain, Value = terrain };
-        }
+		private class SectorComparer : IEqualityComparer<Sector>
+		{
+			public bool Equals(Sector x, Sector y)
+			{
+				return x.Name == y.Name;
+			}
 
-        private class SectorComparer : IEqualityComparer<Sector>
-        {
-            public bool Equals(Sector x, Sector y)
-            {
-                return x.Name == y.Name;
-            }
-
-            public int GetHashCode(Sector obj)
-            {
-                return obj.Name.GetHashCode();
-            }
-        }
-        public IReadOnlyList<Career> Careers { get; private set; }
-    }
+			public int GetHashCode(Sector obj)
+			{
+				return obj.Name.GetHashCode();
+			}
+		}
+	}
 }
