@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Tortuga.Anchor;
@@ -45,7 +46,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
 
 
-            var rawList = await s_Client.GetStringAsync(new Uri($"http://travellermap.com/api/metadata?sx={sectorX}&sy={sectorY}&milieu={Milieu}")).ConfigureAwait(false);
+            var rawList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/metadata?sx={sectorX}&sy={sectorY}&milieu={Milieu}")).ConfigureAwait(false);
             result = JsonConvert.DeserializeObject<SectorMetadata>(rawList);
             m_SectorMetadata.TryAdd(cacheKey, result);
             return result;
@@ -56,8 +57,9 @@ namespace Grauenwolf.TravellerTools.Maps
             if (m_SectorList != null)
                 return m_SectorList;
 
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 
-            var rawSectorList = await s_Client.GetStringAsync(new Uri($"http://travellermap.com/api/universe?milieu={Milieu}")).ConfigureAwait(false);
+            var rawSectorList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/universe?milieu={Milieu}")).ConfigureAwait(false);
 
             var sectors = JsonConvert.DeserializeObject<Universe>(rawSectorList).Sectors.Where(s => s.Names.First().Text != "Legend").ToList();
 
@@ -109,7 +111,7 @@ namespace Grauenwolf.TravellerTools.Maps
                 return result;
 
 
-            var baseUri = new Uri($"http://travellermap.com/api/sec?sx={sectorX}&sy={sectorY}&type=TabDelimited&milieu={Milieu}");
+            var baseUri = new Uri($"https://travellermap.com/api/sec?sx={sectorX}&sy={sectorY}&type=TabDelimited&milieu={Milieu}");
             var rawFile = await s_Client.GetStringAsync(baseUri).ConfigureAwait(false);
             if (rawFile.Length == 0)
                 return ImmutableList.Create<World>();
@@ -184,12 +186,12 @@ namespace Grauenwolf.TravellerTools.Maps
         }
         public override async Task<List<World>> WorldsNearAsync(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance)
         {
-            //http://travellermap.com/api/jumpworlds?sector=Spinward%20Marches&hex=1910&jump=4
+            //https://travellermap.com/api/jumpworlds?sector=Spinward%20Marches&hex=1910&jump=4
 
             var result = new List<World>();
             for (var jumpDistance = 0; jumpDistance <= maxJumpDistance; jumpDistance++)
             {
-                var rawList = await s_Client.GetStringAsync(new Uri($"http://travellermap.com/api/jumpworlds?sx={sectorX}&sy={sectorY}&hx={hexX:00}&hy={hexY:00}&jump={jumpDistance}&milieu={Milieu}")).ConfigureAwait(false);
+                var rawList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/jumpworlds?sx={sectorX}&sy={sectorY}&hx={hexX:00}&hy={hexY:00}&jump={jumpDistance}&milieu={Milieu}")).ConfigureAwait(false);
 
                 var set = JsonConvert.DeserializeObject<WorldList>(rawList).Worlds;
                 foreach (var world in set.Where(w => !result.Any(ww => ww.Hex == w.Hex && ww.Sector == w.Sector)))
