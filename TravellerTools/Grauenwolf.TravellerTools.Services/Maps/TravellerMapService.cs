@@ -15,6 +15,18 @@ namespace Grauenwolf.TravellerTools.Maps
 {
     public class TravellerMapService : MapService
     {
+        static HttpClient s_Client = new HttpClient();
+
+        readonly bool m_FilterUnpopulatedSectors;
+
+        ImmutableList<Sector> m_SectorList;
+
+        ConcurrentDictionary<Tuple<int, int>, SectorMetadata> m_SectorMetadata = new ConcurrentDictionary<Tuple<int, int>, SectorMetadata>();
+
+        ImmutableList<SophontCode> m_SophontCodes;
+
+        ConcurrentDictionary<Tuple<int, int>, ImmutableList<World>> m_WorldsInSector = new ConcurrentDictionary<Tuple<int, int>, ImmutableList<World>>();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="TravellerMapService"/> class.
         /// </summary>
@@ -26,30 +38,38 @@ namespace Grauenwolf.TravellerTools.Maps
             Milieu = milieu;
         }
 
-        static HttpClient s_Client = new HttpClient();
-        ImmutableList<Sector> m_SectorList;
-        ConcurrentDictionary<Tuple<int, int>, SectorMetadata> m_SectorMetadata = new ConcurrentDictionary<Tuple<int, int>, SectorMetadata>();
-        ConcurrentDictionary<Tuple<int, int>, ImmutableList<World>> m_WorldsInSector = new ConcurrentDictionary<Tuple<int, int>, ImmutableList<World>>();
-        readonly bool m_FilterUnpopulatedSectors;
+        public event EventHandler UniverseUpdated;
 
         public string Milieu { get; }
 
-        public event EventHandler UniverseUpdated;
-
         public override async Task<SectorMetadata> FetchSectorMetadataAsync(int sectorX, int sectorY)
         {
+            await FetchSophontCodesAsync();
+
             SectorMetadata result;
             var cacheKey = Tuple.Create(sectorX, sectorY);
             if (m_SectorMetadata.TryGetValue(cacheKey, out result))
                 return result;
 
-
-
-
             var rawList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/metadata?sx={sectorX}&sy={sectorY}&milieu={Milieu}")).ConfigureAwait(false);
             result = JsonConvert.DeserializeObject<SectorMetadata>(rawList);
             m_SectorMetadata.TryAdd(cacheKey, result);
             return result;
+        }
+
+        public override async Task<ImmutableList<SophontCode>> FetchSophontCodesAsync()
+        {
+            if (m_SophontCodes != null)
+                return m_SophontCodes;
+
+            //https://travellermap.com/t5ss/sophonts
+
+            var rawList = await s_Client.GetStringAsync(new Uri("https://travellermap.com/t5ss/sophonts")).ConfigureAwait(false);
+
+            var set = JsonConvert.DeserializeObject<List<SophontCode>>(rawList);
+            World.AddSophontCodes(set);
+            m_SophontCodes = set.ToImmutableList();
+            return m_SophontCodes;
         }
 
         public override async Task<ImmutableList<Sector>> FetchUniverseAsync()
@@ -65,12 +85,10 @@ namespace Grauenwolf.TravellerTools.Maps
 
             m_SectorList = ImmutableList.CreateRange(sectors);
 
-
             if (m_FilterUnpopulatedSectors)
             {
                 Task.Run(async () =>
                {
-
                    var populatedSectors = new List<Sector>();
                    foreach (var sector in m_SectorList)
                    {
@@ -91,11 +109,9 @@ namespace Grauenwolf.TravellerTools.Maps
                        }
                    }
 
-
                    m_SectorList = ImmutableList.CreateRange(populatedSectors);
 
                    UniverseUpdated?.Invoke(this, EventArgs.Empty);
-
                }).RunConcurrently();
             }
 
@@ -110,7 +126,6 @@ namespace Grauenwolf.TravellerTools.Maps
             if (m_WorldsInSector.TryGetValue(cacheKey, out result))
                 return result;
 
-
             var baseUri = new Uri($"https://travellermap.com/api/sec?sx={sectorX}&sy={sectorY}&type=TabDelimited&milieu={Milieu}");
             var rawFile = await s_Client.GetStringAsync(baseUri).ConfigureAwait(false);
             if (rawFile.Length == 0)
@@ -123,12 +138,10 @@ namespace Grauenwolf.TravellerTools.Maps
             {
                 parser.SetDelimiters("\t");
 
-
                 var headers = new Dictionary<string, int>();
                 var index = 0;
                 foreach (var header in parser.ReadFields())
                     headers[header] = index++;
-
 
                 while (!parser.EndOfData)
                 {
@@ -166,7 +179,6 @@ namespace Grauenwolf.TravellerTools.Maps
                 }
             }
 
-
             result = ImmutableList.CreateRange(temp);
             m_WorldsInSector.TryAdd(cacheKey, result);
             return result;
@@ -184,6 +196,7 @@ namespace Grauenwolf.TravellerTools.Maps
             }
             return null;
         }
+
         public override async Task<List<World>> WorldsNearAsync(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance)
         {
             //https://travellermap.com/api/jumpworlds?sector=Spinward%20Marches&hex=1910&jump=4
@@ -213,6 +226,4 @@ namespace Grauenwolf.TravellerTools.Maps
             return result;
         }
     }
-
 }
-

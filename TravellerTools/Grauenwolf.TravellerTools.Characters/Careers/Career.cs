@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using System.Collections.Immutable;
 
@@ -14,25 +13,19 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         }
 
         public string Assignment { get; }
+
+        public string Key
+        {
+            get { return Assignment ?? Name; }
+        }
+
         public string Name { get; }
-        internal abstract bool Qualify(Character character, Dice dice);
-
-        internal abstract void Run(Character character, Dice dice);
         internal Book Book { get; }
-
-        protected List<SkillTemplate> SpecialtiesFor(string skillName) => Book.SpecialtiesFor(skillName);
-
-        protected void Injury(Character character, Dice dice, bool severe = false) => Book.Injury(character, dice, severe);
-
-        protected void LifeEvent(Character character, Dice dice) => Book.LifeEvent(character, dice);
 
         protected ImmutableArray<SkillTemplate> RandomSkills
         {
             get { return Book.RandomSkills; }
         }
-
-        protected void UnusualLifeEvent(Character character, Dice dice) => Book.UnusualLifeEvent(character, dice);
-
 
         public override string ToString()
         {
@@ -42,9 +35,21 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 return $"{Assignment} ({Name})";
         }
 
-        public string Key
+        internal virtual decimal MedicalPaymentPercentage(Character character, Dice dice)
         {
-            get { return Assignment ?? Name; }
+            return 0;
         }
+
+        internal abstract bool Qualify(Character character, Dice dice);
+
+        internal abstract void Run(Character character, Dice dice);
+
+        protected void Injury(Character character, Dice dice, bool severe = false) => Book.Injury(character, dice, this, severe);
+
+        protected void LifeEvent(Character character, Dice dice) => Book.LifeEvent(character, dice, this);
+
+        protected List<SkillTemplate> SpecialtiesFor(string skillName) => Book.SpecialtiesFor(skillName);
+
+        protected void UnusualLifeEvent(Character character, Dice dice) => Book.UnusualLifeEvent(character, dice);
     }
 }

@@ -16,17 +16,19 @@ namespace Grauenwolf.TravellerTools
         T5 = 2013,
         Mongoose2 = 2016,
 
-
         CT = 1997,
         MT = 1986,
+
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "TNE")]
         TNE = 1992,
+
         GT = 1998,
         TH = 2007,
+
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "MGT")]
         MGT = 2008,
+
         [SuppressMessage("Microsoft.Naming", "CA1709:IdentifiersShouldBeCasedCorrectly", MessageId = "MGT")]
         MGT2 = 2016
-
     }
 }

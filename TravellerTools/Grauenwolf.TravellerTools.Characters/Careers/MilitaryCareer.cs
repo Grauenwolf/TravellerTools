@@ -10,8 +10,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         {
         }
 
-
-
         internal override void Run(Character character, Dice dice)
         {
             CareerHistory careerHistory;
@@ -62,12 +60,11 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             careerHistory.Rank = character.CareerHistory.Where(c => c.Name == Name).Max(c => c.Rank);
             careerHistory.CommissionRank = character.CareerHistory.Where(c => c.Name == Name).Max(c => c.CommissionRank);
 
-            //Early commission, possibly from military academy. 
+            //Early commission, possibly from military academy.
             if (careerHistory.CommissionRank == 0 && character.CurrentTermBenefits.FreeCommissionRoll)
             {
                 AttemptCommission(character, dice, careerHistory);
             }
-
 
             var survived = dice.RollHigh(character.GetDM(SurvivalAttribute) + character.NextTermBenefits.SurvivalDM, SurvivalTarget);
             if (survived)
@@ -77,7 +74,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 Event(character, dice);
 
                 var totalTermsInCareer = character.CareerHistory.Where(pc => pc.Name == Name).Sum(c => c.Terms);
-
 
                 //Not all people will attempt a commission even when possible
                 var attemptCommission = (totalTermsInCareer == 1 || character.SocialStanding >= 9) && dice.D(100) < Book.OddsOfSuccess(character, "Soc", 8 - character.CurrentTermBenefits.CommissionDM);
@@ -98,22 +94,17 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     }
                     advancementRoll += character.GetDM(AdvancementAttribute) + character.CurrentTermBenefits.AdvancementDM;
 
-                    if (advancementRoll <= careerHistory.Terms)
-                    {
-                        character.AddHistory("Forced to muster out.");
-                        character.NextTermBenefits.MusterOut = true;
-                    }
                     if (advancementRoll > AdvancementTarget)
                     {
                         if (careerHistory.CommissionRank > 0)
                         {
                             careerHistory.CommissionRank += 1;
-                            character.AddHistory($"Promoted to officer rank {careerHistory.CommissionRank}");
+                            character.AddHistory($"Promoted to {careerHistory.Assignment} officer rank {careerHistory.CommissionRank}");
                         }
                         else
                         {
                             careerHistory.Rank += 1;
-                            character.AddHistory($"Promoted to rank {careerHistory.Rank}");
+                            character.AddHistory($"Promoted to {careerHistory.Assignment} rank {careerHistory.Rank}");
                         }
                         UpdateTitle(character, dice, careerHistory);
 
@@ -127,6 +118,11 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                         if (careerHistory.CommissionRank > 0)
                             skillTables.Add(OfficerTraining);
                         dice.Choose(skillTables)(character, dice);
+                    }
+                    else if (advancementRoll <= careerHistory.Terms)
+                    {
+                        character.AddHistory("Forced to muster out.");
+                        character.NextTermBenefits.MusterOut = true;
                     }
                 }
             }
@@ -146,7 +142,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     ServiceSkill(character, dice);
             else
                 ServiceSkill(character, dice);
-
         }
 
         protected abstract void OfficerTraining(Character character, Dice dice);
@@ -175,10 +170,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 character.AddHistory($"Attempt at commissioned failed.");
                 return false;
             }
-
-
-
         }
     }
 }
-

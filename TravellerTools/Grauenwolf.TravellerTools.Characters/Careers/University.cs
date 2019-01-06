@@ -4,7 +4,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
     {
         public University(Book book) : base("University", null, book)
         {
-
         }
 
         internal override bool Qualify(Character character, Dice dice)
@@ -25,7 +24,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             dm += character.GetEnlistmentBonus("University", null);
 
             return dice.RollHigh(dm, 7);
-
         }
 
         internal override void Run(Character character, Dice dice)
@@ -49,13 +47,11 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             skillChoices.AddRange(SpecialtiesFor("Profession"));
             skillChoices.AddRange(SpecialtiesFor("Science"));
 
-
             //Remove skills we already have at level 1
             skillChoices.RemoveOverlap(character.Skills, 1);
 
             var skillA = dice.Pick(skillChoices);
             character.Skills.Add(skillA, 1);
-
 
             //Remove skills we already have at level 0
             skillChoices.RemoveOverlap(character.Skills, 0);
@@ -63,14 +59,12 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             var skillB = dice.Pick(skillChoices);
             character.Skills.Add(skillB);
 
-
             character.Age += 4;
             character.Education += 1;
             character.EducationHistory = new EducationHistory();
             character.EducationHistory.Name = "University";
 
-
-            Book.PreCareerEvents(character, dice, skillA.Name, skillB.Name);
+            Book.PreCareerEvents(character, dice, this, skillA.Name, skillB.Name);
 
             var graduation = dice.D(2, 6) + character.IntellectDM + character.CurrentTermBenefits.GraduationDM;
             if (graduation < 7)
@@ -110,8 +104,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 character.LongTermBenefits.EnlistmentDM.Add("Scholar", bonus);
                 character.LongTermBenefits.EnlistmentDM.Add("Scouts", bonus);
             }
-
-
         }
     }
 }

@@ -6,7 +6,6 @@ interface ISector {
     Y: number;
 }
 
-
 interface ISubsector {
     Name: string;
     Index: string;
@@ -20,7 +19,6 @@ interface IWorldLocation {
 //Calling REST endpoints
 //https://visualstudiomagazine.com/articles/2013/10/01/calling-web-services-with-typescript.aspx
 
-
 function readValue(controlName: string): string {
     var control = <HTMLSelectElement>$('#' + controlName)[0];
     return control.value;
@@ -31,11 +29,8 @@ function readChecked(controlName: string): boolean {
     return control.checked;
 }
 
-
 function MilieuChanged(milieu: string, sector: HTMLSelectElement): void {
-
     $(sector).empty();
-
 
     $.getJSON("/WorldApi/Sectors?milieu=" + milieu,
         cs => {
@@ -48,15 +43,10 @@ function MilieuChanged(milieu: string, sector: HTMLSelectElement): void {
                 sector.appendChild(opt);
             }
         });
-
-
-
 }
 
 function SectorChanged(sectorCoordinates: string, subsector: HTMLSelectElement, milieu: string): void {
-
     $(subsector).empty();
-
 
     $.getJSON("/WorldApi/Subsectors?sectorCoordinates=" + sectorCoordinates + "&milieu=" + milieu,
         cs => {
@@ -69,14 +59,9 @@ function SectorChanged(sectorCoordinates: string, subsector: HTMLSelectElement, 
                 subsector.appendChild(opt);
             }
         });
-
-
-
 }
 
-
 function SubsectorChanged(sectorCoordinates: string, subsectorIndex: string, world: HTMLSelectElement, milieu: string): void {
-
     $(world).empty();
 
     $.getJSON("/WorldApi/WorldsInSubsector?sectorCoordinates=" + sectorCoordinates + "&subsectorIndex=" + subsectorIndex + "&milieu=" + milieu,
@@ -100,16 +85,13 @@ function WorldChanged(originUwp: HTMLInputElement, distinationUwp: HTMLInputElem
 }
 
 function UwpChanged(originUwp: string, distinationUwp: string, button: HTMLInputElement, label: HTMLElement): void {
-
     //if (originUwp != null && originUwp.length > 0 && distinationUwp != null && distinationUwp.length > 0) {
     //    button.style.display = '';
     //    label.style.display = 'none';
     //}
 }
 
-
-function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, advancedMode: boolean, illegalGoods: boolean, maxJumpDistance: number, brokerScore: number, mongoose2: boolean, advancedCharacters: boolean, streetwiseScore: number, raffle: boolean, originUwp: string, distinationUwp: string, jumpDistance: number, milieu: string): void {
-
+function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, advancedMode: boolean, illegalGoods: boolean, maxJumpDistance: number, brokerScore: number, mongoose2: boolean, advancedCharacters: boolean, streetwiseScore: number, raffle: boolean, originUwp: string, destinationUwp: string, jumpDistance: number, milieu: string, originTasZone: string, destinationTasZone: string): void {
     var a = sectorCoordinates.split(",");
     var b = worldCoordinates.substring(0, 2);
     var c = worldCoordinates.substring(2, 4);
@@ -120,7 +102,7 @@ function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, 
     var edition = mongoose2 ? 2016 : 2008;
 
     if (originUwp != null && originUwp.length > 0) {
-        window.location.href = "/Home/QuickTradeInfo?originUwp=" + originUwp + "&destinationUwp=" + distinationUwp + "&jumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle + "&milieu=" + milieu;
+        window.location.href = "/Home/QuickTradeInfo?originUwp=" + originUwp + "&destinationUwp=" + destinationUwp + "&jumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle + "&milieu=" + milieu + "&originTasZone=" + originTasZone + "&destinationTasZone=" + destinationTasZone;
     }
     else {
         window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + maxJumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle + "&milieu=" + milieu;
@@ -128,23 +110,18 @@ function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, 
 }
 
 function GenerateRandomWorld(advancedMode: boolean, illegalGoods: boolean, maxJumpDistance: number, brokerScore: number, mongoose2: boolean, advancedCharacters: boolean, streetwiseScore: number, raffle: boolean, milieu: string): void {
-
     var am = advancedMode ? "true" : "false";
     var ig = illegalGoods ? "true" : "false";
     var ac = advancedCharacters ? "true" : "false";
     var r = raffle ? "true" : "false";
     var edition = mongoose2 ? 2016 : 2008;
 
-
     window.location.href = "/Home/RandomWorld?brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle + "&milieu=" + milieu;
-
 }
 
 function GenerateAnimals(terrain: string, animalType: string): void {
-
     window.location.href = "/Home/Animals?terrainType=" + encodeURIComponent(terrain) + "&animalType=" + encodeURIComponent(animalType);
 }
-
 
 function GenerateAnimalEncounters(sectorCoordinates: string, worldCoordinates: string, terrain: string, animalClass: string, milieu: string): void {
     "use strict";
@@ -162,7 +139,6 @@ function GenerateAnimalEncounters(sectorCoordinates: string, worldCoordinates: s
 }
 
 function GenerateStoreInfo(lawLevel: string, population: string, roll: boolean, starport: string, techLevel: string, tradeCodes: string, name: string, brokerScore: number, streetwiseScore: number, milieu: string): void {
-
     var r = roll ? "true" : "false";
 
     window.location.href = "/Home/Store?lawLevel=" + lawLevel + "&population=" + population + "&roll=" + r + "&starport=" + starport + "&techLevel=" + techLevel + "&tradeCodes=" + encodeURIComponent(tradeCodes) + "&name=" + encodeURIComponent(name) + "&brokerScore=" + brokerScore + "&streetwiseScore=" + streetwiseScore + "&milieu=" + milieu;

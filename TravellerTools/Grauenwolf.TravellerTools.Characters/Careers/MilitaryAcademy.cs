@@ -60,7 +60,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             character.EducationHistory = new EducationHistory();
             character.EducationHistory.Name = Assignment;
 
-            Book.PreCareerEvents(character, dice, character.Skills.Select(s => s.Name).ToArray());
+            Book.PreCareerEvents(character, dice, this, character.Skills.Select(s => s.Name).ToArray());
 
             var graduation = dice.D(2, 6);
             if (graduation == 2)
@@ -102,54 +102,52 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.NextTermBenefits.MustEnroll = m_Stub.Name;
                 }
             }
+        }
 
+        class ArmyStub : Army
+        {
+            public ArmyStub(Book book) : base(null, book)
+            {
+            }
+
+            protected override string AdvancementAttribute => throw new NotImplementedException();
+
+            protected override int AdvancementTarget => throw new NotImplementedException();
+
+            protected override string SurvivalAttribute => throw new NotImplementedException();
+
+            protected override int SurvivalTarget => throw new NotImplementedException();
+
+            internal override void AssignmentSkills(Character character, Dice dice)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        class MarineStub : Marine
+        {
+            public MarineStub(Book book) : base(null, book)
+            {
+            }
+
+            protected override string AdvancementAttribute => throw new NotImplementedException();
+
+            protected override int AdvancementTarget => throw new NotImplementedException();
+
+            protected override string SurvivalAttribute => throw new NotImplementedException();
+
+            protected override int SurvivalTarget => throw new NotImplementedException();
+
+            internal override void AssignmentSkills(Character character, Dice dice)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         class NavyStub : Navy
         {
             public NavyStub(Book book) : base(null, book)
             {
-
-            }
-
-            protected override string AdvancementAttribute => throw new NotImplementedException();
-
-            protected override int AdvancementTarget => throw new NotImplementedException();
-
-            protected override string SurvivalAttribute => throw new NotImplementedException();
-
-            protected override int SurvivalTarget => throw new NotImplementedException();
-
-            internal override void AssignmentSkills(Character character, Dice dice)
-            {
-                throw new NotImplementedException();
-            }
-        }
-        class MarineStub : Marine
-        {
-            public MarineStub(Book book) : base(null, book)
-            {
-
-            }
-
-            protected override string AdvancementAttribute => throw new NotImplementedException();
-
-            protected override int AdvancementTarget => throw new NotImplementedException();
-
-            protected override string SurvivalAttribute => throw new NotImplementedException();
-
-            protected override int SurvivalTarget => throw new NotImplementedException();
-
-            internal override void AssignmentSkills(Character character, Dice dice)
-            {
-                throw new NotImplementedException();
-            }
-        }
-        class ArmyStub : Army
-        {
-            public ArmyStub(Book book) : base(null, book)
-            {
-
             }
 
             protected override string AdvancementAttribute => throw new NotImplementedException();

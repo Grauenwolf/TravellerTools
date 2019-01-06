@@ -3,7 +3,6 @@
     ViewBag.Title = "Home Page";
 }
 
-
 <div class="row">
     <h2>Location</h2>
     <table class="gridtable">
@@ -28,9 +27,17 @@
         <tr><td colspan="8">Choose a world above or enter the UWP for the origin and destination.</td></tr>
         <tr>
             <th>Origin UWP</th>
-            <td><input type="text" id="originUwp" onkeypress="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])" /> </td>
+            <td>
+                <input type="text" id="originUwp" onkeypress="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])" />
+                <br />
+                <label>TAS Alert</label> @Html.DropDownList("originTasZone", Model.TasZones())
+            </td>
             <th>Destination UWP</th>
-            <td><input type="text" id="destinationUwp" onkeypress="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])" /> </td>
+            <td>
+                <input type="text" id="destinationUwp" onkeypress="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])" />
+                <br />
+                <label>TAS Alert</label> @Html.DropDownList("destinationTasZone", Model.TasZones())
+            </td>
             <th>Distance between Origin and Destination</th>
             <td colspan="3"><input type="number" value="1" id="jumpDistance" onkeypress="UwpChanged(readValue('originUwp'), readValue('destinationUwp'), $('#showTradeScreen')[0], $('#selectWorldForTrade')[0])" /> </td>
         </tr>
@@ -39,8 +46,6 @@
             <th>Random World</th>
             <td> <input id="showTradeScreen" type="button" value="Generate World" onclick="GenerateRandomWorld(readChecked('advancedMode'), readChecked('illegalGoods'), readValue('maxJumpDistance'), readValue('broker'), readChecked('mongoose2'), readChecked('advancedCharacters'), readValue('streetwise'), readChecked('raffle'), readValue('milieu'))" /></td>
         </tr>
-
-
     </table>
 
     <h2>Character</h2>
@@ -85,7 +90,7 @@
                 <input type="number" id="maxJumpDistance" value="3" />
             </td>
             <td>
-                <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo(readValue('sector'), readValue('world'), readChecked('advancedMode'), readChecked('illegalGoods'), readValue('maxJumpDistance'), readValue('broker'), readChecked('mongoose2'), readChecked('advancedCharacters'), readValue('streetwise'), readChecked('raffle'), readValue('originUwp'), readValue('destinationUwp'), readValue('jumpDistance'), readValue('milieu'))" />
+                <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo(readValue('sector'), readValue('world'), readChecked('advancedMode'), readChecked('illegalGoods'), readValue('maxJumpDistance'), readValue('broker'), readChecked('mongoose2'), readChecked('advancedCharacters'), readValue('streetwise'), readChecked('raffle'), readValue('originUwp'), readValue('destinationUwp'), readValue('jumpDistance'), readValue('milieu'), readValue('originTasZone'),readValue('destinationTasZone') )" />
                 @*<span id="selectWorldForTrade">Select a world</span>*@
             </td>
         </tr>
@@ -128,7 +133,6 @@
             </td>
         </tr>
     </table>
-
 </div>
 <div class="row">
     <h2>Animals</h2>
@@ -208,7 +212,6 @@
         </tr>
         <tr><td colspan="10">Note: this requires <a target="_blank" href="http://www.drivethrurpg.com/product/93227/Supplement-11-Animal-Encounters">Supplment 11: Animal Encounters</a> to make sense. If you don't have that book, use the Mongoose 1 tool.</td></tr>
     </table>
-
 </div>
 
 <div class="row">
@@ -247,14 +250,12 @@
                 }
             </tr>
         }
-
     </table>
 </div>
 <div>Note: Psionics are not yet included.</div>
 <div><span style="color:red;font-weight:700;font-size:larger">Warning: </span>Permalinks become invalid whenever a new version of Traveller Tools is created.</div>
 <div>Names are based on <a href="https://github.com/RandomAPI/Randomuser.me-Node">RandomUser.me</a> and historic sources.</div>
 <div>Personality traits are based on <a href="https://www.roleplayingtips.com/tools/1000-npc-traits/">1,000 NPC Traits</a></div>
-
 
 @section Scripts {
     @Scripts.Render("~/Scripts/Home/Index.js?1")

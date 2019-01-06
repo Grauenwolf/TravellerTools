@@ -6,7 +6,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
     {
         public Entertainer(string assignment, Book book) : base("Entertainer", assignment, book)
         {
-
         }
 
         protected override int AdvancedEductionMin => 10;
@@ -39,6 +38,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     Mishap(character, dice);
                     character.NextTermBenefits.MusterOut = false;
                     return;
+
                 case 3:
 
                     if (dice.RollHigh(character.Skills.BestSkillLevel("Investigate", "Art"), 8))
@@ -52,6 +52,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                         character.SocialStanding += -1;
                     }
                     return;
+
                 case 4:
                     character.AddHistory("Join homeworld’s celebrity circles");
 
@@ -68,17 +69,21 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     }
 
                     return;
+
                 case 5:
                     character.AddHistory($"Works is especially well received and popular, making you a minor celebrity");
                     character.BenefitRollDMs.Add(1);
                     return;
+
                 case 6:
                     character.AddHistory($"Gain a patron in the arts. Gain an Ally");
                     character.CurrentTermBenefits.AdvancementDM += 2;
                     return;
+
                 case 7:
                     LifeEvent(character, dice);
                     return;
+
                 case 8:
 
                     if (dice.D(2) == 1)
@@ -93,9 +98,11 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                             Mishap(character, dice);
                     }
                     return;
+
                 case 9:
                     character.AddHistory($"Go on a tour of the sector, visiting several worlds. Gain {dice.D(3)} Contacts.");
                     return;
+
                 case 10:
                     character.AddHistory("One of your pieces of art is stolen, and the investigation brings you into the criminal underworld.");
                     {
@@ -109,15 +116,29 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                             character.Skills.Add(dice.Choose(skillList), 1);
                     }
                     return;
+
                 case 11:
                     //character.AddHistory("As an artist, you lead a strange and charmed life.");
                     UnusualLifeEvent(character, dice);
                     return;
+
                 case 12:
                     character.AddHistory("Win a prestigious prize.");
                     character.CurrentTermBenefits.AdvancementDM += 100;
                     return;
             }
+        }
+
+        internal override decimal MedicalPaymentPercentage(Character character, Dice dice)
+        {
+            var roll = dice.D(2, 6) + (character.LastCareer?.Rank ?? 0);
+            if (roll >= 12)
+                return 1.0M;
+            if (roll >= 8)
+                return 0.75M;
+            if (roll >= 4)
+                return 0.50M;
+            return 0;
         }
 
         internal override void Mishap(Character character, Dice dice)
@@ -127,9 +148,11 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 case 1:
                     Injury(character, dice, true);
                     return;
+
                 case 2:
                     character.AddHistory("Expose or are involved in a scandal of some sort.");
                     return;
+
                 case 3:
                     character.AddHistory("Public opinion turns on you.");
                     character.SocialStanding += -1;
@@ -138,6 +161,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 case 4:
                     character.AddHistory("You are betrayed by a peer. One Ally or Contact becomes a Rival or Enemy");
                     return;
+
                 case 5:
                     character.AddHistory("An investigation, tour, project or expedition goes wrong, stranding you far from home.");
                     var skillList = new SkillTemplateCollection();
@@ -150,6 +174,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                         character.Skills.Add(dice.Choose(skillList), 1);
 
                     return;
+
                 case 6:
                     character.AddHistory("You are forced out because of censorship or controversy. What truth did you get too close to?");
                     character.NextTermBenefits.QualificationDM += 2;
@@ -166,6 +191,37 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
             return dice.RollHigh(dm, 5);
         }
+
+        internal override void ServiceSkill(Character character, Dice dice)
+        {
+            switch (dice.D(6))
+            {
+                case 1:
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Art")));
+                    return;
+
+                case 2:
+                    character.Skills.Increase("Carouse");
+                    return;
+
+                case 3:
+                    character.Skills.Increase("Deception");
+                    return;
+
+                case 4:
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
+                    return;
+
+                case 5:
+                    character.Skills.Increase("Persuade");
+                    return;
+
+                case 6:
+                    character.Skills.Increase("Steward");
+                    return;
+            }
+        }
+
         protected override void AdvancedEducation(Character character, Dice dice)
         {
             switch (dice.D(6))
@@ -173,18 +229,23 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 case 1:
                     character.Skills.Increase("Advocate");
                     return;
+
                 case 2:
                     character.Skills.Increase("Broker");
                     return;
+
                 case 3:
                     character.Skills.Increase("Deception");
                     return;
+
                 case 4:
                     character.Skills.Increase(dice.Choose(SpecialtiesFor("Science")));
                     return;
+
                 case 5:
                     character.Skills.Increase("Streetwise");
                     return;
+
                 case 6:
                     character.Skills.Increase("Diplomat");
                     return;
@@ -198,50 +259,27 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 case 1:
                     character.Dexterity += 1;
                     return;
+
                 case 2:
                     character.Intellect += 1;
                     return;
+
                 case 3:
                     character.SocialStanding += 1;
                     return;
+
                 case 4:
                     character.Skills.Increase(dice.Choose(SpecialtiesFor("Language")));
                     return;
+
                 case 5:
                     character.Skills.Increase("Carouse");
                     return;
+
                 case 6:
                     character.Skills.Increase("Jack-of-all-Trades");
                     return;
             }
         }
-        internal override void ServiceSkill(Character character, Dice dice)
-        {
-            switch (dice.D(6))
-            {
-                case 1:
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Art")));
-                    return;
-                case 2:
-                    character.Skills.Increase("Carouse");
-                    return;
-                case 3:
-                    character.Skills.Increase("Deception");
-                    return;
-                case 4:
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
-                    return;
-                case 5:
-                    character.Skills.Increase("Persuade");
-                    return;
-                case 6:
-                    character.Skills.Increase("Steward");
-                    return;
-            }
-        }
     }
-
-
 }
-
-

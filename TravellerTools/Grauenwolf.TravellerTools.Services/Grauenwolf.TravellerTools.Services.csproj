@@ -71,6 +71,7 @@
     <Compile Include="Maps\Route.cs" />
     <Compile Include="Maps\Sector.cs" />
     <Compile Include="Maps\SectorMetadata.cs" />
+    <Compile Include="Maps\SophontCode.cs" />
     <Compile Include="Maps\Subsector.cs" />
     <Compile Include="Maps\TravellerMapService.cs" />
     <Compile Include="Maps\Universe.cs" />

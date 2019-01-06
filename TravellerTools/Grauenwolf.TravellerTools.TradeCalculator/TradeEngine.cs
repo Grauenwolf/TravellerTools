@@ -1,5 +1,4 @@
-﻿
-using Grauenwolf.TravellerTools.Characters;
+﻿using Grauenwolf.TravellerTools.Characters;
 using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Names;
 using System;
@@ -10,11 +9,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
     public abstract class TradeEngine
     {
-
         readonly CharacterBuilder m_CharacterBuilder;
         readonly INameService m_NameService;
         ImmutableArray<string> m_Personalities;
@@ -40,6 +39,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         protected abstract string DataFileName { get; }
         protected ImmutableList<TradeGood> LegalTradeGoods { get; }
         protected ImmutableList<TradeGood> TradeGoods { get; }
+
         /// <summary>
         /// This has the cargo, people, etc. that want to travel from one location to another.
         /// </summary>
@@ -63,13 +63,11 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             else
                 goods = TradeGoods;
 
-
             var offers = new List<TradeOffer>();
             var bids = new List<TradeBid>();
 
             foreach (var good in goods)
             {
-
                 //List the goods that are readily available or usually cheap on this planet
                 var purchaseDM = PurchaseDM(destination, good);
                 if (good.BasePrice > 0 && purchaseDM > 0) //(purchaseDM > 0 || (purchaseDM >= 0 && good.Availability == "*") || (good.AvailabilityList.Any(a => destination.ContainsRemark(a)))))
@@ -87,8 +85,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
             result.Offers.AddRange(offers.OrderBy(o => o.Type));
             result.Bids.AddRange(bids.OrderBy(o => o.Type));
-
-
 
             return result;
         }
@@ -109,7 +105,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         /// <returns></returns>
         public async Task<ManifestCollection> BuildManifestsAsync(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters, int streetwiseScore, bool raffleGoods, string milieu)
         {
-
             var actualSeed = seed ?? (new Random()).Next();
             var random = new Dice(actualSeed);
 
@@ -139,17 +134,16 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return result;
         }
 
-        public async Task<ManifestCollection> BuildManifestsAsync(string originUwp, string destinationUwp, int distance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters, int streetwiseScore, bool raffleGoods, string milieu)
+        public async Task<ManifestCollection> BuildManifestsAsync(string originUwp, string destinationUwp, int distance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters, int streetwiseScore, bool raffleGoods, string milieu, TasZone originTasZone, TasZone destinationTasZone)
         {
-
             var actualSeed = seed ?? (new Random()).Next();
             var random = new Dice(actualSeed);
 
-            var origin = new World(originUwp, "Origin " + originUwp, 0);
+            var origin = new World(originUwp, "Origin " + originUwp, 0, originTasZone);
 
             var worlds = new List<World>() { origin };
             if (!string.IsNullOrEmpty(destinationUwp))
-                worlds.Add(new World(destinationUwp, "Destination " + destinationUwp, distance));
+                worlds.Add(new World(destinationUwp, "Destination " + destinationUwp, distance, destinationTasZone));
 
             var result = await BuildManifestsAsync(worlds, random, illegalGoods, advancedCharacters).ConfigureAwait(false);
 
@@ -171,7 +165,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return result;
         }
 
-
         public TradeGoodsList BuildTradeGoodsList(World origin, bool advancedMode, bool illegalGoods, int brokerScore, Dice random, bool raffleGoods)
         {
             if (origin == null)
@@ -188,7 +181,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             var result = new TradeGoodsList();
 
             List<TradeOffer> availableLots = new List<TradeOffer>();
-
 
             var randomGoods = new List<TradeGood>();
 
@@ -273,7 +265,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                                     SaleDM = SaleDM(origin, good),
                                 };
 
-                                //TODO: Auto-bump the price so that the merchant isn't buying from the PCs at a higher price than he would sell to them 
+                                //TODO: Auto-bump the price so that the merchant isn't buying from the PCs at a higher price than he would sell to them
                                 int roll;
                                 bid.PriceModifier = SalePriceModifier(random, bid.SaleDM, brokerScore, out roll);
                                 bid.Roll = roll;
@@ -291,7 +283,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                             SaleDM = SaleDM(origin, good),
                         };
 
-                        //TODO: Auto-bump the price so that the merchant isn't buying from the PCs at a higher price than he would sell to them 
+                        //TODO: Auto-bump the price so that the merchant isn't buying from the PCs at a higher price than he would sell to them
                         int roll;
                         bid.PriceModifier = SalePriceModifier(random, bid.SaleDM, brokerScore, out roll);
                         bid.Roll = roll;
@@ -312,7 +304,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                                 SaleDM = SaleDM(origin, good),
                             };
 
-                            //TODO: Auto-bump the price so that the merchant isn't buying from the PCs at a higher price than he would sell to them 
+                            //TODO: Auto-bump the price so that the merchant isn't buying from the PCs at a higher price than he would sell to them
                             int roll;
                             bid.PriceModifier = SalePriceModifier(random, bid.SaleDM, brokerScore, out roll);
                             bid.Roll = roll;
@@ -382,6 +374,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         //    return null;
         //}
 
+        public abstract World GenerateRandomWorld();
+
         public abstract Task<PassengerList> PassengersAsync(World origin, World destination, Dice random, bool advancedCharacters);
 
         internal abstract void OnManifestsBuilt(ManifestCollection result);
@@ -431,7 +425,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 result.Personality.AddRange(character.Personality);
             }
 
-
             if (isPatron)
             {
                 //TODO: add support for patron features
@@ -445,93 +438,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#")]
         protected abstract decimal SalePriceModifier(Dice random, int saleBonus, int brokerScore, out int roll);
-
-        private void AddTradeGood(World origin, Dice random, IList<TradeOffer> result, TradeGood good, bool advancedMode, int brokerScore)
-        {
-            if (string.IsNullOrEmpty(good.Tons))
-                throw new ArgumentException("good.Tons is empty for " + good.Name);
-
-
-            if (good.BasePrice == 0) //special case
-            {
-                var detail = good.ChooseRandomDetail(random);
-                var lot = new TradeOffer()
-                {
-                    Type = good.Name,
-                    Subtype = random.Choose(detail.NameList),
-                    Tons = Math.Max(1, random.D(detail.Tons)),
-                    BasePrice = detail.Price * 1000,
-                    PurchaseDM = PurchaseDM(origin, good)
-                };
-
-                int roll;
-                lot.PriceModifier = PurchasePriceModifier(random, lot.PurchaseDM, brokerScore, out roll);
-                lot.Roll = roll;
-
-
-                result.Add(lot);
-            }
-            else if (!advancedMode)
-            {
-                var lot = new TradeOffer()
-                {
-                    Type = good.Name,
-                    Subtype = null,
-                    Tons = random.D(good.Tons),
-                    BasePrice = good.BasePrice * 1000,
-                    PurchaseDM = PurchaseDM(origin, good)
-                };
-
-                int roll;
-                lot.PriceModifier = PurchasePriceModifier(random, lot.PurchaseDM, brokerScore, out roll);
-                lot.Roll = roll;
-
-                result.Add(lot);
-            }
-            else
-            {
-                var tonsRemaining = random.D(good.Tons);
-                while (tonsRemaining > 0)
-                {
-                    var detail = good.ChooseRandomDetail(random);
-                    var lot = new TradeOffer()
-                    {
-                        Type = good.Name,
-                        Subtype = random.Choose(detail.NameList),
-                        Tons = Math.Min(tonsRemaining, random.D(detail.Tons)),
-                        BasePrice = detail.Price * 1000,
-                        PurchaseDM = PurchaseDM(origin, good)
-                    };
-
-                    int roll;
-                    lot.PriceModifier = PurchasePriceModifier(random, lot.PurchaseDM, brokerScore, out roll);
-                    lot.Roll = roll;
-
-
-                    result.Add(lot);
-
-                    tonsRemaining -= lot.Tons;
-                }
-            }
-        }
-
-        /// <summary>
-        /// This has the cargo, people, etc. that want to travel from one location to another.
-        /// </summary>
-        /// <param name="worlds">The worlds.</param>
-        /// <param name="random">The random.</param>
-        /// <param name="illegalGoods">if set to <c>true</c> [illegal goods].</param>
-        /// <param name="advancedCharacters">if set to <c>true</c> [advanced characters].</param>
-        /// <returns></returns>
-        async Task<ManifestCollection> BuildManifestsAsync(IReadOnlyList<World> worlds, Dice random, bool illegalGoods, bool advancedCharacters)
-        {
-            var result = new ManifestCollection();
-            result.Origin = worlds[0];
-            for (var i = 1; i < worlds.Count; i++)
-                if (!worlds[i].UWP.Contains("?")) //skip uncharted words
-                    result.Add(await BuildManifestAsync(result.Origin, worlds[i], random, illegalGoods, advancedCharacters).ConfigureAwait(false));
-            return result;
-        }
 
         static StarportDetails CalculateStarportDetails(World origin, Dice dice, bool highPort)
         {
@@ -563,6 +469,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                         result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
                     }
                     return result;
+
                 case "B":
                     result.BerthingCost = dice.D(1, 6) * 500;
                     result.BerthingCostPerDay = 200;
@@ -588,6 +495,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                         result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
                     }
                     return result;
+
                 case "C":
                     result.BerthingCost = dice.D(1, 6) * 100;
                     result.BerthingCostPerDay = 100;
@@ -613,6 +521,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                         result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
                     }
                     return result;
+
                 case "D":
                     if (highPort) return null;
 
@@ -626,6 +535,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-1"));
                     result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6"));
                     return result;
+
                 case "E":
                     if (highPort) return null;
 
@@ -645,7 +555,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         {
             int purchase = int.MinValue;
             int sale = int.MinValue;
-
 
             foreach (var item in good.PurchaseDMs)
                 if (world.ContainsRemark(item.Tag))
@@ -685,11 +594,88 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             }
         }
 
-        public abstract World GenerateRandomWorld();
+        private void AddTradeGood(World origin, Dice random, IList<TradeOffer> result, TradeGood good, bool advancedMode, int brokerScore)
+        {
+            if (string.IsNullOrEmpty(good.Tons))
+                throw new ArgumentException("good.Tons is empty for " + good.Name);
+
+            if (good.BasePrice == 0) //special case
+            {
+                var detail = good.ChooseRandomDetail(random);
+                var lot = new TradeOffer()
+                {
+                    Type = good.Name,
+                    Subtype = random.Choose(detail.NameList),
+                    Tons = Math.Max(1, random.D(detail.Tons)),
+                    BasePrice = detail.Price * 1000,
+                    PurchaseDM = PurchaseDM(origin, good)
+                };
+
+                int roll;
+                lot.PriceModifier = PurchasePriceModifier(random, lot.PurchaseDM, brokerScore, out roll);
+                lot.Roll = roll;
+
+                result.Add(lot);
+            }
+            else if (!advancedMode)
+            {
+                var lot = new TradeOffer()
+                {
+                    Type = good.Name,
+                    Subtype = null,
+                    Tons = random.D(good.Tons),
+                    BasePrice = good.BasePrice * 1000,
+                    PurchaseDM = PurchaseDM(origin, good)
+                };
+
+                int roll;
+                lot.PriceModifier = PurchasePriceModifier(random, lot.PurchaseDM, brokerScore, out roll);
+                lot.Roll = roll;
+
+                result.Add(lot);
+            }
+            else
+            {
+                var tonsRemaining = random.D(good.Tons);
+                while (tonsRemaining > 0)
+                {
+                    var detail = good.ChooseRandomDetail(random);
+                    var lot = new TradeOffer()
+                    {
+                        Type = good.Name,
+                        Subtype = random.Choose(detail.NameList),
+                        Tons = Math.Min(tonsRemaining, random.D(detail.Tons)),
+                        BasePrice = detail.Price * 1000,
+                        PurchaseDM = PurchaseDM(origin, good)
+                    };
+
+                    int roll;
+                    lot.PriceModifier = PurchasePriceModifier(random, lot.PurchaseDM, brokerScore, out roll);
+                    lot.Roll = roll;
+
+                    result.Add(lot);
+
+                    tonsRemaining -= lot.Tons;
+                }
+            }
+        }
+
+        /// <summary>
+        /// This has the cargo, people, etc. that want to travel from one location to another.
+        /// </summary>
+        /// <param name="worlds">The worlds.</param>
+        /// <param name="random">The random.</param>
+        /// <param name="illegalGoods">if set to <c>true</c> [illegal goods].</param>
+        /// <param name="advancedCharacters">if set to <c>true</c> [advanced characters].</param>
+        /// <returns></returns>
+        async Task<ManifestCollection> BuildManifestsAsync(IReadOnlyList<World> worlds, Dice random, bool illegalGoods, bool advancedCharacters)
+        {
+            var result = new ManifestCollection();
+            result.Origin = worlds[0];
+            for (var i = 1; i < worlds.Count; i++)
+                if (!worlds[i].UWP.Contains("?")) //skip uncharted words
+                    result.Add(await BuildManifestAsync(result.Origin, worlds[i], random, illegalGoods, advancedCharacters).ConfigureAwait(false));
+            return result;
+        }
     }
-
-
-
-
 }
-

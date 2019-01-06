@@ -1,7 +1,9 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
 using Grauenwolf.TravellerTools.Equipment;
 using Grauenwolf.TravellerTools.TradeCalculator;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AE = Grauenwolf.TravellerTools.Animals.AE;
@@ -12,11 +14,6 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
     [RoutePrefix("Home")]
     public class HomeController : Controller
     {
-        public ActionResult Index()
-        {
-            return View(Global.HomeIndexViewModel);
-        }
-
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -24,42 +21,25 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult AnimalEncounters(string terrainType = "", string animalClass = "", int evolution = 0)
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
-        public async Task<ActionResult> TradeInfo(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT, int? seed = null, bool advancedCharacters = false, int streetwiseScore = 0, bool raffleGoods = false, string milieu = "M1105")
-        {
-            var tradeEngine = Global.GetTradeEngine(milieu, edition);
-
-            ManifestCollection model = await tradeEngine.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore, raffleGoods, milieu);
-
-            return View(model);
-        }
-
-
-        [Route("QuickTradeInfo")]
-        public async Task<ActionResult> TradeInfo(string originUwp, string destinationUwp, int jumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT2, int? seed = null, bool advancedCharacters = false, int streetwiseScore = 0, bool raffleGoods = false, string milieu = "M1105")
-        {
-            var tradeEngine = Global.GetTradeEngine(milieu, edition);
-
-            ManifestCollection model = await tradeEngine.BuildManifestsAsync(originUwp, destinationUwp, jumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore, raffleGoods, milieu);
-
-            return View(model);
-        }
-
-        [Route("RandomWorld")]
-        public async Task<ActionResult> TradeInfo(bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT2, int? seed = null, bool advancedCharacters = false, int streetwiseScore = 0, bool raffleGoods = false, string milieu = "M1105")
-        {
-            var tradeEngine = Global.GetTradeEngine(milieu, edition);
-
-            var world = tradeEngine.GenerateRandomWorld();
-
-            ManifestCollection model = await tradeEngine.BuildManifestsAsync(world.UWP, null, 1, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore, raffleGoods, milieu);
-
+            Dictionary<string, List<AE.Animal>> model;
+            if (!string.IsNullOrWhiteSpace(terrainType) && !string.IsNullOrWhiteSpace(animalClass))
+            {
+                var list = new List<AE.Animal>();
+                model = new Dictionary<string, List<AE.Animal>>();
+                model.Add(terrainType, list);
+                list.Add(AE.AnimalBuilderAE.BuildAnimal(terrainType, animalClass, evolution));
+            }
+            else if (!string.IsNullOrWhiteSpace(terrainType))
+            {
+                model = new Dictionary<string, List<AE.Animal>>();
+                model.Add(terrainType, AE.AnimalBuilderAE.BuildTerrainSet(terrainType));
+            }
+            else
+            {
+                model = AE.AnimalBuilderAE.BuildPlanetSet();
+            }
 
             return View(model);
         }
@@ -87,30 +67,7 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             return View(model);
         }
 
-        public ActionResult AnimalEncounters(string terrainType = "", string animalClass = "", int evolution = 0)
-        {
-            Dictionary<string, List<AE.Animal>> model;
-            if (!string.IsNullOrWhiteSpace(terrainType) && !string.IsNullOrWhiteSpace(animalClass))
-            {
-                var list = new List<AE.Animal>();
-                model = new Dictionary<string, List<AE.Animal>>();
-                model.Add(terrainType, list);
-                list.Add(AE.AnimalBuilderAE.BuildAnimal(terrainType, animalClass, evolution));
-            }
-            else if (!string.IsNullOrWhiteSpace(terrainType))
-            {
-                model = new Dictionary<string, List<AE.Animal>>();
-                model.Add(terrainType, AE.AnimalBuilderAE.BuildTerrainSet(terrainType));
-            }
-            else
-            {
-                model = AE.AnimalBuilderAE.BuildPlanetSet();
-            }
-
-            return View(model);
-        }
-
-        public async Task<ActionResult> Character(int? minAge = null, int? maxAge = null, string name = null, string career = null, int? seed = null)
+        public async Task<ActionResult> Character(int? minAge = null, int? maxAge = null, string name = null, string career = null, int? seed = null, string gender = null)
         {
             var dice = new Dice();
             var options = new CharacterBuilderOptions();
@@ -118,6 +75,7 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             if (!string.IsNullOrEmpty(name))
             {
                 options.Name = name;
+                options.Gender = gender;
             }
             else
             {
@@ -139,9 +97,47 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
 
             options.Seed = seed;
 
-            var model = Global.CharacterBuilder.Build(options);
+            if (!string.IsNullOrEmpty(career) && seed == null)
+            {
+                //create a lot of characters, then pick the best fit.
 
-            return View(model);
+                var characters = new List<Character>();
+                for (int i = 0; i < 1000; i++)
+                {
+                    var candidateCharacter = Global.CharacterBuilder.Build(options);
+                    if (string.Equals(candidateCharacter.LastCareer?.Assignment, career, StringComparison.InvariantCultureIgnoreCase) && !candidateCharacter.IsDead)
+                        return View(candidateCharacter);
+
+                    characters.Add(candidateCharacter);
+                }
+
+                //No character's last career was the requested one. Choose the one who spend the most time in the desired career.
+                var sortedList = characters.Select(c => new
+                {
+                    Character = c,
+                    Suitability =
+                    (c.CareerHistory.SingleOrDefault(ch => string.Equals(ch.Assignment, career, StringComparison.InvariantCultureIgnoreCase))?.Terms ?? 0.00) / c.CurrentTerm
+                    + (c.IsDead ? -100.00 : 0.00)
+                }).OrderByDescending(x => x.Suitability).ToList();
+
+                return View(sortedList.First().Character);
+            }
+            else
+            {
+                return View(Global.CharacterBuilder.Build(options));
+            }
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult Index()
+        {
+            return View(Global.HomeIndexViewModel);
         }
 
         public ActionResult Store(int brokerScore = 0,
@@ -169,14 +165,40 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             };
             options.TradeCodes.AddRange((tradeCodes ?? "").Split(' '));
 
-
             var model = Global.EquipmentBuilder.AvailabilityTable(options);
 
             return View(model);
+        }
 
+        public async Task<ActionResult> TradeInfo(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT, int? seed = null, bool advancedCharacters = false, int streetwiseScore = 0, bool raffleGoods = false, string milieu = "M1105")
+        {
+            var tradeEngine = Global.GetTradeEngine(milieu, edition);
+
+            ManifestCollection model = await tradeEngine.BuildManifestsAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore, raffleGoods, milieu);
+
+            return View(model);
+        }
+
+        [Route("QuickTradeInfo")]
+        public async Task<ActionResult> TradeInfo(string originUwp, string destinationUwp, int jumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT2, int? seed = null, bool advancedCharacters = false, int streetwiseScore = 0, bool raffleGoods = false, string milieu = "M1105", TasZone originTasZone = TasZone.Green, TasZone destinationTasZone = TasZone.Green)
+        {
+            var tradeEngine = Global.GetTradeEngine(milieu, edition);
+
+            ManifestCollection model = await tradeEngine.BuildManifestsAsync(originUwp, destinationUwp, jumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore, raffleGoods, milieu, originTasZone, destinationTasZone);
+
+            return View(model);
+        }
+
+        [Route("RandomWorld")]
+        public async Task<ActionResult> TradeInfo(bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT2, int? seed = null, bool advancedCharacters = false, int streetwiseScore = 0, bool raffleGoods = false, string milieu = "M1105")
+        {
+            var tradeEngine = Global.GetTradeEngine(milieu, edition);
+
+            var world = tradeEngine.GenerateRandomWorld();
+
+            ManifestCollection model = await tradeEngine.BuildManifestsAsync(world.UWP, null, 1, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore, raffleGoods, milieu, TasZone.Green, TasZone.Green);
+
+            return View(model);
         }
     }
 }
-
-
-
