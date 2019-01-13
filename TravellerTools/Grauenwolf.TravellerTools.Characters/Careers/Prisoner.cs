@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers
 {
-    abstract class Prisoner : Career
+    abstract class Prisoner : CareerBase
     {
         protected Prisoner(string assignment, Book book) : base("Prisoner", assignment, book)
         {
@@ -19,12 +19,12 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         internal override void Run(Character character, Dice dice)
         {
             CareerHistory careerHistory;
-            if (!character.CareerHistory.Any(pc => pc.Name == Name))
+            if (!character.CareerHistory.Any(pc => pc.Career == Career))
             {
                 character.AddHistory($"Became a {Assignment} at age {character.Age}");
                 BasicTrainingSkills(character, dice, character.CareerHistory.Count == 0);
 
-                careerHistory = new CareerHistory(Name, Assignment, 0);
+                careerHistory = new CareerHistory(Career, Assignment, 0);
                 character.CareerHistory.Add(careerHistory);
             }
             else
@@ -32,7 +32,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 if (!character.CareerHistory.Any(pc => pc.Assignment == Assignment))
                 {
                     character.AddHistory($"Switched to {Assignment} at age {character.Age}");
-                    careerHistory = new CareerHistory(Name, Assignment, 0); //TODO: Carry-over rank?
+                    careerHistory = new CareerHistory(Career, Assignment, 0); //TODO: Carry-over rank?
                     character.CareerHistory.Add(careerHistory);
                 }
                 else if (character.LastCareer?.Assignment == Assignment)

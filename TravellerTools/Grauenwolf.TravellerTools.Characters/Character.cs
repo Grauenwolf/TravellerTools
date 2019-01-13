@@ -187,7 +187,7 @@ namespace Grauenwolf.TravellerTools.Characters
 		/// <value>The seed.</value>
 		public int Seed { get; set; }
 
-		public string FirstCareer { get; set; }
+		public string FirstAssignment { get; set; }
 
 		internal int GetEnlistmentBonus(string career, string branch)
 		{

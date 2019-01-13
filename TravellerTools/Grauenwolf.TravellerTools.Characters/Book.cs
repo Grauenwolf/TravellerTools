@@ -39,7 +39,7 @@ namespace Grauenwolf.TravellerTools.Characters
         public ImmutableArray<PsionicSkillTemplate> PsionicTalents { get; }
         public ImmutableArray<SkillTemplate> RandomSkills { get; }
 
-        public static void Injury(Character character, Dice dice, Careers.Career career, bool severe = false)
+        public static void Injury(Character character, Dice dice, Careers.CareerBase career, bool severe = false)
         {
             //TODO: Add medical bills support. Page 47
 
@@ -235,7 +235,7 @@ namespace Grauenwolf.TravellerTools.Characters
             return null;
         }
 
-        public void LifeEvent(Character character, Dice dice, Careers.Career career)
+        public void LifeEvent(Character character, Dice dice, Careers.CareerBase career)
         {
             switch (dice.D(2, 6))
             {
@@ -296,7 +296,7 @@ namespace Grauenwolf.TravellerTools.Characters
             }
         }
 
-        public void PreCareerEvents(Character character, Dice dice, Careers.Career career, params string[] skills)
+        public void PreCareerEvents(Character character, Dice dice, Careers.CareerBase career, params string[] skills)
         {
             switch (dice.D(2, 6))
             {

@@ -220,7 +220,7 @@
             if (character.Age >= 30)
                 dm += -2;
 
-            dm += character.GetEnlistmentBonus(Name, Assignment);
+            dm += character.GetEnlistmentBonus(Career, Assignment);
 
             return dice.RollHigh(dm, 5);
         }

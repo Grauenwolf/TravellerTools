@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers
 {
-    class University : Career
+    class University : CareerBase
     {
         public University(Book book) : base("University", null, book)
         {

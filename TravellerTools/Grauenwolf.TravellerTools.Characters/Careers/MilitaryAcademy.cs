@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers
 {
-    class MilitaryAcademy : Career
+    class MilitaryAcademy : CareerBase
     {
         MilitaryCareer m_Stub;
 
@@ -66,7 +66,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             if (graduation == 2)
             {
                 character.AddHistory("Kicked out of military academy.");
-                character.NextTermBenefits.EnlistmentDM[m_Stub.Name] = -100;
+                character.NextTermBenefits.EnlistmentDM[m_Stub.Career] = -100;
             }
             else
             {
@@ -75,7 +75,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 {
                     character.AddHistory("Dropped out of military academy.");
                     character.EducationHistory.Status = "Failed";
-                    character.NextTermBenefits.EnlistmentDM[m_Stub.Name] = 100;
+                    character.NextTermBenefits.EnlistmentDM[m_Stub.Career] = 100;
                     character.NextTermBenefits.CommissionDM = -100;
                 }
                 else
@@ -99,7 +99,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     m_Stub.ServiceSkill(character, dice);
                     character.Education += 1;
 
-                    character.NextTermBenefits.MustEnroll = m_Stub.Name;
+                    character.NextTermBenefits.MustEnroll = m_Stub.Career;
                 }
             }
         }

@@ -10,7 +10,7 @@
     {
         <span style="color:red">DECEASED</span>
     }
-    <a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}&Career={4}&Gender={5}", Url.Encode(Model.Name), Model.Seed, Model.Age, Model.Age, Model.FirstCareer, Model.Gender)">permalink</a>
+    <a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}&FirstAssignment={4}&Gender={5}", Url.Encode(Model.Name), Model.Seed, Model.Age, Model.Age, Model.FirstAssignment, Model.Gender)">permalink</a>
 </h2>
 
 <table class="gridtable">
@@ -76,7 +76,7 @@
                 @foreach (var line in Model.CareerHistory)
                 {
                     <tr>
-                        <td>@line.Name</td>
+                        <td>@line.Career</td>
                         <td>@line.Assignment</td>
                         <td>@line.Title</td>
                         @if (line.CommissionRank > 0)

@@ -11,6 +11,11 @@ interface ISubsector {
     Index: string;
 }
 
+interface ICareer {
+    Career: string;
+    Assignment: string;
+}
+
 interface IWorldLocation {
     Name: string;
     Hex: string;
@@ -61,6 +66,23 @@ function SectorChanged(sectorCoordinates: string, subsector: HTMLSelectElement, 
         });
 }
 
+function CareerChanged(career: string, assignment: HTMLSelectElement, allowRandom: boolean): void {
+    $(assignment).empty();
+
+    $.getJSON("/WorldApi/Assignments?career=" + career,
+        cs => {
+            var myList = <ICareer[]>cs;
+
+            if (allowRandom)
+                assignment.appendChild(new Option("(Random)", "", true));
+
+            for (var i = 0; i < myList.length; i++) {
+                var opt = new Option(myList[i].Assignment, myList[i].Assignment, (i == 0 && !allowRandom));
+                assignment.appendChild(opt);
+            }
+        });
+}
+
 function SubsectorChanged(sectorCoordinates: string, subsectorIndex: string, world: HTMLSelectElement, milieu: string): void {
     $(world).empty();
 
@@ -89,6 +111,17 @@ function UwpChanged(originUwp: string, distinationUwp: string, button: HTMLInput
     //    button.style.display = '';
     //    label.style.display = 'none';
     //}
+}
+
+function GenerateCharacter(firstAssignment: string, finalCareer: string, finalAssignment: string, terms: number) {
+    var minAge = (terms > 0) ? 18 + (terms * 4) : "";
+    var maxAge = (terms > 0) ? 18 + (terms * 4) + 3 : "";
+
+    var fa = (firstAssignment == undefined) ? "" : firstAssignment;
+    var c = (finalCareer == undefined) ? "" : finalCareer;
+    var a = (finalAssignment == undefined) ? "" : finalAssignment;
+
+    window.location.href = "/Home/Character?minAge=" + minAge + "&maxAge=" + maxAge + "&firstAssignment=" + fa + "&finalCareer=" + c + "&finalAssignment=" + a;
 }
 
 function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, advancedMode: boolean, illegalGoods: boolean, maxJumpDistance: number, brokerScore: number, mongoose2: boolean, advancedCharacters: boolean, streetwiseScore: number, raffle: boolean, originUwp: string, destinationUwp: string, jumpDistance: number, milieu: string, originTasZone: string, destinationTasZone: string): void {

@@ -2,7 +2,7 @@ using System.Linq;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers
 {
-    class Retired : Career
+    class Retired : CareerBase
     {
         public Retired(Book book) : base("Retired", null, book)
         {
@@ -69,7 +69,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         {
 
             CareerHistory careerHistory;
-            if (!character.CareerHistory.Any(pc => pc.Name == "Retired"))
+            if (!character.CareerHistory.Any(pc => pc.Career == "Retired"))
             {
                 character.AddHistory($"Retired at age {character.Age}");
                 careerHistory = new CareerHistory("Retired", null, 0);
@@ -77,7 +77,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             }
             else
             {
-                careerHistory = character.CareerHistory.Single(pc => pc.Name == "Retired");
+                careerHistory = character.CareerHistory.Single(pc => pc.Career == "Retired");
             }
             careerHistory.Terms += 1;
 

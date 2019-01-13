@@ -3,23 +3,24 @@ using System.Collections.Immutable;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers
 {
-    public abstract class Career
+    public abstract class CareerBase
     {
-        internal Career(string name, string assignment, Book book)
+        internal CareerBase(string career, string assignment, Book book)
         {
             Book = book;
-            Name = name;
+            Career = career;
             Assignment = assignment;
         }
 
         public string Assignment { get; }
 
+        public string Career { get; }
+
         public string Key
         {
-            get { return Assignment ?? Name; }
+            get { return Assignment ?? Career; }
         }
 
-        public string Name { get; }
         internal Book Book { get; }
 
         protected ImmutableArray<SkillTemplate> RandomSkills
@@ -30,9 +31,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         public override string ToString()
         {
             if (Assignment == null)
-                return Name;
+                return Career;
             else
-                return $"{Assignment} ({Name})";
+                return $"{Assignment} ({Career})";
         }
 
         internal virtual decimal MedicalPaymentPercentage(Character character, Dice dice)

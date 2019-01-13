@@ -67,7 +67,7 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Character(int? minAge = null, int? maxAge = null, string name = null, string career = null, int? seed = null, string gender = null)
+        public async Task<ActionResult> Character(int? minAge = null, int? maxAge = null, string name = null, string firstAssignment = null, string finalCareer = null, string finalAssignment = null, int? seed = null, string gender = null)
         {
             var dice = new Dice();
             var options = new CharacterBuilderOptions();
@@ -93,20 +93,28 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             else
                 options.MaxAge = 12 + dice.D(1, 60);
 
-            options.FirstCareer = career;
+            options.FirstAssignment = firstAssignment;
 
             options.Seed = seed;
 
-            if (!string.IsNullOrEmpty(career) && seed == null)
+            if ((!string.IsNullOrEmpty(finalCareer) || !string.IsNullOrEmpty(finalAssignment)) && seed == null)
             {
                 //create a lot of characters, then pick the best fit.
 
                 var characters = new List<Character>();
-                for (int i = 0; i < 1000; i++)
+                for (int i = 0; i < 5000; i++)
                 {
                     var candidateCharacter = Global.CharacterBuilder.Build(options);
-                    if (string.Equals(candidateCharacter.LastCareer?.Assignment, career, StringComparison.InvariantCultureIgnoreCase) && !candidateCharacter.IsDead)
-                        return View(candidateCharacter);
+                    if (!candidateCharacter.IsDead)
+                    {
+                        if (!string.IsNullOrEmpty(finalAssignment))
+                        { //looking for a particular assignment
+                            if (string.Equals(candidateCharacter.LastCareer?.Assignment, finalAssignment, StringComparison.InvariantCultureIgnoreCase)) //found that assignment
+                                return View(candidateCharacter);
+                        }
+                        else if (string.Equals(candidateCharacter.LastCareer?.Career, finalCareer, StringComparison.InvariantCultureIgnoreCase))
+                            return View(candidateCharacter); //found the career
+                    }
 
                     characters.Add(candidateCharacter);
                 }
@@ -116,7 +124,8 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
                 {
                     Character = c,
                     Suitability =
-                    (c.CareerHistory.SingleOrDefault(ch => string.Equals(ch.Assignment, career, StringComparison.InvariantCultureIgnoreCase))?.Terms ?? 0.00) / c.CurrentTerm
+                    (c.CareerHistory.Where(ch => string.Equals(ch.Assignment, finalAssignment, StringComparison.InvariantCultureIgnoreCase)).Sum(ch => ch.Terms * 5.0) / c.CurrentTerm)
+                    + (c.CareerHistory.SingleOrDefault(ch => string.Equals(ch.Career, finalCareer, StringComparison.InvariantCultureIgnoreCase))?.Terms * 1.0 ?? 0.00) / c.CurrentTerm
                     + (c.IsDead ? -100.00 : 0.00)
                 }).OrderByDescending(x => x.Suitability).ToList();
 

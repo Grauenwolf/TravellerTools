@@ -41,7 +41,7 @@ namespace Grauenwolf.TravellerTools.Characters
 			using (var stream = file.OpenRead())
 				m_Book = new Book(((CharacterTemplates)converter.Deserialize(stream)));
 
-			var careers = new List<Career>();
+			var careers = new List<CareerBase>();
 			careers.Add(new MilitaryAcademy("Army Academy", "End", 8, m_Book));
 			careers.Add(new MilitaryAcademy("Marine Academy", "End", 9, m_Book));
 			careers.Add(new MilitaryAcademy("Naval Academy", "Int", 9, m_Book));
@@ -96,7 +96,7 @@ namespace Grauenwolf.TravellerTools.Characters
 			m_Personalities = File.ReadAllLines(personalityFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableArray();
 		}
 
-		public ImmutableArray<Career> Careers { get; }
+		public ImmutableArray<CareerBase> Careers { get; }
 
 		public Character Build(CharacterBuilderOptions options)
 		{
@@ -105,7 +105,7 @@ namespace Grauenwolf.TravellerTools.Characters
 			var character = new Character();
 
 			character.Seed = seed;
-			character.FirstCareer = options.FirstCareer;
+			character.FirstAssignment = options.FirstAssignment;
 			character.Name = options.Name;
 			character.Gender = options.Gender;
 
@@ -126,8 +126,8 @@ namespace Grauenwolf.TravellerTools.Characters
 			character.CurrentTerm = 1;
 			character.NextTermBenefits = new NextTermBenefits();
 
-			if (!string.IsNullOrEmpty(options.FirstCareer))
-				character.NextTermBenefits.MustEnroll = options.FirstCareer;
+			if (!string.IsNullOrEmpty(options.FirstAssignment))
+				character.NextTermBenefits.MustEnroll = options.FirstAssignment;
 
 			while (!IsDone(options, character))
 			{
@@ -320,16 +320,16 @@ namespace Grauenwolf.TravellerTools.Characters
 			return false;
 		}
 
-		Career PickNextCareer(Character character, Dice dice)
+		CareerBase PickNextCareer(Character character, Dice dice)
 		{
-			var careers = new List<Career>();
+			var careers = new List<CareerBase>();
 
 			//Forced picks (e.g. Draft)
 			if (character.NextTermBenefits.MustEnroll != null)
 			{
 				foreach (var career in Careers)
 				{
-					if (string.Equals(character.NextTermBenefits.MustEnroll, career.Name, StringComparison.OrdinalIgnoreCase) || string.Equals(character.NextTermBenefits.MustEnroll, career.Assignment, StringComparison.OrdinalIgnoreCase))
+					if (string.Equals(character.NextTermBenefits.MustEnroll, career.Career, StringComparison.OrdinalIgnoreCase) || string.Equals(character.NextTermBenefits.MustEnroll, career.Assignment, StringComparison.OrdinalIgnoreCase))
 					{
 						careers.Add(career);
 					}
@@ -342,7 +342,7 @@ namespace Grauenwolf.TravellerTools.Characters
 				{
 					foreach (var career in Careers)
 					{
-						if (character.LastCareer.Name == career.Name && character.LastCareer.Assignment == career.Assignment)
+						if (character.LastCareer.Career == career.Career && character.LastCareer.Assignment == career.Assignment)
 						{
 							careers.Add(career);
 						}
@@ -360,19 +360,19 @@ namespace Grauenwolf.TravellerTools.Characters
 			{
 				foreach (var career in Careers)
 				{
-					if (character.NextTermBenefits.MusterOut && character.LastCareer.Name == career.Name && character.LastCareer.Assignment == career.Assignment)
+					if (character.NextTermBenefits.MusterOut && character.LastCareer.Career == career.Career && character.LastCareer.Assignment == career.Assignment)
 						continue;
 
 					if (career.Qualify(character, dice))
 					{
 						careers.Add(career);
-						character.Trace.Add("Qualified for " + career.Name + " at age " + character.Age);
+						character.Trace.Add("Qualified for " + career.Career + " at age " + character.Age);
 					}
 				}
 			}
 
 			var result = dice.Choose(careers);
-			character.Trace.Add("Selected " + result.Name + " at age " + character.Age);
+			character.Trace.Add("Selected " + result.Career + " at age " + character.Age);
 			return result;
 		}
 	}

@@ -15,12 +15,12 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         internal override void Run(Character character, Dice dice)
         {
             CareerHistory careerHistory;
-            if (!character.CareerHistory.Any(pc => pc.Name == Name))
+            if (!character.CareerHistory.Any(pc => pc.Career == Career))
             {
                 character.AddHistory($"Became a {Assignment} at age {character.Age}");
                 BasicTrainingSkills(character, dice, character.CareerHistory.Count == 0);
 
-                careerHistory = new CareerHistory(Name, Assignment, 0);
+                careerHistory = new CareerHistory(Career, Assignment, 0);
                 character.CareerHistory.Add(careerHistory);
                 UpdateTitle(character, dice, careerHistory);
             }
@@ -29,7 +29,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 if (!character.CareerHistory.Any(pc => pc.Assignment == Assignment))
                 {
                     character.AddHistory($"Switched to {Assignment} at age {character.Age}");
-                    careerHistory = new CareerHistory(Name, Assignment, 0);
+                    careerHistory = new CareerHistory(Career, Assignment, 0);
                     character.CareerHistory.Add(careerHistory);
 
                     if (!RankCarryover) //then this is a new career
@@ -63,8 +63,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
             if (RankCarryover)
             {
-                careerHistory.Rank = character.CareerHistory.Where(c => c.Name == Name).Max(c => c.Rank);
-                careerHistory.CommissionRank = character.CareerHistory.Where(c => c.Name == Name).Max(c => c.CommissionRank);
+                careerHistory.Rank = character.CareerHistory.Where(c => c.Career == Career).Max(c => c.Rank);
+                careerHistory.CommissionRank = character.CareerHistory.Where(c => c.Career == Career).Max(c => c.CommissionRank);
             }
 
             var survived = dice.RollHigh(character.GetDM(SurvivalAttribute) + character.NextTermBenefits.SurvivalDM, SurvivalTarget);

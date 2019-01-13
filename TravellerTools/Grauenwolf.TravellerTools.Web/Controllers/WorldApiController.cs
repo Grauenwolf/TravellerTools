@@ -10,21 +10,21 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
     [RoutePrefix("WorldApi")]
     public class WorldApiController : ApiController
     {
-
         [HttpGet]
-        [Route("Sectors")]
-        public async Task<IReadOnlyList<Sector>> Sectors( string milieu = "M1105")
+        [Route("Assignments")]
+        public async Task<IEnumerable<CareerSummary>> Assignments(string career = "")
         {
-            return await Global.GetMapService(milieu).FetchUniverseAsync();
+            if (career == "")
+                return Global.CharacterBuilder.Careers.Select(c => new CareerSummary() { Career = c.Career, Assignment = c.Assignment });
+            else
+                return Global.CharacterBuilder.Careers.Where(c => c.Career == career).Select(c => new CareerSummary() { Career = c.Career, Assignment = c.Assignment });
         }
 
         [HttpGet]
-        [Route("WorldsInSector")]
-        public async Task<IReadOnlyList<WorldLocation>> WorldsInSector(string sectorCoordinates, string milieu = "M1105")
+        [Route("Sectors")]
+        public async Task<IReadOnlyList<Sector>> Sectors(string milieu = "M1105")
         {
-            var coordinates = sectorCoordinates.Split(',').Select(s => int.Parse(s)).ToList();
-            var list = await Global.GetMapService(milieu).FetchWorldsInSectorAsync(coordinates[0], coordinates[1]);
-            return list.Select(w => new WorldLocation() { Name = w.Name, Hex = w.Hex }).OrderBy(w => w.Name).ToList();
+            return await Global.GetMapService(milieu).FetchUniverseAsync();
         }
 
         [HttpGet]
@@ -45,14 +45,27 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
         }
 
         [HttpGet]
+        [Route("WorldsInSector")]
+        public async Task<IReadOnlyList<WorldLocation>> WorldsInSector(string sectorCoordinates, string milieu = "M1105")
+        {
+            var coordinates = sectorCoordinates.Split(',').Select(s => int.Parse(s)).ToList();
+            var list = await Global.GetMapService(milieu).FetchWorldsInSectorAsync(coordinates[0], coordinates[1]);
+            return list.Select(w => new WorldLocation() { Name = w.Name, Hex = w.Hex }).OrderBy(w => w.Name).ToList();
+        }
+
+        [HttpGet]
         [Route("WorldsInSubsector")]
         public async Task<IReadOnlyList<WorldLocation>> WorldsInSubsector(string sectorCoordinates, string subsectorIndex, string milieu = "M1105")
         {
             var coordinates = sectorCoordinates.Split(',').Select(s => int.Parse(s)).ToList();
             var list = await Global.GetMapService(milieu).FetchWorldsInSectorAsync(coordinates[0], coordinates[1]);
             return list.Where(w => w.SubSectorIndex == subsectorIndex && !string.IsNullOrWhiteSpace(w.Name)).Select(w => new WorldLocation() { Name = w.Name, Hex = w.Hex }).OrderBy(w => w.Name).ToList();
-
         }
 
+        public class CareerSummary
+        {
+            public string Assignment { get; set; }
+            public string Career { get; set; }
+        }
     }
 }

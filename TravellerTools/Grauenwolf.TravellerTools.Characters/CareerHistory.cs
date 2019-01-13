@@ -2,26 +2,25 @@
 {
     public class CareerHistory
     {
-        public CareerHistory(string name, string assignment, int rank, int commissionRank = 0)
+        public CareerHistory(string career, string assignment, int rank, int commissionRank = 0)
         {
             CommissionRank = commissionRank;
             Rank = rank;
-            Name = name;
+            Career = career;
             Assignment = assignment;
         }
 
         public string Assignment { get; set; }
-        public string Name { get; set; }
-        public int Rank { get; set; }
+        public string Career { get; set; }
         public int CommissionRank { get; set; }
-        public int Terms { get; set; }
+        public int Rank { get; set; }
 
         public string ShortName
         {
-            get { return Assignment ?? Name; }
+            get { return Assignment ?? Career; }
         }
+
+        public int Terms { get; set; }
         public string Title { get; set; }
-
-
     }
 }

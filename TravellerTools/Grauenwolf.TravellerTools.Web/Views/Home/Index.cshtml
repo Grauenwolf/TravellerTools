@@ -219,37 +219,30 @@
     <div>This is used for creating NPCs only. Certain liberties where taken with the rules to allow for random character generation.</div>
     <table class="gridtable">
         <tr>
-            <th>Career</th>
-            <th>Assignment (random age)</th>
-            @for (var terms = 1; terms <= 15; terms++)
-            {
-                <th>@(string.Format("{0} - {1}", 18 + (terms * 4), 18 + (terms * 4) + 3))</th>
-            }
+            <th>First Career</th>
+            <td>
+                @Html.DropDownList("firstCareer", Model.CareerList(), new { onchange = "CareerChanged($('#firstCareer')[0].value, $('#firstAssignment')[0], false)" })
+            </td>
+            <th>First Assignment</th>
+            <td>
+                <select id="firstAssignment"></select>
+            </td>
+            <th>Final Career</th>
+            <td>
+                @Html.DropDownList("finalCareer", Model.CareerList(), new { onchange = "CareerChanged($('#finalCareer')[0].value, $('#finalAssignment')[0], true)" })
+            </td>
+            <th>Final Assignment</th>
+            <td>
+                <select id="finalAssignment"></select>
+            </td>
+            <th>Age</th>
+            <td>
+                @Html.DropDownList("terms", Model.AgeList())
+            </td>
+            <td>
+                <input id="showCharacterScreen" type="button" value="Generate Character" onclick="GenerateCharacter(readValue('firstAssignment'), readValue('finalCareer'),readValue('finalAssignment'), readChecked('terms'))" />
+            </td>
         </tr>
-        <tr>
-            <th>&nbsp;</th>
-            <th><a href="@string.Format("/Home/Character")">Any</a></th>
-            @for (var terms = 1; terms <= 15; terms++)
-            {
-                <td><a href="@string.Format("/Home/Character?MinAge={0}&MaxAge={1}", 18 + (terms * 4), 18 + (terms * 4) + 3)">@terms Terms</a></td>
-            }
-        </tr>
-        @{var previousCareer = ""; }
-        @foreach (var career in Model.Careers.OrderBy(s => s.Name).ThenBy(s => s.Assignment))
-        {
-            <tr>
-                @if (previousCareer != career.Name)
-                {
-                    <th rowspan="@(Model.Careers.Count(c => c.Name == career.Name))">@career.Name</th>
-                    previousCareer = career.Name;
-                }
-                <th><a href="@string.Format("/Home/Character?Career={0}", Url.Encode( career.Key ))">@career.Assignment</a></th>
-                @for (var terms = 1; terms <= 15; terms++)
-                {
-                    <td><a href="@string.Format("/Home/Character?Career={0}&MinAge={1}&MaxAge={2}", Url.Encode(career.Key), 18+(terms*4), 18 + (terms * 4) + 3)">@terms Terms</a></td>
-                }
-            </tr>
-        }
     </table>
 </div>
 <div>Note: Psionics are not yet included.</div>

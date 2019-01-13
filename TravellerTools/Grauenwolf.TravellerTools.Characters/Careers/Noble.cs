@@ -226,7 +226,7 @@
             var dm = character.SocialStandingDM;
             dm += -1 * character.CareerHistory.Count;
 
-            dm += character.GetEnlistmentBonus(Name, Assignment);
+            dm += character.GetEnlistmentBonus(Career, Assignment);
 
             return dice.RollHigh(dm, 10);
         }

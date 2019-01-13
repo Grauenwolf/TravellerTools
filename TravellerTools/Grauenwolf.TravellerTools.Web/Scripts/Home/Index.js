@@ -31,6 +31,18 @@ function SectorChanged(sectorCoordinates, subsector, milieu) {
         }
     });
 }
+function CareerChanged(career, assignment, allowRandom) {
+    $(assignment).empty();
+    $.getJSON("/WorldApi/Assignments?career=" + career, function (cs) {
+        var myList = cs;
+        if (allowRandom)
+            assignment.appendChild(new Option("(Random)", "", true));
+        for (var i = 0; i < myList.length; i++) {
+            var opt = new Option(myList[i].Assignment, myList[i].Assignment, (i == 0 && !allowRandom));
+            assignment.appendChild(opt);
+        }
+    });
+}
 function SubsectorChanged(sectorCoordinates, subsectorIndex, world, milieu) {
     $(world).empty();
     $.getJSON("/WorldApi/WorldsInSubsector?sectorCoordinates=" + sectorCoordinates + "&subsectorIndex=" + subsectorIndex + "&milieu=" + milieu, function (cs) {
@@ -53,6 +65,14 @@ function UwpChanged(originUwp, distinationUwp, button, label) {
     //    button.style.display = '';
     //    label.style.display = 'none';
     //}
+}
+function GenerateCharacter(firstAssignment, finalCareer, finalAssignment, terms) {
+    var minAge = (terms > 0) ? 18 + (terms * 4) : "";
+    var maxAge = (terms > 0) ? 18 + (terms * 4) + 3 : "";
+    var fa = (firstAssignment == undefined) ? "" : firstAssignment;
+    var c = (finalCareer == undefined) ? "" : finalCareer;
+    var a = (finalAssignment == undefined) ? "" : finalAssignment;
+    window.location.href = "/Home/Character?minAge=" + minAge + "&maxAge=" + maxAge + "&firstAssignment=" + fa + "&finalCareer=" + c + "&finalAssignment=" + a;
 }
 function GenerateTradeInfo(sectorCoordinates, worldCoordinates, advancedMode, illegalGoods, maxJumpDistance, brokerScore, mongoose2, advancedCharacters, streetwiseScore, raffle, originUwp, destinationUwp, jumpDistance, milieu, originTasZone, destinationTasZone) {
     var a = sectorCoordinates.split(",");

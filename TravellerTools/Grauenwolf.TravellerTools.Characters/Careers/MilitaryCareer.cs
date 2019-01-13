@@ -13,12 +13,12 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         internal override void Run(Character character, Dice dice)
         {
             CareerHistory careerHistory;
-            if (!character.CareerHistory.Any(pc => pc.Name == Name))
+            if (!character.CareerHistory.Any(pc => pc.Career == Career))
             {
                 character.AddHistory($"Became a {Assignment} at age {character.Age}");
                 BasicTraining(character, dice, character.CareerHistory.Count == 0);
 
-                careerHistory = new CareerHistory(Name, Assignment, 0);
+                careerHistory = new CareerHistory(Career, Assignment, 0);
                 character.CareerHistory.Add(careerHistory);
 
                 UpdateTitle(character, dice, careerHistory);
@@ -28,7 +28,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 if (!character.CareerHistory.Any(pc => pc.Assignment == Assignment))
                 {
                     character.AddHistory($"Switched to {Assignment} at age {character.Age}");
-                    careerHistory = new CareerHistory(Name, Assignment, 0);
+                    careerHistory = new CareerHistory(Career, Assignment, 0);
                     character.CareerHistory.Add(careerHistory);
                 }
                 else if (character.LastCareer?.Assignment == Assignment)
@@ -57,8 +57,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             character.LastCareer = careerHistory;
 
             //rank carry-over
-            careerHistory.Rank = character.CareerHistory.Where(c => c.Name == Name).Max(c => c.Rank);
-            careerHistory.CommissionRank = character.CareerHistory.Where(c => c.Name == Name).Max(c => c.CommissionRank);
+            careerHistory.Rank = character.CareerHistory.Where(c => c.Career == Career).Max(c => c.Rank);
+            careerHistory.CommissionRank = character.CareerHistory.Where(c => c.Career == Career).Max(c => c.CommissionRank);
 
             //Early commission, possibly from military academy.
             if (careerHistory.CommissionRank == 0 && character.CurrentTermBenefits.FreeCommissionRoll)
@@ -73,7 +73,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
                 Event(character, dice);
 
-                var totalTermsInCareer = character.CareerHistory.Where(pc => pc.Name == Name).Sum(c => c.Terms);
+                var totalTermsInCareer = character.CareerHistory.Where(pc => pc.Career == Career).Sum(c => c.Terms);
 
                 //Not all people will attempt a commission even when possible
                 var attemptCommission = (totalTermsInCareer == 1 || character.SocialStanding >= 9) && dice.D(100) < Book.OddsOfSuccess(character, "Soc", 8 - character.CurrentTermBenefits.CommissionDM);
@@ -159,7 +159,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
             if (dice.RollHigh(commissionDM, 8))
             {
-                character.AddHistory($"Commissioned in {Name}/{Assignment}");
+                character.AddHistory($"Commissioned in {Career}/{Assignment}");
                 careerHistory.CommissionRank = 1;
 
                 UpdateTitle(character, dice, careerHistory);

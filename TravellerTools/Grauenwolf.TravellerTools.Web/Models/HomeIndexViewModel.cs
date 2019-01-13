@@ -20,7 +20,7 @@ namespace Grauenwolf.TravellerTools.Web.Models
         {
         }
 
-        public IReadOnlyList<Career> Careers { get; private set; }
+        public IReadOnlyList<CareerBase> Careers { get; private set; }
 
         public static async Task<HomeIndexViewModel> GetHomeIndexViewModel(TravellerMapService mapService, CharacterBuilder characterBuilder, EquipmentBuilder equipmentBuilder)
         {
@@ -46,6 +46,17 @@ namespace Grauenwolf.TravellerTools.Web.Models
             return result;
         }
 
+        public IEnumerable<SelectListItem> AgeList()
+        {
+            yield return new SelectListItem() { Text = "(Random)", Value = "", Selected = true };
+
+            for (var terms = 1; terms <= 15; terms++)
+            {
+                var text = string.Format("{0} - {1}", 18 + (terms * 4), 18 + (terms * 4) + 3);
+                yield return new SelectListItem() { Text = text, Value = terms.ToString() };
+            }
+        }
+
         public IEnumerable<SelectListItem> AnimalClassList()
         {
             yield return new SelectListItem() { Text = "", Value = "" };
@@ -60,6 +71,14 @@ namespace Grauenwolf.TravellerTools.Web.Models
 
             foreach (var terrain in m_AnimalTypes.OrderBy(s => s))
                 yield return new SelectListItem() { Text = terrain, Value = terrain };
+        }
+
+        public IEnumerable<SelectListItem> CareerList()
+        {
+            yield return new SelectListItem() { Text = "(Random)", Value = "", Selected = true };
+
+            foreach (var career in Careers.Select(c => c.Career).Distinct().OrderBy(s => s))
+                yield return new SelectListItem() { Text = career, Value = career };
         }
 
         public IEnumerable<SelectListItem> LawLevels()
