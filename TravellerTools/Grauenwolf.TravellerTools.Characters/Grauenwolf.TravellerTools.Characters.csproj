@@ -127,6 +127,7 @@
     <Compile Include="History.cs" />
     <Compile Include="HistoryCollection.cs" />
     <Compile Include="Careers\MilitaryAcademy.cs" />
+    <Compile Include="PatronBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Careers\University.cs" />
   </ItemGroup>
