@@ -83,47 +83,44 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 if (careerHistory.CommissionRank == 0 && (attemptCommission || character.CurrentTermBenefits.FreeCommissionRoll))
                     commissionEarned = AttemptCommission(character, dice, careerHistory);
 
-                if (!commissionEarned)
+                //always try for advancement even if a commission was earned.
+                var advancementRoll = dice.D(2, 6);
+                if (advancementRoll == 12)
                 {
-                    //try for advancement only if failed to earn a commission.
-                    var advancementRoll = dice.D(2, 6);
-                    if (advancementRoll == 12)
-                    {
-                        character.AddHistory("Forced to continue current assignment");
-                        character.NextTermBenefits.MustEnroll = Assignment;
-                    }
-                    advancementRoll += character.GetDM(AdvancementAttribute) + character.CurrentTermBenefits.AdvancementDM;
+                    character.AddHistory("Forced to continue current assignment");
+                    character.NextTermBenefits.MustEnroll = Assignment;
+                }
+                advancementRoll += character.GetDM(AdvancementAttribute) + character.CurrentTermBenefits.AdvancementDM;
 
-                    if (advancementRoll > AdvancementTarget)
+                if (advancementRoll > AdvancementTarget)
+                {
+                    if (careerHistory.CommissionRank > 0)
                     {
-                        if (careerHistory.CommissionRank > 0)
-                        {
-                            careerHistory.CommissionRank += 1;
-                            character.AddHistory($"Promoted to {careerHistory.Assignment} officer rank {careerHistory.CommissionRank}");
-                        }
-                        else
-                        {
-                            careerHistory.Rank += 1;
-                            character.AddHistory($"Promoted to {careerHistory.Assignment} rank {careerHistory.Rank}");
-                        }
-                        UpdateTitle(character, dice, careerHistory);
+                        careerHistory.CommissionRank += 1;
+                        character.AddHistory($"Promoted to {careerHistory.Assignment} officer rank {careerHistory.CommissionRank}");
+                    }
+                    else
+                    {
+                        careerHistory.Rank += 1;
+                        character.AddHistory($"Promoted to {careerHistory.Assignment} rank {careerHistory.Rank}");
+                    }
+                    UpdateTitle(character, dice, careerHistory);
 
-                        //advancement skill
-                        var skillTables = new List<SkillTable>();
-                        skillTables.Add(PersonalDevelopment);
-                        skillTables.Add(ServiceSkill);
-                        skillTables.Add(AssignmentSkills);
-                        if (character.Education >= AdvancedEductionMin)
-                            skillTables.Add(AdvancedEducation);
-                        if (careerHistory.CommissionRank > 0)
-                            skillTables.Add(OfficerTraining);
-                        dice.Choose(skillTables)(character, dice);
-                    }
-                    else if (advancementRoll <= careerHistory.Terms)
-                    {
-                        character.AddHistory("Forced to muster out.");
-                        character.NextTermBenefits.MusterOut = true;
-                    }
+                    //advancement skill
+                    var skillTables = new List<SkillTable>();
+                    skillTables.Add(PersonalDevelopment);
+                    skillTables.Add(ServiceSkill);
+                    skillTables.Add(AssignmentSkills);
+                    if (character.Education >= AdvancedEductionMin)
+                        skillTables.Add(AdvancedEducation);
+                    if (careerHistory.CommissionRank > 0)
+                        skillTables.Add(OfficerTraining);
+                    dice.Choose(skillTables)(character, dice);
+                }
+                else if (advancementRoll <= careerHistory.Terms)
+                {
+                    character.AddHistory("Forced to muster out.");
+                    character.NextTermBenefits.MusterOut = true;
                 }
             }
             else
