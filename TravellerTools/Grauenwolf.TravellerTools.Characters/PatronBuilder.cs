@@ -47,7 +47,7 @@ namespace Grauenwolf.TravellerTools.Characters
                 case 63: return "Protect a " + PickTarget(dice);
                 case 64: return "Save a " + PickTarget(dice);
                 case 65: return "Aid a " + PickTarget(dice);
-                case 66: return "It is a trap – the Patron intends objectbetray the Traveller";
+                case 66: return "It is a trap – the Patron intends to betray the Traveller. Fake mission: " + PickMission(dice);
             }
             return "";
         }
