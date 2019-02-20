@@ -66,13 +66,18 @@ function UwpChanged(originUwp, distinationUwp, button, label) {
     //    label.style.display = 'none';
     //}
 }
-function GenerateCharacter(firstAssignment, finalCareer, finalAssignment, terms) {
+function GenerateCharacter(firstAssignment, finalCareer, finalAssignment, terms, skills) {
     var minAge = (terms > 0) ? 18 + (terms * 4) : "";
     var maxAge = (terms > 0) ? 18 + (terms * 4) + 3 : "";
     var fa = (firstAssignment == undefined) ? "" : firstAssignment;
     var c = (finalCareer == undefined) ? "" : finalCareer;
     var a = (finalAssignment == undefined) ? "" : finalAssignment;
-    window.location.href = "/Home/Character?minAge=" + minAge + "&maxAge=" + maxAge + "&firstAssignment=" + fa + "&finalCareer=" + c + "&finalAssignment=" + a;
+    var s = "";
+    for (var i = 0; i < skills.length; i++) {
+        if (skills[i] != "")
+            s += "&skills=" + skills[i];
+    }
+    window.location.href = "/Home/Character?minAge=" + minAge + "&maxAge=" + maxAge + "&firstAssignment=" + fa + "&finalCareer=" + c + "&finalAssignment=" + a + s;
 }
 function GenerateTradeInfo(sectorCoordinates, worldCoordinates, advancedMode, illegalGoods, maxJumpDistance, brokerScore, mongoose2, advancedCharacters, streetwiseScore, raffle, originUwp, destinationUwp, jumpDistance, milieu, originTasZone, destinationTasZone) {
     var a = sectorCoordinates.split(",");

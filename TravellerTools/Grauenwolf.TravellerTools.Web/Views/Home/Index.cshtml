@@ -240,12 +240,19 @@
                 @Html.DropDownList("terms", Model.AgeList())
             </td>
             <td>
-                <input id="showCharacterScreen" type="button" value="Generate Character" onclick="GenerateCharacter(readValue('firstAssignment'), readValue('finalCareer'),readValue('finalAssignment'), readChecked('terms'))" />
+                <input id="showCharacterScreen" type="button" value="Generate Character" onclick="GenerateCharacter(readValue('firstAssignment'), readValue('finalCareer'),readValue('finalAssignment'), readChecked('terms'),[ readValue('skillA'),readValue('skillB'),readValue('skillC'),readValue('skillD')   ] )" />
             </td>
+        </tr>
+        <tr>
+            <th>Desired Skills</th>
+            <td>@Html.DropDownList("skillA", Model.SkillList())</td>
+            <td>@Html.DropDownList("skillB", Model.SkillList())</td>
+            <td>@Html.DropDownList("skillC", Model.SkillList())</td>
+            <td>@Html.DropDownList("skillD", Model.SkillList())</td>
         </tr>
     </table>
 </div>
-<div>Note: Psionics are not yet included.</div>
+@*<div>Note: Psionics are not yet included.</div>*@
 <div><span style="color:red;font-weight:700;font-size:larger">Warning: </span>Permalinks become invalid whenever a new version of Traveller Tools is created.</div>
 <div>Names are based on <a href="https://github.com/RandomAPI/Randomuser.me-Node">RandomUser.me</a> and historic sources.</div>
 <div>Personality traits are based on <a href="https://www.roleplayingtips.com/tools/1000-npc-traits/">1,000 NPC Traits</a></div>

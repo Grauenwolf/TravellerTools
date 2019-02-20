@@ -113,15 +113,21 @@ function UwpChanged(originUwp: string, distinationUwp: string, button: HTMLInput
     //}
 }
 
-function GenerateCharacter(firstAssignment: string, finalCareer: string, finalAssignment: string, terms: number) {
+function GenerateCharacter(firstAssignment: string, finalCareer: string, finalAssignment: string, terms: number, skills: string[]) {
     var minAge = (terms > 0) ? 18 + (terms * 4) : "";
     var maxAge = (terms > 0) ? 18 + (terms * 4) + 3 : "";
 
     var fa = (firstAssignment == undefined) ? "" : firstAssignment;
     var c = (finalCareer == undefined) ? "" : finalCareer;
     var a = (finalAssignment == undefined) ? "" : finalAssignment;
+    var s = "";
 
-    window.location.href = "/Home/Character?minAge=" + minAge + "&maxAge=" + maxAge + "&firstAssignment=" + fa + "&finalCareer=" + c + "&finalAssignment=" + a;
+    for (var i = 0; i < skills.length; i++) {
+        if (skills[i] != "")
+            s += "&skills=" + skills[i];
+    }
+
+    window.location.href = "/Home/Character?minAge=" + minAge + "&maxAge=" + maxAge + "&firstAssignment=" + fa + "&finalCareer=" + c + "&finalAssignment=" + a + s;
 }
 
 function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, advancedMode: boolean, illegalGoods: boolean, maxJumpDistance: number, brokerScore: number, mongoose2: boolean, advancedCharacters: boolean, streetwiseScore: number, raffle: boolean, originUwp: string, destinationUwp: string, jumpDistance: number, milieu: string, originTasZone: string, destinationTasZone: string): void {
