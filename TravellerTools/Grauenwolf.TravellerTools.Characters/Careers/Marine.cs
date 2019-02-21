@@ -333,7 +333,7 @@
                         careerHistory.Title = "Force Commander";
                         {
                             var skillList = new SkillTemplateCollection();
-                            skillList.AddRange(SpecialtiesFor("Tatics"));
+                            skillList.AddRange(SpecialtiesFor("Tactics"));
                             skillList.RemoveOverlap(character.Skills, 1);
                             if (skillList.Count > 0)
                                 character.Skills.Add(dice.Choose(skillList), 1);
