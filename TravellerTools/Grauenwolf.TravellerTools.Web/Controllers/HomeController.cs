@@ -67,10 +67,15 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
             return View(model);
         }
 
-        public async Task<ActionResult> Character(int? minAge = null, int? maxAge = null, string name = null, string firstAssignment = null, string finalCareer = null, string finalAssignment = null, int? seed = null, string gender = null)
+        public async Task<ActionResult> Character(int? minAge = null, int? maxAge = null, string name = null, string firstAssignment = null, string finalCareer = null, string finalAssignment = null, int? seed = null, string gender = null, string[] skills = null)
         {
             var dice = new Dice();
             var options = new CharacterBuilderOptions();
+
+            if (skills == null)
+                skills = new string[0];
+
+            var desiredSkills = new HashSet<string>(skills, StringComparer.InvariantCultureIgnoreCase);
 
             if (!string.IsNullOrEmpty(name))
             {
@@ -97,11 +102,13 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
 
             options.Seed = seed;
 
-            if ((!string.IsNullOrEmpty(finalCareer) || !string.IsNullOrEmpty(finalAssignment)) && seed == null)
+            if ((!string.IsNullOrEmpty(finalCareer) || !string.IsNullOrEmpty(finalAssignment) || desiredSkills.Count > 0) && seed == null)
             {
                 //create a lot of characters, then pick the best fit.
 
-                var characters = new List<Character>();
+                var preferredCharacters = new List<Character>(); //better matches
+                var characters = new List<Character>(); //all
+
                 for (int i = 0; i < 5000; i++)
                 {
                     var candidateCharacter = Global.CharacterBuilder.Build(options);
@@ -110,28 +117,47 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
                         if (!string.IsNullOrEmpty(finalAssignment))
                         { //looking for a particular assignment
                             if (string.Equals(candidateCharacter.LastCareer?.Assignment, finalAssignment, StringComparison.InvariantCultureIgnoreCase)) //found that assignment
-                                return View(candidateCharacter);
+                                preferredCharacters.Add(candidateCharacter);
                         }
-                        else if (string.Equals(candidateCharacter.LastCareer?.Career, finalCareer, StringComparison.InvariantCultureIgnoreCase))
-                            return View(candidateCharacter); //found the career
+                        else if (!string.IsNullOrEmpty(finalCareer))
+                        {
+                            if (string.Equals(candidateCharacter.LastCareer?.Career, finalCareer, StringComparison.InvariantCultureIgnoreCase))
+                                preferredCharacters.Add(candidateCharacter); //found the career
+                        }
                     }
 
                     characters.Add(candidateCharacter);
                 }
 
-                //No character's last career was the requested one. Choose the one who spend the most time in the desired career.
-                var sortedList = characters.Select(c => new
+                if (preferredCharacters.Count > 0)
                 {
-                    Character = c,
-                    Suitability =
-                    (c.CareerHistory.Where(ch => string.Equals(ch.Assignment, finalAssignment, StringComparison.InvariantCultureIgnoreCase)).Sum(ch => ch.Terms * 5.0) / c.CurrentTerm)
-                    + (c.CareerHistory.SingleOrDefault(ch => string.Equals(ch.Career, finalCareer, StringComparison.InvariantCultureIgnoreCase))?.Terms * 1.0 ?? 0.00) / c.CurrentTerm
-                    + (c.IsDead ? -100.00 : 0.00)
-                }).OrderByDescending(x => x.Suitability).ToList();
+                    //choose the one with the most skills
+                    var sortedList = preferredCharacters.Select(c => new
+                    {
+                        Character = c,
+                        Suitability =
+                        c.Skills.Where(s => desiredSkills.Contains(s.Name) || desiredSkills.Contains(s.Specialty)).Count()
+                        + (c.IsDead ? -100.00 : 0.00)
+                    }).OrderByDescending(x => x.Suitability).ToList();
 
-                return View(sortedList.First().Character);
+                    return View(sortedList.First().Character);
+                }
+                else
+                {
+                    //No character's last career was the requested one. Choose the one who spend the most time in the desired career.
+                    var sortedList = characters.Select(c => new
+                    {
+                        Character = c,
+                        Suitability =
+                        (c.CareerHistory.Where(ch => string.Equals(ch.Assignment, finalAssignment, StringComparison.InvariantCultureIgnoreCase)).Sum(ch => ch.Terms * 5.0) / c.CurrentTerm)
+                        + (c.CareerHistory.SingleOrDefault(ch => string.Equals(ch.Career, finalCareer, StringComparison.InvariantCultureIgnoreCase))?.Terms * 1.0 ?? 0.00) / c.CurrentTerm
+                        + c.Skills.Where(s => desiredSkills.Contains(s.Name) || desiredSkills.Contains(s.Specialty)).Count()
+                        + (c.IsDead ? -100.00 : 0.00)
+                    }).OrderByDescending(x => x.Suitability).ToList();
+
+                    return View(sortedList.First().Character);
+                }
             }
-            else
             {
                 return View(Global.CharacterBuilder.Build(options));
             }

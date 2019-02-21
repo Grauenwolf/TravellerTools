@@ -21,12 +21,14 @@ namespace Grauenwolf.TravellerTools.Web.Models
         }
 
         public IReadOnlyList<CareerBase> Careers { get; private set; }
+        public IReadOnlyList<SkillTemplate> Skills { get; private set; }
 
         public static async Task<HomeIndexViewModel> GetHomeIndexViewModel(TravellerMapService mapService, CharacterBuilder characterBuilder, EquipmentBuilder equipmentBuilder)
         {
             var result = new HomeIndexViewModel()
             {
                 Careers = characterBuilder.Careers,
+                Skills = characterBuilder.Book.AllSkills.AddRange(characterBuilder.Book.PsionicTalents),
                 m_AnimalClasses = Animals.AE.AnimalBuilderAE.AnimalClassList.Select(ac => ac.Name).ToList(),
                 m_AnimalTypes = Animals.Mgt.AnimalBuilderMgt.AnimalTypeList.Select(at => at.Name).ToList(),
                 m_Terrains = Animals.AE.AnimalBuilderAE.TerrainTypeList.Select(t => t.Name).ToList(),
@@ -117,6 +119,14 @@ namespace Grauenwolf.TravellerTools.Web.Models
 
             foreach (var sector in m_Sectors.OrderBy(s => s.Name).Distinct(new SectorComparer()))
                 yield return new SelectListItem() { Text = sector.Name, Value = string.Format("{0},{1}", sector.X, sector.Y) };
+        }
+
+        public IEnumerable<SelectListItem> SkillList()
+        {
+            yield return new SelectListItem() { Text = "", Value = "", Selected = true };
+
+            foreach (var skill in Skills)
+                yield return new SelectListItem() { Text = skill.ToString(), Value = skill.Specialty ?? skill.Name };
         }
 
         public IEnumerable<SelectListItem> Starports()

@@ -82,12 +82,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                 }
                 advancementRoll += character.GetDM(AdvancementAttribute) + character.CurrentTermBenefits.AdvancementDM;
 
-                if (advancementRoll <= careerHistory.Terms)
-                {
-                    character.AddHistory("Forced to muster out.");
-                    character.NextTermBenefits.MusterOut = true;
-                }
-                if (advancementRoll > AdvancementTarget)
+                if (advancementRoll >= AdvancementTarget)
                 {
 
                     careerHistory.Rank += 1;
@@ -103,6 +98,12 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     if (character.Education >= AdvancedEductionMin)
                         skillTables.Add(AdvancedEducation);
                     dice.Choose(skillTables)(character, dice);
+                }
+
+                if (advancementRoll <= careerHistory.Terms)
+                {
+                    character.AddHistory("Forced to muster out.");
+                    character.NextTermBenefits.MusterOut = true;
                 }
             }
             else

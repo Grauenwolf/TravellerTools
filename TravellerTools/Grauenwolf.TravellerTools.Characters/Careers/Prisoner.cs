@@ -70,7 +70,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
                 advancementRoll += character.GetDM(AdvancementAttribute) + character.CurrentTermBenefits.AdvancementDM;
 
-                if (advancementRoll > AdvancementTarget)
+                if (advancementRoll >= AdvancementTarget)
                 {
 
                     careerHistory.Rank += 1;
