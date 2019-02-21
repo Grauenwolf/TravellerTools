@@ -83,6 +83,12 @@ namespace Grauenwolf.TravellerTools.Web.Models
                 yield return new SelectListItem() { Text = career, Value = career };
         }
 
+        public IEnumerable<SelectListItem> JumpDistances()
+        {
+            for (var i = 0; i <= 9; i++)
+                yield return new SelectListItem() { Text = i.ToString(), Value = i.ToString(), Selected = (i == 1) };
+        }
+
         public IEnumerable<SelectListItem> LawLevels()
         {
             foreach (var code in Tables.LawLevelCodes)

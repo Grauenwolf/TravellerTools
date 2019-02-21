@@ -12,7 +12,7 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
     {
         [HttpGet]
         [Route("Assignments")]
-        public async Task<IEnumerable<CareerSummary>> Assignments(string career = "")
+        public IEnumerable<CareerSummary> Assignments(string career = "")
         {
             if (career == "")
                 return Global.CharacterBuilder.Careers.Select(c => new CareerSummary() { Career = c.Career, Assignment = c.Assignment });

@@ -13,7 +13,6 @@
 current.SectorX, current.SectorY, current.HexX, current.HexY, Model.MaxJumpDistance,
 Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.Seed, Model.AdvancedCharacters, Model.StreetwiseScore, Model.Milieu
 )">permalink</a>
-
 </h2>
 <h3>Planet Info</h3>
 <table class="gridtable">
@@ -52,8 +51,6 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
         </td>
         <td>
             <a target="_blank" href="@string.Format("/Home/Store?lawLevel={0}&population={1}&roll=true&starport={2}&techLevel={3}&tradeCodes={4}&name={5}&brokerScore={6}&streetwiseScore={7}&milieu={8}", current.LawCode, current.PopulationCode, current.StarportCode, current.TechCode, Url.Encode(current.Remarks), Url.Encode(current.Name), Model.BrokerScore, Model.StreetwiseScore, Model.Milieu)">Random</a>
-
-
         </td>
     </tr>
 </table>
@@ -81,7 +78,7 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
                 }
             </tr>
             <tr>
-                <th rowspan="2" >Berthing Cost</th>
+                <th rowspan="2">Berthing Cost</th>
                 <th>To Dock</th>
                 @if (hasDownport)
                 {
@@ -93,7 +90,7 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
                 }
             </tr>
             <tr>
-                <th >Per day</th>
+                <th>Per day</th>
                 @if (hasDownport)
                 {
                     <td>@(downport.BerthingCostPerDay.ToString("N0"))</td>
@@ -137,7 +134,6 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
                     <td>@(highport.BerthingWaitTimeCapital)</td>
                 }
             </tr>
-
 
             <tr>
                 <th colspan="2">Refined Fuel Cost</th>
@@ -195,8 +191,6 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
                     <td>@(highport.FuelWaitTimeCapital)</td>
                 }
             </tr>
-
-
         </table>
     </div>
 }
@@ -213,11 +207,6 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
         <tr><td>5</td><td>@current.TransitTimeJumpPoint(5).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(5, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(5, 150).ToString(timeFormat)</td></tr>
         <tr><td>6</td><td>@current.TransitTimeJumpPoint(6).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(6, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(6, 150).ToString(timeFormat)</td></tr>
     </table>
-
-
-
-
-
 </div>
 <div style="display: inline-block; vertical-align: top">
     <img src="@string.Format("http://travellermap.com/api/jumpmap?sx={0}&sy={1}&hx={2}&hy={3}&jump={4}&scale=48&style=print", @Model.SectorX, @Model.SectorY, @Model.HexX, @Model.HexY, @Model.MaxJumpDistance)" />
@@ -260,7 +249,6 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
     }
 </table>
 
-
 <h3>Desired Goods</h3>
 <p>Sale DM does not include broker score.<br />Price modifier and current price include sale DM, broker score, and random roll.</p>
 <table class="gridtable">
@@ -296,8 +284,6 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
            current.SectorX, current.SectorY, current.HexX, current.HexY, Model.MaxJumpDistance,
            Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.AdvancedCharacters, Model.StreetwiseScore, Model.Raffle, Model.Milieu
            )"><h2>Destination: @current.Name</h2></a>
-
-
 
         <h3>Planet Info</h3>
         <table class="gridtable">
@@ -371,6 +357,10 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
                         {
                             <div>Endurance DM: @passenger.EnduranceDM</div>}
                         <div>Notes: @passenger.PassengerType, @passenger.Trait, @passenger.PersonalityList</div>
+                        @if (passenger.IsPatron)
+                        {
+                            <div><b>Mission Offered</b>: @passenger.PatronMission</div>
+                        }
                         @if (Model.AdvancedCharacters)
                         {
                             <div>@passenger.Skills</div>
@@ -410,7 +400,6 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
                             <tr><td>@lot.Type</td><td>@lot.PurchaseDM</td></tr>
                         }
                     </table>
-
                 </td>
                 <td> </td>
                 <td valign="top">
@@ -426,8 +415,4 @@ Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.
             </tr>
         </table>
 
-
-
     }
-
-
