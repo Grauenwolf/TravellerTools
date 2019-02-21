@@ -62,6 +62,7 @@
     <Compile Include="BookException.cs" />
     <Compile Include="Characters\Feature.cs" />
     <Compile Include="Characters\FeatureCollection.cs" />
+    <Compile Include="Characters\PatronBuilder.cs" />
     <Compile Include="Characters\Person.cs" />
     <Compile Include="Characters\PsionicSkillTemplate.cs" />
     <Compile Include="Characters\PsionicSkillTemplateCollection.cs" />

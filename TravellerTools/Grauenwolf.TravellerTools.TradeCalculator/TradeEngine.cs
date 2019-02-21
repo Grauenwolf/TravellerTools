@@ -320,60 +320,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         public abstract FreightList Freight(World origin, World destination, Dice random);
 
-        //TODO: What was this for?
-        //public string PassengerQuirk(Dice random, ref bool isPatron)
-        //{
-        //    int roll1 = random.D66();
-
-        //    switch (roll1)
-        //    {
-        //        case 11: return "Loyal";
-        //        case 12: return "Distracted by other worries";
-        //        case 13: return "In debt to criminals";
-        //        case 14: return "Makes very bad jokes";
-        //        case 15: return "Will betray characters";
-        //        case 16: return "Aggressive";
-
-        //        case 21: return "Has secret allies";
-        //        case 22: return "Secret anagathic user";
-        //        case 23: return "Looking for something";
-        //        case 24: return "Helpful";
-        //        case 25: return "Forgetful";
-        //        case 26:
-        //            isPatron = true;
-        //            return "Wants to hire the characters";
-
-        //        case 31: return "Has useful contacts";
-        //        case 32: return "Artistic";
-        //        case 33: return "Easily confused";
-        //        case 34: return "Unusually ugly";
-        //        case 35: return "Worried about current situation";
-        //        case 36: return "Shows pictures of children";
-
-        //        case 41: return "Rumor-monger";
-        //        case 42: return "Unusually provincial";
-        //        case 43: return "Drunkard or drug addict";
-        //        case 44: return "Government informant";
-        //        case 45: return "Mistakes a PC for someone else";
-        //        case 46: return "Possess unusually advanced technology";
-
-        //        case 51: return "Unusually handsome or beautiful";
-        //        case 52: return "Spying on the characters";
-        //        case 53: return "Possesses a TAS membership";
-        //        case 54: return "Is secretly hostile to characters";
-        //        case 55: return "Wants to borrow money";
-        //        case 56: return "Is convinced the PCs are dangerous";
-
-        //        case 61: return "Involved in political intrigue";
-        //        case 62: return "Has a dangerous secret";
-        //        case 63: return "Wants to get off-planet as soon as possible";
-        //        case 64: return "Attracted to a player character";
-        //        case 65: return "From offworld";
-        //        case 66: return "Possesses telepathy or other usual ability";
-        //    }
-        //    return null;
-        //}
-
         public abstract World GenerateRandomWorld();
 
         public abstract Task<PassengerList> PassengersAsync(World origin, World destination, Dice random, bool advancedCharacters);
@@ -383,8 +329,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         protected async Task<Passenger> PassengerDetailAsync(Dice random, string travelType, bool advancedCharacters)
         {
             var user = await m_NameService.CreateRandomPersonAsync(random);
-
-            bool isPatron = false;
 
             var result = new Passenger()
             {
@@ -423,11 +367,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
                 result.Title = character.Title;
                 result.Personality.AddRange(character.Personality);
-            }
-
-            if (isPatron)
-            {
-                //TODO: add support for patron features
             }
 
             return result;

@@ -87,7 +87,7 @@
             </td>
             <td>
                 <label>Jump Distance</label>
-                <input type="number" id="maxJumpDistance" value="3" />
+                @Html.DropDownList("maxJumpDistance", Model.JumpDistances())
             </td>
             <td>
                 <input id="showTradeScreen" type="button" value="Generate Trade Info" onclick="GenerateTradeInfo(readValue('sector'), readValue('world'), readChecked('advancedMode'), readChecked('illegalGoods'), readValue('maxJumpDistance'), readValue('broker'), readChecked('mongoose2'), readChecked('advancedCharacters'), readValue('streetwise'), readChecked('raffle'), readValue('originUwp'), readValue('destinationUwp'), readValue('jumpDistance'), readValue('milieu'), readValue('originTasZone'),readValue('destinationTasZone') )" />

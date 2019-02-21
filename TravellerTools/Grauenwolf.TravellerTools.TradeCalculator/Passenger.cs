@@ -12,16 +12,17 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public int? Seed { get; set; }
         public string Skills { get; set; }
         public string TravelType { get; set; }
-        public static void AddPassengerType(Passenger passenger, Dice random)
+
+        public static void AddPassengerType(Passenger passenger, Dice dice)
         {
             if (passenger == null)
                 throw new ArgumentNullException(nameof(passenger));
-            if (random == null)
-                throw new ArgumentNullException(nameof(random), $"{nameof(random)} is null.");
+            if (dice == null)
+                throw new ArgumentNullException(nameof(dice), $"{nameof(dice)} is null.");
 
-            int roll1 = random.D66();
-            int roll2 = random.D(6);
-            int roll3 = random.D(6);
+            int roll1 = dice.D66();
+            int roll2 = dice.D(6);
+            int roll3 = dice.D(6);
 
             switch (roll1)
             {
@@ -49,6 +50,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     else
                         passenger.PassengerType = "Causes Trouble (Insane)";
                     return;
+
                 case 35: passenger.PassengerType = "Unusually Pretty or Handsome"; return;
                 case 36: passenger.PassengerType = string.Format("Engineer (Engineer {0}, Mechanic {1})", (roll2 - 1), (roll3 - 1)); return;
                 case 41: passenger.PassengerType = "Ex-scout"; return;
@@ -66,7 +68,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 case 61:
                     passenger.IsPatron = true;
                     passenger.PassengerType = "Patron";
+                    passenger.PatronMission = PatronBuilder.PickMission(dice);
                     return;
+
                 case 62: passenger.PassengerType = "Alien"; return;
                 case 63: passenger.PassengerType = "Bounty hunter"; return;
                 case 64: passenger.PassengerType = "On the run"; return;
