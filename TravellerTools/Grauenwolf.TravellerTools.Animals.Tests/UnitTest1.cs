@@ -1,5 +1,6 @@
 ﻿using Grauenwolf.TravellerTools.Animals.AE;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 
 namespace Grauenwolf.TravellerTools.Animals.Tests
 {
@@ -26,7 +27,6 @@ namespace Grauenwolf.TravellerTools.Animals.Tests
             AnimalBuilderAE.RunScript(animal, dice, "animal.Skills.Remove(\"Stealth\");");
             Assert.IsNull(animal.Skills["Stealth"]);
 
-
             if (animal.Movement == "Flight")
             {
                 animal.Movement = "Walk";
@@ -38,8 +38,16 @@ namespace Grauenwolf.TravellerTools.Animals.Tests
                 animal.Strength -= 1;
                 animal.Armor -= 1;
             }
+        }
 
-
+        [TestMethod]
+        public void TestMethod3()
+        {
+            AnimalBuilderAE.SetDataPath(".");
+            Parallel.For(0, 100, _ =>
+            {
+                var result = AnimalBuilderAE.BuildPlanetSet();
+            });
         }
     }
 }

@@ -117,6 +117,12 @@
       <Name>Grauenwolf.TravellerTools.Shared</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Grauenwolf.TravellerTools.Web\App_Data\Animals-AE.xml">
+      <Link>Animals-AE.xml</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

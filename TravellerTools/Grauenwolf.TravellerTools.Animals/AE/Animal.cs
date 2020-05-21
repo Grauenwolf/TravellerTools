@@ -9,17 +9,14 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         public string AnimalClass { get { return Get<string>(); } set { Set(value); } }
         public string TerrainType { get { return Get<string>(); } set { Set(value); } }
 
-
-
         public string Diet { get { return Get<string>(); } set { Set(value); } }
         public string Behavior { get { return Get<string>(); } set { Set(value); } }
+        public string SecondaryBehavior { get { return Get<string>(); } set { Set(value); } }
         public string Movement { get { return Get<string>(); } set { Set(value); } }
-
 
         public int Size { get { return Get<int>(); } set { Set(value); } }
 
         public int WeightKG { get { return Get<int>(); } set { Set(value); } }
-
 
         public int Strength { get { return Get<int>(); } set { Set(value); } }
         public int Dexterity { get { return Get<int>(); } set { Set(value); } }
@@ -27,17 +24,23 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         public int Intelligence { get { return Get<int>(); } set { Set(value); } }
         public int Instinct { get { return Get<int>(); } set { Set(value); } }
         public int Pack { get { return Get<int>(); } set { Set(value); } }
+        public int BehaviorCount { get { return GetDefault(1); } set { Set(value); } }
 
         [CalculatedField("Strength")]
         public int StrengthDM { get { return DMCalc(Strength); } }
+
         [CalculatedField("Dexterity")]
         public int DexterityDM { get { return DMCalc(Dexterity); } }
+
         [CalculatedField("Endurance")]
         public int EnduranceDM { get { return DMCalc(Endurance); } }
+
         [CalculatedField("Intelligence")]
         public int IntelligenceDM { get { return DMCalc(Intelligence); } }
+
         [CalculatedField("Instinct")]
         public int InstinctDM { get { return DMCalc(Instinct); } }
+
         [CalculatedField("Pack")]
         public int PackDM { get { return DMCalc(Pack); } }
 
@@ -46,20 +49,17 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         /// </summary>
         public int Roll { get { return Get<int>(); } set { Set(value); } }
 
-
         public SkillCollection Skills { get { return GetNew<SkillCollection>(); } }
 
         public WeaponCollection Weapons { get { return GetNew<WeaponCollection>(); } }
 
         public FeatureCollection Features { get { return GetNew<FeatureCollection>(); } }
 
-
         /// <summary>
         /// Gets the scripts to run at the very end of character creation.
         /// </summary>
         /// <value>The scripts.</value>
         public List<string> PostScripts { get { return GetNew<List<string>>(); } }
-
 
         public int Armor { get { return Get<int>(); } set { Set(value); } }
 
@@ -138,15 +138,11 @@ namespace Grauenwolf.TravellerTools.Animals.AE
                 case "EvolutionDM": EvolutionDM += bonus; return;
                 case "EvolutionRolls": EvolutionRolls += bonus; return;
                 case "InitiativeDM": InitiativeDM += bonus; return;
+                case "BehaviorCount": BehaviorCount += bonus; return;
 
                 default:
                     throw new System.ArgumentOutOfRangeException("attributeName", attributeName, "Unknown attribute " + attributeName);
             }
         }
-
     }
-
-
 }
-
-

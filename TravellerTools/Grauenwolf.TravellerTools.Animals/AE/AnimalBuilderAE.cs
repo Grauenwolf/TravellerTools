@@ -21,7 +21,6 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             var converter = new XmlSerializer(typeof(AnimalTemplates));
             using (var stream = file.OpenRead())
                 s_Templates = ((AnimalTemplates)converter.Deserialize(stream));
-
         }
 
         static public ImmutableList<TerrainTemplate> TerrainTypeList
@@ -47,7 +46,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
                 var terrainList = new List<Animal>();
                 foreach (var option in s_Templates.EncounterTable)
                 {
-                    retry:
+                retry:
                     var animal = BuildAnimal(terrain.Name, null, option.Evolution);
                     //animal.Roll = option.Roll;
                     //terrainList.Add(animal);
@@ -150,9 +149,11 @@ namespace Grauenwolf.TravellerTools.Animals.AE
                     result.InitiativeDM += 1;
                     weaponDM = 8;
                     break;
+
                 case "Omnivore":
                     weaponDM = 4;
                     break;
+
                 case "Herbivore":
                     result.InitiativeDM += -1;
                     weaponDM = -6;
@@ -168,9 +169,17 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             result.Flee = behavior.Flee.ToIntOrNull();
             result.InitiativeDM += behavior.InitiativeDM;
 
-            //subtract the reaction to make it act like a DM
-            result.Attack -= behaviorMeta.Reaction;
-            result.Flee -= behaviorMeta.Reaction;
+            if (result.BehaviorCount == 1)
+            {//subtract the reaction to make it act like a DM
+                result.Attack -= behaviorMeta.Reaction;
+                result.Flee -= behaviorMeta.Reaction;
+            }
+            else
+            {
+                var shortList = diet.Behaviors.Where(x => x.Behavior != behaviorMeta.Behavior).ToList();
+                var behaviorMeta2 = dice.ChooseByRoll(shortList, "1D5");
+                result.SecondaryBehavior = behaviorMeta2.Behavior;
+            }
 
             AddBehavior(result, behavior, dice);
 
@@ -179,7 +188,6 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             //We do this in a loop because each chart can add rolls to other charts
             while (result.QuirkRolls > 0 || result.EvolutionRolls > 0 || result.PhysicalSkills > 0 || result.SocialSkills > 0 || result.EvolutionSkills > 0)
             {
-
                 //Evolution Rolls
                 while (result.EvolutionRolls > 0)
                 {
@@ -241,7 +249,6 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             if (weapon.Weapon != "None")
                 result.Weapons.Add(new Weapon() { Name = weapon.Weapon, Damage = (baseDamage + weapon.Bonus) + "d6" });
 
-
             if (result.Weapons.Count > 0)
                 result.Skills.Add("Melee"); //always have melee if you have any weapons. Page 23
 
@@ -270,9 +277,6 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             result.Instinct = Math.Max(result.Instinct, 0);
             result.Intelligence = Math.Max(result.Intelligence, 0);
             result.Armor = Math.Max(result.Armor, 0);
-
-
-
 
             return result;
         }
@@ -326,12 +330,10 @@ namespace Grauenwolf.TravellerTools.Animals.AE
                 {
                     var behavior = BehaviorList.SingleOrDefault(x => x.Name == behaviorMeta.Name);
                     if (behavior == null)
-                        throw new BookException($"Chart {chart.Name} referes to unknown behavior named '{behaviorMeta.Name}'");
+                        throw new BookException($"Chart {chart.Name} refers to unknown behavior named '{behaviorMeta.Name}'");
                     result.Behavior = result.Behavior + ", " + behavior.Name;
                     AddBehavior(result, behavior, dice);
                 }
-
-
         }
 
         static RoslynEvaluator s_Engine = CSScript.RoslynEvaluator;
@@ -356,4 +358,3 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         }
     }
 }
-
