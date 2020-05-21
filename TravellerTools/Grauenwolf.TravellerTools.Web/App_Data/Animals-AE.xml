@@ -1282,7 +1282,7 @@
           <Skill Name="Deception" Bonus="1" />
         </Option>
         <Option Roll="6">
-          <Feature Text="Profuse body fair signaling innate adaptability." />
+          <Feature Text="Profuse body hair signaling innate adaptability." />
           <Skill Name="Survival" Bonus="1" />
         </Option>
         <Option Roll="7">
