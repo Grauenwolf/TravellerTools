@@ -831,7 +831,7 @@
           <AddBehavior Name="Siren" />
         </Option>
         <Option Roll="6">
-          <Feature Text="Quickly propogates. Never found alone." />
+          <Feature Text="Quickly propagates. Never found alone." />
           <Attribute Name="Pack" Bonus="1D" />
         </Option>
         <Option Roll="7">
