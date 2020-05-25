@@ -1320,75 +1320,103 @@
       </Chart>
     </AnimalClass>
 
-    <!--<AnimalClass Name="Reptile" InitiativeDM="1">
+    <AnimalClass Name="Reptile" InitiativeDM="1">
       <Diets>
-        <Option Odds="" Diet="Carnivore">
+        <Option Odds="4" Diet="Carnivore">
           <Attribute Name="PhysicalSkills" Bonus="1" />
-          <Skill Name="Melee" Score="0" />
+          <Attribute Name="Str" Bonus="1" />
+          <Attribute Name="Dex" Bonus="1" />
+          <Skill Name="Athletics" Score="0" />
           <Behaviors>
-            <Option Roll="1" Behavior="" Reaction="" />
-            <Option Roll="2" Behavior="" Reaction="" />
-            <Option Roll="3" Behavior="" Reaction="" />
-            <Option Roll="4" Behavior="" Reaction="" />
-            <Option Roll="5" Behavior="" Reaction="" />
-            <Option Roll="6" Behavior="" Reaction="" />
+            <Option Roll="1" Behavior="Pouncer" Reaction="0" />
+            <Option Roll="2" Behavior="Killer" Reaction="+1" />
+            <Option Roll="3" Behavior="Killer" Reaction="+2" />
+            <Option Roll="4" Behavior="Intimidator" Reaction="0" />
+            <Option Roll="5" Behavior="Hunter" Reaction="1" />
+            <Option Roll="6" Behavior="Hijacker" Reaction="0" />
           </Behaviors>
         </Option>
         <Option Odds="1" Diet="Herbivore">
           <Attribute Name="SocialSkills" Bonus="1" />
+          <Attribute Name="End" Bonus="2" />
+          <Attribute Name="Pack" Bonus="1" />
           <Behaviors>
-            <Option Roll="1" Behavior="" Reaction="" />
-            <Option Roll="2" Behavior="" Reaction="" />
-            <Option Roll="3" Behavior="" Reaction="" />
-            <Option Roll="4" Behavior="" Reaction="" />
-            <Option Roll="5" Behavior="" Reaction="" />
-            <Option Roll="6" Behavior="" Reaction="" />
+            <Option Roll="1" Behavior="Gatherer" Reaction="-1" />
+            <Option Roll="2" Behavior="Intermittent" Reaction="-1" />
+            <Option Roll="3" Behavior="Intermittent" Reaction="0" />
+            <Option Roll="4" Behavior="Intermittent" Reaction="1" />
+            <Option Roll="5" Behavior="Grazer" Reaction="-1" />
+            <Option Roll="6" Behavior="Grazer" Reaction="0" />
           </Behaviors>
         </Option>
-        <Option Odds="3" Diet="Omnivore">
+        <Option Odds="1" Diet="Omnivore">
           <Attribute Name="PhysicalSkills" Bonus="1" />
           <Attribute Name="SocialSkills" Bonus="1" />
+          <Attribute Name="EvolutionSkills" Bonus="1" />
+          <Attribute Name="End" Bonus="1" />
+          <Skill Name="Athletics" Score="0" />
           <Behaviors>
-            <Option Roll="1" Behavior="" Reaction="" />
-            <Option Roll="2" Behavior="" Reaction="" />
-            <Option Roll="3" Behavior="" Reaction="" />
-            <Option Roll="4" Behavior="" Reaction="" />
-            <Option Roll="5" Behavior="" Reaction="" />
-            <Option Roll="6" Behavior="" Reaction="" />
+            <Option Roll="1" Behavior="Carrion-Eater" Reaction="-1" />
+            <Option Roll="2" Behavior="Gatherer" Reaction="0" />
+            <Option Roll="3" Behavior="Hijacker" Reaction="1" />
+            <Option Roll="4" Behavior="Hunter" Reaction="0" />
+            <Option Roll="5" Behavior="Hunter" Reaction="1" />
+            <Option Roll="6" Behavior="Reducer" Reaction="0" />
           </Behaviors>
         </Option>
       </Diets>
       <Skills>
-        <Skill Name="Athletics" Score="0" />
+        <Skill Name="Melee" Score="0" />
         <Skill Name="Recon" Score="0" />
         <Skill Name="Survival" Score="0" />
       </Skills>
       <Chart Name="AdditionalSkills">
         <Option Roll="1">
+          <Attribute Name="PhysicalSkills" Bonus="1" />
         </Option>
         <Option Roll="2">
+          <Attribute Name="PhysicalSkills" Bonus="1" />
         </Option>
         <Option Roll="3">
+          <Attribute Name="SocialSkills" Bonus="1" />
+          <Attribute Name="PhysicalSkills" Bonus="1" />
         </Option>
         <Option Roll="4">
+          <Attribute Name="PhysicalSkills" Bonus="1" />
+          <Attribute Name="PhysicalSkills" Bonus="1" />
         </Option>
         <Option Roll="5">
+          <Attribute Name="SocialSkills" Bonus="1" />
+          <Attribute Name="EvolutionSkills" Bonus="1" />
         </Option>
         <Option Roll="6">
+          <Attribute Name="PhysicalSkills" Bonus="1" />
+          <Attribute Name="PhysicalSkills" Bonus="1" />
+          <Attribute Name="EvolutionSkills" Bonus="1" />
         </Option>
         <Option Roll="7">
+          <Attribute Name="SocialSkills" Bonus="1" />
+          <Attribute Name="PhysicalSkills" Bonus="1" />
+          <Attribute Name="EvolutionSkills" Bonus="1" />
         </Option>
       </Chart>
       <Chart Name="OtherBenefits">
         <Option Roll="1">
+          <Attribute Name="End" Bonus="2" />
+          <Attribute Name="Dex" Bonus="1" />
         </Option>
         <Option Roll="2">
+          <Attribute Name="Str" Bonus="2" />
         </Option>
         <Option Roll="3">
+          <Attribute Name="Dex" Bonus="1" />
+          <Attribute Name="Pack" Bonus="1" />
         </Option>
         <Option Roll="4">
+          <Attribute Name="End" Bonus="1D6" />
         </Option>
         <Option Roll="5">
+          <Attribute Name="Size" Bonus="1" />
         </Option>
         <Option Roll="6">
           <Attribute Name="QuirkRolls" Bonus="2" />
@@ -1400,87 +1428,115 @@
 
       <Chart Name="PhysicalSkills">
         <Option Roll="1">
+          <Attribute Name="Str" Bonus="1" />
         </Option>
         <Option Roll="2">
+          <Attribute Name="End" Bonus="2" />
         </Option>
         <Option Roll="3">
+          <Attribute Name="Dex" Bonus="2" />
         </Option>
         <Option Roll="4">
+          <Attribute Name="Size" Bonus="1" />
         </Option>
         <Option Roll="5">
+          <Attribute Name="Str" Bonus="2" />
+          <Attribute Name="End" Bonus="1" />
         </Option>
         <Option Roll="6">
+          <Skill Name="Melee" Bonus="1" />
         </Option>
       </Chart>
 
       <Chart Name="SocialSkills">
         <Option Roll="1">
+          <Attribute Name="Pack" Bonus="2" />
         </Option>
         <Option Roll="2">
+          <Attribute Name="Instinct" Bonus="1" />
         </Option>
         <Option Roll="3">
+          <Skill Name="Stealth" Bonus="1" />
         </Option>
         <Option Roll="4">
+          <Skill Name="Survival" Bonus="1" />
         </Option>
         <Option Roll="5">
+          <Attribute Name="Pack" Bonus="1" />
+          <Attribute Name="Instinct" Bonus="1" />
         </Option>
         <Option Roll="6">
+          <Skill Name="Recon" Bonus="1" />
         </Option>
       </Chart>
 
       <Chart Name="EvolutionSkills">
         <Option Roll="1">
+          <Feature Text="Exotic Weapon" />
         </Option>
         <Option Roll="2">
+          <Skill Name="Melee" Bonus="1" />
         </Option>
         <Option Roll="3">
+          <Attribute Name="Pack" Bonus="1" />
+          <Attribute Name="Dex" Bonus="1" />
         </Option>
         <Option Roll="4">
+          <Attribute Name="PhysicalSkills" Bonus="1" />
         </Option>
         <Option Roll="5">
+          <Attribute Name="SocialSkills" Bonus="1" />
         </Option>
         <Option Roll="6">
+          <Feature Text="Exotic Weapon" />
         </Option>
       </Chart>
 
       <Chart Name="Quirks">
         <Option Roll="2">
-          <Feature Text="" />
+          <Feature Text="Outlandish colors and adpatations" />
         </Option>
         <Option Roll="3">
-          <Feature Text="" />
+          <Feature Text="Mottled in appearance" />
+          <Skill Name="Stealth" Bonus="1" />
         </Option>
         <Option Roll="4">
-          <Feature Text="" />
+          <Feature Text="Sharp and jagged scales. Damage 4+Effect when grappling." />
         </Option>
         <Option Roll="5">
-          <Feature Text="" />
+          <Feature Text="May go dormant for long periods of time. May go weeks or months without eating." />
+          <Skill Name="Survival" Bonus="1" />
         </Option>
         <Option Roll="6">
-          <Feature Text="" />
+          <Feature Text="May burie itself to hunt" />
+          <Skill Name="Stealth" Bonus="1" />
+          <AddBehavior Name="Trapper" />
         </Option>
         <Option Roll="7">
-          <Feature Text="" />
+          <Feature Text="Heat vision" />
         </Option>
         <Option Roll="8">
-          <Feature Text="" />
+          <Feature Text="Constantly flies, will die in 1d6 hours if grounded." />
+          <PostScript Text ='animal.Movement += " Flight";' />
         </Option>
         <Option Roll="9">
-          <Feature Text="" />
+          <Feature Text="No scales" />
+          <Attribute Name="Dex" Bonus="2" />
+          <PostScript Text ='animal.Armor = animal.Armor / 2;' />
         </Option>
         <Option Roll="10">
-          <Feature Text="" />
+          <Feature Text="Very odd even for its class. 2 exotic weapons." />
         </Option>
         <Option Roll="11">
-          <Feature Text="" />
+          <Feature Text="Peaceful existance allows it to grow mentally." />
+          <Attribute Name="Int" Bonus="1" />
         </Option>
         <Option Roll="12">
           <Attribute Name="Quirks" Bonus="2" />
         </Option>
       </Chart>
-    </AnimalClass>-->
+    </AnimalClass>
   </AnimalClasses>
-
   <Terrains>
     <Terrain Name="Clear"    	SizeDM="">
       <AnimalClasses>
@@ -1489,6 +1545,7 @@
         <Option Odds="1" AnimalClass="Fungal"  Penalty="-1" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="5" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="1" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM="" />
@@ -1506,6 +1563,7 @@
         <Option Odds="1" AnimalClass="Fungal"  Penalty="-1" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="5" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="5" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM="" />
@@ -1523,6 +1581,7 @@
         <Option Odds="1" AnimalClass="Fungal"  Penalty="-1" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="1" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="5" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM="" />
@@ -1540,6 +1599,7 @@
         <Option Odds="1" AnimalClass="Fungal"  Penalty="-1" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="5" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="5" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM="" />
@@ -1557,6 +1617,7 @@
         <Option Odds="1" AnimalClass="Fungal"  Penalty="-1" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="1" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="1" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM="" />
@@ -1574,6 +1635,7 @@
         <Option Odds="5" AnimalClass="Fungal"  Penalty="0" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="5" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="1" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM="" />
@@ -1591,6 +1653,7 @@
         <Option Odds="5" AnimalClass="Fungal"  Penalty="0" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="1" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="1" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM="" />
@@ -1608,6 +1671,7 @@
         <Option Odds="5" AnimalClass="Fungal"  Penalty="0" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="1" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="5" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM="" />
@@ -1625,6 +1689,7 @@
         <Option Odds="5" AnimalClass="Fungal"  Penalty="0" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="1" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="5" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM="" />
@@ -1642,6 +1707,7 @@
         <Option Odds="1" AnimalClass="Fungal"  Penalty="-1" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="1" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="5" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Walker" SizeDM="" />
@@ -1660,6 +1726,7 @@
         <Option Odds="5" AnimalClass="Fungal"  Penalty="0" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="1" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="5" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="-6" />
@@ -1678,6 +1745,7 @@
         <Option Odds="1" AnimalClass="Fungal"  Penalty="-1" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="1" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="1" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="+1" />
@@ -1696,6 +1764,7 @@
         <Option Odds="1" AnimalClass="Fungal"  Penalty="-1" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="5" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="5" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="-4" />
@@ -1714,6 +1783,7 @@
         <Option Odds="1" AnimalClass="Fungal"  Penalty="-1" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="1" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="1" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="+4" />
@@ -1731,6 +1801,7 @@
         <Option Odds="1" AnimalClass="Fungal"  Penalty="-1" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="1" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="1" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="+6" />
@@ -1748,6 +1819,7 @@
         <Option Odds="1" AnimalClass="Fungal"  Penalty="-1" />
         <Option Odds="5" AnimalClass="Insect"  Penalty="0" />
         <Option Odds="1" AnimalClass="Mammal"  Penalty="0" />
+        <Option Odds="1" AnimalClass="Reptile"  Penalty="0" />
       </AnimalClasses>
       <MovementChart>
         <Option Roll="1" Movement="Swimmer" SizeDM="+8" />

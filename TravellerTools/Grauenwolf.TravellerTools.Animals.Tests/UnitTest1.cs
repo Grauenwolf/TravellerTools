@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace Grauenwolf.TravellerTools.Animals.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class AnimalEncounters
     {
         [TestMethod]
         public void TestMethod1()
@@ -44,7 +44,7 @@ namespace Grauenwolf.TravellerTools.Animals.Tests
         public void TestMethod3()
         {
             AnimalBuilderAE.SetDataPath(".");
-            Parallel.For(0, 100, _ =>
+            Parallel.For(0, 1000, _ =>
             {
                 var result = AnimalBuilderAE.BuildPlanetSet();
             });
