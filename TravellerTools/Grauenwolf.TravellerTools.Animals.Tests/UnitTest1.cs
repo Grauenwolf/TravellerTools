@@ -40,14 +40,15 @@ namespace Grauenwolf.TravellerTools.Animals.Tests
             }
         }
 
-        [TestMethod]
-        public void TestMethod3()
-        {
-            AnimalBuilderAE.SetDataPath(".");
-            Parallel.For(0, 1000, _ =>
-            {
-                var result = AnimalBuilderAE.BuildPlanetSet();
-            });
-        }
+        //Non-deterministic test. Only run locally.
+        //[TestMethod]
+        //public void TestMethod3()
+        //{
+        //    AnimalBuilderAE.SetDataPath(".");
+        //    Parallel.For(0, 1000, _ =>
+        //    {
+        //        var result = AnimalBuilderAE.BuildPlanetSet();
+        //    });
+        //}
     }
 }
