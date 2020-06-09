@@ -60,9 +60,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 case 45: passenger.PassengerType = "Journalist or researcher"; return;
                 case 46: passenger.PassengerType = string.Format("Entertainer (Steward {0}, Perform {1})", (roll2 - 1), (roll3 - 1)); return;
                 case 51: passenger.PassengerType = string.Format("Gambler (Gambler {0})", (roll2 - 1)); return;
-                case 52: passenger.PassengerType = "Rich nobel - complains a lot"; return;
-                case 53: passenger.PassengerType = "Rich nobel - eccentric"; return;
-                case 54: passenger.PassengerType = "Rich nobel - raconteur"; return;
+                case 52: passenger.PassengerType = "Rich noble - complains a lot"; return;
+                case 53: passenger.PassengerType = "Rich noble - eccentric"; return;
+                case 54: passenger.PassengerType = "Rich noble - raconteur"; return;
                 case 55: passenger.PassengerType = "Diplomat on a mission"; return;
                 case 56: passenger.PassengerType = "Agent on a mission"; return;
                 case 61:
