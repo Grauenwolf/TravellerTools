@@ -7,8 +7,6 @@ using System.Xml.Serialization;
 
 namespace Grauenwolf.TravellerTools.Animals.Mgt
 {
-
-
     public static class AnimalBuilderMgt
     {
         static public void SetDataPath(string dataPath)
@@ -17,7 +15,6 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
             var converter = new XmlSerializer(typeof(AnimalTemplates));
             using (var stream = file.OpenRead())
                 s_Templates = ((AnimalTemplates)converter.Deserialize(stream));
-
         }
 
         static AnimalTemplates s_Templates;
@@ -32,8 +29,7 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
             get { return ImmutableList.Create(s_Templates.AnimalTypeList); }
         }
 
-
-        static public Dictionary<string, List<Animal>> BuildPlanetSet()
+        static public Dictionary<string, List<Animal>> BuildPlanetSet(Dice dice)
         {
             var result = new Dictionary<string, List<Animal>>();
             foreach (var terrain in s_Templates.TerrainList)
@@ -41,7 +37,7 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
                 var terrainList = new List<Animal>();
                 foreach (var option in s_Templates.EncounterTable)
                 {
-                    var animal = BuildAnimal(terrain.Name, option.AnimalType);
+                    var animal = BuildAnimal(dice, terrain.Name, option.AnimalType);
                     animal.Roll = option.Roll;
                     terrainList.Add(animal);
                 }
@@ -51,12 +47,12 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
             return result;
         }
 
-        static public List<Animal> BuildTerrainSet(string terrainType)
+        static public List<Animal> BuildTerrainSet(Dice dice, string terrainType)
         {
             var result = new List<Animal>();
             foreach (var option in s_Templates.EncounterTable)
             {
-                var animal = BuildAnimal(terrainType, option.AnimalType);
+                var animal = BuildAnimal(dice, terrainType, option.AnimalType);
                 animal.Roll = (int)option.Roll;
                 result.Add(animal);
             }
@@ -64,13 +60,10 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
             return result;
         }
 
-        static public Animal BuildAnimal(string terrainType, string animalType)
+        static public Animal BuildAnimal(Dice dice, string terrainType, string animalType)
         {
-            var dice = new Dice();
-
             var selectedTerrainType = TerrainTypeList.Single(x => x.Name == terrainType);
             var selectedAnimalType = AnimalTypeList.Single(x => x.Name == animalType);
-
 
             //Type
             var result = new Animal() { TerrainType = selectedTerrainType.Name, AnimalType = selectedAnimalType.Name };
@@ -100,7 +93,6 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
                 else
                     result.Dexterity += 4;
             }
-
 
             var intOdds = dice.D(100); //Each point of instinct gives a 10% change of intelligence 1 and a 1% chance of intelligence 2
             if (result.Instinct >= intOdds)
@@ -134,7 +126,6 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
             for (int i = 0; i < skillPicks; i++)
                 result.Skills.Increase(dice.Choose(basicTraining), 1);
 
-
             //Base skills added at level 0 if you don't already have them
             result.Skills.Add("Survival");
             result.Skills.Add("Recon");
@@ -158,24 +149,6 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
             result.Armor = s_Templates.ArmorTable.Single(dice.D(2, 6)).Armor;
 
             return result;
-
         }
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

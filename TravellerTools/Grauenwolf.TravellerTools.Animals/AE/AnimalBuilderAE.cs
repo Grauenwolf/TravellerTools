@@ -38,7 +38,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             get { return ImmutableList.Create(s_Templates.Behaviors); }
         }
 
-        static public Dictionary<string, List<Animal>> BuildPlanetSet()
+        static public Dictionary<string, List<Animal>> BuildPlanetSet(Dice dice)
         {
             var result = new Dictionary<string, List<Animal>>();
             foreach (var terrain in s_Templates.Terrains)
@@ -47,7 +47,7 @@ namespace Grauenwolf.TravellerTools.Animals.AE
                 foreach (var option in s_Templates.EncounterTable)
                 {
                 retry:
-                    var animal = BuildAnimal(terrain.Name, null, option.Evolution);
+                    var animal = BuildAnimal(dice, terrain.Name, null, option.Evolution);
                     //animal.Roll = option.Roll;
                     //terrainList.Add(animal);
 
@@ -65,13 +65,13 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             return result;
         }
 
-        static public List<Animal> BuildTerrainSet(string terrainType)
+        static public List<Animal> BuildTerrainSet(Dice dice, string terrainType)
         {
             var result = new List<Animal>();
             foreach (var option in s_Templates.EncounterTable)
             {
                 //retry:
-                var animal = BuildAnimal(terrainType, null, option.Evolution);
+                var animal = BuildAnimal(dice, terrainType, null, option.Evolution);
                 animal.Roll = option.Roll;
                 result.Add(animal);
 
@@ -87,10 +87,8 @@ namespace Grauenwolf.TravellerTools.Animals.AE
             return result;
         }
 
-        static public Animal BuildAnimal(string terrainType, string animalClassName = null, int evolutionRolls = 0)
+        static public Animal BuildAnimal(Dice dice, string terrainType, string animalClassName = null, int evolutionRolls = 0)
         {
-            var dice = new Dice();
-
             //Options
             var selectedTerrainType = TerrainTypeList.Single(x => x.Name == terrainType);
             var terrainPenalty = 0;
