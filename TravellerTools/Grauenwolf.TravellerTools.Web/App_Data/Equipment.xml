@@ -26,7 +26,7 @@
       <Item Name="Psi-Taps" TL="16" Price="Cr750000" Page="92" />
       <Item Name="Shriekbox-10" TL="10" Price="Cr8000" Page="92" />
       <Item Name="Shriekbox-12" TL="12" Price="Cr16000" Page="92" />
-      <Item Name="Skill Augemntation" TL="12" Price="Cr150000" Page="92" />
+      <Item Name="Skill Augmentation" TL="12" Price="Cr150000" Page="92" />
       <Item Name="Venom Glands" TL="11" Price="Cr10000" Page="92" />
       <Item Name="Wafer Jack - Storage Rating/4" TL="12" Price="Cr10000" Page="92" />
       <Item Name="Wafer jack - Storage Rating/8" TL="13" Price="Cr15000" Page="92" />
@@ -377,7 +377,7 @@
     <Subsection Name="Man Portable Weaponry" Skill="Heavy Weapons (Man Portable)">
       <Item Name="Anti-Materiel Rifle" TL="7" Price="Cr3000" Mass="15" Page="123" />
       <Item Name="Cryojet" TL="11" Price="Cr4000" Mass="14" Page="123" />
-      <Item Name="Dispoable Plasma Launcher" TL="12" Price="Cr8000" Mass="8" Page="123" />
+      <Item Name="Disposable Plasma Launcher" TL="12" Price="Cr8000" Mass="8" Page="123" />
       <Item Name="FGMP-14" TL="14" Price="Cr100000" Mass="12" Page="124" />
       <Item Name="FGMP-15" TL="15" Price="Cr400000" Mass="12" Page="124" />
       <Item Name="FGMP-16" TL="16" Price="MCr.5" Mass="15" Page="124" />
@@ -398,7 +398,7 @@
       <Item Name="Rocket Launcher-8" TL="8" Price="Cr2000" Mass="8" Page="125" />
       <Item Name="Rocket Launcher-9" TL="9" Price="Cr2000" Mass="8" Page="125" />
     </Subsection>
-    <Subsection Name="Rockets and Missiles" Skill="Heavy Weapons (vehicl)" Mod="Military">
+    <Subsection Name="Rockets and Missiles" Skill="Heavy Weapons (vehicle)" Mod="Military">
       <Item Name="Bombardment Rocket Pack" TL="6" Price="Cr30000" Mass="2 tons" Page="133" />
       <Item Name="Heavy Rocket Pod" TL="6" Price="Cr12000" Mass="0.5 tons" Page="133" />
       <Item Name="Rocket Pod" TL="6" Price="Cr8000" Mass="0.25 tons" Page="133" />
@@ -432,7 +432,7 @@
       <Item Name="Plasma Gun-C" TL="12" Price="MCr1.5" Mass="4 tons" Page="132" />
       <Item Name="Rail Gun" TL="9" Price="Cr75000" Mass="3 tons" Page="132" />
       <Item Name="Support Mortar" TL="7" Price="Cr11000" Mass="0.25 tons" Page="128" />
-      <Item Name="Vulcan Machingun" TL="7" Price="Cr12000" Mass="0.25 tons" Page="132" />
+      <Item Name="Vulcan Machinegun" TL="7" Price="Cr12000" Mass="0.25 tons" Page="132" />
     </Subsection>
   </Section>
   <Section Name="Home Comforts" Book="CSC2">
@@ -480,7 +480,7 @@
     </Subsection>
   </Section>
   <Section Name="Medical Supplies" Book="CSC2">
-    <Subsection Name="Drugs and Phramacuticals">
+    <Subsection Name="Drugs and Pharmaceuticals">
       <Item Name="Adrenaliser" TL="10" Price="Cr150" Page="83" />
       <Item Name="Anagathics" TL="15" Price="Cr20000" Page="83" />
       <Item Name="Anti-Rad" TL="8" Price="Cr1000" Page="83" />
@@ -489,13 +489,13 @@
       <Item Name="Inhibitor Drug" TL="9" Price="Cr500" Page="83" />
       <Item Name="Metabolic Accelerator" TL="10" Price="Cr500" Page="84" />
       <Item Name="Meta-Performance Enhancer" TL="10" Price="Cr600" Page="83" />
-      <Item Name="Nervouse Response Dampner" TL="9" Price="Cr100" Page="84" />
+      <Item Name="Nervous Response Dampener" TL="9" Price="Cr100" Page="84" />
       <Item Name="Null Drug" TL="16" Price="Cr5000" Page="84" />
       <Item Name="Panacea" TL="8" Price="Cr200" Page="84" />
       <Item Name="Psi-Drug (double)" TL="8" Price="Cr4000" Page="84" />
       <Item Name="Psi-Drug (special)" TL="8" Price="Cr10000" Page="84" />
       <Item Name="Psi-Drug (standard)" TL="8" Price="Cr1000" Page="84" />
-      <Item Name="Radiation Emeergency Applicator" TL="10" Price="Cr250" Page="84" />
+      <Item Name="Radiation Emergency Applicator" TL="10" Price="Cr250" Page="84" />
       <Item Name="Recreational Drugs" TL="1" Price="Cr10+" Page="84" />
       <Item Name="Slow Drug" TL="11" Price="Cr500" Page="85" />
       <Item Name="Starlight Drops" TL="12" Price="Cr500" Page="85" />
@@ -526,7 +526,7 @@
       <Item Name="Ablat" TL="9" Price="Cr75" Mass="2" Law="2" Category="4" Page="16" />
       <Item Name="Advanced Poly Carapace" TL="13" Price="Cr35000" Mass="2" Law="2" Category="4" Page="13" />
       <Item Name="Ballistic Vest" TL="8" Price="Cr500" Mass="1" Law="3" Category="4" Page="11" />
-      <Item Name="Breatplate" TL="1" Price="Cr200" Mass="5" Law="8" Category="3" Page="15" />
+      <Item Name="Breastplate" TL="1" Price="Cr200" Mass="5" Law="8" Category="3" Page="15" />
       <Item Name="Ceramic Carapace" TL="12" Price="Cr12000" Mass="4" Law="2" Category="4" Page="11" />
       <Item Name="Cloth-10" TL="10" Price="Cr500" Mass="5" Law="4" Category="3" Page="11" />
       <Item Name="Cloth-12" TL="12" Price="Cr750" Mass="2" Law="4" Category="3" Page="11" />
@@ -538,7 +538,7 @@
       <Item Name="Flak Jacket-7" TL="7" Price="Cr100" Mass="8" Law="3" Category="3" Page="12" />
       <Item Name="Flak jacket-8" TL="8" Price="Cr300" Mass="6" Law="3" Category="3" Page="12" />
       <Item Name="Flak Shell" TL="9" Price="Cr1000" Mass="8" Law="3" Category="3" Page="12" />
-      <Item Name="Full PLate" TL="2" Price="Cr1000" Mass="20" Law="8" Category="3" Page="15" />
+      <Item Name="Full Plate" TL="2" Price="Cr1000" Mass="20" Law="8" Category="3" Page="15" />
       <Item Name="Half-Plate" TL="2" Price="Cr800" Mass="12" Law="8" Category="3" Page="15" />
       <Item Name="Jack" TL="1" Price="Cr50" Mass="1" Law="8" Category="3" Page="12" />
       <Item Name="Lightweight Poly Carapace" TL="11" Price="Cr15000" Mass="2" Law="2" Category="4" Page="13" />
@@ -601,7 +601,7 @@
       <Item Name="Scout Battle Dress-13" TL="13" Price="Cr270000" Mass="90" Page="35" Skill="Vacc Suit 1" />
       <Item Name="Scout Battle Dress-14" TL="14" Price="Cr300000" Mass="90" Page="35" Skill="Vacc Suit 1" />
     </Subsection>
-    <Subsection Name="Battle Dress Modifcations" Law="1" Category="5" Mod="Military">
+    <Subsection Name="Battle Dress Modifications" Law="1" Category="5" Mod="Military">
       <Item Name="Flight Pack" TL="13" Price="Cr50000" Page="36" />
       <Item Name="Fuel Cells" TL="13" Price="Cr1000" Page="36" />
       <Item Name="Grav Assist-12" TL="12" Price="Cr110000" Page="36" />
@@ -649,7 +649,7 @@
     </Subsection>
     <Subsection Name="Powered Armor" Law="2" Category="5" Mod="Military">
       <Item Name="Ceramic Powered Plate" TL="13" Price="Cr90000" Mass="35" Page="25" Skill="Vacc Suit 1" />
-      <Item Name="Grav-Emhanced Powered Plate" TL="15" Price="Cr120000" Mass="32" Page="25" Skill="Vacc Suit 0" />
+      <Item Name="Grav-Enhanced Powered Plate" TL="15" Price="Cr120000" Mass="32" Page="25" Skill="Vacc Suit 0" />
       <Item Name="Mechanical Carapace-12" TL="12" Price="Cr30000" Mass="25" Page="26" Skill="Vacc Suit 1" />
       <Item Name="Mechanical Carapace-9" TL="9" Price="Cr15000" Mass="30" Page="26" Skill="Vacc Suit 2" />
       <Item Name="Powered Plate-10" TL="10" Price="Cr50000" Mass="40" Page="26" Skill="Vacc Suit 1" />
@@ -658,7 +658,7 @@
   </Section>
   <Section Name="Robots" Book="CSC">
     <Subsection Name="Robots">
-      <Item TL="14" Price="MCr6" Page="72" />
+      <Item Name="Astro-Mech Droid" TL="14" Price="MCr6" Page="72" />
       <Item Name="Centurion" TL="12" Price="MCr10" Mod="Military" Page="72" />
       <Item Name="Creeper Assassin" TL="12" Price="Cr600000" Page="73" />
       <Item Name="Protocol Droid" TL="14" Price="MCr3" Page="73" />
@@ -666,7 +666,7 @@
       <Item Name="Security Drone" TL="10" Price="Cr850000" Page="74" />
       <Item Name="Skinjob" TL="16" Price="MCr18" Page="75" />
       <Item Name="Spider Bomb" TL="12" Price="Cr60000" Page="75" />
-      <Item Name="Urban Pacification Police Robot" TL="12" Price="MCr12" Mod="Militayr" Page="76" />
+      <Item Name="Urban Pacification Police Robot" TL="12" Price="MCr12" Mod="Military" Page="76" />
       <Item Name="Utility Droid" TL="9" Price="Cr100000" Page="76" />
     </Subsection>
   </Section>
@@ -852,7 +852,7 @@
       <Item Name="Laser Pistol (TL9)" TL="9" Price="Cr2000" Mass="3" Page="116" />
       <Item Name="Maser Pistol" TL="17" Price="Cr25000" Mass="3" Mod="Military" Page="116" />
       <Item Name="Matter Disintegrator (TL19)" TL="19" Price="MCr4" Mass="1" Mod="Military" Page="116" />
-      <Item Name="Matter Disintiegrator (TL18)" TL="18" Price="MCr2.5" Mass="1" Mod="Military" Page="116" />
+      <Item Name="Matter Disintegrator (TL18)" TL="18" Price="MCr2.5" Mass="1" Mod="Military" Page="116" />
       <Item Name="Personal Defence Laser" TL="13" Price="Cr6000" Mass="3" Page="116" />
       <Item Name="Stunner (TL10)" TL="10" Price="Cr750" Mass=".5" Law="8" Category="1" Page="116" />
       <Item Name="Stunner (TL12)" TL="12" Price="Cr1000" Mass=".5" Law="8" Category="1" Page="116" />
@@ -889,7 +889,7 @@
     <Subsection Name="Melee Weapons">
       <Item Name="Anti-Armor Flail" TL="8" Price="Cr250" Mass="3" Page="98" Skill="Melee (bludgeon)" />
       <Item Name="Arc-Field Weapon" TL="14" Price="Cr25000" Mass="4" Page="100" Skill="Melee (blade)" />
-      <Item Name="Assualt Pike" TL="5" Price="Cr200" Mass="8" Page="100" Skill="Melee (blade)" />
+      <Item Name="Assault Pike" TL="5" Price="Cr200" Mass="8" Page="100" Skill="Melee (blade)" />
       <Item Name="Chaindrive Axe" TL="10" Price="Cr600" Mass="7" Page="101" Skill="Melee (blade)" />
       <Item Name="Chaindrive Sword" TL="10" Price="Cr500" Mass="5" Page="101" Skill="Melee (blade)" />
       <Item Name="Garrotte" TL="1" Price="Cr10" Page="105" Skill="Melee (unarmed)" />
@@ -938,7 +938,7 @@
     <Subsection Name="Shields" Law="8" Category="1">
       <Item Name="Boarding Shield" TL="9" Price="Cr1500" Mass="7" Page="106" />
       <Item Name="Buckler" TL="2" Price="Cr10" Mass="2" Page="107" />
-      <Item Name="Gravatic Shield" TL="17" Price="Cr2500" Page="107" />
+      <Item Name="Gravitic Shield" TL="17" Price="Cr2500" Page="107" />
       <Item Name="Large Shield" TL="1" Price="Cr200" Mass="8" Page="107" />
       <Item Name="Riot Shield" TL="6" Price="Cr175" Mass="4" Page="107" />
       <Item Name="Shield" TL="1" Price="Cr150" Mass="6" Page="107" />
@@ -963,7 +963,7 @@
     </Subsection>
     <Subsection Name="Slug Rifles" Law="6" Category="2" Skill="Gun Combat (slug)">
       <Item Name="Accelerator Rifle" TL="9" Price="Cr900" Mass="2" Page="111" />
-      <Item Name="Advanced Combaty Rifle" TL="10" Price="Cr1000" Mass="3" Mod="Military" Page="111" />
+      <Item Name="Advanced Combat Rifle" TL="10" Price="Cr1000" Mass="3" Mod="Military" Page="111" />
       <Item Name="Air Rifle (TL3)" TL="3" Price="Cr225" Mass="4" Page="112" />
       <Item Name="Air Rifle (TL4)" TL="4" Price="Cr350" Mass="5" Page="112" />
       <Item Name="Antique Rifle" TL="3" Price="Cr150" Mass="6" Page="112" />
@@ -996,19 +996,19 @@
       <Item Name="Heavy Tripod" TL="4" Price="Cr100" Mass="5" Page="143" />
       <Item Name="Holographic Sights" TL="10" Price="Cr2000" Mass=".5" Page="144" />
       <Item Name="Intelligent Weapon (TL13)" TL="13" Price="Cr5000" Page="144" />
-      <Item Name="Intelligent Weaspon (TL11)" TL="11" Price="Cr1000" Page="144" />
+      <Item Name="Intelligent Weapon (TL11)" TL="11" Price="Cr1000" Page="144" />
       <Item Name="Laser Sight (TL10)" TL="10" Price="Cr200" Page="144" />
       <Item Name="Laser Sight (TL8)" TL="8" Price="Cr200" Page="144" />
       <Item Name="Personal Heads-Up Disaply (TL11)" TL="11" Price="Cr2500" Page="144" />
       <Item Name="Personal Heads-Up Display (TL9)" TL="9" Price="Cr1500" Mass=".5" Page="144" />
-      <Item Name="Psi-Enhanced Targetting" TL="16" Price="Cr3000" Mass=".5" Page="145" />
+      <Item Name="Psi-Enhanced Targeting" TL="16" Price="Cr3000" Mass=".5" Page="145" />
       <Item Name="Scan Jammer" TL="8" Price="Cr2500" Page="145" />
       <Item Name="Scope (TL5)" TL="5" Price="Cr50" Page="145" />
       <Item Name="Scope (TL7)" TL="7" Price="Cr50" Page="145" />
       <Item Name="Secure Weapon" TL="10" Price="Cr250" Page="145" />
       <Item Name="Shoulder Stock" TL="4" Price="Cr75" Mass="1" Page="146" />
       <Item Name="Smart Tracker" TL="11" Price="Cr500" Page="146" />
-      <Item Name="Supressor" Price="Cr250" Page="146" />
+      <Item Name="Suppressor" Price="Cr250" Page="146" />
       <Item Name="X-Ray Outlining Aid (TL11)" TL="11" Price="Cr500" Page="146" />
       <Item Name="X-Ray Outlining Aid (TL9)" TL="9" Price="Cr300" Page="146" />
     </Subsection>
