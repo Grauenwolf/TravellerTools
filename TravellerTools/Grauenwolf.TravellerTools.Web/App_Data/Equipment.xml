@@ -78,13 +78,13 @@
     </Subsection>
   </Section>
   <Section Name="Discerning Weapons Specialist" Book="CSC2">
-    <Subsection Name="Explosives" Skill="Explosives" Mod="Military">
+    <Subsection Name="Explosives" Skill="Explosives" Mod="Military" Category="3">
       <Item Name="Breaching Charge" TL="8" Price="Cr250" Mass="1" Page="136" />
       <Item Name="Complex Chemical Charge" TL="10" Price="Cr500" Mass="1" Page="136" />
-      <Item Name="Fusion Block" TL="16" Price="Cr10000" Mass="1" Page="136" />
+      <Item Name="Fusion Block" TL="16" Price="Cr10000" Mass="1" Category="6" Page="136" />
       <Item Name="Neutrino Charge" TL="17" Price="Cr50000" Mass="1" Page="137" />
       <Item Name="Plastic" TL="6" Price="Cr200" Page="137" />
-      <Item Name="Pocket Nuke" TL="12" Price="Cr250000" Mass="4" Page="137" />
+      <Item Name="Pocket Nuke" TL="12" Price="Cr250000" Mass="4" Category="6" Page="137" />
       <Item Name="TDX" TL="12" Price="Cr1000" Page="137" />
     </Subsection>
     <Subsection Name="Gun Combat Weapons" Skill="Gun Combat">
@@ -361,8 +361,8 @@
       <Item Name="Psi-finder Binoculars" TL="16" Price="Cr10000" Mass="1" Page="61" />
     </Subsection>
   </Section>
-  <Section Name="Heavy Weapons" Book="CSC2" Mod="Military">
-    <Subsection Name="Artillery" Skill="Heavy Weapons (artillery)" Mod="Military">
+  <Section Name="Heavy Weapons" Book="CSC2" Mod="Military" Category="4" >
+    <Subsection Name="Artillery" Skill="Heavy Weapons (artillery)" Mod="Military" Category="4">
       <Item Name="Black Powder Mortar" TL="3" Price="Cr2000" Mass=".5 tons" Page="126" />
       <Item Name="Bombardment Gun" TL="5" Price="MCr0.5" Mass="220 tons" Page="126" />
       <Item Name="Demolition Gun" TL="6" Price="Cr30000" Mass="5 tons" Page="126" />
@@ -374,23 +374,23 @@
       <Item Name="Mass Driver" TL="12" Price="MCr0.5" Mass="7 tons" Page="128" />
       <Item Name="Siege Gun" TL="7" Price="MCr19" Mass="1200 tons" Page="127" />
     </Subsection>
-    <Subsection Name="Man Portable Weaponry" Skill="Heavy Weapons (Man Portable)">
+    <Subsection Name="Man Portable Weaponry" Skill="Heavy Weapons (Man Portable)" Mod="Military" Category="4">
       <Item Name="Anti-Materiel Rifle" TL="7" Price="Cr3000" Mass="15" Page="123" />
       <Item Name="Cryojet" TL="11" Price="Cr4000" Mass="14" Page="123" />
-      <Item Name="Disposable Plasma Launcher" TL="12" Price="Cr8000" Mass="8" Page="123" />
-      <Item Name="FGMP-14" TL="14" Price="Cr100000" Mass="12" Page="124" />
-      <Item Name="FGMP-15" TL="15" Price="Cr400000" Mass="12" Page="124" />
-      <Item Name="FGMP-16" TL="16" Price="MCr.5" Mass="15" Page="124" />
+      <Item Name="Disposable Plasma Launcher" TL="12" Price="Cr8000" Mass="8" Category="5" Page="123" />
+      <Item Name="FGMP-14" TL="14" Price="Cr100000" Mass="12" Category="5" Page="124" />
+      <Item Name="FGMP-15" TL="15" Price="Cr400000" Mass="12" Category="5" Page="124" />
+      <Item Name="FGMP-16" TL="16" Price="MCr.5" Mass="15" Category="5" Page="124" />
       <Item Name="Flamethrower-4" TL="4" Price="Cr800" Mass="20" Page="124" />
       <Item Name="Flamethrower-6" TL="6" Price="Cr1500" Mass="15" Page="124" />
       <Item Name="Flamethrower-8" TL="8" Price="Cr2000" Mass="10" Page="124" />
       <Item Name="Grenade Launcher" TL="7" Price="0" Mass="6" Page="124" />
       <Item Name="Machinegun" TL="6" Price="Cr1500" Mass="12" Page="124" />
-      <Item Name="PGMP-12" TL="12" Price="Cr20000" Mass="10" Page="125" />
-      <Item Name="PGMP-14" TL="14" Price="Cr65000" Mass="10" Page="125" />
-      <Item Name="PGMP-16" TL="16" Price="Cr100000" Mass="10" Page="125" />
-      <Item Name="Plasma Jet-12" TL="12" Price="Cr16000" Mass="10" Page="125" />
-      <Item Name="Plasma Jet-4" TL="14" Price="Cr80000" Mass="10" Page="125" />
+      <Item Name="PGMP-12" TL="12" Price="Cr20000" Mass="10" Category="5" Page="125" />
+      <Item Name="PGMP-14" TL="14" Price="Cr65000" Mass="10" Category="5" Page="125" />
+      <Item Name="PGMP-16" TL="16" Price="Cr100000" Mass="10" Category="5" Page="125" />
+      <Item Name="Plasma Jet-12" TL="12" Price="Cr16000" Mass="10" Category="5" Page="125" />
+      <Item Name="Plasma Jet-4" TL="14" Price="Cr80000" Mass="10" Category="5" Page="125" />
       <Item Name="RAM Grenade Launcher" TL="8" Price="Cr800" Mass="2" Page="125" />
       <Item Name="Rapid-Fire Machine Gun" TL="7" Price="Cr3000" Mass="12" Page="125" />
       <Item Name="Rocket Launcher-6" TL="6" Price="Cr2000" Mass="8" Page="125" />
@@ -406,14 +406,14 @@
       <Item Name="Tac Launcher (Anti-Personnel)" TL="10" Price="Cr12000" Mass=".025 tons" Page="133" />
       <Item Name="Tac Launcher (Armor Piercing)" TL="10" Price="Cr15000" Mass=".025 tons" Page="133" />
     </Subsection>
-    <Subsection Name="Vehicle Weapons" Skill="Heavy Weapons (vehicle)" Mod="Military">
+    <Subsection Name="Vehicle Weapons" Skill="Heavy Weapons (vehicle)" Mod="Military" Category="4">
       <Item Name="Aerospace Defence Laser" TL="12" Price="MCr4" Mass="12 tons" Page="128" />
       <Item Name="Black Powder Cannon" TL="3" Price="Cr3000" Mass="0.5 tons" Page="128" />
       <Item Name="Cannon" TL="8" Price="Cr400000" Mass="2.5 tons" Page="129" />
-      <Item Name="Field Gun" TL="4" Price="Cr5000" Mass="0.5 tons" Page="129" />
-      <Item Name="Fusion Gun-X" TL="13" Price="MCr2" Mass="4 tons" Page="129" />
-      <Item Name="Fusion Gun-Y" TL="14" Price="MCr3" Mass="4 tons" Page="129" />
-      <Item Name="Fusion Gun-Z" TL="15" Price="MCr8" Mass="4 tons" Page="129" />
+      <Item Name="Field Gun" TL="4" Price="Cr5000" Mass="0.5 tons" Category="5" Page="129" />
+      <Item Name="Fusion Gun-X" TL="13" Price="MCr2" Mass="4 tons" Category="5" Page="129" />
+      <Item Name="Fusion Gun-Y" TL="14" Price="MCr3" Mass="4 tons" Category="5" Page="129" />
+      <Item Name="Fusion Gun-Z" TL="15" Price="MCr8" Mass="4 tons" Category="5" Page="129" />
       <Item Name="Gatling Laser" TL="8" Price="Cr125000" Mass="7 tons" Page="129" />
       <Item Name="Gauss Cannon" TL="12" Price="Cr100000" Mass="1 ton" Page="129" />
       <Item Name="Heavy Autocannon" TL="6" Price="Cr45000" Mass="1 ton" Page="130" />
@@ -427,9 +427,9 @@
       <Item Name="Medium Autocannon" TL="6" Price="Cr25000" Mass="0.5 tons" Page="131" />
       <Item Name="Meson Accelerator" TL="16" Price="MCr20" Mass="60 tons" Page="131" />
       <Item Name="Orbital Defence Cannon" TL="14" Price="MCr40" Mass="35 tons" Page="132" />
-      <Item Name="Plasma Gun-A" TL="10" Price="MCr0.5" Mass="4 tons" Page="132" />
-      <Item Name="Plasma Gun-B" TL="11" Price="MCr1" Mass="4 tons" Page="132" />
-      <Item Name="Plasma Gun-C" TL="12" Price="MCr1.5" Mass="4 tons" Page="132" />
+      <Item Name="Plasma Gun-A" TL="10" Price="MCr0.5" Mass="4 tons" Category="5" Page="132" />
+      <Item Name="Plasma Gun-B" TL="11" Price="MCr1" Mass="4 tons" Category="5" Page="132" />
+      <Item Name="Plasma Gun-C" TL="12" Price="MCr1.5" Mass="4 tons" Category="5" Page="132" />
       <Item Name="Rail Gun" TL="9" Price="Cr75000" Mass="3 tons" Page="132" />
       <Item Name="Support Mortar" TL="7" Price="Cr11000" Mass="0.25 tons" Page="128" />
       <Item Name="Vulcan Machinegun" TL="7" Price="Cr12000" Mass="0.25 tons" Page="132" />
@@ -659,14 +659,14 @@
   <Section Name="Robots" Book="CSC">
     <Subsection Name="Robots">
       <Item Name="Astro-Mech Droid" TL="14" Price="MCr6" Page="72" />
-      <Item Name="Centurion" TL="12" Price="MCr10" Mod="Military" Page="72" />
-      <Item Name="Creeper Assassin" TL="12" Price="Cr600000" Page="73" />
+      <Item Name="Centurion" TL="12" Price="MCr10" Mod="Military" Category="5" Page="72" />
+      <Item Name="Creeper Assassin" TL="12" Price="Cr600000" Category="3" Page="73" />
       <Item Name="Protocol Droid" TL="14" Price="MCr3" Page="73" />
       <Item Name="Sanitation Droid" TL="11" Price="Cr350000" Page="74" />
-      <Item Name="Security Drone" TL="10" Price="Cr850000" Page="74" />
+      <Item Name="Security Drone" TL="10" Price="Cr850000" Category="1" Page="74" />
       <Item Name="Skinjob" TL="16" Price="MCr18" Page="75" />
-      <Item Name="Spider Bomb" TL="12" Price="Cr60000" Page="75" />
-      <Item Name="Urban Pacification Police Robot" TL="12" Price="MCr12" Mod="Military" Page="76" />
+      <Item Name="Spider Bomb" TL="12" Price="Cr60000" Mod="Military" Category="5" Page="75" />
+      <Item Name="Urban Pacification Police Robot" TL="12" Price="MCr12" Mod="Military" Category="4" Page="76" />
       <Item Name="Utility Droid" TL="9" Price="Cr100000" Page="76" />
     </Subsection>
   </Section>
@@ -714,7 +714,7 @@
     </Subsection>
     <Subsection Name="General Survival Gear">
       <Item Name="Advanced Purification Tablets (10 pack)" TL="13" Price="Cr50" Page="54" />
-      <Item Name="Antimatter Battery" TL="18" Price="MCr1" Mass="5" Page="51" />
+      <Item Name="Antimatter Battery" TL="18" Price="MCr1" Mass="5" Category="6" Page="51" />
       <Item Name="Backpack" TL="3" Price="Cr45" Mass="3" Page="51" />
       <Item Name="Backpack" TL="6" Price="Cr75" Mass="1" Page="51" />
       <Item Name="Binoculars" TL="3" Price="Cr75" Mass="1" Page="51" />
@@ -868,8 +868,8 @@
       <Item Name="Laser Rifle (TL9)" TL="9" Price="Cr3500" Mass="8" Mod="Military" Page="117" />
       <Item Name="Laser Sniper Rifle" TL="12" Price="Cr9000" Mass="6" Mod="Military" Page="118" />
       <Item Name="Maser Rifle" TL="16" Price="Cr30000" Mass="8" Mod="Military" Page="118" />
-      <Item Name="Plasma Rifle" TL="16" Price="Cr100000" Mass="6" Page="118" />
-      <Item Name="Solar Beam Rifle" TL="17" Price="0" Mass="4" Page="118" />
+      <Item Name="Plasma Rifle" TL="16" Price="Cr100000" Mass="6" Category="5" Page="118" />
+      <Item Name="Solar Beam Rifle" TL="17" Price="0" Mass="4" Category="5" Page="118" />
       <Item Name="Stagger Laser Rifle (TL12)" TL="12" Price="Cr10000" Mass="6" Page="118" />
       <Item Name="Stagger Laser Rifle (TL14)" TL="14" Price="Cr15000" Mass="5" Page="118" />
     </Subsection>
@@ -879,8 +879,8 @@
       <Item Name="Electromagnetic Pulse" TL="9" Price="Cr100" Mass=".5" Page="119" />
       <Item Name="Frag" TL="6" Price="Cr30" Mass=".5" Page="119" />
       <Item Name="Incendiary" TL="8" Price="Cr75" Mass=".5" Page="120" />
-      <Item Name="Neurotoxin" TL="9" Price="Cr250" Mass=".5" Page="120" />
-      <Item Name="Plasma" TL="16" Price="Cr500" Mass=".5" Page="120" />
+      <Item Name="Neurotoxin" TL="9" Price="Cr250" Mass=".5" Category="6" Page="120" />
+      <Item Name="Plasma" TL="16" Price="Cr500" Mass=".5" Category="5" Page="120" />
       <Item Name="Smoke" TL="6" Price="Cr15" Mass=".5" Page="120" />
       <Item Name="Stun" TL="7" Price="Cr30" Mass=".5" Page="120" />
       <Item Name="Thermal Smoke" TL="7" Price="Cr30" Mass=".5" Page="121" />
@@ -963,30 +963,30 @@
     </Subsection>
     <Subsection Name="Slug Rifles" Law="6" Category="2" Skill="Gun Combat (slug)">
       <Item Name="Accelerator Rifle" TL="9" Price="Cr900" Mass="2" Page="111" />
-      <Item Name="Advanced Combat Rifle" TL="10" Price="Cr1000" Mass="3" Mod="Military" Page="111" />
+      <Item Name="Advanced Combat Rifle" TL="10" Price="Cr1000" Mass="3" Mod="Military" Category="4" Page="111" />
       <Item Name="Air Rifle (TL3)" TL="3" Price="Cr225" Mass="4" Page="112" />
       <Item Name="Air Rifle (TL4)" TL="4" Price="Cr350" Mass="5" Page="112" />
       <Item Name="Antique Rifle" TL="3" Price="Cr150" Mass="6" Page="112" />
-      <Item Name="Assault Rifle" TL="7" Price="Cr500" Mass="4" Mod="Military" Page="112" />
-      <Item Name="Assault Shotgun" TL="6" Price="Cr500" Mass="5" Mod="Military" Page="112" />
-      <Item Name="Autorifle" TL="6" Price="Cr750" Mass="5" Mod="Military" Page="112" />
+      <Item Name="Assault Rifle" TL="7" Price="Cr500" Mass="4" Mod="Military" Category="3" Page="112" />
+      <Item Name="Assault Shotgun" TL="6" Price="Cr500" Mass="5" Mod="Military" Category="3" Page="112" />
+      <Item Name="Autorifle" TL="6" Price="Cr750" Mass="5" Mod="Military" Category="3" Page="112" />
       <Item Name="Big Game Rifle" TL="5" Price="Cr1250" Mass="9" Page="113" />
-      <Item Name="Flechette Submachine Gun" TL="9" Price="Cr500" Mass="3" Page="113" />
-      <Item Name="Gauss Rifle" TL="12" Price="Cr1500" Mass="4" Mod="Military" Page="113" />
-      <Item Name="Gauss Sniper Rifle" TL="12" Price="Cr2500" Mass="4" Mod="Military" Page="113" />
-      <Item Name="Heavy Advanced Combat Rifle" TL="10" Price="Cr2000" Mass="5" Mod="Military" Page="113" />
-      <Item Name="Magrail Rifle" TL="14" Price="Cr2500" Mass="4" Page="114" />
+      <Item Name="Flechette Submachine Gun" TL="9" Price="Cr500" Mass="3" Category="3" Page="113" />
+      <Item Name="Gauss Rifle" TL="12" Price="Cr1500" Mass="4" Mod="Military" Category="4" Page="113" />
+      <Item Name="Gauss Sniper Rifle" TL="12" Price="Cr2500" Mass="4" Mod="Military" Category="4" Page="113" />
+      <Item Name="Heavy Advanced Combat Rifle" TL="10" Price="Cr2000" Mass="5" Mod="Military" Category="4" Page="113" />
+      <Item Name="Magrail Rifle" TL="14" Price="Cr2500" Mass="4" Category="4" Page="114" />
       <Item Name="Rifle" TL="5" Price="Cr200" Mass="5" Page="114" />
       <Item Name="Sawed-Off Shotgun" TL="5" Price="Cr200" Mass="2" Page="114" />
       <Item Name="Shotgun" TL="4" Price="Cr200" Mass="4" Page="114" />
       <Item Name="Sniper Rifle" TL="8" Price="Cr700" Mass="5" Page="114" />
       <Item Name="Spear Gun" TL="6" Price="Cr50" Mass="2" Page="114" />
-      <Item Name="Submachine Gun" TL="6" Price="Cr400" Mass="3" Page="115" />
+      <Item Name="Submachine Gun" TL="6" Price="Cr400" Mass="3" Category="3" Page="115" />
     </Subsection>
   </Section>
   <Section Name="Weapons" Book="CSC2">
     <Subsection Name="Accessories" Book="CSC2">
-      <Item Name="Auxiliary Grenade Launcher" TL="7" Price="Cr1000" Mass="1" Page="142" />
+      <Item Name="Auxiliary Grenade Launcher" TL="7" Price="Cr1000" Mass="1" Category="4" Page="142" />
       <Item Name="Bandolier" TL="3" Price="Cr10" Page="142" />
       <Item Name="Bayonet" TL="3" Price="Cr20" Mass="1" Page="142" />
       <Item Name="Bipod" TL="4" Price="Cr250" Mass="1" Page="143" />
