@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Xml.Serialization;
 
 namespace Grauenwolf.TravellerTools.Equipment
@@ -95,13 +96,13 @@ namespace Grauenwolf.TravellerTools.Equipment
                     if (string.IsNullOrWhiteSpace(Price))
                         return 0;
                     if (Price.StartsWith("Cr"))
-                        return decimal.Parse(Price.Substring(2));
+                        return decimal.Parse(Price.Substring(2), CultureInfo.InvariantCulture);
                     if (Price.StartsWith("KCr"))
-                        return decimal.Parse(Price.Substring(3)) * 1000M;
+                        return decimal.Parse(Price.Substring(3), CultureInfo.InvariantCulture) * 1000M;
                     if (Price.StartsWith("MCr"))
-                        return decimal.Parse(Price.Substring(3)) * 1000M * 1000M;
+                        return decimal.Parse(Price.Substring(3), CultureInfo.InvariantCulture) * 1000M * 1000M;
 
-                    return decimal.Parse(Price);
+                    return decimal.Parse(Price, CultureInfo.InvariantCulture);
                 }
                 catch (Exception ex)
                 {
@@ -120,13 +121,13 @@ namespace Grauenwolf.TravellerTools.Equipment
                     if (string.IsNullOrWhiteSpace(AmmoPrice))
                         return 0;
                     if (AmmoPrice.StartsWith("Cr"))
-                        return decimal.Parse(AmmoPrice.Substring(2));
+                        return decimal.Parse(AmmoPrice.Substring(2), CultureInfo.InvariantCulture);
                     if (AmmoPrice.StartsWith("KCr"))
-                        return decimal.Parse(AmmoPrice.Substring(3)) * 1000M;
+                        return decimal.Parse(AmmoPrice.Substring(3), CultureInfo.InvariantCulture) * 1000M;
                     if (AmmoPrice.StartsWith("MCr"))
-                        return decimal.Parse(AmmoPrice.Substring(3)) * 1000M * 1000M;
+                        return decimal.Parse(AmmoPrice.Substring(3), CultureInfo.InvariantCulture) * 1000M * 1000M;
 
-                    return decimal.Parse(AmmoPrice);
+                    return decimal.Parse(AmmoPrice, CultureInfo.InvariantCulture);
                 }
                 catch (Exception ex)
                 {

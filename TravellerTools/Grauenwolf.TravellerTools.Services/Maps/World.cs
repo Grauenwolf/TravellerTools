@@ -190,9 +190,9 @@ namespace Grauenwolf.TravellerTools.Maps
                     case "L": return "Major Clan Control. Aslan.";
                     case "M": return "Vassal Clan Control. Aslan.";
                     case "N": return "Major Vassal Clan Control. Aslan.";
-                    case "P": return "Small Station or Facility. K’kree.";
-                    case "Q": return "Krurruna or Krumanak Rule for Off-world Steppelord. K’kree.";
-                    case "R": return "Steppelord On-world Rule. K’kree.";
+                    case "P": return "Small Station or Facility. Kï¿½kree.";
+                    case "Q": return "Krurruna or Krumanak Rule for Off-world Steppelord. Kï¿½kree.";
+                    case "R": return "Steppelord On-world Rule. Kï¿½kree.";
                     case "S": return "Sept. Hiver.";
                     case "T": return "Unsupervised Anarchy. Hiver.";
                     case "U": return "Supervised Anarchy. Hiver.";
@@ -326,9 +326,9 @@ namespace Grauenwolf.TravellerTools.Maps
         public string Sector { get; set; }
 
         //These are added later
-        public int SectorX { get; set; }
+        public int? SectorX { get; set; }
 
-        public int SectorY { get; set; }
+        public int? SectorY { get; set; }
 
         public EHex SizeCode { get { return UWP[1]; } }
 

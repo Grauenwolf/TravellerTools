@@ -219,11 +219,11 @@ namespace Grauenwolf.TravellerTools.Web.Controllers
         }
 
         [Route("QuickTradeInfo")]
-        public async Task<ActionResult> TradeInfo(string originUwp, string destinationUwp, int jumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT2, int? seed = null, bool advancedCharacters = false, int streetwiseScore = 0, bool raffleGoods = false, string milieu = "M1105", TasZone originTasZone = TasZone.Green, TasZone destinationTasZone = TasZone.Green)
+        public async Task<ActionResult> TradeInfo(string originUwp, string destinationUwp, int maxJumpDistance, bool advancedMode = false, bool illegalGoods = false, int brokerScore = 0, Edition edition = Edition.MGT2, int? seed = null, bool advancedCharacters = false, int streetwiseScore = 0, bool raffleGoods = false, string milieu = "M1105", TasZone originTasZone = TasZone.Green, TasZone destinationTasZone = TasZone.Green)
         {
             var tradeEngine = Global.GetTradeEngine(milieu, edition);
 
-            ManifestCollection model = await tradeEngine.BuildManifestsAsync(originUwp, destinationUwp, jumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore, raffleGoods, milieu, originTasZone, destinationTasZone);
+            ManifestCollection model = await tradeEngine.BuildManifestsAsync(originUwp, destinationUwp, maxJumpDistance, advancedMode, illegalGoods, brokerScore, seed, advancedCharacters, streetwiseScore, raffleGoods, milieu, originTasZone, destinationTasZone);
 
             return View(model);
         }
