@@ -538,7 +538,7 @@
       <Item Name="Flak Jacket-7" TL="7" Price="Cr100" Mass="8" Law="3" Category="3" Page="12" />
       <Item Name="Flak jacket-8" TL="8" Price="Cr300" Mass="6" Law="3" Category="3" Page="12" />
       <Item Name="Flak Shell" TL="9" Price="Cr1000" Mass="8" Law="3" Category="3" Page="12" />
-      <Item Name="Full PLate" TL="2" Price="Cr1000" Mass="20" Law="8" Category="3" Page="15" />
+      <Item Name="Full Plate" TL="2" Price="Cr1000" Mass="20" Law="8" Category="3" Page="15" />
       <Item Name="Half-Plate" TL="2" Price="Cr800" Mass="12" Law="8" Category="3" Page="15" />
       <Item Name="Jack" TL="1" Price="Cr50" Mass="1" Law="8" Category="3" Page="12" />
       <Item Name="Lightweight Poly Carapace" TL="11" Price="Cr15000" Mass="2" Law="2" Category="4" Page="13" />
