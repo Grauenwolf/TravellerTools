@@ -18,8 +18,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public string Milieu { get; set; }
         public World Origin { get; set; }
         public bool? Raffle { get; set; }
-        public int SectorX { get; set; }
-        public int SectorY { get; set; }
+        public int? SectorX { get; set; }
+        public int? SectorY { get; set; }
         public int? Seed { get; set; }
         public int StreetwiseScore { get; set; }
         public TradeGoodsList TradeList { get; set; }
