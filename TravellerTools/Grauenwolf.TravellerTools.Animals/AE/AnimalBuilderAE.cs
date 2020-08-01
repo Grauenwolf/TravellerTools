@@ -1,5 +1,4 @@
-﻿using CSScriptLibrary;
-using Grauenwolf.TravellerTools.Characters;
+﻿using Grauenwolf.TravellerTools.Characters;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -7,6 +6,14 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
+
+#if NETCORE
+using CSScriptLib;
+#elif NET48
+
+using CSScriptLibrary;
+
+#endif
 
 namespace Grauenwolf.TravellerTools.Animals.AE
 {
