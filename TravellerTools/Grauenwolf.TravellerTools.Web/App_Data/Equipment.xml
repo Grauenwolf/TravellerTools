@@ -77,8 +77,8 @@
       <Item Name="Terminal Stabilisation System" TL="16" Price="MCr2.5" Page="90" />
     </Subsection>
   </Section>
-  <Section Name="Discerning Weapons Specialist" Book="CSC2">
-    <Subsection Name="Explosives" Skill="Explosives" Mod="Military" Category="3">
+  <Section Name="Discerning Weapons Specialist" Law="9" Book="CSC2">
+    <Subsection Name="Explosives" Skill="Explosives" Mod="Military" Law="1" Category="3">
       <Item Name="Breaching Charge" TL="8" Price="Cr250" Mass="1" Page="136" />
       <Item Name="Complex Chemical Charge" TL="10" Price="Cr500" Mass="1" Page="136" />
       <Item Name="Fusion Block" TL="16" Price="Cr10000" Mass="1" Category="6" Page="136" />
@@ -361,7 +361,7 @@
       <Item Name="Psi-finder Binoculars" TL="16" Price="Cr10000" Mass="1" Page="61" />
     </Subsection>
   </Section>
-  <Section Name="Heavy Weapons" Book="CSC2" Mod="Military" Category="4" >
+  <Section Name="Heavy Weapons" Book="CSC2" Mod="Military" Law="3" Category="4" >
     <Subsection Name="Artillery" Skill="Heavy Weapons (artillery)" Mod="Military" Category="4">
       <Item Name="Black Powder Mortar" TL="3" Price="Cr2000" Mass=".5 tons" Page="126" />
       <Item Name="Bombardment Gun" TL="5" Price="MCr0.5" Mass="220 tons" Page="126" />
@@ -563,7 +563,7 @@
       <Item Name="Environment Reader" TL="8" Price="Cr100" Page="27" />
       <Item Name="Extended Life Support" TL="10" Price="Cr10000" Page="27" />
       <Item Name="Eye Protection" TL="6" Price="Cr50" Page="27" />
-      <Item Name="Friend of Foe HUD" TL="11" Price="Cr4000" Page="27" />
+      <Item Name="Friend or Foe HUD" TL="11" Price="Cr4000" Page="27" />
       <Item Name="Gyro-Stabilizer Rig-12" TL="12" Price="Cr10000" Mass="1" Page="27" />
       <Item Name="Gyro-Stabilizer Rig-14" TL="14" Price="Cr50000" Mass="1" Page="27" />
       <Item Name="Magnetic Grapples" TL="8" Price="Cr100" Law="3" Category="3" Page="28" />
@@ -659,14 +659,14 @@
   <Section Name="Robots" Book="CSC">
     <Subsection Name="Robots">
       <Item Name="Astro-Mech Droid" TL="14" Price="MCr6" Page="72" />
-      <Item Name="Centurion" TL="12" Price="MCr10" Mod="Military" Category="5" Page="72" />
-      <Item Name="Creeper Assassin" TL="12" Price="Cr600000" Category="3" Page="73" />
+      <Item Name="Centurion" TL="12" Price="MCr10" Law="3" Mod="Military" Category="5" Page="72" />
+      <Item Name="Creeper Assassin" TL="12" Price="Cr600000" Law="3" Category="3" Page="73" />
       <Item Name="Protocol Droid" TL="14" Price="MCr3" Page="73" />
       <Item Name="Sanitation Droid" TL="11" Price="Cr350000" Page="74" />
-      <Item Name="Security Drone" TL="10" Price="Cr850000" Category="1" Page="74" />
+      <Item Name="Security Drone" TL="10" Price="Cr850000" Law="6" Category="1" Page="74" />
       <Item Name="Skinjob" TL="16" Price="MCr18" Page="75" />
-      <Item Name="Spider Bomb" TL="12" Price="Cr60000" Mod="Military" Category="5" Page="75" />
-      <Item Name="Urban Pacification Police Robot" TL="12" Price="MCr12" Mod="Military" Category="4" Page="76" />
+      <Item Name="Spider Bomb" TL="12" Price="Cr60000" Law="1" Mod="Military" Category="5" Page="75" />
+      <Item Name="Urban Pacification Police Robot" TL="12" Price="MCr12" Law="3" Mod="Military" Category="4" Page="76" />
       <Item Name="Utility Droid" TL="9" Price="Cr100000" Page="76" />
     </Subsection>
   </Section>
@@ -879,37 +879,30 @@
       <Item Name="Electromagnetic Pulse" TL="9" Price="Cr100" Mass=".5" Page="119" />
       <Item Name="Frag" TL="6" Price="Cr30" Mass=".5" Page="119" />
       <Item Name="Incendiary" TL="8" Price="Cr75" Mass=".5" Page="120" />
-      <Item Name="Neurotoxin" TL="9" Price="Cr250" Mass=".5" Category="6" Page="120" />
+      <Item Name="Neurotoxin" TL="9" Price="Cr250" Mass=".5" Page="120" />
       <Item Name="Plasma" TL="16" Price="Cr500" Mass=".5" Category="5" Page="120" />
       <Item Name="Smoke" TL="6" Price="Cr15" Mass=".5" Page="120" />
       <Item Name="Stun" TL="7" Price="Cr30" Mass=".5" Page="120" />
       <Item Name="Thermal Smoke" TL="7" Price="Cr30" Mass=".5" Page="121" />
       <Item Name="Tranq Gas" TL="8" Price="Cr75" Mass=".5" Page="121" />
     </Subsection>
-    <Subsection Name="Melee Weapons">
+    <Subsection Name="Melee Weapons" Law="9" Category="1">
       <Item Name="Anti-Armor Flail" TL="8" Price="Cr250" Mass="3" Page="98" Skill="Melee (bludgeon)" />
-      <Item Name="Arc-Field Weapon" TL="14" Price="Cr25000" Mass="4" Page="100" Skill="Melee (blade)" />
-      <Item Name="Assault Pike" TL="5" Price="Cr200" Mass="8" Page="100" Skill="Melee (blade)" />
-      <Item Name="Chaindrive Axe" TL="10" Price="Cr600" Mass="7" Page="101" Skill="Melee (blade)" />
-      <Item Name="Chaindrive Sword" TL="10" Price="Cr500" Mass="5" Page="101" Skill="Melee (blade)" />
       <Item Name="Garrotte" TL="1" Price="Cr10" Page="105" Skill="Melee (unarmed)" />
       <Item Name="Gravity Hammer" TL="13" Price="Cr10000" Mass="5" Page="99" Skill="Melee (bludgeon)" />
       <Item Name="Handspikes" TL="2" Price="Cr100" Page="105" Skill="Melee (unarmed)" />
       <Item Name="Knuckleblasters" TL="8" Price="Cr150" Page="106" Skill="Melee (unarmed)" />
       <Item Name="Piston Fist" TL="9" Price="Cr150" Page="106" Skill="Melee (unarmed)" />
-      <Item Name="Piston Spear" TL="7" Price="Cr400" Mass="3" Page="103" Skill="Melee (blade)" />
-      <Item Name="Psi Blade" TL="16" Price="Cr30000" Mass="2" Page="103" Skill="Melee (blade)" />
-      <Item Name="Psi Dagger" TL="17" Price="Cr25000" Mass="1" Page="103" Skill="Melee (blade)" />
-      <Item Name="Static Axe (TL11)" TL="11" Price="Cr750" Mass="6" Page="104" Skill="Melee (blade)" />
-      <Item Name="Static Axe (TL12)" TL="12" Price="Cr1000" Mass="5" Page="104" Skill="Melee (blade)" />
-      <Item Name="Static Blade (TL11)" TL="11" Price="Cr700" Mass="4" Page="104" Skill="Melee (blade)" />
-      <Item Name="Static Blade (TL12)" TL="12" Price="Cr900" Mass="3" Page="104" Skill="Melee (blade)" />
       <Item Name="Static Maul" TL="11" Price="Cr650" Mass="3" Page="100" Skill="Melee (bludgeon)" />
     </Subsection>
     <Subsection Name="Melee Weapons" Law="8" Category="1">
+      <Item Name="Arc-Field Weapon" TL="14" Price="Cr25000" Mass="4" Page="100" Skill="Melee (blade)" />
+      <Item Name="Assault Pike" TL="5" Price="Cr200" Mass="8" Page="100" Skill="Melee (blade)" />
       <Item Name="Battle Axe" TL="2" Price="Cr225" Mass="4" Page="101" Skill="Melee (blade)" />
       <Item Name="Blade" TL="2" Price="Cr100" Mass="2" Page="101" Skill="Melee (blade)" />
       <Item Name="Broadsword" TL="2" Price="Cr500" Mass="8" Page="101" Skill="Melee (blade)" />
+      <Item Name="Chaindrive Axe" TL="10" Price="Cr600" Mass="7" Page="101" Skill="Melee (blade)" />
+      <Item Name="Chaindrive Sword" TL="10" Price="Cr500" Mass="5" Page="101" Skill="Melee (blade)" />
       <Item Name="Cutlass" TL="2" Price="Cr200" Mass="4" Page="101" Skill="Melee (blade)" />
       <Item Name="Dagger" TL="1" Price="Cr10" Mass="1" Page="102" Skill="Melee (blade)" />
       <Item Name="Great Axe" TL="2" Price="Cr750" Mass="10" Page="102" Skill="Melee (blade)" />
@@ -919,12 +912,19 @@
       <Item Name="Long Blade (TL2)" TL="2" Price="Cr200" Mass="4" Page="102" Skill="Melee (blade)" />
       <Item Name="Long Blade (TL3)" TL="3" Price="Cr300" Mass="4" Page="102" Skill="Melee (blade)" />
       <Item Name="Monoblade" TL="12" Price="Cr2500" Mass="2" Page="103" Skill="Melee (blade)" />
+      <Item Name="Piston Spear" TL="7" Price="Cr400" Mass="3" Page="103" Skill="Melee (blade)" />
+      <Item Name="Psi Blade" TL="16" Price="Cr30000" Mass="2" Page="103" Skill="Melee (blade)" />
+      <Item Name="Psi Dagger" TL="17" Price="Cr25000" Mass="1" Page="103" Skill="Melee (blade)" />
       <Item Name="Rapier" TL="3" Price="Cr200" Mass="2" Page="103" Skill="Melee (blade)" />
       <Item Name="Spear" TL="1" Price="Cr10" Mass="2" Page="104" Skill="Melee (blade)" />
+      <Item Name="Static Axe (TL11)" TL="11" Price="Cr750" Mass="6" Page="104" Skill="Melee (blade)" />
+      <Item Name="Static Axe (TL12)" TL="12" Price="Cr1000" Mass="5" Page="104" Skill="Melee (blade)" />
+      <Item Name="Static Blade (TL11)" TL="11" Price="Cr700" Mass="4" Page="104" Skill="Melee (blade)" />
+      <Item Name="Static Blade (TL12)" TL="12" Price="Cr900" Mass="3" Page="104" Skill="Melee (blade)" />
       <Item Name="Stealth Dagger" TL="8" Price="Cr175" Mass="1" Page="104" Skill="Melee (blade)" />
       <Item Name="Stone Axe" TL="0" Price="Cr5" Mass="3" Page="104" Skill="Melee (blade)" />
-      <Item Name="Stunfist" TL="8" Price="Cr250" Page="106" Skill="Melee (unarmed)" />
-      <Item Name="Stunstick" TL="8" Price="Cr300" Mass="1" Page="100" Skill="Melee (bludgeon)" />
+      <Item Name="Stunfist" TL="8" Price="Cr250" Page="106" Skill="Melee (unarmed)" Law="8"/>
+      <Item Name="Stunstick" TL="8" Price="Cr300" Mass="1" Page="100" Skill="Melee (bludgeon)" Law="8" />
       <Item Name="War Axe" TL="0" Price="0" Page="105" Skill="Melee (blade)" />
     </Subsection>
     <Subsection Name="Melee Weapons" Law="9" Category="1">
@@ -985,7 +985,7 @@
     </Subsection>
   </Section>
   <Section Name="Weapons" Book="CSC2">
-    <Subsection Name="Accessories" Book="CSC2">
+    <Subsection Name="Accessories" Book="CSC2" Law="9">
       <Item Name="Auxiliary Grenade Launcher" TL="7" Price="Cr1000" Mass="1" Category="4" Page="142" />
       <Item Name="Bandolier" TL="3" Price="Cr10" Page="142" />
       <Item Name="Bayonet" TL="3" Price="Cr20" Mass="1" Page="142" />
@@ -999,7 +999,7 @@
       <Item Name="Intelligent Weapon (TL11)" TL="11" Price="Cr1000" Page="144" />
       <Item Name="Laser Sight (TL10)" TL="10" Price="Cr200" Page="144" />
       <Item Name="Laser Sight (TL8)" TL="8" Price="Cr200" Page="144" />
-      <Item Name="Personal Heads-Up Disaply (TL11)" TL="11" Price="Cr2500" Page="144" />
+      <Item Name="Personal Heads-Up Display (TL11)" TL="11" Price="Cr2500" Page="144" />
       <Item Name="Personal Heads-Up Display (TL9)" TL="9" Price="Cr1500" Mass=".5" Page="144" />
       <Item Name="Psi-Enhanced Targeting" TL="16" Price="Cr3000" Mass=".5" Page="145" />
       <Item Name="Scan Jammer" TL="8" Price="Cr2500" Page="145" />

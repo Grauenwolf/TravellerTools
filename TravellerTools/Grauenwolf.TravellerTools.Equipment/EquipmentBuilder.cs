@@ -202,7 +202,7 @@ namespace Grauenwolf.TravellerTools.Equipment
                     case 3: availabilityDM += 0; item1.Price *= 5; break;
                     case 4: availabilityDM += -2; item1.Price *= 10; break;
                     case 5: availabilityDM += -4; item1.Price *= 20; break;
-                    case 6: availabilityDM += -6; item1.Price *= 20; break;
+                    case 6: availabilityDM += -6; item1.Price *= 10 * dice.D(2, 6); break;
                 }
 
                 item1.SentencingDM = (options1.LawLevel.Value - item1.Law) + item1.Category;
