@@ -143,8 +143,10 @@ function GenerateTradeInfo(sectorCoordinates: string, worldCoordinates: string, 
     if (originUwp != null && originUwp.length > 0) {
         window.location.href = "/Home/QuickTradeInfo?originUwp=" + originUwp + "&destinationUwp=" + destinationUwp + "&maxJumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle + "&milieu=" + milieu + "&originTasZone=" + originTasZone + "&destinationTasZone=" + destinationTasZone;
     }
-    else {
+    else if (worldCoordinates.length > 0) {
         window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + maxJumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle + "&milieu=" + milieu;
+    } else {
+        alert("You must select a world or enter an origin URL to be able to generate trade info.")
     }
 }
 
