@@ -89,7 +89,7 @@ function GenerateTradeInfo(sectorCoordinates, worldCoordinates, advancedMode, il
     var r = raffle ? "true" : "false";
     var edition = mongoose2 ? 2016 : 2008;
     if (originUwp != null && originUwp.length > 0) {
-        window.location.href = "/Home/QuickTradeInfo?originUwp=" + originUwp + "&destinationUwp=" + destinationUwp + "&jumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle + "&milieu=" + milieu + "&originTasZone=" + originTasZone + "&destinationTasZone=" + destinationTasZone;
+        window.location.href = "/Home/QuickTradeInfo?originUwp=" + originUwp + "&destinationUwp=" + destinationUwp + "&maxJumpDistance=" + jumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle + "&milieu=" + milieu + "&originTasZone=" + originTasZone + "&destinationTasZone=" + destinationTasZone;
     }
     else {
         window.location.href = "/Home/TradeInfo?sectorX=" + a[0] + "&sectorY=" + a[1] + "&hexX=" + b + "&hexY=" + c + "&maxJumpDistance=" + maxJumpDistance + "&brokerScore=" + brokerScore + "&advancedMode=" + am + "&illegalGoods=" + ig + "&edition=" + edition + "&advancedCharacters=" + ac + "&streetwiseScore=" + streetwiseScore + "&raffle=" + raffle + "&milieu=" + milieu;
