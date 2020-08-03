@@ -342,18 +342,18 @@ namespace Grauenwolf.TravellerTools.Animals.AE
         }
 
         static RoslynEvaluator s_Engine = CSScript.RoslynEvaluator;
-        static ConcurrentDictionary<string, Action<Animal, Dice>> s_CachedScripts = new ConcurrentDictionary<string, Action<Animal, Dice>>();
+        static ConcurrentDictionary<string, MethodDelegate> s_CachedScripts = new ConcurrentDictionary<string, MethodDelegate>();
 
         public static void RunScript(Animal animal, Dice dice, string script)
         {
             try
             {
                 var runScript = s_CachedScripts.GetOrAdd(script, s =>
-                             s_Engine.LoadDelegate<Action<Animal, Dice>>(
-                                                   @"void SayHello(Grauenwolf.TravellerTools.Animals.AE.Animal animal, Grauenwolf.TravellerTools.Dice dice)
-                                                                                     {
-                                                                                         " + s + @";
-                                                                                     }"));
+                             s_Engine.CreateDelegate(
+@"void SayHello(Grauenwolf.TravellerTools.Animals.AE.Animal animal, Grauenwolf.TravellerTools.Dice dice)
+{
+    " + s + @";
+}"));
                 runScript(animal, dice);
             }
             catch (Exception ex)
