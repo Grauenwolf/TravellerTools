@@ -1,0 +1,58 @@
+﻿@page "/world/{milieuCode}/{sectorHex}/{planetHex}/info"
+@inherits WorldBasePage
+
+@if (Model != null)
+{
+    var current = Model.World;
+    //var timeFormat = "h'h 'm'm 's's'";
+
+    <h2>@current.Name</h2>
+    <WorldNavigation CurrentPage="info" SectorHex="@SectorHex" PlanetHex="@PlanetHex" MilieuCode="@MilieuCode" />
+    <h3>World Info: @(current.Name)</h3>
+    <table class="gridtable">
+
+        <tr>
+            <th>Planet</th>
+            @if (current.SectorX != null && current.SectorY != null)
+            {
+                <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_(world)", current.Name)" target="_blank">@current.Name</a></td>
+                <th>Subsector</th>
+                <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Subsector", current.SubsectorName)" target="_blank">@current.SubsectorName</a></td>
+                <th>Sector</th>
+                <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Sector", current.Sector)" target="_blank">@current.Sector</a></td>
+                <th>Coordinates</th>
+                <td>
+                    <a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", current.SectorX, current.SectorY, current.HexX, current.HexY)" target="_blank">@current.SectorX,@current.SectorY Hex @current.Hex</a>
+                </td>
+            }
+            else
+            {
+                <td>@current.Name</td>
+            }
+        </tr>
+    </table>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <table class="gridtable">
+
+        <tr><th>Starport</th><td>@current.StarportCode</td><td colspan="5" width="500">@current.StarportDescription</td></tr>
+        <tr><th>Size</th><td>@current.SizeCode</td><td colspan="5">@current.SizeKM.ToString("N0") km</td></tr>
+        <tr><th>Atmosphere</th><td>@current.AtmosphereCode</td><td colspan="5">@current.AtmosphereDescription</td></tr>
+
+        <tr><th>Hydrographics</th><td>@current.HydrographicsCode</td><td colspan="5">@current.Hydrographics</td></tr>
+
+        <tr><th>Population</th><td>@current.PopulationCode</td><td colspan="5">@current.Population.ToString("N0")</td></tr>
+        <tr><th>Government</th><td>@current.GovernmentCode</td><td colspan="5">@current.GovernmentType</td></tr>
+        <tr><th>Law</th><td>@current.LawCode</td><td colspan="5">@current.LawLevel</td></tr>
+        <tr><th>Tech</th><td>@current.TechCode</td><td colspan="5">@current.TechLevel</td></tr>
+        <tr><th>Remarks</th><td colspan="6">@current.RemarksDescription</td></tr>
+    </table>
+}
+else if (LoadFailed)
+{
+    <h1>Error loading page.</h1>
+}
+else
+{
+    <h1>Loading</h1>
+}

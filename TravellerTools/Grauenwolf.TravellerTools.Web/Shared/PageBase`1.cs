@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using Tortuga.Anchor.Modeling.Internals;
 
-namespace Grauenwolf.TravellerTools.Web.Pages
+namespace Grauenwolf.TravellerTools.Web.Shared
 {
     public class PageBase<T> : PageBase where T : class
     {
@@ -13,6 +13,10 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             m_Properties = new PropertyBag(this);
         }
 
+        /// <summary>
+        /// Gets or sets the model.
+        /// </summary>
+        /// <remarks>Normally this will be set in the ParametersSet or ParametersSetAsync method.</remarks>
         protected T? Model
         {
             get => m_Model;
@@ -27,6 +31,9 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             }
         }
 
+        /// <summary>
+        /// This is called after the model has been replaced or removed.
+        /// </summary>
         protected virtual void OnModelChanged()
         {
         }

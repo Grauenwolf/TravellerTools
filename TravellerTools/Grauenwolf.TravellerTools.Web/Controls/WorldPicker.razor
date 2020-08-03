@@ -1,0 +1,113 @@
+﻿@inherits PageBase
+
+<h3>World Index</h3>
+
+<div>
+    <EditForm Model="@Options">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <table class="gridtable">
+            <tr>
+                <th>Milieu</th>
+                <td>
+                    <InputSelect @bind-Value="Options.SelectedMilieuCode" @onclick="OnMilieuChangedAsync" @onkeyup="OnMilieuChangedAsync">
+                        @foreach (var item in Options.MilieuList)
+                        {
+                            if (Options.SelectedMilieu == item)
+                            {
+                                <option value="@(item.Code)" selected> @(item.Name)</option>
+                            }
+                            else
+                            {
+                                <option value="@(item.Code)"> @(item.Name)</option>
+                            }
+                        }
+                    </InputSelect>
+                </td>
+                <th>Sector</th>
+                <td>
+                    <InputSelect @bind-Value="Options.SelectedSectorHex" @onclick="OnSectorChangedAsync" @onkeyup="OnSectorChangedAsync">
+                        @if (Options.SelectedMilieu == null)
+                        {
+                            <option value="" selected></option>
+                        }
+                        else
+                        {
+                            <option value=""></option>
+                        }
+
+                        @foreach (var item in Options.SectorList)
+                        {
+                            if (Options.SelectedSector == item)
+                            {
+                                <option value="@(item.Hex)" selected> @(item.Name)</option>
+                            }
+                            else
+                            {
+                                <option value="@(item.Hex)"> @(item.Name)</option>
+                            }
+                        }
+                    </InputSelect>
+                </td>
+                <th>Subector</th>
+                <td>
+                    <InputSelect @bind-Value="Options.SelectedSubsectorIndex" @onclick="OnSubsectorChangedAsync" @onkeyup="OnSubsectorChangedAsync">
+                        @if (Options.SelectedSubsector == null)
+                        {
+                            <option value="" selected></option>
+                        }
+                        else
+                        {
+                            <option value=""></option>
+                        }
+                        @foreach (var item in Options.SubsectorList)
+                        {
+                            if (Options.SelectedSubsector == item)
+                            {
+                                <option value="@(item.Index)" selected> @(item.Name)</option>
+                            }
+                            else
+                            {
+                                <option value="@(item.Index)"> @(item.Name)</option>
+                            }
+                        }
+                    </InputSelect>
+                </td>
+                <th>World</th>
+                <td>
+                    <InputSelect @bind-Value="Options.SelectedWorldHex">
+                        @if (Options.SelectedWorld == null)
+                        {
+                            <option value="" selected></option>
+                        }
+                        else
+                        {
+                            <option value=""></option>
+                        }
+                        @foreach (var item in Options.WorldList)
+                        {
+                            if (Options.SelectedWorld == item)
+                            {
+                                <option value="@(item.Hex)" selected> @(item.Name)</option>
+                            }
+                            else
+                            {
+                                <option value="@(item.Hex)"> @(item.Name)</option>
+                            }
+                        }
+                    </InputSelect>
+                </td>
+            </tr>
+            <tr>
+                <th>Jump to...</th>
+                <td>
+                    <button @onclick="GotoPlanet" disabled="@WorldNotSelected">Planet Info</button>
+                    <button @onclick="GotoTrade" disabled>Trade</button>
+                    <button @onclick="GotoShopping" disabled>Shopping</button>
+                    <button @onclick="GotoAnimals" disabled>Animals</button>
+                </td>
+            </tr>
+        </table>
+    </EditForm>
+</div>

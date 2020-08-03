@@ -4,13 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
-
     public class TradeEngineMgt : TradeEngine
     {
-
-        public TradeEngineMgt(MapService mapService, string dataPath, INameService nameService) : base(mapService, dataPath, nameService) { }
+        public TradeEngineMgt(TravellerMapService mapService, string dataPath, INameService nameService) : base(mapService, dataPath, nameService)
+        {
+        }
 
         protected override string DataFileName
         {
@@ -81,7 +82,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             if (destination.ContainsRemark("A")) traffic += -5;
             if (destination.ContainsRemark("R")) traffic += -99999;
 
-
             var tlDiff = Math.Abs(origin.TechCode.Value - destination.TechCode.Value);
             if (tlDiff > 5) tlDiff = 5;
             traffic -= tlDiff;
@@ -103,8 +103,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             if (traffic == 14) SetValues("1D+4", "1D+12", "1D+10");
             if (traffic == 15) SetValues("1D+5", "1D+14", "1D+11");
             if (traffic >= 16) SetValues("1D+6", "1D+16", "1D+12");
-
-
 
             if (result.Incidental < 0) result.Incidental = 0;
             if (result.Minor < 0) result.Minor = 0;
@@ -201,7 +199,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             if (destination.ContainsRemark("A")) traffic += -2;
             if (destination.ContainsRemark("R")) traffic += -4;
 
-
             if (traffic <= 0) SetValues("0", "0", "0");
             if (traffic == 1) SetValues("2D-6", "1D-2", "0");
             if (traffic == 2) SetValues("2D", "1D", "1D-1D");
@@ -220,7 +217,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             if (traffic == 15) SetValues("8D", "5D", "4D");
             if (traffic >= 16) SetValues("9D", "6D", "5D");
 
-
             if (result.LowPassengers < 0) result.LowPassengers = 0;
             if (result.MiddlePassengers < 0) result.MiddlePassengers = 0;
             if (result.HighPassengers < 0) result.HighPassengers = 0;
@@ -234,6 +230,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
             return result;
         }
+
         internal override void OnManifestsBuilt(ManifestCollection result)
         {
             result.Edition = Edition.MGT;
@@ -272,7 +269,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 case 20: return 0.4M;
                 default: return 0.25M;
             }
-
         }
 
         override protected decimal SalePriceModifier(Dice random, int saleBonus, int brokerScore, out int roll)
@@ -308,7 +304,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 case 20: return 3M;
                 default: return 4M;
             }
-
         }
 
         public override World GenerateRandomWorld()
@@ -317,4 +312,3 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         }
     }
 }
-

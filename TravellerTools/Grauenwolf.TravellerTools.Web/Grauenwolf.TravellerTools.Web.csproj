@@ -10,7 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.Services\Grauenwolf.TravellerTools.Services.csproj" />
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.Shared\Grauenwolf.TravellerTools.Shared.csproj" />
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.TradeCalculator\Grauenwolf.TravellerTools.TradeCalculator.csproj" />
   </ItemGroup>
 
 </Project>

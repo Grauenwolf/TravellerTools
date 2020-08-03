@@ -19,7 +19,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         ImmutableArray<string> m_Personalities;
 
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        protected TradeEngine(MapService mapService, string dataPath, INameService nameService)
+        protected TradeEngine(TravellerMapService mapService, string dataPath, INameService nameService)
         {
             MapService = mapService;
             m_NameService = nameService;
@@ -35,7 +35,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             m_Personalities = File.ReadAllLines(personalityFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableArray();
         }
 
-        public MapService MapService { get; }
+        public TravellerMapService MapService { get; }
         protected abstract string DataFileName { get; }
         protected ImmutableList<TradeGood> LegalTradeGoods { get; }
         protected ImmutableList<TradeGood> TradeGoods { get; }

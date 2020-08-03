@@ -1,3 +1,4 @@
+using Grauenwolf.TravellerTools.Maps;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +22,7 @@ namespace Grauenwolf.TravellerTools.Web
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddSingleton(new TravellerMapServiceLocator(false)); //make this configurable!
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

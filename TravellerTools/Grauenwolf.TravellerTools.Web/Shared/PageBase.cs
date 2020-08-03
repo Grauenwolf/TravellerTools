@@ -4,7 +4,7 @@ using Microsoft.JSInterop;
 using System;
 using System.Threading.Tasks;
 
-namespace Grauenwolf.TravellerTools.Web.Pages
+namespace Grauenwolf.TravellerTools.Web.Shared
 {
     public class PageBase : ComponentBase
     {
@@ -20,13 +20,25 @@ namespace Grauenwolf.TravellerTools.Web.Pages
         protected bool IsConnected { get; set; }
 
         protected bool LoadFailed { get; private set; }
-        protected string LastError { get; private set; }
-        protected string PageTitle { get; set; }
+        protected Exception? LastError { get; private set; }
+        protected string? PageTitle { get; set; }
 
+        /// <summary>
+        /// Method invoked after each time the component has been rendered.
+        /// </summary>
+        /// <param name="firstRender">The first render.</param>
+        /// <remarks>Any errors are automatically caught and logged. </remarks>
         protected virtual void AfterRender(bool firstRender)
         {
         }
 
+        /// <summary>
+        /// Method invoked after each time the component has been rendered. Note that the component does
+        /// not automatically re-render after the completion of any returned <see cref="T:System.Threading.Tasks.Task" />, because
+        /// that would cause an infinite render loop.
+        /// </summary>
+        /// <param name="firstRender">The first render.</param>
+        /// <remarks>Any errors are automatically caught and logged. </remarks>
         protected virtual Task AfterRenderAsync(bool firstRender) => Task.CompletedTask;
 
         protected sealed override void OnAfterRender(bool firstRender)
@@ -39,7 +51,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             catch (Exception ex)
             {
                 LoadFailed = true;
-                LastError = ex.ToString();
+                LastError = ex;
                 Logger.LogError(ex, $"Internal error, loading failed during {nameof(AfterRender)}");
             }
         }
@@ -58,11 +70,18 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             catch (Exception ex)
             {
                 LoadFailed = true;
-                LastError = ex.ToString();
+                LastError = ex;
                 Logger.LogError(ex, $"Internal error, loading failed during {nameof(AfterRenderAsync)}");
             }
         }
 
+        /// <summary>
+        /// Method invoked when the component is ready to start, having received its
+        /// initial parameters from its parent in the render tree.
+        /// Override this method if you will perform an asynchronous operation and
+        /// want the component to refresh when that operation is completed.
+        /// </summary>
+        /// <remarks>Any errors are automatically caught and logged. </remarks>
         protected virtual Task InitializedAsync() => Task.CompletedTask;
 
         protected async override sealed Task OnInitializedAsync()
@@ -84,11 +103,16 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             catch (Exception ex)
             {
                 LoadFailed = true;
-                LastError = ex.ToString();
+                LastError = ex;
                 Logger.LogError(ex, $"Internal error, loading failed during {nameof(InitializedAsync)}");
             }
         }
 
+        /// <summary>
+        /// Method invoked when the component is ready to start, having received its
+        /// initial parameters from its parent in the render tree.
+        /// </summary>
+        /// <remarks>Any errors are automatically caught and logged. </remarks>
         protected virtual void Initialized()
         {
         }
@@ -104,11 +128,16 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             catch (Exception ex)
             {
                 LoadFailed = true;
-                LastError = ex.ToString();
+                LastError = ex;
                 Logger.LogError(ex, $"Internal error, loading failed during {nameof(Initialized)}");
             }
         }
 
+        /// <summary>
+        /// Method invoked when the component has received parameters from its parent in
+        /// the render tree, and the incoming values have been assigned to properties.
+        /// </summary>
+        /// <remarks>Any errors are automatically caught and logged. </remarks>
         protected virtual void ParametersSet()
         {
         }
@@ -124,12 +153,17 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             catch (Exception ex)
             {
                 LoadFailed = true;
-                LastError = ex.ToString();
+                LastError = ex;
                 Logger.LogError(ex, $"Internal error, loading failed during {nameof(ParametersSet)}");
             }
             base.OnParametersSet();
         }
 
+        /// <summary>
+        /// Method invoked when the component has received parameters from its parent in
+        /// the render tree, and the incoming values have been assigned to properties.
+        /// </summary>
+        /// <remarks>Any errors are automatically caught and logged. </remarks>
         protected virtual Task ParametersSetAsync() => Task.CompletedTask;
 
         protected async sealed override Task OnParametersSetAsync()
@@ -142,7 +176,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             catch (Exception ex)
             {
                 LoadFailed = true;
-                LastError = ex.ToString();
+                LastError = ex;
                 Logger.LogError(ex, $"Internal error, loading failed during {nameof(ParametersSetAsync)}");
             }
         }

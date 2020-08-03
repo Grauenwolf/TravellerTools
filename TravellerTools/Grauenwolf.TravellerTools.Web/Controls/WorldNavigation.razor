@@ -1,0 +1,39 @@
+﻿@inherits PageBase
+<div>
+    <table class="gridtable">
+        <tr>
+            @if (CurrentPage == "info")
+            {
+                <th>Info</th>
+            }
+            else
+            {
+                <th><a href="@(BaseUrl +  "info")">Info</a></th>
+            }
+            @if (CurrentPage == "trade")
+            {
+                <th>Trade</th>
+            }
+            else
+            {
+                <th><a href="@(BaseUrl +  "trade")">Trade</a></th>
+            }
+            @if (CurrentPage == "store")
+            {
+                <th>Store</th>
+            }
+            else
+            {
+                <th><a href="@(BaseUrl +  "store")">Store</a></th>
+            }
+            @if (CurrentPage == "animals")
+            {
+                <th>Animals</th>
+            }
+            else
+            {
+                <th><a href="@(BaseUrl +  "animals")">Animals</a></th>
+            }
+        </tr>
+    </table>
+</div>
