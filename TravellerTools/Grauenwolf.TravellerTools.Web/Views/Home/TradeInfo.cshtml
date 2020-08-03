@@ -9,17 +9,17 @@
 }
 <h2>
     Origin: @current.Name
-@if (current.SectorX != null && current.SectorY != null)
-{
-    <a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}&seed={9}&advancedCharacters={10}&streetwiseScore={11}&milieu={12}",
+    @if (current.SectorX != null && current.SectorY != null)
+    {
+        <a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@string.Format("/Home/TradeInfo?sectorX={0}&sectorY={1}&hexX={2}&hexY={3}&maxJumpDistance={4}&brokerScore={5}&advancedMode={6}&illegalGoods={7}&edition={8}&seed={9}&advancedCharacters={10}&streetwiseScore={11}&milieu={12}",
 current.SectorX, current.SectorY, current.HexX, current.HexY, Model.MaxJumpDistance,
 Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.Seed, Model.AdvancedCharacters, Model.StreetwiseScore, Model.Milieu
 )">permalink</a>
-}
-else
-{
-    <a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@string.Format("/Home/QuickTradeInfo?maxJumpDistance={0}&brokerScore={1}&advancedMode={2}&illegalGoods={3}&edition={4}&seed={5}&advancedCharacters={6}&streetwiseScore={7}&milieu={8}&originUwp={9}", Model.MaxJumpDistance, Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.Seed, Model.AdvancedCharacters, Model.StreetwiseScore, Model.Milieu, current.UWP)">permalink</a>
-}
+    }
+    else
+    {
+        <a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@string.Format("/Home/QuickTradeInfo?maxJumpDistance={0}&brokerScore={1}&advancedMode={2}&illegalGoods={3}&edition={4}&seed={5}&advancedCharacters={6}&streetwiseScore={7}&milieu={8}&originUwp={9}", Model.MaxJumpDistance, Model.BrokerScore, Model.AdvancedMode, Model.IllegalGoods, Model.Edition, Model.Seed, Model.AdvancedCharacters, Model.StreetwiseScore, Model.Milieu, current.UWP)">permalink</a>
+    }
 </h2>
 <h3>Planet Info</h3>
 <table class="gridtable">
@@ -28,15 +28,15 @@ else
         <th>Planet</th>
         @if (current.SectorX != null && current.SectorY != null)
         {
-        <td><a href="@string.Format("http://wiki.travellerrpg.com/{0}_(world)", current.Name)" target="_blank">@current.Name</a></td>
-        <th>Subsector</th>
-        <td><a href="@string.Format("http://wiki.travellerrpg.com/{0}_Subsector", current.SubsectorName)" target="_blank">@current.SubsectorName</a></td>
-        <th>Sector</th>
-        <td><a href="@string.Format("http://wiki.travellerrpg.com/{0}_Sector", current.Sector)" target="_blank">@current.Sector</a></td>
-        <th>Coordinates</th>
-        <td>
-            <a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", current.SectorX, current.SectorY, current.HexX, current.HexY)" target="_blank">@current.SectorX,@current.SectorY Hex @current.Hex</a>
-        </td>
+            <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_(world)", current.Name)" target="_blank">@current.Name</a></td>
+            <th>Subsector</th>
+            <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Subsector", current.SubsectorName)" target="_blank">@current.SubsectorName</a></td>
+            <th>Sector</th>
+            <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Sector", current.Sector)" target="_blank">@current.Sector</a></td>
+            <th>Coordinates</th>
+            <td>
+                <a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", current.SectorX, current.SectorY, current.HexX, current.HexY)" target="_blank">@current.SectorX,@current.SectorY Hex @current.Hex</a>
+            </td>
         }
         else
         {
@@ -379,7 +379,8 @@ else
                         {
                             <div>@passenger.Skills</div>
                         }
-                    </li>}
+                    </li>
+}
             </ul>
         }
 
