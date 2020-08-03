@@ -11,18 +11,18 @@ namespace Grauenwolf.TravellerTools.Characters
         public int EducationDM => DMCalc(Education);
         public EHex Endurance { get; set; }
         public int EnduranceDM => DMCalc(Endurance);
-        public string Gender { get; set; }
+        public string? Gender { get; set; }
         public EHex Intellect { get; set; }
         public int IntellectDM => DMCalc(Intellect);
         public bool IsPatron { get; set; }
-        public string Name { get; set; }
-        public string PatronMission { get; set; }
+        public string? Name { get; set; }
+        public string? PatronMission { get; set; }
         public EHex Social { get; set; }
         public int SocialDM => DMCalc(Social);
         public EHex Strength { get; set; }
         public int StrengthDM => DMCalc(Strength);
-        public string Title { get; set; }
-        public string Trait { get; set; }
+        public string? Title { get; set; }
+        public string? Trait { get; set; }
 
         public string Upp
         {

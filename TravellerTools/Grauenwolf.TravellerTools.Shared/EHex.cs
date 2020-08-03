@@ -3,11 +3,8 @@ using System.Linq;
 
 namespace Grauenwolf.TravellerTools
 {
-
     public struct EHex : IEquatable<EHex>
     {
-
-
         readonly int m_Value;
 
         public EHex(char value)
@@ -19,7 +16,6 @@ namespace Grauenwolf.TravellerTools
         {
             switch (char.ToUpperInvariant(value))
             {
-
                 case '0': return 0;
                 case '1': return 1;
                 case '2': return 2;
@@ -80,7 +76,6 @@ namespace Grauenwolf.TravellerTools
 
         public string FlexString => m_Value <= 9 ? ToString() : m_Value + "/" + ToString();
 
-
         public override string ToString()
         {
             switch (m_Value)
@@ -123,7 +118,7 @@ namespace Grauenwolf.TravellerTools
             }
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj is EHex && Equals((EHex)obj);
         }
@@ -147,6 +142,7 @@ namespace Grauenwolf.TravellerTools
         {
             return low <= Value && Value <= high;
         }
+
         public bool AnyOf(params int[] values)
         {
             return values.Contains(Value);
@@ -166,6 +162,7 @@ namespace Grauenwolf.TravellerTools
         {
             return new EHex(value);
         }
+
         public int Value
         {
             get { return m_Value; }
@@ -181,16 +178,15 @@ namespace Grauenwolf.TravellerTools
             return new EHex(left.Value - right);
         }
 
-
         public static bool operator ==(EHex left, EHex right)
         {
             return left.Value == right.Value;
         }
+
         public static bool operator !=(EHex left, EHex right)
         {
             return left.Value != right.Value;
         }
-
 
         public static bool operator ==(EHex left, string right)
         {
@@ -221,8 +217,6 @@ namespace Grauenwolf.TravellerTools
         {
             return left.Value >= right;
         }
-
-
 
         public static bool operator <(int left, EHex right)
         {
