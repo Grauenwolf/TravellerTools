@@ -7,7 +7,7 @@ namespace Grauenwolf.TravellerTools.Maps
     {
         static readonly Dictionary<string, string> s_RemarkMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
         readonly HashSet<string> m_RemarksList = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        private string m_Remarks;
+        private string? m_Remarks;
 
         static World()
         {
@@ -91,11 +91,11 @@ namespace Grauenwolf.TravellerTools.Maps
             AddMissingRemarks();
         }
 
-        public string Allegiance { get; set; }
+        public string? Allegiance { get; set; }
 
-        public string AllegianceName { get; set; }
+        public string? AllegianceName { get; set; }
 
-        public string Atmosphere
+        public string? Atmosphere
         {
             get
             {
@@ -123,9 +123,9 @@ namespace Grauenwolf.TravellerTools.Maps
             }
         }
 
-        public EHex AtmosphereCode { get { return UWP[2]; } }
+        public EHex AtmosphereCode { get { return UWP?[2]; } }
 
-        public string AtmosphereDescription
+        public string? AtmosphereDescription
         {
             get
             {
@@ -153,15 +153,15 @@ namespace Grauenwolf.TravellerTools.Maps
             }
         }
 
-        public string Bases { get; set; }
+        public string? Bases { get; set; }
 
-        public string Cx { get; set; }
+        public string? Cx { get; set; }
 
-        public string Ex { get; set; }
+        public string? Ex { get; set; }
 
-        public EHex GovernmentCode { get { return UWP[5]; } }
+        public EHex GovernmentCode { get { return UWP?[5]; } }
 
-        public string GovernmentType
+        public string? GovernmentType
         {
             get
             {
@@ -203,11 +203,11 @@ namespace Grauenwolf.TravellerTools.Maps
             }
         }
 
-        public string Hex { get; set; }
+        public string? Hex { get; set; }
 
-        public string HexX { get { return Hex?.Substring(0, 2); } }
+        public string? HexX { get { return Hex?.Substring(0, 2); } }
 
-        public string HexY { get { return Hex?.Substring(2, 2); } }
+        public string? HexY { get { return Hex?.Substring(2, 2); } }
 
         public string Hydrographics
         {
@@ -232,30 +232,30 @@ namespace Grauenwolf.TravellerTools.Maps
             }
         }
 
-        public EHex HydrographicsCode { get { return UWP[3]; } }
+        public EHex HydrographicsCode { get { return UWP?[3]; } }
 
-        public string Ix { get; set; }
+        public string? Ix { get; set; }
 
         public int JumpDistance { get; set; }
 
-        public EHex LawCode { get { return UWP[6]; } }
+        public EHex LawCode { get { return UWP?[6]; } }
 
         public string LawLevel => Tables.LawLevel(LawCode);
 
-        public string LegacyBaseCode { get; set; }
+        public string? LegacyBaseCode { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
-        public string Nobility { get; set; }
+        public string? Nobility { get; set; }
 
-        public string PBG { get; set; }
+        public string? PBG { get; set; }
 
         public double Population
         {
             get { return PopulationMultiplier * PopulationExponent; }
         }
 
-        public EHex PopulationCode { get { return UWP[4]; } }
+        public EHex PopulationCode { get { return UWP?[4]; } }
 
         public double PopulationExponent
         {
@@ -279,7 +279,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
         public int Quadrant { get; set; }
 
-        public string Remarks
+        public string? Remarks
         {
             get
             {
@@ -323,14 +323,14 @@ namespace Grauenwolf.TravellerTools.Maps
 
         public int ResourceUnits { get; set; }
 
-        public string Sector { get; set; }
+        public string? Sector { get; set; }
 
         //These are added later
         public int? SectorX { get; set; }
 
         public int? SectorY { get; set; }
 
-        public EHex SizeCode { get { return UWP[1]; } }
+        public EHex SizeCode { get { return UWP?[1]; } }
 
         public int SizeKM
         {
@@ -354,31 +354,31 @@ namespace Grauenwolf.TravellerTools.Maps
             }
         }
 
-        public string SS { get; set; }
+        public string? SS { get; set; }
 
-        public string Starport => Tables.Starport(StarportCode);
+        public string? Starport => Tables.Starport(StarportCode);
 
-        public EHex StarportCode { get { return UWP[0]; } }
+        public EHex StarportCode { get { return UWP?[0]; } }
 
-        public string StarportDescription => Tables.StarportDescription(StarportCode);
+        public string? StarportDescription => Tables.StarportDescription(StarportCode);
 
-        public string Stellar { get; set; }
+        public string? Stellar { get; set; }
 
         public int Subsector { get; set; }
 
-        public string SubSectorIndex { get; set; }
+        public string? SubSectorIndex { get; set; }
 
-        public string SubsectorName { get; set; }
+        public string? SubsectorName { get; set; }
 
-        public EHex TechCode { get { return UWP[8]; } }
+        public EHex TechCode { get { return UWP?[8]; } }
 
-        public string TechLevel => Tables.TechLevel(TechCode);
+        public string? TechLevel => Tables.TechLevel(TechCode);
 
-        public string UWP { get; set; }
+        public string? UWP { get; set; }
 
         public int Worlds { get; set; }
 
-        public string Zone { get; set; }
+        public string? Zone { get; set; }
 
         public void AddMissingRemarks()
         {
@@ -468,10 +468,13 @@ namespace Grauenwolf.TravellerTools.Maps
 
             foreach (var code in sophontCodes)
             {
-                TryAdd(code.Code, code.Name);
-                for (int i = 1; i <= 9; i++)
+                if (code.Code != null)
                 {
-                    TryAdd(code.Code + i, $"{code.Name}, Population {(i * 10)}%.");
+                    TryAdd(code.Code, code.Name ?? "<unknown>");
+                    for (int i = 1; i <= 9; i++)
+                    {
+                        TryAdd(code.Code + i, $"{code.Name}, Population {i * 10}%.");
+                    }
                 }
             }
         }

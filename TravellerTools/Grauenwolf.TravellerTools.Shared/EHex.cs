@@ -148,6 +148,11 @@ namespace Grauenwolf.TravellerTools
             return values.Contains(Value);
         }
 
+        public static implicit operator EHex(char? value)
+        {
+            return value.HasValue ? new EHex(value.Value) : default;
+        }
+
         public static implicit operator EHex(char value)
         {
             return new EHex(value);

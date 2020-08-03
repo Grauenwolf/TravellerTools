@@ -1,7 +1,7 @@
 namespace Grauenwolf.TravellerTools.Maps
 {
-	class Universe
-	{
-		public Sector[] Sectors { get; set; }
-	}
+    class Universe
+    {
+        public Sector[]? Sectors { get; set; }
+    }
 }

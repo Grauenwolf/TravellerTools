@@ -4,7 +4,7 @@ namespace Grauenwolf.TravellerTools.Maps
     {
         int m_X;
         int m_Y;
-        private string m_Hex;
+        private string? m_Hex;
 
         public int X
         {
@@ -24,11 +24,11 @@ namespace Grauenwolf.TravellerTools.Maps
             }
         }
 
-        public string Tags { get; set; }
-        public Name[] Names { get; set; }
-        public string Abbreviation { get; set; }
+        public string? Tags { get; set; }
+        public Name[]? Names { get; set; }
+        public string? Abbreviation { get; set; }
 
-        public string Name { get { return Names[0].Text; } }
+        public string? Name { get { return Names?[0].Text; } }
 
         public string Hex
         {

@@ -41,7 +41,7 @@ namespace Grauenwolf.TravellerTools.Maps
             Milieu = milieu;
         }
 
-        public event EventHandler UniverseUpdated;
+        public event EventHandler? UniverseUpdated;
 
         public string Milieu { get; }
 
@@ -49,9 +49,8 @@ namespace Grauenwolf.TravellerTools.Maps
         {
             await FetchSophontCodesAsync();
 
-            SectorMetadata result;
             var cacheKey = Tuple.Create(sectorX, sectorY);
-            if (m_SectorMetadata.TryGetValue(cacheKey, out result))
+            if (m_SectorMetadata.TryGetValue(cacheKey, out var result))
                 return result;
 
             var rawList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/metadata?sx={sectorX}&sy={sectorY}&milieu={Milieu}")).ConfigureAwait(false);
@@ -137,6 +136,10 @@ namespace Grauenwolf.TravellerTools.Maps
                 return result;
 
             var meta = await FetchSectorMetadataAsync(sectorX, sectorY);
+            if (meta == null)
+                throw new ArgumentException($"No sector at sector coordinates {sectorX},{sectorY}");
+            if (meta.Subsectors == null)
+                throw new ArgumentException($"No subsectors at sector coordinates {sectorX},{sectorY}");
 
             var worldList = await FetchWorldsInSectorAsync(sectorX, sectorY);
 
@@ -233,15 +236,16 @@ namespace Grauenwolf.TravellerTools.Maps
             return result;
         }
 
-        public async Task<Sector> FindSectorByNameAsync(string sectorName)
+        public async Task<Sector?> FindSectorByNameAsync(string sectorName)
         {
             foreach (var sector in await FetchUniverseAsync().ConfigureAwait(false))
             {
-                foreach (var name in sector.Names)
-                {
-                    if (string.Compare(sectorName, name.Text, true) == 0)
-                        return sector;
-                }
+                if (sector.Names != null)
+                    foreach (var name in sector.Names)
+                    {
+                        if (string.Compare(sectorName, name.Text, true) == 0)
+                            return sector;
+                    }
             }
             return null;
         }
@@ -265,11 +269,14 @@ namespace Grauenwolf.TravellerTools.Maps
 
             foreach (var world in result)
             {
-                var sector = await FindSectorByNameAsync(world.Sector).ConfigureAwait(false);
-                world.SectorX = sector.X;
-                world.SectorY = sector.Y;
+                if (world.Sector != null)
+                {
+                    var sector = await FindSectorByNameAsync(world.Sector).ConfigureAwait(false);
+                    world.SectorX = sector?.X;
+                    world.SectorY = sector?.Y;
 
-                world.AddMissingRemarks();
+                    world.AddMissingRemarks();
+                }
             }
 
             return result;
