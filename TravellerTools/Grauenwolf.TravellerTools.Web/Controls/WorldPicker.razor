@@ -11,7 +11,7 @@
             <tr>
                 <th>Milieu</th>
                 <td>
-                    <InputSelect @bind-Value="Options.SelectedMilieuCode" @onclick="OnMilieuChangedAsync" @onkeyup="OnMilieuChangedAsync">
+                    <InputSelect @bind-Value="Options.SelectedMilieuCode">
                         @foreach (var item in Options.MilieuList)
                         {
                             if (Options.SelectedMilieu == item)
@@ -29,7 +29,7 @@
             <tr>
                 <th>Sector</th>
                 <td>
-                    <InputSelect @bind-Value="Options.SelectedSectorHex" @onclick="OnSectorChangedAsync" @onkeyup="OnSectorChangedAsync">
+                    <InputSelect @bind-Value="Options.SelectedSectorHex">
                         @if (Options.SelectedMilieu == null)
                         {
                             <option value="" selected></option>
@@ -56,7 +56,7 @@
             <tr>
                 <th>Subector</th>
                 <td>
-                    <InputSelect @bind-Value="Options.SelectedSubsectorIndex" @onclick="OnSubsectorChangedAsync" @onkeyup="OnSubsectorChangedAsync">
+                    <InputSelect @bind-Value="Options.SelectedSubsectorIndex">
                         @if (Options.SelectedSubsector == null)
                         {
                             <option value="" selected></option>

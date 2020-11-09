@@ -3,14 +3,21 @@ using Grauenwolf.TravellerTools.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Tortuga.Anchor.Modeling;
 
 namespace Grauenwolf.TravellerTools.Web.Data
 {
-    public class PlanetPickerOptions
+    public class PlanetPickerOptions : ModelBase
     {
         public IReadOnlyList<Milieu> MilieuList => Milieu.MilieuList;
-        public IReadOnlyList<Sector> SectorList { get; set; } = Array.Empty<Sector>();
-        public Milieu? SelectedMilieu { get; set; } = Milieu.DefaultMilieu;
+
+        public IReadOnlyList<Sector> SectorList
+        {
+            get => GetDefault<IReadOnlyList<Sector>>(Array.Empty<Sector>());
+            set => Set(value);
+        }
+
+        public Milieu? SelectedMilieu { get => GetDefault<Milieu?>(Milieu.DefaultMilieu); set => Set(value); }
 
         public string? SelectedMilieuCode
         {
@@ -18,7 +25,7 @@ namespace Grauenwolf.TravellerTools.Web.Data
             set => SelectedMilieu = Milieu.FromCode(value ?? "");
         }
 
-        public Sector? SelectedSector { get; set; }
+        public Sector? SelectedSector { get => Get<Sector?>(); set => Set(value); }
 
         public string? SelectedSectorHex
         {
@@ -26,7 +33,7 @@ namespace Grauenwolf.TravellerTools.Web.Data
             set => SelectedSector = SectorList.FirstOrDefault(s => s.Hex == value);
         }
 
-        public Subsector? SelectedSubsector { get; set; }
+        public Subsector? SelectedSubsector { get => Get<Subsector?>(); set => Set(value); }
 
         public string? SelectedSubsectorIndex
         {
@@ -34,7 +41,7 @@ namespace Grauenwolf.TravellerTools.Web.Data
             set => SelectedSubsector = SubsectorList.FirstOrDefault(s => s.Index == value);
         }
 
-        public World? SelectedWorld { get; set; }
+        public World? SelectedWorld { get => Get<World?>(); set => Set(value); }
 
         public string? SelectedWorldHex
         {
@@ -42,7 +49,16 @@ namespace Grauenwolf.TravellerTools.Web.Data
             set => SelectedWorld = WorldList.FirstOrDefault(s => s.Hex == value);
         }
 
-        public IReadOnlyList<Subsector> SubsectorList { get; set; } = Array.Empty<Subsector>();
-        public IReadOnlyList<World> WorldList { get; set; } = Array.Empty<World>();
+        public IReadOnlyList<Subsector> SubsectorList
+        {
+            get => GetDefault<IReadOnlyList<Subsector>>(Array.Empty<Subsector>());
+            set => Set(value);
+        }
+
+        public IReadOnlyList<World> WorldList
+        {
+            get => GetDefault<IReadOnlyList<World>>(Array.Empty<World>());
+            set => Set(value);
+        }
     }
 }

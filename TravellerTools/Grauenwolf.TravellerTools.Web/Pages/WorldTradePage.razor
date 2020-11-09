@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <InputSelect @bind-Value="Options.SelectedEdition" @onclick="OnOptionsChanged" @onkeyup="OnOptionsChanged">
+                        <InputSelect @bind-Value="Options.SelectedEdition">
                             @foreach (var item in TradeOptions.EditionList)
                                 {
                                     if (Options.SelectedEditionCode == item.Code)

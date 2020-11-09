@@ -9,6 +9,22 @@ namespace Grauenwolf.TravellerTools.Web.Controls
 {
     partial class WorldPicker
     {
+        public WorldPicker()
+        {
+            Options.PropertyChanged += Options_PropertyChanged;
+        }
+
+        private async void Options_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(PlanetPickerOptions.SelectedMilieu): await OnMilieuChangedAsync(); break;
+                case nameof(PlanetPickerOptions.SelectedSector): await OnSectorChangedAsync(); break;
+                case nameof(PlanetPickerOptions.SelectedSubsector): await OnSubsectorChangedAsync(); break;
+            }
+            base.StateHasChanged();
+        }
+
         PlanetPickerOptions Options { get; } = new PlanetPickerOptions();
         [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
         bool WorldNotSelected => Options.SelectedWorld == null;

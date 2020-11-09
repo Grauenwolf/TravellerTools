@@ -118,8 +118,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
                 Model!.TradeList = tradeEngine.BuildTradeGoodsList(Model.World, Options.AdvancedMode, Options.IllegalGoods, Options.BrokerScore, dice, Options.Raffle, Options.StreetwiseScore);
 
-                //Model.HighportDetails = TradeEngine.CalculateStarportDetails(Model.World, dice, true);
-                //Model.DownportDetails = TradeEngine.CalculateStarportDetails(Model.World, dice, false);
+                StateHasChanged();
             }
         }
     }
