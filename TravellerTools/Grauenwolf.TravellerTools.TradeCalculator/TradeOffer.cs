@@ -1,4 +1,3 @@
-
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
     /// <summary>
@@ -14,5 +13,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public string Subtype { get; set; }
         public int Tons { get; set; }
         public string Type { get; set; }
+        public bool Legal { get; set; }
     }
 }

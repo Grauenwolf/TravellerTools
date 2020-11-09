@@ -1,17 +1,24 @@
 using Grauenwolf.TravellerTools.Maps;
+using Grauenwolf.TravellerTools.Names;
+using Grauenwolf.TravellerTools.TradeCalculator;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
+using System.Collections.Concurrent;
 
 namespace Grauenwolf.TravellerTools.Web
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        string AppDataPath = null!;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            AppDataPath = System.IO.Path.Combine(env.WebRootPath, "App_Data");
         }
 
         public IConfiguration Configuration { get; }
@@ -22,7 +29,12 @@ namespace Grauenwolf.TravellerTools.Web
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton(new TravellerMapServiceLocator(false)); //make this configurable!
+
+            var mapService = new TravellerMapServiceLocator(false);
+
+            services.AddSingleton(mapService); //make this configurable!
+            var nameService = new LocalNameService(AppDataPath);
+            services.AddSingleton(new TradeEngineLocator(mapService, AppDataPath, nameService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,5 +62,44 @@ namespace Grauenwolf.TravellerTools.Web
                 endpoints.MapFallbackToPage("/_Host");
             });
         }
+    }
+
+    public class TradeEngineLocator
+    {
+        readonly ConcurrentDictionary<(string, int), TradeEngine> TradeEngines = new ConcurrentDictionary<(string, int), TradeEngine>();
+
+        public TradeEngineLocator(TravellerMapServiceLocator mapService, string dataPath, INameService nameService)
+        {
+            MapService = mapService;
+            DataPath = dataPath;
+            NameService = nameService;
+        }
+
+        public TradeEngine GetTradeEngine(string milieu, Edition edition)
+        {
+            if (TradeEngines.TryGetValue((milieu, (int)edition), out var engine))
+                return engine;
+
+            switch (edition)
+            {
+                case Edition.Mongoose:
+                    engine = new TradeEngineMgt(MapService.GetMapService(milieu), DataPath, NameService);
+                    break;
+
+                case Edition.Mongoose2:
+                    engine = new TradeEngineMgt2(MapService.GetMapService(milieu), DataPath, NameService);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(edition));
+            }
+
+            TradeEngines[(milieu, (int)edition)] = engine;
+            return engine;
+        }
+
+        public TravellerMapServiceLocator MapService { get; }
+        public string DataPath { get; }
+        public INameService NameService { get; }
     }
 }

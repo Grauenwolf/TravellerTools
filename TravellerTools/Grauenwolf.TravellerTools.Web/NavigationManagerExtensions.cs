@@ -1,0 +1,55 @@
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Primitives;
+using System.Collections.Generic;
+
+namespace Grauenwolf.TravellerTools.Web
+{
+    public static class NavigationManagerExtensions
+    {
+        public static string QueryString(this NavigationManager navManager)
+        {
+            return navManager.ToAbsoluteUri(navManager.Uri).Query;
+        }
+
+        public static Dictionary<string, StringValues> ParsedQueryString(this NavigationManager navManager)
+        {
+            return QueryHelpers.ParseQuery(navManager.ToAbsoluteUri(navManager.Uri).Query);
+        }
+
+        public static bool TryGetQueryString<T>(this NavigationManager navManager, string key, out T value)
+        {
+            var uri = navManager.ToAbsoluteUri(navManager.Uri);
+
+            if (QueryHelpers.ParseQuery(uri.Query).TryGetValue(key, out var valueFromQueryString))
+            {
+                if (typeof(T) == typeof(int) && int.TryParse(valueFromQueryString, out var valueAsInt))
+                {
+                    value = (T)(object)valueAsInt;
+                    return true;
+                }
+
+                if (typeof(T) == typeof(string))
+                {
+                    value = (T)(object)valueFromQueryString.ToString();
+                    return true;
+                }
+
+                if (typeof(T) == typeof(decimal) && decimal.TryParse(valueFromQueryString, out var valueAsDecimal))
+                {
+                    value = (T)(object)valueAsDecimal;
+                    return true;
+                }
+
+                if (typeof(T) == typeof(long) && long.TryParse(valueFromQueryString, out var valueAsLong))
+                {
+                    value = (T)(object)valueAsLong;
+                    return true;
+                }
+            }
+
+            value = default!;
+            return false;
+        }
+    }
+}

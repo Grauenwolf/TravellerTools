@@ -8,7 +8,7 @@
             }
             else
             {
-                <th><a href="@(BaseUrl +  "info")">Info</a></th>
+                <th><a href="@(BaseUrl +  "info" + QueryParameters)">Info</a></th>
             }
             @if (CurrentPage == "trade")
             {
@@ -16,7 +16,7 @@
             }
             else
             {
-                <th><a href="@(BaseUrl +  "trade")">Trade</a></th>
+                <th><a href="@(BaseUrl +  "trade" + QueryParameters)">Trade</a></th>
             }
             @if (CurrentPage == "store")
             {
@@ -24,7 +24,7 @@
             }
             else
             {
-                <th><a href="@(BaseUrl +  "store")">Store</a></th>
+                <th><a href="@(BaseUrl +  "store" + QueryParameters)">Store</a></th>
             }
             @if (CurrentPage == "animals")
             {
@@ -32,7 +32,15 @@
             }
             else
             {
-                <th><a href="@(BaseUrl +  "animals")">Animals</a></th>
+                <th><a href="@(BaseUrl +  "animals" + QueryParameters)">Animals</a></th>
+            }
+            @if (CurrentPage == "encounters")
+            {
+                <th>Encounters</th>
+            }
+            else
+            {
+                <th><a href="@(BaseUrl +  "encounters" + QueryParameters)">Encounters</a></th>
             }
         </tr>
     </table>

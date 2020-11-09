@@ -1,0 +1,179 @@
+﻿@page "/world/{milieuCode}/{sectorHex}/{planetHex}/trade"
+@inherits WorldTradePageBase
+
+@if (Model != null)
+{
+    var current = Model.World;
+    //var timeFormat = "h'h 'm'm 's's'";
+
+    <h2>@current.Name</h2>
+    <WorldNavigation CurrentPage="info" SectorHex="@SectorHex" PlanetHex="@PlanetHex" MilieuCode="@MilieuCode" />
+    <div>&nbsp;</div>
+
+    <div>
+        <EditForm Model="@Options">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <table class="gridtable">
+                <tr>
+                    <th>Traveller Edition</th>
+                    <th colspan="3">Options</th>
+                    <th>Broker Score</th>
+                    <th>Streetwise Score</th>
+                </tr>
+                <tr>
+                    <td>
+                        <InputSelect @bind-Value="Options.SelectedEdition" @onclick="OnOptionsChanged" @onkeyup="OnOptionsChanged">
+                            @foreach (var item in TradeOptions.EditionList)
+                                {
+                                    if (Options.SelectedEditionCode == item.Code)
+                                    {
+                                    <option value="@(item.Code)" selected> @(item.Name)</option>
+                                    }
+                                    else
+                                    {
+                                    <option value="@(item.Code)"> @(item.Name)</option>
+                                    }
+                                }
+                        </InputSelect>
+                    </td>
+                    <td>
+                        <label title="More variety in cargo types.">
+                            <InputCheckbox @bind-Value="Options.AdvancedMode" />
+                            Advanced Mode
+                        </label>
+                    </td>
+                    <td>
+                        <label title="Lowers the odds of finding rare goods. Adjusts the amount of goods available based on population.">
+                            <InputCheckbox @bind-Value="Options.Raffle" />
+                            Raffle
+                        </label>
+                    </td>
+                    <td>
+                        <label title="Illegal Goods use Streetwise instead of Broker.">
+                            <InputCheckbox @bind-Value="Options.IllegalGoods" />
+                            Allow Illegal Goods
+                        </label>
+                    </td>
+                    <td>
+                        <InputSelect @bind-Value="Options.BrokerScoreCode">
+                            @for (var score = -6; score <= 8; score++)
+                                {
+                                    if (Options.BrokerScore == score)
+                                    {
+                                    <option value="@(score)" selected> @(score)</option>
+                                    }
+                                    else
+                                    {
+                                    <option value="@(score)"> @(score)</option>
+                                    }
+                                }
+                        </InputSelect>
+                    </td>
+                    <td>
+                        <InputSelect @bind-Value="Options.StreetwiseScoreCode">
+                            @for (var score = -6; score <= 8; score++)
+                                {
+                                    if (Options.StreetwiseScore == score)
+                                    {
+                                    <option value="@(score)" selected> @(score)</option>
+                                    }
+                                    else
+                                    {
+                                    <option value="@(score)"> @(score)</option>
+                                    }
+                                }
+                        </InputSelect>
+                    </td>
+                </tr>
+            </table>
+        </EditForm>
+    </div>
+
+    @if (Model.TradeList != null)
+    {
+
+        <div>&nbsp;</div>
+        <h3>
+            Available Trade Goods
+            <a @onclick="Reroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
+            <a @onclick="Permalink" href="@(Permalink())" title="Permalink. Use this to share with your players."><span class="oi oi-bookmark" /></a>
+        </h3>
+        <p>Purchase DM does not include broker score.<br />Price modifier and current price include purchase DM, broker score, and random roll.</p>
+        <table class="gridtable">
+            <tr>
+                <th>Type</th>
+                @if (Options.AdvancedMode)
+                {
+                    <th>Subtype</th>
+                }
+                <th>Tons</th>
+                <th>Base Price</th>
+                <th>Purchase DM</th>
+                <th>Modified Roll</th>
+                <th>Price Modifier</th>
+                <th>Current Price</th>
+            </tr>
+            @foreach (var lot in Model.TradeList.Lots)
+            {
+                <tr>
+                    <td style="@( lot.Legal ? "" : "background-color:pink")">@lot.Type</td>
+                    @if (Options.AdvancedMode)
+                    {
+                        <td>@lot.Subtype</td>
+                    }
+                    <td>@lot.Tons</td>
+                    <td>@lot.BasePrice.ToString("N0")</td>
+                    <td>@lot.PurchaseDM</td>
+                    <td>@lot.Roll.ToString("N0")</td>
+                    <td>@lot.PriceModifier.ToString("P2")</td>
+                    <td>@lot.CurrentPrice.ToString("N0")</td>
+                </tr>
+            }
+        </table>
+        <div>&nbsp;</div>
+
+        <h3>Desired Goods</h3>
+        <p>Sale DM does not include broker score.<br />Price modifier and current price include sale DM, broker score, and random roll.</p>
+        <table class="gridtable">
+            <tr>
+                <th>Type</th>
+                @if (Options.AdvancedMode)
+                {
+                    <th>Subtype</th>
+                }
+                <th>Base Price</th>
+                <th>Sale DM</th>
+                <th>Modified Roll</th>
+                <th>Price Modifier</th>
+                <th>Current Price</th>
+            </tr>
+            @foreach (var lot in Model.TradeList.Bids)
+            {
+                <tr>
+                    <td style="@( lot.Legal ? "" : "background-color:pink")">@lot.Type</td>
+                    <td>@lot.Type</td>
+                    @if (Options.AdvancedMode)
+                    {
+                        <td>@lot.Subtype</td>
+                    }
+                    <td>@lot.BasePrice.ToString("N0")</td>
+                    <td>@lot.SaleDM</td>
+                    <td>@lot.Roll.ToString("N0")</td>
+                    <td>@lot.PriceModifier.ToString("P2")</td>
+                    <td>@lot.CurrentPrice.ToString("N0")</td>
+                </tr>
+            }
+        </table>
+    }
+
+}
+else if (LoadFailed)
+{
+    <h1>Error loading page.</h1>
+}
+else
+{
+    <h1>Loading</h1>
+}

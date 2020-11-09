@@ -12,5 +12,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public int SaleDM { get; set; }
         public string Subtype { get; set; }
         public string Type { get; set; }
+        public bool Legal { get; set; }
     }
 }
