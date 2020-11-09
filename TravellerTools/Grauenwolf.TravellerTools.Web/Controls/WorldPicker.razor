@@ -52,6 +52,7 @@
                         }
                     </InputSelect>
                 </td>
+                <td><button disabled="disabled">Sector Info</button></td>
             </tr>
             <tr>
                 <th>Subector</th>
@@ -69,15 +70,16 @@
                         {
                             if (Options.SelectedSubsector == item)
                             {
-                                <option value="@(item.Index)" selected> @(item.Name)</option>
+                                <option value="@(item.Index)" selected> @(item.SafeName)</option>
                             }
                             else
                             {
-                                <option value="@(item.Index)"> @(item.Name)</option>
+                                <option value="@(item.Index)"> @(item.SafeName)</option>
                             }
                         }
                     </InputSelect>
                 </td>
+                <td><button disabled="disabled">Subsector Info</button></td>
             </tr>
             <tr>
                 <th>World</th>
