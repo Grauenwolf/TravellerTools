@@ -111,7 +111,8 @@
                 <th>Jump to...</th>
                 <td>
                     <button @onclick="GotoPlanet" disabled="@WorldNotSelected">Planet Info</button>
-                    <button @onclick="GotoTrade" disabled>Trade</button>
+                    <button @onclick="GotoTravel" disabled="@WorldNotSelected">Travel</button>
+                    <button @onclick="GotoTrade" disabled="@WorldNotSelected">Trade</button>
                     <button @onclick="GotoShopping" disabled>Shopping</button>
                     <button @onclick="GotoAnimals" disabled>Animals</button>
                 </td>

@@ -34,15 +34,11 @@ namespace Grauenwolf.TravellerTools.Web.Controls
             await OnMilieuChangedAsync();
         }
 
-        void GotoAnimals()
-        {
-            GotoPlanet("animals");
-        }
+        void GotoAnimals() => GotoPlanet("animals");
 
-        void GotoPlanet()
-        {
-            GotoPlanet("info");
-        }
+        void GotoPlanet() => GotoPlanet("info");
+
+        void GotoTravel() => GotoPlanet("travel");
 
         private void GotoPlanet(string suffix)
         {
@@ -51,15 +47,9 @@ namespace Grauenwolf.TravellerTools.Web.Controls
             Navigation.NavigateTo($"/world/{Options.SelectedMilieuCode}/{Options.SelectedSectorHex}/{Options.SelectedWorldHex}/{suffix}");
         }
 
-        void GotoShopping()
-        {
-            GotoPlanet("store");
-        }
+        void GotoShopping() => GotoPlanet("store");
 
-        void GotoTrade()
-        {
-            GotoPlanet("trade");
-        }
+        void GotoTrade() => GotoPlanet("trade");
 
         async Task OnMilieuChangedAsync()
         {

@@ -1,6 +1,7 @@
 ﻿using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Shared;
 using Grauenwolf.TravellerTools.TradeCalculator;
+using System.Collections.Generic;
 
 namespace Grauenwolf.TravellerTools.Web.Data
 {
@@ -37,5 +38,7 @@ namespace Grauenwolf.TravellerTools.Web.Data
         //public int? Seed { get; set; }
         //public int StreetwiseScore { get; set; }
         public TradeGoodsList TradeList { get; set; }
+
+        public List<World> Destinations { get; set; }
     }
 }

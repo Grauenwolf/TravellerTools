@@ -18,6 +18,14 @@
             {
                 <th><a href="@(BaseUrl +  "trade" + QueryParameters)">Trade</a></th>
             }
+            @if (CurrentPage == "travel")
+            {
+                <th>Travel</th>
+            }
+            else
+            {
+                <th><a href="@(BaseUrl +  "travel" + QueryParameters)">Travel</a></th>
+            }
             @if (CurrentPage == "store")
             {
                 <th>Store</th>

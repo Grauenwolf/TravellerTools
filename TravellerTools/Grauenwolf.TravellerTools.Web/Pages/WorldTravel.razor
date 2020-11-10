@@ -1,0 +1,54 @@
+﻿@page "/world/{milieuCode}/{sectorHex}/{planetHex}/travel"
+@inherits WorldTravelPageBase
+
+@if (Model != null)
+{
+    var current = Model.World;
+    var timeFormat = "h'h 'm'm 's's'";
+
+    <h2>@current.Name</h2>
+    <WorldNavigation CurrentPage="travel" SectorHex="@SectorHex" PlanetHex="@PlanetHex" MilieuCode="@MilieuCode" />
+    <div>&nbsp;</div>
+
+    <h3>In-system Travel Info</h3>
+    <div style="display: inline-block; vertical-align: top">
+        <table class="gridtable">
+            <tr><th>Thrust</th><th>Transit Time to Jump Point</th><th>Early Jump</th><th>Late Jump</th></tr>
+            <tr><th>Min. Distance</th><td>@current.JumpDistanceKM(100).ToString("N0") km</td><td>@current.JumpDistanceKM(90).ToString("N0") km</td><td>@current.JumpDistanceKM(150).ToString("N0") km</td></tr>
+            <tr><td>1</td><td>@current.TransitTimeJumpPoint(1).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(1, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(1, 150).ToString(timeFormat)</td></tr>
+            <tr><td>2</td><td>@current.TransitTimeJumpPoint(2).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(2, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(2, 150).ToString(timeFormat)</td></tr>
+            <tr><td>3</td><td>@current.TransitTimeJumpPoint(3).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(3, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(3, 150).ToString(timeFormat)</td></tr>
+            <tr><td>4</td><td>@current.TransitTimeJumpPoint(4).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(4, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(4, 150).ToString(timeFormat)</td></tr>
+            <tr><td>5</td><td>@current.TransitTimeJumpPoint(5).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(5, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(5, 150).ToString(timeFormat)</td></tr>
+            <tr><td>6</td><td>@current.TransitTimeJumpPoint(6).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(6, 90).ToString(timeFormat)</td><td>@current.TransitTimeJumpPoint(6, 150).ToString(timeFormat)</td></tr>
+        </table>
+    </div>
+    <div>&nbsp;</div>
+
+    @if (Model.Destinations != null)
+    {
+
+        var distances = Model.Destinations.Where(d => d.JumpDistance != 0)
+            .GroupBy(d => d.JumpDistance)
+            .OrderBy(d => d.Key);
+
+        foreach (var distance in distances)
+        {
+            <h3>Jump Travel @(distance.Key)</h3>
+
+            foreach (var destination in distance)
+            {
+                <div>@destination.Name  [info] [passengers] [freight] [desired goods]</div>
+            }
+        }
+    }
+
+}
+else if (LoadFailed)
+{
+    <h1>Error loading page.</h1>
+}
+else
+{
+    <h1>Loading</h1>
+}
