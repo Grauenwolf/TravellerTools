@@ -7,7 +7,7 @@
     //var timeFormat = "h'h 'm'm 's's'";
 
     <h2>@current.Name</h2>
-    <WorldNavigation CurrentPage="trade" SectorHex="@SectorHex" PlanetHex="@PlanetHex" MilieuCode="@MilieuCode" />
+    <WorldNavigation CurrentPage="trade" World="@Model.World" MilieuCode="@MilieuCode" />
     <div>&nbsp;</div>
 
     <div>
@@ -18,7 +18,7 @@
             <table class="gridtable">
                 <tr>
                     <th>Traveller Edition</th>
-                    <th colspan="3">Options</th>
+                    <th>Options</th>
                     <th>Broker Score</th>
                     <th>Streetwise Score</th>
                 </tr>
@@ -43,14 +43,12 @@
                             <InputCheckbox @bind-Value="Options.AdvancedMode" />
                             Advanced Mode
                         </label>
-                    </td>
-                    <td>
+                        <br />
                         <label title="Lowers the odds of finding rare goods. Adjusts the amount of goods available based on population.">
                             <InputCheckbox @bind-Value="Options.Raffle" />
                             Raffle
                         </label>
-                    </td>
-                    <td>
+                        <br />
                         <label title="Illegal Goods use Streetwise instead of Broker.">
                             <InputCheckbox @bind-Value="Options.IllegalGoods" />
                             Allow Illegal Goods

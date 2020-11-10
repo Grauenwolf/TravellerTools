@@ -51,8 +51,8 @@
                             }
                         }
                     </InputSelect>
+                    <button disabled="disabled">Sector Info</button>
                 </td>
-                <td><button disabled="disabled">Sector Info</button></td>
             </tr>
             <tr>
                 <th>Subector</th>
@@ -78,8 +78,8 @@
                             }
                         }
                     </InputSelect>
+                    <button disabled="disabled">Subsector Info</button>
                 </td>
-                <td><button disabled="disabled">Subsector Info</button></td>
             </tr>
             <tr>
                 <th>World</th>
@@ -111,8 +111,8 @@
                 <th>Jump to...</th>
                 <td>
                     <button @onclick="GotoPlanet" disabled="@WorldNotSelected">Planet Info</button>
-                    <button @onclick="GotoTravel" disabled="@WorldNotSelected">Travel</button>
                     <button @onclick="GotoTrade" disabled="@WorldNotSelected">Trade</button>
+                    <button @onclick="GotoTravel" disabled="@WorldNotSelected">Travel</button>
                     <button @onclick="GotoShopping" disabled>Shopping</button>
                     <button @onclick="GotoAnimals" disabled>Animals</button>
                 </td>

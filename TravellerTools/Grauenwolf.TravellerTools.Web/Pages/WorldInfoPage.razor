@@ -6,34 +6,12 @@
     var current = Model.World;
 
     <h2>@current.Name</h2>
-    <WorldNavigation CurrentPage="info" SectorHex="@SectorHex" PlanetHex="@PlanetHex" MilieuCode="@MilieuCode" />
+    <WorldNavigation CurrentPage="info" World="@Model.World" MilieuCode="@MilieuCode" />
     <div>&nbsp;</div>
     <h3>
-        World Info: @(current.Name)
+        World Info
     </h3>
-    <table class="gridtable">
 
-        <tr>
-            <th>Planet</th>
-            @if (current.SectorX != null && current.SectorY != null)
-            {
-                <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_(world)", current.Name)" target="_blank" title="Search Traveller Wiki for this planet.">@current.Name</a></td>
-                <th>Subsector</th>
-                <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Subsector", current.SubsectorName)" target="_blank" title="Search Traveller Wiki for this subsector.">@current.SubsectorName</a></td>
-                <th>Sector</th>
-                <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Sector", current.Sector)" target="_blank" title="Search Traveller Wiki for this sector.">@current.Sector</a></td>
-                <th>Coordinates</th>
-                <td>
-                    <a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", current.SectorX, current.SectorY, current.HexX, current.HexY)" target="_blank" title="Show planet in Traveller Map.">@current.SectorX,@current.SectorY Hex @current.Hex</a>
-                </td>
-            }
-            else
-            {
-                <td>@current.Name</td>
-            }
-        </tr>
-    </table>
-    <div>&nbsp;</div>
     <table class="gridtable">
 
         <tr><th>Starport</th><td>@current.StarportCode</td><td colspan="5" width="500">@current.StarportDescription</td></tr>

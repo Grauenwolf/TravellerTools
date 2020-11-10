@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Grauenwolf.TravellerTools.Maps;
+using Microsoft.AspNetCore.Components;
 
 namespace Grauenwolf.TravellerTools.Web.Controls
 {
@@ -6,13 +7,16 @@ namespace Grauenwolf.TravellerTools.Web.Controls
     {
         [Inject] NavigationManager NavigationManager { get; set; } = null!;
 
-        [Parameter] public string? MilieuCode { get; set; }
+        //[Parameter] public string? MilieuCode { get; set; }
 
-        [Parameter] public string? SectorHex { get; set; }
-        [Parameter] public string? PlanetHex { get; set; }
+        //[Parameter] public string? SectorHex { get; set; }
+        //[Parameter] public string? PlanetHex { get; set; }
+
+        [Parameter] public World World { get; set; } = null!;
+        [Parameter] public string? MilieuCode { get; set; }
         [Parameter] public string? CurrentPage { get; set; }
 
-        public string BaseUrl => $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/";
+        public string BaseUrl => $"/world/{MilieuCode}/{World.SectorX},{World.SectorY}/{World.Hex}/";
         public string? QueryParameters { get; private set; }
 
         protected override void Initialized()

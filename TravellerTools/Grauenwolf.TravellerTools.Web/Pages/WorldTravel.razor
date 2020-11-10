@@ -7,7 +7,7 @@
     var timeFormat = "h'h 'm'm 's's'";
 
     <h2>@current.Name</h2>
-    <WorldNavigation CurrentPage="travel" SectorHex="@SectorHex" PlanetHex="@PlanetHex" MilieuCode="@MilieuCode" />
+    <WorldNavigation CurrentPage="travel" World="@Model.World" MilieuCode="@MilieuCode" />
     <div>&nbsp;</div>
 
     <h3>In-system Travel Info</h3>
@@ -28,19 +28,55 @@
     @if (Model.Destinations != null)
     {
 
-        var distances = Model.Destinations.Where(d => d.JumpDistance != 0)
-            .GroupBy(d => d.JumpDistance)
-            .OrderBy(d => d.Key);
+        var destinations = Model.Destinations.Where(d => d.JumpDistance != 0)
+            .OrderBy(d => d.JumpDistance)
+            .ThenBy(d => d.Name)
+            .ToList();
 
-        foreach (var distance in distances)
-        {
-            <h3>Jump Travel @(distance.Key)</h3>
+        <h3>Jump Travel Info</h3>
+        <div style="display: inline-block; vertical-align: top">
+            <table class="gridtable">
+                <tr>
+                    <th width="30">Jump</th>
+                    <th>Planet</th>
+                    <th>Subsector</th>
+                    <th>Sector</th>
+                    <th>Coordinates</th>
+                </tr>
+                @{
+                    var previousDistance = 0;
+                    foreach (var item in destinations)
+                    {
+                        <tr>
+                            @if (previousDistance != item.JumpDistance)
+                            {
+                                previousDistance = item.JumpDistance;
+                                var subCount = destinations.Where(d => d.JumpDistance == item.JumpDistance).Count();
+                                <td rowspan="@(subCount*2)" width="30" align="center">@(item.JumpDistance)</td>
+                            }
+                            <td rowspan="2"><a href="@string.Format("https://wiki.travellerrpg.com/{0}_(world)", item.Name)" target="_blank" title="Search Traveller Wiki for this planet.">@item.Name</a></td>
+                            <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Subsector", item.SubsectorName)" target="_blank" title="Search Traveller Wiki for this subsector.">@item.SubsectorName</a></td>
+                            <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Sector", item.Sector)" target="_blank" title="Search Traveller Wiki for this sector.">@item.Sector</a></td>
+                            <td><a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", item.SectorX, item.SectorY, item.HexX, item.HexY)" target="_blank" title="Show planet in Traveller Map.">@item.SectorX,@item.SectorY Hex @item.Hex</a></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                <a href="@($"/world/{MilieuCode}/{item.SectorX},{item.SectorY}/{item.Hex}/info")">
+                                    <span class="oi oi-globe" aria-hidden="true" /> Info
+                                </a>
+                                <a href="@($"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/destination/{item.SectorX},{item.SectorY}/{item.Hex}/passengers")">
+                                    <span class="oi oi-briefcase" aria-hidden="true" /> Passengers
+                                </a>
+                                <a href="@($"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/destination/{item.SectorX},{item.SectorY}/{item.Hex}/freight")">
+                                    <span class="oi oi-envelope-closed" aria-hidden="true" /> Freight &amp; Mail
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
 
-            foreach (var destination in distance)
-            {
-                <div>@destination.Name  [info] [passengers] [freight] [desired goods]</div>
-            }
-        }
     }
 
 }
