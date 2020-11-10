@@ -99,7 +99,7 @@ namespace Grauenwolf.TravellerTools.Maps
                             var metadata = await FetchSectorMetadataAsync(sector.X, sector.Y);
                             if (metadata.Subsectors.Any(ss => !string.IsNullOrEmpty(ss.Name)))
                             {
-                                var worlds = await FetchWorldsInSectorAsync(sector.X, sector.Y).ConfigureAwait(false);
+                                var worlds = await FetchWorldsInSectorAsync(sector.X, sector.Y, sector.Name).ConfigureAwait(false);
                                 if (worlds.Any(p => !string.IsNullOrWhiteSpace(p.Name)))
                                     populatedSectors.Add(sector);
                             }
@@ -141,12 +141,27 @@ namespace Grauenwolf.TravellerTools.Maps
             if (meta.Subsectors == null)
                 throw new ArgumentException($"No subsectors at sector coordinates {sectorX},{sectorY}");
 
-            var worldList = await FetchWorldsInSectorAsync(sectorX, sectorY);
+            var worldList = await FetchWorldsInSectorAsync(sectorX, sectorY, meta.Name ?? $"{meta.X},{meta.Y}");
+
+            //Add missing sectors. This can happen if the sector isn't named, which will prevent it from being returned by FetchSectorMetadataAsync
+            var missingList = worldList.Select(w => (w.SubSectorIndex, w.SubsectorName)).Distinct()
+                .Where(ss => !meta.Subsectors.Any(s => s.Index == ss.SubSectorIndex))
+                .Select(ss => new Subsector()
+                {
+                    Name = ss.SubsectorName ?? ss.SubSectorIndex,
+                    Index = ss.SubSectorIndex,
+                    IndexNumber = ((int)ss.SubSectorIndex![0]) - 65
+                })
+                .ToList();
 
             var temp = new List<Subsector>();
             foreach (var subsector in meta.Subsectors)
-                if (worldList.Any(w => w.SubSectorIndex == subsector.Index && !string.IsNullOrWhiteSpace(w.Name)))
+                if (worldList.Any(w => w.SubSectorIndex == subsector.Index))
                     temp.Add(subsector);
+
+            //These are probably unnamed subsectors
+            foreach (var subsector in missingList)
+                temp.Add(subsector);
 
             result = temp.OrderBy(s => s.Name).ToImmutableArray();
 
@@ -155,14 +170,14 @@ namespace Grauenwolf.TravellerTools.Maps
             return result;
         }
 
-        public async Task<ImmutableArray<World>> FetchWorldsInSubsectorAsync(int sectorX, int sectorY, string subSectorIndex)
+        public async Task<ImmutableArray<World>> FetchWorldsInSubsectorAsync(int sectorX, int sectorY, string subSectorIndex, string sectorName)
         {
             var cacheKey = Tuple.Create(sectorX, sectorY, subSectorIndex);
 
             if (m_WorldsInSubsector.TryGetValue(cacheKey, out var result))
                 return result;
 
-            result = (await FetchWorldsInSectorAsync(sectorX, sectorY))
+            result = (await FetchWorldsInSectorAsync(sectorX, sectorY, sectorName))
                 .Where(w => w.SubSectorIndex == subSectorIndex)
                 .OrderBy(w => w.Name)
                 .ToImmutableArray();
@@ -171,7 +186,7 @@ namespace Grauenwolf.TravellerTools.Maps
             return result;
         }
 
-        public async Task<ImmutableArray<World>> FetchWorldsInSectorAsync(int sectorX, int sectorY)
+        public async Task<ImmutableArray<World>> FetchWorldsInSectorAsync(int sectorX, int sectorY, string sectorName)
         {
             var cacheKey = Tuple.Create(sectorX, sectorY);
 
@@ -226,6 +241,9 @@ namespace Grauenwolf.TravellerTools.Maps
                     world.ResourceUnits = int.Parse(fields[headers["RU"]]);
 
                     world.AddMissingRemarks();
+
+                    if (string.IsNullOrWhiteSpace(world.Name))
+                        world.Name = sectorName + " " + world.Hex;
 
                     temp.Add(world);
                 }

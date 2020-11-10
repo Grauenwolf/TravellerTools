@@ -97,7 +97,7 @@ namespace Grauenwolf.TravellerTools.Web.Controls
             }
 
             var service = TravellerMapServiceLocator.GetMapService(Options.SelectedMilieu!);
-            Options.WorldList = await service.FetchWorldsInSubsectorAsync(Options.SelectedSector.X, Options.SelectedSector.Y, Options.SelectedSubsector.Index!);
+            Options.WorldList = await service.FetchWorldsInSubsectorAsync(Options.SelectedSector.X, Options.SelectedSector.Y, Options.SelectedSubsector.Index!, Options.SelectedSector.Name!);
             Options.SelectedWorld = null;
         }
     }
