@@ -181,6 +181,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 goods = TradeGoods;
             var result = new TradeGoodsList();
 
+            //Goods that are available for purchase.
+
             List<TradeOffer> availableLots = new List<TradeOffer>();
 
             var randomGoods = new List<TradeGood>();
@@ -221,7 +223,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             {
                 /*
                  * Goods with *: Always available
-                 * Matching Trade remakrs: Always available
+                 * Matching Trade remarks: Always available
                  * Other goods: 1 chance. 1d6 Selected
                  */
 
@@ -249,6 +251,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 }
             }
 
+            //Goods the planet wants to buy
+
             List<TradeBid> requests = new List<TradeBid>();
             if (!advancedMode)
                 foreach (var good in goods)
@@ -260,8 +264,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                             {
                                 var bid = new TradeBid()
                                 {
-                                    Type = good.Name,
-                                    Subtype = name,
+                                    Type = name,
+                                    Subtype = null,
                                     BasePrice = detail.Price * 1000,
                                     SaleDM = SaleDM(origin, good),
                                     Legal = good.Legal
@@ -554,6 +558,12 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     PurchaseDM = PurchaseDM(origin, good),
                     Legal = good.Legal
                 };
+
+                if (!advancedMode) //move the names around
+                {
+                    lot.Type = lot.Subtype;
+                    lot.Subtype = null;
+                }
 
                 int roll;
                 lot.PriceModifier = PurchasePriceModifier(random, lot.PurchaseDM, brokerScore, out roll);
