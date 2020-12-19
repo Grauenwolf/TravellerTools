@@ -1,7 +1,17 @@
-﻿namespace Grauenwolf.TravellerTools.Web.Pages
+﻿using Grauenwolf.TravellerTools.Web.Data;
+using Grauenwolf.TravellerTools.Web.Shared;
+
+namespace Grauenwolf.TravellerTools.Web.Pages
 {
-    partial class WorldIndexPage
+    public class UwpParserPageBase : PageBaseAuto<UwpOptions>
     {
-        //[Inject] IWebHostEnvironment Environment { get; set; } = null!;
+        protected void GotoPlanet() => GotoPlanet("info");
+
+        protected void GotoPlanet(string suffix)
+        {
+            if (Model.UwpNotSelected)
+                return;
+            Navigation.NavigateTo($"/uwp/{Model.RawUwp}/{suffix}");
+        }
     }
 }

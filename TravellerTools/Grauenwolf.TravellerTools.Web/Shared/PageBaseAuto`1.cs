@@ -4,13 +4,19 @@ using Tortuga.Anchor.Modeling.Internals;
 
 namespace Grauenwolf.TravellerTools.Web.Shared
 {
-    public class PageBase<T> : PageBase where T : class
+    /// <summary>
+    /// This subclass of PageBase automatically creates its own model. The model cannot be replaced.
+    /// </summary>
+    /// <typeparam name="T">The type of model.</typeparam>
+    /// <remarks>If Model is a INotifyPropertyChanged, then StateHasChanged will be automatically called when a PropertyChanged event is fired.</remarks>
+    public class PageBaseAuto<T> : PageBase where T : class, new()
     {
-        T? m_Model;
+        T m_Model;
         readonly PropertyBag m_Properties;
 
-        public PageBase()
+        public PageBaseAuto()
         {
+            m_Model = new T();
             m_Properties = new PropertyBag(this);
         }
 
@@ -18,41 +24,23 @@ namespace Grauenwolf.TravellerTools.Web.Shared
         /// Gets or sets the model.
         /// </summary>
         /// <remarks>Normally this will be set in the ParametersSet or ParametersSetAsync method.</remarks>
-        /// <remarks>If Model is a INotifyPropertyChanged, then StateHasChanged will be automatically called when a PropertyChanged event is fired.</remarks>
-        protected T? Model
+        protected T Model
         {
             get => m_Model;
-            set
+            private set
             {
-                if (m_Model != value)
-                {
-                    //Remove old event handler
-                    var tracker = m_Model as INotifyPropertyChanged;
-                    if (tracker != null)
-                        tracker.PropertyChanged -= Model_PropertyChanged;
+                m_Model = value;
 
-                    m_Model = value;
-                    OnModelChanged();
-                    StateHasChanged();
-
-                    //Add event handler to new value
-                    tracker = m_Model as INotifyPropertyChanged;
-                    if (tracker != null)
-                        tracker.PropertyChanged += Model_PropertyChanged;
-                }
+                //Add event handler to new value
+                var tracker = m_Model as INotifyPropertyChanged;
+                if (tracker != null)
+                    tracker.PropertyChanged += Model_PropertyChanged;
             }
         }
 
         private void Model_PropertyChanged(object? sender, PropertyChangedEventArgs e)
         {
             StateHasChanged();
-        }
-
-        /// <summary>
-        /// This is called after the model has been replaced or removed.
-        /// </summary>
-        protected virtual void OnModelChanged()
-        {
         }
 
         /// <summary>

@@ -1,4 +1,23 @@
 ﻿@page "/uwp"
-@inherits PageBase
+@inherits UwpParserPageBase
 @{PageTitle = " Univeral World Profile";}
 
+<h3>Univeral World Profile</h3>
+
+<div>
+    <EditForm Model="@Model">
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <table class="gridtable">
+            <tr>
+                <th>UWP</th>
+                <td><InputText @bind-Value="Model.RawUwp" /></td>
+                <td>
+                    <button @onclick="GotoPlanet" disabled="@Model.UwpNotSelected">Planet Info</button>
+                </td>
+            </tr>
+        </table>
+    </EditForm>
+</div>
