@@ -2,15 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>9.0</LangVersion>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Tortuga.Anchor" Version="3.3.0" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.Animals\Grauenwolf.TravellerTools.Animals.csproj" />
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.Characters\Grauenwolf.TravellerTools.Characters.csproj" />
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.Equipment\Grauenwolf.TravellerTools.Equipment.csproj" />
     <ProjectReference Include="..\Grauenwolf.TravellerTools.Services\Grauenwolf.TravellerTools.Services.csproj" />
     <ProjectReference Include="..\Grauenwolf.TravellerTools.Shared\Grauenwolf.TravellerTools.Shared.csproj" />
     <ProjectReference Include="..\Grauenwolf.TravellerTools.TradeCalculator\Grauenwolf.TravellerTools.TradeCalculator.csproj" />
