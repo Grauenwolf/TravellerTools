@@ -37,7 +37,7 @@
 
     <script>
         setTitle = (title) => {
-            if (title === null)
+            if (title === null || title === "")
                 document.title = "Traveller Tools";
             else
                 document.title = "Traveller Tools - " + title;

@@ -36,6 +36,19 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             set => Set(value, true);
         }
 
+        [Parameter]
+        public string? Uwp
+        {
+            get => Get<string?>();
+            set => Set(value, true);
+        }
+
+        public string? TasZone
+        {
+            get => Get<string?>();
+            set => Set(value, true);
+        }
+
         public int? Seed
         {
             get => Get<int?>();
@@ -48,33 +61,61 @@ namespace Grauenwolf.TravellerTools.Web.Pages
                 Seed = seed;
             else
                 Seed = (new Random()).Next();
+
+            if (NavigationManager.TryGetQueryString("tasZone", out string tasZone))
+                TasZone = tasZone;
         }
 
-        protected void Reroll(MouseEventArgs _)
+        protected void OnReroll(MouseEventArgs _)
         {
-            NavigationManager.NavigateTo($"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/info", false);
+            if (Uwp != null)
+                NavigationManager.NavigateTo($"/uwp/{Uwp}/info?tasZone={TasZone}", false);
+            else
+                NavigationManager.NavigateTo($"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/info", false);
         }
 
-        protected void Permalink(MouseEventArgs _)
+        protected string Permalink
         {
-            NavigationManager.NavigateTo($"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/info?seed={Seed}", true);
+            get
+            {
+                if (Uwp != null)
+                    return $"/uwp/{Uwp}/info?tasZone={TasZone}&seed={Seed}";
+                else
+                    return $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/info?seed={Seed}";
+            }
+        }
+
+        protected void OnPermalink(MouseEventArgs _)
+        {
+            NavigationManager.NavigateTo(Permalink, true);
         }
 
         protected override async Task ParametersSetAsync()
         {
-            if (PlanetHex == null || SectorHex == null || MilieuCode == null)
-                goto ReturnToIndex;
+            if (Uwp != null)
+            {
+                var world = new World(Uwp, Uwp, 0, TasZone);
 
-            var milieu = Milieu.FromCode(MilieuCode);
-            if (milieu == null)
-                goto ReturnToIndex;
+                MilieuCode = Milieu.Custom.Code;
+                Model = new WorldModel(Milieu.Custom, world);
+            }
+            else
+            {
+                if (PlanetHex == null || SectorHex == null || MilieuCode == null)
+                    goto ReturnToIndex;
 
-            var service = TravellerMapServiceLocator.GetMapService(MilieuCode);
-            var world = await service.FetchWorldAsync(SectorHex, PlanetHex);
-            if (world == null)
-                goto ReturnToIndex;
+                var milieu = Milieu.FromCode(MilieuCode);
+                if (milieu == null)
+                    goto ReturnToIndex;
 
-            Model = new WorldModel(milieu, world);
+                var service = TravellerMapServiceLocator.GetMapService(MilieuCode);
+                var world = await service.FetchWorldAsync(SectorHex, PlanetHex);
+                if (world == null)
+                    goto ReturnToIndex;
+
+                Model = new WorldModel(milieu, world);
+            }
+
             PageTitle = Model.World.Name;
 
             if (Seed != null)
@@ -85,7 +126,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             }
             return;
 
-            ReturnToIndex:
+        ReturnToIndex:
             Navigation.NavigateTo("/"); //bounce back to home.
         }
     }

@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 
 namespace Grauenwolf.TravellerTools.Web.Controls
 {
-    partial class WorldPicker
+    public class WorldPickerBase : Shared.ControlBase<PlanetPickerOptions>
     {
-        public WorldPicker()
+        public WorldPickerBase()
         {
-            Options.PropertyChanged += Options_PropertyChanged;
+            Model = new PlanetPickerOptions();
+            Model.PropertyChanged += Options_PropertyChanged;
         }
 
-        private async void Options_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        private async void Options_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
@@ -22,73 +23,73 @@ namespace Grauenwolf.TravellerTools.Web.Controls
                 case nameof(PlanetPickerOptions.SelectedSector): await OnSectorChangedAsync(); break;
                 case nameof(PlanetPickerOptions.SelectedSubsector): await OnSubsectorChangedAsync(); break;
             }
-            base.StateHasChanged();
         }
 
-        PlanetPickerOptions Options { get; } = new PlanetPickerOptions();
+        //PlanetPickerOptions Model { get; } = new PlanetPickerOptions();
         [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
-        bool WorldNotSelected => Options.SelectedWorld == null;
+
+        protected bool WorldNotSelected => Model!.SelectedWorld == null;
 
         protected override async Task InitializedAsync()
         {
             await OnMilieuChangedAsync();
         }
 
-        void GotoAnimals() => GotoPlanet("animals");
+        protected void GotoAnimals() => GotoPlanet("animals");
 
-        void GotoPlanet() => GotoPlanet("info");
+        protected void GotoPlanet() => GotoPlanet("info");
 
-        void GotoTravel() => GotoPlanet("travel");
+        protected void GotoTravel() => GotoPlanet("travel");
 
-        private void GotoPlanet(string suffix)
+        protected void GotoPlanet(string suffix)
         {
-            if (Options.SelectedMilieuCode == null || Options.SelectedSectorHex == null || Options.SelectedWorldHex == null)
+            if (Model!.SelectedMilieuCode == null || Model!.SelectedSectorHex == null || Model!.SelectedWorldHex == null)
                 return;
-            Navigation.NavigateTo($"/world/{Options.SelectedMilieuCode}/{Options.SelectedSectorHex}/{Options.SelectedWorldHex}/{suffix}");
+            Navigation.NavigateTo($"/world/{Model!.SelectedMilieuCode}/{Model!.SelectedSectorHex}/{Model!.SelectedWorldHex}/{suffix}");
         }
 
-        void GotoShopping() => GotoPlanet("store");
+        protected void GotoShopping() => GotoPlanet("store");
 
-        void GotoTrade() => GotoPlanet("trade");
+        protected void GotoTrade() => GotoPlanet("trade");
 
         async Task OnMilieuChangedAsync()
         {
-            if (Options.SelectedMilieu == null)
-                Options.SelectedMilieu = Milieu.DefaultMilieu;
+            if (Model!.SelectedMilieu == null)
+                Model.SelectedMilieu = Milieu.DefaultMilieu;
 
-            var service = TravellerMapServiceLocator.GetMapService(Options.SelectedMilieu!);
-            Options.SectorList = await service.FetchUniverseAsync();
+            var service = TravellerMapServiceLocator.GetMapService(Model.SelectedMilieu!);
+            Model.SectorList = await service.FetchUniverseAsync();
         }
 
         async Task OnSectorChangedAsync()
         {
-            if (Options.SelectedSector == null)
+            if (Model!.SelectedSector == null)
             {
-                Options.SubsectorList = Array.Empty<Subsector>();
-                Options.WorldList = Array.Empty<World>();
-                Options.SelectedSubsector = null;
-                Options.SelectedWorld = null;
+                Model.SubsectorList = Array.Empty<Subsector>();
+                Model.WorldList = Array.Empty<World>();
+                Model.SelectedSubsector = null;
+                Model.SelectedWorld = null;
                 return;
             }
 
-            var service = TravellerMapServiceLocator.GetMapService(Options.SelectedMilieu!);
-            Options.SubsectorList = await service.FetchSubsectorsInSectorAsync(Options.SelectedSector);
-            Options.SelectedSubsector = null;
-            Options.SelectedWorld = null;
+            var service = TravellerMapServiceLocator.GetMapService(Model.SelectedMilieu!);
+            Model.SubsectorList = await service.FetchSubsectorsInSectorAsync(Model.SelectedSector);
+            Model.SelectedSubsector = null;
+            Model.SelectedWorld = null;
         }
 
         async Task OnSubsectorChangedAsync()
         {
-            if (Options.SelectedSector == null || Options.SelectedSubsector == null)
+            if (Model!.SelectedSector == null || Model.SelectedSubsector == null)
             {
-                Options.WorldList = Array.Empty<World>();
-                Options.SelectedWorld = null;
+                Model.WorldList = Array.Empty<World>();
+                Model.SelectedWorld = null;
                 return;
             }
 
-            var service = TravellerMapServiceLocator.GetMapService(Options.SelectedMilieu!);
-            Options.WorldList = await service.FetchWorldsInSubsectorAsync(Options.SelectedSector.X, Options.SelectedSector.Y, Options.SelectedSubsector.Index!, Options.SelectedSector.Name!);
-            Options.SelectedWorld = null;
+            var service = TravellerMapServiceLocator.GetMapService(Model.SelectedMilieu!);
+            Model.WorldList = await service.FetchWorldsInSubsectorAsync(Model.SelectedSector.X, Model.SelectedSector.Y, Model.SelectedSubsector.Index!, Model.SelectedSector.Name!);
+            Model.SelectedWorld = null;
         }
     }
 }

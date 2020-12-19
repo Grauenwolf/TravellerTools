@@ -1,4 +1,5 @@
-﻿@inherits PageBase
+﻿@inherits WorldNavigationBase
+
 <div>
     <table class="gridtable">
         <tr>
@@ -7,12 +8,24 @@
             <th>Sector</th>
             <th>Coordinates</th>
         </tr>
-        <tr>
-            <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_(world)", World.Name)" target="_blank" title="Search Traveller Wiki for this planet.">@World.Name</a></td>
-            <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Subsector", World.SubsectorName)" target="_blank" title="Search Traveller Wiki for this subsector.">@World.SubsectorName</a></td>
-            <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Sector", World.Sector)" target="_blank" title="Search Traveller Wiki for this sector.">@World.Sector</a></td>
-            <td><a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", World.SectorX, World.SectorY, World.HexX, World.HexY)" target="_blank" title="Show planet in Traveller Map.">@World.SectorX,@World.SectorY Hex @World.Hex</a></td>
-        </tr>
+        @if (IsCustom)
+        {
+            <tr>
+                <td>@(World.Name)</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_(world)", World.Name)" target="_blank" title="Search Traveller Wiki for this planet.">@World.Name</a></td>
+                <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Subsector", World.SubsectorName)" target="_blank" title="Search Traveller Wiki for this subsector.">@World.SubsectorName</a></td>
+                <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Sector", World.Sector)" target="_blank" title="Search Traveller Wiki for this sector.">@World.Sector</a></td>
+                <td><a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", World.SectorX, World.SectorY, World.HexX, World.HexY)" target="_blank" title="Show planet in Traveller Map.">@World.SectorX,@World.SectorY Hex @World.Hex</a></td>
+            </tr>
+        }
     </table>
     <table class="gridtable">
         <tr>
@@ -32,13 +45,16 @@
             {
                 <th><span class="oi oi-box" aria-hidden="true" /> <a href="@(BaseUrl +  "trade" + QueryParameters)">Trade</a></th>
             }
-            @if (CurrentPage == "travel")
+            @if (!IsCustom)
             {
-                <th><span class="oi oi-compass" aria-hidden="true" /> Travel</th>
-            }
-            else
-            {
-                <th><span class="oi oi-compass" aria-hidden="true" /> <a href="@(BaseUrl +  "travel" + QueryParameters)">Travel</a></th>
+                @if (CurrentPage == "travel")
+                {
+                    <th><span class="oi oi-compass" aria-hidden="true" /> Travel</th>
+                }
+                else
+                {
+                    <th><span class="oi oi-compass" aria-hidden="true" /> <a href="@(BaseUrl +  "travel" + QueryParameters)">Travel</a></th>
+                }
             }
             @if (CurrentPage == "store")
             {

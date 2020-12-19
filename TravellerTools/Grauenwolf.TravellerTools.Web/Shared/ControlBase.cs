@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Grauenwolf.TravellerTools.Web.Shared
 {
-    public class PageBase : ComponentBase
+    public class ControlBase : ComponentBase
     {
         [Inject] protected IJSRuntime JSRuntime { get; set; } = null!;
         [Inject] protected ILogger<PageBase> Logger { get; set; } = null!;
@@ -21,7 +21,6 @@ namespace Grauenwolf.TravellerTools.Web.Shared
 
         protected bool LoadFailed { get; private set; }
         protected Exception? LastError { get; private set; }
-        protected string? PageTitle { get; set; }
 
         /// <summary>
         /// Method invoked after each time the component has been rendered.
@@ -58,8 +57,6 @@ namespace Grauenwolf.TravellerTools.Web.Shared
 
         async protected sealed override Task OnAfterRenderAsync(bool firstRender)
         {
-            await JSRuntime.InvokeVoidAsync("setTitle", PageTitle);
-
             await NavigateToElementAsync();
 
             await base.OnAfterRenderAsync(firstRender);

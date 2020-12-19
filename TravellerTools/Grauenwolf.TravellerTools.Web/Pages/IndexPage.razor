@@ -1,5 +1,6 @@
 ﻿@page "/"
 @inherits PageBase
+@{PageTitle = "";}
 
 <h1>Hello, travellers!</h1>
 
@@ -7,7 +8,14 @@
     Welcome to the demo of the new Traveller Tools website. This is a work in progress, so keep an eye out for cranes.
 </div>
 
-<WorldPicker />
+<div>
+    <NavLink class="nav-link" href="world">
+        <span class="oi oi-globe" aria-hidden="true"></span> World Index
+    </NavLink>
+    <NavLink class="nav-link" href="uwp">
+        <span class="oi oi-list-rich" aria-hidden="true"></span> Univeral World Profile
+    </NavLink>
+</div>
 
 <div>
     For the old version, head over to <a href="http://travellertools.azurewebsites.net/">Traveller Tools</a>

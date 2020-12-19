@@ -1,9 +1,9 @@
-﻿@inherits PageBase
+﻿@inherits WorldPickerBase
 
 <h3>World Index</h3>
 
 <div>
-    <EditForm Model="@Options">
+    <EditForm Model="@Model">
         <DataAnnotationsValidator />
         <ValidationSummary />
 
@@ -11,10 +11,10 @@
             <tr>
                 <th>Milieu</th>
                 <td>
-                    <InputSelect @bind-Value="Options.SelectedMilieuCode">
-                        @foreach (var item in Options.MilieuList)
+                    <InputSelect @bind-Value="Model!.SelectedMilieuCode">
+                        @foreach (var item in Model.MilieuList)
                         {
-                            if (Options.SelectedMilieu == item)
+                            if (Model.SelectedMilieu == item)
                             {
                                 <option value="@(item.Code)" selected> @(item.Name)</option>
                             }
@@ -29,8 +29,8 @@
             <tr>
                 <th>Sector</th>
                 <td>
-                    <InputSelect @bind-Value="Options.SelectedSectorHex">
-                        @if (Options.SelectedMilieu == null)
+                    <InputSelect @bind-Value="Model.SelectedSectorHex">
+                        @if (Model.SelectedMilieu == null)
                         {
                             <option value="" selected></option>
                         }
@@ -39,9 +39,9 @@
                             <option value=""></option>
                         }
 
-                        @foreach (var item in Options.SectorList)
+                        @foreach (var item in Model.SectorList)
                         {
-                            if (Options.SelectedSector == item)
+                            if (Model.SelectedSector == item)
                             {
                                 <option value="@(item.Hex)" selected> @(item.Name)</option>
                             }
@@ -57,8 +57,8 @@
             <tr>
                 <th>Subector</th>
                 <td>
-                    <InputSelect @bind-Value="Options.SelectedSubsectorIndex">
-                        @if (Options.SelectedSubsector == null)
+                    <InputSelect @bind-Value="Model.SelectedSubsectorIndex">
+                        @if (Model.SelectedSubsector == null)
                         {
                             <option value="" selected></option>
                         }
@@ -66,9 +66,9 @@
                         {
                             <option value=""></option>
                         }
-                        @foreach (var item in Options.SubsectorList)
+                        @foreach (var item in Model.SubsectorList)
                         {
-                            if (Options.SelectedSubsector == item)
+                            if (Model.SelectedSubsector == item)
                             {
                                 <option value="@(item.Index)" selected> @(item.Name)</option>
                             }
@@ -84,8 +84,8 @@
             <tr>
                 <th>World</th>
                 <td>
-                    <InputSelect @bind-Value="Options.SelectedWorldHex">
-                        @if (Options.SelectedWorld == null)
+                    <InputSelect @bind-Value="Model.SelectedWorldHex">
+                        @if (Model.SelectedWorld == null)
                         {
                             <option value="" selected></option>
                         }
@@ -93,9 +93,9 @@
                         {
                             <option value=""></option>
                         }
-                        @foreach (var item in Options.WorldList)
+                        @foreach (var item in Model.WorldList)
                         {
-                            if (Options.SelectedWorld == item)
+                            if (Model.SelectedWorld == item)
                             {
                                 <option value="@(item.Hex)" selected> @(item.Name)</option>
                             }

@@ -19,7 +19,8 @@ namespace Grauenwolf.TravellerTools.Shared
 
         public static Milieu? FromYear(int year) => MilieuList.FirstOrDefault(m => m.Year == year);
 
-        public static Milieu DefaultMilieu => FromYear(1105)!;
+        public static Milieu DefaultMilieu { get; } = FromYear(1105)!;
+        public static Milieu Custom { get; } = new Milieu("Custom", "UWP", -1);
 
         private Milieu(string name, string code, int year)
         {

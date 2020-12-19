@@ -1,4 +1,8 @@
-﻿@page "/world/{milieuCode}/{sectorHex}/{planetHex}/info"
+﻿@page "/world/{milieuCode}/{sectorHex}/{planetHex}"
+@page "/world/{milieuCode}/{sectorHex}/{planetHex}/info"
+@page "/uwp/{uwp}"
+@page "/uwp/{uwp}/info"
+
 @inherits WorldInfoPageBase
 
 @if (Model != null)
@@ -13,7 +17,7 @@
     </h3>
 
     <table class="gridtable">
-
+        <tr><th>UWP</th><td>@current.UWP</td></tr>
         <tr><th>Starport</th><td>@current.StarportCode</td><td colspan="5" width="500">@current.StarportDescription</td></tr>
         <tr><th>Size</th><td>@current.SizeCode</td><td colspan="5">@current.SizeKM.ToString("N0") km</td></tr>
         <tr><th>Atmosphere</th><td>@current.AtmosphereCode</td><td colspan="5">@current.AtmosphereDescription</td></tr>
@@ -35,8 +39,8 @@
 
         <h3>
             Starport Info
-            <a @onclick="Reroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
-            <a @onclick="Permalink" href="@($"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/info?seed={Seed}")" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
+            <a @onclick="OnReroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
+            <a @onclick="OnPermalink" href="@(Permalink)" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
         </h3>
         <div style="display: inline-block; vertical-align: top">
             <table class="gridtable">

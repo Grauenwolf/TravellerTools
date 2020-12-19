@@ -73,6 +73,21 @@ namespace Grauenwolf.TravellerTools.Maps
         {
         }
 
+        public World(string uwp, string name, int jumpDistance, string? tasZone)
+        {
+            uwp = uwp.Trim();
+            if (!uwp.Contains("-") && uwp.Length == 8)
+                uwp = uwp.Substring(0, 7) + "-" + uwp.Substring(7); //add the missing dash
+
+            UWP = uwp;
+            Name = name;
+            JumpDistance = jumpDistance;
+
+            Zone = tasZone;
+
+            AddMissingRemarks();
+        }
+
         public World(string uwp, string name, int jumpDistance, TasZone tasZone)
         {
             uwp = uwp.Trim();
@@ -445,7 +460,7 @@ namespace Grauenwolf.TravellerTools.Maps
         }
 
         /// <summary>
-        /// Transits the time jump point.
+        /// Transit time to jump point.
         /// </summary>
         /// <param name="thrustRating">The thrust rating.</param>
         /// <param name="jumpDistanceFactor">The jump distance factor. Normally this is 100.</param>
