@@ -7,12 +7,12 @@ namespace Grauenwolf.TravellerTools.Characters
 {
     public class SkillCollection : ObservableCollectionExtended<Skill>
     {
-        public Skill this[string name]
+        public Skill? this[string name]
         {
             get { return this.FirstOrDefault(x => x.Name == name); }
         }
 
-        public Skill this[string name, string? specialty]
+        public Skill? this[string name, string? specialty]
         {
             get { return this.FirstOrDefault(x => x.Name == name && x.Specialty == specialty); }
         }

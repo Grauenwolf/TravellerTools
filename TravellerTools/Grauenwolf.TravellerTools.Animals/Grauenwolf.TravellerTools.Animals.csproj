@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1</TargetFrameworks>
+    <TargetFramework>net5.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
@@ -23,6 +24,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Grauenwolf.TravellerTools.Shared\Grauenwolf.TravellerTools.Shared.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Reference Include="CSScriptLib">
+      <HintPath>D:\NuGet\cs-script.core\1.4.0\lib\netstandard2.0\CSScriptLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

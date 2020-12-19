@@ -37,8 +37,8 @@ namespace Grauenwolf.TravellerTools.Web.Data
         //public int? SectorY { get; set; }
         //public int? Seed { get; set; }
         //public int StreetwiseScore { get; set; }
-        public TradeGoodsList TradeList { get; set; }
+        public TradeGoodsList? TradeList { get; set; }
 
-        public List<World> Destinations { get; set; }
+        public List<World>? Destinations { get; set; }
     }
 }

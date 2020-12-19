@@ -14,12 +14,12 @@ namespace Grauenwolf.TravellerTools.Characters
         {
         }
 
-        public T this[string name]
+        public T? this[string name]
         {
             get { return this.FirstOrDefault(x => x.Name == name); }
         }
 
-        public T this[string name, string? specialty]
+        public T? this[string name, string? specialty]
         {
             get { return this.FirstOrDefault(x => x.Name == name && x.Specialty == specialty); }
         }
