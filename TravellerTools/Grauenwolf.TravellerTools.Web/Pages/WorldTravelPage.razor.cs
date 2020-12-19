@@ -1,24 +1,15 @@
 ﻿using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Shared;
 using Grauenwolf.TravellerTools.Web.Data;
-using Grauenwolf.TravellerTools.Web.Shared;
 using Microsoft.AspNetCore.Components;
 using System.Threading.Tasks;
 
 namespace Grauenwolf.TravellerTools.Web.Pages
 {
-    public class WorldTravelPageBase : PageBase<WorldModel>
+    partial class WorldTravelPage
     {
         [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
-        [Inject] NavigationManager NavigationManager { get; set; } = null!;
         [Inject] TradeEngineLocator TradeEngineLocator { get; set; } = null!;
-
-        //protected TradeOptions Options { get; } = new TradeOptions();
-
-        //protected WorldTravelPageBase()
-        //{
-        //    Options.PropertyChanged += (sender, e) => OnOptionsChanged();
-        //}
 
         [Parameter]
         public string? MilieuCode
@@ -101,7 +92,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
             return;
 
-            ReturnToIndex:
+        ReturnToIndex:
             Navigation.NavigateTo("/"); //bounce back to home.
         }
 

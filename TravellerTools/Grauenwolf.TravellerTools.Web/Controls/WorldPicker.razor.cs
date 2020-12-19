@@ -3,19 +3,14 @@ using Grauenwolf.TravellerTools.Shared;
 using Grauenwolf.TravellerTools.Web.Data;
 using Microsoft.AspNetCore.Components;
 using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 
 namespace Grauenwolf.TravellerTools.Web.Controls
 {
-    public class WorldPickerBase : Shared.ControlBase<PlanetPickerOptions>
+    partial class WorldPicker
     {
-        public WorldPickerBase()
-        {
-            Model = new PlanetPickerOptions();
-            Model.PropertyChanged += Options_PropertyChanged;
-        }
-
-        private async void Options_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+        protected override async void OnModelPropertyChanged(PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {

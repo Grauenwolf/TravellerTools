@@ -2,7 +2,6 @@
 using Grauenwolf.TravellerTools.Shared;
 using Grauenwolf.TravellerTools.TradeCalculator;
 using Grauenwolf.TravellerTools.Web.Data;
-using Grauenwolf.TravellerTools.Web.Shared;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using System;
@@ -10,10 +9,9 @@ using System.Threading.Tasks;
 
 namespace Grauenwolf.TravellerTools.Web.Pages
 {
-    public class WorldInfoPageBase : PageBase<WorldModel>
+    partial class WorldInfoPage
     {
         [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
-        [Inject] NavigationManager NavigationManager { get; set; } = null!;
 
         [Parameter]
         public string? MilieuCode
@@ -57,21 +55,21 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
         protected override void Initialized()
         {
-            if (NavigationManager.TryGetQueryString("seed", out int seed))
+            if (Navigation.TryGetQueryString("seed", out int seed))
                 Seed = seed;
             else
                 Seed = (new Random()).Next();
 
-            if (NavigationManager.TryGetQueryString("tasZone", out string tasZone))
+            if (Navigation.TryGetQueryString("tasZone", out string tasZone))
                 TasZone = tasZone;
         }
 
         protected void OnReroll(MouseEventArgs _)
         {
             if (Uwp != null)
-                NavigationManager.NavigateTo($"/uwp/{Uwp}/info?tasZone={TasZone}", false);
+                Navigation.NavigateTo($"/uwp/{Uwp}/info?tasZone={TasZone}", false);
             else
-                NavigationManager.NavigateTo($"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/info", false);
+                Navigation.NavigateTo($"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/info", false);
         }
 
         protected string Permalink
@@ -87,7 +85,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
         protected void OnPermalink(MouseEventArgs _)
         {
-            NavigationManager.NavigateTo(Permalink, true);
+            Navigation.NavigateTo(Permalink, true);
         }
 
         protected override async Task ParametersSetAsync()
@@ -127,7 +125,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             return;
 
         ReturnToIndex:
-            Navigation.NavigateTo("/"); //bounce back to home.
+            base.Navigation.NavigateTo("/"); //bounce back to home.
         }
     }
 }

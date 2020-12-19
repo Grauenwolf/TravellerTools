@@ -2,24 +2,58 @@
 using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Tortuga.Anchor.Modeling.Internals;
 
-namespace Grauenwolf.TravellerTools.Web.Shared
+namespace Tortuga.Yardarm
 {
-    public class ControlBase : ComponentBase
+    /// <summary>
+    /// The ControlBase provides a framework for Blazor pages and controls. This includes basic error handling and logging.
+    /// </summary>
+    public abstract class ControlBase : ComponentBase
     {
-        [Inject] protected IJSRuntime JSRuntime { get; set; } = null!;
-        [Inject] protected ILogger<PageBase> Logger { get; set; } = null!;
+        readonly PropertyBag m_Properties;
 
+        protected ControlBase()
+        {
+            m_Properties = new PropertyBag(this);
+        }
+
+        /// <summary>
+        /// Exposes access the JavaScript runtime.
+        /// </summary>
+        /// <remarks>This is provided by Blazor infrastructure.</remarks>
+        [Inject] protected IJSRuntime JSRuntime { get; set; } = null!;
+
+        /// <summary>
+        /// Exposes the application log.
+        /// </summary>
+        /// <remarks>This is provided by Blazor infrastructure.</remarks>
+        [Inject] protected ILogger<ControlBase> Logger { get; set; } = null!;
+
+        /// <summary>
+        /// Exposes access to the Blazor navigation framework.
+        /// </summary>
+        /// <remarks>This is provided by Blazor infrastructure.</remarks>
         [Inject] protected NavigationManager Navigation { get; set; } = null!;
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is connected.
+        /// Gets or sets a value indicating whether this instance is connected to a browser.
         /// </summary>
         /// <value><c>true</c> if this instance is connected; <c>false</c> if it is pre-rendering.</value>
-        protected bool IsConnected { get; set; }
+        protected bool IsConnected { get; private set; }
 
-        protected bool LoadFailed { get; private set; }
+        /// <summary>
+        /// Gets a value indicating whether load the page failed during a Blazor event.
+        /// </summary>
+        /// <remarks>This will be true is LastError is set.</remarks>
+        protected bool LoadFailed { get => LastError != null; }
+
+        /// <summary>
+        /// Gets the last error caught during a Blazor event.
+        /// </summary>
+        /// <value>The last error.</value>
         protected Exception? LastError { get; private set; }
 
         /// <summary>
@@ -49,7 +83,6 @@ namespace Grauenwolf.TravellerTools.Web.Shared
             }
             catch (Exception ex)
             {
-                LoadFailed = true;
                 LastError = ex;
                 Logger.LogError(ex, $"Internal error, loading failed during {nameof(AfterRender)}");
             }
@@ -57,7 +90,7 @@ namespace Grauenwolf.TravellerTools.Web.Shared
 
         async protected sealed override Task OnAfterRenderAsync(bool firstRender)
         {
-            await NavigateToElementAsync();
+            await OnAfterRenderForPageAsync();
 
             await base.OnAfterRenderAsync(firstRender);
             try
@@ -66,10 +99,14 @@ namespace Grauenwolf.TravellerTools.Web.Shared
             }
             catch (Exception ex)
             {
-                LoadFailed = true;
                 LastError = ex;
                 Logger.LogError(ex, $"Internal error, loading failed during {nameof(AfterRenderAsync)}");
             }
+        }
+
+        private protected virtual Task OnAfterRenderForPageAsync()
+        {
+            return Task.CompletedTask;
         }
 
         /// <summary>
@@ -99,7 +136,6 @@ namespace Grauenwolf.TravellerTools.Web.Shared
             }
             catch (Exception ex)
             {
-                LoadFailed = true;
                 LastError = ex;
                 Logger.LogError(ex, $"Internal error, loading failed during {nameof(InitializedAsync)}");
             }
@@ -124,7 +160,6 @@ namespace Grauenwolf.TravellerTools.Web.Shared
             }
             catch (Exception ex)
             {
-                LoadFailed = true;
                 LastError = ex;
                 Logger.LogError(ex, $"Internal error, loading failed during {nameof(Initialized)}");
             }
@@ -149,7 +184,6 @@ namespace Grauenwolf.TravellerTools.Web.Shared
             }
             catch (Exception ex)
             {
-                LoadFailed = true;
                 LastError = ex;
                 Logger.LogError(ex, $"Internal error, loading failed during {nameof(ParametersSet)}");
             }
@@ -173,30 +207,43 @@ namespace Grauenwolf.TravellerTools.Web.Shared
             }
             catch (Exception ex)
             {
-                LoadFailed = true;
                 LastError = ex;
                 Logger.LogError(ex, $"Internal error, loading failed during {nameof(ParametersSetAsync)}");
             }
         }
 
-        async Task NavigateToElementAsync()
+        protected void TryStateHasChanged()
         {
-            if (!IsConnected)
-                return;
+            try
+            {
+                StateHasChanged();
+            }
+            catch (InvalidOperationException)
+            {
+                //no-op, can't render yet
+            }
+        }
 
-            //ref: https://github.com/aspnet/AspNetCore/issues/8393
+        /// <summary>
+        /// Gets the specified parameter.
+        /// </summary>
+        /// <typeparam name="TProperty">The type of parameter to return.</typeparam>
+        /// <param name="parameterName">Name of the parameter.</param>
+        /// <returns>TProperty.</returns>
+        protected TProperty Get<TProperty>([CallerMemberName] string parameterName = "") => m_Properties.Get<TProperty>(parameterName);
 
-            var fragment = new Uri(Navigation.Uri).Fragment;
-
-            if (string.IsNullOrEmpty(fragment))
-                return;
-
-            var elementId = fragment.StartsWith("#") ? fragment.Substring(1) : fragment;
-
-            if (string.IsNullOrEmpty(elementId))
-                return;
-
-            await JSRuntime.InvokeAsync<bool>("scrollToElementId", elementId);
+        /// <summary>
+        /// Sets the specified parameter.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        /// <param name="regenerateModel">If true, set the Model property to null so that it will be regenerated.</param>
+        /// <param name="parameterName">Name of the parameter.</param>
+        protected bool Set(object? value, [CallerMemberName] string parameterName = "")
+        {
+            var result = m_Properties.Set(value, parameterName);
+            if (result)
+                TryStateHasChanged();
+            return result;
         }
     }
 }

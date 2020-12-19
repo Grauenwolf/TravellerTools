@@ -1,7 +1,6 @@
 ﻿using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Shared;
 using Grauenwolf.TravellerTools.Web.Data;
-using Grauenwolf.TravellerTools.Web.Shared;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.WebUtilities;
@@ -10,15 +9,14 @@ using System.Threading.Tasks;
 
 namespace Grauenwolf.TravellerTools.Web.Pages
 {
-    public class WorldTradePageBase : PageBase<WorldModel>
+    partial class WorldTradePage
     {
         [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
-        [Inject] NavigationManager NavigationManager { get; set; } = null!;
         [Inject] TradeEngineLocator TradeEngineLocator { get; set; } = null!;
 
         protected TradeOptions Options { get; } = new TradeOptions();
 
-        protected WorldTradePageBase()
+        public WorldTradePage()
         {
             Options.PropertyChanged += (sender, e) => OnOptionsChanged();
         }
@@ -52,25 +50,25 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
         protected override void Initialized()
         {
-            if (NavigationManager.TryGetQueryString("seed", out int seed))
+            if (Navigation.TryGetQueryString("seed", out int seed))
                 Seed = seed;
             else
                 Seed = (new Random()).Next();
 
-            Options.FromQueryString(NavigationManager.ParsedQueryString());
+            Options.FromQueryString(Navigation.ParsedQueryString());
         }
 
         protected void Reroll(MouseEventArgs _)
         {
             var uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/trade";
             uri = QueryHelpers.AddQueryString(uri, Options.ToQueryString());
-            NavigationManager.NavigateTo(uri, false);
+            Navigation.NavigateTo(uri, false);
         }
 
         protected void Permalink(MouseEventArgs _)
         {
             string uri = Permalink();
-            NavigationManager.NavigateTo(uri, true);
+            Navigation.NavigateTo(uri, true);
         }
 
         protected string Permalink()
@@ -103,7 +101,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             return;
 
         ReturnToIndex:
-            Navigation.NavigateTo("/"); //bounce back to home.
+            base.Navigation.NavigateTo("/"); //bounce back to home.
         }
 
         protected void OnOptionsChanged()

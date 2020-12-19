@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Grauenwolf.TravellerTools.Web.Controls
 {
-    public class WorldNavigationBase : Shared.ControlBase
+    partial class WorldNavigation
     {
         [Inject] NavigationManager NavigationManager { get; set; } = null!;
 

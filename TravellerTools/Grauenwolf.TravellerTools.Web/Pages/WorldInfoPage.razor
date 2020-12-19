@@ -3,7 +3,7 @@
 @page "/uwp/{uwp}"
 @page "/uwp/{uwp}/info"
 
-@inherits WorldInfoPageBase
+@inherits NullablePageBase<WorldModel>
 
 @if (Model != null)
 {

@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grauenwolf.TravellerTools.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grauenwolf.TravellerTools.Tests", "Grauenwolf.TravellerTools.Tests\Grauenwolf.TravellerTools.Tests.csproj", "{8202EB58-7C30-414E-97BA-26825C9552E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grauenwolf.TravellerTools.Web", "Grauenwolf.TravellerTools.Web\Grauenwolf.TravellerTools.Web.csproj", "{CE44F345-35F3-4777-AE2C-DC77F07AA8C6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grauenwolf.TravellerTools.Web", "Grauenwolf.TravellerTools.Web\Grauenwolf.TravellerTools.Web.csproj", "{CE44F345-35F3-4777-AE2C-DC77F07AA8C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tortuga.Yardarm", "Tortuga.Yardarm\Tortuga.Yardarm.csproj", "{C9749626-2FCB-4E5C-9642-F8805A2FF0F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{CE44F345-35F3-4777-AE2C-DC77F07AA8C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE44F345-35F3-4777-AE2C-DC77F07AA8C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE44F345-35F3-4777-AE2C-DC77F07AA8C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9749626-2FCB-4E5C-9642-F8805A2FF0F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9749626-2FCB-4E5C-9642-F8805A2FF0F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9749626-2FCB-4E5C-9642-F8805A2FF0F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9749626-2FCB-4E5C-9642-F8805A2FF0F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,9 +1,6 @@
-﻿using Grauenwolf.TravellerTools.Web.Data;
-using Grauenwolf.TravellerTools.Web.Shared;
-
-namespace Grauenwolf.TravellerTools.Web.Pages
+﻿namespace Grauenwolf.TravellerTools.Web.Pages
 {
-    public class UwpParserPageBase : PageBaseAuto<UwpOptions>
+    partial class UwpParserPage
     {
         protected void GotoPlanet() => GotoPlanet("info");
 
