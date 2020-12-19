@@ -77,7 +77,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
         {
             var uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/trade";
             uri = QueryHelpers.AddQueryString(uri, Options.ToQueryString());
-            uri = QueryHelpers.AddQueryString(uri, "seed", Seed.ToString());
+            uri = QueryHelpers.AddQueryString(uri, "seed", (Seed ?? 0).ToString());
             return uri;
         }
 
@@ -102,7 +102,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
             return;
 
-            ReturnToIndex:
+        ReturnToIndex:
             Navigation.NavigateTo("/"); //bounce back to home.
         }
 

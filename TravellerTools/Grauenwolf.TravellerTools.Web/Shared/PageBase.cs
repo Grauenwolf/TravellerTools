@@ -58,7 +58,7 @@ namespace Grauenwolf.TravellerTools.Web.Shared
 
         async protected sealed override Task OnAfterRenderAsync(bool firstRender)
         {
-            await JSRuntime.InvokeVoidAsync("setTitle", PageTitle);
+            await JSRuntime.InvokeVoidAsync("setTitle", PageTitle!);
 
             await NavigateToElementAsync();
 

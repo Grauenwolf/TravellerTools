@@ -58,9 +58,9 @@ namespace Grauenwolf.TravellerTools.Web.Data
             }
         }
 
-        public Dictionary<string, string> ToQueryString()
+        public Dictionary<string, string?> ToQueryString()
         {
-            var result = new Dictionary<string, string>();
+            var result = new Dictionary<string, string?>();
             result.Add("edition", SelectedEditionCode);
             result.Add("advancedMode", AdvancedMode.ToString());
             result.Add("raffle", Raffle.ToString());
