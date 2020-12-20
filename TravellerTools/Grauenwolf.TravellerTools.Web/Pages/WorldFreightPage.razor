@@ -1,0 +1,48 @@
+﻿@page "/world/{milieuCode}/{sectorHex}/{planetHex}/destination/{destinationSectorHex}/{destinationPlanetHex}/freight"
+
+@inherits NullablePageBase<FreightModel>
+
+@if (Model != null)
+{
+    var current = Model.World;
+    //var timeFormat = "h'h 'm'm 's's'";
+
+    <h2>@(Model.World.Name + " to " + Model.Destination.Name)</h2>
+    <WorldNavigation CurrentPage="freight" World="@Model.World" MilieuCode="@MilieuCode" />
+    <div>&nbsp;</div>
+
+    <h3>
+        Freight &amp; Mail Info
+        @*<a @onclick="OnReroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
+            <a @onclick="OnPermalink" href="@(Permalink)" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>*@
+    </h3>
+
+    if (Model.FreightList?.Lots.Count > 0)
+    {
+        <table class="gridtable">
+            <tr><th>Tons</th><th>Fee</th><th>Value</th><th>Contents</th></tr>
+
+            @foreach (var lot in Model.FreightList.Lots)
+            {
+                <tr>
+                    <td>@lot.Size</td>
+                    <td>@lot.ShippingFee.ToString("N0")</td>
+                    <td>@lot.ActualValue.ToString("N0")</td>
+                    <td>@lot.Contents</td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <div>No freight is avilable at this time.</div>
+    }
+}
+else if (LoadFailed)
+{
+    <h1>Error loading page.</h1>
+}
+else
+{
+    <h1>Loading</h1>
+}

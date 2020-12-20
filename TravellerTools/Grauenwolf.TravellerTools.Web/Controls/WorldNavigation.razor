@@ -119,5 +119,12 @@
                 <th><a href="@(BaseUrl +  "encounters" + QueryParameters)"><span class="oi oi-people" aria-hidden="true" /> Encounters</a></th>
             }
         </tr>
+
+        @if (!IsCustom)
+        {
+            <tr>
+                <td colspan="6">Passengers, Freight, and Mail are avaialble from the Travel screen.</td>
+            </tr>
+        }
     </table>
 </div>
