@@ -1,6 +1,4 @@
 ﻿@inherits ControlBase<PlanetPickerOptions>
-
-<h3>Galaxy Index</h3>
 <!-- TODO: This doesn't need to be its own control. Move everything into WorldIndexPage/ -->
 
 <div>
@@ -52,7 +50,7 @@
                             }
                         }
                     </InputSelect>
-                    <button disabled="disabled">Sector Info</button>
+                    <button @onclick="GotoSector" disabled="@SectorNotSelected">Sector Info</button>
                 </td>
             </tr>
             <tr>

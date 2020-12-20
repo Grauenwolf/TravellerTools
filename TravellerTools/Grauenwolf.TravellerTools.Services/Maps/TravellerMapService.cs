@@ -25,10 +25,9 @@ namespace Grauenwolf.TravellerTools.Maps
 
         ImmutableArray<SophontCode> m_SophontCodes;
 
+        ConcurrentDictionary<Tuple<int, int>, ImmutableArray<Subsector>> m_SubsectorsInSector = new ConcurrentDictionary<Tuple<int, int>, ImmutableArray<Subsector>>();
         ConcurrentDictionary<Tuple<int, int>, ImmutableArray<World>> m_WorldsInSector = new ConcurrentDictionary<Tuple<int, int>, ImmutableArray<World>>();
         ConcurrentDictionary<Tuple<int, int, string>, ImmutableArray<World>> m_WorldsInSubsector = new ConcurrentDictionary<Tuple<int, int, string>, ImmutableArray<World>>();
-
-        ConcurrentDictionary<Tuple<int, int>, ImmutableArray<Subsector>> m_SubsectorsInSector = new ConcurrentDictionary<Tuple<int, int>, ImmutableArray<Subsector>>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TravellerMapService"/> class.
@@ -44,6 +43,12 @@ namespace Grauenwolf.TravellerTools.Maps
         public event EventHandler? UniverseUpdated;
 
         public string Milieu { get; }
+
+        public async Task<Sector?> FetchSectorAsync(string sectorHex)
+        {
+            var sectors = await FetchUniverseAsync();
+            return sectors.FirstOrDefault(s => s.Hex == sectorHex);
+        }
 
         public async Task<SectorMetadata> FetchSectorMetadataAsync(int sectorX, int sectorY)
         {
@@ -72,52 +77,6 @@ namespace Grauenwolf.TravellerTools.Maps
             World.AddSophontCodes(set);
             m_SophontCodes = set.ToImmutableArray();
             return m_SophontCodes;
-        }
-
-        public async Task<ImmutableArray<Sector>> FetchUniverseAsync()
-        {
-            if (m_SectorList != null)
-                return m_SectorList;
-
-            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
-
-            var rawSectorList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/universe?milieu={Milieu}")).ConfigureAwait(false);
-
-            var sectors = JsonConvert.DeserializeObject<Universe>(rawSectorList).Sectors.Where(s => s.Names.First().Text != "Legend").ToList();
-
-            m_SectorList = ImmutableArray.CreateRange(sectors.OrderBy(s => s.Name));
-
-            if (m_FilterUnpopulatedSectors)
-            {
-                Task.Run(async () =>
-                {
-                    var populatedSectors = new List<Sector>();
-                    foreach (var sector in m_SectorList)
-                    {
-                        try
-                        {
-                            var metadata = await FetchSectorMetadataAsync(sector.X, sector.Y);
-                            if (metadata.Subsectors.Any(ss => !string.IsNullOrEmpty(ss.Name)))
-                            {
-                                var worlds = await FetchWorldsInSectorAsync(sector.X, sector.Y, sector.Name).ConfigureAwait(false);
-                                if (worlds.Any(p => !string.IsNullOrWhiteSpace(p.Name)))
-                                    populatedSectors.Add(sector);
-                            }
-                        }
-                        catch
-                        {
-                            //we don't want to lose anything due to temporary service failures.
-                            populatedSectors.Add(sector);
-                        }
-                    }
-
-                    m_SectorList = ImmutableArray.CreateRange(populatedSectors.OrderBy(s => s.Name));
-
-                    UniverseUpdated?.Invoke(this, EventArgs.Empty);
-                }).RunConcurrently();
-            }
-
-            return m_SectorList;
         }
 
         public Task<ImmutableArray<Subsector>> FetchSubsectorsInSectorAsync(Sector sector)
@@ -170,20 +129,63 @@ namespace Grauenwolf.TravellerTools.Maps
             return result;
         }
 
-        public async Task<ImmutableArray<World>> FetchWorldsInSubsectorAsync(int sectorX, int sectorY, string subSectorIndex, string sectorName)
+        public async Task<ImmutableArray<Sector>> FetchUniverseAsync()
         {
-            var cacheKey = Tuple.Create(sectorX, sectorY, subSectorIndex);
+            if (m_SectorList != null)
+                return m_SectorList;
 
-            if (m_WorldsInSubsector.TryGetValue(cacheKey, out var result))
-                return result;
+            ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 
-            result = (await FetchWorldsInSectorAsync(sectorX, sectorY, sectorName))
-                .Where(w => w.SubSectorIndex == subSectorIndex)
-                .OrderBy(w => w.Name)
-                .ToImmutableArray();
+            var rawSectorList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/universe?milieu={Milieu}")).ConfigureAwait(false);
 
-            m_WorldsInSubsector.TryAdd(cacheKey, result);
-            return result;
+            var sectors = JsonConvert.DeserializeObject<Universe>(rawSectorList).Sectors.Where(s => s.Names.First().Text != "Legend").ToList();
+
+            m_SectorList = ImmutableArray.CreateRange(sectors.OrderBy(s => s.Name));
+
+            if (m_FilterUnpopulatedSectors)
+            {
+                Task.Run(async () =>
+                {
+                    var populatedSectors = new List<Sector>();
+                    foreach (var sector in m_SectorList)
+                    {
+                        try
+                        {
+                            var metadata = await FetchSectorMetadataAsync(sector.X, sector.Y);
+                            if (metadata.Subsectors.Any(ss => !string.IsNullOrEmpty(ss.Name)))
+                            {
+                                var worlds = await FetchWorldsInSectorAsync(sector.X, sector.Y, sector.Name).ConfigureAwait(false);
+                                if (worlds.Any(p => !string.IsNullOrWhiteSpace(p.Name)))
+                                    populatedSectors.Add(sector);
+                            }
+                        }
+                        catch
+                        {
+                            //we don't want to lose anything due to temporary service failures.
+                            populatedSectors.Add(sector);
+                        }
+                    }
+
+                    m_SectorList = ImmutableArray.CreateRange(populatedSectors.OrderBy(s => s.Name));
+
+                    UniverseUpdated?.Invoke(this, EventArgs.Empty);
+                }).RunConcurrently();
+            }
+
+            return m_SectorList;
+        }
+
+        public async Task<World?> FetchWorldAsync(string sectorHex, string planetHex)
+        {
+            var cord = sectorHex.Split(',').Select(s => int.Parse(s)).ToArray();
+            var hexX = int.Parse(planetHex.Substring(0, 2));
+            var hexY = int.Parse(planetHex.Substring(2, 2));
+
+            var worlds = await WorldsNearAsync(cord[0], cord[1], hexX, hexY, 0);
+            return worlds.FirstOrDefault();
+
+            //var worlds = await FetchWorldsInSectorAsync(cord[0], cord[1]);
+            //return worlds.FirstOrDefault(w => w.Hex == planetHex);
         }
 
         public async Task<ImmutableArray<World>> FetchWorldsInSectorAsync(int sectorX, int sectorY, string sectorName)
@@ -254,6 +256,22 @@ namespace Grauenwolf.TravellerTools.Maps
             return result;
         }
 
+        public async Task<ImmutableArray<World>> FetchWorldsInSubsectorAsync(int sectorX, int sectorY, string subSectorIndex, string sectorName)
+        {
+            var cacheKey = Tuple.Create(sectorX, sectorY, subSectorIndex);
+
+            if (m_WorldsInSubsector.TryGetValue(cacheKey, out var result))
+                return result;
+
+            result = (await FetchWorldsInSectorAsync(sectorX, sectorY, sectorName))
+                .Where(w => w.SubSectorIndex == subSectorIndex)
+                .OrderBy(w => w.Name)
+                .ToImmutableArray();
+
+            m_WorldsInSubsector.TryAdd(cacheKey, result);
+            return result;
+        }
+
         public async Task<Sector?> FindSectorByNameAsync(string sectorName)
         {
             foreach (var sector in await FetchUniverseAsync().ConfigureAwait(false))
@@ -298,25 +316,6 @@ namespace Grauenwolf.TravellerTools.Maps
             }
 
             return result;
-        }
-
-        public async Task<Sector> FetchSectorAsync(string sectorHex)
-        {
-            var sectors = await FetchUniverseAsync();
-            return sectors.FirstOrDefault(s => s.Hex == sectorHex);
-        }
-
-        public async Task<World> FetchWorldAsync(string sectorHex, string planetHex)
-        {
-            var cord = sectorHex.Split(',').Select(s => int.Parse(s)).ToArray();
-            var hexX = int.Parse(planetHex.Substring(0, 2));
-            var hexY = int.Parse(planetHex.Substring(2, 2));
-
-            var worlds = await WorldsNearAsync(cord[0], cord[1], hexX, hexY, 0);
-            return worlds.FirstOrDefault();
-
-            //var worlds = await FetchWorldsInSectorAsync(cord[0], cord[1]);
-            //return worlds.FirstOrDefault(w => w.Hex == planetHex);
         }
     }
 }

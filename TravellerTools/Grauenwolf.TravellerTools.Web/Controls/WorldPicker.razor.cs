@@ -10,6 +10,43 @@ namespace Grauenwolf.TravellerTools.Web.Controls
 {
     partial class WorldPicker
     {
+        protected bool SectorNotSelected => Model!.SelectedSector == null;
+
+        protected bool SubsectorNotSelected => Model!.SelectedSubsector == null;
+
+        protected bool WorldNotSelected => Model!.SelectedWorld == null;
+
+        //PlanetPickerOptions Model { get; } = new PlanetPickerOptions();
+        [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
+
+        protected void GotoAnimals() => GotoPlanet("animals");
+
+        protected void GotoPlanet() => GotoPlanet("info"); protected void GotoPlanet(string suffix)
+
+        {
+            if (Model!.SelectedMilieuCode == null || Model!.SelectedSectorHex == null || Model!.SelectedWorldHex == null)
+                return;
+            Navigation.NavigateTo($"/world/{Model!.SelectedMilieuCode}/{Model!.SelectedSectorHex}/{Model!.SelectedWorldHex}/{suffix}");
+        }
+
+        protected void GotoSector()
+        {
+            if (Model!.SelectedMilieuCode == null || Model!.SelectedSectorHex == null)
+                return;
+            Navigation.NavigateTo($"/world/{Model!.SelectedMilieuCode}/{Model!.SelectedSectorHex}");
+        }
+
+        protected void GotoShopping() => GotoPlanet("store");
+
+        protected void GotoTrade() => GotoPlanet("trade");
+
+        protected void GotoTravel() => GotoPlanet("travel");
+
+        protected override async Task InitializedAsync()
+        {
+            await OnMilieuChangedAsync();
+        }
+
         protected override async void OnModelPropertyChanged(PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
@@ -19,33 +56,6 @@ namespace Grauenwolf.TravellerTools.Web.Controls
                 case nameof(PlanetPickerOptions.SelectedSubsector): await OnSubsectorChangedAsync(); break;
             }
         }
-
-        //PlanetPickerOptions Model { get; } = new PlanetPickerOptions();
-        [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
-
-        protected bool WorldNotSelected => Model!.SelectedWorld == null;
-
-        protected override async Task InitializedAsync()
-        {
-            await OnMilieuChangedAsync();
-        }
-
-        protected void GotoAnimals() => GotoPlanet("animals");
-
-        protected void GotoPlanet() => GotoPlanet("info");
-
-        protected void GotoTravel() => GotoPlanet("travel");
-
-        protected void GotoPlanet(string suffix)
-        {
-            if (Model!.SelectedMilieuCode == null || Model!.SelectedSectorHex == null || Model!.SelectedWorldHex == null)
-                return;
-            Navigation.NavigateTo($"/world/{Model!.SelectedMilieuCode}/{Model!.SelectedSectorHex}/{Model!.SelectedWorldHex}/{suffix}");
-        }
-
-        protected void GotoShopping() => GotoPlanet("store");
-
-        protected void GotoTrade() => GotoPlanet("trade");
 
         async Task OnMilieuChangedAsync()
         {

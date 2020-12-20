@@ -369,7 +369,9 @@ namespace Grauenwolf.TravellerTools.Maps
             }
         }
 
-        public string? SS { get; set; }
+        //public string? SS { get; set; }
+
+        public string? SS { get => SubSectorIndex; set => SubSectorIndex = value; }
 
         public string? Starport => Tables.Starport(StarportCode);
 
@@ -382,7 +384,6 @@ namespace Grauenwolf.TravellerTools.Maps
         public int Subsector { get; set; }
 
         public string? SubSectorIndex { get; set; }
-
         public string? SubsectorName { get; set; }
 
         public EHex TechCode { get { return UWP?[8]; } }

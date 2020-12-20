@@ -13,8 +13,7 @@ namespace Grauenwolf.TravellerTools.Web.Data
             World = world;
         }
 
-        public Milieu Milieu { get; }
-        public World World { get; }
+        public List<World>? Destinations { get; set; }
 
         //public bool AdvancedCharacters { get; set; }
         //public bool? AdvancedMode { get; set; }
@@ -26,10 +25,7 @@ namespace Grauenwolf.TravellerTools.Web.Data
         //public int HexY { get; set; }
         public StarportDetails? HighportDetails { get; set; }
 
-        //public string Test { get; set; }
-
-        //public bool? IllegalGoods { get; set; }
-        //public int MaxJumpDistance { get; set; }
+        public Milieu Milieu { get; }
 
         //public World Origin { get; set; }
         //public bool? Raffle { get; set; }
@@ -39,6 +35,10 @@ namespace Grauenwolf.TravellerTools.Web.Data
         //public int StreetwiseScore { get; set; }
         public TradeGoodsList? TradeList { get; set; }
 
-        public List<World>? Destinations { get; set; }
+        public World World { get; }
+        //public string Test { get; set; }
+
+        //public bool? IllegalGoods { get; set; }
+        //public int MaxJumpDistance { get; set; }
     }
 }

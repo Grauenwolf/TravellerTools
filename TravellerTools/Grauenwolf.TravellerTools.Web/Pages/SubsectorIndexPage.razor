@@ -1,5 +1,59 @@
 ﻿@page "/world/{milieuCode}/{sectorHex}/subsector/{subsector}"
 
-@inherits PageBase
+@inherits NullablePageBase<SubsectorModel>
 
-<h3>Sector XXX Subsector XXX</h3>
+@if (Model != null)
+{
+    <h2>@(Model.Subsector.Name)</h2>
+    <h3>Subsector Info</h3>
+    if (Model.Worlds.Length > 0)
+    {
+        <table class="gridtable">
+            <tr>
+                <th>
+                    Hex
+                </th>
+                <th colspan="2">Name</th>
+            </tr>
+            @foreach (var world in Model.Worlds)
+            {
+                <tr>
+                    <td>
+                        @world.Hex
+                    </td>
+                    <td>
+                        @world.Name
+                    </td>
+                    <td>
+                        <a href="@($"/world/{MilieuCode}/{world.SectorX},{world.SectorY}/{world.Hex}/info")">
+                            <span class="oi oi-globe" aria-hidden="true" /> Info
+                        </a>
+                        <a href="@string.Format("https://wiki.travellerrpg.com/{0}_(world)", world.Name)" target="_blank" title="Search Traveller Wiki for this planet.">
+                            <span class="oi oi-globe" aria-hidden="true" /> TAS
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <div>No subsector data found.</div>
+    }
+
+    <h3>Map</h3>
+    <div>
+        <a href="@($"https://travellermap.com/api/poster?sector={Model.Sector.Name}&subsector={Model.Subsector.Name}&milieu={MilieuCode}")" target="_blank">
+            <img src="@($"https://travellermap.com/api/poster?sector={Model.Sector.Name}&subsector={Model.Subsector.Name}&milieu={MilieuCode}")" style="max-width:100%; max-height:100%" />
+        </a>
+    </div>
+
+}
+else if (LoadFailed)
+{
+    <h1>Error loading page.</h1>
+}
+else
+{
+    <h1>Loading</h1>
+}

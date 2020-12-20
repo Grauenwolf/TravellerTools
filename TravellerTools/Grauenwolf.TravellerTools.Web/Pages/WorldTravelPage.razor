@@ -24,6 +24,11 @@
         </table>
     </div>
     <div>&nbsp;</div>
+    <h3>Map</h3>
+
+    <a href="@($"http://travellermap.com/api/jumpmap?sx={Model.World.SectorX}&sy={Model.World.SectorY}&hx={Model.World.HexX}&hy={Model.World.HexY}&jump=6&scale=48&style=print&milieu={MilieuCode}")" target="_blank">
+        <img src="@($"http://travellermap.com/api/jumpmap?sx={Model.World.SectorX}&sy={Model.World.SectorY}&hx={Model.World.HexX}&hy={Model.World.HexY}&jump=6&scale=48&style=print&milieu={MilieuCode}")" style="max-width:100%; max-height:100%" />
+    </a>
 
     @if (Model.Destinations != null)
     {
@@ -38,10 +43,11 @@
             <table class="gridtable">
                 <tr>
                     <th width="30">Jump</th>
-                    <th>Planet</th>
-                    <th>Subsector</th>
-                    <th>Sector</th>
-                    <th>Coordinates</th>
+                    <th colspan="2">Planet</th>
+                    <th>Travel &amp; Trade</th>
+                    @*<th>Subsector</th>
+                        <th>Sector</th>
+                        <th>Coordinates</th>*@
                 </tr>
                 @{
                     var previousDistance = 0;
@@ -52,18 +58,27 @@
                             {
                                 previousDistance = item.JumpDistance;
                                 var subCount = destinations.Where(d => d.JumpDistance == item.JumpDistance).Count();
-                                <td rowspan="@(subCount*2)" width="30" align="center">@(item.JumpDistance)</td>
+                                <td rowspan="@(subCount)" width="30" align="center">@(item.JumpDistance)</td>
                             }
-                            <td rowspan="2"><a href="@string.Format("https://wiki.travellerrpg.com/{0}_(world)", item.Name)" target="_blank" title="Search Traveller Wiki for this planet.">@item.Name</a></td>
-                            <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Subsector", item.SubsectorName)" target="_blank" title="Search Traveller Wiki for this subsector.">@item.SubsectorName</a></td>
-                            <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Sector", item.Sector)" target="_blank" title="Search Traveller Wiki for this sector.">@item.Sector</a></td>
-                            <td><a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", item.SectorX, item.SectorY, item.HexX, item.HexY)" target="_blank" title="Show planet in Traveller Map.">@item.SectorX,@item.SectorY Hex @item.Hex</a></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">
+
+                            <td>@item.Name</td>
+
+                            <td>
                                 <a href="@($"/world/{MilieuCode}/{item.SectorX},{item.SectorY}/{item.Hex}/info")">
                                     <span class="oi oi-globe" aria-hidden="true" /> Info
                                 </a>
+                                <a href="@string.Format("https://wiki.travellerrpg.com/{0}_(world)", item.Name)" target="_blank" title="Search Traveller Wiki for this planet.">
+                                    <span class="oi oi-book" aria-hidden="true" /> TAS
+                                </a>
+                            </td>
+
+                            @*<td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Subsector", item.SubsectorName)" target="_blank" title="Search Traveller Wiki for this subsector.">@item.SubsectorName</a></td>
+                                <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Sector", item.Sector)" target="_blank" title="Search Traveller Wiki for this sector.">@item.Sector</a></td>
+                                <td><a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", item.SectorX, item.SectorY, item.HexX, item.HexY)" target="_blank" title="Show planet in Traveller Map.">@item.SectorX,@item.SectorY Hex @item.Hex</a></td>*@
+                            @*</tr>
+                                <tr>*@
+                            <td>
+
                                 <a href="@($"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/destination/{item.SectorX},{item.SectorY}/{item.Hex}/passengers")">
                                     <span class="oi oi-briefcase" aria-hidden="true" /> Passengers
                                 </a>

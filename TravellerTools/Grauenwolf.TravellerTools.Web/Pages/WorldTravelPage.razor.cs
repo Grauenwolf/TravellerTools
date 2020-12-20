@@ -8,18 +8,8 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 {
     partial class WorldTravelPage
     {
-        [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
-        [Inject] TradeEngineLocator TradeEngineLocator { get; set; } = null!;
-
         [Parameter]
         public string? MilieuCode
-        {
-            get => Get<string?>();
-            set => Set(value, true);
-        }
-
-        [Parameter]
-        public string? SectorHex
         {
             get => Get<string?>();
             set => Set(value, true);
@@ -32,6 +22,14 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             set => Set(value, true);
         }
 
+        [Parameter]
+        public string? SectorHex
+        {
+            get => Get<string?>();
+            set => Set(value, true);
+        }
+
+        [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
         //public int? Seed
         //{
         //    get => Get<int?>();

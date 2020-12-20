@@ -1,4 +1,56 @@
 ﻿@page "/world/{milieuCode}/{sectorHex}"
-@inherits PageBase
+@inherits NullablePageBase<SectorModel>
 
-<h3>Sector XXX</h3>
+@if (Model != null)
+{
+    <h2>@(Model.Sector.Name)</h2>
+    <h3>Sector Info</h3>
+    <div>
+        <a href="@($"https://wiki.travellerrpg.com/{Model.Sector.Name}_Sector")" target="_blank" title="Search Traveller Wiki for this sector.">
+            <span class="oi oi-globe" aria-hidden="true" /> TAS
+        </a>
+        <a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}", Model.Sector.X, Model.Sector.Y)" target="_blank" title="Show sector in Traveller Map.">
+            <span class="oi oi-map" aria-hidden="true" /> Map
+        </a>
+    </div>
+    if (Model.Sector.Subsectors?.Length > 0)
+    {
+        <table class="gridtable">
+            <tr>
+                <th>
+                    Code
+                </th>
+                <th>Subsector Name</th>
+            </tr>
+            @foreach (var subsector in Model.Sector.Subsectors)
+            {
+                <tr>
+                    <td>
+                        @subsector.Index
+                    </td>
+                    <td><a href="@($"/world/{MilieuCode}/{SectorHex}/subsector/{subsector.Index}/")"> @subsector.Name</a></td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <div>No subsector data found.</div>
+    }
+
+    <h3>Map</h3>
+    <div>
+        <a href="@($"https://travellermap.com/api/poster?sector={Model.Sector.Name}&milieu={MilieuCode}")" target="_blank">
+            <img src="@($"https://travellermap.com/api/poster?sector={Model.Sector.Name}&milieu={MilieuCode}")" style="max-width:100%; max-height:100%" />
+        </a>
+    </div>
+
+}
+else if (LoadFailed)
+{
+    <h1>Error loading page.</h1>
+}
+else
+{
+    <h1>Loading</h1>
+}
