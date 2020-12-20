@@ -2,13 +2,16 @@
 {
     partial class UwpParserPage
     {
-        protected void GotoPlanet() => GotoPlanet("info");
-
-        protected void GotoPlanet(string suffix)
+        protected void GotoPlanet()
         {
             if (Model.UwpNotSelected)
                 return;
-            Navigation.NavigateTo($"/uwp/{Model.RawUwp}/{suffix}");
+            Navigation.NavigateTo($"/uwp/{Model.RawUwp}/{"info"}");
+        }
+
+        protected void GotoPlanet2()
+        {
+            Navigation.NavigateTo($"/uwp/{Model.CalculatedUwp}/{"info"}");
         }
     }
 }

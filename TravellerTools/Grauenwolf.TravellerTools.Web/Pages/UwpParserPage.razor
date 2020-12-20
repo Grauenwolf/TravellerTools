@@ -19,5 +19,114 @@
                 </td>
             </tr>
         </table>
+        <div>&nbsp;</div>
+        <table class="gridtable">
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>Starport</td>
+                <td>
+                    <InputSelect @bind-Value="Model.StarportCode">
+                        @foreach (var code in Tables.StarportCodes)
+                        {
+                            <option value="@(code)" selected="@(Model.StarportCode == code)">@(code + " " + Tables.Starport(code))</option>
+                        }
+                    </InputSelect>
+                </td>
+                <td>@(Tables.StarportDescription(Model.StarportCode))</td>
+            </tr>
+            <tr>
+                <td>Size</td>
+                <td>
+                    <InputSelect @bind-Value="Model.SizeCode">
+                        @foreach (var code in Tables.SizeCodes)
+                        {
+                            <option value="@(code)" selected="@(Model.SizeCode == code)">@(code + " " + Tables.SizeKM(code) + " KM")</option>
+                        }
+                    </InputSelect>
+                </td>
+                <td>@(Tables.SizeKM(Model.SizeCode) + " KM. " + Tables.Gravity(Model.SizeCode))</td>
+            </tr>
+            <tr>
+                <td>Atmosphere</td>
+                <td>
+                    <InputSelect @bind-Value="Model.AtmosphereCode">
+                        @foreach (var code in Tables.AtmosphereCodes)
+                        {
+                            <option value="@(code)" selected="@(Model.AtmosphereCode == code)">@(code + " " + Tables.Atmosphere(code) )</option>
+                        }
+                    </InputSelect>
+                </td>
+                <td>@(Tables.AtmosphereDescription(Model.AtmosphereCode))</td>
+            </tr>
+            <tr>
+                <td>Hydrographics</td>
+                <td>
+                    <InputSelect @bind-Value="Model.HydrographicsCode">
+                        @foreach (var code in Tables.HydrographicsCodes)
+                        {
+                            <option value="@(code)" selected="@(Model.HydrographicsCode == code)">@(code + " " + Tables.Hydrographics(code) )</option>
+                        }
+                    </InputSelect>
+                </td>
+                <td>@(Tables.HydrographicsDescription(Model.HydrographicsCode))</td>
+            </tr>
+            <tr>
+                <td>Population</td>
+                <td>
+                    <InputSelect @bind-Value="Model.PopulationCode">
+                        @foreach (var code in Tables.PopulationCodes)
+                        {
+                            <option value="@(code)" selected="@(Model.PopulationCode == code)">@(code + " " + Tables.PopulationExponent(code).ToString("N0") )</option>
+                        }
+                    </InputSelect>
+                </td>
+                <td>@(Tables.PopulationExponent(Model.PopulationCode).ToString("N0") + " to " + (9*Tables.PopulationExponent(Model.PopulationCode)).ToString("N0"))</td>
+            </tr>
+            <tr>
+                <td>Government</td>
+                <td>
+                    <InputSelect @bind-Value="Model.GovernmentCode">
+                        @foreach (var code in Tables.GovernmentCodes)
+                        {
+                            <option value="@(code)" selected="@(Model.GovernmentCode == code)">@(code + " " + Tables.GovernmentType(code) )</option>
+                        }
+                    </InputSelect>
+                </td>
+                <td>@(Tables.GovernmentDescription(Model.GovernmentCode))</td>
+            </tr>
+            <tr>
+                <td>Law Level</td>
+                <td>
+                    <InputSelect @bind-Value="Model.LawLevelCode">
+                        @foreach (var code in Tables.LawLevelCodes)
+                        {
+                            <option value="@(code)" selected="@(Model.LawLevelCode == code)">@(code + " " + Tables.LawLevel(code) )</option>
+                        }
+                    </InputSelect>
+                </td>
+                <td>@(Tables.LawLevelDescription(Model.LawLevelCode))</td>
+            </tr>
+            <tr>
+                <td>Tech Level</td>
+                <td>
+                    <InputSelect @bind-Value="Model.TechLevelCode">
+                        @foreach (var code in Tables.TechLevelCodes)
+                        {
+                            <option value="@(code)" selected="@(Model.TechLevelCode == code)">@(code + " " + Tables.TechLevel(code) )</option>
+                        }
+                    </InputSelect>
+                </td>
+                <td>@(Tables.TechLevelDescription(Model.TechLevelCode))</td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <button @onclick="GotoPlanet2">Planet Info</button>
+                </td>
+            </tr>
+        </table>
     </EditForm>
 </div>

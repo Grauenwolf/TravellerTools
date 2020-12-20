@@ -110,63 +110,11 @@ namespace Grauenwolf.TravellerTools.Maps
 
         public string? AllegianceName { get; set; }
 
-        public string? Atmosphere
-        {
-            get
-            {
-                switch (AtmosphereCode.ToString())
-                {
-                    //star ports
-                    case "0": return "No atmosphere.";
-                    case "1": return "Trace.";
-                    case "2": return "Very thin. Tainted.";
-                    case "3": return "Very thin.";
-                    case "4": return "Thin. Tainted.";
-                    case "5": return "Thin. Breathable.";
-                    case "6": return "Standard. Breathable.";
-                    case "7": return "Standard. Tainted.";
-                    case "8": return "Dense. Breathable";
-                    case "9": return "Dense. Tainted.";
-                    case "A": return "Exotic.";
-                    case "B": return "Corrosive.";
-                    case "C": return "Insidious.";
-                    case "D": return "Dense, high.";
-                    case "E": return "Ellipsoid.";
-                    case "F": return "Thin, low.";
-                    default: return "";
-                }
-            }
-        }
+        public string Atmosphere => Tables.Atmosphere(AtmosphereCode);
 
         public EHex AtmosphereCode { get { return UWP?[2]; } }
 
-        public string? AtmosphereDescription
-        {
-            get
-            {
-                switch (AtmosphereCode.ToString())
-                {
-                    //star ports
-                    case "0": return "No atmosphere. Requires vacc suit.";
-                    case "1": return "Trace. Requires vacc suit.";
-                    case "2": return "Very thin. Tainted. Requires combination respirator/filter.";
-                    case "3": return "Very thin. Requires respirator.";
-                    case "4": return "Thin. Tainted. Requires filter mask.";
-                    case "5": return "Thin. Breathable. ";
-                    case "6": return "Standard. Breathable.";
-                    case "7": return "Standard. Tainted. Requires filter mask.";
-                    case "8": return "Dense. Breathable";
-                    case "9": return "Dense. Tainted. Requires filter mask.";
-                    case "A": return "Exotic. Requires special protective equipment.";
-                    case "B": return "Corrosive. Requires protective suit.";
-                    case "C": return "Insidious. Requires protective suit.";
-                    case "D": return "Dense, high. Breathable above a minimum altitude.";
-                    case "E": return "Ellipsoid. Breathable at certain latitudes.";
-                    case "F": return "Thin, low. Breathable below certain altitudes.";
-                    default: return "";
-                }
-            }
-        }
+        public string? AtmosphereDescription => Tables.AtmosphereDescription(AtmosphereCode);
 
         public string? Bases { get; set; }
 
@@ -176,47 +124,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
         public EHex GovernmentCode { get { return UWP?[5]; } }
 
-        public string? GovernmentType
-        {
-            get
-            {
-                switch (GovernmentCode.ToString())
-                {
-                    case "0": return "No Government Structure.";
-                    case "1": return "Company/Corporation.";
-                    case "2": return "Participating Democracy.";
-                    case "3": return "Self-Perpetuating Oligarchy.";
-                    case "4": return "Representative Democracy.";
-                    case "5": return "Feudal Technocracy.";
-                    case "6": return "Captive Government / Colony.";
-                    case "7": return "Balkanization.";
-                    case "8": return "Civil Service Bureaucracy.";
-                    case "9": return "Impersonal Bureaucracy.";
-                    case "A": return "Charismatic Dictator.";
-                    case "B": return "Non-Charismatic Dictator.";
-                    case "C": return "Charismatic Oligarchy.";
-                    case "D": return "Religious Dictatorship.";
-                    case "E": return "Religious Autocracy.";
-                    case "F": return "Totalitarian Oligarchy.";
-                    case "G": return "Small Station or Facility. Aslan.";
-                    case "H": return "Split Clan Control. Aslan.";
-                    case "J": return "Single On-world Clan Control. Aslan.";
-                    case "K": return "Single Multi-world Clan Control. Aslan.";
-                    case "L": return "Major Clan Control. Aslan.";
-                    case "M": return "Vassal Clan Control. Aslan.";
-                    case "N": return "Major Vassal Clan Control. Aslan.";
-                    case "P": return "Small Station or Facility. K�kree.";
-                    case "Q": return "Krurruna or Krumanak Rule for Off-world Steppelord. K�kree.";
-                    case "R": return "Steppelord On-world Rule. K�kree.";
-                    case "S": return "Sept. Hiver.";
-                    case "T": return "Unsupervised Anarchy. Hiver.";
-                    case "U": return "Supervised Anarchy. Hiver.";
-                    case "W": return "Committee. Hiver.";
-                    case "X": return "Droyne Hierarchy. Droyne.";
-                    default: return "";
-                }
-            }
-        }
+        public string? GovernmentType => Tables.GovernmentType(GovernmentCode);
 
         public string? Hex { get; set; }
 
@@ -224,28 +132,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
         public string? HexY { get { return Hex?.Substring(2, 2); } }
 
-        public string Hydrographics
-        {
-            get
-            {
-                switch (HydrographicsCode.ToString())
-                {
-                    //star ports
-                    case "0": return "No water. Desert World. ";
-                    case "1": return "10% water.";
-                    case "2": return "20% water.";
-                    case "3": return "30% water.";
-                    case "4": return "40% water.";
-                    case "5": return "50% water.";
-                    case "6": return "60% water.";
-                    case "7": return "70% water. Equivalent to Terra or Vland.";
-                    case "8": return "80% water.";
-                    case "9": return "90% water.";
-                    case "A": return "100% water. Water World.";
-                    default: return "";
-                }
-            }
-        }
+        public string Hydrographics => Tables.Hydrographics(HydrographicsCode);
 
         public EHex HydrographicsCode { get { return UWP?[3]; } }
 
@@ -255,7 +142,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
         public EHex LawCode { get { return UWP?[6]; } }
 
-        public string LawLevel => Tables.LawLevel(LawCode);
+        public string LawLevel => Tables.LawLevelDescription(LawCode);
 
         public string? LegacyBaseCode { get; set; }
 
@@ -272,10 +159,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
         public EHex PopulationCode { get { return UWP?[4]; } }
 
-        public double PopulationExponent
-        {
-            get { return Math.Pow(10, PopulationCode.Value); }
-        }
+        public double PopulationExponent => Tables.PopulationExponent(PopulationCode);
 
         public int PopulationMultiplier
         {
@@ -296,10 +180,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
         public string? Remarks
         {
-            get
-            {
-                return m_Remarks;
-            }
+            get => m_Remarks;
             set
             {
                 m_Remarks = value ?? "";
@@ -347,29 +228,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
         public EHex SizeCode { get { return UWP?[1]; } }
 
-        public int SizeKM
-        {
-            get
-            {
-                switch (SizeCode.ToString())
-                {
-                    case "0": return 800;
-                    case "1": return 1600;
-                    case "2": return 3200;
-                    case "3": return 4800;
-                    case "4": return 6400;
-                    case "5": return 8000;
-                    case "6": return 9600;
-                    case "7": return 11200;
-                    case "8": return 12800;
-                    case "9": return 14400;
-                    case "A": return 16000;
-                    default: return 0;
-                }
-            }
-        }
-
-        //public string? SS { get; set; }
+        public int SizeKM => Tables.SizeKM(SizeCode);
 
         public string? SS { get => SubSectorIndex; set => SubSectorIndex = value; }
 
