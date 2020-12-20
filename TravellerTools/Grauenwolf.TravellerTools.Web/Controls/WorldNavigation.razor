@@ -74,7 +74,7 @@
             }
             else
             {
-                <th><span class="oi oi-globe" aria-hidden="true" /> <a href="@(BaseUrl +  "info" + QueryParameters)">Info</a></th>
+                <th><a href="@(BaseUrl +  "info" + QueryParameters)"><span class="oi oi-globe" aria-hidden="true" /> Info</a></th>
             }
             @if (CurrentPage == "trade")
             {
@@ -82,26 +82,25 @@
             }
             else
             {
-                <th><span class="oi oi-box" aria-hidden="true" /> <a href="@(BaseUrl +  "trade" + QueryParameters)">Trade</a></th>
+                <th><a href="@(BaseUrl +  "trade" + QueryParameters)"><span class="oi oi-box" aria-hidden="true" /> Trade</a></th>
             }
-            @if (!IsCustom)
+
+            @if (CurrentPage == "travel")
             {
-                @if (CurrentPage == "travel")
-                {
-                    <th><span class="oi oi-compass" aria-hidden="true" /> Travel</th>
-                }
-                else
-                {
-                    <th><span class="oi oi-compass" aria-hidden="true" /> <a href="@(BaseUrl +  "travel" + QueryParameters)">Travel</a></th>
-                }
+                <th><span class="oi oi-compass" aria-hidden="true" /> Travel</th>
             }
+            else
+            {
+                <th><a href="@(BaseUrl +  "travel" + QueryParameters)"><span class="oi oi-compass" aria-hidden="true" /> Travel</a></th>
+            }
+
             @if (CurrentPage == "store")
             {
                 <th><span class="oi oi-cart" aria-hidden="true" /> Store</th>
             }
             else
             {
-                <th><span class="oi oi-cart" aria-hidden="true" /> <a href="@(BaseUrl +  "store" + QueryParameters)">Store</a></th>
+                <th><a href="@(BaseUrl +  "store" + QueryParameters)"><span class="oi oi-cart" aria-hidden="true" /> Store</a></th>
             }
             @if (CurrentPage == "animals")
             {
@@ -109,7 +108,7 @@
             }
             else
             {
-                <th><span class="oi oi-bug" aria-hidden="true" /> <a href="@(BaseUrl +  "animals" + QueryParameters)">Animals</a></th>
+                <th><a href="@(BaseUrl +  "animals" + QueryParameters)"><span class="oi oi-bug" aria-hidden="true" /> Animals</a></th>
             }
             @if (CurrentPage == "encounters")
             {
@@ -117,7 +116,7 @@
             }
             else
             {
-                <th><span class="oi oi-people" aria-hidden="true" /> <a href="@(BaseUrl +  "encounters" + QueryParameters)">Encounters</a></th>
+                <th><a href="@(BaseUrl +  "encounters" + QueryParameters)"><span class="oi oi-people" aria-hidden="true" /> Encounters</a></th>
             }
         </tr>
     </table>

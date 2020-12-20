@@ -11,66 +11,21 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 {
     partial class WorldInfoPage
     {
-        [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
+        [Parameter]
+        public string? MilieuCode { get => Get<string?>(); set => Set(value, true); }
 
         [Parameter]
-        public string? MilieuCode
-        {
-            get => Get<string?>();
-            set => Set(value, true);
-        }
+        public string? PlanetHex { get => Get<string?>(); set => Set(value, true); }
 
         [Parameter]
-        public string? SectorHex
-        {
-            get => Get<string?>();
-            set => Set(value, true);
-        }
+        public string? SectorHex { get => Get<string?>(); set => Set(value, true); }
+
+        public int? Seed { get => Get<int?>(); set => Set(value, true); }
+
+        public string? TasZone { get => Get<string?>(); set => Set(value, true); }
 
         [Parameter]
-        public string? PlanetHex
-        {
-            get => Get<string?>();
-            set => Set(value, true);
-        }
-
-        [Parameter]
-        public string? Uwp
-        {
-            get => Get<string?>();
-            set => Set(value, true);
-        }
-
-        public string? TasZone
-        {
-            get => Get<string?>();
-            set => Set(value, true);
-        }
-
-        public int? Seed
-        {
-            get => Get<int?>();
-            set => Set(value, true);
-        }
-
-        protected override void Initialized()
-        {
-            if (Navigation.TryGetQueryString("seed", out int seed))
-                Seed = seed;
-            else
-                Seed = (new Random()).Next();
-
-            if (Navigation.TryGetQueryString("tasZone", out string tasZone))
-                TasZone = tasZone;
-        }
-
-        protected void OnReroll(MouseEventArgs _)
-        {
-            if (Uwp != null)
-                Navigation.NavigateTo($"/uwp/{Uwp}/info?tasZone={TasZone}", false);
-            else
-                Navigation.NavigateTo($"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/info", false);
-        }
+        public string? Uwp { get => Get<string?>(); set => Set(value, true); }
 
         protected string Permalink
         {
@@ -83,9 +38,30 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             }
         }
 
+        [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
+
+        protected override void Initialized()
+        {
+            if (Navigation.TryGetQueryString("seed", out int seed))
+                Seed = seed;
+            else
+                Seed = (new Random()).Next();
+
+            if (Navigation.TryGetQueryString("tasZone", out string tasZone))
+                TasZone = tasZone;
+        }
+
         protected void OnPermalink(MouseEventArgs _)
         {
             Navigation.NavigateTo(Permalink, true);
+        }
+
+        protected void OnReroll(MouseEventArgs _)
+        {
+            if (Uwp != null)
+                Navigation.NavigateTo($"/uwp/{Uwp}/info?tasZone={TasZone}", false);
+            else
+                Navigation.NavigateTo($"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/info", false);
         }
 
         protected override async Task ParametersSetAsync()
@@ -114,7 +90,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
                 Model = new WorldModel(milieu, world);
             }
 
-            PageTitle = Model.World.Name;
+            PageTitle = Model.World.Name ?? Uwp + " Info";
 
             if (Seed != null)
             {

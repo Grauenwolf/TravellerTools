@@ -6,12 +6,12 @@
         {
             if (Model.UwpNotSelected)
                 return;
-            Navigation.NavigateTo($"/uwp/{Model.RawUwp}/{"info"}");
+            Navigation.NavigateTo($"/uwp/{Model.RawUwp}/info");
         }
 
         protected void GotoPlanet2()
         {
-            Navigation.NavigateTo($"/uwp/{Model.CalculatedUwp}/{"info"}");
+            Navigation.NavigateTo($"/uwp/{Model.CalculatedUwp}/info");
         }
     }
 }

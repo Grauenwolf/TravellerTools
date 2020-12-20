@@ -1,7 +1,6 @@
 ﻿using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Shared;
 using Grauenwolf.TravellerTools.Web.Data;
-using Grauenwolf.TravellerTools.Web.Shared;
 using Microsoft.AspNetCore.Components;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,7 +58,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
             Model = new SubsectorModel(milieu, sectorMetadata, subsector, worlds);
 
-            PageTitle = Model.Sector.Name;
+            PageTitle = subsector.Name + " Subsector";
 
             return;
 

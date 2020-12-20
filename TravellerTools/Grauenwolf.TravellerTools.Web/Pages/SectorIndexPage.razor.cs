@@ -44,7 +44,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
             Model = new SectorModel(milieu, sectorMetadata);
 
-            PageTitle = Model.Sector.Name;
+            PageTitle = Model.Sector.Name + " Sector";
 
             return;
 

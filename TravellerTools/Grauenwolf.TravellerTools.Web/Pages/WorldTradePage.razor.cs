@@ -22,31 +22,20 @@ namespace Grauenwolf.TravellerTools.Web.Pages
         }
 
         [Parameter]
-        public string? MilieuCode
-        {
-            get => Get<string?>();
-            set => Set(value, true);
-        }
+        public string? MilieuCode { get => Get<string?>(); set => Set(value, true); }
 
         [Parameter]
-        public string? SectorHex
-        {
-            get => Get<string?>();
-            set => Set(value, true);
-        }
+        public string? SectorHex { get => Get<string?>(); set => Set(value, true); }
 
         [Parameter]
-        public string? PlanetHex
-        {
-            get => Get<string?>();
-            set => Set(value, true);
-        }
+        public string? PlanetHex { get => Get<string?>(); set => Set(value, true); }
 
-        public int? Seed
-        {
-            get => Get<int?>();
-            set => Set(value, true);
-        }
+        public int? Seed { get => Get<int?>(); set => Set(value, true); }
+
+        public string? TasZone { get => Get<string?>(); set => Set(value, true); }
+
+        [Parameter]
+        public string? Uwp { get => Get<string?>(); set => Set(value, true); }
 
         protected override void Initialized()
         {
@@ -56,11 +45,19 @@ namespace Grauenwolf.TravellerTools.Web.Pages
                 Seed = (new Random()).Next();
 
             Options.FromQueryString(Navigation.ParsedQueryString());
+
+            if (Navigation.TryGetQueryString("tasZone", out string tasZone))
+                TasZone = tasZone;
         }
 
         protected void Reroll(MouseEventArgs _)
         {
-            var uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/trade";
+            string uri;
+            if (Uwp != null)
+                uri = $"/uwp/{Uwp}/trade?tasZone={TasZone}";
+            else
+                uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/trade";
+
             uri = QueryHelpers.AddQueryString(uri, Options.ToQueryString());
             Navigation.NavigateTo(uri, false);
         }
@@ -73,7 +70,12 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
         protected string Permalink()
         {
-            var uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/trade";
+            string uri;
+            if (Uwp != null)
+                uri = $"/uwp/{Uwp}/trade?tasZone={TasZone}";
+            else
+                uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/trade";
+
             uri = QueryHelpers.AddQueryString(uri, Options.ToQueryString());
             uri = QueryHelpers.AddQueryString(uri, "seed", (Seed ?? 0).ToString());
             return uri;
@@ -81,20 +83,31 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
         protected override async Task ParametersSetAsync()
         {
-            if (PlanetHex == null || SectorHex == null || MilieuCode == null)
-                goto ReturnToIndex;
+            if (Uwp != null)
+            {
+                var world = new World(Uwp, Uwp, 0, TasZone);
 
-            var milieu = Milieu.FromCode(MilieuCode);
-            if (milieu == null)
-                goto ReturnToIndex;
+                MilieuCode = Milieu.Custom.Code;
+                Model = new WorldModel(Milieu.Custom, world);
+            }
+            else
+            {
+                if (PlanetHex == null || SectorHex == null || MilieuCode == null)
+                    goto ReturnToIndex;
 
-            var service = TravellerMapServiceLocator.GetMapService(MilieuCode);
-            var world = await service.FetchWorldAsync(SectorHex, PlanetHex);
-            if (world == null)
-                goto ReturnToIndex;
+                var milieu = Milieu.FromCode(MilieuCode);
+                if (milieu == null)
+                    goto ReturnToIndex;
 
-            Model = new WorldModel(milieu, world);
-            PageTitle = Model.World.Name;
+                var service = TravellerMapServiceLocator.GetMapService(MilieuCode);
+                var world = await service.FetchWorldAsync(SectorHex, PlanetHex);
+                if (world == null)
+                    goto ReturnToIndex;
+
+                Model = new WorldModel(milieu, world);
+            }
+
+            PageTitle = Model.World.Name ?? Uwp + " Trade";
 
             OnOptionsChanged();
 
