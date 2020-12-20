@@ -138,7 +138,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
             var rawSectorList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/universe?milieu={Milieu}")).ConfigureAwait(false);
 
-            var sectors = JsonConvert.DeserializeObject<Universe>(rawSectorList).Sectors.Where(s => s.Names.First().Text != "Legend").ToList();
+            var sectors = JsonConvert.DeserializeObject<Universe>(rawSectorList).Sectors.Where(s => s.Names?.First().Text != "Legend").ToList();
 
             m_SectorList = ImmutableArray.CreateRange(sectors.OrderBy(s => s.Name));
 
@@ -152,9 +152,9 @@ namespace Grauenwolf.TravellerTools.Maps
                         try
                         {
                             var metadata = await FetchSectorMetadataAsync(sector.X, sector.Y);
-                            if (metadata.Subsectors.Any(ss => !string.IsNullOrEmpty(ss.Name)))
+                            if (metadata.Subsectors?.Any(ss => !string.IsNullOrEmpty(ss.Name)) ?? false)
                             {
-                                var worlds = await FetchWorldsInSectorAsync(sector.X, sector.Y, sector.Name).ConfigureAwait(false);
+                                var worlds = await FetchWorldsInSectorAsync(sector.X, sector.Y, sector.Name ?? ($"{sector.X},{sector.Y}")).ConfigureAwait(false);
                                 if (worlds.Any(p => !string.IsNullOrWhiteSpace(p.Name)))
                                     populatedSectors.Add(sector);
                             }
@@ -209,7 +209,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
                 var headers = new Dictionary<string, int>();
                 var index = 0;
-                foreach (var header in parser.ReadFields())
+                foreach (var header in parser.ReadFields()!)
                     headers[header] = index++;
 
                 while (!parser.EndOfData)
@@ -217,7 +217,7 @@ namespace Grauenwolf.TravellerTools.Maps
                     //Sector	SS	Hex	Name	UWP	Bases	Remarks	Zone	PBG	Allegiance	Stars	{Ix}	(Ex)	[Cx]	Nobility	W	RU
                     World world = new World();
 
-                    var fields = parser.ReadFields();
+                    var fields = parser.ReadFields()!;
 
                     world.SectorX = sectorX;
                     world.SectorY = sectorY;
@@ -296,11 +296,12 @@ namespace Grauenwolf.TravellerTools.Maps
                 var rawList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/jumpworlds?sx={sectorX}&sy={sectorY}&hx={hexX:00}&hy={hexY:00}&jump={jumpDistance}&milieu={Milieu}")).ConfigureAwait(false);
 
                 var set = JsonConvert.DeserializeObject<WorldList>(rawList).Worlds;
-                foreach (var world in set.Where(w => !result.Any(ww => ww.Hex == w.Hex && ww.Sector == w.Sector)))
-                {
-                    world.JumpDistance = jumpDistance;
-                    result.Add(world);
-                }
+                if (set != null)
+                    foreach (var world in set.Where(w => !result.Any(ww => ww.Hex == w.Hex && ww.Sector == w.Sector)))
+                    {
+                        world.JumpDistance = jumpDistance;
+                        result.Add(world);
+                    }
             }
 
             foreach (var world in result)
