@@ -2,6 +2,8 @@
 using Grauenwolf.TravellerTools.Shared;
 using Grauenwolf.TravellerTools.Web.Data;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.WebUtilities;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -53,36 +55,36 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             //    TasZone = tasZone;
         }
 
-        //protected void OnReroll(MouseEventArgs _)
-        //{
-        //    string uri;
-        //    if (Uwp != null)
-        //        uri = $"/uwp/{Uwp}/trade?tasZone={TasZone}";
-        //    else
-        //        uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/trade";
+        void OnReroll(MouseEventArgs _)
+        {
+            string uri;
+            //if (Uwp != null)
+            //    uri = $"/uwp/{Uwp}/trade?tasZone={TasZone}";
+            //else
 
-        //    uri = QueryHelpers.AddQueryString(uri, Options.ToQueryString());
-        //    Navigation.NavigateTo(uri, false);
-        //}
+            uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/destination/{DestinationSectorHex}/{DestinationPlanetHex}/freight";
+            uri = QueryHelpers.AddQueryString(uri, Options.ToQueryString());
+            Navigation.NavigateTo(uri, false);
+        }
 
-        //protected void OnPermalink(MouseEventArgs _)
-        //{
-        //    string uri = Permalink();
-        //    Navigation.NavigateTo(uri, true);
-        //}
+        void OnPermalink(MouseEventArgs _)
+        {
+            string uri = Permalink();
+            Navigation.NavigateTo(uri, true);
+        }
 
-        //protected string Permalink()
-        //{
-        //    string uri;
-        //    if (Uwp != null)
-        //        uri = $"/uwp/{Uwp}/trade?tasZone={TasZone}";
-        //    else
-        //        uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/trade";
+        string Permalink()
+        {
+            string uri;
+            //if (Uwp != null)
+            //    uri = $"/uwp/{Uwp}/trade?tasZone={TasZone}";
+            //else
+            uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/destination/{DestinationSectorHex}/{DestinationPlanetHex}/freight";
 
-        //    uri = QueryHelpers.AddQueryString(uri, Options.ToQueryString());
-        //    uri = QueryHelpers.AddQueryString(uri, "seed", (Seed ?? 0).ToString());
-        //    return uri;
-        //}
+            uri = QueryHelpers.AddQueryString(uri, Options.ToQueryString());
+            uri = QueryHelpers.AddQueryString(uri, "seed", (Seed ?? 0).ToString());
+            return uri;
+        }
 
         protected override async Task ParametersSetAsync()
         {
@@ -107,11 +109,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             if (world == null)
                 goto ReturnToIndex;
 
-            //var destination = await service.FetchWorldAsync(DestinationSectorHex, DestinationPlanetHex);
-            //if (destination == null)
-            //    goto ReturnToIndex;
-
-            //We use this function because it includes jump distances
+            //We use WorldsNearAsync because it includes jump distances
             var destinations = await service.WorldsNearAsync(world.SectorX!.Value, world.SectorY!.Value, int.Parse(world.HexX!), int.Parse(world.HexY!), 6);
             var destination = destinations.SingleOrDefault(d => (d.SectorX + "," + d.SectorY) == DestinationSectorHex && d.Hex == DestinationPlanetHex);
             if (destination == null)
@@ -129,10 +127,10 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             return;
 
         ReturnToIndex:
-            base.Navigation.NavigateTo("/"); //bounce back to home.
+            Navigation.NavigateTo("/"); //bounce back to home.
         }
 
-        protected void OnOptionsChanged()
+        void OnOptionsChanged()
         {
             if (Model == null)
                 return; //We're setting up parameters

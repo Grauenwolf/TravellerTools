@@ -4,17 +4,55 @@
 
 @if (Model != null)
 {
-    var current = Model.World;
-    //var timeFormat = "h'h 'm'm 's's'";
 
     <h2>@(Model.World.Name + " to " + Model.Destination.Name)</h2>
     <WorldNavigation CurrentPage="freight" World="@Model.World" MilieuCode="@MilieuCode" />
     <div>&nbsp;</div>
 
+    <div>
+        <EditForm Model="@Options">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <table class="gridtable">
+                <tr>
+                    <th>Traveller Edition</th>
+                    <th>Options</th>
+                </tr>
+                <tr>
+                    <td>
+                        <InputSelect @bind-Value="Options.SelectedEdition">
+                            @foreach (var item in TradeOptions.EditionList)
+                                {
+                                    if (Options.SelectedEditionCode == item.Code)
+                                    {
+                                    <option value="@(item.Code)" selected> @(item.Name)</option>
+                                    }
+                                    else
+                                    {
+                                    <option value="@(item.Code)"> @(item.Name)</option>
+                                    }
+                                }
+                        </InputSelect>
+                    </td>
+                    <td>
+                        @*<label title="More variety in cargo types.">
+                                <InputCheckbox @bind-Value="Options.AdvancedMode" />
+                                Advanced Mode
+                            </label>*@
+                        &nbsp;
+                    </td>
+                </tr>
+            </table>
+        </EditForm>
+    </div>
+
+    <div>&nbsp;</div>
+
     <h3>
         Freight &amp; Mail Info
-        @*<a @onclick="OnReroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
-            <a @onclick="OnPermalink" href="@(Permalink)" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>*@
+        <a @onclick="OnReroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
+        <a @onclick="OnPermalink" href="@(Permalink())" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
     </h3>
 
     if (Model.FreightList?.Lots.Count > 0)
