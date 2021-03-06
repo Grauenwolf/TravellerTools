@@ -154,7 +154,7 @@ namespace Grauenwolf.TravellerTools
         {
             var contraband = GovernmentContraband(governmentCode);
             if (contraband.Count > 0)
-                return GovernmentDescription(governmentCode) + " Bans: " + string.Join(", ", contraband);
+                return GovernmentDescription(governmentCode) + " Restricts: " + string.Join(", ", contraband);
             else
                 return GovernmentDescription(governmentCode);
         }

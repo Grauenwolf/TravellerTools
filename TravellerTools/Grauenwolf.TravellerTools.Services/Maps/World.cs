@@ -124,7 +124,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
         public EHex GovernmentCode { get { return UWP?[5]; } }
 
-        public string? GovernmentType => Tables.GovernmentType(GovernmentCode);
+        public string? GovernmentType => Tables.GovernmentDescriptionWithContraband(GovernmentCode);
 
         public string? Hex { get; set; }
 
