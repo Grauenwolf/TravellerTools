@@ -17,8 +17,7 @@ namespace Grauenwolf.TravellerTools.Equipment
         public int BrokerScore { get; set; }
         public int StreetwiseScore { get; set; }
 
-        public bool Roll { get; set; }
+        public bool AutoRoll { get; set; }
         public int? Seed { get; set; }
-        public string Name { get; set; }
     }
 }

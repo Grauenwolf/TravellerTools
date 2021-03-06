@@ -136,7 +136,7 @@ namespace Grauenwolf.TravellerTools
         }
 
         /// <summary>
-        /// True if the value is withing the specified range, inclusive.
+        /// True if the value is within the specified range, inclusive.
         /// </summary>
         public bool Between(int low, int high)
         {
@@ -158,10 +158,10 @@ namespace Grauenwolf.TravellerTools
             return new EHex(value);
         }
 
-        public static implicit operator EHex(string value)
-        {
-            return new EHex(value);
-        }
+        //public static implicit operator EHex(string value)
+        //{
+        //    return new EHex(value);
+        //}
 
         public static implicit operator EHex(int value)
         {
@@ -193,14 +193,34 @@ namespace Grauenwolf.TravellerTools
             return left.Value != right.Value;
         }
 
-        public static bool operator ==(EHex left, string right)
+        public static bool operator ==(EHex left, char right)
         {
             return left == ((EHex)right).Value;
         }
 
+        public static bool operator !=(EHex left, char right)
+        {
+            return left != ((EHex)right);
+        }
+
+        public static bool operator ==(EHex left, string right)
+        {
+            return left == new EHex(right);
+        }
+
         public static bool operator !=(EHex left, string right)
         {
-            return left != ((EHex)right).Value;
+            return left != new EHex(right);
+        }
+
+        public static bool operator ==(string left, EHex right)
+        {
+            return new EHex(left) == right;
+        }
+
+        public static bool operator !=(string left, EHex right)
+        {
+            return new EHex(left) != right;
         }
 
         public static bool operator <=(int left, EHex right)

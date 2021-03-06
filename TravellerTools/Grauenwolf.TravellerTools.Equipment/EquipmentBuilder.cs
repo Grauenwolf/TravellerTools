@@ -25,14 +25,24 @@ namespace Grauenwolf.TravellerTools.Equipment
         {
             StoreOptions options = new StoreOptions()
             {
-                LawLevel = world.LawCode.Value,
-                Population = world.PopulationCode.Value,
-                Starport = world.StarportCode.ToString(),
-                TechLevel = world.TechCode.Value,
+                LawLevel = world.LawCode,
+                Population = world.PopulationCode,
+                Starport = world.StarportCode,
+                TechLevel = world.TechCode,
             };
 
             options.TradeCodes.AddRange(world.RemarksList);
             return AvailabilityTable(options);
+        }
+
+        public List<string> GetSectionNames()
+        {
+            var result = new HashSet<string>();
+
+            foreach (var sectionXml in m_Book.Section)
+                result.Add(sectionXml.Name);
+
+            return result.OrderBy(s => s).ToList();
         }
 
         public Store AvailabilityTable(StoreOptions options)
@@ -61,13 +71,12 @@ namespace Grauenwolf.TravellerTools.Equipment
                     foreach (var subsectionXml in sectionXml.Subsection)
                     {
                         subsectionXml.Book = subsectionXml.Book ?? sectionXml.Book;
-                        subsectionXml.Category = ReadString(  subsectionXml.Category ,sectionXml.Category);
-                        subsectionXml.Law = ReadString(subsectionXml.Law , sectionXml.Law);
+                        subsectionXml.Category = ReadString(subsectionXml.Category, sectionXml.Category);
+                        subsectionXml.Law = ReadString(subsectionXml.Law, sectionXml.Law);
                         subsectionXml.Mod = subsectionXml.Mod ?? sectionXml.Mod;
                         subsectionXml.Page = subsectionXml.Page ?? sectionXml.Page;
                         subsectionXml.Skill = subsectionXml.Skill ?? sectionXml.Skill;
-                        subsectionXml.TL = ReadString(subsectionXml.TL , sectionXml.TL);
-
+                        subsectionXml.TL = ReadString(subsectionXml.TL, sectionXml.TL);
 
                         var subsection = section.Subsections.SingleOrDefault(s => s.Name == subsectionXml.Name);
                         if (subsection == null)
@@ -82,7 +91,6 @@ namespace Grauenwolf.TravellerTools.Equipment
                                 ProcessItem(options, dice, subsectionXml, subsection, itemXml);
                             }
                     }
-
             }
 
             //cleanup
@@ -99,7 +107,6 @@ namespace Grauenwolf.TravellerTools.Equipment
                 if (section.Items.Count == 0 && section.Subsections.Count == 0)
                     result.Sections.RemoveAt(i);
             }
-
 
             return result;
         }
@@ -142,9 +149,9 @@ namespace Grauenwolf.TravellerTools.Equipment
             var item = new Item
             {
                 Book = itemXml.Book ?? sectionXml.Book,
-                Category = ParseInt( itemXml.Category , sectionXml.Category),
-                Law = ParseInt(itemXml.Law ,  sectionXml.Law),
-                TechLevel = ParseInt(itemXml.TL , sectionXml.TL),
+                Category = ParseInt(itemXml.Category, sectionXml.Category),
+                Law = ParseInt(itemXml.Law, sectionXml.Law),
+                TechLevel = ParseInt(itemXml.TL, sectionXml.TL),
                 Price = itemXml.PriceCredits,
                 Name = itemXml.Name,
                 Mod = itemXml.Mod ?? sectionXml.Mod,
@@ -164,7 +171,6 @@ namespace Grauenwolf.TravellerTools.Equipment
             if (string.Equals(item1.Mod, "Military", OrdinalIgnoreCase))
                 availabilityDM += -2;
 
-
             var techDiff = options1.TechLevel.Value - item1.TechLevel;
 
             if (techDiff < 0) item1.NotAvailable = true;  //item is not available.
@@ -172,9 +178,8 @@ namespace Grauenwolf.TravellerTools.Equipment
             else if (5 <= techDiff && techDiff <= 9) availabilityDM += -2;
             else if (10 <= techDiff) availabilityDM += -4;
 
-
-            if (options1.Starport == "A" || options1.Starport == "B") availabilityDM += 1;
-            else if (options1.Starport == "X") availabilityDM += -4;
+            if (options1.Starport == 'A' || options1.Starport == 'B') availabilityDM += 1;
+            else if (options1.Starport == 'X') availabilityDM += -4;
 
             if (options1.TradeCodes.Contains("Hi", OrdinalIgnoreCase) || options1.TradeCodes.Contains("Ht", OrdinalIgnoreCase) || options1.TradeCodes.Contains("In", OrdinalIgnoreCase) || options1.TradeCodes.Contains("Ri", OrdinalIgnoreCase)) availabilityDM += 2;
             if (options1.TradeCodes.Contains("Lt", OrdinalIgnoreCase) || options1.TradeCodes.Contains("Na", OrdinalIgnoreCase) || options1.TradeCodes.Contains("NI", OrdinalIgnoreCase) || options1.TradeCodes.Contains("Po", OrdinalIgnoreCase)) availabilityDM += -2;
@@ -218,7 +223,7 @@ namespace Grauenwolf.TravellerTools.Equipment
             {
                 //skip item
             }
-            else if (!options.Roll)
+            else if (!options.AutoRoll)
                 section.Items.Add(item);
             else
             {

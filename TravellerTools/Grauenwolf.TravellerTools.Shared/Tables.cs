@@ -6,15 +6,15 @@ namespace Grauenwolf.TravellerTools
 {
     public static class Tables
     {
-        public static ImmutableArray<EHex> AtmosphereCodes => BuildCodes("0", "F");
-        public static ImmutableArray<EHex> GovernmentCodes => BuildCodes("0", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "W", "X");
-        public static ImmutableArray<EHex> HydrographicsCodes => BuildCodes("0", "A");
-        public static ImmutableArray<EHex> LawLevelCodes => BuildCodes("0", "L", "S");
-        public static ImmutableArray<EHex> PopulationCodes => BuildCodes("0", "L");
-        public static ImmutableArray<EHex> SizeCodes => BuildCodes("0", "C");
-        public static ImmutableArray<EHex> StarportCodes => ImmutableArray.Create<EHex>("A", "B", "C", "D", "E", "X", "F", "G", "H", "Y");
+        public static ImmutableArray<EHex> AtmosphereCodes => BuildCodes('0', 'F');
+        public static ImmutableArray<EHex> GovernmentCodes => BuildCodes('0', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'W', 'X');
+        public static ImmutableArray<EHex> HydrographicsCodes => BuildCodes('0', 'A');
+        public static ImmutableArray<EHex> LawLevelCodes => BuildCodes('0', 'L', 'S');
+        public static ImmutableArray<EHex> PopulationCodes => BuildCodes('0', 'L');
+        public static ImmutableArray<EHex> SizeCodes => BuildCodes('0', 'C');
+        public static ImmutableArray<EHex> StarportCodes => ImmutableArray.Create<EHex>('A', 'B', 'C', 'D', 'E', 'X', 'F', 'G', 'H', 'Y');
 
-        public static ImmutableArray<EHex> TechLevelCodes => BuildCodes("0", "W");
+        public static ImmutableArray<EHex> TechLevelCodes => BuildCodes('0', 'W');
 
         public static string Atmosphere(EHex atmosphereCode)
         {

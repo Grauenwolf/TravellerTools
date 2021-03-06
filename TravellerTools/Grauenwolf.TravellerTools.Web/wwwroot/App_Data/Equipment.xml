@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 <Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Section Name="Ammunition" Book="CSC2" />
+  <!--<Section Name="Ammunition" Book="CSC2" />-->
   <Section Name="Augmentation" Book="CSC2" Law="10" Category="1">
     <Subsection Name="Head">
       <Item Name="Assisted Ambulation-13" TL="13" Price="Cr100000" Page="90" />
@@ -361,7 +361,7 @@
       <Item Name="Psi-finder Binoculars" TL="16" Price="Cr10000" Mass="1" Page="61" />
     </Subsection>
   </Section>
-  <Section Name="Heavy Weapons" Book="CSC2" Mod="Military" Law="3" Category="4" >
+  <Section Name="Heavy Weapons" Book="CSC2" Mod="Military" Law="3" Category="4">
     <Subsection Name="Artillery" Skill="Heavy Weapons (artillery)" Mod="Military" Category="4">
       <Item Name="Black Powder Mortar" TL="3" Price="Cr2000" Mass=".5 tons" Page="126" />
       <Item Name="Bombardment Gun" TL="5" Price="MCr0.5" Mass="220 tons" Page="126" />
@@ -803,7 +803,7 @@
       <Item Name="Tent-Barracks" TL="8" Price="Cr500" Mass="10" Page="57" />
     </Subsection>
   </Section>
-  <Section Name="Tools and Engineering" Book="CSC2">
+  <Section Name="Tools" Book="CSC2">
     <Subsection Name="Tools">
       <Item Name="Advanced Welding Kit" TL="10" Price="Cr5000" Mass="3" Page="78" />
       <Item Name="Carpenters Tool Set" TL="2" Price="Cr300" Mass="12" Page="78" />
@@ -923,7 +923,7 @@
       <Item Name="Static Blade (TL12)" TL="12" Price="Cr900" Mass="3" Page="104" Skill="Melee (blade)" />
       <Item Name="Stealth Dagger" TL="8" Price="Cr175" Mass="1" Page="104" Skill="Melee (blade)" />
       <Item Name="Stone Axe" TL="0" Price="Cr5" Mass="3" Page="104" Skill="Melee (blade)" />
-      <Item Name="Stunfist" TL="8" Price="Cr250" Page="106" Skill="Melee (unarmed)" Law="8"/>
+      <Item Name="Stunfist" TL="8" Price="Cr250" Page="106" Skill="Melee (unarmed)" Law="8" />
       <Item Name="Stunstick" TL="8" Price="Cr300" Mass="1" Page="100" Skill="Melee (bludgeon)" Law="8" />
       <Item Name="War Axe" TL="0" Price="0" Page="105" Skill="Melee (blade)" />
     </Subsection>

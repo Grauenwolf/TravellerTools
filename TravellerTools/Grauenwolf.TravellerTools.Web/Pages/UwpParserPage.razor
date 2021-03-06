@@ -36,7 +36,7 @@
                         }
                     </InputSelect>
                 </td>
-                <td>@(Tables.StarportDescription(Model.StarportCode))</td>
+                <td>@(Tables.StarportDescription(Model.StarportCode[0]))</td>
             </tr>
             <tr>
                 <td>Size</td>
@@ -48,7 +48,7 @@
                         }
                     </InputSelect>
                 </td>
-                <td>@(Tables.SizeKM(Model.SizeCode) + " KM. " + Tables.Gravity(Model.SizeCode))</td>
+                <td>@(Tables.SizeKM(Model.SizeCode[0]) + " KM. " + Tables.Gravity(Model.SizeCode[0]))</td>
             </tr>
             <tr>
                 <td>Atmosphere</td>
@@ -60,7 +60,7 @@
                         }
                     </InputSelect>
                 </td>
-                <td>@(Tables.AtmosphereDescription(Model.AtmosphereCode))</td>
+                <td>@(Tables.AtmosphereDescription(Model.AtmosphereCode[0]))</td>
             </tr>
             <tr>
                 <td>Hydrographics</td>
@@ -72,7 +72,7 @@
                         }
                     </InputSelect>
                 </td>
-                <td>@(Tables.HydrographicsDescription(Model.HydrographicsCode))</td>
+                <td>@(Tables.HydrographicsDescription(Model.HydrographicsCode[0]))</td>
             </tr>
             <tr>
                 <td>Population</td>
@@ -84,7 +84,7 @@
                         }
                     </InputSelect>
                 </td>
-                <td>@(Tables.PopulationExponent(Model.PopulationCode).ToString("N0") + " to " + (9*Tables.PopulationExponent(Model.PopulationCode)).ToString("N0"))</td>
+                <td>@(Tables.PopulationExponent(Model.PopulationCode[0]).ToString("N0") + " to " + (9 * Tables.PopulationExponent(Model.PopulationCode[0])).ToString("N0"))</td>
             </tr>
             <tr>
                 <td>Government</td>
@@ -96,7 +96,7 @@
                         }
                     </InputSelect>
                 </td>
-                <td>@(Tables.GovernmentDescription(Model.GovernmentCode))</td>
+                <td>@(Tables.GovernmentDescription(Model.GovernmentCode[0]))</td>
             </tr>
             <tr>
                 <td>Law Level</td>
@@ -108,7 +108,7 @@
                         }
                     </InputSelect>
                 </td>
-                <td>@(Tables.LawLevelDescription(Model.LawLevelCode))</td>
+                <td>@(Tables.LawLevelDescription(Model.LawLevelCode[0]))</td>
             </tr>
             <tr>
                 <td>Tech Level</td>
@@ -120,7 +120,7 @@
                         }
                     </InputSelect>
                 </td>
-                <td>@(Tables.TechLevelDescription(Model.TechLevelCode))</td>
+                <td>@(Tables.TechLevelDescription(Model.TechLevelCode[0]))</td>
             </tr>
             <tr>
                 <td colspan="3">

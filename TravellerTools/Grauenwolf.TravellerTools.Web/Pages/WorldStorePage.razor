@@ -1,0 +1,291 @@
+﻿@page "/world/{milieuCode}/{sectorHex}/{planetHex}/store"
+@page "/uwp/{uwp}/store"
+@inherits NullablePageBase<WorldModel>
+
+@if (Model != null)
+{
+    var current = Model.World;
+    //var timeFormat = "h'h 'm'm 's's'";
+
+    <h2>@current.Name</h2>
+    <WorldNavigation CurrentPage="store" World="@Model.World" MilieuCode="@MilieuCode" />
+    <div>&nbsp;</div>
+
+    <div>
+        <EditForm Model="@Options">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <table class="gridtable">
+                <tr>
+                    <th>Store Type</th>
+                    <th>Options</th>
+                    <th>Broker Score</th>
+                    <th>Streetwise Score</th>
+                </tr>
+                <tr>
+                    <td>
+                        <InputSelect @bind-Value="StoreTypeFilter">
+                            @foreach (var item in StoreTypeList)
+                                {
+                                    if (StoreTypeFilter == item)
+                                    {
+                                    <option value="@(item)" selected> @(item)</option>
+                                    }
+                                    else
+                                    {
+                                    <option value="@(item)"> @(item)</option>
+                                    }
+                                }
+                        </InputSelect>
+                    </td>
+                    <td>
+                        <label title="If you don't check this, all items are printed with the roll the player needs.">
+                            <InputCheckbox @bind-Value="Options.AutoRoll" />
+                            Auto-Roll
+                        </label>
+                    </td>
+                    <td>
+                        <InputSelect @bind-Value="Options.BrokerScoreCode">
+                            @for (var score = -6; score <= 8; score++)
+                                {
+                                    if (Options.BrokerScore == score)
+                                    {
+                                    <option value="@(score)" selected> @(score)</option>
+                                    }
+                                    else
+                                    {
+                                    <option value="@(score)"> @(score)</option>
+                                    }
+                                }
+                        </InputSelect>
+                    </td>
+                    <td>
+                        <InputSelect @bind-Value="Options.StreetwiseScoreCode">
+                            @for (var score = -6; score <= 8; score++)
+                                {
+                                    if (Options.StreetwiseScore == score)
+                                    {
+                                    <option value="@(score)" selected> @(score)</option>
+                                    }
+                                    else
+                                    {
+                                    <option value="@(score)"> @(score)</option>
+                                    }
+                                }
+                        </InputSelect>
+                    </td>
+                </tr>
+            </table>
+        </EditForm>
+    </div>
+
+    @if (Store != null)
+    {
+        <div>&nbsp;</div>
+
+        @foreach (var section in Store.Sections.OrderBy(s => s.Name))
+        {
+
+            if (string.IsNullOrEmpty(StoreTypeFilter) || StoreTypeFilter == section.Name)
+            {
+                <a name="@(section.Key)">
+                    <h3>
+                        @(section.Name)
+                        <a @onclick="Reroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
+                        <a @onclick="Permalink" href="@(Permalink())" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
+                    </h3>
+                </a>
+
+                if (section.Items.Count > 0)
+                {
+                    var showMass = section.Items.Any(i => !string.IsNullOrEmpty(i.Mass));
+                    var showLaw = section.Items.Any(i => i.Law > 0);
+                    var showBM = section.Items.Any(i => i.BlackMarket || i.SentencingDM.HasValue);
+                    var showSkill = section.Items.Any(i => !string.IsNullOrEmpty(i.Skill));
+                    var showAmmoPrice = section.Items.Any(i => i.AmmoPrice > 0);
+
+                    <table class="gridtable">
+                        <tr>
+                            <th>Name</th>
+                            <th>TL</th>
+                            @if (showMass)
+                            {
+                                <th>Mass</th>
+                            }
+                            <th>Price</th>
+                            @if (showAmmoPrice)
+                            {
+                                <th>Ammo Price</th>
+                            }
+                            @if (!Store.Options.AutoRoll)
+                            {
+                                <th>Availability Roll</th>
+                            }
+                            @if (showLaw)
+                            {
+                                <th>Law</th>
+                            }
+                            @if (showBM)
+                            {
+                                <th>Black Market</th>
+                                <th>Sentencing DM</th>
+                            }
+                            <th>Book (page)</th>
+                            @if (showSkill)
+                            {
+                                <th>Skill</th>
+                            }
+                        </tr>
+
+                        @foreach (var item in section.Items.OrderBy(s => s.Name).ThenBy(s => s.TechLevel))
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.TechLevel</td>
+                                @if (showMass)
+                                {
+                                    <td>@item.Mass</td>
+                                }
+                                <td align="right">@item.Price.ToString("N0")</td>
+                                @if (showAmmoPrice)
+                                {
+                                    if (item.AmmoPrice > 0)
+                                    {
+                                        <td align="right">@item.AmmoPrice.ToString("N0")</td>
+                                    }
+                                    else
+                                    {
+                                        <td>-</td>
+                                    }
+                                }
+                                @if (!Store.Options.AutoRoll)
+                                {
+                                    <td>@item.Availability</td>
+                                }
+                                @if (showLaw)
+                                {
+                                    <td>@(item.Law )</td>
+                                }
+                                @if (showBM)
+                                {
+                                    <td>@(item.BlackMarket ? "Category " + item.Category : "")</td>
+                                    <td>@(item.SentencingDM)</td>
+                                }
+                                <td>@(item.BookAndPage)</td>
+                                @if (showSkill)
+                                {
+                                    <td>@(item.Skill)</td>
+                                }
+                            </tr>
+                        }
+                    </table>
+                }
+
+                foreach (var subsection in section.Subsections.OrderBy(s => s.Name))
+                {
+                    if (section.Name != subsection.Name)
+                    {
+                        <a name="@(subsection.Key)"><h4>@(subsection.Name)</h4></a>
+                    }
+
+                    if (subsection.Items.Count > 0)
+                    {
+                        var showMass = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Mass));
+                        var showLaw = subsection.Items.Any(i => i.Law > 0);
+                        var showBM = subsection.Items.Any(i => i.BlackMarket || i.SentencingDM.HasValue);
+                        var showSkill = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Skill));
+                        var showAmmoPrice = subsection.Items.Any(i => i.AmmoPrice > 0);
+
+                        <table class="gridtable">
+                            <tr>
+                                <th>Name</th>
+                                <th>TL</th>
+                                @if (showMass)
+                                {
+                                    <th>Mass</th>
+                                }
+                                <th>Price</th>
+                                @if (showAmmoPrice)
+                                {
+                                    <th>Ammo Price</th>
+                                }
+                                @if (!Store.Options.AutoRoll)
+                                {
+                                    <th>Availability Roll</th>
+                                }
+                                @if (showLaw)
+                                {
+                                    <th>Law</th>
+                                }
+                                @if (showBM)
+                                {
+                                    <th>Black Market</th>
+                                    <th>Sentencing DM</th>
+                                }
+                                <th>Book (page)</th>
+                                @if (showSkill)
+                                {
+                                    <th>Skill</th>
+                                }
+                            </tr>
+
+                            @foreach (var item in subsection.Items.OrderBy(s => s.Name).ThenBy(s => s.TechLevel))
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.TechLevel</td>
+                                    @if (showMass)
+                                    {
+                                        <td>@item.Mass</td>
+                                    }
+                                    <td align="right">@item.Price.ToString("N0")</td>
+                                    @if (showAmmoPrice)
+                                    {
+                                        if (item.AmmoPrice > 0)
+                                        {
+                                            <td align="right">@item.AmmoPrice.ToString("N0")</td>
+                                        }
+                                        else
+                                        {
+                                            <td>-</td>
+                                        }
+                                    }
+                                    @if (!Store.Options.AutoRoll)
+                                    {
+                                        <td>@item.Availability</td>
+                                    }
+                                    @if (showLaw)
+                                    {
+                                        <td>@(item.Law )</td>
+                                    }
+                                    @if (showBM)
+                                    {
+                                        <td>@(item.BlackMarket ? "Category " + item.Category : "")</td>
+                                        <td>@(item.SentencingDM)</td>
+                                    }
+                                    <td>@(item.BookAndPage)</td>
+                                    @if (showSkill)
+                                    {
+                                        <td>@(item.Skill)</td>
+                                    }
+                                </tr>
+                            }
+                        </table>
+                    }
+                    <div>&nbsp;</div>
+                }
+
+            }
+        }
+    }
+
+}
+else if (LoadFailed)
+{
+    <h1>Error loading page.</h1>
+}
+else
+{
+    <h1>Loading</h1>
+}

@@ -13,9 +13,8 @@ namespace Grauenwolf.TravellerTools.Tests
         public void EquipmentTest1()
         {
             var eb = new EquipmentBuilder(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
-            var options = new StoreOptions() { LawLevel = 2, Population = 6, Starport = "B", TechLevel = 10, Roll = true };
+            var options = new StoreOptions() { LawLevel = 2, Population = 6, Starport = 'B', TechLevel = 10, AutoRoll = true };
             var store = eb.AvailabilityTable(options);
-
 
             foreach (var section in store.Sections)
                 foreach (var item in section.Items)
