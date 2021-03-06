@@ -89,13 +89,12 @@
 
             if (string.IsNullOrEmpty(StoreTypeFilter) || StoreTypeFilter == section.Name)
             {
-                <a name="@(section.Key)">
-                    <h3>
-                        @(section.Name)
-                        <a @onclick="Reroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
-                        <a @onclick="Permalink" href="@(Permalink())" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
-                    </h3>
-                </a>
+
+                <h3>
+                    @(section.Name)
+                    <a @onclick="Reroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
+                    <a @onclick="Permalink" href="@(Permalink())" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
+                </h3>
 
                 if (section.Items.Count > 0)
                 {
@@ -188,7 +187,7 @@
                 {
                     if (section.Name != subsection.Name)
                     {
-                        <a name="@(subsection.Key)"><h4>@(subsection.Name)</h4></a>
+                        <h4>@(subsection.Name)</h4>
                     }
 
                     if (subsection.Items.Count > 0)

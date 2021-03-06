@@ -3,9 +3,10 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Xml.Serialization;
 
+#nullable disable
+
 namespace Grauenwolf.TravellerTools.Equipment
 {
-
     /// <remarks/>
     [Serializable()]
     [DesignerCategory("code")]
@@ -13,7 +14,6 @@ namespace Grauenwolf.TravellerTools.Equipment
     [XmlRoot(Namespace = "", IsNullable = false)]
     public partial class Catalog
     {
-
         /// <remarks/>
         [XmlElement("Section")]
         public CatalogSection[] Section { get; set; }
@@ -25,7 +25,6 @@ namespace Grauenwolf.TravellerTools.Equipment
     [XmlType(AnonymousType = true)]
     public partial class CatalogSection
     {
-
         /// <remarks/>
         [XmlElement("Item")]
         public CatalogSectionItem[] Item { get; set; }
@@ -60,7 +59,6 @@ namespace Grauenwolf.TravellerTools.Equipment
 
         [XmlAttribute()]
         public string Mod { get; set; }
-
     }
 
     /// <remarks/>
@@ -69,7 +67,6 @@ namespace Grauenwolf.TravellerTools.Equipment
     [XmlType(AnonymousType = true)]
     public partial class CatalogSectionItem
     {
-
         /// <remarks/>
         [XmlAttribute()]
         public string Name { get; set; }
@@ -86,7 +83,6 @@ namespace Grauenwolf.TravellerTools.Equipment
 
         [XmlAttribute()] public string Mass { get; set; }
 
-        
         public decimal PriceCredits
         {
             get
@@ -107,11 +103,10 @@ namespace Grauenwolf.TravellerTools.Equipment
                 catch (Exception ex)
                 {
                     throw new BookException($"Cannot parse price of '{Price}'", ex);
-
                 }
-
             }
         }
+
         public decimal AmmoPriceCredits
         {
             get
@@ -132,10 +127,10 @@ namespace Grauenwolf.TravellerTools.Equipment
                 catch (Exception ex)
                 {
                     throw new BookException($"Cannot parse price of '{AmmoPrice}'", ex);
-
                 }
             }
         }
+
         /// <remarks/>
         [XmlAttribute()] public string Law { get; set; }
 
@@ -149,15 +144,10 @@ namespace Grauenwolf.TravellerTools.Equipment
 
         [XmlAttribute()] public string Page { get; set; }
 
-
-
         [XmlAttribute()] public string Skill { get; set; }
-
 
         [XmlAttribute()] public string Computer { get; set; }
         [XmlAttribute()] public string Difficulty { get; set; }
         [XmlAttribute()] public string Bandwidth { get; set; }
     }
-
-
 }

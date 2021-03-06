@@ -81,7 +81,7 @@ namespace Grauenwolf.TravellerTools.Equipment
                         var subsection = section.Subsections.SingleOrDefault(s => s.Name == subsectionXml.Name);
                         if (subsection == null)
                         {
-                            subsection = new Subsection() { Name = subsectionXml.Name, SectionKey = section.Key };
+                            subsection = new Subsection() { Name = subsectionXml.Name /*, SectionKey = section.Key*/ };
                             section.Subsections.Add(subsection);
                         }
 
@@ -111,7 +111,7 @@ namespace Grauenwolf.TravellerTools.Equipment
             return result;
         }
 
-        private static string ReadString(string arg1, string arg2)
+        private static string? ReadString(string? arg1, string? arg2)
         {
             if (!string.IsNullOrWhiteSpace(arg1))
                 return arg1;
@@ -122,7 +122,7 @@ namespace Grauenwolf.TravellerTools.Equipment
             return null;
         }
 
-        private static int ParseInt(string arg1, string arg2)
+        private static int ParseInt(string? arg1, string? arg2)
         {
             if (!string.IsNullOrWhiteSpace(arg1))
                 return int.Parse(arg1);

@@ -12,22 +12,22 @@
 
         public int Category { get; set; }
 
-        public string Mod { get; set; }
+        public string? Mod { get; set; }
 
-        public string Book { get; set; }
+        public string? Book { get; set; }
 
         public int Availability { get; set; }
         public bool BlackMarket { get; set; }
         public int? SentencingDM { get; set; }
 
-        public string Mass { get; set; }
+        public string? Mass { get; set; }
         public decimal AmmoPrice { get; set; }
-        public string Skill { get; set; }
-        public string Page { get; set; }
+        public string? Skill { get; set; }
+        public string? Page { get; set; }
 
         public bool NotAvailable { get; set; }
 
-        public string BookAndPage => string.IsNullOrEmpty(Page) ? Book : $"{Book} ({Page})";
+        public string? BookAndPage => string.IsNullOrEmpty(Page) ? Book : $"{Book} ({Page})";
         public string? PriceModifier { get; set; }
 
         public override string ToString()
