@@ -77,7 +77,7 @@
                             }
                         }
                     </InputSelect>
-                    <button disabled="disabled">Subsector Info</button>
+                    <button @onclick="GotoSubsector" disabled="@(SubsectorNotSelected)">Subsector Info</button>
                 </td>
             </tr>
             <tr>

@@ -10,11 +10,11 @@ namespace Grauenwolf.TravellerTools.Web.Controls
 {
     partial class WorldPicker
     {
-        protected bool SectorNotSelected => Model!.SelectedSector == null;
+        protected bool SectorNotSelected => Model.SelectedSector == null;
 
-        protected bool SubsectorNotSelected => Model!.SelectedSubsector == null;
+        protected bool SubsectorNotSelected => Model.SelectedSubsector == null;
 
-        protected bool WorldNotSelected => Model!.SelectedWorld == null;
+        protected bool WorldNotSelected => Model.SelectedWorld == null;
 
         //PlanetPickerOptions Model { get; } = new PlanetPickerOptions();
         [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
@@ -24,16 +24,23 @@ namespace Grauenwolf.TravellerTools.Web.Controls
         protected void GotoPlanet() => GotoPlanet("info"); protected void GotoPlanet(string suffix)
 
         {
-            if (Model!.SelectedMilieuCode == null || Model!.SelectedSectorHex == null || Model!.SelectedWorldHex == null)
+            if (Model.SelectedMilieuCode == null || Model.SelectedSectorHex == null || Model.SelectedWorldHex == null)
                 return;
-            Navigation.NavigateTo($"/world/{Model!.SelectedMilieuCode}/{Model!.SelectedSectorHex}/{Model!.SelectedWorldHex}/{suffix}");
+            Navigation.NavigateTo($"/world/{Model.SelectedMilieuCode}/{Model.SelectedSectorHex}/{Model.SelectedWorldHex}/{suffix}");
         }
 
         protected void GotoSector()
         {
-            if (Model!.SelectedMilieuCode == null || Model!.SelectedSectorHex == null)
+            if (Model.SelectedMilieuCode == null || Model.SelectedSectorHex == null)
                 return;
-            Navigation.NavigateTo($"/world/{Model!.SelectedMilieuCode}/{Model!.SelectedSectorHex}");
+            Navigation.NavigateTo($"/world/{Model.SelectedMilieuCode}/{Model.SelectedSectorHex}");
+        }
+
+        protected void GotoSubsector()
+        {
+            if (Model.SelectedMilieuCode == null || Model.SelectedSectorHex == null || Model.SelectedSubsectorIndex == null)
+                return;
+            Navigation.NavigateTo($"/world/{Model.SelectedMilieuCode}/{Model.SelectedSectorHex}/subsector/{Model.SelectedSubsectorIndex}");
         }
 
         protected void GotoShopping() => GotoPlanet("store");
@@ -59,7 +66,7 @@ namespace Grauenwolf.TravellerTools.Web.Controls
 
         async Task OnMilieuChangedAsync()
         {
-            if (Model!.SelectedMilieu == null)
+            if (Model.SelectedMilieu == null)
                 Model.SelectedMilieu = Milieu.DefaultMilieu;
 
             var service = TravellerMapServiceLocator.GetMapService(Model.SelectedMilieu!);
@@ -68,7 +75,7 @@ namespace Grauenwolf.TravellerTools.Web.Controls
 
         async Task OnSectorChangedAsync()
         {
-            if (Model!.SelectedSector == null)
+            if (Model.SelectedSector == null)
             {
                 Model.SubsectorList = Array.Empty<Subsector>();
                 Model.WorldList = Array.Empty<World>();
@@ -85,7 +92,7 @@ namespace Grauenwolf.TravellerTools.Web.Controls
 
         async Task OnSubsectorChangedAsync()
         {
-            if (Model!.SelectedSector == null || Model.SelectedSubsector == null)
+            if (Model.SelectedSector == null || Model.SelectedSubsector == null)
             {
                 Model.WorldList = Array.Empty<World>();
                 Model.SelectedWorld = null;
