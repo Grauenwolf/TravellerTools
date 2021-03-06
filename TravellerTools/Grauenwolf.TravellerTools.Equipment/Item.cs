@@ -25,10 +25,10 @@
         public string Skill { get; set; }
         public string Page { get; set; }
 
-
         public bool NotAvailable { get; set; }
 
         public string BookAndPage => string.IsNullOrEmpty(Page) ? Book : $"{Book} ({Page})";
+        public string? PriceModifier { get; set; }
 
         public override string ToString()
         {

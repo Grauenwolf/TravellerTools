@@ -161,19 +161,18 @@ namespace Grauenwolf.TravellerTools.Equipment
                 Page = itemXml.Page ?? sectionXml.Page
             };
             var options1 = options;
-            var item1 = item;
-            if (item1.Category == 0)
-                item1.Category = 1; //force a minimum category
+            if (item.Category == 0)
+                item.Category = 1; //force a minimum category
 
             var availabilityDM = 0;
-            if (string.Equals(item1.Mod, "Specialized", OrdinalIgnoreCase))
+            if (string.Equals(item.Mod, "Specialized", OrdinalIgnoreCase))
                 availabilityDM += -1;
-            if (string.Equals(item1.Mod, "Military", OrdinalIgnoreCase))
+            if (string.Equals(item.Mod, "Military", OrdinalIgnoreCase))
                 availabilityDM += -2;
 
-            var techDiff = options1.TechLevel.Value - item1.TechLevel;
+            var techDiff = options1.TechLevel.Value - item.TechLevel;
 
-            if (techDiff < 0) item1.NotAvailable = true;  //item is not available.
+            if (techDiff < 0) item.NotAvailable = true;  //item is not available.
             else if (3 <= techDiff && techDiff <= 4) availabilityDM += -1;
             else if (5 <= techDiff && techDiff <= 9) availabilityDM += -2;
             else if (10 <= techDiff) availabilityDM += -4;
@@ -190,9 +189,9 @@ namespace Grauenwolf.TravellerTools.Equipment
             else if (9 <= options1.Population && options1.Population <= 11) availabilityDM += 1;
             else if (12 <= options1.Population) availabilityDM += 2;
 
-            if (item1.Law > 0 && options1.LawLevel >= item1.Law)
+            if (item.Law > 0 && options1.LawLevel >= item.Law)
             {
-                item1.BlackMarket = true;
+                item.BlackMarket = true;
 
                 if (options1.LawLevel == 0) availabilityDM += 2;
                 else if (1 <= options1.LawLevel && options1.LawLevel <= 3) availabilityDM += 1;
@@ -200,24 +199,54 @@ namespace Grauenwolf.TravellerTools.Equipment
                 else if (7 <= options1.LawLevel && options1.LawLevel <= 9) availabilityDM += -1;
                 else if (10 <= options1.LawLevel) availabilityDM += -2;
 
-                switch (item1.Category)
+                switch (item.Category)
                 {
-                    case 1: availabilityDM += 4; item1.Price *= 2; break;
-                    case 2: availabilityDM += 2; item1.Price *= 3; break;
-                    case 3: availabilityDM += 0; item1.Price *= 5; break;
-                    case 4: availabilityDM += -2; item1.Price *= 10; break;
-                    case 5: availabilityDM += -4; item1.Price *= 20; break;
-                    case 6: availabilityDM += -6; item1.Price *= 10 * dice.D(2, 6); break;
-                }
+                    case 1:
+                        availabilityDM += 4;
+                        item.Price *= 2;
+                        item.PriceModifier = "Illegal item, 2x black market price in effect. ";
+                        break;
 
-                item1.SentencingDM = (options1.LawLevel.Value - item1.Law) + item1.Category;
+                    case 2:
+                        availabilityDM += 2;
+                        item.Price *= 3;
+                        item.PriceModifier = "Illegal item, 3x black market price in effect. ";
+                        break;
+
+                    case 3:
+                        availabilityDM += 0;
+                        item.Price *= 5;
+                        item.PriceModifier = "Illegal item, 5x black market price in effect. ";
+                        break;
+
+                    case 4:
+                        availabilityDM += -2;
+                        item.Price *= 10;
+                        item.PriceModifier = "Illegal item, 10x black market price in effect. ";
+                        break;
+
+                    case 5:
+                        availabilityDM += -4;
+                        item.Price *= 20;
+                        item.PriceModifier = "Illegal item, 20x black market price in effect. ";
+                        break;
+
+                    case 6:
+                        availabilityDM += -6;
+                        var penality = 10 * dice.D(2, 6);
+                        item.Price *= penality;
+                        item.PriceModifier = $"Illegal item, {penality}x black market price in effect. ";
+                        break;
+                }
+                if (item.Category >= 1 && item.Category <= 6)
+                    item.SentencingDM = (options1.LawLevel.Value - item.Law) + item.Category;
             }
 
-            if (item1.BlackMarket)
+            if (item.BlackMarket)
                 availabilityDM += options1.StreetwiseScore;
             else
                 availabilityDM += Math.Max(options1.BrokerScore, options1.StreetwiseScore);
-            item1.Availability = 8 - availabilityDM;
+            item.Availability = 8 - availabilityDM;
 
             if (item.NotAvailable)
             {
@@ -235,11 +264,13 @@ namespace Grauenwolf.TravellerTools.Equipment
                 else if (roll == -1)
                 {
                     item.Price *= 2;
+                    item.PriceModifier += "Rare item, price was doubled.";
                     section.Items.Add(item);
                 }
                 else if (roll == -2)
                 {
                     item.Price *= 3;
+                    item.PriceModifier += "Very rare item, price was tripled.";
                     section.Items.Add(item);
                 }
             }

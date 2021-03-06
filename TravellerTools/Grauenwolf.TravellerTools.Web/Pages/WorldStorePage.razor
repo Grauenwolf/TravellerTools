@@ -147,7 +147,9 @@
                                 {
                                     <td>@item.Mass</td>
                                 }
-                                <td align="right">@item.Price.ToString("N0")</td>
+                                <td style="@( string.IsNullOrEmpty(item.PriceModifier) ? "" : "background-color:palegoldenrod")" align="right" title="@item.PriceModifier">
+                                    @item.Price.ToString("N0")
+                                </td>
                                 @if (showAmmoPrice)
                                 {
                                     if (item.AmmoPrice > 0)
@@ -239,7 +241,10 @@
                                     {
                                         <td>@item.Mass</td>
                                     }
-                                    <td align="right">@item.Price.ToString("N0")</td>
+                                    <td style="@( string.IsNullOrEmpty(item.PriceModifier) ? "" : "background-color:palegoldenrod")" align="right" title="@item.PriceModifier">
+                                        @item.Price.ToString("N0")
+                                    </td>
+
                                     @if (showAmmoPrice)
                                     {
                                         if (item.AmmoPrice > 0)
