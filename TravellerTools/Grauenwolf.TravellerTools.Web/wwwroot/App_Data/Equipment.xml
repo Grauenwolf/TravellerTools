@@ -873,7 +873,7 @@
       <Item Name="Stagger Laser Rifle (TL12)" TL="12" Price="Cr10000" Mass="6" Page="118" />
       <Item Name="Stagger Laser Rifle (TL14)" TL="14" Price="Cr15000" Mass="5" Page="118" />
     </Subsection>
-    <Subsection Name="Grenade Weapons" Law="2" Category="3" Skill="Heavy Weapons(Man Portable)">
+    <Subsection Name="Grenade Weapons" Law="1" Category="4" Skill="Heavy Weapons(Man Portable)">
       <Item Name="Aerosol" TL="9" Price="Cr15" Mass=".5" Page="119" />
       <Item Name="Baton" TL="7" Price="Cr10" Mass=".5" Page="119" />
       <Item Name="Electromagnetic Pulse" TL="9" Price="Cr100" Mass=".5" Page="119" />
@@ -943,18 +943,18 @@
       <Item Name="Riot Shield" TL="6" Price="Cr175" Mass="4" Page="107" />
       <Item Name="Shield" TL="1" Price="Cr150" Mass="6" Page="107" />
     </Subsection>
-    <Subsection Name="Slug Pistols" Law="2" Category="4" Skill="Gun Combat (slug)">
+    <Subsection Name="Slug Pistols" Law="5" Category="2" Skill="Gun Combat (slug)">
       <Item Name="Antique Pistol" TL="3" Price="Cr100" Mass="1" Page="108" />
-      <Item Name="Assault Pistol" TL="6" Price="Cr250" Mass="1" Page="108" />
+      <Item Name="Assault Pistol" Law="4" Category="3" TL="6" Price="Cr250" Mass="1" Page="108" />
       <Item Name="Autopistol" TL="6" Price="Cr200" Mass="1" Page="108" />
-      <Item Name="Body Pistol" TL="8" Price="Cr500" Page="109" />
+      <Item Name="Body Pistol" Law="1" TL="8" Price="Cr500" Page="109" />
       <Item Name="Cartridge Pistol" TL="7" Price="Cr300" Mass="1.5" Page="109" />
       <Item Name="Coach Pistol" TL="3" Price="Cr200" Mass="2" Page="109" />
       <Item Name="Duck's Foot Pistol" TL="3" Price="Cr300" Mass="2" Page="109" />
       <Item Name="Flechette Pistol" TL="9" Price="Cr275" Mass="1" Page="109" />
-      <Item Name="Gauss Pistol" TL="13" Price="Cr500" Mass="1" Page="110" />
+      <Item Name="Gauss Pistol" Law="4" Category="4" TL="13" Price="Cr500" Mass="1" Page="110" />
       <Item Name="Heavy Revolver" TL="6" Price="Cr400" Mass="1.5" Page="110" />
-      <Item Name="Magrail Pistol" TL="14" Price="Cr750" Mass="1" Page="110" />
+      <Item Name="Magrail Pistol" Law="4" Category="4" TL="14" Price="Cr750" Mass="1" Page="110" />
       <Item Name="Revolver" TL="5" Price="Cr150" Mass="1" Page="110" />
       <Item Name="Shot Pistol" TL="5" Price="Cr60" Mass=".5" Page="110" />
       <Item Name="Snub Pistol" TL="8" Price="Cr150" Page="110" />
@@ -963,25 +963,25 @@
     </Subsection>
     <Subsection Name="Slug Rifles" Law="6" Category="2" Skill="Gun Combat (slug)">
       <Item Name="Accelerator Rifle" TL="9" Price="Cr900" Mass="2" Page="111" />
-      <Item Name="Advanced Combat Rifle" TL="10" Price="Cr1000" Mass="3" Mod="Military" Category="4" Page="111" />
+      <Item Name="Advanced Combat Rifle" Law="3" TL="10" Price="Cr1000" Mass="3" Mod="Military" Category="4" Page="111" />
       <Item Name="Air Rifle (TL3)" TL="3" Price="Cr225" Mass="4" Page="112" />
       <Item Name="Air Rifle (TL4)" TL="4" Price="Cr350" Mass="5" Page="112" />
       <Item Name="Antique Rifle" TL="3" Price="Cr150" Mass="6" Page="112" />
-      <Item Name="Assault Rifle" TL="7" Price="Cr500" Mass="4" Mod="Military" Category="3" Page="112" />
-      <Item Name="Assault Shotgun" TL="6" Price="Cr500" Mass="5" Mod="Military" Category="3" Page="112" />
-      <Item Name="Autorifle" TL="6" Price="Cr750" Mass="5" Mod="Military" Category="3" Page="112" />
+      <Item Name="Assault Rifle" Law="4" TL="7" Price="Cr500" Mass="4" Mod="Military" Category="3" Page="112" />
+      <Item Name="Assault Shotgun" Law="3" TL="6" Price="Cr500" Mass="5" Mod="Military" Category="3" Page="112" />
+      <Item Name="Autorifle" Law="3" TL="6" Price="Cr750" Mass="5" Mod="Military" Category="3" Page="112" />
       <Item Name="Big Game Rifle" TL="5" Price="Cr1250" Mass="9" Page="113" />
-      <Item Name="Flechette Submachine Gun" TL="9" Price="Cr500" Mass="3" Category="3" Page="113" />
-      <Item Name="Gauss Rifle" TL="12" Price="Cr1500" Mass="4" Mod="Military" Category="4" Page="113" />
-      <Item Name="Gauss Sniper Rifle" TL="12" Price="Cr2500" Mass="4" Mod="Military" Category="4" Page="113" />
-      <Item Name="Heavy Advanced Combat Rifle" TL="10" Price="Cr2000" Mass="5" Mod="Military" Category="4" Page="113" />
-      <Item Name="Magrail Rifle" TL="14" Price="Cr2500" Mass="4" Category="4" Page="114" />
+      <Item Name="Flechette Submachine Gun" Law="4" TL="9" Price="Cr500" Mass="3" Category="3" Page="113" />
+      <Item Name="Gauss Rifle" Law="3" TL="12" Price="Cr1500" Mass="4" Mod="Military" Category="4" Page="113" />
+      <Item Name="Gauss Sniper Rifle" Law="3" TL="12" Price="Cr2500" Mass="4" Mod="Military" Category="4" Page="113" />
+      <Item Name="Heavy Advanced Combat Rifle" Law="3" TL="10" Price="Cr2000" Mass="5" Mod="Military" Category="4" Page="113" />
+      <Item Name="Magrail Rifle" Law="3" TL="14" Price="Cr2500" Mass="4" Category="4" Page="114" />
       <Item Name="Rifle" TL="5" Price="Cr200" Mass="5" Page="114" />
-      <Item Name="Sawed-Off Shotgun" TL="5" Price="Cr200" Mass="2" Page="114" />
-      <Item Name="Shotgun" TL="4" Price="Cr200" Mass="4" Page="114" />
+      <Item Name="Sawed-Off Shotgun" Law="7" TL="5" Price="Cr200" Mass="2" Page="114" />
+      <Item Name="Shotgun" Law="7" TL="4" Price="Cr200" Mass="4" Page="114" />
       <Item Name="Sniper Rifle" TL="8" Price="Cr700" Mass="5" Page="114" />
       <Item Name="Spear Gun" TL="6" Price="Cr50" Mass="2" Page="114" />
-      <Item Name="Submachine Gun" TL="6" Price="Cr400" Mass="3" Category="3" Page="115" />
+      <Item Name="Submachine Gun" Law="4" TL="6" Price="Cr400" Mass="3" Category="3" Page="115" />
     </Subsection>
   </Section>
   <Section Name="Weapons" Book="CSC2">
