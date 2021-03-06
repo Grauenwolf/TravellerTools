@@ -6,7 +6,6 @@ namespace Grauenwolf.TravellerTools.Equipment
     {
         public List<Section> Sections { get; } = new List<Section>();
 
-        public StoreOptions Options { get; set; }
-
+        public StoreOptions? Options { get; set; }
     }
 }

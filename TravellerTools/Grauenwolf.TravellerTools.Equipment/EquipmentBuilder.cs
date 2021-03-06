@@ -18,7 +18,7 @@ namespace Grauenwolf.TravellerTools.Equipment
             var converter = new XmlSerializer(typeof(Catalog));
 
             using (var stream = file.OpenRead())
-                m_Book = (Catalog)converter.Deserialize(stream);
+                m_Book = (Catalog)converter.Deserialize(stream)!;
         }
 
         public Store AvailabilityTable(World world)

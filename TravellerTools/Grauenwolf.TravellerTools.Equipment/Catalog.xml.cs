@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Xml.Serialization;
 
 #nullable disable
+#pragma warning disable RCS1139 // Add summary element to documentation comment.
 
 namespace Grauenwolf.TravellerTools.Equipment
 {
