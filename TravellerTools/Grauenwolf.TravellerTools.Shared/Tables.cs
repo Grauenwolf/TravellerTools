@@ -64,6 +64,62 @@ namespace Grauenwolf.TravellerTools
             }
         }
 
+        public static EHex? RestrictedTechLevel(EHex lawCode)
+        {
+            switch (lawCode.ToString())
+            {
+                case "0": return null;
+                case "1": return null;
+                case "2": return null;
+                case "3": return 15;
+                case "4": return 13;
+                case "5": return 11;
+                case "6": return 9;
+                case "7": return 7;
+                case "8": return 5;
+                default: return 3;
+            }
+        }
+
+        public static List<string> GovernmentContraband(EHex governmentCode)
+        {
+            switch (governmentCode.ToString())
+            {
+                case "0": return new List<string>();
+                case "1": return new List<string>() { "Weapons", "Drugs", "Travellers", "Technology", "Psionics" };
+                case "2": return new List<string>() { "Drugs" };
+                case "3": return new List<string>() { "Weapons", "Travellers", "Technology" };
+                case "4": return new List<string>() { "Weapons", "Drugs", "Psionics" };
+                case "5": return new List<string>() { "Weapons", "Technology", "Information" };
+                case "6": return new List<string>() { "Weapons", "Travellers", "Technology" };
+                case "7": return new List<string>() { "Varies" };
+                case "8": return new List<string>() { "Weapons", "Drugs" };
+                case "9": return new List<string>() { "Weapons", "Drugs", "Travellers", "Technology", "Psionics", "Information" };
+                case "A": return new List<string>();
+                case "B": return new List<string>() { "Weapons", "Technology", "Information" };
+                case "C": return new List<string>() { "Weapons" };
+                case "D": return new List<string>() { "Varies" };
+                case "E": return new List<string>() { "Varies" };
+                case "F": return new List<string>() { "Varies" };
+                case "G":
+                case "H":
+                case "J":
+                case "K":
+                case "L":
+                case "M":
+                case "N":
+                case "P":
+                case "Q":
+                case "R":
+                case "S":
+                case "T":
+                case "U":
+                case "W":
+                case "X":
+                default: return new List<string>() { };
+            }
+        }
+
         public static string GovernmentDescription(EHex governmentCode)
         {
             switch (governmentCode.ToString())

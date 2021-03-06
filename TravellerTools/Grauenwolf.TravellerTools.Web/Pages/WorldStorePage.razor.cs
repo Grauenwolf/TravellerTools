@@ -43,15 +43,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
         public string? StoreTypeFilter { get => Get<string?>(); set => Set(value); }
 
-        public List<string> StoreTypeList
-        {
-            get
-            {
-                var result = new List<string>() { "" };
-                result.AddRange(EquipmentBuilder.GetSectionNames());
-                return result;
-            }
-        }
+        public List<string> StoreTypeList => EquipmentBuilder.GetSectionNames();
 
         protected override void Initialized()
         {
@@ -129,6 +121,16 @@ namespace Grauenwolf.TravellerTools.Web.Pages
                     goto ReturnToIndex;
 
                 Model = new WorldModel(milieu, world);
+
+                var restrictions = Tables.GovernmentContraband(Model.World.GovernmentCode);
+                Options.DrugsRestricted = restrictions.Contains("Drugs");
+                Options.WeaponsRestricted = restrictions.Contains("Weapons");
+                Options.TechnologyRestricted = restrictions.Contains("Technology");
+                Options.PsionicsRestricted = restrictions.Contains("Psionics");
+                Options.InformationRestricted = restrictions.Contains("Information");
+
+                //Reread from query string so we don't override user settings
+                Options.FromQueryString(Navigation.ParsedQueryString());
             }
 
             PageTitle = Model.World.Name ?? Uwp + " Store";
@@ -148,16 +150,24 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
             if (Seed != null)
             {
+                var restrictions = Tables.GovernmentContraband(Model.World.GovernmentCode);
+
                 var options = new Grauenwolf.TravellerTools.Equipment.StoreOptions()
                 {
                     BrokerScore = Options.BrokerScore,
                     LawLevel = Model.World.LawCode,
                     Population = Model.World.PopulationCode,
                     AutoRoll = Options.AutoRoll,
+                    DiscountPrices = Options.DiscountPrices,
                     Starport = Model.World.StarportCode,
                     StreetwiseScore = Options.StreetwiseScore,
                     TechLevel = Model.World.TechCode,
-                    Seed = Seed.Value
+                    Seed = Seed.Value,
+                    DrugsRestricted = Options.DrugsRestricted,
+                    WeaponsRestricted = Options.WeaponsRestricted,
+                    TechnologyRestricted = Options.TechnologyRestricted,
+                    PsionicsRestricted = Options.PsionicsRestricted,
+                    InformationRestricted = Options.InformationRestricted
                 };
                 options.TradeCodes.AddRange(Model.World.RemarksList);
 

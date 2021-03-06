@@ -18,6 +18,13 @@ namespace Grauenwolf.TravellerTools.Equipment
         public int StreetwiseScore { get; set; }
 
         public bool AutoRoll { get; set; }
+        public bool DiscountPrices { get; set; }
         public int? Seed { get; set; }
+
+        public bool WeaponsRestricted { get; set; }
+        public bool DrugsRestricted { get; set; }
+        public bool PsionicsRestricted { get; set; }
+        public bool TechnologyRestricted { get; set; }
+        public bool InformationRestricted { get; set; }
     }
 }

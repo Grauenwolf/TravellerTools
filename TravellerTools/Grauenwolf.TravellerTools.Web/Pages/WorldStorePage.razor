@@ -22,20 +22,15 @@
                     <th>Options</th>
                     <th>Broker Score</th>
                     <th>Streetwise Score</th>
+                    <th>Restrictions</th>
                 </tr>
                 <tr>
                     <td>
                         <InputSelect @bind-Value="StoreTypeFilter">
+                            <option value="">(all)</option>
                             @foreach (var item in StoreTypeList)
                                 {
-                                    if (StoreTypeFilter == item)
-                                    {
-                                    <option value="@(item)" selected> @(item)</option>
-                                    }
-                                    else
-                                    {
-                                    <option value="@(item)"> @(item)</option>
-                                    }
+                                <option value="@(item)" selected="@(StoreTypeFilter == item)"> @(item)</option>
                                 }
                         </InputSelect>
                     </td>
@@ -44,19 +39,17 @@
                             <InputCheckbox @bind-Value="Options.AutoRoll" />
                             Auto-Roll
                         </label>
+                        <br />
+                        <label title="If you check this, items are given a discount with a good availability roll.">
+                            <InputCheckbox disabled="@(!Options.AutoRoll)" @bind-Value="Options.DiscountPrices" />
+                            Discount Pricing
+                        </label>
                     </td>
                     <td>
                         <InputSelect @bind-Value="Options.BrokerScoreCode">
                             @for (var score = -6; score <= 8; score++)
                                 {
-                                    if (Options.BrokerScore == score)
-                                    {
-                                    <option value="@(score)" selected> @(score)</option>
-                                    }
-                                    else
-                                    {
-                                    <option value="@(score)"> @(score)</option>
-                                    }
+                                <option value="@(score)" selected="@(Options.BrokerScore == score)"> @(score)</option>
                                 }
                         </InputSelect>
                     </td>
@@ -64,16 +57,35 @@
                         <InputSelect @bind-Value="Options.StreetwiseScoreCode">
                             @for (var score = -6; score <= 8; score++)
                                 {
-                                    if (Options.StreetwiseScore == score)
-                                    {
-                                    <option value="@(score)" selected> @(score)</option>
-                                    }
-                                    else
-                                    {
-                                    <option value="@(score)"> @(score)</option>
-                                    }
+                                <option value="@(score)" selected="@(Options.StreetwiseScore == score)"> @(score)</option>
                                 }
                         </InputSelect>
+                    </td>
+                    <td>
+                        <label title="Weapons are restricted by Law Level.">
+                            <InputCheckbox @bind-Value="Options.WeaponsRestricted" />
+                            Weapons
+                        </label>
+                        &nbsp;
+                        <label title="Drugs are restricted by Law Level.">
+                            <InputCheckbox @bind-Value="Options.DrugsRestricted" />
+                            Drugs
+                        </label>
+                        &nbsp;
+                        <label title="Information is restricted by Law Level.">
+                            <InputCheckbox @bind-Value="Options.InformationRestricted" />
+                            Information
+                        </label>
+                        <br />
+                        <label title="Technology are restricted by Law Level.">
+                            <InputCheckbox @bind-Value="Options.TechnologyRestricted" />
+                            Technology
+                        </label>
+                        &nbsp;
+                        <label title="Psionics are restricted by Law Level.">
+                            <InputCheckbox @bind-Value="Options.PsionicsRestricted" />
+                            Psionics
+                        </label>
                     </td>
                 </tr>
             </table>
@@ -170,7 +182,11 @@
                                 }
                                 @if (showBM)
                                 {
-                                    <td>@(item.BlackMarket ? "Category " + item.Category : "")</td>
+                                    <td>
+                                        @(item.BlackMarket ? "Category " + item.Category : "")
+                                        <br />
+                                        @(item.LegalStatus)
+                                    </td>
                                     <td>@(item.SentencingDM)</td>
                                 }
                                 <td>@(item.BookAndPage)</td>
@@ -240,7 +256,7 @@
                                     {
                                         <td>@item.Mass</td>
                                     }
-                                    <td style="@( string.IsNullOrEmpty(item.PriceModifier) ? "" : "background-color:palegoldenrod")" align="right" title="@item.PriceModifier">
+                                    <td style="@( item.Price == item.BasePrice ? ""  : (item.Price > item.BasePrice ? "background-color:palegoldenrod" : "background-color:lightgreen" ))" align="right" title="@item.PriceModifier">
                                         @item.Price.ToString("N0")
                                     </td>
 
@@ -265,7 +281,11 @@
                                     }
                                     @if (showBM)
                                     {
-                                        <td>@(item.BlackMarket ? "Category " + item.Category : "")</td>
+                                        <td>
+                                            @(item.BlackMarket ? "Category " + item.Category : "")
+                                            <br />
+                                            @(item.LegalStatus)
+                                        </td>
                                         <td>@(item.SentencingDM)</td>
                                     }
                                     <td>@(item.BookAndPage)</td>

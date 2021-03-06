@@ -72,6 +72,7 @@ namespace Grauenwolf.TravellerTools.Equipment
                     {
                         subsectionXml.Book = subsectionXml.Book ?? sectionXml.Book;
                         subsectionXml.Category = ReadString(subsectionXml.Category, sectionXml.Category);
+                        subsectionXml.Contraband = ReadString(subsectionXml.Contraband, sectionXml.Contraband);
                         subsectionXml.Law = ReadString(subsectionXml.Law, sectionXml.Law);
                         subsectionXml.Mod = subsectionXml.Mod ?? sectionXml.Mod;
                         subsectionXml.Page = subsectionXml.Page ?? sectionXml.Page;
@@ -153,14 +154,15 @@ namespace Grauenwolf.TravellerTools.Equipment
                 Law = ParseInt(itemXml.Law, sectionXml.Law),
                 TechLevel = ParseInt(itemXml.TL, sectionXml.TL),
                 Price = itemXml.PriceCredits,
+                BasePrice = itemXml.PriceCredits,
                 Name = itemXml.Name,
                 Mod = itemXml.Mod ?? sectionXml.Mod,
+                Contraband = itemXml.Contraband ?? sectionXml.Contraband,
                 Mass = itemXml.Mass,
                 AmmoPrice = itemXml.AmmoPriceCredits,
                 Skill = itemXml.Skill ?? sectionXml.Skill,
                 Page = itemXml.Page ?? sectionXml.Page
             };
-            var options1 = options;
             if (item.Category == 0)
                 item.Category = 1; //force a minimum category
 
@@ -170,34 +172,66 @@ namespace Grauenwolf.TravellerTools.Equipment
             if (string.Equals(item.Mod, "Military", OrdinalIgnoreCase))
                 availabilityDM += -2;
 
-            var techDiff = options1.TechLevel.Value - item.TechLevel;
+            var techDiff = options.TechLevel.Value - item.TechLevel;
 
             if (techDiff < 0) item.NotAvailable = true;  //item is not available.
             else if (3 <= techDiff && techDiff <= 4) availabilityDM += -1;
             else if (5 <= techDiff && techDiff <= 9) availabilityDM += -2;
             else if (10 <= techDiff) availabilityDM += -4;
 
-            if (options1.Starport == 'A' || options1.Starport == 'B') availabilityDM += 1;
-            else if (options1.Starport == 'X') availabilityDM += -4;
+            if (options.Starport == 'A' || options.Starport == 'B') availabilityDM += 1;
+            else if (options.Starport == 'X') availabilityDM += -4;
 
-            if (options1.TradeCodes.Contains("Hi", OrdinalIgnoreCase) || options1.TradeCodes.Contains("Ht", OrdinalIgnoreCase) || options1.TradeCodes.Contains("In", OrdinalIgnoreCase) || options1.TradeCodes.Contains("Ri", OrdinalIgnoreCase)) availabilityDM += 2;
-            if (options1.TradeCodes.Contains("Lt", OrdinalIgnoreCase) || options1.TradeCodes.Contains("Na", OrdinalIgnoreCase) || options1.TradeCodes.Contains("NI", OrdinalIgnoreCase) || options1.TradeCodes.Contains("Po", OrdinalIgnoreCase)) availabilityDM += -2;
+            if (options.TradeCodes.Contains("Hi", OrdinalIgnoreCase) || options.TradeCodes.Contains("Ht", OrdinalIgnoreCase) || options.TradeCodes.Contains("In", OrdinalIgnoreCase) || options.TradeCodes.Contains("Ri", OrdinalIgnoreCase)) availabilityDM += 2;
+            if (options.TradeCodes.Contains("Lt", OrdinalIgnoreCase) || options.TradeCodes.Contains("Na", OrdinalIgnoreCase) || options.TradeCodes.Contains("NI", OrdinalIgnoreCase) || options.TradeCodes.Contains("Po", OrdinalIgnoreCase)) availabilityDM += -2;
 
-            if (options1.Population == 0) availabilityDM += -4;
-            else if (1 <= options1.Population && options1.Population <= 2) availabilityDM += -2;
-            else if (3 <= options1.Population && options1.Population <= 5) availabilityDM += -1;
-            else if (9 <= options1.Population && options1.Population <= 11) availabilityDM += 1;
-            else if (12 <= options1.Population) availabilityDM += 2;
+            if (options.Population == 0) availabilityDM += -4;
+            else if (1 <= options.Population && options.Population <= 2) availabilityDM += -2;
+            else if (3 <= options.Population && options.Population <= 5) availabilityDM += -1;
+            else if (9 <= options.Population && options.Population <= 11) availabilityDM += 1;
+            else if (12 <= options.Population) availabilityDM += 2;
 
-            if (item.Law > 0 && options1.LawLevel >= item.Law)
+            if (item.Law > 0 && options.LawLevel >= item.Law)
+            {
+                if (string.IsNullOrEmpty(item.Contraband))
+                {
+                    item.BlackMarket = true;
+                    item.LegalStatus += "Unclassified. ";
+                }
+                else if (item.Contraband == "Weapons" && options.WeaponsRestricted)
+                {
+                    item.BlackMarket = true;
+                    item.LegalStatus += "Weapons. ";
+                }
+                else if (item.Contraband == "Information" && options.InformationRestricted)
+                {
+                    item.BlackMarket = true;
+                    item.LegalStatus += "Information. ";
+                }
+                else if (item.Contraband == "Drugs" && options.DrugsRestricted)
+                {
+                    item.BlackMarket = true;
+                    item.LegalStatus += "Drugs. ";
+                }
+                else if (item.Contraband == "Psionics" && options.PsionicsRestricted)
+                {
+                    item.BlackMarket = true;
+                    item.LegalStatus += "Psionics. ";
+                }
+            }
+            if (options.TechnologyRestricted && item.TechLevel >= Tables.RestrictedTechLevel(options.LawLevel))
             {
                 item.BlackMarket = true;
+                item.LegalStatus += "Advanced Technology. ";
+            }
 
-                if (options1.LawLevel == 0) availabilityDM += 2;
-                else if (1 <= options1.LawLevel && options1.LawLevel <= 3) availabilityDM += 1;
-                else if (4 <= options1.LawLevel && options1.LawLevel <= 6) availabilityDM += 0;
-                else if (7 <= options1.LawLevel && options1.LawLevel <= 9) availabilityDM += -1;
-                else if (10 <= options1.LawLevel) availabilityDM += -2;
+            if (item.BlackMarket)
+            {
+                if (options.LawLevel == 0) availabilityDM += 2;
+                else if (1 <= options.LawLevel && options.LawLevel <= 3) availabilityDM += 1;
+                else if (4 <= options.LawLevel && options.LawLevel <= 6) availabilityDM += 0;
+                else if (7 <= options.LawLevel && options.LawLevel <= 9) availabilityDM += -1;
+                else if (10 <= options.LawLevel) availabilityDM += -2;
 
                 switch (item.Category)
                 {
@@ -239,13 +273,13 @@ namespace Grauenwolf.TravellerTools.Equipment
                         break;
                 }
                 if (item.Category >= 1 && item.Category <= 6)
-                    item.SentencingDM = (options1.LawLevel.Value - item.Law) + item.Category;
+                    item.SentencingDM = (options.LawLevel.Value - item.Law) + item.Category;
             }
 
             if (item.BlackMarket)
-                availabilityDM += options1.StreetwiseScore;
+                availabilityDM += options.StreetwiseScore;
             else
-                availabilityDM += Math.Max(options1.BrokerScore, options1.StreetwiseScore);
+                availabilityDM += Math.Max(options.BrokerScore, options.StreetwiseScore);
             item.Availability = 8 - availabilityDM;
 
             if (item.NotAvailable)
@@ -259,6 +293,11 @@ namespace Grauenwolf.TravellerTools.Equipment
                 var roll = dice.D(2, 6) - item.Availability;
                 if (roll >= 0)
                 {
+                    if (options.DiscountPrices && roll > 0)
+                    {
+                        item.Price *= (1 - (roll * .05M));
+                        item.PriceModifier += $"Common item, price reduced by {roll * 5}%";
+                    }
                     section.Items.Add(item);
                 }
                 else if (roll == -1)
@@ -274,6 +313,9 @@ namespace Grauenwolf.TravellerTools.Equipment
                     section.Items.Add(item);
                 }
             }
+            //Cleanup
+            item.PriceModifier = item.PriceModifier?.Trim();
+            item.LegalStatus = item.LegalStatus?.Trim();
         }
     }
 

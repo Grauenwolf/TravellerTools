@@ -7,8 +7,15 @@ namespace Grauenwolf.TravellerTools.Web.Data
     public class StoreOptions : ModelBase
     {
         public bool AutoRoll { get => GetDefault(false); set => Set(value); }
+        public bool DiscountPrices { get => GetDefault(false); set => Set(value); }
         public int BrokerScore { get => GetDefault(0); set => Set(value); }
         public int StreetwiseScore { get => GetDefault(0); set => Set(value); }
+
+        public bool WeaponsRestricted { get => GetDefault(false); set => Set(value); }
+        public bool DrugsRestricted { get => GetDefault(false); set => Set(value); }
+        public bool PsionicsRestricted { get => GetDefault(false); set => Set(value); }
+        public bool TechnologyRestricted { get => GetDefault(false); set => Set(value); }
+        public bool InformationRestricted { get => GetDefault(false); set => Set(value); }
 
         public string? BrokerScoreCode
         {
@@ -38,8 +45,14 @@ namespace Grauenwolf.TravellerTools.Web.Data
         {
             var result = new Dictionary<string, string?>();
             result.Add("autoRoll", AutoRoll.ToString());
+            result.Add("discountPrices", DiscountPrices.ToString());
             result.Add("brokerScore", BrokerScore.ToString());
             result.Add("streetwiseScore", StreetwiseScore.ToString());
+            result.Add("weapons", WeaponsRestricted.ToString());
+            result.Add("drugs", DrugsRestricted.ToString());
+            result.Add("technology", TechnologyRestricted.ToString());
+            result.Add("information", InformationRestricted.ToString());
+            result.Add("psionics", PsionicsRestricted.ToString());
 
             return result;
         }
@@ -52,6 +65,19 @@ namespace Grauenwolf.TravellerTools.Web.Data
                 BrokerScore = int.Parse(brokerScore);
             if (keyValuePairs.TryGetValue("streetwiseScore", out var streetwiseScore))
                 StreetwiseScore = int.Parse(streetwiseScore);
+            if (keyValuePairs.TryGetValue("discountPrices", out var discountPrices))
+                DiscountPrices = bool.Parse(discountPrices);
+
+            if (keyValuePairs.TryGetValue("weapons", out var weapons))
+                WeaponsRestricted = bool.Parse(weapons);
+            if (keyValuePairs.TryGetValue("drugs", out var drugs))
+                DrugsRestricted = bool.Parse(drugs);
+            if (keyValuePairs.TryGetValue("technology", out var technology))
+                TechnologyRestricted = bool.Parse(technology);
+            if (keyValuePairs.TryGetValue("information", out var information))
+                InformationRestricted = bool.Parse(information);
+            if (keyValuePairs.TryGetValue("psionics", out var psionics))
+                PsionicsRestricted = bool.Parse(psionics);
         }
     }
 }

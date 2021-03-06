@@ -77,7 +77,7 @@
       <Item Name="Terminal Stabilisation System" TL="16" Price="MCr2.5" Page="90" />
     </Subsection>
   </Section>
-  <Section Name="Discerning Weapons Specialist" Law="9" Book="CSC2">
+  <Section Name="Discerning Weapons Specialist" Law="9" Book="CSC2" Contraband="Weapons">
     <Subsection Name="Explosives" Skill="Explosives" Mod="Military" Law="1" Category="3">
       <Item Name="Breaching Charge" TL="8" Price="Cr250" Mass="1" Page="136" />
       <Item Name="Complex Chemical Charge" TL="10" Price="Cr500" Mass="1" Page="136" />
@@ -191,7 +191,7 @@
       <Item Name="Wrist Watch" TL="7" Price="Cr10" Page="64" />
       <Item Name="Wrist Watch" TL="9" Price="Cr150" Page="64" />
     </Subsection>
-    <Subsection Name="Software Packages">
+    <Subsection Name="Software Packages" Contraband="Information">
       <Item Name="Agent 0" TL="11" Price="Cr500" Law="2" Page="67" Bandwidth="0" />
       <Item Name="Agent 1" TL="12" Price="Cr2000" Law="2" Page="67" Bandwidth="1" />
       <Item Name="Agent 2" TL="13" Price="Cr100000" Law="2" Page="67" Bandwidth="2" />
@@ -361,7 +361,7 @@
       <Item Name="Psi-finder Binoculars" TL="16" Price="Cr10000" Mass="1" Page="61" />
     </Subsection>
   </Section>
-  <Section Name="Heavy Weapons" Book="CSC2" Mod="Military" Law="3" Category="4">
+  <Section Name="Heavy Weapons" Book="CSC2" Mod="Military" Law="3" Category="4" Contraband="Weapons">
     <Subsection Name="Artillery" Skill="Heavy Weapons (artillery)" Mod="Military" Category="4">
       <Item Name="Black Powder Mortar" TL="3" Price="Cr2000" Mass=".5 tons" Page="126" />
       <Item Name="Bombardment Gun" TL="5" Price="MCr0.5" Mass="220 tons" Page="126" />
@@ -480,27 +480,27 @@
     </Subsection>
   </Section>
   <Section Name="Medical Supplies" Book="CSC2">
-    <Subsection Name="Drugs and Pharmaceuticals">
-      <Item Name="Adrenaliser" TL="10" Price="Cr150" Page="83" />
-      <Item Name="Anagathics" TL="15" Price="Cr20000" Page="83" />
-      <Item Name="Anti-Rad" TL="8" Price="Cr1000" Page="83" />
-      <Item Name="Combat Drug" TL="10" Price="Cr1000" Page="83" />
-      <Item Name="Fast Drug" TL="10" Price="Cr200" Page="83" />
-      <Item Name="Inhibitor Drug" TL="9" Price="Cr500" Page="83" />
-      <Item Name="Metabolic Accelerator" TL="10" Price="Cr500" Page="84" />
-      <Item Name="Meta-Performance Enhancer" TL="10" Price="Cr600" Page="83" />
-      <Item Name="Nervous Response Dampener" TL="9" Price="Cr100" Page="84" />
-      <Item Name="Null Drug" TL="16" Price="Cr5000" Page="84" />
-      <Item Name="Panacea" TL="8" Price="Cr200" Page="84" />
-      <Item Name="Psi-Drug (double)" TL="8" Price="Cr4000" Page="84" />
-      <Item Name="Psi-Drug (special)" TL="8" Price="Cr10000" Page="84" />
-      <Item Name="Psi-Drug (standard)" TL="8" Price="Cr1000" Page="84" />
-      <Item Name="Radiation Emergency Applicator" TL="10" Price="Cr250" Page="84" />
-      <Item Name="Recreational Drugs" TL="1" Price="Cr10+" Page="84" />
-      <Item Name="Slow Drug" TL="11" Price="Cr500" Page="85" />
-      <Item Name="Starlight Drops" TL="12" Price="Cr500" Page="85" />
-      <Item Name="Stims" TL="8" Price="Cr50" Page="85" />
-      <Item Name="Truth Serum" TL="5" Price="Cr500" Page="85" />
+    <Subsection Name="Drugs and Pharmaceuticals" Contraband="Drugs">
+      <Item Name="Adrenaliser" TL="10" Price="Cr150" Page="83" Law="4" />
+      <Item Name="Anagathics" TL="15" Price="Cr20000" Page="83" Law="5" />
+      <Item Name="Anti-Rad" TL="8" Price="Cr1000" Page="83" Law="8" />
+      <Item Name="Combat Drug" TL="10" Price="Cr1000" Page="83" Law="3" />
+      <Item Name="Fast Drug" TL="10" Price="Cr200" Page="83" Law="6" />
+      <Item Name="Inhibitor Drug" TL="9" Price="Cr500" Page="83" Law="9" />
+      <Item Name="Metabolic Accelerator" TL="10" Price="Cr500" Page="84" Law="3" />
+      <Item Name="Meta-Performance Enhancer" TL="10" Price="Cr600" Page="83" Law="3" />
+      <Item Name="Nervous Response Dampener" TL="9" Price="Cr100" Page="84" Law="4" />
+      <Item Name="Null Drug" TL="16" Price="Cr5000" Page="84" Law="9" />
+      <Item Name="Panacea" TL="8" Price="Cr200" Page="84" Law="8" />
+      <Item Name="Psi-Drug (double)" TL="8" Price="Cr4000" Page="84" Contraband="Psionics" Law="6" />
+      <Item Name="Psi-Drug (special)" TL="8" Price="Cr10000" Page="84"  Contraband="Psionics" Law="6" />
+      <Item Name="Psi-Drug (standard)" TL="8" Price="Cr1000" Page="84"  Contraband="Psionics" Law="6" />
+      <Item Name="Radiation Emergency Applicator" TL="10" Price="Cr250" Page="84" Law="8" />
+      <Item Name="Recreational Drugs" TL="1" Price="Cr10+" Page="84" Law="4" />
+      <Item Name="Slow Drug" TL="11" Price="Cr500" Page="85" Law="6" />
+      <Item Name="Starlight Drops" TL="12" Price="Cr500" Page="85" Law="3" />
+      <Item Name="Stims" TL="8" Price="Cr50" Page="85" Law="4" />
+      <Item Name="Truth Serum" TL="5" Price="Cr500" Page="85" Law="1" />
     </Subsection>
     <Subsection Name="Medical Equipment">
       <Item Name="Adhesive bandages" TL="6" Price="Cr50" Page="81" />
@@ -521,7 +521,7 @@
       <Item Name="Trauma Pack" TL="8" Price="Cr750" Mass="2" Page="82" />
     </Subsection>
   </Section>
-  <Section Name="Personal Protection" Book="CSC2">
+  <Section Name="Personal Protection" Book="CSC2" Contraband="Weapons">
     <Subsection Name="Armor">
       <Item Name="Ablat" TL="9" Price="Cr75" Mass="2" Law="2" Category="4" Page="16" />
       <Item Name="Advanced Poly Carapace" TL="13" Price="Cr35000" Mass="2" Law="2" Category="4" Page="13" />
@@ -835,7 +835,7 @@
       <Item Name="Weapon Engineering Tool Set" TL="3" Price="Cr300" Mass="12" Page="79" />
     </Subsection>
   </Section>
-  <Section Name="Weapons" Book="CSC2">
+  <Section Name="Weapons" Book="CSC2" Contraband="Weapons">
     <Subsection Name="Archaic Weapons" Law="8" Category="2" Skill="Gun Combat (archaic)">
       <Item Name="Compound Cam Bow" TL="5" Price="Cr250" Mass="1" Page="121" />
       <Item Name="Crossbow" TL="2" Price="Cr200" Mass="3" Page="121" />
@@ -984,7 +984,7 @@
       <Item Name="Submachine Gun" Law="4" TL="6" Price="Cr400" Mass="3" Category="3" Page="115" />
     </Subsection>
   </Section>
-  <Section Name="Weapons" Book="CSC2">
+  <Section Name="Weapons" Book="CSC2" Contraband="Weapons">
     <Subsection Name="Accessories" Book="CSC2" Law="9">
       <Item Name="Auxiliary Grenade Launcher" TL="7" Price="Cr1000" Mass="1" Category="4" Page="142" />
       <Item Name="Bandolier" TL="3" Price="Cr10" Page="142" />
