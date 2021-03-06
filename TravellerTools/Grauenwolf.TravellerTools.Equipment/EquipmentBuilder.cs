@@ -50,7 +50,7 @@ namespace Grauenwolf.TravellerTools.Equipment
             var actualSeed = options.Seed ?? (new Random()).Next();
             var dice = new Dice(actualSeed);
 
-            var result = new Store() { Options = options };
+            var result = new Store();
 
             foreach (var sectionXml in m_Book.Section)
             {
