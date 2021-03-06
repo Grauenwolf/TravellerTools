@@ -86,17 +86,17 @@ namespace Grauenwolf.TravellerTools
             switch (governmentCode.ToString())
             {
                 case "0": return new List<string>();
-                case "1": return new List<string>() { "Weapons", "Drugs", "Travellers", "Technology", "Psionics" };
+                case "1": return new List<string>() { "Weapons", "Drugs", "Technology", "Travellers", "Psionics" };
                 case "2": return new List<string>() { "Drugs" };
-                case "3": return new List<string>() { "Weapons", "Travellers", "Technology" };
+                case "3": return new List<string>() { "Weapons", "Technology", "Travellers" };
                 case "4": return new List<string>() { "Weapons", "Drugs", "Psionics" };
-                case "5": return new List<string>() { "Weapons", "Technology", "Information" };
-                case "6": return new List<string>() { "Weapons", "Travellers", "Technology" };
+                case "5": return new List<string>() { "Weapons", "Information", "Technology" };
+                case "6": return new List<string>() { "Weapons", "Technology", "Travellers" };
                 case "7": return new List<string>() { "Varies" };
                 case "8": return new List<string>() { "Weapons", "Drugs" };
-                case "9": return new List<string>() { "Weapons", "Drugs", "Travellers", "Technology", "Psionics", "Information" };
+                case "9": return new List<string>() { "Weapons", "Drugs", "Information", "Technology", "Travellers", "Psionics" };
                 case "A": return new List<string>();
-                case "B": return new List<string>() { "Weapons", "Technology", "Information" };
+                case "B": return new List<string>() { "Weapons", "Information", "Technology" };
                 case "C": return new List<string>() { "Weapons" };
                 case "D": return new List<string>() { "Varies" };
                 case "E": return new List<string>() { "Varies" };
@@ -120,41 +120,80 @@ namespace Grauenwolf.TravellerTools
             }
         }
 
+        public static List<(string, string)> RestrictionsByGovernmentAndLaw(EHex governmentCode, EHex lawCode)
+        {
+            var result = new List<(string, string)>();
+            if (lawCode == 0)
+                return result; //no restrictions apply
+
+            var contraband = GovernmentContraband(governmentCode);
+            foreach (var item in contraband)
+                switch (item)
+                {
+                    case "Weapons": result.Add((item, LawLevelWeaponsRestricted(lawCode))); break;
+                    case "Drugs": result.Add((item, LawLevelDrugsRestricted(lawCode))); break;
+                    case "Travellers": result.Add((item, LawLevelTravellersRestricted(lawCode))); break;
+                    case "Technology": result.Add((item, LawLevelTechnolgyRestricted(lawCode))); break;
+                    case "Psionics": result.Add((item, LawLevelPsionicsRestricted(lawCode))); break;
+                    case "Information": result.Add((item, LawLevelInformationRestricted(lawCode))); break;
+                    case "None": result.Add((item, "No restrictions.")); break;
+                    case "Varies":
+                        result.Add(("Varies", "One of more of the following may apply."));
+                        result.Add(("Weapons", LawLevelWeaponsRestricted(lawCode)));
+                        result.Add(("Drugs", LawLevelDrugsRestricted(lawCode)));
+                        result.Add(("Information", LawLevelInformationRestricted(lawCode)));
+                        result.Add(("Technology", LawLevelTechnolgyRestricted(lawCode)));
+                        result.Add(("Travellers", LawLevelTravellersRestricted(lawCode)));
+                        result.Add(("Psionics", LawLevelPsionicsRestricted(lawCode)));
+                        break;
+                }
+            return result;
+        }
+
+        public static string GovernmentDescriptionWithContraband(EHex governmentCode)
+        {
+            var contraband = GovernmentContraband(governmentCode);
+            if (contraband.Count > 0)
+                return GovernmentDescription(governmentCode) + " Bans: " + string.Join(", ", contraband);
+            else
+                return GovernmentDescription(governmentCode);
+        }
+
         public static string GovernmentDescription(EHex governmentCode)
         {
             switch (governmentCode.ToString())
             {
-                case "0": return "No Government Structure. In many cases, tribal, clan or family bonds predominate";
-                case "1": return "Company/Corporation. Government by a company managerial elite, citizens are company employees";
-                case "2": return "Participating Democracy. Government by advice and consent of the citizen";
-                case "3": return "Self-Perpetuating Oligarchy. Government by a restricted minority, with little or no input from the masses";
-                case "4": return "Representative Democracy. Government by elected representatives";
-                case "5": return "Feudal Technocracy. Government by specific individuals for those who agree to be ruled. Relationships are based on the performance of technical activities which are mutually-beneficial";
-                case "6": return "Captive Government/Colony. Government by a leadership answerable to an outside group, a colony or conquered area";
-                case "7": return "Balkanization. No central ruling authority exists. Rival governments compete for control";
-                case "8": return "Civil Service Bureaucracy. Government by agencies employing individuals selected for their expertise";
-                case "9": return "Impersonal Bureaucracy. Government by agencies which are insulated from the governed.	";
-                case "A": return "Charismatic Dictator. Government by a single leader enjoying the confidence of the citizens";
-                case "B": return "Non-Charismatic Dictator. A previous charismatic dictator has been replaced by a leader through normal channels";
-                case "C": return "Charismatic Oligarchy. Government by a select group, organization, or class enjoying overwhelming confidence of the citizenry";
-                case "D": return "Religious Dictatorship. Government by a religious minority which has little regard for the needs of the citizenry.	";
-                case "E": return "Religious Autocracy. Government by a single religious leader having absolute power over the citizenry.	";
-                case "F": return "Totalitarian Oligarchy. Government by an all-powerful minority which maintains absolute control through widespread coercion and oppression	";
-                case "G": return "Small Station or Facility (Aslan)";
-                case "H": return "Split Clan Control (Aslan)";
-                case "J": return "Single On-world Clan Control (Aslan)";
-                case "K": return "Single Multi-world Clan Control (Aslan)";
-                case "L": return "Major Clan Control (Aslan)";
-                case "M": return "Vassal Clan Control (Aslan)";
-                case "N": return "Major Vassal Clan Control (Aslan)";
-                case "P": return "Small Station or Facility (K'kree)";
-                case "Q": return "Krurruna or Krumanak Rule for Off-world Steppelord (K'kree)";
-                case "R": return "Steppelord On-world Rule (K'kree)";
-                case "S": return "Sept (Hiver)";
-                case "T": return "Unsupervised Anarchy (Hiver)";
-                case "U": return "Supervised Anarchy (Hiver)";
-                case "W": return "Committee (Hiver)";
-                case "X": return "Droyne Hierarchy (Droyne)";
+                case "0": return "No Government Structure. In many cases, tribal, clan or family bonds predominate.";
+                case "1": return "Company/Corporation. Government by a company managerial elite, citizens are company employees.";
+                case "2": return "Participating Democracy. Government by advice and consent of the citizen.";
+                case "3": return "Self-Perpetuating Oligarchy. Government by a restricted minority, with little or no input from the masses.";
+                case "4": return "Representative Democracy. Government by elected representatives.";
+                case "5": return "Feudal Technocracy. Government by specific individuals for those who agree to be ruled. Relationships are based on the performance of technical activities which are mutually-beneficial.";
+                case "6": return "Captive Government/Colony. Government by a leadership answerable to an outside group, a colony or conquered area.";
+                case "7": return "Balkanization. No central ruling authority exists. Rival governments compete for control.";
+                case "8": return "Civil Service Bureaucracy. Government by agencies employing individuals selected for their expertise.";
+                case "9": return "Impersonal Bureaucracy. Government by agencies which are insulated from the governed.";
+                case "A": return "Charismatic Dictator. Government by a single leader enjoying the confidence of the citizens.";
+                case "B": return "Non-Charismatic Dictator. A previous charismatic dictator has been replaced by a leader through normal channels.";
+                case "C": return "Charismatic Oligarchy. Government by a select group, organization, or class enjoying overwhelming confidence of the citizenry.";
+                case "D": return "Religious Dictatorship. Government by a religious minority which has little regard for the needs of the citizenry.";
+                case "E": return "Religious Autocracy. Government by a single religious leader having absolute power over the citizenry.";
+                case "F": return "Totalitarian Oligarchy. Government by an all-powerful minority which maintains absolute control through widespread coercion and oppression.";
+                case "G": return "Small Station or Facility (Aslan).";
+                case "H": return "Split Clan Control (Aslan).";
+                case "J": return "Single On-world Clan Control (Aslan).";
+                case "K": return "Single Multi-world Clan Control (Aslan).";
+                case "L": return "Major Clan Control (Aslan).";
+                case "M": return "Vassal Clan Control (Aslan).";
+                case "N": return "Major Vassal Clan Control (Aslan).";
+                case "P": return "Small Station or Facility (K'kree).";
+                case "Q": return "Krurruna or Krumanak Rule for Off-world Steppelord (K'kree).";
+                case "R": return "Steppelord On-world Rule (K'kree).";
+                case "S": return "Sept (Hiver).";
+                case "T": return "Unsupervised Anarchy (Hiver).";
+                case "U": return "Supervised Anarchy (Hiver).";
+                case "W": return "Committee (Hiver).";
+                case "X": return "Droyne Hierarchy (Droyne).";
                 default: return "";
             }
         }
@@ -321,6 +360,108 @@ namespace Grauenwolf.TravellerTools
             }
         }
 
+        public static string LawLevelWeaponsRestricted(EHex lawCode)
+        {
+            switch (lawCode.ToString())
+            {
+                case "0": return "";
+                case "1": return "Poison gas, explosives, undetectable weapons, WMD";
+                case "2": return "Portable energy weapons (except ship-mounted weapons)";
+                case "3": return "Heavy weapons";
+                case "4": return "Light assault weapons and submachine guns";
+                case "5": return "Personal concealable weapons";
+                case "6": return "All firearms except shotguns and stunners; carrying weapons discouraged";
+                case "7": return "Shotguns";
+                case "8": return "All bladed weapons, stunners";
+                default: return "Any weapons";
+            }
+        }
+
+        public static string LawLevelDrugsRestricted(EHex lawCode)
+        {
+            switch (lawCode.ToString())
+            {
+                case "0": return "";
+                case "1": return "Highly  addictive  and dangerous   narcotics";
+                case "2": return "Highly  addictive narcotics";
+                case "3": return "Combat drugs";
+                case "4": return "Addictive  narcotics";
+                case "5": return "Anagathics";
+                case "6": return "Fast and Slow   drugs";
+                case "7": return "All narcotics";
+                case "8": return "Medicinal   drugs";
+                default: return "All drugs";
+            }
+        }
+
+        public static string LawLevelInformationRestricted(EHex lawCode)
+        {
+            switch (lawCode.ToString())
+            {
+                case "0": return "";
+                case "1": return "Intellect programs.";
+                case "2": return "Agent programs.";
+                case "3": return "Intrusion programs.";
+                case "4": return "Security programs.";
+                case "5": return "Expert programs.";
+                case "6": return "Recent news from offworld.";
+                case "7": return "Library programs, unfiltered data about other worlds. Free speech curtailed.";
+                case "8": return "Information technology, any non-critical data from offworld, personal media.";
+                default: return "Any data from offworld. No free press.";
+            }
+        }
+
+        public static string LawLevelTechnolgyRestricted(EHex lawCode)
+        {
+            switch (lawCode.ToString())
+            {
+                case "0": return "";
+                case "1": return "Dangerous technologies such as nanotechnology";
+                case "2": return "Alien Technology";
+                case "3": return "TL 15";
+                case "4": return "TL 13";
+                case "5": return "TL 11";
+                case "6": return "TL 9";
+                case "7": return "TL 7";
+                case "8": return "TL 5";
+                default: return "TL 3";
+            }
+        }
+
+        public static string LawLevelTravellersRestricted(EHex lawCode)
+        {
+            switch (lawCode.ToString())
+            {
+                case "0": return "";
+                case "1": return "Visitors must contact planetary authorities by radio, landing is permitted anywhere.";
+                case "2": return "Visitors must report passenger manifest, landing is permitted anywhere.";
+                case "3": return "Landing only at starport or other authorised sites.";
+                case "4": return "Landing only at starport.";
+                case "5": return "Citizens must register offworld travel; visitors mustt register all business.";
+                case "6": return "Visits discouraged; excessive contact with citizens forbidden.";
+                case "7": return "Citizens may not leave planet; ,visitors may not leave starport. ";
+                case "8": return "Landing permitted only to imperial agents.";
+                default: return "No offworlders permitted.";
+            }
+        }
+
+        public static string LawLevelPsionicsRestricted(EHex lawCode)
+        {
+            switch (lawCode.ToString())
+            {
+                case "0": return "";
+                case "1": return "Dangerous talents must be registered. ";
+                case "2": return "All psionic powers must be registered; use of dangerous powers forbidden. ";
+                case "3": return "Use of telepathy restricted to - government- approved telepaths.";
+                case "4": return "Use of teleportation and clairvoyance restricted.";
+                case "5": return "Use of all psionic ,powers restricted to government psionicists.";
+                case "6": return "Possession of psionic drugs banned.";
+                case "7": return "Use of psionics forbiden.";
+                case "8": return "Psionic-related technology banned.";
+                default: return "All psionics.";
+            }
+        }
+
         public static double PopulationExponent(EHex populationCode) => Math.Pow(10, populationCode.Value);
 
         public static int SizeKM(EHex sizeCode)
@@ -465,6 +606,11 @@ namespace Grauenwolf.TravellerTools
         static ImmutableArray<EHex> BuildCodes(EHex min, EHex max, params EHex[] extras)
         {
             return BuildCodes(min.Value, max.Value, extras);
+        }
+
+        static ImmutableArray<EHex> BuildCodes(char min, char max, params EHex[] extras)
+        {
+            return BuildCodes(new EHex(min).Value, new EHex(max).Value, extras);
         }
     }
 }

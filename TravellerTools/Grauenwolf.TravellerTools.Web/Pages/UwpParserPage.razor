@@ -96,7 +96,7 @@
                         }
                     </InputSelect>
                 </td>
-                <td>@(Tables.GovernmentDescription(Model.GovernmentCode[0]))</td>
+                <td>@(Tables.GovernmentDescriptionWithContraband(Model.GovernmentCode[0]))</td>
             </tr>
             <tr>
                 <td>Law Level</td>
@@ -109,6 +109,17 @@
                     </InputSelect>
                 </td>
                 <td>@(Tables.LawLevelDescription(Model.LawLevelCode[0]))</td>
+            </tr>
+            <tr>
+                <td>Prohibitions</td>
+                <td>Based on Government and Law Level</td>
+                <td>
+                    @foreach (var line in Tables.RestrictionsByGovernmentAndLaw(new EHex(Model.GovernmentCode), new EHex(Model.LawLevelCode)))
+                    {
+                        @(line.Item1 + ": " + line.Item2)
+                        <br />
+                    }
+                </td>
             </tr>
             <tr>
                 <td>Tech Level</td>

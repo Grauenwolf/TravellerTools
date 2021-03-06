@@ -25,6 +25,18 @@
         <tr><th>Population</th><td>@current.PopulationCode</td><td colspan="5">@current.Population.ToString("N0")</td></tr>
         <tr><th>Government</th><td>@current.GovernmentCode</td><td colspan="5">@current.GovernmentType</td></tr>
         <tr><th>Law</th><td>@current.LawCode</td><td colspan="5">@current.LawLevel</td></tr>
+
+        <tr>
+            <th title="Based on government and law code.">Prohibitions</th>
+            <td colspan="6">
+                @foreach (var line in Tables.RestrictionsByGovernmentAndLaw(current.GovernmentCode, current.LawCode))
+                {
+                    @(line.Item1 + ": " + line.Item2)
+                    <br />
+                }
+            </td>
+        </tr>
+
         <tr><th>Tech</th><td>@current.TechCode</td><td colspan="5">@current.TechLevel</td></tr>
         <tr><th>Remarks</th><td colspan="6">@current.RemarksDescription</td></tr>
     </table>
