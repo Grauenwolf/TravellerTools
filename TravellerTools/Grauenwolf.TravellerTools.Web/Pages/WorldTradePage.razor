@@ -139,7 +139,23 @@
             @foreach (var lot in Model.TradeList.Lots)
             {
                 <tr>
-                    <td style="@( lot.Legal ? "" : "background-color:pink")">@lot.Type</td>
+                    @{
+                        var color = "";
+                        var title = "";
+                        if (!lot.Legal)
+                        {
+                            color = "background-color:pink";
+                            title = "Illegal good.";
+                        }
+                        else if (lot.IsCommonGood)
+                        {
+                            color = "background-color:lightgreen";
+                            title = "Commonly available good.";
+                        }
+
+                        <td title="@title" style="@color">@lot.Type</td>
+                    }
+
                     @if (Options.AdvancedMode)
                     {
                         <td>@lot.Subtype</td>

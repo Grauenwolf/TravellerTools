@@ -15,7 +15,16 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public string Type { get; set; }
         public bool Legal { get; set; }
 
+        /// <summary>
+        /// If true, this good is commonly available on this planet
+        /// </summary>
+        public bool IsCommonGood { get; set; }
+
         public int? DestinationDM { get; set; }
+
+        /// <summary>
+        /// This is used for
+        /// </summary>
         internal TradeGood? TradeGood { get; set; }
     }
 }

@@ -199,7 +199,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 {
                     if (good.Availability == "*")
                     {
-                        AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore));
+                        AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore), true);
                     }
                     else if (good.Availability == "") //extremely rare
                     {
@@ -215,7 +215,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 for (var i = 0; i < origin.PopulationCode.Value; i++)
                 {
                     var good = random.Choose(randomGoods);
-                    AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore));
+                    var isCommonGood = good.AvailabilityList.Any(a => origin.ContainsRemark(a));
+                    AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore), isCommonGood);
                     randomGoods = randomGoods.Where(g => g != good).ToList();
                 }
             }
@@ -231,11 +232,11 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 {
                     if (good.Availability == "*")
                     {
-                        AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore));
+                        AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore), true);
                     }
                     else if (good.AvailabilityList.Any(a => origin.ContainsRemark(a)))
                     {
-                        AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore));
+                        AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore), true);
                     }
                     else
                     {
@@ -247,7 +248,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 for (var i = 0; i < picks; i++)
                 {
                     var good = random.Pick(randomGoods);
-                    AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore));
+                    AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore), false);
                 }
             }
 
@@ -547,7 +548,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             }
         }
 
-        private void AddTradeGood(World origin, Dice random, IList<TradeOffer> result, TradeGood good, bool advancedMode, int brokerScore)
+        private void AddTradeGood(World origin, Dice random, IList<TradeOffer> result, TradeGood good, bool advancedMode, int brokerScore, bool isCommonGood)
         {
             if (string.IsNullOrEmpty(good.Tons))
                 throw new ArgumentException("good.Tons is empty for " + good.Name);
@@ -563,7 +564,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     BasePrice = detail.Price * 1000,
                     PurchaseDM = PurchaseDM(origin, good),
                     Legal = good.Legal,
-                    TradeGood = good
+                    TradeGood = good,
+                    IsCommonGood = isCommonGood
                 };
 
                 if (!advancedMode) //move the names around
@@ -588,7 +590,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     BasePrice = good.BasePrice * 1000,
                     PurchaseDM = PurchaseDM(origin, good),
                     Legal = good.Legal,
-                    TradeGood = good
+                    TradeGood = good,
+                    IsCommonGood = isCommonGood
                 };
 
                 int roll;
@@ -611,7 +614,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                         BasePrice = detail.Price * 1000,
                         PurchaseDM = PurchaseDM(origin, good),
                         Legal = good.Legal,
-                        TradeGood = good
+                        TradeGood = good,
+                        IsCommonGood = isCommonGood
                     };
 
                     int roll;
