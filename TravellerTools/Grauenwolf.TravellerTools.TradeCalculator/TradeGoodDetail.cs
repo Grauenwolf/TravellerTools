@@ -1,8 +1,10 @@
-using System;
 using System.Collections.Immutable;
 using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
+
+#nullable disable
+#pragma warning disable RCS1139 // Add summary element to documentation comment.
 
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
@@ -13,7 +15,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
     public class TradeGoodDetail
     {
         [XmlIgnore]
-
         public ImmutableList<string> NameList
         {
             get { return m_NameList; }

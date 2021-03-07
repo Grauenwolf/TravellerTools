@@ -26,7 +26,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             var file = new FileInfo(Path.Combine(dataPath, DataFileName));
             var converter = new XmlSerializer(typeof(TradeGoods));
             using (var stream = file.OpenRead())
-                TradeGoods = ((TradeGoods)converter.Deserialize(stream)).TradeGood.ToImmutableList();
+                TradeGoods = ((TradeGoods)converter.Deserialize(stream)!).TradeGood.ToImmutableList();
 
             LegalTradeGoods = TradeGoods.Where(g => g.Legal).ToImmutableList();
             m_CharacterBuilder = new CharacterBuilder(dataPath);
@@ -71,7 +71,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 //List the goods that are readily available or usually cheap on this planet
                 var purchaseDM = PurchaseDM(destination, good);
                 if (good.BasePrice > 0 && purchaseDM > 0) //(purchaseDM > 0 || (purchaseDM >= 0 && good.Availability == "*") || (good.AvailabilityList.Any(a => destination.ContainsRemark(a)))))
-                    offers.Add(new TradeOffer() { Type = good.Name, PurchaseDM = purchaseDM, Legal = good.Legal, TradeGood = good });
+                    offers.Add(new TradeOffer(type: good.Name, purchaseDM: purchaseDM, legal: good.Legal, tradeGood: good, isCommonGood: true));
 
                 //List the goods that are usually desired on this planet
                 var saleDM = SaleDM(destination, good);
@@ -393,7 +393,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#")]
         protected abstract decimal SalePriceModifier(Dice random, int saleBonus, int brokerScore, out int roll);
 
-        public static StarportDetails CalculateStarportDetails(World origin, Dice dice, bool highPort)
+        public static StarportDetails? CalculateStarportDetails(World origin, Dice dice, bool highPort)
         {
             var result = new StarportDetails();
             switch (origin.StarportCode.ToString())
@@ -535,17 +535,17 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             if (roll < 0)
                 roll = 0;
 
-            switch (roll)
+            return roll switch
             {
-                case 0: return "No wait";
-                case 1: return $"{dice.D(6)} minutes";
-                case 2: return $"{dice.D(6) * 10} minutes";
-                case 3: return $"1 hour";
-                case 4: return $"{dice.D(6) } hours";
-                case 5: return $"{dice.D(2, 6) } hours";
-                case 6: return $"1 day";
-                default: return $"{dice.D(6) } days";
-            }
+                0 => "No wait",
+                1 => $"{dice.D(6)} minutes",
+                2 => $"{dice.D(6) * 10} minutes",
+                3 => $"1 hour",
+                4 => $"{dice.D(6) } hours",
+                5 => $"{dice.D(2, 6) } hours",
+                6 => $"1 day",
+                _ => $"{dice.D(6) } days",
+            };
         }
 
         private void AddTradeGood(World origin, Dice random, IList<TradeOffer> result, TradeGood good, bool advancedMode, int brokerScore, bool isCommonGood)
@@ -556,17 +556,16 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             if (good.BasePrice == 0) //special case
             {
                 var detail = good.ChooseRandomDetail(random);
-                var lot = new TradeOffer()
-                {
-                    Type = good.Name,
-                    Subtype = random.Choose(detail.NameList),
-                    Tons = Math.Max(1, random.D(detail.Tons)),
-                    BasePrice = detail.Price * 1000,
-                    PurchaseDM = PurchaseDM(origin, good),
-                    Legal = good.Legal,
-                    TradeGood = good,
-                    IsCommonGood = isCommonGood
-                };
+                var lot = new TradeOffer(
+                    type: good.Name,
+                    subtype: random.Choose(detail.NameList),
+                    tons: Math.Max(1, random.D(detail.Tons)),
+                    basePrice: detail.Price * 1000,
+                    purchaseDM: PurchaseDM(origin, good),
+                    legal: good.Legal,
+                    tradeGood: good,
+                    isCommonGood: isCommonGood
+                );
 
                 if (!advancedMode) //move the names around
                 {
@@ -582,20 +581,19 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             }
             else if (!advancedMode)
             {
-                var lot = new TradeOffer()
-                {
-                    Type = good.Name,
-                    Subtype = null,
-                    Tons = random.D(good.Tons),
-                    BasePrice = good.BasePrice * 1000,
-                    PurchaseDM = PurchaseDM(origin, good),
-                    Legal = good.Legal,
-                    TradeGood = good,
-                    IsCommonGood = isCommonGood
-                };
+                var lot = new TradeOffer
+                (
+                    type: good.Name,
+                    subtype: null,
+                    tons: random.D(good.Tons),
+                    basePrice: good.BasePrice * 1000,
+                    purchaseDM: PurchaseDM(origin, good),
+                    legal: good.Legal,
+                    tradeGood: good,
+                    isCommonGood: isCommonGood
+                );
 
-                int roll;
-                lot.PriceModifier = PurchasePriceModifier(random, lot.PurchaseDM, brokerScore, out roll);
+                lot.PriceModifier = PurchasePriceModifier(random, lot.PurchaseDM, brokerScore, out int roll);
                 lot.Roll = roll;
 
                 result.Add(lot);
@@ -606,20 +604,19 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 while (tonsRemaining > 0)
                 {
                     var detail = good.ChooseRandomDetail(random);
-                    var lot = new TradeOffer()
-                    {
-                        Type = good.Name,
-                        Subtype = random.Choose(detail.NameList),
-                        Tons = Math.Min(tonsRemaining, random.D(detail.Tons)),
-                        BasePrice = detail.Price * 1000,
-                        PurchaseDM = PurchaseDM(origin, good),
-                        Legal = good.Legal,
-                        TradeGood = good,
-                        IsCommonGood = isCommonGood
-                    };
+                    var lot = new TradeOffer
+                    (
+                        type: good.Name,
+                        subtype: random.Choose(detail.NameList),
+                        tons: Math.Min(tonsRemaining, random.D(detail.Tons)),
+                        basePrice: detail.Price * 1000,
+                        purchaseDM: PurchaseDM(origin, good),
+                        legal: good.Legal,
+                        tradeGood: good,
+                        isCommonGood: isCommonGood
+                    );
 
-                    int roll;
-                    lot.PriceModifier = PurchasePriceModifier(random, lot.PurchaseDM, brokerScore, out roll);
+                    lot.PriceModifier = PurchasePriceModifier(random, lot.PurchaseDM, brokerScore, out int roll);
                     lot.Roll = roll;
 
                     result.Add(lot);
@@ -639,11 +636,12 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         /// <returns></returns>
         async Task<ManifestCollection> BuildManifestsAsync(IReadOnlyList<World> worlds, Dice random, bool illegalGoods, bool advancedCharacters)
         {
-            var result = new ManifestCollection();
-            result.Origin = worlds[0];
+            var result = new ManifestCollection(worlds[0]);
+
             for (var i = 1; i < worlds.Count; i++)
-                if (!worlds[i].UWP.Contains("?")) //skip uncharted words
+                if (worlds[i].UWP != null && !worlds[i].UWP!.Contains("?")) //skip uncharted words
                     result.Add(await BuildManifestAsync(result.Origin, worlds[i], random, illegalGoods, advancedCharacters).ConfigureAwait(false));
+
             return result;
         }
     }

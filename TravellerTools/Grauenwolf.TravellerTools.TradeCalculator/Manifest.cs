@@ -8,12 +8,11 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
     /// </summary>
     public class Manifest
     {
-
         public List<TradeBid> Bids { get; } = new List<TradeBid>();
-        public World Destination { get; set; }
-        public FreightList FreightList { get; set; }
+        public World? Destination { get; set; }
+        public FreightList? FreightList { get; set; }
         public List<TradeOffer> Offers { get; } = new List<TradeOffer>();
-        public World Origin { get; set; }
-        public PassengerList PassengerList { get; set; }
+        public World? Origin { get; set; }
+        public PassengerList? PassengerList { get; set; }
     }
 }

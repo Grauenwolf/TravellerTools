@@ -1,9 +1,7 @@
-
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
     public class FreightLot
     {
-
         public FreightLot(int size, int shippingFee)
         {
             Size = size;
@@ -11,7 +9,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         }
 
         public decimal ActualValue { get; set; }
-        public string Contents { get; set; }
+        public string? Contents { get; set; }
         public int ShippingFee { get; set; }
         public int Size { get; set; }
     }

@@ -14,45 +14,45 @@ namespace Grauenwolf.TravellerTools
 
         static int Parse(char value)
         {
-            switch (char.ToUpperInvariant(value))
+            return (char.ToUpperInvariant(value)) switch
             {
-                case '0': return 0;
-                case '1': return 1;
-                case '2': return 2;
-                case '3': return 3;
-                case '4': return 4;
-                case '5': return 5;
-                case '6': return 6;
-                case '7': return 7;
-                case '8': return 8;
-                case '9': return 9;
-                case 'A': return 10;
-                case 'B': return 11;
-                case 'C': return 12;
-                case 'D': return 13;
-                case 'E': return 14;
-                case 'F': return 15;
-                case 'G': return 16;
-                case 'H': return 17;
-                case 'J': return 18;
-                case 'K': return 19;
-                case 'L': return 20;
-                case 'M': return 21;
-                case 'N': return 22;
-                case 'P': return 23;
-                case 'Q': return 24;
-                case 'R': return 25;
-                case 'S': return 26;
-                case 'T': return 27;
-                case 'U': return 28;
-                case 'V': return 29;
-                case 'W': return 30;
-                case 'X': return 31;
-                case 'Y': return 32;
-                case 'Z': return 33;
-                case '?': return 0;
-                default: throw new ArgumentOutOfRangeException(nameof(value));
-            }
+                '0' => 0,
+                '1' => 1,
+                '2' => 2,
+                '3' => 3,
+                '4' => 4,
+                '5' => 5,
+                '6' => 6,
+                '7' => 7,
+                '8' => 8,
+                '9' => 9,
+                'A' => 10,
+                'B' => 11,
+                'C' => 12,
+                'D' => 13,
+                'E' => 14,
+                'F' => 15,
+                'G' => 16,
+                'H' => 17,
+                'J' => 18,
+                'K' => 19,
+                'L' => 20,
+                'M' => 21,
+                'N' => 22,
+                'P' => 23,
+                'Q' => 24,
+                'R' => 25,
+                'S' => 26,
+                'T' => 27,
+                'U' => 28,
+                'V' => 29,
+                'W' => 30,
+                'X' => 31,
+                'Y' => 32,
+                'Z' => 33,
+                '?' => 0,
+                _ => throw new ArgumentOutOfRangeException(nameof(value)),
+            };
         }
 
         public EHex(string value)
@@ -64,9 +64,9 @@ namespace Grauenwolf.TravellerTools
                 return;
 
             if (value.Length != 1)
-                throw new ArgumentException("The value must be a number or be one character in length", "value");
+                throw new ArgumentException("The value must be a number or be one character in length", nameof(value));
 
-            m_Value = Parse(value[0]); ;
+            m_Value = Parse(value[0]);
         }
 
         public EHex(int value)
@@ -78,74 +78,99 @@ namespace Grauenwolf.TravellerTools
 
         public override string ToString()
         {
-            switch (m_Value)
+            return m_Value switch
             {
-                case 0: return "0";
-                case 1: return "1";
-                case 2: return "2";
-                case 3: return "3";
-                case 4: return "4";
-                case 5: return "5";
-                case 6: return "6";
-                case 7: return "7";
-                case 8: return "8";
-                case 9: return "9";
-                case 10: return "A";
-                case 11: return "B";
-                case 12: return "C";
-                case 13: return "D";
-                case 14: return "E";
-                case 15: return "F";
-                case 16: return "G";
-                case 17: return "H";
-                case 18: return "J";
-                case 19: return "K";
-                case 20: return "L";
-                case 21: return "M";
-                case 22: return "N";
-                case 23: return "P";
-                case 24: return "Q";
-                case 25: return "R";
-                case 26: return "S";
-                case 27: return "T";
-                case 28: return "U";
-                case 29: return "V";
-                case 30: return "W";
-                case 31: return "X";
-                case 32: return "Y";
-                case 33: return "Z";
-                default: return "_";
-            }
+                0 => "0",
+                1 => "1",
+                2 => "2",
+                3 => "3",
+                4 => "4",
+                5 => "5",
+                6 => "6",
+                7 => "7",
+                8 => "8",
+                9 => "9",
+                10 => "A",
+                11 => "B",
+                12 => "C",
+                13 => "D",
+                14 => "E",
+                15 => "F",
+                16 => "G",
+                17 => "H",
+                18 => "J",
+                19 => "K",
+                20 => "L",
+                21 => "M",
+                22 => "N",
+                23 => "P",
+                24 => "Q",
+                25 => "R",
+                26 => "S",
+                27 => "T",
+                28 => "U",
+                29 => "V",
+                30 => "W",
+                31 => "X",
+                32 => "Y",
+                33 => "Z",
+                _ => "_",
+            };
         }
 
-        public override bool Equals(object? obj)
-        {
-            return obj is EHex && Equals((EHex)obj);
-        }
+        public override bool Equals(object? obj) => obj is EHex eHex && Equals(eHex);
 
-        public bool Equals(EHex other)
-        {
-            return m_Value == other.m_Value;
-        }
+        public bool Equals(EHex other) => m_Value == other.m_Value;
 
-        public override int GetHashCode()
-        {
-            var hashCode = -592410294;
-            hashCode = hashCode * -1521134295 + m_Value.GetHashCode();
-            return hashCode;
-        }
+        public override int GetHashCode() => m_Value.GetHashCode();
 
         /// <summary>
         /// True if the value is within the specified range, inclusive.
         /// </summary>
-        public bool Between(int low, int high)
-        {
-            return low <= Value && Value <= high;
-        }
+        public bool Between(int low, int high) => low <= Value && Value <= high;
 
-        public bool AnyOf(params int[] values)
+        public bool AnyOf(params int[] values) => values.Contains(Value);
+
+        public char ToChar()
         {
-            return values.Contains(Value);
+            return m_Value switch
+            {
+                0 => '0',
+                1 => '1',
+                2 => '2',
+                3 => '3',
+                4 => '4',
+                5 => '5',
+                6 => '6',
+                7 => '7',
+                8 => '8',
+                9 => '9',
+                10 => 'A',
+                11 => 'B',
+                12 => 'C',
+                13 => 'D',
+                14 => 'E',
+                15 => 'F',
+                16 => 'G',
+                17 => 'H',
+                18 => 'J',
+                19 => 'K',
+                20 => 'L',
+                21 => 'M',
+                22 => 'N',
+                23 => 'P',
+                24 => 'Q',
+                25 => 'R',
+                26 => 'S',
+                27 => 'T',
+                28 => 'U',
+                29 => 'V',
+                30 => 'W',
+                31 => 'X',
+                32 => 'Y',
+                33 => 'Z',
+                _ => '_',
+            };
         }
 
         public static implicit operator EHex(char? value)

@@ -148,12 +148,12 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         {
             var result = new PassengerList();
 
-            Action<string, string, string> SetValues = (low, middle, high) =>
+            void SetValues(string low, string middle, string high)
             {
                 result.LowPassengers = random.D(low);
                 result.MiddlePassengers = random.D(middle);
                 result.HighPassengers = random.D(high);
-            };
+            }
 
             var traffic = origin.PopulationCode.Value;
 
@@ -244,31 +244,32 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             roll = random.D(3, 6) + purchaseBonus + brokerScore;
             if (roll < 0)
                 return 4M;
-            switch (roll)
+
+            return roll switch
             {
-                case 0: return 3M;
-                case 1: return 2M;
-                case 2: return 1.75M;
-                case 3: return 1.5M;
-                case 4: return 1.35M;
-                case 5: return 1.25M;
-                case 6: return 1.2M;
-                case 7: return 1.15M;
-                case 8: return 1.1M;
-                case 9: return 1.05M;
-                case 10: return 1M;
-                case 11: return 0.95M;
-                case 12: return 0.9M;
-                case 13: return 0.85M;
-                case 14: return 0.8M;
-                case 15: return 0.75M;
-                case 16: return 0.7M;
-                case 17: return 0.65M;
-                case 18: return 0.55M;
-                case 19: return 0.5M;
-                case 20: return 0.4M;
-                default: return 0.25M;
-            }
+                0 => 3M,
+                1 => 2M,
+                2 => 1.75M,
+                3 => 1.5M,
+                4 => 1.35M,
+                5 => 1.25M,
+                6 => 1.2M,
+                7 => 1.15M,
+                8 => 1.1M,
+                9 => 1.05M,
+                10 => 1M,
+                11 => 0.95M,
+                12 => 0.9M,
+                13 => 0.85M,
+                14 => 0.8M,
+                15 => 0.75M,
+                16 => 0.7M,
+                17 => 0.65M,
+                18 => 0.55M,
+                19 => 0.5M,
+                20 => 0.4M,
+                _ => 0.25M,
+            };
         }
 
         override protected decimal SalePriceModifier(Dice random, int saleBonus, int brokerScore, out int roll)
@@ -279,31 +280,32 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             roll = random.D(3, 6) + saleBonus + brokerScore;
             if (roll < 0)
                 return 0.25M;
-            switch (roll)
+
+            return roll switch
             {
-                case 0: return 0.45M;
-                case 1: return 0.50M;
-                case 2: return 0.55M;
-                case 3: return 0.60M;
-                case 4: return 0.65M;
-                case 5: return 0.75M;
-                case 6: return 0.80M;
-                case 7: return 0.85M;
-                case 8: return 0.90M;
-                case 9: return 0.95M;
-                case 10: return 1M;
-                case 11: return 1.05M;
-                case 12: return 1.1M;
-                case 13: return 1.15M;
-                case 14: return 1.2M;
-                case 15: return 1.25M;
-                case 16: return 1.35M;
-                case 17: return 1.5M;
-                case 18: return 1.75M;
-                case 19: return 2M;
-                case 20: return 3M;
-                default: return 4M;
-            }
+                0 => 0.45M,
+                1 => 0.50M,
+                2 => 0.55M,
+                3 => 0.60M,
+                4 => 0.65M,
+                5 => 0.75M,
+                6 => 0.80M,
+                7 => 0.85M,
+                8 => 0.90M,
+                9 => 0.95M,
+                10 => 1M,
+                11 => 1.05M,
+                12 => 1.1M,
+                13 => 1.15M,
+                14 => 1.2M,
+                15 => 1.25M,
+                16 => 1.35M,
+                17 => 1.5M,
+                18 => 1.75M,
+                19 => 2M,
+                20 => 3M,
+                _ => 4M,
+            };
         }
 
         public override World GenerateRandomWorld()

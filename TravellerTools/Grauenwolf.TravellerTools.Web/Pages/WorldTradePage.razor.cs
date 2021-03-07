@@ -105,7 +105,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
                     goto ReturnToIndex;
 
                 Model = new WorldModel(milieu, world);
-                Model.Destinations = await service.WorldsNearAsync(world.SectorX!.Value, world.SectorY!.Value, int.Parse(world.HexX!), int.Parse(world.HexY!), 6);
+                Model.Destinations = await service.WorldsNearAsync(world.SectorX!.Value, world.SectorY!.Value, int.Parse(world.HexX!), int.Parse(world.HexY!), 6).ConfigureAwait(false);
             }
 
             PageTitle = Model.World.Name ?? Uwp + " Trade";

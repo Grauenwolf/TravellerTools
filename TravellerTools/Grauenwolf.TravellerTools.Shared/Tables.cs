@@ -18,106 +18,91 @@ namespace Grauenwolf.TravellerTools
 
         public static string Atmosphere(EHex atmosphereCode)
         {
-            switch (atmosphereCode.ToString())
+            return (atmosphereCode.ToChar()) switch
             {
-                case "0": return "No atmosphere";
-                case "1": return "Trace";
-                case "2": return "Very thin. Tainted";
-                case "3": return "Very thin";
-                case "4": return "Thin. Tainted";
-                case "5": return "Thin. Breathable";
-                case "6": return "Standard. Breathable";
-                case "7": return "Standard. Tainted";
-                case "8": return "Dense. Breathable";
-                case "9": return "Dense. Tainted";
-                case "A": return "Exotic";
-                case "B": return "Corrosive";
-                case "C": return "Insidious";
-                case "D": return "Dense, high";
-                case "E": return "Ellipsoid";
-                case "F": return "Thin, low";
-                default: return "";
-            }
+                '0' => "No atmosphere",
+                '1' => "Trace",
+                '2' => "Very thin. Tainted",
+                '3' => "Very thin",
+                '4' => "Thin. Tainted",
+                '5' => "Thin. Breathable",
+                '6' => "Standard. Breathable",
+                '7' => "Standard. Tainted",
+                '8' => "Dense. Breathable",
+                '9' => "Dense. Tainted",
+                'A' => "Exotic",
+                'B' => "Corrosive",
+                'C' => "Insidious",
+                'D' => "Dense, high",
+                'E' => "Ellipsoid",
+                'F' => "Thin, low",
+                _ => "",
+            };
         }
 
         public static string AtmosphereDescription(EHex atmosphereCode)
         {
-            switch (atmosphereCode.ToString())
+            return (atmosphereCode.ToChar()) switch
             {
-                case "0": return "No atmosphere. Requires vacc suit";
-                case "1": return "Trace. Requires vacc suit";
-                case "2": return "Very thin. Tainted. Requires combination respirator/filter";
-                case "3": return "Very thin. Requires respirator";
-                case "4": return "Thin. Tainted. Requires filter mask";
-                case "5": return "Thin. Breathable";
-                case "6": return "Standard. Breathable";
-                case "7": return "Standard. Tainted. Requires filter mask";
-                case "8": return "Dense. Breathable";
-                case "9": return "Dense. Tainted. Requires filter mask";
-                case "A": return "Exotic. Requires special protective equipment";
-                case "B": return "Corrosive. Requires protective suit";
-                case "C": return "Insidious. Requires protective suit";
-                case "D": return "Dense, high. Breathable above a minimum altitude";
-                case "E": return "Ellipsoid. Breathable at certain latitudes";
-                case "F": return "Thin, low. Breathable below certain altitudes";
-                default: return "";
-            }
+                '0' => "No atmosphere. Requires vacc suit",
+                '1' => "Trace. Requires vacc suit",
+                '2' => "Very thin. Tainted. Requires combination respirator/filter",
+                '3' => "Very thin. Requires respirator",
+                '4' => "Thin. Tainted. Requires filter mask",
+                '5' => "Thin. Breathable",
+                '6' => "Standard. Breathable",
+                '7' => "Standard. Tainted. Requires filter mask",
+                '8' => "Dense. Breathable",
+                '9' => "Dense. Tainted. Requires filter mask",
+                'A' => "Exotic. Requires special protective equipment",
+                'B' => "Corrosive. Requires protective suit",
+                'C' => "Insidious. Requires protective suit",
+                'D' => "Dense, high. Breathable above a minimum altitude",
+                'E' => "Ellipsoid. Breathable at certain latitudes",
+                'F' => "Thin, low. Breathable below certain altitudes",
+                _ => "",
+            };
         }
 
         public static EHex? RestrictedTechLevel(EHex lawCode)
         {
-            switch (lawCode.ToString())
+            return (lawCode.ToChar()) switch
             {
-                case "0": return null;
-                case "1": return null;
-                case "2": return null;
-                case "3": return 15;
-                case "4": return 13;
-                case "5": return 11;
-                case "6": return 9;
-                case "7": return 7;
-                case "8": return 5;
-                default: return 3;
-            }
+                '0' => null,
+                '1' => null,
+                '2' => null,
+                '3' => 15,
+                '4' => 13,
+                '5' => 11,
+                '6' => 9,
+                '7' => 7,
+                '8' => 5,
+                _ => 3,
+            };
         }
 
         public static List<string> GovernmentContraband(EHex governmentCode)
         {
-            switch (governmentCode.ToString())
+            return (governmentCode.ToChar()) switch
             {
-                case "0": return new List<string>();
-                case "1": return new List<string>() { "Weapons", "Drugs", "Technology", "Travellers", "Psionics" };
-                case "2": return new List<string>() { "Drugs" };
-                case "3": return new List<string>() { "Weapons", "Technology", "Travellers" };
-                case "4": return new List<string>() { "Weapons", "Drugs", "Psionics" };
-                case "5": return new List<string>() { "Weapons", "Information", "Technology" };
-                case "6": return new List<string>() { "Weapons", "Technology", "Travellers" };
-                case "7": return new List<string>() { "Varies" };
-                case "8": return new List<string>() { "Weapons", "Drugs" };
-                case "9": return new List<string>() { "Weapons", "Drugs", "Information", "Technology", "Travellers", "Psionics" };
-                case "A": return new List<string>();
-                case "B": return new List<string>() { "Weapons", "Information", "Technology" };
-                case "C": return new List<string>() { "Weapons" };
-                case "D": return new List<string>() { "Varies" };
-                case "E": return new List<string>() { "Varies" };
-                case "F": return new List<string>() { "Varies" };
-                case "G":
-                case "H":
-                case "J":
-                case "K":
-                case "L":
-                case "M":
-                case "N":
-                case "P":
-                case "Q":
-                case "R":
-                case "S":
-                case "T":
-                case "U":
-                case "W":
-                case "X":
-                default: return new List<string>() { };
-            }
+                '0' => new List<string>(),
+                '1' => new List<string>() { "Weapons", "Drugs", "Technology", "Travellers", "Psionics" },
+                '2' => new List<string>() { "Drugs" },
+                '3' => new List<string>() { "Weapons", "Technology", "Travellers" },
+                '4' => new List<string>() { "Weapons", "Drugs", "Psionics" },
+                '5' => new List<string>() { "Weapons", "Information", "Technology" },
+                '6' => new List<string>() { "Weapons", "Technology", "Travellers" },
+                '7' => new List<string>() { "Varies" },
+                '8' => new List<string>() { "Weapons", "Drugs" },
+                '9' => new List<string>() { "Weapons", "Drugs", "Information", "Technology", "Travellers", "Psionics" },
+                'A' => new List<string>(),
+                'B' => new List<string>() { "Weapons", "Information", "Technology" },
+                'C' => new List<string>() { "Weapons" },
+                'D' => new List<string>() { "Varies" },
+                'E' => new List<string>() { "Varies" },
+                'F' => new List<string>() { "Varies" },
+                _ => new List<string>() { },
+            };
         }
 
         public static List<(string, string)> RestrictionsByGovernmentAndLaw(EHex governmentCode, EHex lawCode)
@@ -161,436 +146,412 @@ namespace Grauenwolf.TravellerTools
 
         public static string GovernmentDescription(EHex governmentCode)
         {
-            switch (governmentCode.ToString())
+            return (governmentCode.ToChar()) switch
             {
-                case "0": return "No Government Structure. In many cases, tribal, clan or family bonds predominate.";
-                case "1": return "Company/Corporation. Government by a company managerial elite, citizens are company employees.";
-                case "2": return "Participating Democracy. Government by advice and consent of the citizen.";
-                case "3": return "Self-Perpetuating Oligarchy. Government by a restricted minority, with little or no input from the masses.";
-                case "4": return "Representative Democracy. Government by elected representatives.";
-                case "5": return "Feudal Technocracy. Government by specific individuals for those who agree to be ruled. Relationships are based on the performance of technical activities which are mutually-beneficial.";
-                case "6": return "Captive Government/Colony. Government by a leadership answerable to an outside group, a colony or conquered area.";
-                case "7": return "Balkanization. No central ruling authority exists. Rival governments compete for control.";
-                case "8": return "Civil Service Bureaucracy. Government by agencies employing individuals selected for their expertise.";
-                case "9": return "Impersonal Bureaucracy. Government by agencies which are insulated from the governed.";
-                case "A": return "Charismatic Dictator. Government by a single leader enjoying the confidence of the citizens.";
-                case "B": return "Non-Charismatic Dictator. A previous charismatic dictator has been replaced by a leader through normal channels.";
-                case "C": return "Charismatic Oligarchy. Government by a select group, organization, or class enjoying overwhelming confidence of the citizenry.";
-                case "D": return "Religious Dictatorship. Government by a religious minority which has little regard for the needs of the citizenry.";
-                case "E": return "Religious Autocracy. Government by a single religious leader having absolute power over the citizenry.";
-                case "F": return "Totalitarian Oligarchy. Government by an all-powerful minority which maintains absolute control through widespread coercion and oppression.";
-                case "G": return "Small Station or Facility (Aslan).";
-                case "H": return "Split Clan Control (Aslan).";
-                case "J": return "Single On-world Clan Control (Aslan).";
-                case "K": return "Single Multi-world Clan Control (Aslan).";
-                case "L": return "Major Clan Control (Aslan).";
-                case "M": return "Vassal Clan Control (Aslan).";
-                case "N": return "Major Vassal Clan Control (Aslan).";
-                case "P": return "Small Station or Facility (K'kree).";
-                case "Q": return "Krurruna or Krumanak Rule for Off-world Steppelord (K'kree).";
-                case "R": return "Steppelord On-world Rule (K'kree).";
-                case "S": return "Sept (Hiver).";
-                case "T": return "Unsupervised Anarchy (Hiver).";
-                case "U": return "Supervised Anarchy (Hiver).";
-                case "W": return "Committee (Hiver).";
-                case "X": return "Droyne Hierarchy (Droyne).";
-                default: return "";
-            }
+                '0' => "No Government Structure. In many cases, tribal, clan or family bonds predominate.",
+                '1' => "Company/Corporation. Government by a company managerial elite, citizens are company employees.",
+                '2' => "Participating Democracy. Government by advice and consent of the citizen.",
+                '3' => "Self-Perpetuating Oligarchy. Government by a restricted minority, with little or no input from the masses.",
+                '4' => "Representative Democracy. Government by elected representatives.",
+                '5' => "Feudal Technocracy. Government by specific individuals for those who agree to be ruled. Relationships are based on the performance of technical activities which are mutually-beneficial.",
+                '6' => "Captive Government/Colony. Government by a leadership answerable to an outside group, a colony or conquered area.",
+                '7' => "Balkanization. No central ruling authority exists. Rival governments compete for control.",
+                '8' => "Civil Service Bureaucracy. Government by agencies employing individuals selected for their expertise.",
+                '9' => "Impersonal Bureaucracy. Government by agencies which are insulated from the governed.",
+                'A' => "Charismatic Dictator. Government by a single leader enjoying the confidence of the citizens.",
+                'B' => "Non-Charismatic Dictator. A previous charismatic dictator has been replaced by a leader through normal channels.",
+                'C' => "Charismatic Oligarchy. Government by a select group, organization, or class enjoying overwhelming confidence of the citizenry.",
+                'D' => "Religious Dictatorship. Government by a religious minority which has little regard for the needs of the citizenry.",
+                'E' => "Religious Autocracy. Government by a single religious leader having absolute power over the citizenry.",
+                'F' => "Totalitarian Oligarchy. Government by an all-powerful minority which maintains absolute control through widespread coercion and oppression.",
+                'G' => "Small Station or Facility (Aslan).",
+                'H' => "Split Clan Control (Aslan).",
+                'J' => "Single On-world Clan Control (Aslan).",
+                'K' => "Single Multi-world Clan Control (Aslan).",
+                'L' => "Major Clan Control (Aslan).",
+                'M' => "Vassal Clan Control (Aslan).",
+                'N' => "Major Vassal Clan Control (Aslan).",
+                'P' => "Small Station or Facility (K'kree).",
+                'Q' => "Krurruna or Krumanak Rule for Off-world Steppelord (K'kree).",
+                'R' => "Steppelord On-world Rule (K'kree).",
+                'S' => "Sept (Hiver).",
+                'T' => "Unsupervised Anarchy (Hiver).",
+                'U' => "Supervised Anarchy (Hiver).",
+                'W' => "Committee (Hiver).",
+                'X' => "Droyne Hierarchy (Droyne).",
+                _ => "",
+            };
         }
 
         public static string GovernmentType(EHex governmentCode)
         {
-            switch (governmentCode.ToString())
+            return (governmentCode.ToChar()) switch
             {
-                case "0": return "No Government Structure";
-                case "1": return "Company/Corporation";
-                case "2": return "Participating Democracy";
-                case "3": return "Self-Perpetuating Oligarchy";
-                case "4": return "Representative Democracy";
-                case "5": return "Feudal Technocracy";
-                case "6": return "Captive Government/Colony";
-                case "7": return "Balkanization";
-                case "8": return "Civil Service Bureaucracy";
-                case "9": return "Impersonal Bureaucracy";
-                case "A": return "Charismatic Dictator";
-                case "B": return "Non-Charismatic Dictator";
-                case "C": return "Charismatic Oligarchy";
-                case "D": return "Religious Dictatorship";
-                case "E": return "Religious Autocracy";
-                case "F": return "Totalitarian Oligarchy";
-                case "G": return "Small Station or Facility (Aslan)";
-                case "H": return "Split Clan Control (Aslan)";
-                case "J": return "Single On-world Clan Control (Aslan)";
-                case "K": return "Single Multi-world Clan Control (Aslan)";
-                case "L": return "Major Clan Control (Aslan)";
-                case "M": return "Vassal Clan Control (Aslan)";
-                case "N": return "Major Vassal Clan Control (Aslan)";
-                case "P": return "Small Station or Facility (K'kree)";
-                case "Q": return "Krurruna or Krumanak Rule for Off-world Steppelord (K'kree)";
-                case "R": return "Steppelord On-world Rule (K'kree)";
-                case "S": return "Sept (Hiver)";
-                case "T": return "Unsupervised Anarchy (Hiver)";
-                case "U": return "Supervised Anarchy (Hiver)";
-                case "W": return "Committee (Hiver)";
-                case "X": return "Droyne Hierarchy (Droyne)";
-                default: return "";
-            }
+                '0' => "No Government Structure",
+                '1' => "Company/Corporation",
+                '2' => "Participating Democracy",
+                '3' => "Self-Perpetuating Oligarchy",
+                '4' => "Representative Democracy",
+                '5' => "Feudal Technocracy",
+                '6' => "Captive Government/Colony",
+                '7' => "Balkanization",
+                '8' => "Civil Service Bureaucracy",
+                '9' => "Impersonal Bureaucracy",
+                'A' => "Charismatic Dictator",
+                'B' => "Non-Charismatic Dictator",
+                'C' => "Charismatic Oligarchy",
+                'D' => "Religious Dictatorship",
+                'E' => "Religious Autocracy",
+                'F' => "Totalitarian Oligarchy",
+                'G' => "Small Station or Facility (Aslan)",
+                'H' => "Split Clan Control (Aslan)",
+                'J' => "Single On-world Clan Control (Aslan)",
+                'K' => "Single Multi-world Clan Control (Aslan)",
+                'L' => "Major Clan Control (Aslan)",
+                'M' => "Vassal Clan Control (Aslan)",
+                'N' => "Major Vassal Clan Control (Aslan)",
+                'P' => "Small Station or Facility (K'kree)",
+                'Q' => "Krurruna or Krumanak Rule for Off-world Steppelord (K'kree)",
+                'R' => "Steppelord On-world Rule (K'kree)",
+                'S' => "Sept (Hiver)",
+                'T' => "Unsupervised Anarchy (Hiver)",
+                'U' => "Supervised Anarchy (Hiver)",
+                'W' => "Committee (Hiver)",
+                'X' => "Droyne Hierarchy (Droyne)",
+                _ => "",
+            };
         }
 
         public static string Gravity(EHex sizeCode)
         {
-            switch (sizeCode.ToString())
+            return (sizeCode.ToChar()) switch
             {
-                case "0": return "Microgravity (0.01 G or less)";
-                case "1": return "Very Low Gravity (0.05g - 0.09g)";
-                case "2": return "Low Gravity (0.10g - 0.17g)";
-                case "3": return "Low Gravity (0.24g - 0.34g)";
-                case "4": return "Low Gravity (0.32g - 0.46g)";
-                case "5": return "Standard Gravity (0.40g - 0.57g)";
-                case "6": return "Standard Gravity (0.60g - 0.81g)";
-                case "7": return "Standard Gravity (0.70g - 0.94g)";
-                case "8": return "Standard Gravity (0.80g - 1.08g)";
-                case "9": return "Standard Gravity (1.03g - 1.33g)";
-                case "A": return "Standard Gravity (1.14g - 1.48g)";
-                case "B": return "High Gravity (1.49g - 1.89g)";
-                case "C": return "High Gravity (1.9g - 2.0g)";
-                default: return "";
-            }
+                '0' => "Microgravity (0.01 G or less)",
+                '1' => "Very Low Gravity (0.05g - 0.09g)",
+                '2' => "Low Gravity (0.10g - 0.17g)",
+                '3' => "Low Gravity (0.24g - 0.34g)",
+                '4' => "Low Gravity (0.32g - 0.46g)",
+                '5' => "Standard Gravity (0.40g - 0.57g)",
+                '6' => "Standard Gravity (0.60g - 0.81g)",
+                '7' => "Standard Gravity (0.70g - 0.94g)",
+                '8' => "Standard Gravity (0.80g - 1.08g)",
+                '9' => "Standard Gravity (1.03g - 1.33g)",
+                'A' => "Standard Gravity (1.14g - 1.48g)",
+                'B' => "High Gravity (1.49g - 1.89g)",
+                'C' => "High Gravity (1.9g - 2.0g)",
+                _ => "",
+            };
         }
 
         public static string Hydrographics(EHex hydrographicsCode)
         {
-            switch (hydrographicsCode.ToString())
+            return (hydrographicsCode.ToChar()) switch
             {
-                //star ports
-                case "0": return "No water";
-                case "1": return "10% water";
-                case "2": return "20% water";
-                case "3": return "30% water";
-                case "4": return "40% water";
-                case "5": return "50% water";
-                case "6": return "60% water";
-                case "7": return "70% water";
-                case "8": return "80% water";
-                case "9": return "90% water";
-                case "A": return "100% water";
-                default: return "";
-            }
+                '0' => "No water",
+                '1' => "10% water",
+                '2' => "20% water",
+                '3' => "30% water",
+                '4' => "40% water",
+                '5' => "50% water",
+                '6' => "60% water",
+                '7' => "70% water",
+                '8' => "80% water",
+                '9' => "90% water",
+                'A' => "100% water",
+                _ => "",
+            };
         }
 
         public static string HydrographicsDescription(EHex hydrographicsCode)
         {
-            switch (hydrographicsCode.ToString())
+            return (hydrographicsCode.ToChar()) switch
             {
-                //star ports
-                case "0": return "No water. Desert World";
-                case "1": return "10% water";
-                case "2": return "20% water";
-                case "3": return "30% water";
-                case "4": return "40% water";
-                case "5": return "50% water";
-                case "6": return "60% water";
-                case "7": return "70% water. Equivalent to Terra or Vland";
-                case "8": return "80% water";
-                case "9": return "90% water";
-                case "A": return "100% water. Water World";
-                default: return "";
-            }
+                '0' => "No water. Desert World",
+                '1' => "10% water",
+                '2' => "20% water",
+                '3' => "30% water",
+                '4' => "40% water",
+                '5' => "50% water",
+                '6' => "60% water",
+                '7' => "70% water. Equivalent to Terra or Vland",
+                '8' => "80% water",
+                '9' => "90% water",
+                'A' => "100% water. Water World",
+                _ => "",
+            };
         }
 
         public static string LawLevel(EHex lawCode)
         {
-            switch (lawCode.ToString())
+            return (lawCode.ToChar()) switch
             {
-                case "0": return "No Law";
-                case "1":
-                case "2":
-                case "3": return "Low Law";
-                case "4":
-                case "5":
-                case "6":
-                case "7": return "Moderate Law";
-                case "8":
-                case "9": return "High Law";
-                case "A":
-                case "B":
-                case "C":
-                case "D":
-                case "E":
-                case "F":
-                case "G":
-                case "H":
-                case "J":
-                case "K":
-                case "L": return "Extreme Law";
-                case "S": return "Special/Variable situation";
-
-                default: return "";
-            }
+                '0' => "No Law",
+                '1' or '2' or '3' => "Low Law",
+                '4' or '5' or '6' or '7' => "Moderate Law",
+                '8' or '9' => "High Law",
+                'A' or 'B' or 'C' or 'D' or 'E' or 'F' or 'G' or 'H' or 'J' or 'K' or 'L' => "Extreme Law",
+                'S' => "Special/Variable situation",
+                _ => "",
+            };
         }
 
         public static string LawLevelDescription(EHex lawCode)
         {
-            switch (lawCode.ToString())
+            return (lawCode.ToChar()) switch
             {
-                case "0": return "No prohibitions";
-                case "1": return "Body pistols, explosives, and poison gas prohibited";
-                case "2": return "Portable energy weapons prohibited";
-                case "3": return "Machine guns, automatic rifles prohibited";
-                case "4": return "Light assault weapons prohibited";
-                case "5": return "Personal concealable weapons prohibited";
-                case "6": return "All firearms except shotguns prohibited";
-                case "7": return "Shotguns prohibited";
-                case "8": return "Long bladed weapons controlled; open possession prohibited";
-                case "9": return "Possession of weapons outside the home prohibited";
-                case "A": return "Weapon possession prohibited";
-                case "B": return "Rigid control of civilian movement";
-                case "C": return "Unrestricted invasion of privacy";
-                case "D": return "Paramilitary law enforcement";
-                case "E": return "Full-fledged police state";
-                case "F": return "All facets of daily life regularly legislated and controlled";
-                case "G": return "Severe punishment for petty infractions";
-                case "H": return "Legalized oppressive practices";
-                case "J": return "Routinely oppressive and restrictive";
-                case "K": return "Excessively oppressive and restrictive";
-                case "L": return "Totally oppressive and restrictive";
-                case "S": return "Special/Variable situation";
-
-                default: return "";
-            }
+                '0' => "No prohibitions",
+                '1' => "Body pistols, explosives, and poison gas prohibited",
+                '2' => "Portable energy weapons prohibited",
+                '3' => "Machine guns, automatic rifles prohibited",
+                '4' => "Light assault weapons prohibited",
+                '5' => "Personal concealable weapons prohibited",
+                '6' => "All firearms except shotguns prohibited",
+                '7' => "Shotguns prohibited",
+                '8' => "Long bladed weapons controlled; open possession prohibited",
+                '9' => "Possession of weapons outside the home prohibited",
+                'A' => "Weapon possession prohibited",
+                'B' => "Rigid control of civilian movement",
+                'C' => "Unrestricted invasion of privacy",
+                'D' => "Paramilitary law enforcement",
+                'E' => "Full-fledged police state",
+                'F' => "All facets of daily life regularly legislated and controlled",
+                'G' => "Severe punishment for petty infractions",
+                'H' => "Legalized oppressive practices",
+                'J' => "Routinely oppressive and restrictive",
+                'K' => "Excessively oppressive and restrictive",
+                'L' => "Totally oppressive and restrictive",
+                'S' => "Special/Variable situation",
+                _ => "",
+            };
         }
 
         public static string LawLevelWeaponsRestricted(EHex lawCode)
         {
-            switch (lawCode.ToString())
+            return (lawCode.ToChar()) switch
             {
-                case "0": return "";
-                case "1": return "Poison gas, explosives, undetectable weapons, WMD";
-                case "2": return "Portable energy weapons (except ship-mounted weapons)";
-                case "3": return "Heavy weapons";
-                case "4": return "Light assault weapons and submachine guns";
-                case "5": return "Personal concealable weapons";
-                case "6": return "All firearms except shotguns and stunners; carrying weapons discouraged";
-                case "7": return "Shotguns";
-                case "8": return "All bladed weapons, stunners";
-                default: return "Any weapons";
-            }
+                '0' => "",
+                '1' => "Poison gas, explosives, undetectable weapons, WMD",
+                '2' => "Portable energy weapons (except ship-mounted weapons)",
+                '3' => "Heavy weapons",
+                '4' => "Light assault weapons and submachine guns",
+                '5' => "Personal concealable weapons",
+                '6' => "All firearms except shotguns and stunners; carrying weapons discouraged",
+                '7' => "Shotguns",
+                '8' => "All bladed weapons, stunners",
+                _ => "Any weapons",
+            };
         }
 
         public static string LawLevelDrugsRestricted(EHex lawCode)
         {
-            switch (lawCode.ToString())
+            return (lawCode.ToChar()) switch
             {
-                case "0": return "";
-                case "1": return "Highly  addictive  and dangerous   narcotics";
-                case "2": return "Highly  addictive narcotics";
-                case "3": return "Combat drugs";
-                case "4": return "Addictive  narcotics";
-                case "5": return "Anagathics";
-                case "6": return "Fast and Slow   drugs";
-                case "7": return "All narcotics";
-                case "8": return "Medicinal   drugs";
-                default: return "All drugs";
-            }
+                '0' => "",
+                '1' => "Highly  addictive  and dangerous   narcotics",
+                '2' => "Highly  addictive narcotics",
+                '3' => "Combat drugs",
+                '4' => "Addictive  narcotics",
+                '5' => "Anagathics",
+                '6' => "Fast and Slow   drugs",
+                '7' => "All narcotics",
+                '8' => "Medicinal   drugs",
+                _ => "All drugs",
+            };
         }
 
         public static string LawLevelInformationRestricted(EHex lawCode)
         {
-            switch (lawCode.ToString())
+            return (lawCode.ToChar()) switch
             {
-                case "0": return "";
-                case "1": return "Intellect programs.";
-                case "2": return "Agent programs.";
-                case "3": return "Intrusion programs.";
-                case "4": return "Security programs.";
-                case "5": return "Expert programs.";
-                case "6": return "Recent news from offworld.";
-                case "7": return "Library programs, unfiltered data about other worlds. Free speech curtailed.";
-                case "8": return "Information technology, any non-critical data from offworld, personal media.";
-                default: return "Any data from offworld. No free press.";
-            }
+                '0' => "",
+                '1' => "Intellect programs.",
+                '2' => "Agent programs.",
+                '3' => "Intrusion programs.",
+                '4' => "Security programs.",
+                '5' => "Expert programs.",
+                '6' => "Recent news from offworld.",
+                '7' => "Library programs, unfiltered data about other worlds. Free speech curtailed.",
+                '8' => "Information technology, any non-critical data from offworld, personal media.",
+                _ => "Any data from offworld. No free press.",
+            };
         }
 
         public static string LawLevelTechnolgyRestricted(EHex lawCode)
         {
-            switch (lawCode.ToString())
+            return (lawCode.ToChar()) switch
             {
-                case "0": return "";
-                case "1": return "Dangerous technologies such as nanotechnology";
-                case "2": return "Alien Technology";
-                case "3": return "TL 15";
-                case "4": return "TL 13";
-                case "5": return "TL 11";
-                case "6": return "TL 9";
-                case "7": return "TL 7";
-                case "8": return "TL 5";
-                default: return "TL 3";
-            }
+                '0' => "",
+                '1' => "Dangerous technologies such as nanotechnology",
+                '2' => "Alien Technology",
+                '3' => "TL 15",
+                '4' => "TL 13",
+                '5' => "TL 11",
+                '6' => "TL 9",
+                '7' => "TL 7",
+                '8' => "TL 5",
+                _ => "TL 3",
+            };
         }
 
         public static string LawLevelTravellersRestricted(EHex lawCode)
         {
-            switch (lawCode.ToString())
+            return (lawCode.ToChar()) switch
             {
-                case "0": return "";
-                case "1": return "Visitors must contact planetary authorities by radio, landing is permitted anywhere.";
-                case "2": return "Visitors must report passenger manifest, landing is permitted anywhere.";
-                case "3": return "Landing only at starport or other authorised sites.";
-                case "4": return "Landing only at starport.";
-                case "5": return "Citizens must register offworld travel; visitors mustt register all business.";
-                case "6": return "Visits discouraged; excessive contact with citizens forbidden.";
-                case "7": return "Citizens may not leave planet; ,visitors may not leave starport. ";
-                case "8": return "Landing permitted only to imperial agents.";
-                default: return "No offworlders permitted.";
-            }
+                '0' => "",
+                '1' => "Visitors must contact planetary authorities by radio, landing is permitted anywhere.",
+                '2' => "Visitors must report passenger manifest, landing is permitted anywhere.",
+                '3' => "Landing only at starport or other authorised sites.",
+                '4' => "Landing only at starport.",
+                '5' => "Citizens must register offworld travel; visitors mustt register all business.",
+                '6' => "Visits discouraged; excessive contact with citizens forbidden.",
+                '7' => "Citizens may not leave planet; ,visitors may not leave starport. ",
+                '8' => "Landing permitted only to imperial agents.",
+                _ => "No offworlders permitted.",
+            };
         }
 
         public static string LawLevelPsionicsRestricted(EHex lawCode)
         {
-            switch (lawCode.ToString())
+            return (lawCode.ToChar()) switch
             {
-                case "0": return "";
-                case "1": return "Dangerous talents must be registered. ";
-                case "2": return "All psionic powers must be registered; use of dangerous powers forbidden. ";
-                case "3": return "Use of telepathy restricted to - government- approved telepaths.";
-                case "4": return "Use of teleportation and clairvoyance restricted.";
-                case "5": return "Use of all psionic ,powers restricted to government psionicists.";
-                case "6": return "Possession of psionic drugs banned.";
-                case "7": return "Use of psionics forbiden.";
-                case "8": return "Psionic-related technology banned.";
-                default: return "All psionics.";
-            }
+                '0' => "",
+                '1' => "Dangerous talents must be registered. ",
+                '2' => "All psionic powers must be registered; use of dangerous powers forbidden. ",
+                '3' => "Use of telepathy restricted to - government- approved telepaths.",
+                '4' => "Use of teleportation and clairvoyance restricted.",
+                '5' => "Use of all psionic ,powers restricted to government psionicists.",
+                '6' => "Possession of psionic drugs banned.",
+                '7' => "Use of psionics forbiden.",
+                '8' => "Psionic-related technology banned.",
+                _ => "All psionics.",
+            };
         }
 
         public static double PopulationExponent(EHex populationCode) => Math.Pow(10, populationCode.Value);
 
         public static int SizeKM(EHex sizeCode)
         {
-            switch (sizeCode.ToString())
+            return (sizeCode.ToChar()) switch
             {
-                case "0": return 800;
-                case "1": return 1600;
-                case "2": return 3200;
-                case "3": return 4800;
-                case "4": return 6400;
-                case "5": return 8000;
-                case "6": return 9600;
-                case "7": return 11200;
-                case "8": return 12800;
-                case "9": return 14400;
-                case "A": return 16000;
-                case "B": return 17600;
-                case "C": return 19400;
-                default: return 0;
-            }
+                '0' => 800,
+                '1' => 1600,
+                '2' => 3200,
+                '3' => 4800,
+                '4' => 6400,
+                '5' => 8000,
+                '6' => 9600,
+                '7' => 11200,
+                '8' => 12800,
+                '9' => 14400,
+                'A' => 16000,
+                'B' => 17600,
+                'C' => 19400,
+                _ => 0,
+            };
         }
 
         public static string Starport(EHex starportCode)
         {
-            switch (starportCode.ToString())
+            return (starportCode.ToChar()) switch
             {
-                //star ports
-                case "A": return "Excellent Quality";
-                case "B": return "Good Quality";
-                case "C": return "Routine Quality";
-                case "D": return "Poor Quality";
-                case "E": return "Frontier Installation";
-                case "X": return "No Starport";
-                //space ports
-                case "F": return "Good Quality";
-                case "G": return "Poor Quality";
-                case "H": return "Primitive Quality";
-                case "Y": return "None";
-                default: return "";
-            }
+                'A' => "Excellent Quality",
+                'B' => "Good Quality",
+                'C' => "Routine Quality",
+                'D' => "Poor Quality",
+                'E' => "Frontier Installation",
+                'X' => "No Starport",
+                'F' => "Good Quality",
+                'G' => "Poor Quality",
+                'H' => "Primitive Quality",
+                'Y' => "None",
+                _ => "",
+            };
         }
 
         public static string StarportDescription(EHex starportCode)
         {
-            switch (starportCode.ToString())
+            return (starportCode.ToChar()) switch
             {
-                //star ports
-                case "A": return "Excellent Quality. Refined fuel available. Annual maintenance overhaul available. Shipyard capable of constructing starships and non-starships present. Nava base and/or scout base may be present";
-                case "B": return "Good Quality. Refined fuel available. Annual maintenance overhaul available. Shipyard capable of constructing non-starships present. Naval base and/or scout base may be present";
-                case "C": return "Routine Quality. Only unrefined fuel available. Reasonable repair facilities present. Scout base may be present";
-                case "D": return "Poor Quality. Only unrefined fuel available. No repair facilities present. Scout base may be present";
-                case "E": return "Frontier Installation. Essentially a marked spot of bedrock with no fuel, facilities, or bases present";
-                case "X": return "No Starport. No provision is made for any ship landings";
-                //space ports
-                case "F": return "Good Quality. Minor damage repairable. Unrefined fuel available";
-                case "G": return "Poor Quality. Superficial repairs possible. Unrefined fuel available";
-                case "H": return "Primitive Quality. No repairs or fuel available";
-                case "Y": return "None";
-                default: return "";
-            }
+                'A' => "Excellent Quality. Refined fuel available. Annual maintenance overhaul available. Shipyard capable of constructing starships and non-starships present. Nava base and/or scout base may be present",
+                'B' => "Good Quality. Refined fuel available. Annual maintenance overhaul available. Shipyard capable of constructing non-starships present. Naval base and/or scout base may be present",
+                'C' => "Routine Quality. Only unrefined fuel available. Reasonable repair facilities present. Scout base may be present",
+                'D' => "Poor Quality. Only unrefined fuel available. No repair facilities present. Scout base may be present",
+                'E' => "Frontier Installation. Essentially a marked spot of bedrock with no fuel, facilities, or bases present",
+                'X' => "No Starport. No provision is made for any ship landings",
+                'F' => "Good Quality. Minor damage repairable. Unrefined fuel available",
+                'G' => "Poor Quality. Superficial repairs possible. Unrefined fuel available",
+                'H' => "Primitive Quality. No repairs or fuel available",
+                'Y' => "None",
+                _ => "",
+            };
         }
 
         public static string TechLevel(EHex techCode)
         {
-            switch (techCode.ToString())
+            return (techCode.ToChar()) switch
             {
-                case "0": return "Stone Age. Primitive";
-                case "1": return "Bronze, Iron. Bronze Age to Middle Ages";
-                case "2": return "Printing Press. circa 1400 to 1700";
-                case "3": return "Basic Science. circa 1700 to 1860";
-                case "4": return "External Combustion. circa 1860 to 1900";
-                case "5": return "Mass Production. circa 1900 to 1939";
-                case "6": return "Nuclear Power. circa 1940 to 1969";
-                case "7": return "Miniaturized Electronics. circa 1970 to 1979";
-                case "8": return "Quality Computers. circa 1980 to 1989";
-                case "9": return "Anti-Gravity. circa 1990 to 2000";
-                case "A": return "Interstellar community";
-                case "B": return "Lower Average Imperial";
-                case "C": return "Average Imperial";
-                case "D": return "Above Average Imperial";
-                case "E": return "Above Average Imperial";
-                case "F": return "Technical Imperial Maximum";
-                case "G": return "Robots";
-                case "H": return "Artificial Intelligence";
-                case "J": return "Personal Disintegrators";
-                case "K": return "Plastic Metals";
-                case "L": return "Comprehensible only as technological magic";
-                default: return "";
-            }
+                '0' => "Stone Age. Primitive",
+                '1' => "Bronze, Iron. Bronze Age to Middle Ages",
+                '2' => "Printing Press. circa 1400 to 1700",
+                '3' => "Basic Science. circa 1700 to 1860",
+                '4' => "External Combustion. circa 1860 to 1900",
+                '5' => "Mass Production. circa 1900 to 1939",
+                '6' => "Nuclear Power. circa 1940 to 1969",
+                '7' => "Miniaturized Electronics. circa 1970 to 1979",
+                '8' => "Quality Computers. circa 1980 to 1989",
+                '9' => "Anti-Gravity. circa 1990 to 2000",
+                'A' => "Interstellar community",
+                'B' => "Lower Average Imperial",
+                'C' => "Average Imperial",
+                'D' => "Above Average Imperial",
+                'E' => "Above Average Imperial",
+                'F' => "Technical Imperial Maximum",
+                'G' => "Robots",
+                'H' => "Artificial Intelligence",
+                'J' => "Personal Disintegrators",
+                'K' => "Plastic Metals",
+                'L' => "Comprehensible only as technological magic",
+                _ => "",
+            };
         }
 
         public static string TechLevelDescription(EHex techCode)
         {
-            switch (techCode.ToString())
+            return (techCode.ToChar()) switch
             {
-                case "0": return "Primitive/Stone Age";
-                case "1": return "Bronze Age/Iron Age";
-                case "2": return "Age of Sail";
-                case "3": return "Industrial Revolution";
-                case "4": return "Mechanization";
-                case "5": return "Polymers";
-                case "6": return "Nuclear Age";
-                case "7": return "Semiconductors; Early space age";
-                case "8": return "Superconductors; Early communications";
-                case "9": return "Gravitics; First Jump Drives";
-                case "A": return "Practical Fusion power";
-                case "B": return "Fusion+; Imperial maximum year 0";
-                case "C": return "Sophisticated Robots";
-                case "D": return "Cloning; Imperial maximum year 550";
-                case "E": return "Geneering; Imperial maximum year 900";
-                case "F": return "Anagathics; Imperial maximum year 1105";
-                case "G": return "Artificial Persons; Black Globe Generators";
-                case "H": return "Hop Drive; Permanent Personality Transfer";
-                case "J": return "Disruptor and Stasis weapons";
-                case "K": return "Limited Matter Transport; Antimatter power";
-                case "L": return "Skip Drives; White Globe Generators";
-                case "M": return "System-wide matter transport; Relativity Rifle";
-                case "N": return "(Beyond current technology extrapolation.)";
-                case "P": return "Planetary core energy tap; Rapid terraforming";
-                case "Q": return "Portals; Rosettes";
-                case "R": return "Psionic engineering";
-                case "S": return "Stasis globe";
-                case "T": return "Ringworlds";
-                case "U": return "Reality drive";
-                case "V": return "Dyson spheres";
-                case "W": return "Pocket universes";
-                default: return "";
-            }
+                '0' => "Primitive/Stone Age",
+                '1' => "Bronze Age/Iron Age",
+                '2' => "Age of Sail",
+                '3' => "Industrial Revolution",
+                '4' => "Mechanization",
+                '5' => "Polymers",
+                '6' => "Nuclear Age",
+                '7' => "Semiconductors; Early space age",
+                '8' => "Superconductors; Early communications",
+                '9' => "Gravitics; First Jump Drives",
+                'A' => "Practical Fusion power",
+                'B' => "Fusion+; Imperial maximum year 0",
+                'C' => "Sophisticated Robots",
+                'D' => "Cloning; Imperial maximum year 550",
+                'E' => "Geneering; Imperial maximum year 900",
+                'F' => "Anagathics; Imperial maximum year 1105",
+                'G' => "Artificial Persons; Black Globe Generators",
+                'H' => "Hop Drive; Permanent Personality Transfer",
+                'J' => "Disruptor and Stasis weapons",
+                'K' => "Limited Matter Transport; Antimatter power",
+                'L' => "Skip Drives; White Globe Generators",
+                'M' => "System-wide matter transport; Relativity Rifle",
+                'N' => "(Beyond current technology extrapolation.)",
+                'P' => "Planetary core energy tap; Rapid terraforming",
+                'Q' => "Portals; Rosettes",
+                'R' => "Psionic engineering",
+                'S' => "Stasis globe",
+                'T' => "Ringworlds",
+                'U' => "Reality drive",
+                'V' => "Dyson spheres",
+                'W' => "Pocket universes",
+                _ => "",
+            };
         }
 
         static ImmutableArray<EHex> BuildCodes(int min, int max, params EHex[] extras)

@@ -6,12 +6,12 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 {
     public class Passenger : Person
     {
-        public string PassengerType { get; set; }
+        public string? PassengerType { get; set; }
         public List<string> Personality { get; } = new List<string>();
         public string PersonalityList => string.Join(", ", Personality);
         public int? Seed { get; set; }
-        public string Skills { get; set; }
-        public string TravelType { get; set; }
+        public string? Skills { get; set; }
+        public string? TravelType { get; set; }
 
         public static void AddPassengerType(Passenger passenger, Dice dice)
         {
