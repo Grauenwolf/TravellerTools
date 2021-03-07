@@ -5,6 +5,27 @@
 @if (Model != null)
 {
     <h2>@(Model.Subsector.Name)</h2>
+
+    <table class="gridtable">
+        <tr>
+            <th>Sector</th>
+            <td>
+                @Model.Sector.Name
+                <br />
+                <a href="@($"/world/{MilieuCode}/{Model.Sector.X},{Model.Sector.Y}")">
+                    <span class="oi oi-list" aria-hidden="true" /> Index
+                </a>
+                <a href="@($"https://wiki.travellerrpg.com/{Model.Sector.Name}_Sector")" target="_blank" title="Search Traveller Wiki for this sector.">
+                    <span class="oi oi-globe" aria-hidden="true" /> TAS
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th>Subsector Code</th>
+            <td>@Model.Subsector.Index</td>
+        </tr>
+    </table>
+
     <h3>Subsector Info</h3>
     if (Model.Worlds.Length > 0)
     {
