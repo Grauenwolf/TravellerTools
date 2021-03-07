@@ -120,7 +120,11 @@
                 <th>Tons</th>
                 <th>Base Price</th>
                 <th title="Availability of the good. This does not include broker/streetwise.">Purchase DM</th>
-                @if (!Options.SkipPriceRoll)
+                @if (Options.SkipPriceRoll)
+                {
+                    <th>Expected Price</th>
+                }
+                else
                 {
                     <th>Modified Roll</th>
                     <th>Price Modifier</th>
@@ -143,7 +147,15 @@
                     <td>@lot.Tons</td>
                     <td>@lot.BasePrice.ToString("N0")</td>
                     <td>@lot.PurchaseDM</td>
-                    @if (!Options.SkipPriceRoll)
+                    @if (Options.SkipPriceRoll)
+                    {
+                        var bonus = (lot.Legal ? Options.BrokerScore : Options.StreetwiseScore);
+                        var expectedPrice = lot.BasePrice * (1 - (0.05M * (bonus + lot.PurchaseDM)));
+                        <td>
+                            @( (expectedPrice).ToString("N0") )
+                        </td>
+                    }
+                    else
                     {
                         <td>@lot.Roll.ToString("N0")</td>
                         <td>@lot.PriceModifier.ToString("P2")</td>
@@ -165,7 +177,7 @@
                         else
                         {
                             //Bonus is only used for selling. It was factored into the buying price.
-                            var bonus = 2 * (lot.Legal ? Options.BrokerScore : Options.StreetwiseScore);
+                            var bonus = (lot.Legal ? Options.BrokerScore : Options.StreetwiseScore);
                             var expectedPrice = lot.BasePrice * (1 + (0.05M * (bonus + lot.DestinationDM ?? 0)));
                             <td>
                                 @( (100M * expectedPrice/lot.CurrentPrice).ToString("N0") )%
