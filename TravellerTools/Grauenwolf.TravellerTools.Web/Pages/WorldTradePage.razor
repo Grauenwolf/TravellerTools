@@ -51,6 +51,11 @@
                             <InputCheckbox @bind-Value="Options.IllegalGoods" />
                             Allow Illegal Goods
                         </label>
+                        <br />
+                        <label title="Instead of rolling for price, assume the player got a 10 before modifiers.">
+                            <InputCheckbox @bind-Value="Options.SkipPriceRoll" />
+                            Don't Roll for Price
+                        </label>
                     </td>
                     <td>
                         <InputSelect @bind-Value="Options.BrokerScoreCode">
@@ -114,13 +119,17 @@
                 }
                 <th>Tons</th>
                 <th>Base Price</th>
-                <th>Purchase DM</th>
-                <th>Modified Roll</th>
-                <th>Price Modifier</th>
-                <th>Current Price</th>
+                <th title="Availability of the good. This does not include broker/streetwise.">Purchase DM</th>
+                @if (!Options.SkipPriceRoll)
+                {
+                    <th>Modified Roll</th>
+                    <th>Price Modifier</th>
+                    <th>Current Price</th>
+                }
                 @if (Options.DestinationIndex >= 0)
                 {
-                    <th title="Desirability of the good at the selected destination.">Destination DM</th>
+                    <th title="Desirability of the good at the selected destination. This does not include broker/streetwise.">Destination DM</th>
+                    <th title="This includes broker/streetwise.">Expected Profit</th>
                 }
             </tr>
             @foreach (var lot in Model.TradeList.Lots)
@@ -134,12 +143,36 @@
                     <td>@lot.Tons</td>
                     <td>@lot.BasePrice.ToString("N0")</td>
                     <td>@lot.PurchaseDM</td>
-                    <td>@lot.Roll.ToString("N0")</td>
-                    <td>@lot.PriceModifier.ToString("P2")</td>
-                    <td>@lot.CurrentPrice.ToString("N0")</td>
+                    @if (!Options.SkipPriceRoll)
+                    {
+                        <td>@lot.Roll.ToString("N0")</td>
+                        <td>@lot.PriceModifier.ToString("P2")</td>
+                        <td>@lot.CurrentPrice.ToString("N0")</td>
+                    }
                     @if (Options.DestinationIndex >= 0)
                     {
                         <td>@lot.DestinationDM</td>
+                        @if (Options.SkipPriceRoll)
+                        {
+                            //Bonus is used for both buying and selling
+                            var bonus = 2 * (lot.Legal ? Options.BrokerScore : Options.StreetwiseScore);
+                            <td>
+                                @( ((bonus + lot.PurchaseDM+lot.DestinationDM??0) * 5).ToString("N2") )%
+                                <br />
+                                @((lot.BasePrice *( bonus + lot.PurchaseDM+lot.DestinationDM??0) * 0.05M).ToString("N0") ) per ton
+                            </td>
+                        }
+                        else
+                        {
+                            //Bonus is only used for selling. It was factored into the buying price.
+                            var bonus = 2 * (lot.Legal ? Options.BrokerScore : Options.StreetwiseScore);
+                            var expectedPrice = lot.BasePrice * (1 + (0.05M * (bonus + lot.DestinationDM ?? 0)));
+                            <td>
+                                @( (100M * expectedPrice/lot.CurrentPrice).ToString("N0") )%
+                                <br />
+                                @( (expectedPrice - lot.CurrentPrice ).ToString("N0") ) per ton
+                            </td>
+                        }
                     }
                 </tr>
             }

@@ -30,6 +30,7 @@ namespace Grauenwolf.TravellerTools.Web.Data
         public bool AdvancedMode { get => GetDefault(false); set => Set(value); }
         public bool Raffle { get => GetDefault(false); set => Set(value); }
         public bool IllegalGoods { get => GetDefault(false); set => Set(value); }
+        public bool SkipPriceRoll { get => GetDefault(false); set => Set(value); }
 
         public int BrokerScore { get => GetDefault(0); set => Set(value); }
         public int StreetwiseScore { get => GetDefault(0); set => Set(value); }
@@ -79,6 +80,7 @@ namespace Grauenwolf.TravellerTools.Web.Data
             result.Add("advancedMode", AdvancedMode.ToString());
             result.Add("raffle", Raffle.ToString());
             result.Add("illegalGoods", IllegalGoods.ToString());
+            result.Add("skipPriceRoll", SkipPriceRoll.ToString());
             result.Add("brokerScore", BrokerScore.ToString());
             result.Add("streetwiseScore", StreetwiseScore.ToString());
             result.Add("destinationIndex", DestinationIndex.ToString());
@@ -96,6 +98,8 @@ namespace Grauenwolf.TravellerTools.Web.Data
                 Raffle = bool.Parse(raffle);
             if (keyValuePairs.TryGetValue("illegalGoods", out var illegalGoods))
                 IllegalGoods = bool.Parse(illegalGoods);
+            if (keyValuePairs.TryGetValue("skipPriceRoll", out var skipPriceRoll))
+                SkipPriceRoll = bool.Parse(skipPriceRoll);
             if (keyValuePairs.TryGetValue("brokerScore", out var brokerScore))
                 BrokerScore = int.Parse(brokerScore);
             if (keyValuePairs.TryGetValue("streetwiseScore", out var streetwiseScore))
