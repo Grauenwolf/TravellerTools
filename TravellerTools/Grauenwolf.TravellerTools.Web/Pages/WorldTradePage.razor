@@ -22,20 +22,17 @@
                     <th>Options</th>
                     <th>Broker Score</th>
                     <th>Streetwise Score</th>
+                    @if (Model.Destinations != null)
+                    {
+                        <th>Destination</th>
+                    }
                 </tr>
                 <tr>
                     <td>
                         <InputSelect @bind-Value="Options.SelectedEdition">
                             @foreach (var item in TradeOptions.EditionList)
                                 {
-                                    if (Options.SelectedEditionCode == item.Code)
-                                    {
-                                    <option value="@(item.Code)" selected> @(item.Name)</option>
-                                    }
-                                    else
-                                    {
-                                    <option value="@(item.Code)"> @(item.Name)</option>
-                                    }
+                                <option value="@(item.Code)" selected="@(Options.SelectedEditionCode == item.Code)"> @(item.Name)</option>
                                 }
                         </InputSelect>
                     </td>
@@ -59,14 +56,7 @@
                         <InputSelect @bind-Value="Options.BrokerScoreCode">
                             @for (var score = -6; score <= 8; score++)
                                 {
-                                    if (Options.BrokerScore == score)
-                                    {
-                                    <option value="@(score)" selected> @(score)</option>
-                                    }
-                                    else
-                                    {
-                                    <option value="@(score)"> @(score)</option>
-                                    }
+                                <option value="@(score)" selected="@(Options.BrokerScore == score)"> @(score)</option>
                                 }
                         </InputSelect>
                     </td>
@@ -74,17 +64,32 @@
                         <InputSelect @bind-Value="Options.StreetwiseScoreCode">
                             @for (var score = -6; score <= 8; score++)
                                 {
-                                    if (Options.StreetwiseScore == score)
-                                    {
-                                    <option value="@(score)" selected> @(score)</option>
-                                    }
-                                    else
-                                    {
-                                    <option value="@(score)"> @(score)</option>
-                                    }
+                                <option value="@(score)" selected="@(Options.StreetwiseScore == score)"> @(score)</option>
                                 }
                         </InputSelect>
                     </td>
+                    @if (Model.Destinations != null)
+                    {
+                        <td>
+                            <InputSelect @bind-Value="Options.DestinationIndexCode">
+                                <option value="" selected="@(string.IsNullOrEmpty(Options.DestinationIndexCode))"></option>
+
+                                @for (var jump = 1; jump <= 6; jump++)
+                                        {
+                                            if (Model.Destinations.Any(x => x.JumpDistance == jump))
+                                            {
+                                        <optgroup label="@("Jump " + jump)">
+                                            @for (var index = 0; index < Model.Destinations.Count; index++)
+                                                        if (Model.Destinations[index].JumpDistance == jump)
+                                                        {
+                                                    <option value="@(index)" selected="@(Options.DestinationIndex == index )">@Model.Destinations[index].Name</option>
+                                                        }
+                                        </optgroup>
+                                            }
+                                        }
+                            </InputSelect>
+                        </td>
+                    }
                 </tr>
             </table>
         </EditForm>
@@ -113,6 +118,10 @@
                 <th>Modified Roll</th>
                 <th>Price Modifier</th>
                 <th>Current Price</th>
+                @if (Options.DestinationIndex >= 0)
+                {
+                    <th title="Desirability of the good at the selected destination.">Destination DM</th>
+                }
             </tr>
             @foreach (var lot in Model.TradeList.Lots)
             {
@@ -128,6 +137,10 @@
                     <td>@lot.Roll.ToString("N0")</td>
                     <td>@lot.PriceModifier.ToString("P2")</td>
                     <td>@lot.CurrentPrice.ToString("N0")</td>
+                    @if (Options.DestinationIndex >= 0)
+                    {
+                        <td>@lot.DestinationDM</td>
+                    }
                 </tr>
             }
         </table>

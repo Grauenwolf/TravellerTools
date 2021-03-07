@@ -58,6 +58,20 @@ namespace Grauenwolf.TravellerTools.Web.Data
             }
         }
 
+        public int DestinationIndex { get => GetDefault(-1); set => Set(value); }
+
+        public string? DestinationIndexCode
+        {
+            get => DestinationIndex.ToString();
+            set
+            {
+                if (int.TryParse(value, out var score))
+                    DestinationIndex = score;
+                else
+                    DestinationIndex = -1;
+            }
+        }
+
         public Dictionary<string, string?> ToQueryString()
         {
             var result = new Dictionary<string, string?>();
@@ -67,6 +81,7 @@ namespace Grauenwolf.TravellerTools.Web.Data
             result.Add("illegalGoods", IllegalGoods.ToString());
             result.Add("brokerScore", BrokerScore.ToString());
             result.Add("streetwiseScore", StreetwiseScore.ToString());
+            result.Add("destinationIndex", DestinationIndex.ToString());
 
             return result;
         }
@@ -85,6 +100,8 @@ namespace Grauenwolf.TravellerTools.Web.Data
                 BrokerScore = int.Parse(brokerScore);
             if (keyValuePairs.TryGetValue("streetwiseScore", out var streetwiseScore))
                 StreetwiseScore = int.Parse(streetwiseScore);
+            if (keyValuePairs.TryGetValue("destinationIndex", out var destinationIndex))
+                DestinationIndex = int.Parse(destinationIndex);
         }
     }
 }

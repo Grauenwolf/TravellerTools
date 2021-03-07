@@ -105,6 +105,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
                     goto ReturnToIndex;
 
                 Model = new WorldModel(milieu, world);
+                Model.Destinations = await service.WorldsNearAsync(world.SectorX!.Value, world.SectorY!.Value, int.Parse(world.HexX!), int.Parse(world.HexY!), 6);
             }
 
             PageTitle = Model.World.Name ?? Uwp + " Trade";
@@ -126,8 +127,11 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             {
                 var dice = new Dice(Seed.Value);
                 var tradeEngine = TradeEngineLocator.GetTradeEngine(MilieuCode!, Options.SelectedEdition);
+                World? destination = null;
+                if (Options.DestinationIndex >= 0)
+                    destination = Model.Destinations![Options.DestinationIndex];
 
-                Model!.TradeList = tradeEngine.BuildTradeGoodsList(Model.World, Options.AdvancedMode, Options.IllegalGoods, Options.BrokerScore, dice, Options.Raffle, Options.StreetwiseScore);
+                Model!.TradeList = tradeEngine.BuildTradeGoodsList(Model.World, Options.AdvancedMode, Options.IllegalGoods, Options.BrokerScore, dice, Options.Raffle, Options.StreetwiseScore, destination);
 
                 StateHasChanged();
             }

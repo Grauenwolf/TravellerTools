@@ -14,5 +14,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public int Tons { get; set; }
         public string Type { get; set; }
         public bool Legal { get; set; }
+
+        public int? DestinationDM { get; set; }
+        internal TradeGood? TradeGood { get; set; }
     }
 }

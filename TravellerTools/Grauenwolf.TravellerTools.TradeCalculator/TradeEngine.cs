@@ -71,7 +71,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 //List the goods that are readily available or usually cheap on this planet
                 var purchaseDM = PurchaseDM(destination, good);
                 if (good.BasePrice > 0 && purchaseDM > 0) //(purchaseDM > 0 || (purchaseDM >= 0 && good.Availability == "*") || (good.AvailabilityList.Any(a => destination.ContainsRemark(a)))))
-                    offers.Add(new TradeOffer() { Type = good.Name, PurchaseDM = purchaseDM, Legal = good.Legal });
+                    offers.Add(new TradeOffer() { Type = good.Name, PurchaseDM = purchaseDM, Legal = good.Legal, TradeGood = good });
 
                 //List the goods that are usually desired on this planet
                 var saleDM = SaleDM(destination, good);
@@ -166,7 +166,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return result;
         }
 
-        public TradeGoodsList BuildTradeGoodsList(World origin, bool advancedMode, bool illegalGoods, int brokerScore, Dice random, bool raffleGoods, int streetwiseScore)
+        public TradeGoodsList BuildTradeGoodsList(World origin, bool advancedMode, bool illegalGoods, int brokerScore, Dice random, bool raffleGoods, int streetwiseScore, World? destination = null)
         {
             if (origin == null)
                 throw new ArgumentNullException(nameof(origin), $"{nameof(origin)} is null.");
@@ -249,6 +249,12 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     var good = random.Pick(randomGoods);
                     AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore));
                 }
+            }
+
+            if (destination != null) //Add destination DMs
+            {
+                foreach (var lot in availableLots)
+                    lot.DestinationDM = SaleDM(destination, lot.TradeGood);
             }
 
             //Goods the planet wants to buy
@@ -556,7 +562,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     Tons = Math.Max(1, random.D(detail.Tons)),
                     BasePrice = detail.Price * 1000,
                     PurchaseDM = PurchaseDM(origin, good),
-                    Legal = good.Legal
+                    Legal = good.Legal,
+                    TradeGood = good
                 };
 
                 if (!advancedMode) //move the names around
@@ -580,7 +587,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     Tons = random.D(good.Tons),
                     BasePrice = good.BasePrice * 1000,
                     PurchaseDM = PurchaseDM(origin, good),
-                    Legal = good.Legal
+                    Legal = good.Legal,
+                    TradeGood = good
                 };
 
                 int roll;
@@ -602,7 +610,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                         Tons = Math.Min(tonsRemaining, random.D(detail.Tons)),
                         BasePrice = detail.Price * 1000,
                         PurchaseDM = PurchaseDM(origin, good),
-                        Legal = good.Legal
+                        Legal = good.Legal,
+                        TradeGood = good
                     };
 
                     int roll;

@@ -5,6 +5,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml.Serialization;
 
+#nullable disable
+#pragma warning disable RCS1139 // Add summary element to documentation comment.
+
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
     /// <remarks/>
@@ -42,7 +45,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         /// <remarks/>
         [XmlElement("Detail")]
         public TradeGoodDetail[] Details { get; set; }
-
 
         public TradeGoodDetail ChooseRandomDetail(Dice random)
         {
@@ -101,7 +103,5 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         [XmlAttribute]
         public bool Legal { get; set; }
-
-
     }
 }
