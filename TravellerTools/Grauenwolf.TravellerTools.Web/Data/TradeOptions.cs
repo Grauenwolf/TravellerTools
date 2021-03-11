@@ -6,6 +6,10 @@ using Tortuga.Anchor.Modeling;
 
 namespace Grauenwolf.TravellerTools.Web.Data
 {
+    public class CharacterOptions : ModelBase
+    {
+    }
+
     public class TradeOptions : ModelBase
     {
         public static readonly ImmutableArray<(string Name, string Code)> EditionList = ImmutableArray.Create(
@@ -75,17 +79,17 @@ namespace Grauenwolf.TravellerTools.Web.Data
 
         public Dictionary<string, string?> ToQueryString()
         {
-            var result = new Dictionary<string, string?>();
-            result.Add("edition", SelectedEditionCode);
-            result.Add("advancedMode", AdvancedMode.ToString());
-            result.Add("raffle", Raffle.ToString());
-            result.Add("illegalGoods", IllegalGoods.ToString());
-            result.Add("skipPriceRoll", SkipPriceRoll.ToString());
-            result.Add("brokerScore", BrokerScore.ToString());
-            result.Add("streetwiseScore", StreetwiseScore.ToString());
-            result.Add("destinationIndex", DestinationIndex.ToString());
-
-            return result;
+            return new Dictionary<string, string?>
+            {
+                { "edition", SelectedEditionCode },
+                { "advancedMode", AdvancedMode.ToString() },
+                { "raffle", Raffle.ToString() },
+                { "illegalGoods", IllegalGoods.ToString() },
+                { "skipPriceRoll", SkipPriceRoll.ToString() },
+                { "brokerScore", BrokerScore.ToString() },
+                { "streetwiseScore", StreetwiseScore.ToString() },
+                { "destinationIndex", DestinationIndex.ToString() }
+            };
         }
 
         public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)

@@ -1,0 +1,50 @@
+﻿@page "/character"
+@inherits PageBase<CharacterOptions>
+@{PageTitle = " Univeral World Profile";}
+
+<h3>Characters</h3>
+
+<div>
+    <EditForm Model="@Model">
+
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div>This is used for creating NPCs only. Certain liberties where taken with the rules to allow for random character generation.</div>
+        <table class="gridtable">
+            <tr>
+                <th>First Career</th>
+                <td>
+                    @*@Html.DropDownList("firstCareer", Model.CareerList(), new { onchange = "CareerChanged($('#firstCareer')[0].value, $('#firstAssignment')[0], false)" })*@
+                </td>
+                <th>First Assignment</th>
+                <td>
+                    @*<select id="firstAssignment"></select>*@
+                </td>
+                <th>Final Career</th>
+                <td>
+                    @*@Html.DropDownList("finalCareer", Model.CareerList(), new { onchange = "CareerChanged($('#finalCareer')[0].value, $('#finalAssignment')[0], true)" })*@
+                </td>
+                <th>Final Assignment</th>
+                <td>
+                    @*<select id="finalAssignment"></select>*@
+                </td>
+                <th>Age</th>
+                <td>
+                    @*@Html.DropDownList("terms", Model.AgeList())*@
+                </td>
+                <td>
+                    <button @onclick="GenerateCharacter">Generate Character</button>
+                    @*<input id="showCharacterScreen" type="button" value="Generate Character" onclick="GenerateCharacter(readValue('firstAssignment'), readValue('finalCareer'),readValue('finalAssignment'), readValue('terms'),[ readValue('skillA'),readValue('skillB'),readValue('skillC'),readValue('skillD')   ] )" />*@
+                </td>
+            </tr>
+            <tr>
+                <th colspan="2">Desired Skills</th>
+                <td colspan="2">@*@Html.DropDownList("skillA", Model.SkillList())*@</td>
+                <td colspan="2">@*@Html.DropDownList("skillB", Model.SkillList())*@</td>
+                <td colspan="2">@*@Html.DropDownList("skillC", Model.SkillList())*@</td>
+                <td colspan="2">@*@Html.DropDownList("skillD", Model.SkillList())*@</td>
+            </tr>
+        </table>
+    </EditForm>
+</div>

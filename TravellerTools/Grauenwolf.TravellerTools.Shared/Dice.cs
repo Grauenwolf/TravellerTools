@@ -6,7 +6,6 @@ using Tortuga.Anchor;
 
 namespace Grauenwolf.TravellerTools
 {
-
     public class Dice : RandomExtended
     {
         /// <summary>
@@ -14,7 +13,6 @@ namespace Grauenwolf.TravellerTools
         /// </summary>
         public Dice()
         {
-
         }
 
         /// <summary>
@@ -23,7 +21,6 @@ namespace Grauenwolf.TravellerTools
         /// <param name="seed">A number used to calculate a starting value for the pseudo-random number sequence. If a negative number is specified, the absolute value of the number is used.</param>
         public Dice(int seed) : base(seed)
         {
-
         }
 
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "D")]
@@ -69,7 +66,7 @@ namespace Grauenwolf.TravellerTools
                     {
                         var isNegative = 1;
                         var fixedExpression = expression;
-
+                        var multiplier = 1;
 
                         if (expression.StartsWith("-"))
                         {
@@ -77,14 +74,21 @@ namespace Grauenwolf.TravellerTools
                             fixedExpression = expression.Substring(1);
                         }
 
+                        if (fixedExpression.Contains("*") || fixedExpression.Contains("X"))
+                        {
+                            var mParts = fixedExpression.Split(new[] { '*', 'X' }, StringSplitOptions.RemoveEmptyEntries);
+                            fixedExpression = mParts[0];
+                            multiplier = int.Parse(mParts[1]);
+                        }
+
                         var parts = fixedExpression.Split(new[] { 'D' }, StringSplitOptions.RemoveEmptyEntries).Select(i => int.Parse(i)).ToArray();
 
                         if (parts.Length == 1)
-                            result += D(parts[0], 6) * isNegative;
+                            result += D(parts[0], 6) * isNegative * multiplier;
                         else if (parts[1] == 66)
-                            result += D66() * isNegative;
+                            result += D66() * isNegative * multiplier;
                         else
-                            result += D(parts[0], parts[1]) * isNegative;
+                            result += D(parts[0], parts[1]) * isNegative * multiplier;
                     }
                     else if (expression.Length == 0)
                     {
@@ -174,5 +178,4 @@ namespace Grauenwolf.TravellerTools
             return D(2) == 2;
         }
     }
-
 }
