@@ -1,0 +1,16 @@
+﻿@page "/character/view"
+@inherits NullablePageBase<Character>
+@{PageTitle = (Model?.Title + " " + Model?.Name).TrimStart();}
+
+@if (Model != null)
+{
+    <CharacterViewer Character="@Model" />
+}
+else if (LoadFailed)
+{
+    <h1>Error loading page.</h1>
+}
+else
+{
+    <h1>Loading</h1>
+}

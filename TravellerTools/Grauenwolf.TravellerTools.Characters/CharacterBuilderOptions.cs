@@ -11,6 +11,8 @@ namespace Grauenwolf.TravellerTools.Characters
         //}
         public string FirstAssignment { get; set; }
 
+        public string FirstCareer { get; set; }
+
         public string Gender { get; set; }
         public int? MaxAge { get; set; }
         public string Name { get; set; }

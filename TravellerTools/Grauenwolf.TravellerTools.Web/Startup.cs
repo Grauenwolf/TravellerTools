@@ -1,3 +1,4 @@
+using Grauenwolf.TravellerTools.Characters;
 using Grauenwolf.TravellerTools.Equipment;
 using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Names;
@@ -37,6 +38,8 @@ namespace Grauenwolf.TravellerTools.Web
             var nameService = new LocalNameService(AppDataPath);
             services.AddSingleton(new TradeEngineLocator(mapService, AppDataPath, nameService));
             services.AddSingleton(new EquipmentBuilder(AppDataPath));
+            services.AddSingleton<INameService>(nameService);
+            services.AddSingleton(new CharacterBuilder(AppDataPath));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

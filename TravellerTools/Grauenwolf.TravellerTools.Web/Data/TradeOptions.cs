@@ -6,10 +6,6 @@ using Tortuga.Anchor.Modeling;
 
 namespace Grauenwolf.TravellerTools.Web.Data
 {
-    public class CharacterOptions : ModelBase
-    {
-    }
-
     public class TradeOptions : ModelBase
     {
         public static readonly ImmutableArray<(string Name, string Code)> EditionList = ImmutableArray.Create(

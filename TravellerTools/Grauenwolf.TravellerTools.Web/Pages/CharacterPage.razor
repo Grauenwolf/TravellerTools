@@ -1,50 +1,129 @@
 ﻿@page "/character"
-@inherits PageBase<CharacterOptions>
+@inherits NullablePageBase<CharacterOptions>
 @{PageTitle = " Univeral World Profile";}
 
 <h3>Characters</h3>
 
-<div>
-    <EditForm Model="@Model">
+@if (Model != null)
+{
+    <div>
+        <EditForm Model="@Model">
 
-        <DataAnnotationsValidator />
-        <ValidationSummary />
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-        <div>This is used for creating NPCs only. Certain liberties where taken with the rules to allow for random character generation.</div>
-        <table class="gridtable">
-            <tr>
-                <th>First Career</th>
-                <td>
-                    @*@Html.DropDownList("firstCareer", Model.CareerList(), new { onchange = "CareerChanged($('#firstCareer')[0].value, $('#firstAssignment')[0], false)" })*@
-                </td>
-                <th>First Assignment</th>
-                <td>
-                    @*<select id="firstAssignment"></select>*@
-                </td>
-                <th>Final Career</th>
-                <td>
-                    @*@Html.DropDownList("finalCareer", Model.CareerList(), new { onchange = "CareerChanged($('#finalCareer')[0].value, $('#finalAssignment')[0], true)" })*@
-                </td>
-                <th>Final Assignment</th>
-                <td>
-                    @*<select id="finalAssignment"></select>*@
-                </td>
-                <th>Age</th>
-                <td>
-                    @*@Html.DropDownList("terms", Model.AgeList())*@
-                </td>
-                <td>
-                    <button @onclick="GenerateCharacter">Generate Character</button>
-                    @*<input id="showCharacterScreen" type="button" value="Generate Character" onclick="GenerateCharacter(readValue('firstAssignment'), readValue('finalCareer'),readValue('finalAssignment'), readValue('terms'),[ readValue('skillA'),readValue('skillB'),readValue('skillC'),readValue('skillD')   ] )" />*@
-                </td>
-            </tr>
-            <tr>
-                <th colspan="2">Desired Skills</th>
-                <td colspan="2">@*@Html.DropDownList("skillA", Model.SkillList())*@</td>
-                <td colspan="2">@*@Html.DropDownList("skillB", Model.SkillList())*@</td>
-                <td colspan="2">@*@Html.DropDownList("skillC", Model.SkillList())*@</td>
-                <td colspan="2">@*@Html.DropDownList("skillD", Model.SkillList())*@</td>
-            </tr>
-        </table>
-    </EditForm>
-</div>
+            <div>This is used for creating NPCs only. Certain liberties where taken with the rules to allow for random character generation.</div>
+            <table class="gridtable">
+                <tr>
+                    <th>First Career</th>
+                    <td>
+                        <InputSelect @bind-Value="Model.FirstCareer">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.FirstCareer))">(Random)</option>
+                            @foreach (var item in Model.CareerList)
+                                {
+                                <option value="@(item)" selected="@(Model.FirstCareer == item)"> @(item)</option>
+                                }
+                        </InputSelect>
+                    </td>
+                    <th>First Assignment</th>
+                    <td>
+                        <InputSelect @bind-Value="Model.FirstAssignment">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.FirstAssignment))">(Random)</option>
+                            @foreach (var item in Model.FirstAssignmentList)
+                                {
+                                <option value="@(item)" selected="@(Model.FirstAssignment == item)"> @(item)</option>
+                                }
+                        </InputSelect>
+                    </td>
+                    <th>Final Career</th>
+                    <td>
+                        <InputSelect @bind-Value="Model.FinalCareer">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.FinalCareer))">(Random)</option>
+                            @foreach (var item in Model.CareerList)
+                                {
+                                <option value="@(item)" selected="@(Model.FinalCareer == item)"> @(item)</option>
+                                }
+                        </InputSelect>
+                    </td>
+                    <th>Final Assignment</th>
+                    <td>
+                        <InputSelect @bind-Value="Model.FinalAssignment">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.FinalAssignment))">(Random)</option>
+                            @foreach (var item in Model.FinalAssignmentList)
+                                {
+                                <option value="@(item)" selected="@(Model.FinalAssignment == item)"> @(item)</option>
+                                }
+                        </InputSelect>
+                    </td>
+                    <th>Age</th>
+                    <td>
+                        <InputSelect @bind-Value="Model.Terms">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.TermsCode))">(Random)</option>
+                            @foreach (var item in Model.AgeList)
+                                {
+                                <option value="@(item.ToString())" selected="@( item == Model.Terms )"> @(string.Format("{0} - {1}", 18 + (item * 4), 18 + (item * 4) + 3))</option>
+                                }
+                        </InputSelect>
+                    </td>
+                    <td>
+                        <button @onclick="GenerateCharacter">Generate Character</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2">Desired Skills</th>
+                    <td colspan="2">
+                        <InputSelect @bind-Value="Model.SkillA">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.SkillA))"></option>
+                            @foreach (var item in Model.SkillList)
+                                {
+                                <option value="@(item.Specialty ?? item.Name)" selected="@( !string.IsNullOrEmpty(Model.SkillA) && (Model.SkillA == item.Name || Model.SkillA == item.Specialty) )"> @(item.ToString())</option>
+                                }
+                        </InputSelect>
+                    </td>
+                    <td colspan="2">
+                        <InputSelect @bind-Value="Model.SkillB">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.SkillB))"></option>
+                            @foreach (var item in Model.SkillList)
+                                {
+                                <option value="@(item.Specialty ?? item.Name)" selected="@( !string.IsNullOrEmpty(Model.SkillB) && (Model.SkillB == item.Name || Model.SkillB == item.Specialty) )"> @(item.ToString())</option>
+                                }
+                        </InputSelect>
+                    </td>
+                    <td colspan="2">
+                        <InputSelect @bind-Value="Model.SkillC">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.SkillC))"></option>
+                            @foreach (var item in Model.SkillList)
+                                {
+                                <option value="@(item.Specialty ?? item.Name)" selected="@( !string.IsNullOrEmpty(Model.SkillC) && (Model.SkillC == item.Name || Model.SkillC == item.Specialty) )"> @(item.ToString())</option>
+                                }
+                        </InputSelect>
+                    </td>
+                    <td colspan="2">
+                        <InputSelect @bind-Value="Model.SkillD">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.SkillD))"></option>
+                            @foreach (var item in Model.SkillList)
+                                {
+                                <option value="@(item.Specialty ?? item.Name)" selected="@( !string.IsNullOrEmpty(Model.SkillD) && (Model.SkillD == item.Name || Model.SkillD == item.Specialty) )"> @(item.ToString())</option>
+                                }
+                        </InputSelect>
+                    </td>
+                </tr>
+            </table>
+        </EditForm>
+    </div>
+    <div>Perma-links will be available in a future version.</div>
+    @foreach (var character in Characters)
+    {
+        <hr />
+        <CharacterViewer Character="@character" />
+
+    }
+}
+else if (LoadFailed)
+{
+    <h1>Error loading page.</h1>
+}
+else
+{
+    <h1>Loading</h1>
+}

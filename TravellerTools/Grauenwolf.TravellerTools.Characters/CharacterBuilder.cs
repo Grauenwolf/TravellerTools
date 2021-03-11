@@ -89,6 +89,7 @@ namespace Grauenwolf.TravellerTools.Characters
 
             character.Seed = seed;
             character.FirstAssignment = options.FirstAssignment;
+            character.FirstCareer = options.FirstCareer;
             character.Name = options.Name;
             character.Gender = options.Gender;
 
@@ -111,6 +112,8 @@ namespace Grauenwolf.TravellerTools.Characters
 
             if (!string.IsNullOrEmpty(options.FirstAssignment))
                 character.NextTermBenefits.MustEnroll = options.FirstAssignment;
+            if (!string.IsNullOrEmpty(options.FirstCareer))
+                character.NextTermBenefits.MustEnroll = options.FirstCareer;
 
             while (!IsDone(options, character))
             {

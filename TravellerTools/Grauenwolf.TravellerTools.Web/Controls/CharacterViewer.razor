@@ -1,0 +1,123 @@
+﻿@inherits ControlBase
+
+@if (Character != null)
+{
+    <h2>
+        @((Character.Title + " " + Character.Name).TrimStart())
+        @if (Character.IsDead)
+        {
+            <span style="color:red"> &nbsp;DECEASED</span>
+        }
+        @*<a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}&FirstAssignment={4}&Gender={5}", Url.Encode(Character.Name), Character.Seed, Character.Age, Character.Age, Character.FirstAssignment, Character.Gender)">permalink</a>*@
+    </h2>
+
+    <table class="gridtable">
+
+        <tr>
+            <th width="50" style="text-align:center;">Age</th>
+            <th width="50" style="text-align:center;">Sex</th>
+            <th width="50" style="text-align:center;">Str</th>
+            <th width="50" style="text-align:center;">Dex</th>
+            <th width="50" style="text-align:center;">End</th>
+            <th width="50" style="text-align:center;">Int</th>
+            <th width="50" style="text-align:center;">Edu</th>
+            <th width="50" style="text-align:center;">Soc</th>
+            @if (Character.Psi.HasValue)
+            {
+                <th width="50" style="text-align:center;">Psi</th>
+            }
+        </tr>
+        <tr>
+            <td>@(Character.Age)</td>
+            <td>@(Character.Gender)</td>
+            <td>@(Character.Strength) (@Character.StrengthDM)</td>
+            <td>@(Character.Dexterity) (@Character.DexterityDM)</td>
+            <td>@(Character.Endurance) (@Character.EnduranceDM)</td>
+            <td>@(Character.Intellect) (@Character.IntellectDM)</td>
+            <td>@(Character.Education) (@Character.EducationDM)</td>
+            <td>@(Character.SocialStanding) (@Character.SocialStandingDM)</td>
+            @if (Character.Psi.HasValue)
+            {
+                if (Character.Psi > 0)
+                {
+                    <td>@(Character.Psi) (@Character.PsiDM)</td>
+                }
+                else
+                {
+                    <td>None</td>
+                }
+            }
+        </tr>
+        <tr><td colspan="8">@(Character.PersonalityList)</td></tr>
+    </table>
+
+    <div>&nbsp;</div>
+
+    <table>
+        <tr>
+
+            <td>
+
+                <table class="gridtable" valign="top">
+                    <tr><th>Skills</th></tr>
+                    @foreach (var line in Character.Skills.OrderBy(s => s.Name).ThenBy(s => s.Specialty))
+                    {
+                        <tr><td>@line</td></tr>
+                    }
+                </table>
+            </td>
+
+            <td width="20"></td>
+            <td valign="top">
+                <table class="gridtable">
+                    <tr><th>Career</th><th>Assignment</th><th>Title</th><th>Rank</th><th>Terms</th></tr>
+                    @foreach (var line in Character.CareerHistory)
+                    {
+                        <tr>
+                            <td>@line.Career</td>
+                            <td>@line.Assignment</td>
+                            <td>@line.Title</td>
+                            @if (line.CommissionRank > 0)
+                            {
+                                <td>@(line.CommissionRank + " / " + line.Rank)</td>
+                            }
+                            else
+                            {
+                                <td>@line.Rank</td>
+
+                            }
+                            <td>@line.Terms</td>
+                        </tr>
+                    }
+                </table>
+
+                @if (Character.EducationHistory != null)
+                {
+                    <div>&nbsp;</div>
+
+                    <table class="gridtable">
+                        <tr><th>Education</th><th>Graduated</th></tr>
+                        <tr>
+                            <td>@Character.EducationHistory.Name</td>
+                            <td>@Character.EducationHistory.Status</td>
+                        </tr>
+                    </table>
+                }
+            </td>
+        </tr>
+    </table>
+
+    <div>&nbsp;</div>
+
+    <table class="gridtable">
+        <tr><th>Term</th><th>History</th></tr>
+        @foreach (var line in Character.History)
+        {
+            <tr><td>@line.Term</td><td>@line</td></tr>
+        }
+    </table>
+}
+else
+{
+    <div>Error - Character is missing</div>
+}
