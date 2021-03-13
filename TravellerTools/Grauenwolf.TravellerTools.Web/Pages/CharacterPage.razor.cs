@@ -120,22 +120,35 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
                 double AttributeSuitability(string? setting, int dm)
                 {
-                    return setting switch
+                    setting = setting?.ToUpperInvariant();
+
+                    switch (setting)
                     {
-                        "High" => dm * 1.0,
-                        "Low" => dm * -1.0,
-                        _ => 0.0,
-                    };
+                        case "HIGH":
+                            if (dm > 0)
+                                return 10 + dm;
+                            else
+                                return dm; //it's now a penality
+                        case "LOW":
+                            if (dm < 0)
+                                return 10 - dm; //the - makes this into a bonus
+                            else
+                                return -1 * dm; //it's now a penality
+                    }
+                    return 0; //setting is blank or dm is 0
                 }
 
-                double Suitability(Character item)
+                double Suitability(Character item, bool includeCareers)
                 {
                     var baseValue = 0.00;
                     if (item.IsDead)
-                        baseValue -= 100.0;
+                        baseValue -= 1000.0;
 
-                    //We need Level+1 to capture 0-level skills
-                    baseValue += item.Skills.Where(s => desiredSkills!.Contains(s.Name) || desiredSkills.Contains(s.Specialty!)).Select(s => s.Level + 1).Sum();
+                    //Add a large boost for the existence of the skill
+                    baseValue += item.Skills.Where(s => desiredSkills!.Contains(s.Name) || desiredSkills.Contains(s.Specialty!)).Select(s => s.Level).Count() * 10;
+
+                    //Add a small boost for the value of the skills
+                    baseValue += item.Skills.Where(s => desiredSkills!.Contains(s.Name) || desiredSkills.Contains(s.Specialty!)).Select(s => s.Level).Sum();
 
                     baseValue += AttributeSuitability(Model.Str, item.StrengthDM);
                     baseValue += AttributeSuitability(Model.Dex, item.DexterityDM);
@@ -143,6 +156,12 @@ namespace Grauenwolf.TravellerTools.Web.Pages
                     baseValue += AttributeSuitability(Model.Int, item.IntellectDM);
                     baseValue += AttributeSuitability(Model.Edu, item.EducationDM);
                     baseValue += AttributeSuitability(Model.Soc, item.SocialStandingDM);
+
+                    if (includeCareers)
+                    {
+                        baseValue += (item.CareerHistory.Where(ch => string.Equals(ch.Assignment, Model.FinalAssignment, StringComparison.InvariantCultureIgnoreCase)).Sum(ch => ch.Terms * 50.0) / item.CurrentTerm);
+                        baseValue += (item.CareerHistory.SingleOrDefault(ch => string.Equals(ch.Career, Model.FinalCareer, StringComparison.InvariantCultureIgnoreCase))?.Terms * 10.0 ?? 0.00) / item.CurrentTerm;
+                    }
 
                     return baseValue;
                 }
@@ -153,7 +172,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
                     var sortedList = preferredCharacters.Select(c => new
                     {
                         Character = c,
-                        Suitability = Suitability(c)
+                        Suitability = Suitability(c, false)
                     }).OrderByDescending(x => x.Suitability).ToList();
 
                     Characters.Insert(0, sortedList.First().Character);
@@ -164,10 +183,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
                     var sortedList = characters.Select(c => new
                     {
                         Character = c,
-                        Suitability =
-                        (c.CareerHistory.Where(ch => string.Equals(ch.Assignment, Model.FinalAssignment, StringComparison.InvariantCultureIgnoreCase)).Sum(ch => ch.Terms * 5.0) / c.CurrentTerm)
-                        + (c.CareerHistory.SingleOrDefault(ch => string.Equals(ch.Career, Model.FinalCareer, StringComparison.InvariantCultureIgnoreCase))?.Terms * 1.0 ?? 0.00) / c.CurrentTerm
-                        + Suitability(c)
+                        Suitability = Suitability(c, true)
                     }).OrderByDescending(x => x.Suitability).ToList();
 
                     Characters.Insert(0, sortedList.First().Character);
