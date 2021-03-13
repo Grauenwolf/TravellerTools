@@ -63,17 +63,24 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
         protected void Reroll(MouseEventArgs _)
         {
-            string uri;
-            if (Uwp != null)
-                uri = $"/uwp/{Uwp}/store?tasZone={TasZone}";
-            else
-                uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/store";
+            try
+            {
+                string uri;
+                if (Uwp != null)
+                    uri = $"/uwp/{Uwp}/store?tasZone={TasZone}";
+                else
+                    uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/store";
 
-            uri = QueryHelpers.AddQueryString(uri, Options.ToQueryString());
-            if (!string.IsNullOrEmpty(StoreTypeFilter))
-                uri = QueryHelpers.AddQueryString(uri, "storeTypeFilter", StoreTypeFilter);
+                uri = QueryHelpers.AddQueryString(uri, Options.ToQueryString());
+                if (!string.IsNullOrEmpty(StoreTypeFilter))
+                    uri = QueryHelpers.AddQueryString(uri, "storeTypeFilter", StoreTypeFilter);
 
-            Navigation.NavigateTo(uri, false);
+                Navigation.NavigateTo(uri, false);
+            }
+            catch (Exception ex)
+            {
+                LogError(ex, $"Error in rerolling using {nameof(Reroll)}.");
+            }
         }
 
         protected void Permalink(MouseEventArgs _)
@@ -148,32 +155,39 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             if (Model == null)
                 return; //We're setting up parameters
 
-            if (Seed != null)
+            try
             {
-                var restrictions = Tables.GovernmentContraband(Model.World.GovernmentCode);
-
-                var options = new Grauenwolf.TravellerTools.Equipment.StoreOptions()
+                if (Seed != null)
                 {
-                    BrokerScore = Options.BrokerScore,
-                    LawLevel = Model.World.LawCode,
-                    Population = Model.World.PopulationCode,
-                    AutoRoll = Options.AutoRoll,
-                    DiscountPrices = Options.DiscountPrices,
-                    Starport = Model.World.StarportCode,
-                    StreetwiseScore = Options.StreetwiseScore,
-                    TechLevel = Model.World.TechCode,
-                    Seed = Seed.Value,
-                    DrugsRestricted = Options.DrugsRestricted,
-                    WeaponsRestricted = Options.WeaponsRestricted,
-                    TechnologyRestricted = Options.TechnologyRestricted,
-                    PsionicsRestricted = Options.PsionicsRestricted,
-                    InformationRestricted = Options.InformationRestricted
-                };
-                options.TradeCodes.AddRange(Model.World.RemarksList);
+                    var restrictions = Tables.GovernmentContraband(Model.World.GovernmentCode);
 
-                Store = EquipmentBuilder.AvailabilityTable(options);
+                    var options = new Grauenwolf.TravellerTools.Equipment.StoreOptions()
+                    {
+                        BrokerScore = Options.BrokerScore,
+                        LawLevel = Model.World.LawCode,
+                        Population = Model.World.PopulationCode,
+                        AutoRoll = Options.AutoRoll,
+                        DiscountPrices = Options.DiscountPrices,
+                        Starport = Model.World.StarportCode,
+                        StreetwiseScore = Options.StreetwiseScore,
+                        TechLevel = Model.World.TechCode,
+                        Seed = Seed.Value,
+                        DrugsRestricted = Options.DrugsRestricted,
+                        WeaponsRestricted = Options.WeaponsRestricted,
+                        TechnologyRestricted = Options.TechnologyRestricted,
+                        PsionicsRestricted = Options.PsionicsRestricted,
+                        InformationRestricted = Options.InformationRestricted
+                    };
+                    options.TradeCodes.AddRange(Model.World.RemarksList);
 
-                StateHasChanged();
+                    Store = EquipmentBuilder.AvailabilityTable(options);
+
+                    StateHasChanged();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError(ex, $"Error in updating options using {nameof(OnOptionsChanged)}.");
             }
         }
     }

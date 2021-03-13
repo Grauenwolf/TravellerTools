@@ -135,14 +135,21 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             if (Model == null)
                 return; //We're setting up parameters
 
-            if (Seed != null)
+            try
             {
-                var dice = new Dice(Seed.Value);
-                var tradeEngine = TradeEngineLocator.GetTradeEngine(MilieuCode!, Options.SelectedEdition);
+                if (Seed != null)
+                {
+                    var dice = new Dice(Seed.Value);
+                    var tradeEngine = TradeEngineLocator.GetTradeEngine(MilieuCode!, Options.SelectedEdition);
 
-                Model.FreightList = tradeEngine.Freight(Model.World, Model.Destination, dice);
+                    Model.FreightList = tradeEngine.Freight(Model.World, Model.Destination, dice);
 
-                StateHasChanged();
+                    StateHasChanged();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError(ex, $"Error in updating options using {nameof(OnOptionsChanged)}.");
             }
         }
     }

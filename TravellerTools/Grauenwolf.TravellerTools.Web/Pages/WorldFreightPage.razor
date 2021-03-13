@@ -54,6 +54,16 @@
         <a @onclick="OnReroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
         <a @onclick="OnPermalink" href="@(Permalink())" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
     </h3>
+    <div>
+        @if (Options.SelectedEdition == Edition.MGT2)
+        {
+            <span>For more information see "Freight" (page 207) and "Mail" (page 208).</span>
+        }
+        else
+        {
+            <span>For more information see "Freight" and "Mail" (page 160).</span>
+        }
+    </div>
 
     if (Model.FreightList?.Lots.Count > 0)
     {
@@ -75,6 +85,8 @@
     {
         <div>No freight is avilable at this time.</div>
     }
+
+    <div>The mail feature is not ready.</div>
 }
 else if (LoadFailed)
 {

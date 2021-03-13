@@ -123,17 +123,24 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             if (Model == null)
                 return; //We're setting up parameters
 
-            if (Seed != null)
+            try
             {
-                var dice = new Dice(Seed.Value);
-                var tradeEngine = TradeEngineLocator.GetTradeEngine(MilieuCode!, Options.SelectedEdition);
-                World? destination = null;
-                if (Options.DestinationIndex >= 0)
-                    destination = Model.Destinations![Options.DestinationIndex];
+                if (Seed != null)
+                {
+                    var dice = new Dice(Seed.Value);
+                    var tradeEngine = TradeEngineLocator.GetTradeEngine(MilieuCode!, Options.SelectedEdition);
+                    World? destination = null;
+                    if (Options.DestinationIndex >= 0)
+                        destination = Model.Destinations![Options.DestinationIndex];
 
-                Model!.TradeList = tradeEngine.BuildTradeGoodsList(Model.World, Options.AdvancedMode, Options.IllegalGoods, Options.BrokerScore, dice, Options.Raffle, Options.StreetwiseScore, destination);
+                    Model!.TradeList = tradeEngine.BuildTradeGoodsList(Model.World, Options.AdvancedMode, Options.IllegalGoods, Options.BrokerScore, dice, Options.Raffle, Options.StreetwiseScore, destination);
 
-                StateHasChanged();
+                    StateHasChanged();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError(ex, $"Error in updating options using {nameof(OnOptionsChanged)}.");
             }
         }
     }

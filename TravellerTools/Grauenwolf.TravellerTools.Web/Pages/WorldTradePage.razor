@@ -109,7 +109,29 @@
             <a @onclick="Reroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
             <a @onclick="Permalink" href="@(Permalink())" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
         </h3>
-        <p>Purchase DM does not include broker score.<br />Price modifier and current price include purchase DM, broker score, and random roll.</p>
+
+        <div>
+            @if (Options.SkipPriceRoll)
+            {
+                <span>Purchase DM does not include broker score.<br />Expected Price is based on the average roll including purchase DM and broker score.</span>
+            }
+            else
+            {
+                <span>Purchase DM does not include broker score.<br />Price modifier and current price include purchase DM, broker score, and random roll.</span>
+            }
+            @if (Options.SelectedEdition == Edition.MGT2)
+            {
+                <br /><span>For more information, see "Speculative Trade &amp; Smuggling" (page 210).</span>
+            }
+            else
+            {
+                <br /><span>For more information, see "Speculative Trade &amp; Smuggling" (page 162).</span>
+            }
+            @if (Options.AdvancedMode)
+            {
+                <br /><span>Advanced mode uses cargo subtypes from "Traveller Book 7: Merchant Prince".</span>
+            }
+        </div>
         <table class="gridtable">
             <tr>
                 <th>Type</th>

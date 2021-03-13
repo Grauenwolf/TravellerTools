@@ -83,9 +83,19 @@ namespace Tortuga.Yardarm
             }
             catch (Exception ex)
             {
-                LastError = ex;
-                Logger.LogError(ex, $"Internal error, loading failed during {nameof(AfterRender)}");
+                LogError(ex, $"Internal error, loading failed during {nameof(AfterRender)}");
             }
+        }
+
+        /// <summary>
+        /// Logs an error and updates the LastError field.
+        /// </summary>
+        /// <param name="ex">The exception to be logged.</param>
+        /// <param name="message">Optional message.</param>
+        protected void LogError(Exception ex, string message)
+        {
+            LastError = ex;
+            Logger.LogError(ex, message);
         }
 
         async protected sealed override Task OnAfterRenderAsync(bool firstRender)
@@ -99,8 +109,7 @@ namespace Tortuga.Yardarm
             }
             catch (Exception ex)
             {
-                LastError = ex;
-                Logger.LogError(ex, $"Internal error, loading failed during {nameof(AfterRenderAsync)}");
+                LogError(ex, $"Internal error, loading failed during {nameof(AfterRenderAsync)}");
             }
         }
 
@@ -136,8 +145,7 @@ namespace Tortuga.Yardarm
             }
             catch (Exception ex)
             {
-                LastError = ex;
-                Logger.LogError(ex, $"Internal error, loading failed during {nameof(InitializedAsync)}");
+                LogError(ex, $"Internal error, loading failed during {nameof(InitializedAsync)}");
             }
         }
 
@@ -160,8 +168,7 @@ namespace Tortuga.Yardarm
             }
             catch (Exception ex)
             {
-                LastError = ex;
-                Logger.LogError(ex, $"Internal error, loading failed during {nameof(Initialized)}");
+                LogError(ex, $"Internal error, loading failed during {nameof(Initialized)}");
             }
         }
 
@@ -184,8 +191,7 @@ namespace Tortuga.Yardarm
             }
             catch (Exception ex)
             {
-                LastError = ex;
-                Logger.LogError(ex, $"Internal error, loading failed during {nameof(ParametersSet)}");
+                LogError(ex, $"Internal error, loading failed during {nameof(ParametersSet)}");
             }
             base.OnParametersSet();
         }
@@ -207,8 +213,7 @@ namespace Tortuga.Yardarm
             }
             catch (Exception ex)
             {
-                LastError = ex;
-                Logger.LogError(ex, $"Internal error, loading failed during {nameof(ParametersSetAsync)}");
+                LogError(ex, $"Internal error, loading failed during {nameof(ParametersSetAsync)}");
             }
         }
 
