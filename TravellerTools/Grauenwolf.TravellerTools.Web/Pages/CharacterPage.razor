@@ -35,7 +35,9 @@
                                 }
                         </InputSelect>
                     </td>
-                    <th>Final Career</th>
+                </tr>
+                <tr>
+                    <th title="Final career is not guaranteed.">Desired final Career</th>
                     <td>
                         <InputSelect @bind-Value="Model.FinalCareer">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.FinalCareer))">(Random)</option>
@@ -45,7 +47,7 @@
                                 }
                         </InputSelect>
                     </td>
-                    <th>Final Assignment</th>
+                    <th title="Final assignment is not guaranteed.">Desired final Assignment</th>
                     <td>
                         <InputSelect @bind-Value="Model.FinalAssignment">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.FinalAssignment))">(Random)</option>
@@ -55,6 +57,8 @@
                                 }
                         </InputSelect>
                     </td>
+                </tr>
+                <tr>
                     <th>Age</th>
                     <td>
                         <InputSelect @bind-Value="Model.Terms">
@@ -65,12 +69,93 @@
                                 }
                         </InputSelect>
                     </td>
+                    <th>Gender</th>
                     <td>
-                        <button @onclick="GenerateCharacter">Generate Character</button>
+                        <InputSelect @bind-Value="Model.Gender">
+                            <option value="" selected="@(Model.Gender == "")"></option>
+                            <option value="M" selected="@(Model.Gender == "M")">M</option>
+                            <option value="F" selected="@(Model.Gender == "F")">F</option>
+                        </InputSelect>
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="2">Desired Skills</th>
+                    <th title="Prefer a character with positive or negative DMs to the following stats.">Desired Stats</th>
+                    <td colspan="4">
+                        <table>
+                            <tr>
+                                <td>
+                                    STR
+                                </td>
+                                <td>
+                                    <InputSelect @bind-Value="Model.Str">
+                                        <option value="" selected="@(Model.Str == "")"></option>
+                                        <option value="High" selected="@(Model.Str == "High")">High</option>
+                                        <option value="Low" selected="@(Model.Str == "Low")">Low</option>
+                                    </InputSelect>
+                                </td>
+                                <td>
+                                    DEX
+                                </td>
+                                <td>
+
+                                    <InputSelect @bind-Value="Model.Dex">
+                                        <option value="" selected="@(Model.Dex == "")"></option>
+                                        <option value="High" selected="@(Model.Dex == "High")">High</option>
+                                        <option value="Low" selected="@(Model.Dex == "Low")">Low</option>
+                                    </InputSelect>
+                                </td>
+                                <td>
+                                    END
+                                </td>
+                                <td>
+
+                                    <InputSelect @bind-Value="Model.End">
+                                        <option value="" selected="@(Model.End == "")"></option>
+                                        <option value="High" selected="@(Model.End == "High")">High</option>
+                                        <option value="Low" selected="@(Model.End == "Low")">Low</option>
+                                    </InputSelect>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    INT
+                                </td>
+                                <td>
+
+                                    <InputSelect @bind-Value="Model.Int">
+                                        <option value="" selected="@(Model.Int == "")"></option>
+                                        <option value="High" selected="@(Model.Int == "High")">High</option>
+                                        <option value="Low" selected="@(Model.Int == "Low")">Low</option>
+                                    </InputSelect>
+                                </td>
+                                <td>
+                                    EDU
+                                </td>
+                                <td>
+
+                                    <InputSelect @bind-Value="Model.Edu">
+                                        <option value="" selected="@(Model.Edu == "")"></option>
+                                        <option value="High" selected="@(Model.Edu == "High")">High</option>
+                                        <option value="Low" selected="@(Model.Edu == "Low")">Low</option>
+                                    </InputSelect>
+                                </td>
+                                <td>
+                                    SOC
+                                </td>
+                                <td>
+
+                                    <InputSelect @bind-Value="Model.Soc">
+                                        <option value="" selected="@(Model.Soc == "")"></option>
+                                        <option value="High" selected="@(Model.Soc == "High")">High</option>
+                                        <option value="Low" selected="@(Model.Soc == "Low")">Low</option>
+                                    </InputSelect>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <th title="Prefer a character with the following skills.">Desired Skills</th>
                     <td colspan="2">
                         <InputSelect @bind-Value="Model.SkillA">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.SkillA))"></option>
@@ -79,8 +164,9 @@
                                 <option value="@(item.Specialty ?? item.Name)" selected="@( !string.IsNullOrEmpty(Model.SkillA) && (Model.SkillA == item.Name || Model.SkillA == item.Specialty) )"> @(item.ToString())</option>
                                 }
                         </InputSelect>
-                    </td>
-                    <td colspan="2">
+                        <br />
+                        <br />
+
                         <InputSelect @bind-Value="Model.SkillB">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.SkillB))"></option>
                             @foreach (var item in Model.SkillList)
@@ -88,8 +174,8 @@
                                 <option value="@(item.Specialty ?? item.Name)" selected="@( !string.IsNullOrEmpty(Model.SkillB) && (Model.SkillB == item.Name || Model.SkillB == item.Specialty) )"> @(item.ToString())</option>
                                 }
                         </InputSelect>
-                    </td>
-                    <td colspan="2">
+                        <br />
+                        <br />
                         <InputSelect @bind-Value="Model.SkillC">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.SkillC))"></option>
                             @foreach (var item in Model.SkillList)
@@ -97,8 +183,8 @@
                                 <option value="@(item.Specialty ?? item.Name)" selected="@( !string.IsNullOrEmpty(Model.SkillC) && (Model.SkillC == item.Name || Model.SkillC == item.Specialty) )"> @(item.ToString())</option>
                                 }
                         </InputSelect>
-                    </td>
-                    <td colspan="2">
+                        <br />
+                        <br />
                         <InputSelect @bind-Value="Model.SkillD">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.SkillD))"></option>
                             @foreach (var item in Model.SkillList)
@@ -106,6 +192,11 @@
                                 <option value="@(item.Specialty ?? item.Name)" selected="@( !string.IsNullOrEmpty(Model.SkillD) && (Model.SkillD == item.Name || Model.SkillD == item.Specialty) )"> @(item.ToString())</option>
                                 }
                         </InputSelect>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" style="text-align:center">
+                        <button @onclick="GenerateCharacter">Generate Character</button>
                     </td>
                 </tr>
             </table>

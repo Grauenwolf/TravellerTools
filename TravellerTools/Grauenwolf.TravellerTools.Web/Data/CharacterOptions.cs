@@ -19,46 +19,25 @@ namespace Grauenwolf.TravellerTools.Web.Data
                 AgeList.Add(terms);
         }
 
+        public List<int> AgeList { get; }
         public List<string> CareerList { get; }
 
         public CharacterBuilder CharacterBuilder { get; }
 
-        public string? FirstAssignment { get => Get<string?>(); set => Set(value); }
+        /// <summary>
+        /// Valid values are High, Low, and empty.
+        /// </summary>
+        public string? Dex { get => Get<string?>(); set => Set(value); }
 
-        [CalculatedField("FirstCareer")]
-        public List<string> FirstAssignmentList
-        {
-            get
-            {
-                if (CharacterBuilder == null || string.IsNullOrEmpty(FirstCareer))
-                    return new List<string>();
-                else
-                    return CharacterBuilder.Careers.Where(c => c.Career == FirstCareer).Select(c => c.Assignment).OrderBy(s => s).ToList();
-            }
-        }
+        /// <summary>
+        /// Valid values are High, Low, and empty.
+        /// </summary>
+        public string? Edu { get => Get<string?>(); set => Set(value); }
 
-        public string? FirstCareer
-        {
-            get => Get<string?>(); set
-            {
-                if (Set(value))
-                    FirstAssignment = "";
-            }
-        }
-
-        public int? Terms { get => Get<int?>(); set => Set(value); }
-
-        public string? TermsCode
-        {
-            get => Terms.ToString();
-            set
-            {
-                if (int.TryParse(value, out var score))
-                    Terms = score;
-                else
-                    Terms = null;
-            }
-        }
+        /// <summary>
+        /// Valid values are High, Low, and empty.
+        /// </summary>
+        public string? End { get => Get<string?>(); set => Set(value); }
 
         public string? FinalAssignment { get => Get<string?>(); set => Set(value); }
 
@@ -83,13 +62,64 @@ namespace Grauenwolf.TravellerTools.Web.Data
             }
         }
 
+        public string? FirstAssignment { get => Get<string?>(); set => Set(value); }
+
+        [CalculatedField("FirstCareer")]
+        public List<string> FirstAssignmentList
+        {
+            get
+            {
+                if (CharacterBuilder == null || string.IsNullOrEmpty(FirstCareer))
+                    return new List<string>();
+                else
+                    return CharacterBuilder.Careers.Where(c => c.Career == FirstCareer).Select(c => c.Assignment).OrderBy(s => s).ToList();
+            }
+        }
+
+        public string? FirstCareer
+        {
+            get => Get<string?>(); set
+            {
+                if (Set(value))
+                    FirstAssignment = "";
+            }
+        }
+
+        /// <summary>
+        /// Valid values are High, Low, and empty.
+        /// </summary>
+        public string? Int { get => Get<string?>(); set => Set(value); }
+
         public string? SkillA { get => Get<string?>(); set => Set(value); }
         public string? SkillB { get => Get<string?>(); set => Set(value); }
         public string? SkillC { get => Get<string?>(); set => Set(value); }
         public string? SkillD { get => Get<string?>(); set => Set(value); }
-
         public List<SkillTemplate> SkillList { get; }
 
-        public List<int> AgeList { get; }
+        /// <summary>
+        /// Valid values are High, Low, and empty.
+        /// </summary>
+        public string? Soc { get => Get<string?>(); set => Set(value); }
+
+        public string? Gender { get => Get<string?>(); set => Set(value); }
+
+        /// <summary>
+        /// Valid values are High, Low, and empty.
+        /// </summary>
+        public string? Str { get => Get<string?>(); set => Set(value); }
+
+        public int? Terms { get => Get<int?>(); set => Set(value); }
+
+        public string? TermsCode
+        {
+            get => Terms.ToString();
+            set
+            {
+                if (int.TryParse(value, out var score))
+                    Terms = score;
+                else
+                    Terms = null;
+            }
+        }
     }
 }
