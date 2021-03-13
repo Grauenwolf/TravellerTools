@@ -6,6 +6,6 @@ namespace Grauenwolf.TravellerTools.Names
 {
     public interface INameService
     {
-        Task<RandomPerson> CreateRandomPersonAsync(Dice random);
+        Task<RandomPerson> CreateRandomPersonAsync(Dice random, bool? isMale = null);
     }
 }

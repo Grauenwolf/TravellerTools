@@ -57,13 +57,19 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             //}
             //else
             //{
-            var temp = await NameService.CreateRandomPersonAsync(dice);
-            options.Name = temp.FullName;
-            options.Gender = temp.Gender;
+            if (Model.Gender.IsNullOrEmpty())
+            {
+                var temp = await NameService.CreateRandomPersonAsync(dice);
+                options.Name = temp.FullName;
+                options.Gender = temp.Gender;
+            }
+            else
+            {
+                var temp = await NameService.CreateRandomPersonAsync(dice, Model.Gender == "M");
+                options.Name = temp.FullName;
+                options.Gender = temp.Gender;
+            }
             //}
-
-            if (!Model.Gender.IsNullOrEmpty())
-                options.Gender = Model.Gender;
 
             int? minAge = (Model.Terms > 0) ? 18 + (Model.Terms * 4) : null;
             int? maxAge = (Model.Terms > 0) ? 18 + (Model.Terms * 4) + 3 : null;

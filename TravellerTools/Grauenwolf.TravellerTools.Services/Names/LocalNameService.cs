@@ -22,14 +22,14 @@ namespace Grauenwolf.TravellerTools.Names
             m_MaleNames = File.ReadAllLines(maleFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableList();
         }
 
-        public Task<RandomPerson> CreateRandomPersonAsync(Dice random)
+        public Task<RandomPerson> CreateRandomPersonAsync(Dice random, bool? isMale = null)
         {
-            var isMale = random.NextBoolean();
+            isMale ??= random.NextBoolean();
 
             return Task.FromResult(new RandomPerson(
-                 isMale ? random.Choose(m_MaleNames) : random.Choose(m_FemaleNames),
+                 isMale.Value ? random.Choose(m_MaleNames) : random.Choose(m_FemaleNames),
                  random.Choose(m_LastNames),
-                 isMale ? "M" : "F"
+                 isMale.Value ? "M" : "F"
                 ));
         }
     }
