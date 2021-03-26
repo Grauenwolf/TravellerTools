@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0"?>
 <Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <!--<Section Name="Ammunition" Book="CSC2" />-->
-  <Section Name="Augmentation" Book="CSC2" Law="10" Category="1">
+  <!--<Section Name="Ammunition" Book="CSC 2" />-->
+  <Books>
+    <Book Code="Core 2" Name="Traveller Core Rulebook, 2nd edition" Url="https://www.mongoosepublishing.com/us/traveller-core-rulebook.html" />
+    <Book Code="CSC 2" Name="Central Supply Catalogue, 2nd edition" Url="https://www.mongoosepublishing.com/us/central-supply-catalogue.html" />
+  </Books>
+  <Section Name="Augmentation" Book="CSC 2" Law="10" Category="1">
     <Subsection Name="Head">
       <Item Name="Assisted Ambulation-13" TL="13" Price="Cr100000" Page="90" />
       <Item Name="Assisted Ambulation-14" TL="14" Price="Cr300000" Page="90" />
@@ -77,7 +81,7 @@
       <Item Name="Terminal Stabilisation System" TL="16" Price="MCr2.5" Page="90" />
     </Subsection>
   </Section>
-  <Section Name="Discerning Weapons Specialist" Law="9" Book="CSC2" Contraband="Weapons">
+  <Section Name="Discerning Weapons Specialist" Law="9" Book="CSC 2" Contraband="Weapons">
     <Subsection Name="Explosives" Skill="Explosives" Mod="Military" Law="1" Category="3">
       <Item Name="Breaching Charge" TL="8" Price="Cr250" Mass="1" Page="136" />
       <Item Name="Complex Chemical Charge" TL="10" Price="Cr500" Mass="1" Page="136" />
@@ -98,7 +102,7 @@
       <Item Name="Whip" TL="1" Price="Cr15" Mass="1" Page="135" />
     </Subsection>
   </Section>
-  <Section Name="Electronics" Book="CSC2">
+  <Section Name="Electronics" Book="CSC 2">
     <Subsection Name="Communications">
       <Item Name="Bug-Audio only" TL="5" Price="Cr50" Mass="" Page="62" />
       <Item Name="Bug-Audio or Visual" TL="7" Price="Cr100" Mass="" Page="62" />
@@ -361,7 +365,7 @@
       <Item Name="Psi-finder Binoculars" TL="16" Price="Cr10000" Mass="1" Page="61" />
     </Subsection>
   </Section>
-  <Section Name="Heavy Weapons" Book="CSC2" Mod="Military" Law="3" Category="4" Contraband="Weapons">
+  <Section Name="Heavy Weapons" Book="CSC 2" Mod="Military" Law="3" Category="4" Contraband="Weapons">
     <Subsection Name="Artillery" Skill="Heavy Weapons (artillery)" Mod="Military" Category="4">
       <Item Name="Black Powder Mortar" TL="3" Price="Cr2000" Mass=".5 tons" Page="126" />
       <Item Name="Bombardment Gun" TL="5" Price="MCr0.5" Mass="220 tons" Page="126" />
@@ -435,7 +439,7 @@
       <Item Name="Vulcan Machinegun" TL="7" Price="Cr12000" Mass="0.25 tons" Page="132" />
     </Subsection>
   </Section>
-  <Section Name="Home Comforts" Book="CSC2">
+  <Section Name="Home Comforts" Book="CSC 2">
     <Subsection Name="Home Comforts">
       <Item Name="Alien Cosplay Kit" TL="7" Price="Cr350" Mass="1" Page="94" />
       <Item Name="Autobar" TL="8" Price="Cr300" Mass="4" Page="94" />
@@ -479,7 +483,7 @@
       <Item Name="Vivarium (6-10 hits)" TL="8" Price="Cr2200" Mass="8" Page="97" />
     </Subsection>
   </Section>
-  <Section Name="Medical Supplies" Book="CSC2">
+  <Section Name="Medical Supplies" Book="CSC 2">
     <Subsection Name="Drugs and Pharmaceuticals" Contraband="Drugs">
       <Item Name="Adrenaliser" TL="10" Price="Cr150" Page="83" Law="4" />
       <Item Name="Anagathics" TL="15" Price="Cr20000" Page="83" Law="5" />
@@ -511,6 +515,7 @@
       <Item Name="Field Surgical Kit" TL="5" Price="Cr1000" Page="81" />
       <Item Name="First Aid Kit-2" TL="2" Price="Cr10" Page="82" />
       <Item Name="First Aid Kit-5" TL="5" Price="Cr125" Page="82" />
+      <Item Name="Laser Scalpel" TL="10" Price="Cr2000" Page="79" />
       <Item Name="Medkit-10" TL="10" Price="Cr1500" Mass="1" Page="82" />
       <Item Name="Medkit-12" TL="12" Price="Cr5000" Mass="1" Page="82" />
       <Item Name="Medkit-14" TL="14" Price="Cr10000" Page="82" />
@@ -521,7 +526,7 @@
       <Item Name="Trauma Pack" TL="8" Price="Cr750" Mass="2" Page="82" />
     </Subsection>
   </Section>
-  <Section Name="Personal Protection" Book="CSC2" Contraband="Weapons">
+  <Section Name="Personal Protection" Book="CSC 2" Contraband="Weapons">
     <Subsection Name="Armor">
       <Item Name="Ablat" TL="9" Price="Cr75" Mass="2" Law="2" Category="4" Page="16" />
       <Item Name="Advanced Poly Carapace" TL="13" Price="Cr35000" Mass="2" Law="2" Category="4" Page="13" />
@@ -670,7 +675,7 @@
       <Item Name="Utility Droid" TL="9" Price="Cr100000" Page="76" />
     </Subsection>
   </Section>
-  <Section Name="Survival Gear" Book="CSC2">
+  <Section Name="Survival Gear" Book="CSC 2">
     <Subsection Name="Aerial">
       <Item Name="Grav Parachute" TL="10" Price="Cr2000" Mass="4" Page="39" />
       <Item Name="Parachute" TL="4" Price="Cr250" Mass="3" Page="39" />
@@ -803,7 +808,7 @@
       <Item Name="Tent-Barracks" TL="8" Price="Cr500" Mass="10" Page="57" />
     </Subsection>
   </Section>
-  <Section Name="Tools" Book="CSC2">
+  <Section Name="Tools" Book="CSC 2">
     <Subsection Name="Tools">
       <Item Name="Advanced Welding Kit" TL="10" Price="Cr5000" Mass="3" Page="78" />
       <Item Name="Carpenters Tool Set" TL="2" Price="Cr300" Mass="12" Page="78" />
@@ -835,7 +840,7 @@
       <Item Name="Weapon Engineering Tool Set" TL="3" Price="Cr300" Mass="12" Page="79" />
     </Subsection>
   </Section>
-  <Section Name="Weapons" Book="CSC2" Contraband="Weapons">
+  <Section Name="Weapons" Book="CSC 2" Contraband="Weapons">
     <Subsection Name="Archaic Weapons" Law="8" Category="2" Skill="Gun Combat (archaic)">
       <Item Name="Compound Cam Bow" TL="5" Price="Cr250" Mass="1" Page="121" />
       <Item Name="Crossbow" TL="2" Price="Cr200" Mass="3" Page="121" />
@@ -984,8 +989,8 @@
       <Item Name="Submachine Gun" Law="4" TL="6" Price="Cr400" Mass="3" Category="3" Page="115" />
     </Subsection>
   </Section>
-  <Section Name="Weapons" Book="CSC2" Contraband="Weapons">
-    <Subsection Name="Accessories" Book="CSC2" Law="9">
+  <Section Name="Weapons" Book="CSC 2" Contraband="Weapons">
+    <Subsection Name="Accessories" Book="CSC 2" Law="9">
       <Item Name="Auxiliary Grenade Launcher" TL="7" Price="Cr1000" Mass="1" Category="4" Page="142" />
       <Item Name="Bandolier" TL="3" Price="Cr10" Page="142" />
       <Item Name="Bayonet" TL="3" Price="Cr20" Mass="1" Page="142" />

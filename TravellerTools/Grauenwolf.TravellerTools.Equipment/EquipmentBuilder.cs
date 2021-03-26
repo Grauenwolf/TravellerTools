@@ -52,6 +52,8 @@ namespace Grauenwolf.TravellerTools.Equipment
 
             var result = new Store();
 
+            result.Books.AddRange(m_Book.Books);
+
             foreach (var sectionXml in m_Book.Section)
             {
                 var section = result.Sections.SingleOrDefault(s => s.Name == sectionXml.Name);

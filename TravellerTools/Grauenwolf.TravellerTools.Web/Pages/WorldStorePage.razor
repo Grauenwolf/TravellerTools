@@ -302,6 +302,21 @@
 
             }
         }
+
+        <div />
+
+        <h3>Sources</h3>
+        <table class="gridtable">
+            <tr><th>Code</th><th>Book</th></tr>
+            @foreach (var book in Store.Books.OrderBy(s => s.Code))
+            {
+                <tr>
+                    <td>@(book.Code)</td>
+                    <td><a href="@(book.Url)" target="_blank">@(book.Name)</a></td>
+                </tr>
+            }
+        </table>
+
     }
 
 }
