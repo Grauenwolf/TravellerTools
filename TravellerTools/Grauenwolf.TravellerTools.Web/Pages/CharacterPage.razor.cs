@@ -12,7 +12,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 {
     partial class CharacterPage
     {
-        [Inject] INameService NameService { get; set; } = null!;
+        [Inject] NameGenerator NameGenerator { get; set; } = null!;
         [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
 
         //public int? Seed { get => Get<int?>(); set => Set(value); }
@@ -32,7 +32,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             Model = new CharacterOptions(CharacterBuilder);
         }
 
-        protected async Task GenerateCharacter()
+        protected void GenerateCharacter()
         {
             if (Model == null) //this shouldn't happen.
                 return;
@@ -60,13 +60,13 @@ namespace Grauenwolf.TravellerTools.Web.Pages
                 //{
                 if (Model.Gender.IsNullOrEmpty())
                 {
-                    var temp = await NameService.CreateRandomPersonAsync(dice);
+                    var temp = NameGenerator.CreateRandomPerson(dice);
                     options.Name = temp.FullName;
                     options.Gender = temp.Gender;
                 }
                 else
                 {
-                    var temp = await NameService.CreateRandomPersonAsync(dice, Model.Gender == "M");
+                    var temp = NameGenerator.CreateRandomPerson(dice, Model.Gender == "M");
                     options.Name = temp.FullName;
                     options.Gender = temp.Gender;
                 }
@@ -129,12 +129,12 @@ namespace Grauenwolf.TravellerTools.Web.Pages
                                 if (dm > 0)
                                     return 10 + dm;
                                 else
-                                    return dm; //it's now a penality
+                                    return dm; //it's now a penalty
                             case "LOW":
                                 if (dm < 0)
                                     return 10 - dm; //the - makes this into a bonus
                                 else
-                                    return -1 * dm; //it's now a penality
+                                    return -1 * dm; //it's now a penalty
                         }
                         return 0; //setting is blank or dm is 0
                     }

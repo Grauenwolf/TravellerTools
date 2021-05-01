@@ -35,10 +35,10 @@ namespace Grauenwolf.TravellerTools.Web
             var mapService = new TravellerMapServiceLocator(false);
 
             services.AddSingleton(mapService); //make this configurable!
-            var nameService = new LocalNameService(AppDataPath);
-            services.AddSingleton(new TradeEngineLocator(mapService, AppDataPath, nameService));
+            var nameGenerator = new NameGenerator(AppDataPath);
+            services.AddSingleton(new TradeEngineLocator(mapService, AppDataPath, nameGenerator));
             services.AddSingleton(new EquipmentBuilder(AppDataPath));
-            services.AddSingleton<INameService>(nameService);
+            services.AddSingleton(nameGenerator);
             services.AddSingleton(new CharacterBuilder(AppDataPath));
         }
 
@@ -73,11 +73,11 @@ namespace Grauenwolf.TravellerTools.Web
     {
         readonly ConcurrentDictionary<(string, int), TradeEngine> TradeEngines = new ConcurrentDictionary<(string, int), TradeEngine>();
 
-        public TradeEngineLocator(TravellerMapServiceLocator mapService, string dataPath, INameService nameService)
+        public TradeEngineLocator(TravellerMapServiceLocator mapService, string dataPath, NameGenerator nameGenerator)
         {
             MapService = mapService;
             DataPath = dataPath;
-            NameService = nameService;
+            NameGenerator = nameGenerator;
         }
 
         public TradeEngine GetTradeEngine(string milieu, Edition edition)
@@ -88,11 +88,11 @@ namespace Grauenwolf.TravellerTools.Web
             switch (edition)
             {
                 case Edition.Mongoose:
-                    engine = new TradeEngineMgt(MapService.GetMapService(milieu), DataPath, NameService);
+                    engine = new TradeEngineMgt(MapService.GetMapService(milieu), DataPath, NameGenerator);
                     break;
 
                 case Edition.Mongoose2:
-                    engine = new TradeEngineMgt2(MapService.GetMapService(milieu), DataPath, NameService);
+                    engine = new TradeEngineMgt2(MapService.GetMapService(milieu), DataPath, NameGenerator);
                     break;
 
                 default:
@@ -105,6 +105,6 @@ namespace Grauenwolf.TravellerTools.Web
 
         public TravellerMapServiceLocator MapService { get; }
         public string DataPath { get; }
-        public INameService NameService { get; }
+        public NameGenerator NameGenerator { get; }
     }
 }

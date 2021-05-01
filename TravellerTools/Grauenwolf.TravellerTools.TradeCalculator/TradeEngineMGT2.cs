@@ -3,14 +3,13 @@ using Grauenwolf.TravellerTools.Names;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using static System.Math;
 
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
     public class TradeEngineMgt2 : TradeEngine
     {
-        public TradeEngineMgt2(TravellerMapService mapService, string dataPath, INameService nameService) : base(mapService, dataPath, nameService)
+        public TradeEngineMgt2(TravellerMapService mapService, string dataPath, NameGenerator nameGenerator) : base(mapService, dataPath, nameGenerator)
         {
         }
 
@@ -212,7 +211,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return new World(uwp, "Origin", 0, TasZone.Green);
         }
 
-        public override async Task<PassengerList> PassengersAsync(World origin, World destination, Dice random, bool advancedCharacters)
+        public override PassengerList Passengers(World origin, World destination, Dice random, bool advancedCharacters)
         {
             var baseDM = 0;
             var lowDM = 1;
@@ -245,13 +244,13 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             result.HighPassengers = random.D(PassengerTraffic(baseDM + highDM, random));
 
             for (var i = 0; i < result.HighPassengers; i++)
-                result.Passengers.Add(await PassengerDetailAsync(random, "High", advancedCharacters).ConfigureAwait(false));
+                result.Passengers.Add(PassengerDetail(random, "High", advancedCharacters));
             for (var i = 0; i < result.MiddlePassengers; i++)
-                result.Passengers.Add(await PassengerDetailAsync(random, "Middle", advancedCharacters).ConfigureAwait(false));
+                result.Passengers.Add(PassengerDetail(random, "Middle", advancedCharacters));
             for (var i = 0; i < result.BasicPassengers; i++)
-                result.Passengers.Add(await PassengerDetailAsync(random, "Basic", advancedCharacters).ConfigureAwait(false));
+                result.Passengers.Add(PassengerDetail(random, "Basic", advancedCharacters));
             for (var i = 0; i < result.LowPassengers; i++)
-                result.Passengers.Add(await PassengerDetailAsync(random, "Low", advancedCharacters).ConfigureAwait(false));
+                result.Passengers.Add(PassengerDetail(random, "Low", advancedCharacters));
 
             return result;
         }

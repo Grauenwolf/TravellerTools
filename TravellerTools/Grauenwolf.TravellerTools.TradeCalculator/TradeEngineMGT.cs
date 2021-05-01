@@ -3,13 +3,12 @@ using Grauenwolf.TravellerTools.Names;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
     public class TradeEngineMgt : TradeEngine
     {
-        public TradeEngineMgt(TravellerMapService mapService, string dataPath, INameService nameService) : base(mapService, dataPath, nameService)
+        public TradeEngineMgt(TravellerMapService mapService, string dataPath, NameGenerator nameGenerator) : base(mapService, dataPath, nameGenerator)
         {
         }
 
@@ -144,7 +143,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return result;
         }
 
-        public override async Task<PassengerList> PassengersAsync(World origin, World destination, Dice random, bool advancedCharacters)
+        public override PassengerList Passengers(World origin, World destination, Dice random, bool advancedCharacters)
         {
             var result = new PassengerList();
 
@@ -222,11 +221,11 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             if (result.HighPassengers < 0) result.HighPassengers = 0;
 
             for (var i = 0; i < result.HighPassengers; i++)
-                result.Passengers.Add(await PassengerDetailAsync(random, "High", advancedCharacters).ConfigureAwait(false));
+                result.Passengers.Add(PassengerDetail(random, "High", advancedCharacters));
             for (var i = 0; i < result.MiddlePassengers; i++)
-                result.Passengers.Add(await PassengerDetailAsync(random, "Middle", advancedCharacters).ConfigureAwait(false));
+                result.Passengers.Add(PassengerDetail(random, "Middle", advancedCharacters));
             for (var i = 0; i < result.LowPassengers; i++)
-                result.Passengers.Add(await PassengerDetailAsync(random, "Low", advancedCharacters).ConfigureAwait(false));
+                result.Passengers.Add(PassengerDetail(random, "Low", advancedCharacters));
 
             return result;
         }

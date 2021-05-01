@@ -1,0 +1,34 @@
+﻿@page "/encounters"
+@inherits PageBase<EncounterOptions>
+@{PageTitle = "";}
+
+<h3>Encounter Builder</h3>
+
+    <div class="do-not-print">
+        <table class="gridtable">
+            <tr>
+                <th>Encounter Generator</th>
+                <td><button @onclick="GenerateAlliesAndEnemies">Generate Allies and Enemies</button></td>
+                <td><button @onclick="GeneratePatron">Generate Patron</button></td>
+                <td><button @onclick="GenerateMission">Generate Mission</button></td>
+                <!-- TODO: Once we have permalinks for characters, add option to generate NPCs -->
+            </tr>
+        </table>
+    </div>
+
+    @if (Model.Encounters.Count > 0)
+    {
+        <div>&nbsp;</div>
+        <table class="gridtable">
+            <tr><th>Encounters</th></tr>
+            @foreach (var row in Model.Encounters)
+            {
+                <tr>
+                    <td>
+                        <span style="font-weight:bold"> @(row.Name) </span> &nbsp;
+                        @row.Description
+                    </td>
+                </tr>
+            }
+        </table>
+    }

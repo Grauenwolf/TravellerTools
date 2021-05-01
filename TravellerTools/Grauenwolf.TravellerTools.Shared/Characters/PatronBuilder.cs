@@ -2,6 +2,10 @@
 
 namespace Grauenwolf.TravellerTools.Characters
 {
+
+    //TODO: Replace with one that will support a name generator
+    //TODO: Replace with one that will support a character generator
+
     public static class PatronBuilder
     {
         public static string PickAlliesAndEnemies(Dice dice)

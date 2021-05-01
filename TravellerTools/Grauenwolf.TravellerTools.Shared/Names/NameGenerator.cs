@@ -1,17 +1,16 @@
 using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Grauenwolf.TravellerTools.Names
 {
-    public class LocalNameService : INameService
+    public class NameGenerator 
     {
         readonly ImmutableList<string> m_LastNames;
         readonly ImmutableList<string> m_FemaleNames;
         readonly ImmutableList<string> m_MaleNames;
 
-        public LocalNameService(string dataPath)
+        public NameGenerator(string dataPath)
         {
             var femaleFile = new FileInfo(Path.Combine(dataPath, "female_first.txt"));
             var lastFile = new FileInfo(Path.Combine(dataPath, "last.txt"));
@@ -22,15 +21,15 @@ namespace Grauenwolf.TravellerTools.Names
             m_MaleNames = File.ReadAllLines(maleFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableList();
         }
 
-        public Task<RandomPerson> CreateRandomPersonAsync(Dice random, bool? isMale = null)
+        public RandomPerson CreateRandomPerson(Dice random, bool? isMale = null)
         {
             isMale ??= random.NextBoolean();
 
-            return Task.FromResult(new RandomPerson(
+            return new RandomPerson(
                  isMale.Value ? random.Choose(m_MaleNames) : random.Choose(m_FemaleNames),
                  random.Choose(m_LastNames),
                  isMale.Value ? "M" : "F"
-                ));
+                );
         }
     }
 }

@@ -15,14 +15,14 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
     public abstract class TradeEngine
     {
         readonly CharacterBuilder m_CharacterBuilder;
-        readonly INameService m_NameService;
+        readonly NameGenerator m_NameGenerator;
         ImmutableArray<string> m_Personalities;
 
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        protected TradeEngine(TravellerMapService mapService, string dataPath, INameService nameService)
+        protected TradeEngine(TravellerMapService mapService, string dataPath, NameGenerator nameGenerator)
         {
             MapService = mapService;
-            m_NameService = nameService;
+            m_NameGenerator = nameGenerator;
             var file = new FileInfo(Path.Combine(dataPath, DataFileName));
             var converter = new XmlSerializer(typeof(TradeGoods));
             using (var stream = file.OpenRead())
@@ -49,11 +49,11 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         /// <param name="illegalGoods"></param>
         /// <param name="advancedCharacters"></param>
         /// <returns></returns>
-        public async Task<Manifest> BuildManifestAsync(World origin, World destination, Dice random, bool illegalGoods, bool advancedCharacters)
+        public Manifest BuildManifest(World origin, World destination, Dice random, bool illegalGoods, bool advancedCharacters)
         {
             var result = new Manifest() { Origin = origin, Destination = destination };
 
-            result.PassengerList = await PassengersAsync(origin, destination, random, advancedCharacters).ConfigureAwait(false);
+            result.PassengerList = Passengers(origin, destination, random, advancedCharacters);
 
             result.FreightList = Freight(origin, destination, random);
 
@@ -110,7 +110,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             var random = new Dice(actualSeed);
 
             var worlds = await MapService.WorldsNearAsync(sectorX, sectorY, hexX, hexY, maxJumpDistance).ConfigureAwait(false);
-            var result = await BuildManifestsAsync(worlds, random, illegalGoods, advancedCharacters).ConfigureAwait(false);
+            var result = BuildManifests(worlds, random, illegalGoods, advancedCharacters);
 
             result.TradeList = BuildTradeGoodsList(result.Origin, advancedMode, illegalGoods, brokerScore, random, raffleGoods, streetwiseScore);
 
@@ -135,7 +135,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return result;
         }
 
-        public async Task<ManifestCollection> BuildManifestsAsync(string originUwp, string destinationUwp, int distance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters, int streetwiseScore, bool raffleGoods, string milieu, TasZone originTasZone, TasZone destinationTasZone)
+        public ManifestCollection BuildManifests(string originUwp, string destinationUwp, int distance, bool advancedMode, bool illegalGoods, int brokerScore, int? seed, bool advancedCharacters, int streetwiseScore, bool raffleGoods, string milieu, TasZone originTasZone, TasZone destinationTasZone)
         {
             var actualSeed = seed ?? (new Random()).Next();
             var random = new Dice(actualSeed);
@@ -146,7 +146,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             if (!string.IsNullOrEmpty(destinationUwp))
                 worlds.Add(new World(destinationUwp, "Destination " + destinationUwp, distance, destinationTasZone));
 
-            var result = await BuildManifestsAsync(worlds, random, illegalGoods, advancedCharacters).ConfigureAwait(false);
+            var result = BuildManifests(worlds, random, illegalGoods, advancedCharacters);
 
             result.TradeList = BuildTradeGoodsList(result.Origin, advancedMode, illegalGoods, brokerScore, random, raffleGoods, streetwiseScore);
 
@@ -337,13 +337,13 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         public abstract World GenerateRandomWorld();
 
-        public abstract Task<PassengerList> PassengersAsync(World origin, World destination, Dice random, bool advancedCharacters);
+        public abstract PassengerList Passengers(World origin, World destination, Dice random, bool advancedCharacters);
 
         internal abstract void OnManifestsBuilt(ManifestCollection result);
 
-        protected async Task<Passenger> PassengerDetailAsync(Dice random, string travelType, bool advancedCharacters)
+        protected Passenger PassengerDetail(Dice random, string travelType, bool advancedCharacters)
         {
-            var user = await m_NameService.CreateRandomPersonAsync(random);
+            var user = m_NameGenerator.CreateRandomPerson(random);
 
             var result = new Passenger()
             {
@@ -634,13 +634,13 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         /// <param name="illegalGoods">if set to <c>true</c> [illegal goods].</param>
         /// <param name="advancedCharacters">if set to <c>true</c> [advanced characters].</param>
         /// <returns></returns>
-        async Task<ManifestCollection> BuildManifestsAsync(IReadOnlyList<World> worlds, Dice random, bool illegalGoods, bool advancedCharacters)
+        ManifestCollection BuildManifests(IReadOnlyList<World> worlds, Dice random, bool illegalGoods, bool advancedCharacters)
         {
             var result = new ManifestCollection(worlds[0]);
 
             for (var i = 1; i < worlds.Count; i++)
                 if (worlds[i].UWP != null && !worlds[i].UWP!.Contains("?")) //skip uncharted words
-                    result.Add(await BuildManifestAsync(result.Origin, worlds[i], random, illegalGoods, advancedCharacters).ConfigureAwait(false));
+                    result.Add(BuildManifest(result.Origin, worlds[i], random, illegalGoods, advancedCharacters));
 
             return result;
         }
