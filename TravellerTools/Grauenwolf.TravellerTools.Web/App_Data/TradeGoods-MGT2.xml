@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TradeGoods >
 
-	<TradeGood Name="Electronics" Roll="11" Availability="*" BasePrice="10" Tons="10D6" >
+	<TradeGood Name="Common Electronics" Roll="11" Availability="*" BasePrice="20" Tons="20D6" >
 		<Purchase Tag="In" Bonus ="2" />
 		<Purchase Tag="Ht" Bonus ="3" />
 		<Purchase Tag="Ri" Bonus ="1" />
@@ -15,7 +15,7 @@
 		<Detail Roll="12" Name="Microprocessor Assemblies" Tons="2D6" Price="14"/>
 	</TradeGood>
 	
-	<TradeGood Name="Basic Machine Parts" Roll="12" Availability="*" BasePrice="10" Tons="10D6">
+	<TradeGood Name="Common Industrial Goods" Roll="12" Availability="*" BasePrice="10" Tons="20D6">
 		<Purchase Tag="Na"  Bonus="2"/>
 		<Purchase Tag="In" Bonus="5"/>
 		<Sale Tag="Ni" Bonus="3"/>
@@ -27,7 +27,7 @@
 		<Detail Roll="12" Name="Starship-Quality Components" Tons="4D6" Price="12"/>
 	</TradeGood>
 
-	<TradeGood Name="Basic Manufactured Goods" Roll="13" Availability="*" BasePrice="10" Tons="10D6">
+	<TradeGood Name="Common Manufactured Goods" Roll="13" Availability="*" BasePrice="20" Tons="20D6">
 		<Purchase Tag="Na" Bonus="2"/>
 		<Purchase Tag="In" Bonus="5"/>
 		<Sale Tag="Ni" Bonus="3"/>
@@ -40,7 +40,7 @@
 	</TradeGood>
 
 
-	<TradeGood Name="Basic Raw Materials" Roll="14" Availability="*" BasePrice="5" Tons="10D6">
+	<TradeGood Name="Common Raw Materials" Roll="14" Availability="*" BasePrice="5" Tons="40D6">
 		<Purchase Tag="Ag" Bonus="3"/>
 		<Purchase Tag="Ga" Bonus="2"/>
 		<Sale Tag="In" Bonus="2"/>
@@ -52,7 +52,7 @@
 		<Detail Roll="12"   Name="Chemical Solutions and Compounds" Tons="3D6" Price="12"/>
 	</TradeGood>
 
-	<TradeGood Name="Basic Consumables" Roll="15" Availability="*" BasePrice="2" Tons="10D6">
+	<TradeGood Name="Common Consumables" Roll="15" Availability="*" BasePrice=".5" Tons="40D6">
 		<Purchase Tag="Ag" Bonus="3"/>
 		<Purchase Tag="Wa" Bonus="2"/>
 		<Purchase Tag="Ga" Bonus="1"/>
@@ -69,9 +69,8 @@
 		<Detail Roll="12"   Name="Junk Food/Soda Drink" Tons="4D6" Price="5"/>
 	</TradeGood>
 
-	<TradeGood Name="Basic Ore" Roll="16" Availability="*" BasePrice="1" Tons="10D6">
+	<TradeGood Name="Common Ore" Roll="16" Availability="*" BasePrice="1" Tons="40D6">
 		<Purchase Tag="NA" Bonus="4"/>
-		<Purchase Tag="IC" Bonus="1"/>
 		<Sale			Tag="In" Bonus="3"/>
 		<Sale			Tag="Ni" Bonus="1"/>
 
@@ -85,7 +84,7 @@
 	<TradeGood Name="Advanced Electronics" Roll="21" Availability="In, Ht" BasePrice="100" Tons="5D6">
 		<Purchase Tag="In" Bonus="2"/>
 		<Purchase Tag="Ht" Bonus="3"/>
-		<Sale			Tag="Ni" Bonus="2"/>
+		<Sale			Tag="Ni" Bonus="1"/>
 		<Sale			Tag="Ri" Bonus="2"/>
 		<Sale			Tag="As" Bonus="3"/>
 
@@ -111,7 +110,6 @@
 	
 	<TradeGood Name="Advanced Manufactured Goods" Roll="23" Availability="In, Ht" BasePrice="100" Tons="5D6">
 		<Purchase Tag="In" Bonus="1"/>
-		<Purchase Tag="Ht" Bonus="1"/>
 		<Sale			Tag="Hi" Bonus="1"/>
 		<Sale			Tag="Ri" Bonus="2"/>
 
@@ -123,7 +121,6 @@
 	</TradeGood>
 
 	<TradeGood Name="Advanced Weapons" Roll="24" Availability="In, Ht" BasePrice="150" Tons="5D6">
-		<Purchase Tag="In" Bonus="1"/>
 		<Purchase Tag="Ht" Bonus="2"/>
 		<Sale			Tag="Po" Bonus="1"/>
 		<Sale			Tag="A" Bonus="2"/>
@@ -137,7 +134,6 @@
 	</TradeGood>
 
 	<TradeGood Name="Advanced Vehicles" Roll="25" Availability="In, Ht" BasePrice="180" Tons="5D6">
-		<Purchase Tag="In" Bonus="1"/>
 		<Purchase Tag="Ht" Bonus="2"/>
 		<Sale			Tag="As" Bonus="2"/>
 		<Sale			Tag="Ri" Bonus="2"/>
@@ -152,7 +148,7 @@
 	<TradeGood Name="Biochemicals" Roll="26" Availability="Ag, Wa" BasePrice="50" Tons="5D6">
 		<Purchase Tag="Ag" Bonus="1"/>
 		<Purchase Tag="Wa" Bonus="2"/>
-		<Sale			Tag="In" Bonus="3"/>
+		<Sale			Tag="In" Bonus="2"/>
 
 		<Detail Roll="2"    Name="Organic Glues" Tons="6D6" Price="25" />
 		<Detail Roll="3-5"  Name="Ethanol/Fructose Syrup" Tons="5D6" Price="50"/>
@@ -190,7 +186,6 @@
 
 	<TradeGood Name="Live Animals" Roll="33" Availability="Ag,Ga" BasePrice="10" Tons="10D6">
 		<Purchase Tag="Ag" Bonus="2"/>
-		<Purchase Tag="Ga" Bonus="1"/>
 		<Sale			Tag="Lo" Bonus="3"/>
 
 		<Detail Roll="2"    Name="Beasts of Burden" Tons="12D6" Price="2.5" />
@@ -202,7 +197,6 @@
 
 	<TradeGood Name="Luxury Consumables" Roll="34" Availability="Ag,Ga,Wa" BasePrice="20" Tons="10D6">
 		<Purchase Tag="Ag" Bonus="2"/>
-		<Purchase Tag="Ga" Bonus="1"/>
 		<Purchase Tag="Wa" Bonus="1"/>
 		<Sale			Tag="Ri" Bonus="2"/>
 		<Sale			Tag="Hi" Bonus="2"/>
@@ -225,9 +219,8 @@
 		<Detail Roll="12"   Name="Exotic Furnishings/Exquisite Jewellery" Tons="1" Price="500"/>
 	</TradeGood>
 
-	<TradeGood Name="Medical Supplies" Roll="36" Availability="Ht,Hi" BasePrice="50" Tons="5D6">
+	<TradeGood Name="Medical Supplies" Roll="36" Availability="Ht,Hi" BasePrice="150" Tons="5D6">
 		<Purchase Tag="Ht" Bonus="2"/>
-		<Purchase Tag="Hi" Bonus="1"/>
 		<Sale			Tag="Ind" Bonus="2"/>
 		<Sale			Tag="Po" Bonus="1"/>
 		<Sale			Tag="Ri" Bonus="1"/>
@@ -241,9 +234,6 @@
 
 	<TradeGood Name="Petrochemicals" Roll="41" Availability="De,Fl,IC,Wa" BasePrice="10" Tons="10D6">
 		<Purchase Tag="De" Bonus="2"/>
-		<Purchase Tag="Fl" Bonus="1"/>
-		<Purchase Tag="IC" Bonus="1"/>
-		<Purchase Tag="Wa" Bonus="1"/>
 		<Sale			Tag="In" Bonus="2"/>
 		<Sale			Tag="Ag" Bonus="1"/>
 		<Sale			Tag="Lt" Bonus="2"/>
@@ -257,9 +247,7 @@
 
 	<TradeGood Name="Pharmaceuticals" Roll="42" Availability="As,De,Hi,Wa" BasePrice="100" Tons="1D6">
 		<Purchase Tag="As" Bonus="2"/>
-		<Purchase Tag="De" Bonus="1"/>
 		<Purchase Tag="Hi" Bonus="1"/>
-		<Purchase Tag="Wa" Bonus="1"/>
 		<Sale			Tag="Ri" Bonus="2"/>
 		<Sale			Tag="Lt" Bonus="1"/>
 
@@ -286,9 +274,8 @@
 		<Purchase Tag="As" Bonus="3"/>
 		<Purchase Tag="De" Bonus="1"/>
 		<Purchase Tag="IC" Bonus="2"/>
-		<Purchase Tag="Fl" Bonus="1"/>
 		<Sale			Tag="Ri" Bonus="3"/>
-		<Sale			Tag="Ni" Bonus="2"/>
+		<Sale			Tag="In" Bonus="2"/>
 		<Sale			Tag="Ht" Bonus="1"/>
 
 		<Detail Roll="2"    Name="Bismuth/Indium" Tons="1D6+2" Price="10" />
@@ -300,7 +287,6 @@
 		
 	<TradeGood Name="Radioactives" Roll="45" Availability="As,De,Lo" BasePrice="1000" Tons="1D6">
 		<Purchase Tag="As" Bonus="2"/>
-		<Purchase Tag="De" Bonus="1"/>
 		<Purchase Tag="Lo" Bonus="2"/>
 		<Sale			Tag="In" Bonus="3"/>
 		<Sale			Tag="Ht" Bonus="1"/>
@@ -326,10 +312,8 @@
 		<Detail Roll="12"   Name="Advanced Robotics" Tons="1D6" Price="650"/>
 	</TradeGood>
 	
-	<TradeGood Name="Spices" Roll="51" Availability="Ga,De,Wa" BasePrice="6" Tons="5D6">
-		<Purchase Tag="Ga" Bonus="1"/>
+	<TradeGood Name="Spices" Roll="51" Availability="Ga,De,Wa" BasePrice="6" Tons="10D6">
 		<Purchase Tag="De" Bonus="2"/>
-		<Purchase Tag="Wa" Bonus="1"/>
 		<Sale			Tag="Hi" Bonus="2"/>
 		<Sale			Tag="Ri" Bonus="3"/>
 		<Sale			Tag="Po" Bonus="3"/>
@@ -341,9 +325,8 @@
 		<Detail Roll="12"   Name="Black Salt/Saffron/Alien Flavourings" Tons="1D6" Price="12"/>
 	</TradeGood>
 
-	<TradeGood Name="Textiles" Roll="52" Availability="Ag,NI" BasePrice="3" Tons="10D6">
+	<TradeGood Name="Textiles" Roll="52" Availability="Ag,NI" BasePrice="3" Tons="20D6">
 		<Purchase Tag="Ag" Bonus="7"/>
-		<Purchase Tag="NI" Bonus="1"/>
 		<Sale			Tag="Hi" Bonus="3"/>
 		<Sale			Tag="NA" Bonus="2"/>
 
@@ -354,9 +337,8 @@
 		<Detail Roll="12"   Name="Organic Silk/Satin/Finished Fine Clothing" Tons="3D6" Price="5"/>
 	</TradeGood>
 
-	<TradeGood Name="Uncommon Ore" Roll="53" Availability="As, IC" BasePrice="5" Tons="10D6">
+	<TradeGood Name="Uncommon Ore" Roll="53" Availability="As, IC" BasePrice="5" Tons="20D6">
 		<Purchase Tag="As" Bonus="4"/>
-		<Purchase Tag="IC" Bonus="1"/>
 		<Sale			Tag="In" Bonus="3"/>
 		<Sale			Tag="NI" Bonus="1"/>
 
@@ -369,7 +351,6 @@
 	
 	<TradeGood Name="Uncommon Raw Materials" Roll="54" Availability="Ag, De, Wa" BasePrice="20" Tons="10D6">
 		<Purchase Tag="Ag" Bonus="2"/>
-		<Purchase Tag="De" Bonus="1"/>
 		<Purchase Tag="Wa" Bonus="1"/>
 		<Sale			Tag="In" Bonus="2"/>
 		<Sale			Tag="Ht" Bonus="1"/>
@@ -381,9 +362,8 @@
 		<Detail Roll="12"   Name="Depleted Uranium/Ceramic-Alloy" Tons="3D6" Price="50"/>
 	</TradeGood>
 
-	<TradeGood Name="Wood" Roll="55" Availability="Ag, Ga" BasePrice="1" Tons="10D6">
+	<TradeGood Name="Wood" Roll="55" Availability="Ag, Ga" BasePrice="1" Tons="20D6">
 		<Purchase Tag="Ag" Bonus="6"/>
-		<Purchase Tag="Ga" Bonus="1"/>
 		<Sale			Tag="Ri" Bonus="2"/>
 		<Sale			Tag="In" Bonus="1"/>
 
@@ -408,7 +388,6 @@
 	</TradeGood>
 
 	<TradeGood Name="Illegal Biochemicals" Roll="61" Availability="Ag, Wa" BasePrice="50" Tons="5D6" Legal="false">
-		<Purchase Tag="Ag" Bonus="1"/>
 		<Purchase Tag="Wa" Bonus="2"/>
 		<Sale			Tag="In" Bonus="6"/>
 
@@ -452,7 +431,6 @@
 
 	<TradeGood Name="Illegal Luxuries" Roll="64" Availability="Ag, Ga, Wa" BasePrice="50" Tons="1D6" Legal="false">
 		<Purchase Tag="Ag" Bonus="2"/>
-		<Purchase Tag="Ga" Bonus="1"/>
 		<Purchase Tag="Wa" Bonus="1"/>
 		<Sale			Tag="Ri" Bonus="6"/>
 		<Sale			Tag="Hi" Bonus="4"/>
@@ -465,7 +443,6 @@
 	</TradeGood>
 	
 	<TradeGood Name="Illegal Weapons" Roll="65" Availability="In, Ht" BasePrice="150" Tons="5D6"  Legal="false">
-		<Purchase Tag="In" Bonus="1"/>
 		<Purchase Tag="Ht" Bonus="2"/>
 		<Sale			Tag="Po" Bonus="6"/>
 		<Sale			Tag="A" Bonus="8"/>
