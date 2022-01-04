@@ -23,7 +23,7 @@
                     <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_(world)", World.Name)" target="_blank" title="Search Traveller Wiki for this planet.">@World.Name</a></td>
                     <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Subsector", World.SubsectorName)" target="_blank" title="Search Traveller Wiki for this subsector.">@World.SubsectorName</a></td>
                     <td><a href="@string.Format("https://wiki.travellerrpg.com/{0}_Sector", World.Sector)" target="_blank" title="Search Traveller Wiki for this sector.">@World.Sector</a></td>
-                    <td><a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", World.SectorX, World.SectorY, World.HexX, World.HexY)" target="_blank" title="Show planet in Traveller Map.">@World.SectorX,@World.SectorY Hex @World.Hex</a></td>
+                    <td><a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}&milieu={4}", World.SectorX, World.SectorY, World.HexX, World.HexY, ???)" target="_blank" title="Show planet in Traveller Map.">@World.SectorX,@World.SectorY Hex @World.Hex</a></td>
                 </tr>*@
             <tr>
                 <td>
@@ -59,7 +59,7 @@
                     @World.SectorX,@World.SectorY Hex @World.Hex
                     <br />
 
-                    <a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}", World.SectorX, World.SectorY, World.HexX, World.HexY)" target="_blank" title="Show planet in Traveller Map.">
+                    <a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}&milieu={4}", World.SectorX, World.SectorY, World.HexX, World.HexY, MilieuCode)" target="_blank" title="Show planet in Traveller Map.">
                         <span class="oi oi-map" aria-hidden="true" /> Map
                     </a>
                 </td>

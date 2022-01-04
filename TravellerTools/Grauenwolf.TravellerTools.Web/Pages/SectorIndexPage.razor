@@ -9,7 +9,7 @@
         <a href="@($"https://wiki.travellerrpg.com/{Model.Sector.Name}_Sector")" target="_blank" title="Search Traveller Wiki for this sector.">
             <span class="oi oi-globe" aria-hidden="true" /> TAS
         </a>
-        <a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}", Model.Sector.X, Model.Sector.Y)" target="_blank" title="Show sector in Traveller Map.">
+        <a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&milieu={2}", Model.Sector.X, Model.Sector.Y, Model.Milieu.Code)" target="_blank" title="Show sector in Traveller Map.">
             <span class="oi oi-map" aria-hidden="true" /> Map
         </a>
     </div>
