@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Tortuga.Anchor" Version="3.2.0" />
+    <PackageReference Include="Tortuga.Anchor" Version="4.0.0" />
   </ItemGroup>
 
 </Project>
