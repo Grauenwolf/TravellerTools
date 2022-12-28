@@ -240,7 +240,8 @@ namespace Grauenwolf.TravellerTools.Maps
                     int.TryParse(fields[headers["W"]], out int tmp);
                     world.Worlds = tmp;
 
-                    world.ResourceUnits = int.Parse(fields[headers["RU"]]);
+                    int.TryParse(fields[headers["RU"]], out int tmp2);
+                    world.ResourceUnits = tmp2;
 
                     world.AddMissingRemarks();
 
