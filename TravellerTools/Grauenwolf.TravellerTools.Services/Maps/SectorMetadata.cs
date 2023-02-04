@@ -7,7 +7,7 @@ namespace Grauenwolf.TravellerTools.Maps
 		public string Tags { get; set; }
 		public string Abbreviation { get; set; }
 		public Name[] Names { get; set; }
-		public string Credits { get; set; }
+		public string[] Credits { get; set; }
 		public Datafile DataFile { get; set; }
 		public int X { get; set; }
 		public int Y { get; set; }
