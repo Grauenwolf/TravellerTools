@@ -219,7 +219,7 @@
     <Detail Roll="12"   Name="Exotic Furnishings/Exquisite Jewellery" Tons="1" Price="500"/>
   </TradeGood>
 
-  <TradeGood Name="Medical Supplies" Roll="36" Availability="Ht,Hi" BasePrice="150" Tons="5D6">
+  <TradeGood Name="Medical Supplies" Roll="36" Availability="Ht,Hi" BasePrice="50" Tons="5D6">
     <Purchase Tag="Ht" Bonus="2"/>
     <Sale			Tag="Ind" Bonus="2"/>
     <Sale			Tag="Po" Bonus="1"/>
