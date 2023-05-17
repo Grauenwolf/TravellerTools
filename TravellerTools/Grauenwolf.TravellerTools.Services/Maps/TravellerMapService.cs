@@ -53,6 +53,32 @@ namespace Grauenwolf.TravellerTools.Maps
 
             var rawList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/metadata?sx={sectorX}&sy={sectorY}&milieu={Milieu}")).ConfigureAwait(false);
             result = JsonConvert.DeserializeObject<SectorMetadata>(rawList);
+
+
+            if (result.Subsectors.Length == 0)
+            {
+                //Bad data. Create fake subsectors to account for it.
+                result.Subsectors = new Subsector[]{
+                    new Subsector(){ Name= "A", Index = "A", IndexNumber = 0},
+                    new Subsector(){ Name= "B", Index = "B", IndexNumber = 1},
+                    new Subsector(){ Name= "C", Index = "C", IndexNumber = 2},
+                    new Subsector(){ Name= "D", Index = "D", IndexNumber = 3},
+                    new Subsector(){ Name= "E", Index = "E", IndexNumber = 4},
+                    new Subsector(){ Name= "F", Index = "F", IndexNumber = 5},
+                    new Subsector(){ Name= "G", Index = "G", IndexNumber = 6},
+                    new Subsector(){ Name= "H", Index = "H", IndexNumber = 7},
+                    new Subsector(){ Name= "I", Index = "I", IndexNumber = 8},
+                    new Subsector(){ Name= "J", Index = "J", IndexNumber = 9},
+                    new Subsector(){ Name= "K", Index = "K", IndexNumber = 10},
+                    new Subsector(){ Name= "L", Index = "L", IndexNumber = 11},
+                    new Subsector(){ Name= "M", Index = "M", IndexNumber = 12},
+                    new Subsector(){ Name= "N", Index = "N", IndexNumber = 13},
+                    new Subsector(){ Name= "O", Index = "O", IndexNumber = 14},
+                    new Subsector(){ Name= "P", Index = "P", IndexNumber = 15},
+                };
+
+            }
+
             m_SectorMetadata.TryAdd(cacheKey, result);
             return result;
         }
