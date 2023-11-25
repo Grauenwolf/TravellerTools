@@ -41,7 +41,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             if (character.CurrentTerm == 3)
                 dm += -4;
 
-            return dice.RollHigh(QualifyTarget);
+            return dice.RollHigh(dm, QualifyTarget);
         }
 
         internal override void Run(Character character, Dice dice)

@@ -55,6 +55,7 @@ namespace Grauenwolf.TravellerTools.Characters
             careers.Add(new Thief(Book));
             careers.Add(new Thug(Book));
             careers.Add(new University(Book));
+            careers.Add(new ColonialUpbringing(Book));
             careers.Add(new Wanderer(Book));
             careers.Add(new Worker(Book));
             careers.Add(new Flight(Book));

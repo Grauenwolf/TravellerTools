@@ -28,9 +28,11 @@ namespace Grauenwolf.TravellerTools.Characters
             }
             if (keyValuePairs.TryGetValue("gender", out var gender))
                 Gender = gender;
+
             if (keyValuePairs.TryGetValue("firstAssignment", out var firstAssignment))
                 FirstAssignment = firstAssignment;
-            if (keyValuePairs.TryGetValue("gender", out var firstCareer))
+
+            if (keyValuePairs.TryGetValue("firstCareer", out var firstCareer))
                 FirstCareer = firstCareer;
         }
 

@@ -90,7 +90,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                     character.AddHistory("Forced to continue current assignment");
                     character.NextTermBenefits.MustEnroll = Assignment;
                 }
-                advancementRoll += character.GetDM(AdvancementAttribute) + character.CurrentTermBenefits.AdvancementDM;
+                advancementRoll += character.GetDM(AdvancementAttribute) + character.CurrentTermBenefits.AdvancementDM + character.LongTermBenefits.AdvancementDM;
 
                 if (advancementRoll >= AdvancementTarget)
                 {
@@ -149,6 +149,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
                    character.SocialStandingDM +
                    character.CurrentTermBenefits.AdvancementDM +
                    character.CurrentTermBenefits.CommissionDM +
+                   character.LongTermBenefits.CommissionDM +
                    (1 - careerHistory.Terms);
 
             character.CurrentTermBenefits.FreeCommissionRoll = false;

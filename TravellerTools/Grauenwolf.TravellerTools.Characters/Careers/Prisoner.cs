@@ -68,7 +68,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
                 var advancementRoll = dice.D(2, 6);
 
-                advancementRoll += character.GetDM(AdvancementAttribute) + character.CurrentTermBenefits.AdvancementDM;
+                advancementRoll += character.GetDM(AdvancementAttribute) + character.CurrentTermBenefits.AdvancementDM + character.LongTermBenefits.AdvancementDM;
 
                 if (advancementRoll >= AdvancementTarget)
                 {

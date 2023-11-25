@@ -185,7 +185,7 @@ namespace Grauenwolf.TravellerTools.Characters
         }
 
         //public FeatureCollection Features { get { return GetNew<FeatureCollection>(); } }
-        internal int GetEnlistmentBonus(string career, string branch)
+        internal int GetEnlistmentBonus(string career, string assignment)
         {
             var result = NextTermBenefits.QualificationDM + LongTermBenefits.QualificationDM;
 
@@ -193,12 +193,13 @@ namespace Grauenwolf.TravellerTools.Characters
                 result += NextTermBenefits.EnlistmentDM[career];
             if (LongTermBenefits.EnlistmentDM.ContainsKey(career))
                 result += LongTermBenefits.EnlistmentDM[career];
-            if (branch != null)
+
+            if (assignment != null)
             {
-                if (NextTermBenefits.EnlistmentDM.ContainsKey(branch))
-                    result += NextTermBenefits.EnlistmentDM[branch];
-                if (LongTermBenefits.EnlistmentDM.ContainsKey(branch))
-                    result += LongTermBenefits.EnlistmentDM[branch];
+                if (NextTermBenefits.EnlistmentDM.ContainsKey(assignment))
+                    result += NextTermBenefits.EnlistmentDM[assignment];
+                if (LongTermBenefits.EnlistmentDM.ContainsKey(assignment))
+                    result += LongTermBenefits.EnlistmentDM[assignment];
             }
 
             return result;
