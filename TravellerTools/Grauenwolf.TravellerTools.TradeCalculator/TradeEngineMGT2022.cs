@@ -7,7 +7,7 @@ using static System.Math;
 
 namespace Grauenwolf.TravellerTools.TradeCalculator;
 
-public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, NameGenerator nameGenerator) : TradeEngine(mapService, dataPath, nameGenerator)
+public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath, NameGenerator nameGenerator) : TradeEngine(mapService, dataPath, nameGenerator)
 {
     protected override string DataFileName
     {
@@ -32,18 +32,26 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
         var minorDM = 0;
         var majorDM = -4;
 
-        if (origin.PopulationCode.Value <= 1)
-            baseDM += -4;
-        else if (origin.PopulationCode.Value == 6 || origin.PopulationCode.Value == 7)
-            baseDM += 2;
-        else if (origin.PopulationCode.Value >= 8)
-            baseDM += 4;
+        baseDM += origin.PopulationCode.Value switch
+        {
+            <= 1 => -4,
+            6 => 2,
+            7 => 2,
+            >= 8 => 4,
+            _ => 0
+        };
 
-        if (origin.TechCode.Value <= 6) baseDM += -1;
-        if (origin.TechCode.Value >= 9) baseDM += 2;
+        baseDM += origin.TechCode.Value switch
+        {
+            <= 6 => -1,
+            >= 9 => 2,
+            _ => 0
+        };
 
-        if (origin.ContainsRemark("A")) baseDM += -2;
         if (origin.ContainsRemark("R")) baseDM += -6;
+        else if (origin.ContainsRemark("A")) baseDM += -2;
+
+        baseDM += 1 - destination.JumpDistance;
 
         result.Incidental = random.D(FreightTraffic(baseDM + incidentalDM, random));
         result.Minor = random.D(FreightTraffic(baseDM + minorDM, random));
@@ -52,26 +60,26 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
         var lots = new List<FreightLot>();
         for (var i = 0; i < result.Incidental; i++)
         {
-            int size = random.D("1D6");
-            int value = FreightCost(destination.JumpDistance) * size;
+            var size = random.D("1D6");
+            var value = FreightCost(destination.JumpDistance) * size;
             var lateFee = (int)Math.Floor(value * (random.D(1, 6) + 4 * 0.1));
             lots.Add(new FreightLot(size, value, lateFee));
         }
 
         for (var i = 0; i < result.Minor; i++)
         {
-            int size = random.D("1D6") * 5;
-            int value = FreightCost(destination.JumpDistance) * size;
+            var size = random.D("1D6") * 5;
+            var value = FreightCost(destination.JumpDistance) * size;
             var lateFee = (int)Math.Floor(value * (random.D(1, 6) + 4 * 0.1));
             lots.Add(new FreightLot(size, value, lateFee));
         }
 
         for (var i = 0; i < result.Major; i++)
         {
-            int size = random.D("1D6") * 10;
-            int value = FreightCost(destination.JumpDistance) * size;
+            var size = random.D("1D6") * 10;
+            var value = FreightCost(destination.JumpDistance) * size;
             var lateFee = (int)Math.Floor(value * (random.D(1, 6) + 4 * 0.1));
-            lots.Add(new FreightLot(size, value, lateFee)); ;
+            lots.Add(new FreightLot(size, value, lateFee));
         }
 
         //Add contents
@@ -270,6 +278,9 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
 
         return roll switch
         {
+            <= -3 => 3.00M,
+            -2 => 2.50M,
+            -1 => 2.00M,
             0 => 1.75M,
             1 => 1.5M,
             2 => 1.35M,
@@ -293,7 +304,9 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
             20 => 0.4M,
             21 => 0.35M,
             22 => 0.30M,
-            _ => 0.25M,
+            23 => 0.25M,
+            24 => 0.20M,
+            _ => 0.15M,
         };
     }
 
@@ -308,6 +321,9 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
 
         return roll switch
         {
+            <= -3 => 0.10M,
+            -2 => 0.20M,
+            -1 => 0.30M,
             0 => 0.4M,
             1 => 0.45M,
             2 => 0.50M,
@@ -326,12 +342,14 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
             15 => 1.20M,
             16 => 1.25M,
             17 => 1.30M,
-            18 => 1.35M,
-            19 => 1.4M,
-            20 => 1.45M,
-            21 => 1.50M,
-            22 => 1.55M,
-            _ => 1.60M,
+            18 => 1.40M,
+            19 => 1.50M,
+            20 => 1.60M,
+            21 => 1.75M,
+            22 => 2.00M,
+            23 => 2.50M,
+            24 => 3.00M,
+            _ => 4.00M,
         };
     }
 
@@ -341,10 +359,10 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
         {
             1 => 1000,
             2 => 1600,
-            3 => 3000,
-            4 => 7000,
-            5 => 7700,
-            6 => 86000,
+            3 => 2600,
+            4 => 4400,
+            5 => 8500,
+            6 => 32000,
             _ => 0,
         };
     }

@@ -95,6 +95,10 @@ namespace Grauenwolf.TravellerTools.Web
                     engine = new TradeEngineMgt2(MapService.GetMapService(milieu), DataPath, NameGenerator);
                     break;
 
+                case Edition.Mongoose2022:
+                    engine = new TradeEngineMgt2022(MapService.GetMapService(milieu), DataPath, NameGenerator);
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(edition));
             }

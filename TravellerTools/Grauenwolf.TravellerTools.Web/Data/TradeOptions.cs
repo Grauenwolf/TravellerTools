@@ -10,10 +10,11 @@ namespace Grauenwolf.TravellerTools.Web.Data
     {
         public static readonly ImmutableArray<(string Name, string Code)> EditionList = ImmutableArray.Create(
                 ("Mongoose 1", Edition.MGT.ToString()),
-                ("Mongoose 2", Edition.MGT2.ToString())
+                ("Mongoose 2", Edition.MGT2.ToString()),
+                ("Mongoose 2022", Edition.MGT2022.ToString())
             );
 
-        public Edition SelectedEdition { get => GetDefault<Edition>(Edition.MGT2); set => Set(value); }
+        public Edition SelectedEdition { get => GetDefault<Edition>(Edition.MGT2022); set => Set(value); }
 
         public string SelectedEditionCode
         {
@@ -23,7 +24,7 @@ namespace Grauenwolf.TravellerTools.Web.Data
                 if (Enum.TryParse<Edition>(value, out var edition))
                     SelectedEdition = edition;
                 else
-                    SelectedEdition = Edition.MGT2;
+                    SelectedEdition = Edition.MGT2022;
             }
         }
 
