@@ -33,20 +33,7 @@ namespace Grauenwolf.TravellerTools.Web.Data
         public bool SkipPriceRoll { get => GetDefault(false); set => Set(value); }
 
         public int BrokerScore { get => GetDefault(0); set => Set(value); }
-        public int CounterpartyScore { get => GetDefault(2); set => Set(value); }
         public int StreetwiseScore { get => GetDefault(0); set => Set(value); }
-
-        public string? CounterpartyScoreCode
-        {
-            get => CounterpartyScore.ToString();
-            set
-            {
-                if (int.TryParse(value, out var score))
-                    CounterpartyScore = score;
-                else
-                    CounterpartyScore = 0;
-            }
-        }
 
         public string? BrokerScoreCode
         {
@@ -97,8 +84,7 @@ namespace Grauenwolf.TravellerTools.Web.Data
                 { "skipPriceRoll", SkipPriceRoll.ToString() },
                 { "brokerScore", BrokerScore.ToString() },
                 { "streetwiseScore", StreetwiseScore.ToString() },
-                { "destinationIndex", DestinationIndex.ToString() },
-                { "counterpartyScore", CounterpartyScore.ToString() }
+                { "destinationIndex", DestinationIndex.ToString() }
             };
         }
 
@@ -116,8 +102,6 @@ namespace Grauenwolf.TravellerTools.Web.Data
                 SkipPriceRoll = bool.Parse(skipPriceRoll);
             if (keyValuePairs.TryGetValue("brokerScore", out var brokerScore))
                 BrokerScore = int.Parse(brokerScore);
-            if (keyValuePairs.TryGetValue("counterpartyScore", out var counterpartyScore))
-                CounterpartyScore = int.Parse(counterpartyScore);
             if (keyValuePairs.TryGetValue("streetwiseScore", out var streetwiseScore))
                 StreetwiseScore = int.Parse(streetwiseScore);
             if (keyValuePairs.TryGetValue("destinationIndex", out var destinationIndex))
