@@ -8,89 +8,133 @@ namespace Grauenwolf.TravellerTools.Characters
 {
     public class Character : ModelBase
     {
-        public int Strength { get { return Get<int>(); } set { Set(value); } }
-        public int Dexterity { get { return Get<int>(); } set { Set(value); } }
-        public int Endurance { get { return Get<int>(); } set { Set(value); } }
-        public int Intellect { get { return Get<int>(); } set { Set(value); } }
-        public int Education { get { return Get<int>(); } set { Set(value); } }
-        public int SocialStanding { get { return Get<int>(); } set { Set(value); } }
-        public int? Psi { get { return Get<int?>(); } set { Set(value); } }
+
+        public EducationHistory EducationHistory;
 
         public int Age { get { return GetDefault<int>(18); } set { Set(value); } }
+
+        public int BenefitRolls { get; set; }
+
+        public ObservableCollectionExtended<CareerHistory> CareerHistory { get; } = new ObservableCollectionExtended<CareerHistory>();
+
         public int CurrentTerm { get { return Get<int>(); } set { Set(value); } }
-        public string Gender { get { return Get<string>(); } set { Set(value); } }
 
-        [CalculatedField("Psi")]
-        public int PsiDM { get { return Psi == null ? -100 : DMCalc(Psi.Value); } }
+        public int Debt { get; set; }
 
-        [CalculatedField("Strength")]
-        public int StrengthDM { get { return DMCalc(Strength); } }
+        public int Dexterity { get { return Get<int>(); } set { Set(value); } }
 
         [CalculatedField("Dexterity")]
         public int DexterityDM { get { return DMCalc(Dexterity); } }
 
-        [CalculatedField("Endurance")]
-        public int EnduranceDM { get { return DMCalc(Endurance); } }
-
-        [CalculatedField("Intellect")]
-        public int IntellectDM { get { return DMCalc(Intellect); } }
+        public int Education { get { return Get<int>(); } set { Set(value); } }
 
         [CalculatedField("Education")]
         public int EducationDM { get { return DMCalc(Education); } }
 
+        public int Endurance { get { return Get<int>(); } set { Set(value); } }
+
+        [CalculatedField("Endurance")]
+        public int EnduranceDM { get { return DMCalc(Endurance); } }
+
+        public string FirstAssignment { get; set; }
+
+        public string FirstCareer { get; set; }
+
+        public string Gender { get { return Get<string>(); } set { Set(value); } }
+
+        public HistoryCollection History { get { return GetNew<HistoryCollection>(); } }
+
+        public int Intellect { get { return Get<int>(); } set { Set(value); } }
+
+        [CalculatedField("Intellect")]
+        public int IntellectDM { get { return DMCalc(Intellect); } }
+
+        public bool IsDead { get; set; }
+
+        public CareerHistory LastCareer { get; set; }
+
+        public int? MaxAge { get { return Get<int?>(); } set { Set(value); } }
+
+        public string Name { get { return Get<string>(); } set { Set(value); } }
+
+        public int? Parole { get; set; }
+
+        public ObservableCollectionExtended<string> Personality { get; } = new ObservableCollectionExtended<string>();
+
+        [CalculatedField("Personality")]
+        public string PersonalityList => string.Join(", ", Personality);
+
+        public int PreviousPsiAttempts { get; set; }
+
+        public int? Psi { get { return Get<int?>(); } set { Set(value); } }
+
+        [CalculatedField("Psi")]
+        public int PsiDM { get { return Psi == null ? -100 : DMCalc(Psi.Value); } }
+
+        /// <summary>
+        /// Gets or sets the seed used to randomly create the character.
+        /// </summary>
+        /// <value>The seed.</value>
+        public int Seed { get; set; }
+
+        public SkillCollection Skills { get { return GetNew<SkillCollection>(); } }
+
+        public int SocialStanding { get { return Get<int>(); } set { Set(value); } }
+
         [CalculatedField("SocialStanding")]
         public int SocialStandingDM { get { return DMCalc(SocialStanding); } }
 
-        static int DMCalc(int value)
+        public int Strength { get { return Get<int>(); } set { Set(value); } }
+
+        [CalculatedField("Strength")]
+        public int StrengthDM { get { return DMCalc(Strength); } }
+
+        public string Title { get; set; }
+
+        public ObservableCollectionExtended<string> Trace { get; } = new ObservableCollectionExtended<string>();
+
+        public WeaponCollection Weapons { get { return GetNew<WeaponCollection>(); } }
+
+        internal List<int> BenefitRollDMs { get; } = new List<int>();
+
+        internal NextTermBenefits CurrentTermBenefits { get; set; }
+
+        internal LongTermBenefits LongTermBenefits { get { return GetNew<LongTermBenefits>(); } }
+
+        internal NextTermBenefits NextTermBenefits { get; set; }
+
+        public void AddHistory(string text)
         {
-            if (value <= 0)
-                return -3;
-            if (value <= 2)
-                return -2;
-            if (value <= 5)
-                return -1;
-            if (value <= 8)
-                return 0;
-            if (value <= 11)
-                return 1;
-            if (value <= 14)
-                return 2;
-            //if (value >= 15)
-            return 3;
+            History.Add(new History(CurrentTerm, text));
         }
 
+        /// <summary>
+        /// Gets the character builder options needed to recreate the character.
+        /// </summary>
+        public CharacterBuilderOptions GetCharacterBuilderOptions()
+        {
+            return new CharacterBuilderOptions()
+            {
+                Seed = Seed,
+                FirstAssignment = FirstAssignment,
+                FirstCareer = FirstCareer,
+                Gender = Gender,
+                MaxAge = Age,
+                Name = Name
+            };
+        }
         public int GetDM(string attributeName)
         {
-            switch (attributeName)
+            return attributeName switch
             {
-                case "Strength":
-                case "Str":
-                    return StrengthDM;
-
-                case "Dexterity":
-                case "Dex":
-                    return DexterityDM;
-
-                case "Endurance":
-                case "End":
-                    return EnduranceDM;
-
-                case "Intellect":
-                case "Int":
-                    return IntellectDM;
-
-                case "Education":
-                case "Edu":
-                    return EducationDM;
-
-                case "SS":
-                case "Soc":
-                case "SocialStanding":
-                    return SocialStandingDM;
-
-                default:
-                    throw new ArgumentOutOfRangeException("attributeName", attributeName, "Unknown attribute " + attributeName);
-            }
+                "Strength" or "Str" => StrengthDM,
+                "Dexterity" or "Dex" => DexterityDM,
+                "Endurance" or "End" => EnduranceDM,
+                "Intellect" or "Int" => IntellectDM,
+                "Education" or "Edu" => EducationDM,
+                "SS" or "Soc" or "SocialStanding" => SocialStandingDM,
+                _ => throw new ArgumentOutOfRangeException(nameof(attributeName), attributeName, "Unknown attribute " + attributeName),
+            };
         }
 
         public void Increase(string attributeName, int bonus)
@@ -136,60 +180,11 @@ namespace Grauenwolf.TravellerTools.Characters
                 //case "InitiativeDM": InitiativeDM += bonus; return;
 
                 default:
-                    throw new ArgumentOutOfRangeException("attributeName", attributeName, "Unknown attribute " + attributeName);
+                    throw new ArgumentOutOfRangeException(nameof(attributeName), attributeName, "Unknown attribute " + attributeName);
             }
         }
 
-        public SkillCollection Skills { get { return GetNew<SkillCollection>(); } }
-
-        public WeaponCollection Weapons { get { return GetNew<WeaponCollection>(); } }
-
         //public FeatureCollection Features { get { return GetNew<FeatureCollection>(); } }
-
-        public void AddHistory(string text)
-        {
-            History.Add(new History(CurrentTerm, text));
-        }
-
-        public HistoryCollection History { get { return GetNew<HistoryCollection>(); } }
-
-        public ObservableCollectionExtended<string> Trace { get; } = new ObservableCollectionExtended<string>();
-
-        public string Name { get { return Get<string>(); } set { Set(value); } }
-
-        internal NextTermBenefits CurrentTermBenefits { get; set; }
-
-        internal NextTermBenefits NextTermBenefits { get; set; }
-
-        internal LongTermBenefits LongTermBenefits { get { return GetNew<LongTermBenefits>(); } }
-
-        internal List<int> BenefitRollDMs { get; } = new List<int>();
-        public int BenefitRolls { get; set; }
-
-        public ObservableCollectionExtended<CareerHistory> CareerHistory { get; } = new ObservableCollectionExtended<CareerHistory>();
-
-        public ObservableCollectionExtended<string> Personality { get; } = new ObservableCollectionExtended<string>();
-
-        [CalculatedField("Personality")]
-        public string PersonalityList => string.Join(", ", Personality);
-
-        public EducationHistory EducationHistory;
-
-        public CareerHistory LastCareer { get; set; }
-        public string Title { get; set; }
-        public int? Parole { get; set; }
-        public bool IsDead { get; set; }
-        public int Debt { get; set; }
-
-        /// <summary>
-        /// Gets or sets the seed used to randomly create the character.
-        /// </summary>
-        /// <value>The seed.</value>
-        public int Seed { get; set; }
-
-        public string FirstAssignment { get; set; }
-        public string FirstCareer { get; set; }
-
         internal int GetEnlistmentBonus(string career, string branch)
         {
             var result = NextTermBenefits.QualificationDM + LongTermBenefits.QualificationDM;
@@ -209,6 +204,18 @@ namespace Grauenwolf.TravellerTools.Characters
             return result;
         }
 
-        public int PreviousPsiAttempts { get; set; }
+        static int DMCalc(int value)
+        {
+            return value switch
+            {
+                <= 0 => -3,
+                <= 2 => -2,
+                <= 5 => -1,
+                <= 8 => 0,
+                <= 11 => 1,
+                <= 14 => 2,
+                _ => 3
+            };
+        }
     }
 }

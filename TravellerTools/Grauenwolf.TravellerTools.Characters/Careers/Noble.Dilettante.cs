@@ -6,7 +6,7 @@
 
         protected override string AdvancementAttribute => "Int";
 
-        protected override int AdvancementTarget => 8;
+        protected override int AdvancementTarget => 7;
 
         protected override string SurvivalAttribute => "Soc";
 

@@ -135,7 +135,8 @@ namespace Grauenwolf.TravellerTools.Web.Pages
 
                     Model!.TradeList = tradeEngine.BuildTradeGoodsList(Model.World, Options.AdvancedMode, Options.IllegalGoods, Options.BrokerScore, dice, Options.Raffle, Options.StreetwiseScore, destination);
 
-                    StateHasChanged();
+                    InvokeAsync(StateHasChanged);
+
                 }
             }
             catch (Exception ex)

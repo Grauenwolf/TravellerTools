@@ -1,11 +1,7 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers
 {
-    abstract class Noble : NormalCareer
+    abstract class Noble(string assignment, Book book) : NormalCareer("Noble", assignment, book)
     {
-        public Noble(string assignment, Book book) : base("Noble", assignment, book)
-        {
-        }
-
         protected override int AdvancedEductionMin => 8;
 
         protected override bool RankCarryover => false;

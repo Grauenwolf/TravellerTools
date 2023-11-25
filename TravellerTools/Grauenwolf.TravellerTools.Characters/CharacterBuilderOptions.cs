@@ -1,14 +1,10 @@
+using Microsoft.Extensions.Primitives;
+using System.Collections.Generic;
+
 namespace Grauenwolf.TravellerTools.Characters
 {
     public class CharacterBuilderOptions
     {
-        //public CareerChoice CareerChoice(string career)
-        //{
-        //    if (m_CareerChoices.ContainsKey(career))
-        //        return m_CareerChoices[career];
-        //    else
-        //        return Characters.CareerChoice.Default;
-        //}
         public string FirstAssignment { get; set; }
 
         public string FirstCareer { get; set; }
@@ -17,15 +13,39 @@ namespace Grauenwolf.TravellerTools.Characters
         public int? MaxAge { get; set; }
         public string Name { get; set; }
 
-        //readonly Dictionary<string, CareerChoice> m_CareerChoices = new Dictionary<string, CareerChoice>(StringComparer.OrdinalIgnoreCase);
         public int? Seed { get; set; }
+        public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)
+        {
+            if (keyValuePairs.TryGetValue("seed", out var seed))
+                Seed = int.Parse(seed);
+            if (keyValuePairs.TryGetValue("name", out var name))
+                Name = name;
+            if (keyValuePairs.TryGetValue("maxAge", out var maxAge))
+            {
+                MaxAge = int.Parse(maxAge);
+                if (MaxAge == 0)
+                    MaxAge = null;
+            }
+            if (keyValuePairs.TryGetValue("gender", out var gender))
+                Gender = gender;
+            if (keyValuePairs.TryGetValue("firstAssignment", out var firstAssignment))
+                FirstAssignment = firstAssignment;
+            if (keyValuePairs.TryGetValue("gender", out var firstCareer))
+                FirstCareer = firstCareer;
+        }
+
+        public Dictionary<string, string?> ToQueryString()
+        {
+            return new Dictionary<string, string?>
+            {
+                { "seed", Seed.ToString()},
+                { "name", Name },
+                { "maxAge", (MaxAge??0).ToString() },
+                { "gender", Gender },
+                { "firstAssignment", FirstAssignment },
+                { "firstCareer", FirstCareer }
+            };
+        }
     }
 
-    //public enum CareerChoice
-    //{
-    //    Disabled = -1,
-    //    Default = 0,
-    //    Preferred = 1,
-    //    Forced = 2
-    //}
 }

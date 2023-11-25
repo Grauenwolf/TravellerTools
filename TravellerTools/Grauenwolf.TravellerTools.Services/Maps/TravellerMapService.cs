@@ -13,36 +13,30 @@ using Tortuga.Anchor;
 
 namespace Grauenwolf.TravellerTools.Maps
 {
-    public class TravellerMapService //: MapService
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TravellerMapService"/> class.
+    /// </summary>
+    /// <param name="filterUnpopulatedSectors">if set to <c>true</c> [filter unpopulated sectors].</param>
+    /// <param name="milieu">The milieu. The "default" is "M1105".</param>
+    public class TravellerMapService(bool filterUnpopulatedSectors, string milieu) //: MapService
     {
-        static HttpClient s_Client = new HttpClient();
+        readonly static HttpClient s_Client = new();
 
-        readonly bool m_FilterUnpopulatedSectors;
+        readonly bool m_FilterUnpopulatedSectors = filterUnpopulatedSectors;
 
         ImmutableArray<Sector> m_SectorList;
 
-        ConcurrentDictionary<Tuple<int, int>, SectorMetadata> m_SectorMetadata = new ConcurrentDictionary<Tuple<int, int>, SectorMetadata>();
+        readonly ConcurrentDictionary<Tuple<int, int>, SectorMetadata> m_SectorMetadata = new();
 
         ImmutableArray<SophontCode> m_SophontCodes;
 
-        ConcurrentDictionary<Tuple<int, int>, ImmutableArray<Subsector>> m_SubsectorsInSector = new ConcurrentDictionary<Tuple<int, int>, ImmutableArray<Subsector>>();
-        ConcurrentDictionary<Tuple<int, int>, ImmutableArray<World>> m_WorldsInSector = new ConcurrentDictionary<Tuple<int, int>, ImmutableArray<World>>();
-        ConcurrentDictionary<Tuple<int, int, string>, ImmutableArray<World>> m_WorldsInSubsector = new ConcurrentDictionary<Tuple<int, int, string>, ImmutableArray<World>>();
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TravellerMapService"/> class.
-        /// </summary>
-        /// <param name="filterUnpopulatedSectors">if set to <c>true</c> [filter unpopulated sectors].</param>
-        /// <param name="milieu">The milieu. The "default" is "M1105".</param>
-        public TravellerMapService(bool filterUnpopulatedSectors, string milieu)
-        {
-            m_FilterUnpopulatedSectors = filterUnpopulatedSectors;
-            Milieu = milieu;
-        }
+        readonly ConcurrentDictionary<Tuple<int, int>, ImmutableArray<Subsector>> m_SubsectorsInSector = new();
+        readonly ConcurrentDictionary<Tuple<int, int>, ImmutableArray<World>> m_WorldsInSector = new();
+        readonly ConcurrentDictionary<Tuple<int, int, string>, ImmutableArray<World>> m_WorldsInSubsector = new();
 
         public event EventHandler? UniverseUpdated;
 
-        public string Milieu { get; }
+        public string Milieu { get; } = milieu;
 
         public async Task<Sector?> FetchSectorAsync(string sectorHex)
         {
@@ -59,29 +53,29 @@ namespace Grauenwolf.TravellerTools.Maps
                 return result;
 
             var rawList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/metadata?sx={sectorX}&sy={sectorY}&milieu={Milieu}")).ConfigureAwait(false);
-            result = JsonConvert.DeserializeObject<SectorMetadata>(rawList);
+            result = JsonConvert.DeserializeObject<SectorMetadata>(rawList)!;
 
-            if (result.Subsectors.Length == 0)
+            if (result.Subsectors?.Length == 0)
             {
                 //Bad data. Create fake subsectors to account for it.
-                result.Subsectors = new Subsector[]{
-                    new Subsector(){ Name= "A", Index = "A", IndexNumber = 0},
-                    new Subsector(){ Name= "B", Index = "B", IndexNumber = 1},
-                    new Subsector(){ Name= "C", Index = "C", IndexNumber = 2},
-                    new Subsector(){ Name= "D", Index = "D", IndexNumber = 3},
-                    new Subsector(){ Name= "E", Index = "E", IndexNumber = 4},
-                    new Subsector(){ Name= "F", Index = "F", IndexNumber = 5},
-                    new Subsector(){ Name= "G", Index = "G", IndexNumber = 6},
-                    new Subsector(){ Name= "H", Index = "H", IndexNumber = 7},
-                    new Subsector(){ Name= "I", Index = "I", IndexNumber = 8},
-                    new Subsector(){ Name= "J", Index = "J", IndexNumber = 9},
-                    new Subsector(){ Name= "K", Index = "K", IndexNumber = 10},
-                    new Subsector(){ Name= "L", Index = "L", IndexNumber = 11},
-                    new Subsector(){ Name= "M", Index = "M", IndexNumber = 12},
-                    new Subsector(){ Name= "N", Index = "N", IndexNumber = 13},
-                    new Subsector(){ Name= "O", Index = "O", IndexNumber = 14},
-                    new Subsector(){ Name= "P", Index = "P", IndexNumber = 15},
-                };
+                result.Subsectors = [
+                    new("A", "A", 0),
+                    new("B", "B", 1),
+                    new("C", "C", 2),
+                    new("D", "D", 3),
+                    new("E", "E", 4),
+                    new("F", "F", 5),
+                    new("G", "G", 6),
+                    new("H", "H", 7),
+                    new("I", "I", 8),
+                    new("J", "J", 9),
+                    new("K", "K", 10),
+                    new("L", "L", 11),
+                    new("M", "M", 12),
+                    new("N", "N", 13),
+                    new("O", "O", 14),
+                    new("P", "P", 15),
+                ];
 
             }
 
@@ -99,7 +93,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
             var rawList = await s_Client.GetStringAsync(new Uri("https://travellermap.com/t5ss/sophonts")).ConfigureAwait(false);
 
-            var set = JsonConvert.DeserializeObject<List<SophontCode>>(rawList);
+            var set = JsonConvert.DeserializeObject<List<SophontCode>>(rawList)!;
             World.AddSophontCodes(set);
             m_SophontCodes = set.ToImmutableArray();
             return m_SophontCodes;
@@ -164,7 +158,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
             var rawSectorList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/universe?milieu={Milieu}")).ConfigureAwait(false);
 
-            var sectors = JsonConvert.DeserializeObject<Universe>(rawSectorList).Sectors.Where(s => s.Names?.First().Text != "Legend").ToList();
+            var sectors = JsonConvert.DeserializeObject<Universe>(rawSectorList)!.Sectors.Where(s => s.Names?.First().Text != "Legend").ToList();
 
             m_SectorList = ImmutableArray.CreateRange(sectors.OrderBy(s => s.Name));
 
@@ -204,8 +198,8 @@ namespace Grauenwolf.TravellerTools.Maps
         public async Task<World?> FetchWorldAsync(string sectorHex, string planetHex)
         {
             var cord = sectorHex.Split(',').Select(s => int.Parse(s)).ToArray();
-            var hexX = int.Parse(planetHex.Substring(0, 2));
-            var hexY = int.Parse(planetHex.Substring(2, 2));
+            var hexX = int.Parse(planetHex[..2]);
+            var hexY = int.Parse(planetHex[2..4]);
 
             var worlds = await WorldsNearAsync(cord[0], cord[1], hexX, hexY, 0);
             return worlds.FirstOrDefault();
@@ -241,7 +235,7 @@ namespace Grauenwolf.TravellerTools.Maps
                 while (!parser.EndOfData)
                 {
                     //Sector	SS	Hex	Name	UWP	Bases	Remarks	Zone	PBG	Allegiance	Stars	{Ix}	(Ex)	[Cx]	Nobility	W	RU
-                    World world = new World();
+                    var world = new World();
 
                     var fields = parser.ReadFields()!;
 
@@ -263,11 +257,11 @@ namespace Grauenwolf.TravellerTools.Maps
                     world.Cx = fields[headers["[Cx]"]];
                     world.Nobility = fields[headers["Nobility"]];
 
-                    int.TryParse(fields[headers["W"]], out int tmp);
-                    world.Worlds = tmp;
+                    if (int.TryParse(fields[headers["W"]], out int tmp))
+                        world.Worlds = tmp;
 
-                    int.TryParse(fields[headers["RU"]], out int tmp2);
-                    world.ResourceUnits = tmp2;
+                    if (int.TryParse(fields[headers["RU"]], out int tmp2))
+                        world.ResourceUnits = tmp2;
 
                     world.AddMissingRemarks();
 
@@ -322,7 +316,7 @@ namespace Grauenwolf.TravellerTools.Maps
             {
                 var rawList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/jumpworlds?sx={sectorX}&sy={sectorY}&hx={hexX:00}&hy={hexY:00}&jump={jumpDistance}&milieu={Milieu}")).ConfigureAwait(false);
 
-                var set = JsonConvert.DeserializeObject<WorldList>(rawList).Worlds;
+                var set = JsonConvert.DeserializeObject<WorldList>(rawList)!.Worlds;
                 if (set != null)
                     foreach (var world in set.Where(w => !result.Any(ww => ww.Hex == w.Hex && ww.Sector == w.Sector)))
                     {

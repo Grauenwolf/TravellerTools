@@ -5,8 +5,8 @@ namespace Grauenwolf.TravellerTools.Maps
 {
     public class World
     {
-        static readonly Dictionary<string, string> s_RemarkMap = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-        readonly HashSet<string> m_RemarksList = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        static readonly Dictionary<string, string> s_RemarkMap = new(StringComparer.OrdinalIgnoreCase);
+        readonly HashSet<string> m_RemarksList = new(StringComparer.OrdinalIgnoreCase);
         private string? m_Remarks;
 
         static World()
@@ -76,8 +76,8 @@ namespace Grauenwolf.TravellerTools.Maps
         public World(string uwp, string name, int jumpDistance, string? tasZone)
         {
             uwp = uwp.Trim();
-            if (!uwp.Contains("-") && uwp.Length == 8)
-                uwp = uwp.Substring(0, 7) + "-" + uwp.Substring(7); //add the missing dash
+            if (!uwp.Contains('-') && uwp.Length == 8)
+                uwp = string.Concat(uwp.AsSpan(0, 7), "-", uwp.AsSpan(7)); //add the missing dash
 
             UWP = uwp;
             Name = name;
@@ -91,8 +91,8 @@ namespace Grauenwolf.TravellerTools.Maps
         public World(string uwp, string name, int jumpDistance, TasZone tasZone)
         {
             uwp = uwp.Trim();
-            if (!uwp.Contains("-") && uwp.Length == 8)
-                uwp = uwp.Substring(0, 7) + "-" + uwp.Substring(7); //add the missing dash
+            if (!uwp.Contains('-') && uwp.Length == 8)
+                uwp = string.Concat(uwp.AsSpan(0, 7), "-", uwp.AsSpan(7)); //add the missing dash
 
             UWP = uwp;
             Name = name;
@@ -167,9 +167,8 @@ namespace Grauenwolf.TravellerTools.Maps
             {
                 if (!string.IsNullOrEmpty(PBG))
                 {
-                    var temp = PBG.Substring(0, 1);
-                    int result;
-                    if (int.TryParse(temp, out result))
+                    var temp = PBG[..1];
+                    if (int.TryParse(temp, out var result))
                         return result;
                 }
                 return 1;
@@ -335,7 +334,7 @@ namespace Grauenwolf.TravellerTools.Maps
 
         internal static void AddSophontCodes(IEnumerable<SophontCode> sophontCodes)
         {
-            void TryAdd(string name, string description)
+            static void TryAdd(string name, string description)
             {
                 if (!s_RemarkMap.ContainsKey(name))
                     s_RemarkMap.Add(name, description);

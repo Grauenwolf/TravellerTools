@@ -2,14 +2,16 @@
 
 @if (Character != null)
 {
-    <h2>
+    <h3>
         @((Character.Title + " " + Character.Name).TrimStart())
         @if (Character.IsDead)
         {
             <span style="color:red"> &nbsp;DECEASED</span>
         }
         @*<a title="Warning: Permalinks become invalid whenever a new version of Traveller Tools is created." href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}&FirstAssignment={4}&Gender={5}", Url.Encode(Character.Name), Character.Seed, Character.Age, Character.Age, Character.FirstAssignment, Character.Gender)">permalink</a>*@
-    </h2>
+
+        &nbsp;<a href="@(Permalink())" target="_blank" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
+    </h3>
 
     <table class="gridtable">
 

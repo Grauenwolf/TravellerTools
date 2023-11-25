@@ -92,6 +92,7 @@ namespace Grauenwolf.TravellerTools.Characters
             character.FirstCareer = options.FirstCareer;
             character.Name = options.Name;
             character.Gender = options.Gender;
+            character.MaxAge = options.MaxAge;
 
             character.Strength = dice.D(2, 6);
             character.Dexterity = dice.D(2, 6);
@@ -112,7 +113,7 @@ namespace Grauenwolf.TravellerTools.Characters
 
             if (!string.IsNullOrEmpty(options.FirstAssignment))
                 character.NextTermBenefits.MustEnroll = options.FirstAssignment;
-            if (!string.IsNullOrEmpty(options.FirstCareer))
+            else if (!string.IsNullOrEmpty(options.FirstCareer))
                 character.NextTermBenefits.MustEnroll = options.FirstCareer;
 
             while (!IsDone(options, character))
