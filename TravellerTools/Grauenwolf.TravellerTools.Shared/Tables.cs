@@ -115,12 +115,27 @@ namespace Grauenwolf.TravellerTools
             foreach (var item in contraband)
                 switch (item)
                 {
-                    case "Weapons": result.Add((item, LawLevelWeaponsRestricted(lawCode))); break;
-                    case "Drugs": result.Add((item, LawLevelDrugsRestricted(lawCode))); break;
+                    case "Weapons":
+                        foreach (var rule in LawLevelWeaponsRestrictedList(lawCode))
+                            result.Add((item, rule));
+                        break;
+                    case "Drugs":
+                        foreach (var rule in LawLevelDrugsRestrictedList(lawCode))
+                            result.Add((item, rule));
+                        break;
                     case "Travellers": result.Add((item, LawLevelTravellersRestricted(lawCode))); break;
-                    case "Technology": result.Add((item, LawLevelTechnolgyRestricted(lawCode))); break;
-                    case "Psionics": result.Add((item, LawLevelPsionicsRestricted(lawCode))); break;
-                    case "Information": result.Add((item, LawLevelInformationRestricted(lawCode))); break;
+                    case "Technology":
+                        foreach (var rule in LawLevelTechnolgyRestrictedList(lawCode))
+                            result.Add((item, rule));
+                        break;
+                    case "Psionics":
+                        foreach (var rule in LawLevelPsionicsRestrictedList(lawCode))
+                            result.Add((item, rule));
+                        break;
+                    case "Information":
+                        foreach (var rule in LawLevelInformationRestrictedList(lawCode))
+                            result.Add((item, rule));
+                        break;
                     case "None": result.Add((item, "No restrictions.")); break;
                     case "Varies":
                         result.Add(("Varies", "One of more of the following may apply."));
@@ -299,30 +314,44 @@ namespace Grauenwolf.TravellerTools
         {
             return (lawCode.ToChar()) switch
             {
-                '0' => "No prohibitions",
-                '1' => "Body pistols, explosives, and poison gas prohibited",
-                '2' => "Portable energy weapons prohibited",
-                '3' => "Machine guns, automatic rifles prohibited",
-                '4' => "Light assault weapons prohibited",
-                '5' => "Personal concealable weapons prohibited",
-                '6' => "All firearms except shotguns prohibited",
-                '7' => "Shotguns prohibited",
-                '8' => "Long bladed weapons controlled; open possession prohibited",
-                '9' => "Possession of weapons outside the home prohibited",
-                'A' => "Weapon possession prohibited",
-                'B' => "Rigid control of civilian movement",
-                'C' => "Unrestricted invasion of privacy",
-                'D' => "Paramilitary law enforcement",
-                'E' => "Full-fledged police state",
-                'F' => "All facets of daily life regularly legislated and controlled",
-                'G' => "Severe punishment for petty infractions",
-                'H' => "Legalized oppressive practices",
-                'J' => "Routinely oppressive and restrictive",
-                'K' => "Excessively oppressive and restrictive",
-                'L' => "Totally oppressive and restrictive",
-                'S' => "Special/Variable situation",
+                '0' => "No prohibitions.",
+                '1' => "Body pistols, explosives, and poison gas prohibited.",
+                '2' => "Portable energy weapons prohibited.",
+                '3' => "Machine guns, automatic rifles prohibited.",
+                '4' => "Light assault weapons prohibited.",
+                '5' => "Personal concealable weapons prohibited.",
+                '6' => "All firearms except shotguns prohibited.",
+                '7' => "Shotguns prohibited.",
+                '8' => "Long bladed weapons controlled; open possession prohibited.",
+                '9' => "Possession of weapons outside the home prohibited.",
+                'A' => "Weapon possession prohibited.",
+                'B' => "Rigid control of civilian movement.",
+                'C' => "Unrestricted invasion of privacy.",
+                'D' => "Paramilitary law enforcement.",
+                'E' => "Full-fledged police state.",
+                'F' => "All facets of daily life regularly legislated and controlled.",
+                'G' => "Severe punishment for petty infractions.",
+                'H' => "Legalized oppressive practices.",
+                'J' => "Routinely oppressive and restrictive.",
+                'K' => "Excessively oppressive and restrictive.",
+                'L' => "Totally oppressive and restrictive.",
+                'S' => "Special/Variable situation.",
                 _ => "",
             };
+        }
+
+        public static IEnumerable<string> LawLevelWeaponsRestrictedList(EHex lawCode)
+        {
+            switch (lawCode.Value)
+            {
+                case >= 6:
+                    yield return LawLevelWeaponsRestricted(lawCode);
+                    break;
+                case >= 0:
+                    for (var i = 1; i <= lawCode.Value; i++)
+                        yield return LawLevelWeaponsRestricted(i);
+                    break;
+            }
         }
 
         public static string LawLevelWeaponsRestricted(EHex lawCode)
@@ -330,16 +359,70 @@ namespace Grauenwolf.TravellerTools
             return (lawCode.ToChar()) switch
             {
                 '0' => "",
-                '1' => "Poison gas, explosives, undetectable weapons, WMD",
-                '2' => "Portable energy weapons (except ship-mounted weapons)",
-                '3' => "Heavy weapons",
-                '4' => "Light assault weapons and submachine guns",
-                '5' => "Personal concealable weapons",
-                '6' => "All firearms except shotguns and stunners; carrying weapons discouraged",
-                '7' => "Shotguns",
-                '8' => "All bladed weapons, stunners",
+                '1' => "Poison gas, explosives, undetectable weapons, WMD.",
+                '2' => "Portable energy weapons (except ship-mounted weapons).",
+                '3' => "Heavy weapons.",
+                '4' => "Light assault weapons and submachine guns.",
+                '5' => "Personal concealable weapons.",
+                '6' => "All firearms except shotguns and stunners; carrying weapons discouraged.",
+                '7' => "All firearms except stunners; carrying weapons discouraged.",
+                '8' => "All firearms and bladed weapons.",
                 _ => "Any weapons",
             };
+        }
+
+        public static IEnumerable<string> LawLevelDrugsRestrictedList(EHex lawCode)
+        {
+            switch (lawCode.Value)
+            {
+                case 1:
+                case 2:
+                    yield return LawLevelDrugsRestricted(lawCode);
+                    break;
+
+                case 3:
+                    yield return LawLevelDrugsRestricted(3);
+                    yield return LawLevelDrugsRestricted(2);
+                    break;
+
+                case 4:
+                    yield return LawLevelDrugsRestricted(3);
+                    yield return LawLevelDrugsRestricted(4);
+                    break;
+
+                case 5:
+                    yield return LawLevelDrugsRestricted(3);
+                    yield return LawLevelDrugsRestricted(4);
+                    yield return LawLevelDrugsRestricted(5);
+                    break;
+
+                case 6:
+                    yield return LawLevelDrugsRestricted(3);
+                    yield return LawLevelDrugsRestricted(4);
+                    yield return LawLevelDrugsRestricted(5);
+                    yield return LawLevelDrugsRestricted(6);
+                    break;
+
+                case 7:
+                    yield return LawLevelDrugsRestricted(3);
+                    yield return LawLevelDrugsRestricted(5);
+                    yield return LawLevelDrugsRestricted(6);
+                    yield return LawLevelDrugsRestricted(7);
+                    break;
+
+                case 8:
+                    yield return LawLevelDrugsRestricted(3);
+                    yield return LawLevelDrugsRestricted(5);
+                    yield return LawLevelDrugsRestricted(6);
+                    yield return LawLevelDrugsRestricted(7);
+                    yield return LawLevelDrugsRestricted(8);
+                    break;
+
+
+                case > 8:
+                    yield return LawLevelDrugsRestricted(lawCode);
+                    break;
+            }
         }
 
         public static string LawLevelDrugsRestricted(EHex lawCode)
@@ -347,16 +430,25 @@ namespace Grauenwolf.TravellerTools
             return (lawCode.ToChar()) switch
             {
                 '0' => "",
-                '1' => "Highly  addictive  and dangerous   narcotics",
-                '2' => "Highly  addictive narcotics",
-                '3' => "Combat drugs",
-                '4' => "Addictive  narcotics",
-                '5' => "Anagathics",
-                '6' => "Fast and Slow   drugs",
-                '7' => "All narcotics",
-                '8' => "Medicinal   drugs",
-                _ => "All drugs",
+                '1' => "Highly addictive and dangerous narcotics.",
+                '2' => "Highly addictive narcotics.",
+                '3' => "Combat drugs.",
+                '4' => "Addictive narcotics.",
+                '5' => "Anagathics.",
+                '6' => "Fast and Slow drugs.",
+                '7' => "All narcotics.",
+                '8' => "Medicinal drugs.",
+                _ => "All drugs.",
             };
+        }
+
+        public static IEnumerable<string> LawLevelInformationRestrictedList(EHex lawCode)
+        {
+            if (lawCode.Value >= 1)
+            {
+                for (var i = 1; i <= Math.Min(9, lawCode.Value); i++)
+                    yield return LawLevelInformationRestricted(i);
+            }
         }
 
         public static string LawLevelInformationRestricted(EHex lawCode)
@@ -376,6 +468,18 @@ namespace Grauenwolf.TravellerTools
             };
         }
 
+        public static IEnumerable<string> LawLevelTechnolgyRestrictedList(EHex lawCode)
+        {
+            if (lawCode.Value >= 1)
+                yield return LawLevelTechnolgyRestricted(1);
+
+            if (lawCode.Value >= 2)
+                yield return LawLevelTechnolgyRestricted(2);
+
+            if (lawCode.Value >= 3)
+                yield return LawLevelTechnolgyRestricted(lawCode);
+        }
+
         public static string LawLevelTechnolgyRestricted(EHex lawCode)
         {
             return (lawCode.ToChar()) switch
@@ -383,13 +487,13 @@ namespace Grauenwolf.TravellerTools
                 '0' => "",
                 '1' => "Dangerous technologies such as nanotechnology",
                 '2' => "Alien Technology",
-                '3' => "TL 15",
-                '4' => "TL 13",
-                '5' => "TL 11",
-                '6' => "TL 9",
-                '7' => "TL 7",
-                '8' => "TL 5",
-                _ => "TL 3",
+                '3' => "TL 15+",
+                '4' => "TL 13+",
+                '5' => "TL 11+",
+                '6' => "TL 9+",
+                '7' => "TL 7+",
+                '8' => "TL 5+",
+                _ => "TL 3+",
             };
         }
 
@@ -410,16 +514,59 @@ namespace Grauenwolf.TravellerTools
             };
         }
 
+        public static IEnumerable<string> LawLevelPsionicsRestrictedList(EHex lawCode)
+        {
+            switch (lawCode.Value)
+            {
+                case 1:
+                case 2:
+                case 5:
+                    yield return LawLevelPsionicsRestricted(lawCode);
+                    break;
+
+                case 3:
+                    yield return LawLevelPsionicsRestricted(2);
+                    yield return LawLevelPsionicsRestricted(3);
+                    break;
+
+                case 4:
+                    yield return LawLevelPsionicsRestricted(2);
+                    yield return LawLevelPsionicsRestricted(3);
+                    yield return LawLevelPsionicsRestricted(4);
+                    break;
+
+                case 6:
+                    yield return LawLevelPsionicsRestricted(5);
+                    yield return LawLevelPsionicsRestricted(6);
+                    break;
+
+                case 7:
+                    yield return LawLevelPsionicsRestricted(6);
+                    yield return LawLevelPsionicsRestricted(7);
+                    break;
+
+                case 8:
+                    yield return LawLevelPsionicsRestricted(6);
+                    yield return LawLevelPsionicsRestricted(7);
+                    yield return LawLevelPsionicsRestricted(8);
+                    break;
+
+                case > 8:
+                    yield return LawLevelPsionicsRestricted(lawCode);
+                    break;
+            }
+        }
+
         public static string LawLevelPsionicsRestricted(EHex lawCode)
         {
             return (lawCode.ToChar()) switch
             {
                 '0' => "",
-                '1' => "Dangerous talents must be registered. ",
-                '2' => "All psionic powers must be registered; use of dangerous powers forbidden. ",
-                '3' => "Use of telepathy restricted to - government- approved telepaths.",
+                '1' => "Dangerous talents must be registered.",
+                '2' => "All psionic powers must be registered; use of dangerous powers forbidden.",
+                '3' => "Use of telepathy restricted to government approved telepaths.",
                 '4' => "Use of teleportation and clairvoyance restricted.",
-                '5' => "Use of all psionic ,powers restricted to government psionicists.",
+                '5' => "Use of all psionic, powers restricted to government psionicists.",
                 '6' => "Possession of psionic drugs banned.",
                 '7' => "Use of psionics forbiden.",
                 '8' => "Psionic-related technology banned.",
