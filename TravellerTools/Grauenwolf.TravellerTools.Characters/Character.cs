@@ -8,7 +8,6 @@ namespace Grauenwolf.TravellerTools.Characters
 {
     public class Character : ModelBase
     {
-
         public EducationHistory EducationHistory;
 
         public int Age { get { return GetDefault<int>(18); } set { Set(value); } }
@@ -103,9 +102,56 @@ namespace Grauenwolf.TravellerTools.Characters
 
         internal NextTermBenefits NextTermBenefits { get; set; }
 
+        internal int UnusedAllies { get; private set; }
+
+        internal int UnusedContacts { get; private set; }
+
+        internal int UnusedEnemies { get; private set; }
+
+        internal int UnusedRivals { get; private set; }
+
+        public void AddAlly(int count = 1)
+        {
+            UnusedAllies += count;
+        }
+
+        public void AddContact(int count = 1)
+        {
+            UnusedContacts += count;
+        }
+
+        public void AddEnemy(int count = 1)
+        {
+            UnusedEnemies += count;
+        }
+
+        [Obsolete("Explicitly indicate the age.")]
         public void AddHistory(string text)
         {
-            History.Add(new History(CurrentTerm, text));
+            History.Add(new History(CurrentTerm, Age, text));
+        }
+
+        /// <summary>
+        /// Adds the history.
+        /// </summary>
+        /// <param name="text">The text.</param>
+        /// <param name="dice">The dice.</param>
+        /// <returns>Returns the age rolled for this event.</returns>
+        public int AddHistory(string text, Dice dice)
+        {
+            var age = Age + dice.D(4);
+            History.Add(new History(CurrentTerm, age, text));
+            return age;
+        }
+
+        public void AddHistory(string text, int age)
+        {
+            History.Add(new History(CurrentTerm, age, text));
+        }
+
+        public void AddRival(int count = 1)
+        {
+            UnusedRivals += count;
         }
 
         /// <summary>
@@ -123,6 +169,7 @@ namespace Grauenwolf.TravellerTools.Characters
                 Name = Name
             };
         }
+
         public int GetDM(string attributeName)
         {
             return attributeName switch
@@ -185,7 +232,7 @@ namespace Grauenwolf.TravellerTools.Characters
         }
 
         //public FeatureCollection Features { get { return GetNew<FeatureCollection>(); } }
-        internal int GetEnlistmentBonus(string career, string assignment)
+        internal int GetEnlistmentBonus(string career, string? assignment)
         {
             var result = NextTermBenefits.QualificationDM + LongTermBenefits.QualificationDM;
 

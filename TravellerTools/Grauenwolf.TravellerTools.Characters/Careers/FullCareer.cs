@@ -1,44 +1,47 @@
-﻿namespace Grauenwolf.TravellerTools.Characters.Careers
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
+
+abstract class FullCareer : CareerBase
 {
-    abstract class FullCareer : CareerBase
+    protected FullCareer(string name, string assignment, Book book) : base(name, assignment, book)
     {
-        protected FullCareer(string name, string assignment, Book book) : base(name, assignment, book)
+    }
+
+    protected abstract int AdvancedEductionMin { get; }
+    protected abstract string AdvancementAttribute { get; }
+    protected abstract int AdvancementTarget { get; }
+    protected abstract string SurvivalAttribute { get; }
+    protected abstract int SurvivalTarget { get; }
+
+    internal abstract void AssignmentSkills(Character character, Dice dice);
+
+    internal abstract void BasicTrainingSkills(Character character, Dice dice, bool all);
+
+    internal abstract void Event(Character character, Dice dice);
+
+    internal abstract void Mishap(Character character, Dice dice, int age);
+
+    internal void MishapRollAge(Character character, Dice dice)
+    {
+        Mishap(character, dice, character.Age + dice.D(4));
+    }
+
+    internal abstract void ServiceSkill(Character character, Dice dice);
+
+    internal abstract void TitleTable(Character character, CareerHistory careerHistory, Dice dice);
+
+    protected abstract void AdvancedEducation(Character character, Dice dice);
+
+    protected abstract void PersonalDevelopment(Character character, Dice dice);
+
+    protected void UpdateTitle(Character character, Dice dice, CareerHistory careerHistory)
+    {
+        var oldTitle = character.Title;
+        TitleTable(character, careerHistory, dice);
+        var newTitle = careerHistory.Title;
+        if (oldTitle != newTitle && newTitle != null)
         {
-        }
-
-        protected abstract int AdvancedEductionMin { get; }
-        protected abstract string AdvancementAttribute { get; }
-        protected abstract int AdvancementTarget { get; }
-        protected abstract string SurvivalAttribute { get; }
-        protected abstract int SurvivalTarget { get; }
-
-        internal abstract void BasicTrainingSkills(Character character, Dice dice, bool all);
-
-        internal abstract void AssignmentSkills(Character character, Dice dice);
-
-        internal abstract void Event(Character character, Dice dice);
-
-        internal abstract void Mishap(Character character, Dice dice);
-
-        internal abstract void TitleTable(Character character, CareerHistory careerHistory, Dice dice);
-
-        protected abstract void AdvancedEducation(Character character, Dice dice);
-
-        protected abstract void PersonalDevelopment(Character character, Dice dice);
-
-        internal abstract void ServiceSkill(Character character, Dice dice);
-
-        protected void UpdateTitle(Character character, Dice dice, CareerHistory careerHistory)
-        {
-            var oldTitle = character.Title;
-            TitleTable(character, careerHistory, dice);
-            var newTitle = careerHistory.Title;
-            if (oldTitle != newTitle && newTitle != null)
-            {
-                character.AddHistory($"Is now a {newTitle}");
-                character.Title = newTitle;
-            }
+            character.AddHistory($"Is now a {newTitle}.", character.Age);
+            character.Title = newTitle;
         }
     }
 }
-

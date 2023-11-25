@@ -2,7 +2,7 @@
 {
     public class CareerHistory
     {
-        public CareerHistory(string career, string assignment, int rank, int commissionRank = 0)
+        public CareerHistory(string career, string? assignment, int rank, int commissionRank = 0)
         {
             CommissionRank = commissionRank;
             Rank = rank;
@@ -10,7 +10,7 @@
             Assignment = assignment;
         }
 
-        public string Assignment { get; set; }
+        public string? Assignment { get; set; }
         public string Career { get; set; }
         public int CommissionRank { get; set; }
         public int Rank { get; set; }

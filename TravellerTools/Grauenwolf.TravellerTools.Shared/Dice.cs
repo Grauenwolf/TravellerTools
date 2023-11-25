@@ -23,6 +23,47 @@ namespace Grauenwolf.TravellerTools
         {
         }
 
+        /// <summary>
+        /// Chooses an item from the list. Each item must implement ITablePick.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">The list.</param>
+        /// <param name="dieCode">The die code.</param>
+        /// <returns>T.</returns>
+        /// <exception cref="System.Exception"></exception>
+        public T ChooseByRoll<T>(ICollection<T> list, string dieCode) where T : ITablePick
+        {
+            var roll = D(dieCode);
+
+            var result = list.SingleOrDefault(x => x.IsMatch(roll));
+            if (result == null)
+                throw new InvalidOperationException($"No entry for a roll of {roll}");
+            return result;
+        }
+
+        /// <summary>
+        /// Chooses an item from the list. Each item must implement IHasOdds.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="list">The list.</param>
+        /// <returns>T.</returns>
+        /// <exception cref="System.Exception">This cannot happen</exception>
+        public T ChooseWithOdds<T>(ICollection<T> list) where T : IHasOdds
+        {
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            var max = list.Sum(option => option.Odds);
+            var roll = Next(1, max + 1);
+            foreach (var option in list)
+            {
+                roll -= option.Odds;
+                if (roll <= 0)
+                    return option;
+            }
+            throw new InvalidOperationException("This cannot happen");
+        }
+
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "D")]
         public int D(int count, int die)
         {
@@ -37,11 +78,6 @@ namespace Grauenwolf.TravellerTools
         public int D(int die)
         {
             return D(1, die);
-        }
-
-        public int D66()
-        {
-            return (Next(1, 7) * 10) + Next(1, 7);
         }
 
         [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "D")]
@@ -108,45 +144,18 @@ namespace Grauenwolf.TravellerTools
             }
         }
 
-        /// <summary>
-        /// Chooses an item from the list. Each item must implement IHasOdds.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="list">The list.</param>
-        /// <returns>T.</returns>
-        /// <exception cref="System.Exception">This cannot happen</exception>
-        public T ChooseWithOdds<T>(ICollection<T> list) where T : IHasOdds
+        public int D66()
         {
-            if (list == null)
-                throw new ArgumentNullException(nameof(list));
-
-            var max = list.Sum(option => option.Odds);
-            var roll = Next(1, max + 1);
-            foreach (var option in list)
-            {
-                roll -= option.Odds;
-                if (roll <= 0)
-                    return option;
-            }
-            throw new InvalidOperationException("This cannot happen");
+            return (Next(1, 7) * 10) + Next(1, 7);
         }
 
         /// <summary>
-        /// Chooses an item from the list. Each item must implement ITablePick.
+        /// Returns the next boolean.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="list">The list.</param>
-        /// <param name="dieCode">The die code.</param>
-        /// <returns>T.</returns>
-        /// <exception cref="System.Exception"></exception>
-        public T ChooseByRoll<T>(ICollection<T> list, string dieCode) where T : ITablePick
+        /// <returns></returns>
+        public bool NextBoolean()
         {
-            var roll = D(dieCode);
-
-            var result = list.SingleOrDefault(x => x.IsMatch(roll));
-            if (result == null)
-                throw new InvalidOperationException($"No entry for a roll of {roll}");
-            return result;
+            return D(2) == 2;
         }
 
         /// <summary>
@@ -167,15 +176,6 @@ namespace Grauenwolf.TravellerTools
         public bool RollHigh(int dm, int target)
         {
             return D(2, 6) + dm >= target;
-        }
-
-        /// <summary>
-        /// Returns the next boolean.
-        /// </summary>
-        /// <returns></returns>
-        public bool NextBoolean()
-        {
-            return D(2) == 2;
         }
     }
 }

@@ -1,93 +1,98 @@
 using System.Linq;
 
-namespace Grauenwolf.TravellerTools.Characters.Careers
+namespace Grauenwolf.TravellerTools.Characters.Careers;
+
+class Retired(Book book) : CareerBase("Retired", null, book)
 {
-    class Retired : CareerBase
+    public void Event(Character character, Dice dice)
     {
-        public Retired(Book book) : base("Retired", null, book)
+        switch (dice.D(2, 6))
         {
+            case 2:
+                InjuryRollAge(character, dice);
+                return;
 
+            case 3:
+                character.AddHistory("Birth or Death involving a family member or close friend.", dice);
+                return;
+
+            case 4:
+                character.AddHistory("A romantic relationship ends badly. Gain a Rival or Enemy.", dice);
+                return;
+
+            case 5:
+                character.AddHistory("A romantic relationship deepens, possibly leading to marriage. Gain an Ally.", dice);
+                character.AddAlly();
+                return;
+
+            case 6:
+                character.AddHistory("A new romantic starts. Gain an Ally.", dice);
+                character.AddAlly();
+                return;
+
+            case 7:
+                character.AddHistory("Gained a contact.", dice);
+                character.AddContact();
+                return;
+
+            case 8:
+                character.AddHistory("Betrayal. Convert an Ally into a Rival or Enemy.", dice);
+                //TODO: Change contact type
+                return;
+
+            case 9:
+                character.AddHistory("Moved to a new world.", dice);
+                character.NextTermBenefits.QualificationDM += 1;
+                return;
+
+            case 10:
+                character.AddHistory("Good fortune.", dice);
+                character.BenefitRollDMs.Add(2);
+                return;
+
+            case 11:
+                if (dice.NextBoolean())
+                {
+                    character.BenefitRolls -= 1;
+                    character.AddHistory("Victim of a crime.", dice);
+                }
+                else
+                {
+                    character.AddHistory("Accused of a crime.", dice);
+                    character.NextTermBenefits.MustEnroll = "Prisoner";
+                }
+                return;
+
+            case 12:
+                UnusualLifeEvent(character, dice);
+                return;
         }
+    }
 
-        public void Event(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice)
+    {
+        return character.LongTermBenefits.Retired;
+    }
+
+    internal override void Run(Character character, Dice dice)
+    {
+        CareerHistory careerHistory;
+        if (!character.CareerHistory.Any(pc => pc.Career == "Retired"))
         {
-            switch (dice.D(2, 6))
-            {
-                case 2:
-                    Injury(character, dice);
-                    return;
-                case 3:
-                    character.AddHistory("Birth or Death involving a family member or close friend.");
-                    return;
-                case 4:
-                    character.AddHistory("A romantic relationship ends badly. Gain a Rival or Enemy.");
-                    return;
-                case 5:
-                    character.AddHistory("A romantic relationship deepens, possibly leading to marriage. Gain an Ally.");
-                    return;
-                case 6:
-                    character.AddHistory("A new romantic starts. Gain an Ally.");
-                    return;
-                case 7:
-                    character.AddHistory("Gained a contact.");
-                    return;
-                case 8:
-                    character.AddHistory("Betrayal. Convert an Ally into a Rival or Enemy.");
-                    return;
-                case 9:
-                    character.AddHistory("Moved to a new world.");
-                    character.NextTermBenefits.QualificationDM += 1;
-                    return;
-                case 10:
-                    character.AddHistory("Good fortune");
-                    character.BenefitRollDMs.Add(2);
-                    return;
-                case 11:
-                    if (dice.D(2) == 1)
-                    {
-                        character.BenefitRolls -= 1;
-                        character.AddHistory("Victim of a crime");
-                    }
-                    else
-                    {
-                        character.AddHistory("Accused of a crime");
-                        character.NextTermBenefits.MustEnroll = "Prisoner";
-                    }
-                    return;
-                case 12:
-                    UnusualLifeEvent(character, dice);
-                    return;
-            }
+            character.AddHistory($"Retired.", character.Age);
+            careerHistory = new CareerHistory("Retired", null, 0);
+            character.CareerHistory.Add(careerHistory);
         }
-
-        internal override bool Qualify(Character character, Dice dice)
+        else
         {
-            return character.LongTermBenefits.Retired;
+            careerHistory = character.CareerHistory.Single(pc => pc.Career == "Retired");
         }
+        careerHistory.Terms += 1;
 
-        internal override void Run(Character character, Dice dice)
-        {
+        Event(character, dice);
 
-            CareerHistory careerHistory;
-            if (!character.CareerHistory.Any(pc => pc.Career == "Retired"))
-            {
-                character.AddHistory($"Retired at age {character.Age}");
-                careerHistory = new CareerHistory("Retired", null, 0);
-                character.CareerHistory.Add(careerHistory);
-            }
-            else
-            {
-                careerHistory = character.CareerHistory.Single(pc => pc.Career == "Retired");
-            }
-            careerHistory.Terms += 1;
-
-            Event(character, dice);
-
-            character.LastCareer = careerHistory;
-            character.Age += 4;
-            character.NextTermBenefits.MustEnroll = "Retired";
-
-
-        }
+        character.LastCareer = careerHistory;
+        character.Age += 4;
+        character.NextTermBenefits.MustEnroll = "Retired";
     }
 }

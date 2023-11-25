@@ -112,10 +112,18 @@
     <div>&nbsp;</div>
 
     <table class="gridtable">
-        <tr><th>Term</th><th>History</th></tr>
+        <tr>
+            <th>Term</th>
+            <th>Age</th>
+            <th>History</th>
+        </tr>
         @foreach (var line in Character.History)
         {
-            <tr><td>@line.Term</td><td>@line</td></tr>
+            <tr>
+                <td>@line.Term</td>
+                <td>@line.Age</td>
+                <td>@line</td>
+            </tr>
         }
     </table>
 }

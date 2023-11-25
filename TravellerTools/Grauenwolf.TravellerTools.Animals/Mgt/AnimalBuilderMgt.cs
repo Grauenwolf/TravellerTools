@@ -9,55 +9,16 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
 {
     public static class AnimalBuilderMgt
     {
-        static public void SetDataPath(string dataPath)
-        {
-            var file = new FileInfo(Path.Combine(dataPath, "Animals-MGT1.xml"));
-            var converter = new XmlSerializer(typeof(AnimalTemplates));
-            using (var stream = file.OpenRead())
-                s_Templates = ((AnimalTemplates)converter.Deserialize(stream));
-        }
-
         static AnimalTemplates s_Templates;
-
-        static public ImmutableList<AnimalTemplatesTerrain> TerrainTypeList
-        {
-            get { return ImmutableList.Create(s_Templates.TerrainList); }
-        }
 
         static public ImmutableList<AnimalTemplatesAnimalType> AnimalTypeList
         {
             get { return ImmutableList.Create(s_Templates.AnimalTypeList); }
         }
 
-        static public Dictionary<string, List<Animal>> BuildPlanetSet(Dice dice)
+        static public ImmutableList<AnimalTemplatesTerrain> TerrainTypeList
         {
-            var result = new Dictionary<string, List<Animal>>();
-            foreach (var terrain in s_Templates.TerrainList)
-            {
-                var terrainList = new List<Animal>();
-                foreach (var option in s_Templates.EncounterTable)
-                {
-                    var animal = BuildAnimal(dice, terrain.Name, option.AnimalType);
-                    animal.Roll = option.Roll;
-                    terrainList.Add(animal);
-                }
-                result.Add(terrain.Name, terrainList);
-            }
-
-            return result;
-        }
-
-        static public List<Animal> BuildTerrainSet(Dice dice, string terrainType)
-        {
-            var result = new List<Animal>();
-            foreach (var option in s_Templates.EncounterTable)
-            {
-                var animal = BuildAnimal(dice, terrainType, option.AnimalType);
-                animal.Roll = (int)option.Roll;
-                result.Add(animal);
-            }
-
-            return result;
+            get { return ImmutableList.Create(s_Templates.TerrainList); }
         }
 
         static public Animal BuildAnimal(Dice dice, string terrainType, string animalType)
@@ -88,7 +49,7 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
 
             if (behaviorName == "Killer")
             {
-                if (dice.D(2) == 1)
+                if (dice.NextBoolean())
                     result.Strength += 4;
                 else
                     result.Dexterity += 4;
@@ -149,6 +110,45 @@ namespace Grauenwolf.TravellerTools.Animals.Mgt
             result.Armor = s_Templates.ArmorTable.Single(dice.D(2, 6)).Armor;
 
             return result;
+        }
+
+        static public Dictionary<string, List<Animal>> BuildPlanetSet(Dice dice)
+        {
+            var result = new Dictionary<string, List<Animal>>();
+            foreach (var terrain in s_Templates.TerrainList)
+            {
+                var terrainList = new List<Animal>();
+                foreach (var option in s_Templates.EncounterTable)
+                {
+                    var animal = BuildAnimal(dice, terrain.Name, option.AnimalType);
+                    animal.Roll = option.Roll;
+                    terrainList.Add(animal);
+                }
+                result.Add(terrain.Name, terrainList);
+            }
+
+            return result;
+        }
+
+        static public List<Animal> BuildTerrainSet(Dice dice, string terrainType)
+        {
+            var result = new List<Animal>();
+            foreach (var option in s_Templates.EncounterTable)
+            {
+                var animal = BuildAnimal(dice, terrainType, option.AnimalType);
+                animal.Roll = (int)option.Roll;
+                result.Add(animal);
+            }
+
+            return result;
+        }
+
+        static public void SetDataPath(string dataPath)
+        {
+            var file = new FileInfo(Path.Combine(dataPath, "Animals-MGT1.xml"));
+            var converter = new XmlSerializer(typeof(AnimalTemplates));
+            using (var stream = file.OpenRead())
+                s_Templates = ((AnimalTemplates)converter.Deserialize(stream));
         }
     }
 }

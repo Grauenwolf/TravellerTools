@@ -21,57 +21,59 @@ namespace Grauenwolf.TravellerTools.Characters
             var converter = new XmlSerializer(typeof(CharacterTemplates));
 
             using (var stream = file.OpenRead())
-                Book = new Book(((CharacterTemplates)converter.Deserialize(stream)));
+                Book = new Book((CharacterTemplates)converter.Deserialize(stream)!);
 
-            var careers = new List<CareerBase>();
-            careers.Add(new MilitaryAcademy("Army Academy", "End", 8, Book));
-            careers.Add(new MilitaryAcademy("Marine Academy", "End", 9, Book));
-            careers.Add(new MilitaryAcademy("Naval Academy", "Int", 9, Book));
-            careers.Add(new ArmySupport(Book));
-            careers.Add(new Administrator(Book));
-            careers.Add(new Artist(Book));
-            careers.Add(new Barbarian(Book));
-            careers.Add(new Broker(Book));
-            careers.Add(new Cavalry(Book));
-            careers.Add(new Colonist(Book));
-            careers.Add(new Corporate(Book));
-            careers.Add(new CorporateAgent(Book));
-            careers.Add(new Enforcer(Book));
-            careers.Add(new Fixer(Book));
-            careers.Add(new FreeTrader(Book));
-            careers.Add(new GroundAssault(Book));
-            careers.Add(new Infantry(Book));
-            careers.Add(new Inmate(Book));
-            careers.Add(new Intelligence(Book));
-            careers.Add(new Journalist(Book));
-            careers.Add(new LawEnforcement(Book));
-            careers.Add(new MarineSupport(Book));
-            careers.Add(new MerchantMarine(Book));
-            careers.Add(new Performer(Book));
-            careers.Add(new Pirate(Book));
-            careers.Add(new Retired(Book));
-            careers.Add(new Scavenger(Book));
-            careers.Add(new StarMarine(Book));
-            careers.Add(new Thief(Book));
-            careers.Add(new Thug(Book));
-            careers.Add(new University(Book));
-            careers.Add(new ColonialUpbringing(Book));
-            careers.Add(new Wanderer(Book));
-            careers.Add(new Worker(Book));
-            careers.Add(new Flight(Book));
-            careers.Add(new EngineerGunner(Book));
-            careers.Add(new LineCrew(Book));
-            careers.Add(new Dilettante(Book));
-            careers.Add(new Diplomat(Book));
-            careers.Add(new FieldResearcher(Book));
-            careers.Add(new Scientist(Book));
-            careers.Add(new Physician(Book));
-            careers.Add(new Courier(Book));
-            careers.Add(new Surveyor(Book));
-            careers.Add(new Explorer(Book));
-            careers.Add(new WildTalent(Book));
-            careers.Add(new Adept(Book));
-            careers.Add(new PsiWarrrior(Book));
+            var careers = new List<CareerBase>
+            {
+                new ArmyAcademy(Book),
+                new MarineAcademy(Book),
+                new NavalAcademy(Book),
+                new ArmySupport(Book),
+                new Administrator(Book),
+                new Artist(Book),
+                new Barbarian(Book),
+                new Broker(Book),
+                new Cavalry(Book),
+                new Colonist(Book),
+                new Corporate(Book),
+                new CorporateAgent(Book),
+                new Enforcer(Book),
+                new Fixer(Book),
+                new FreeTrader(Book),
+                new GroundAssault(Book),
+                new Infantry(Book),
+                new Inmate(Book),
+                new Intelligence(Book),
+                new Journalist(Book),
+                new LawEnforcement(Book),
+                new MarineSupport(Book),
+                new MerchantMarine(Book),
+                new Performer(Book),
+                new Pirate(Book),
+                new Retired(Book),
+                new Scavenger(Book),
+                new StarMarine(Book),
+                new Thief(Book),
+                new Thug(Book),
+                new University(Book),
+                new ColonialUpbringing(Book),
+                new Wanderer(Book),
+                new Worker(Book),
+                new Flight(Book),
+                new EngineerGunner(Book),
+                new LineCrew(Book),
+                new Dilettante(Book),
+                new Diplomat(Book),
+                new FieldResearcher(Book),
+                new Scientist(Book),
+                new Physician(Book),
+                new Courier(Book),
+                new Surveyor(Book),
+                new Explorer(Book),
+                new WildTalent(Book),
+                new Adept(Book),
+                new PsiWarrrior(Book)
+            };
 
             Careers = careers.ToImmutableArray();
 

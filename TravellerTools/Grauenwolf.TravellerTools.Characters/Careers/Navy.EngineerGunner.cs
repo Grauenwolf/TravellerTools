@@ -1,45 +1,42 @@
-﻿namespace Grauenwolf.TravellerTools.Characters.Careers
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
+
+class EngineerGunner(Book book) : Navy("Engineer/Gunner", book)
 {
-    class EngineerGunner : Navy
+    protected override string AdvancementAttribute => "Edu";
+
+    protected override int AdvancementTarget => 6;
+
+    protected override string SurvivalAttribute => "Int";
+
+    protected override int SurvivalTarget => 6;
+
+    internal override void AssignmentSkills(Character character, Dice dice)
     {
-        public EngineerGunner(Book book) : base("Engineer/Gunner", book)
+        switch (dice.D(6))
         {
+            case 1:
+                character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
+                return;
 
-        }
+            case 2:
+                character.Skills.Increase("Mechanic");
+                return;
 
-        protected override string AdvancementAttribute => "Edu";
+            case 3:
+                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                return;
 
-        protected override int AdvancementTarget => 6;
+            case 4:
+                character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
+                return;
 
-        protected override string SurvivalAttribute => "Int";
+            case 5:
+                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gunner")));
+                return;
 
-        protected override int SurvivalTarget => 6;
-
-        internal override void AssignmentSkills(Character character, Dice dice)
-        {
-            switch (dice.D(6))
-            {
-                case 1:
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
-                    return;
-                case 2:
-                    character.Skills.Increase("Mechanic");
-                    return;
-                case 3:
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
-                    return;
-                case 4:
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
-                    return;
-                case 5:
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Gunner")));
-                    return;
-                case 6:
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Flyer")));
-                    return;
-            }
+            case 6:
+                character.Skills.Increase(dice.Choose(SpecialtiesFor("Flyer")));
+                return;
         }
     }
 }
-
-

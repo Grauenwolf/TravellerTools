@@ -5,14 +5,14 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     public abstract class CareerBase
     {
-        internal CareerBase(string career, string assignment, Book book)
+        protected CareerBase(string career, string? assignment, Book book)
         {
             Book = book;
             Career = career;
             Assignment = assignment;
         }
 
-        public string Assignment { get; }
+        public string? Assignment { get; }
 
         public string Career { get; }
 
@@ -45,7 +45,13 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 
         internal abstract void Run(Character character, Dice dice);
 
-        protected void Injury(Character character, Dice dice, bool severe = false) => Book.Injury(character, dice, this, severe);
+        protected void Injury(Character character, Dice dice, bool severe, int age) => Book.Injury(character, dice, this, severe, age);
+
+        protected void Injury(Character character, Dice dice, int age) => Book.Injury(character, dice, this, false, age);
+
+        protected void InjuryRollAge(Character character, Dice dice, bool severe) => Book.Injury(character, dice, this, severe, character.Age + dice.D(4));
+
+        protected void InjuryRollAge(Character character, Dice dice) => Book.Injury(character, dice, this, false, character.Age + dice.D(4));
 
         protected void LifeEvent(Character character, Dice dice) => Book.LifeEvent(character, dice, this);
 

@@ -1,7 +1,3 @@
-﻿using System;
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-namespace Grauenwolf.TravellerTools.Characters.Careers
-{
-    delegate void SkillTable(Character character, Dice dice);
-}
-
+delegate void SkillTable(Character character, Dice dice);

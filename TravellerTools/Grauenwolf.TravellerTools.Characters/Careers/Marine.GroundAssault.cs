@@ -1,45 +1,42 @@
-﻿namespace Grauenwolf.TravellerTools.Characters.Careers
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
+
+class GroundAssault(Book book) : Marine("Ground Assault", book)
 {
-    class GroundAssault : Marine
+    protected override string AdvancementAttribute => "Edu";
+
+    protected override int AdvancementTarget => 5;
+
+    protected override string SurvivalAttribute => "End";
+
+    protected override int SurvivalTarget => 7;
+
+    internal override void AssignmentSkills(Character character, Dice dice)
     {
-        public GroundAssault(Book book) : base("Ground Assault", book)
+        switch (dice.D(6))
         {
+            case 1:
+                character.Skills.Increase("Vacc Suit");
+                return;
 
-        }
+            case 2:
+                character.Skills.Increase(dice.Choose(SpecialtiesFor("Heavy Weapons")));
+                return;
 
-        protected override string AdvancementAttribute => "Edu";
+            case 3:
+                character.Skills.Increase("Recon");
+                return;
 
-        protected override int AdvancementTarget => 5;
+            case 4:
+                character.Skills.Increase("Melee", "Blade");
+                return;
 
-        protected override string SurvivalAttribute => "End";
+            case 5:
+                character.Skills.Increase("Tactics", "Military");
+                return;
 
-        protected override int SurvivalTarget => 7;
-
-        internal override void AssignmentSkills(Character character, Dice dice)
-        {
-            switch (dice.D(6))
-            {
-                case 1:
-                    character.Skills.Increase("Vacc Suit");
-                    return;
-                case 2:
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Heavy Weapons")));
-                    return;
-                case 3:
-                    character.Skills.Increase("Recon");
-                    return;
-                case 4:
-                    character.Skills.Increase("Melee", "Blade");
-                    return;
-                case 5:
-                    character.Skills.Increase("Tactics", "Military");
-                    return;
-                case 6:
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
-                    return;
-            }
+            case 6:
+                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                return;
         }
     }
 }
-
-
