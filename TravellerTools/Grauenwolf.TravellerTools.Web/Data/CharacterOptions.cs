@@ -15,7 +15,7 @@ namespace Grauenwolf.TravellerTools.Web.Data
             SkillList = CharacterBuilder.Book.AllSkills.AddRange(CharacterBuilder.Book.PsionicTalents).ToList();
 
             AgeList = new List<int>();
-            for (var terms = 1; terms <= 15; terms++)
+            for (var terms = 0; terms <= 15; terms++)
                 AgeList.Add(terms);
         }
 

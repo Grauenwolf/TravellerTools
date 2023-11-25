@@ -21,7 +21,11 @@
                     <th>Traveller Edition</th>
                     <th>Options</th>
                     <th>Broker Score</th>
-                    <th>Streetwise Score</th>
+                    @if (Options.IllegalGoods)
+                    {
+                        <th>Streetwise Score</th>
+                    }
+                    <th>Counterparty Score</th>
                     @if (Model.Destinations != null)
                     {
                         <th>Destination</th>
@@ -31,9 +35,9 @@
                     <td>
                         <InputSelect @bind-Value="Options.SelectedEdition">
                             @foreach (var item in TradeOptions.EditionList)
-                                {
+                            {
                                 <option value="@(item.Code)" selected="@(Options.SelectedEditionCode == item.Code)"> @(item.Name)</option>
-                                }
+                            }
                         </InputSelect>
                     </td>
                     <td>
@@ -58,20 +62,46 @@
                         </label>
                     </td>
                     <td>
-                        <InputSelect @bind-Value="Options.BrokerScoreCode">
-                            @for (var score = -6; score <= 8; score++)
+                        <label title="This is the broker score of the PCs or their local broker.">
+                            <InputSelect @bind-Value="Options.BrokerScoreCode">
+                                @for (var score = -3; score <= 6; score++)
                                 {
-                                <option value="@(score)" selected="@(Options.BrokerScore == score)"> @(score)</option>
+                                    <option value="@(score)" selected="@(Options.BrokerScore == score)"> @(score)</option>
                                 }
-                        </InputSelect>
+                            </InputSelect>
+                        </label>
+                        @if (!Options.IllegalGoods)
+                        {
+                            <br />
+                            <button @onclick="GenerateLocalBrokerCharacter">Generate Local Broker</button>
+                        }
                     </td>
+                    @if (Options.IllegalGoods)
+                    {
+                        <td>
+                            <label title="This is the streetwise score of the PCs or their fence.">
+                                <InputSelect @bind-Value="Options.StreetwiseScoreCode">
+                                    @for (var score = -3; score <= 6; score++)
+                                    {
+                                        <option value="@(score)" selected="@(Options.StreetwiseScore == score)"> @(score)</option>
+                                    }
+                                </InputSelect>
+                            </label>
+                            <br />
+                            <button @onclick="GenerateFenceCharacter">Generate Fence</button>
+                        </td>
+                    }
                     <td>
-                        <InputSelect @bind-Value="Options.StreetwiseScoreCode">
-                            @for (var score = -6; score <= 8; score++)
+                        <label title="This is the broker score of the selling or buying the goods from the PCs.">
+                            <InputSelect @bind-Value="Options.CounterpartyScoreCode">
+                                @for (var score = -3; score <= 6; score++)
                                 {
-                                <option value="@(score)" selected="@(Options.StreetwiseScore == score)"> @(score)</option>
+                                    <option value="@(score)" selected="@(Options.CounterpartyScore== score)"> @(score)</option>
                                 }
-                        </InputSelect>
+                            </InputSelect>
+                        </label>
+                        <br />
+                        <button @onclick="GenerateCounterpartyCharacter">Generate Counterparty</button>
                     </td>
                     @if (Model.Destinations != null)
                     {
@@ -80,18 +110,18 @@
                                 <option value="" selected="@(string.IsNullOrEmpty(Options.DestinationIndexCode))"></option>
 
                                 @for (var jump = 1; jump <= 6; jump++)
-                                        {
-                                            if (Model.Destinations.Any(x => x.JumpDistance == jump))
-                                            {
+                                {
+                                    if (Model.Destinations.Any(x => x.JumpDistance == jump))
+                                    {
                                         <optgroup label="@("Jump " + jump)">
                                             @for (var index = 0; index < Model.Destinations.Count; index++)
-                                                        if (Model.Destinations[index].JumpDistance == jump)
-                                                        {
+                                                if (Model.Destinations[index].JumpDistance == jump)
+                                                {
                                                     <option value="@(index)" selected="@(Options.DestinationIndex == index )">@Model.Destinations[index].Name</option>
-                                                        }
+                                                }
                                         </optgroup>
-                                            }
-                                        }
+                                    }
+                                }
                             </InputSelect>
                         </td>
                     }
@@ -99,6 +129,44 @@
             </table>
         </EditForm>
     </div>
+    <div>
+        For information on finding a counterparty, see page 241. Supplier DM: @(GetSupplierDM()). Online suppliers are @(AllowOnlineSupplier() ? "allowed" : "not allowed").
+        For information on finding a local broker or fence, see page 242.
+    </div>
+
+    @if (LocalBrokerCharacter != null)
+    {
+        <h3>
+
+            @(Options.IllegalGoods ? "Fence: " : "Local Broker: ")
+            @((LocalBrokerCharacter.Title + " " + LocalBrokerCharacter.Name).TrimStart())
+            &nbsp;<a href="@(LocalBrokerPermalink())" target="_blank" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
+        </h3>
+        <div>
+
+            @(Options.IllegalGoods ? "Streetwise is -2 to reflect the 20% fee charged by the fence and the DM+2." : "The local broker's DM+2 and 10% fee are included in the final price.")
+            @if (IsInformer && Options.IllegalGoods)
+            {
+                <br />
+                <font color="red">Fence is an informer, government agent or double-crosser</font>
+            }
+        </div>
+    }
+
+    @if (CounterpartyCharacter != null)
+    {
+        <h3>
+            Counterparty: @((CounterpartyCharacter.Title + " " + CounterpartyCharacter.Name).TrimStart())
+            &nbsp;<a href="@(CounterpartyPermalink())" target="_blank" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
+        </h3>
+        <div>
+            @if (CounterpartyIsInformer && Options.IllegalGoods)
+            {
+                <font color="red">Counterparty is an informer, government agent or double-crosser</font>
+            }
+        </div>
+    }
+
 
     @if (Model.TradeList != null)
     {
@@ -107,29 +175,35 @@
         <h3>
             Available Trade Goods
             <a @onclick="Reroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
-            <a @onclick="Permalink" href="@(Permalink())" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
+            <a href="@(Permalink())" target="_blank" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
         </h3>
 
         <div>
             @if (Options.SkipPriceRoll)
             {
-                <span>Purchase DM does not include broker score.<br />Expected Price is based on the average roll including purchase DM and broker score.</span>
+                <span>Purchase DM does not include broker score.<br />Expected Price is based on the average roll including purchase DM and broker scores.</span>
             }
             else
             {
-                <span>Purchase DM does not include broker score.<br />Price modifier and current price include purchase DM, broker score, and random roll.</span>
+                <span>Purchase DM does not include broker score.<br />Price modifier and current price include purchase DM, broker scores, and random roll.</span>
             }
             @if (Options.SelectedEdition == Edition.MGT2)
             {
-                <br /><span>For more information, see "Speculative Trade &amp; Smuggling" (page 210).</span>
+                <br />
+
+                <span>For more information, see "Speculative Trade &amp; Smuggling" (page 210 or 241).</span>
             }
             else
             {
-                <br /><span>For more information, see "Speculative Trade &amp; Smuggling" (page 162).</span>
+                <br />
+
+                <span>For more information, see "Speculative Trade &amp; Smuggling" (page 162).</span>
             }
             @if (Options.AdvancedMode)
             {
-                <br /><span>Advanced mode uses cargo subtypes from "Traveller Book 7: Merchant Prince".</span>
+                <br />
+
+                <span>Advanced mode uses cargo subtypes from "Traveller Book 7: Merchant Prince".</span>
             }
         </div>
         <table class="gridtable">
@@ -190,7 +264,7 @@
                         var bonus = (lot.Legal ? Options.BrokerScore : Options.StreetwiseScore);
                         var expectedPrice = lot.BasePrice * (1 - (0.05M * (bonus + lot.PurchaseDM)));
                         <td>
-                            @( (expectedPrice).ToString("N0") )
+                            @((expectedPrice).ToString("N0"))
                         </td>
                     }
                     else
@@ -207,9 +281,9 @@
                             //Bonus is used for both buying and selling
                             var bonus = 2 * (lot.Legal ? Options.BrokerScore : Options.StreetwiseScore);
                             <td>
-                                @( ((bonus + lot.PurchaseDM+lot.DestinationDM??0) * 5).ToString("N2") )%
+                                @(((bonus + lot.PurchaseDM + lot.DestinationDM ?? 0) * 5).ToString("N2"))%
                                 <br />
-                                @((lot.BasePrice *( bonus + lot.PurchaseDM+lot.DestinationDM??0) * 0.05M).ToString("N0") ) per ton
+                                @((lot.BasePrice * (bonus + lot.PurchaseDM + lot.DestinationDM ?? 0) * 0.05M).ToString("N0")) per ton
                             </td>
                         }
                         else
@@ -218,9 +292,9 @@
                             var bonus = (lot.Legal ? Options.BrokerScore : Options.StreetwiseScore);
                             var expectedPrice = lot.BasePrice * (1 + (0.05M * (bonus + lot.DestinationDM ?? 0)));
                             <td>
-                                @( (100M * expectedPrice/lot.CurrentPrice).ToString("N0") )%
+                                @((100M * expectedPrice / lot.CurrentPrice).ToString("N0"))%
                                 <br />
-                                @( (expectedPrice - lot.CurrentPrice ).ToString("N0") ) per ton
+                                @((expectedPrice - lot.CurrentPrice).ToString("N0")) per ton
                             </td>
                         }
                     }
