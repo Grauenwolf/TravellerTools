@@ -13,6 +13,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public bool AdvancedCharacters { get; set; }
         public bool? AdvancedMode { get; set; }
         public int BrokerScore { get; set; }
+        public int CounterpartyScore { get; set; }
         public StarportDetails? DownportDetails { get; internal set; }
         public Edition Edition { get; set; }
         public int HexX { get; set; }

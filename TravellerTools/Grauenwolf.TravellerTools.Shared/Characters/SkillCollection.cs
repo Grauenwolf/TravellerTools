@@ -17,6 +17,20 @@ namespace Grauenwolf.TravellerTools.Characters
             get { return this.FirstOrDefault(x => x.Name == name && x.Specialty == specialty); }
         }
 
+
+        public int EffectiveSkillLevel(string name, string? specialty = null)
+        {
+            var skill = this[name, specialty];
+            if (skill != null)
+                return skill.Level;
+
+            var joat = this["Jack-of-All-Trades"];
+            if (joat != null)
+                return -3 + joat.Level;
+            else
+                return -3;
+        }
+
         /// <summary>
         /// Adds or improves the indicated skill.
         /// </summary>

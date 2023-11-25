@@ -1,4 +1,6 @@
-﻿using Grauenwolf.TravellerTools.Maps;
+﻿using Grauenwolf.TravellerTools.Characters;
+using Grauenwolf.TravellerTools.Maps;
+using Grauenwolf.TravellerTools.Names;
 using Grauenwolf.TravellerTools.Shared;
 using Grauenwolf.TravellerTools.Web.Data;
 using Microsoft.AspNetCore.Components;
@@ -13,6 +15,15 @@ namespace Grauenwolf.TravellerTools.Web.Pages
     {
         [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
         [Inject] TradeEngineLocator TradeEngineLocator { get; set; } = null!;
+        [Inject] NameGenerator NameGenerator { get; set; } = null!;
+        [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
+
+        Character? CounterpartyCharacter { get; set; }
+        Character? LocalBrokerCharacter { get; set; }
+
+        bool IsInformer { get; set; }
+        bool CounterpartyIsInformer { get; set; }
+
 
         protected TradeOptions Options { get; } = new TradeOptions();
 
@@ -49,6 +60,135 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             if (Navigation.TryGetQueryString("tasZone", out string tasZone))
                 TasZone = tasZone;
         }
+
+        protected void GenerateCounterpartyCharacter()
+        {
+
+            var dice = new Dice();
+            CounterpartyIsInformer = dice.D(2, 6) == 2;
+            Options.CounterpartyScore = (int)Math.Floor(dice.D(2, 6) / 3.0);
+
+            var options = new CharacterBuilderOptions();
+            var temp = NameGenerator.CreateRandomPerson(dice);
+            options.Name = temp.FullName;
+            options.Gender = temp.Gender;
+
+            options.MaxAge = 22 + dice.D(1, 60);
+
+
+            CounterpartyCharacter = null;
+            for (var i = 0; i < 500; i++)
+            {
+                var result = CharacterBuilder.Build(options);
+                if (result.Skills["Broker"]?.Level == Options.CounterpartyScore && !result.IsDead)
+                {
+                    CounterpartyCharacter = result;
+                    break;
+                }
+            }
+            StateHasChanged();
+        }
+
+        protected void GenerateLocalBrokerCharacter()
+        {
+            IsInformer = false;
+            var dice = new Dice();
+            Options.BrokerScore = (int)Math.Floor(dice.D(2, 6) / 3.0);
+
+
+            var options = new CharacterBuilderOptions();
+            var temp = NameGenerator.CreateRandomPerson(dice);
+            options.Name = temp.FullName;
+            options.Gender = temp.Gender;
+
+            options.MaxAge = 22 + dice.D(1, 60);
+
+
+            LocalBrokerCharacter = null;
+            for (var i = 0; i < 500; i++)
+            {
+                var result = CharacterBuilder.Build(options);
+                if (result.Skills["Broker"]?.Level == Options.BrokerScore && !result.IsDead)
+                {
+                    LocalBrokerCharacter = result;
+                    break;
+                }
+            }
+            StateHasChanged();
+        }
+
+        protected string GetSupplierDM()
+        {
+            return Model?.World.StarportCode.ToChar() switch
+            {
+                'A' => "+6",
+                'B' => "+4",
+                'C' => "+2",
+                _ => "0"
+            };
+        }
+
+        protected bool AllowOnlineSupplier()
+        {
+            return Model?.World.TechCode.Value >= 8;
+        }
+
+
+        protected void GenerateFenceCharacter()
+        {
+
+            var dice = new Dice();
+            IsInformer = dice.D(2, 6) == 2;
+            Options.StreetwiseScore = (int)Math.Floor(dice.D(2, 6) / 3.0);
+
+            var options = new CharacterBuilderOptions();
+            var temp = NameGenerator.CreateRandomPerson(dice);
+            options.Name = temp.FullName;
+            options.Gender = temp.Gender;
+
+            options.MaxAge = 22 + dice.D(1, 60);
+
+
+            LocalBrokerCharacter = null;
+            Options.BrokerScore = 0; //default
+
+            for (var i = 0; i < 500; i++)
+            {
+                var result = CharacterBuilder.Build(options);
+                if (result.Skills["Streetwise"]?.Level == Options.StreetwiseScore && !result.IsDead)
+                {
+                    LocalBrokerCharacter = result;
+                    Options.BrokerScore = result.Skills.EffectiveSkillLevel("Broker");
+
+                    break;
+                }
+            }
+            //Penalty included for the fence's profit
+            Options.StreetwiseScore -= 2;
+
+            StateHasChanged();
+        }
+
+        protected string LocalBrokerPermalink()
+        {
+            if (LocalBrokerCharacter == null)
+                return $"/character";
+
+            var uri = $"/character/view";
+            uri = QueryHelpers.AddQueryString(uri, LocalBrokerCharacter.GetCharacterBuilderOptions().ToQueryString());
+            return uri;
+        }
+
+        protected string CounterpartyPermalink()
+        {
+            if (CounterpartyCharacter == null)
+                return $"/character";
+
+            var uri = $"/character/view";
+            uri = QueryHelpers.AddQueryString(uri, CounterpartyCharacter.GetCharacterBuilderOptions().ToQueryString());
+            return uri;
+        }
+
 
         protected void Reroll(MouseEventArgs _)
         {
@@ -133,7 +273,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
                     if (Options.DestinationIndex >= 0)
                         destination = Model.Destinations![Options.DestinationIndex];
 
-                    Model!.TradeList = tradeEngine.BuildTradeGoodsList(Model.World, Options.AdvancedMode, Options.IllegalGoods, Options.BrokerScore, dice, Options.Raffle, Options.StreetwiseScore, destination);
+                    Model!.TradeList = tradeEngine.BuildTradeGoodsList(Model.World, Options.AdvancedMode, Options.IllegalGoods, Options.BrokerScore, dice, Options.Raffle, Options.StreetwiseScore, Options.CounterpartyScore, destination);
 
                     InvokeAsync(StateHasChanged);
 

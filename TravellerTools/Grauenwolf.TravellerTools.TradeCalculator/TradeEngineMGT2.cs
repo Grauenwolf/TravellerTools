@@ -271,6 +271,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
             return roll switch
             {
+                <= -3 => 3.00M,
+                -2 => 2.50M,
+                -1 => 2.00M,
                 0 => 1.75M,
                 1 => 1.5M,
                 2 => 1.35M,
@@ -294,7 +297,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 20 => 0.4M,
                 21 => 0.35M,
                 22 => 0.30M,
-                _ => 0.25M,
+                23 => 0.25M,
+                24 => 0.20M,
+                _ => 0.15M,
             };
         }
 
@@ -309,6 +314,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
             return roll switch
             {
+                <= -3 => 0.10M,
+                -2 => 0.20M,
+                -1 => 0.30M,
                 0 => 0.4M,
                 1 => 0.45M,
                 2 => 0.50M,
@@ -327,12 +335,14 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 15 => 1.20M,
                 16 => 1.25M,
                 17 => 1.30M,
-                18 => 1.35M,
-                19 => 1.4M,
-                20 => 1.45M,
-                21 => 1.50M,
-                22 => 1.55M,
-                _ => 1.60M,
+                18 => 1.40M,
+                19 => 1.50M,
+                20 => 1.60M,
+                21 => 1.75M,
+                22 => 2.00M,
+                23 => 2.50M,
+                24 => 3.00M,
+                _ => 4.00M,
             };
         }
 
