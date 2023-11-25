@@ -26,6 +26,7 @@
                         <th>Streetwise Score</th>
                     }
                     <th>Counterparty Score</th>
+
                     @if (Model.Destinations != null)
                     {
                         <th>Destination</th>
@@ -91,15 +92,24 @@
                             <button @onclick="GenerateFenceCharacter">Generate Fence</button>
                         </td>
                     }
+
                     <td>
-                        <label title="This is the broker score of the selling or buying the goods from the PCs.">
-                            <InputSelect @bind-Value="Options.CounterpartyScoreCode">
-                                @for (var score = -3; score <= 6; score++)
-                                {
-                                    <option value="@(score)" selected="@(Options.CounterpartyScore== score)"> @(score)</option>
-                                }
-                            </InputSelect>
-                        </label>
+                        @if (Options.SelectedEdition == Edition.MGT2022)
+                        {
+                            <label title="This is the broker score of the selling or buying the goods from the PCs.">
+                                <InputSelect @bind-Value="Options.CounterpartyScoreCode">
+                                    @for (var score = -3; score <= 6; score++)
+                                    {
+                                        <option value="@(score)" selected="@(Options.CounterpartyScore== score)"> @(score)</option>
+                                    }
+                                </InputSelect>
+                            </label>
+
+                        }
+                        else
+                        {
+                            <div>N/A for this edition.</div>
+                        }
                         <br />
                         <button @onclick="GenerateCounterpartyCharacter">Generate Counterparty</button>
                     </td>
@@ -129,11 +139,13 @@
             </table>
         </EditForm>
     </div>
-    <div>
-        For information on finding a counterparty, see page 241. Supplier DM: @(GetSupplierDM()). Online suppliers are @(AllowOnlineSupplier() ? "allowed" : "not allowed").
-        For information on finding a local broker or fence, see page 242.
-    </div>
-
+    @if (Options.SelectedEdition == Edition.MGT2022)
+    {
+        <div>
+            For information on finding a counterparty, see page 241. Supplier DM: @(GetSupplierDM()). Online suppliers are @(AllowOnlineSupplier() ? "allowed" : "not allowed").
+            For information on finding a local broker or fence, see page 242.
+        </div>
+    }
     @if (LocalBrokerCharacter != null)
     {
         <h3>
@@ -187,11 +199,19 @@
             {
                 <span>Purchase DM does not include broker score.<br />Price modifier and current price include purchase DM, broker scores, and random roll.</span>
             }
-            @if (Options.SelectedEdition == Edition.MGT2)
+
+
+            @if (Options.SelectedEdition == Edition.MGT2022)
             {
                 <br />
 
-                <span>For more information, see "Speculative Trade &amp; Smuggling" (page 210 or 241).</span>
+                <span>For more information, see "Speculative Trade &amp; Smuggling" (page 241).</span>
+            }
+            else if (Options.SelectedEdition == Edition.MGT2)
+            {
+                <br />
+
+                <span>For more information, see "Speculative Trade &amp; Smuggling" (page 210).</span>
             }
             else
             {

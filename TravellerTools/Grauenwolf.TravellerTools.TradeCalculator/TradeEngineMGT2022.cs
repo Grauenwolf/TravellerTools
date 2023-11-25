@@ -14,6 +14,8 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
         get { return "TradeGoods-MGT2.xml"; }
     }
 
+    protected override bool UseCounterpartyScore => true;
+
     public override FreightList Freight(World origin, World destination, Dice random)
     {
         if (origin == null)
@@ -62,24 +64,21 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
         {
             var size = random.D("1D6");
             var value = FreightCost(destination.JumpDistance) * size;
-            var lateFee = (int)Math.Floor(value * (random.D(1, 6) + 4 * 0.1));
-            lots.Add(new FreightLot(size, value, lateFee));
+            lots.Add(new FreightLot(size, value));
         }
 
         for (var i = 0; i < result.Minor; i++)
         {
             var size = random.D("1D6") * 5;
             var value = FreightCost(destination.JumpDistance) * size;
-            var lateFee = (int)Math.Floor(value * (random.D(1, 6) + 4 * 0.1));
-            lots.Add(new FreightLot(size, value, lateFee));
+            lots.Add(new FreightLot(size, value));
         }
 
         for (var i = 0; i < result.Major; i++)
         {
             var size = random.D("1D6") * 10;
             var value = FreightCost(destination.JumpDistance) * size;
-            var lateFee = (int)Math.Floor(value * (random.D(1, 6) + 4 * 0.1));
-            lots.Add(new FreightLot(size, value, lateFee));
+            lots.Add(new FreightLot(size, value));
         }
 
         //Add contents
@@ -89,6 +88,7 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
             var detail = good.ChooseRandomDetail(random);
             lot.Contents = detail.Name;
             lot.ActualValue = detail.Price * 1000 * lot.Size;
+            lot.LateFee = (int)Math.Floor(lot.ShippingFee * ((random.D(1, 6) + 4) * 0.1));
         }
 
         result.Lots.AddRange(lots.OrderByDescending(f => f.Size));

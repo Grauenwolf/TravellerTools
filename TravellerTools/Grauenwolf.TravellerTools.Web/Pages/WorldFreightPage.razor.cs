@@ -115,7 +115,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages
             if (destination == null)
                 goto ReturnToIndex;
 
-            var tradeEngine = TradeEngineLocator.GetTradeEngine(MilieuCode!, Edition.Mongoose2);
+            //var tradeEngine = TradeEngineLocator.GetTradeEngine(MilieuCode!, Options.SelectedEdition);
 
             Model = new FreightModel(milieu, world, destination);
             //}

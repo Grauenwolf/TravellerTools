@@ -172,6 +172,24 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         }
         */
 
+        protected virtual bool UseCounterpartyScore => false;
+
+
+        /// <summary>
+        /// Builds the trade goods list.
+        /// </summary>
+        /// <param name="origin">The origin.</param>
+        /// <param name="advancedMode">if set to <c>true</c> [advanced mode].</param>
+        /// <param name="illegalGoods">if set to <c>true</c> [illegal goods].</param>
+        /// <param name="brokerScore">The broker score.</param>
+        /// <param name="random">The random.</param>
+        /// <param name="raffleGoods">if set to <c>true</c> [raffle goods].</param>
+        /// <param name="streetwiseScore">The streetwise score.</param>
+        /// <param name="counterpartyScore">The counterparty score. This is only used in MGT2022.</param>
+        /// <param name="destination">The destination.</param>
+        /// <returns>TradeGoodsList.</returns>
+        /// <exception cref="System.ArgumentNullException">origin</exception>
+        /// <exception cref="System.ArgumentNullException">random</exception>
         public TradeGoodsList BuildTradeGoodsList(World origin, bool advancedMode, bool illegalGoods, int brokerScore, Dice random, bool raffleGoods, int streetwiseScore, int counterpartyScore, World? destination = null)
         {
             if (origin == null)
@@ -179,6 +197,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
             if (random == null)
                 throw new ArgumentNullException(nameof(random), $"{nameof(random)} is null.");
+
+            if (!UseCounterpartyScore)
+                counterpartyScore = 0;
 
             IReadOnlyList<TradeGood> goods;
             if (!illegalGoods)

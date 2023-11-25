@@ -112,24 +112,21 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             {
                 int size = random.D("1D6");
                 int value = (1000 + (destination.JumpDistance - 1 * 200)) * size;
-                var lateFee = (int)Math.Floor(value * (random.D(1, 6) + 4 * 0.1));
-                lots.Add(new FreightLot(size, value, lateFee));
+                lots.Add(new FreightLot(size, value));
             }
 
             for (var i = 0; i < result.Minor; i++)
             {
                 int size = random.D("1D6") * 5;
                 int value = (1000 + (destination.JumpDistance - 1 * 200)) * size;
-                var lateFee = (int)Math.Floor(value * (random.D(1, 6) + 4 * 0.1));
-                lots.Add(new FreightLot(size, value, lateFee));
+                lots.Add(new FreightLot(size, value));
             }
 
             for (var i = 0; i < result.Major; i++)
             {
                 int size = random.D("1D6") * 10;
                 int value = (1000 + ((destination.JumpDistance - 1) * 200)) * size;
-                var lateFee = (int)Math.Floor(value * (random.D(1, 6) + 4 * 0.1));
-                lots.Add(new FreightLot(size, value, lateFee));
+                lots.Add(new FreightLot(size, value));
             }
 
             //Add contents
@@ -139,6 +136,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 var detail = good.ChooseRandomDetail(random);
                 lot.Contents = detail.Name;
                 lot.ActualValue = detail.Price * 1000 * lot.Size;
+                lot.LateFee = (int)Math.Floor(lot.ShippingFee * ((random.D(1, 6) + 4) * 0.1));
             }
 
             result.Lots.AddRange(lots.OrderByDescending(f => f.Size));

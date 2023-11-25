@@ -17,30 +17,22 @@
             <table class="gridtable">
                 <tr>
                     <th>Traveller Edition</th>
-                    <th>Options</th>
                 </tr>
                 <tr>
                     <td>
                         <InputSelect @bind-Value="Options.SelectedEdition">
                             @foreach (var item in TradeOptions.EditionList)
+                            {
+                                if (Options.SelectedEditionCode == item.Code)
                                 {
-                                    if (Options.SelectedEditionCode == item.Code)
-                                    {
                                     <option value="@(item.Code)" selected> @(item.Name)</option>
-                                    }
-                                    else
-                                    {
-                                    <option value="@(item.Code)"> @(item.Name)</option>
-                                    }
                                 }
+                                else
+                                {
+                                    <option value="@(item.Code)"> @(item.Name)</option>
+                                }
+                            }
                         </InputSelect>
-                    </td>
-                    <td>
-                        @*<label title="More variety in cargo types.">
-                                <InputCheckbox @bind-Value="Options.AdvancedMode" />
-                                Advanced Mode
-                            </label>*@
-                        &nbsp;
                     </td>
                 </tr>
             </table>
@@ -55,7 +47,11 @@
         <a @onclick="OnPermalink" href="@(Permalink())" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
     </h3>
     <div>
-        @if (Options.SelectedEdition == Edition.MGT2)
+        @if (Options.SelectedEdition == Edition.MGT2022)
+        {
+            <span>For more information see "Freight" (page 207) and "Mail" (page 239).</span>
+        }
+        else if (Options.SelectedEdition == Edition.MGT2)
         {
             <span>For more information see "Freight" (page 207) and "Mail" (page 208).</span>
         }
@@ -68,7 +64,14 @@
     if (Model.FreightList?.Lots.Count > 0)
     {
         <table class="gridtable">
-            <tr><th>Tons</th><th>Fee</th><th>Value</th><th>Contents</th></tr>
+            <tr>
+                <th>Tons</th>
+                <th>Shipping Fee</th>
+                <th>Value</th>
+                <th>Contents</th>
+                <th>Late Penalties</th>
+                <th>Shipping Fee if Late</th>
+            </tr>
 
             @foreach (var lot in Model.FreightList.Lots)
             {
@@ -77,6 +80,17 @@
                     <td>@lot.ShippingFee.ToString("N0")</td>
                     <td>@lot.ActualValue.ToString("N0")</td>
                     <td>@lot.Contents</td>
+                    <td>
+                        <label title="This fee is applied if the cargo is delivered late.">
+                            @lot.LateFee.ToString("N0")
+                        </label>
+                    </td>
+                    <td>
+                        <label title="This fee paid after penalties are deducted.">
+                            @((lot.ShippingFee - lot.LateFee).ToString("N0"))
+                        </label>
+                    </td>
+
                 </tr>
             }
         </table>
