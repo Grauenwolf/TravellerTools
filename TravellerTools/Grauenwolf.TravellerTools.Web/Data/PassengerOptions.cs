@@ -14,7 +14,7 @@ public class PassengerOptions : ModelBase
             ("Mongoose 2022", Edition.MGT2022.ToString())
         );
 
-    public bool AdvancedCharacters { get => GetDefault(false); set => Set(value); }
+    //public bool AdvancedCharacters { get => GetDefault(false); set => Set(value); }
     public Edition SelectedEdition { get => GetDefault<Edition>(Edition.MGT2022); set => Set(value); }
 
     public string SelectedEditionCode
@@ -33,15 +33,15 @@ public class PassengerOptions : ModelBase
     {
         if (keyValuePairs.TryGetValue("edition", out var editionCode))
             SelectedEditionCode = editionCode;
-        if (keyValuePairs.TryGetValue("advancedCharacters", out var advancedMode))
-            AdvancedCharacters = bool.Parse(advancedMode);
+        //if (keyValuePairs.TryGetValue("advancedCharacters", out var advancedMode))
+        //    AdvancedCharacters = bool.Parse(advancedMode);
     }
 
     public Dictionary<string, string?> ToQueryString()
     {
         var result = new Dictionary<string, string?>();
         result.Add("edition", SelectedEditionCode);
-        result.Add("advancedCharacters", AdvancedCharacters.ToString());
+        //result.Add("advancedCharacters", AdvancedCharacters.ToString());
 
         return result;
     }

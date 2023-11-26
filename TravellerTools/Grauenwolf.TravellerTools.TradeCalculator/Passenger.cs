@@ -7,6 +7,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator;
 public class Passenger : Person
 {
     public string? PassengerType { get; set; }
+    public Dictionary<string, string?>? PermalinkDetails { get; set; }
     public List<string> Personality { get; } = new();
     public string PersonalityList => string.Join(", ", Personality);
     public int? Seed { get; set; }

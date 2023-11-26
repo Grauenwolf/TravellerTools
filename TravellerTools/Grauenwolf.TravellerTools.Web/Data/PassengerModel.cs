@@ -6,5 +6,5 @@ namespace Grauenwolf.TravellerTools.Web.Data;
 
 public record PassengerModel(Milieu Milieu, World World, World Destination)
 {
-    public PassengerList PassengerList { get; set; }
+    public PassengerList? PassengerList { get; set; }
 }

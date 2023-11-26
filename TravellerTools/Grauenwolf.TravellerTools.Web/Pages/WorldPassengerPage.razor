@@ -1,4 +1,5 @@
 ﻿@page "/world/{milieuCode}/{sectorHex}/{planetHex}/destination/{destinationSectorHex}/{destinationPlanetHex}/passengers"
+@using Microsoft.AspNetCore.WebUtilities
 
 @inherits NullablePageBase<PassengerModel>
 
@@ -46,7 +47,7 @@
         <a @onclick="OnReroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
         <a @onclick="OnPermalink" href="@(Permalink())" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
     </h3>
-@*     <div>
+    @*     <div>
         @if (Options.SelectedEdition == Edition.MGT2022)
         {
             <span>For more information see "Freight" (page 207) and "Mail" (page 239).</span>
@@ -69,17 +70,7 @@
             @foreach (var passenger in Model.PassengerList!.Passengers)
             {
                 <li>
-                    @if (Options.AdvancedCharacters)
-                    {
-                        <!-- TODO URL 
-                        <h4><a target="_blank" href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}", Url.Encode(passenger.Name), passenger.Seed, passenger.ApparentAge, passenger.ApparentAge)">@passenger.Title @passenger.Name</a></h4>
-                        -->
-                        <h4>@passenger.Name</h4>
-                    }
-                    else
-                    {
-                        <h4>@passenger.Name</h4>
-                    }
+                    <h4><a target="_blank" href="@QueryHelpers.AddQueryString("/character/view", passenger.PermalinkDetails!)">@passenger.Title @passenger.Name</a></h4>
                     <div>Age: @passenger.ApparentAge (@passenger.Gender)</div>
                     <div>UPP: @passenger.Upp</div>
                     <div>Passage Desired: @passenger.TravelType</div>
@@ -92,10 +83,7 @@
                     {
                         <div><b>Mission Offered</b>: @passenger.PatronMission</div>
                     }
-                    @if (Options.AdvancedCharacters)
-                    {
-                        <div>@passenger.Skills</div>
-                    }
+                    <div>@passenger.Skills</div>
                 </li>
             }
         </ul>

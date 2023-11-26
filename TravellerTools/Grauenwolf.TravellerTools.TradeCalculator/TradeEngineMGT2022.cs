@@ -86,7 +86,7 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
         return result;
     }
 
-    public override PassengerList Passengers(World origin, World destination, Dice random, bool advancedCharacters)
+    public override PassengerList Passengers(World origin, World destination, Dice random)
     {
         var baseDM = 0;
         var lowDM = 1;
@@ -119,13 +119,13 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
         result.HighPassengers = random.D(PassengerTraffic(baseDM + highDM, random));
 
         for (var i = 0; i < result.HighPassengers; i++)
-            result.Passengers.Add(PassengerDetail(random, "High", advancedCharacters));
+            result.Passengers.Add(PassengerDetail(random, "High"));
         for (var i = 0; i < result.MiddlePassengers; i++)
-            result.Passengers.Add(PassengerDetail(random, "Middle", advancedCharacters));
+            result.Passengers.Add(PassengerDetail(random, "Middle"));
         for (var i = 0; i < result.BasicPassengers; i++)
-            result.Passengers.Add(PassengerDetail(random, "Basic", advancedCharacters));
+            result.Passengers.Add(PassengerDetail(random, "Basic"));
         for (var i = 0; i < result.LowPassengers; i++)
-            result.Passengers.Add(PassengerDetail(random, "Low", advancedCharacters));
+            result.Passengers.Add(PassengerDetail(random, "Low"));
 
         return result;
     }

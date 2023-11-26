@@ -340,7 +340,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         public abstract FreightList Freight(World origin, World destination, Dice random);
 
-        public abstract PassengerList Passengers(World origin, World destination, Dice random, bool advancedCharacters);
+        public abstract PassengerList Passengers(World origin, World destination, Dice random);
 
         //internal abstract void OnManifestsBuilt(ManifestCollection result);
 
@@ -377,7 +377,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             }
         }
 
-        protected Passenger PassengerDetail(Dice random, string travelType, bool advancedCharacters)
+        protected Passenger PassengerDetail(Dice random, string travelType)
         {
             var user = m_NameGenerator.CreateRandomPerson(random);
 
@@ -392,33 +392,34 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
             SimpleCharacterEngine.AddTrait(result, random);
 
-            if (!advancedCharacters)
-            {
-                SimpleCharacterEngine.AddCharacteristics(result, random);
+            //if (!advancedCharacters)
+            //{
+            //    SimpleCharacterEngine.AddCharacteristics(result, random);
 
-                //Add personality
-                int personalityTraits = random.D(3);
-                for (var i = 0; i < personalityTraits; i++)
-                    result.Personality.Add(random.Choose(m_Personalities));
-            }
-            else
-            {
-                result.Seed = random.Next();
-                var options = new CharacterBuilderOptions() { MaxAge = result.ApparentAge, Name = result.Name, Seed = result.Seed };
-                var character = m_CharacterBuilder.Build(options);
+            //    //Add personality
+            //    int personalityTraits = random.D(3);
+            //    for (var i = 0; i < personalityTraits; i++)
+            //        result.Personality.Add(random.Choose(m_Personalities));
+            //}
+            //else
+            //{
+            result.Seed = random.Next();
+            var options = new CharacterBuilderOptions() { MaxAge = result.ApparentAge, Gender = result.Gender, Name = result.Name, Seed = result.Seed };
+            var character = m_CharacterBuilder.Build(options);
 
-                result.Strength += character.Strength;
-                result.Dexterity += character.Dexterity;
-                result.Endurance += character.Endurance;
-                result.Intellect += character.Intellect;
-                result.Education += character.Education;
-                result.Social += character.SocialStanding;
+            result.PermalinkDetails = character.GetCharacterBuilderOptions().ToQueryString();
+            result.Strength += character.Strength;
+            result.Dexterity += character.Dexterity;
+            result.Endurance += character.Endurance;
+            result.Intellect += character.Intellect;
+            result.Education += character.Education;
+            result.Social += character.SocialStanding;
 
-                result.Skills = string.Join(", ", character.Skills.Where(s => s.Level > 0).Select(s => s.ToString()).OrderBy(s => s));
+            result.Skills = string.Join(", ", character.Skills.Where(s => s.Level > 0).Select(s => s.ToString()).OrderBy(s => s));
 
-                result.Title = character.Title;
-                result.Personality.AddRange(character.Personality);
-            }
+            result.Title = character.Title;
+            result.Personality.AddRange(character.Personality);
+            //}
 
             return result;
         }

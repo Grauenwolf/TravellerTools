@@ -9,8 +9,6 @@ namespace Grauenwolf.TravellerTools.Web.Controls
     {
         [Parameter] public Character? Character { get; set; }
 
-
-
         protected void Permalink(MouseEventArgs _)
         {
             string uri = Permalink();
@@ -22,9 +20,7 @@ namespace Grauenwolf.TravellerTools.Web.Controls
             if (Character == null)
                 return $"/character";
 
-            var uri = $"/character/view";
-            uri = QueryHelpers.AddQueryString(uri, Character.GetCharacterBuilderOptions().ToQueryString());
-            return uri;
+            return QueryHelpers.AddQueryString("/character/view", Character.GetCharacterBuilderOptions().ToQueryString());
         }
     }
 }

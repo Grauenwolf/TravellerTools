@@ -134,7 +134,7 @@ public class TradeEngineMgt : TradeEngine
         return result;
     }
 
-    public override PassengerList Passengers(World origin, World destination, Dice random, bool advancedCharacters)
+    public override PassengerList Passengers(World origin, World destination, Dice random)
     {
         var result = new PassengerList();
 
@@ -212,11 +212,11 @@ public class TradeEngineMgt : TradeEngine
         if (result.HighPassengers < 0) result.HighPassengers = 0;
 
         for (var i = 0; i < result.HighPassengers; i++)
-            result.Passengers.Add(PassengerDetail(random, "High", advancedCharacters));
+            result.Passengers.Add(PassengerDetail(random, "High"));
         for (var i = 0; i < result.MiddlePassengers; i++)
-            result.Passengers.Add(PassengerDetail(random, "Middle", advancedCharacters));
+            result.Passengers.Add(PassengerDetail(random, "Middle"));
         for (var i = 0; i < result.LowPassengers; i++)
-            result.Passengers.Add(PassengerDetail(random, "Low", advancedCharacters));
+            result.Passengers.Add(PassengerDetail(random, "Low"));
 
         return result;
     }

@@ -49,7 +49,7 @@ namespace Grauenwolf.TravellerTools.Web.Data
                 if (CharacterBuilder == null || string.IsNullOrEmpty(FinalCareer))
                     return new List<string>();
                 else
-                    return CharacterBuilder.Careers.Where(c => c.Career == FinalCareer).Select(c => c.Assignment).OrderBy(s => s).ToList();
+                    return CharacterBuilder.Careers.Where(c => c.Career == FinalCareer).Select(c => c.Assignment).OrderBy(s => s).ToList()!;
             }
         }
 
@@ -85,6 +85,8 @@ namespace Grauenwolf.TravellerTools.Web.Data
             }
         }
 
+        public string? Gender { get => Get<string?>(); set => Set(value); }
+
         /// <summary>
         /// Valid values are High, Low, and empty.
         /// </summary>
@@ -100,8 +102,6 @@ namespace Grauenwolf.TravellerTools.Web.Data
         /// Valid values are High, Low, and empty.
         /// </summary>
         public string? Soc { get => Get<string?>(); set => Set(value); }
-
-        public string? Gender { get => Get<string?>(); set => Set(value); }
 
         /// <summary>
         /// Valid values are High, Low, and empty.
