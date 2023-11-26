@@ -3,7 +3,6 @@ using Grauenwolf.TravellerTools.Names;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static System.Math;
 
 namespace Grauenwolf.TravellerTools.TradeCalculator;
 
@@ -85,128 +84,6 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
         result.Lots.AddRange(lots.OrderByDescending(f => f.Size));
 
         return result;
-    }
-
-    public override World GenerateRandomWorld()
-    {
-        var dice = new Dice();
-
-        EHex starportCode; // UWP[0]
-        EHex sizeCode; // UWP[1]
-        EHex atmosphereCode; // UWP[2]
-        EHex hydrographicsCode; // UWP[3]
-        EHex populationCode; // UWP[4]
-        EHex governmentCode; // UWP[5]
-        EHex lawCode; // UWP[6]
-        EHex techCode; // UWP[8]
-
-        sizeCode = Max(dice.D(2, 6) - 2, 0);
-
-        atmosphereCode = Max(dice.D(2, 6) - 7 + sizeCode.Value, 0);
-
-        if (sizeCode <= 1)
-            hydrographicsCode = 0;
-        else if (atmosphereCode <= 1 || atmosphereCode.Between('A', 'C'))
-            hydrographicsCode = dice.D(2, 6) - 7 + atmosphereCode.Value - 4;
-        else
-            hydrographicsCode = dice.D(2, 6) - 7;
-
-        hydrographicsCode = Max(hydrographicsCode.Value, 0);
-
-        populationCode = Max(dice.D(2, 6) - 2, 0);
-        governmentCode = Max(dice.D(2, 6) - 7 + populationCode.Value, 0);
-        lawCode = Max(dice.D(2, 6) - 7 + governmentCode.Value, 0);
-
-        var starportDM = 0;
-        if (populationCode >= 10)
-            starportDM += 2;
-        else if (populationCode >= 8)
-            starportDM += 1;
-        else if (populationCode <= 2)
-            starportDM -= 2;
-        else if (populationCode <= 4)
-            starportDM -= 1;
-
-        var starportRoll = dice.D(2, 6) + starportDM;
-        if (starportRoll <= 2)
-            starportCode = 'X';
-        else if (starportRoll == 3 || starportRoll == 4)
-            starportCode = 'E';
-        else if (starportRoll == 5 || starportRoll == 6)
-            starportCode = 'D';
-        else if (starportRoll == 7 || starportRoll == 8)
-            starportCode = 'C';
-        else if (starportRoll == 9 || starportRoll == 10)
-            starportCode = 'B';
-        else
-            starportCode = 'A';
-
-        var techDM = 0;
-        if (starportCode == 'A')
-            techDM += 6;
-        else if (starportCode == 'B')
-            techDM += 4;
-        else if (starportCode == 'C')
-            techDM += 2;
-        else if (starportCode == 'X')
-            techDM -= 4;
-
-        if (sizeCode <= 1)
-            techDM += 2;
-        else if (sizeCode <= 4)
-            techDM += 1;
-
-        if (atmosphereCode <= 3)
-            techDM += 1;
-        else if (atmosphereCode >= 10)
-            techDM += 1;
-
-        if (hydrographicsCode == 0)
-            techDM += 1;
-        else if (hydrographicsCode == 9)
-            techDM += 1;
-        else if (hydrographicsCode == 10)
-            techDM += 2;
-
-        if (populationCode.Between(1, 5))
-            techDM += 1;
-        else if (populationCode == 9)
-            techDM += 1;
-        else if (populationCode == 9)
-            techDM += 2;
-        else if (populationCode == 10)
-            techDM += 4;
-
-        if (governmentCode == 0)
-            techDM += 1;
-        else if (governmentCode == 5)
-            techDM += 1;
-        else if (governmentCode == 7)
-            techDM += 2;
-        else if (governmentCode == 13 || governmentCode == 14)
-            techDM += -2;
-
-        techCode = Max(dice.D(1, 6) + techDM, 0);
-
-        if (atmosphereCode.Between(0, 1) && techCode < 8)
-            techCode = 8;
-        else if (atmosphereCode.Between(2, 3) && techCode < 5)
-            techCode = 5;
-        else if ((atmosphereCode == 4 || atmosphereCode == 7 || atmosphereCode == 9) && techCode < 3)
-            techCode = 3;
-        else if (atmosphereCode == 10 && techCode < 8)
-            techCode = 8;
-        else if (atmosphereCode == 11 && techCode < 9)
-            techCode = 9;
-        else if (atmosphereCode == 12 && techCode < 10)
-            techCode = 10;
-        else if ((atmosphereCode == 13 || atmosphereCode == 14) && techCode < 5)
-            techCode = 5;
-        else if (atmosphereCode == 15 && techCode < 8)
-            techCode = 8;
-
-        var uwp = $"{starportCode}{sizeCode}{atmosphereCode}{hydrographicsCode}{populationCode}{governmentCode}{lawCode}-{techCode}";
-        return new World(uwp, "Origin", 0, TasZone.Green);
     }
 
     public override PassengerList Passengers(World origin, World destination, Dice random, bool advancedCharacters)

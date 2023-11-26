@@ -3,7 +3,6 @@ using Grauenwolf.TravellerTools.Names;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using static System.Math;
 
 namespace Grauenwolf.TravellerTools.TradeCalculator;
 
@@ -76,6 +75,7 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
         return result;
     }
 
+    /*
     public override World GenerateRandomWorld()
     {
         var dice = new Dice();
@@ -197,6 +197,7 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
         var uwp = $"{starportCode}{sizeCode}{atmosphereCode}{hydrographicsCode}{populationCode}{governmentCode}{lawCode}-{techCode}";
         return new World(uwp, "Origin", 0, TasZone.Green);
     }
+    */
 
     public override PassengerList Passengers(World origin, World destination, Dice random, bool advancedCharacters)
     {

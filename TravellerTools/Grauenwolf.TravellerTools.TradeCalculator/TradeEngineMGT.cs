@@ -12,10 +12,7 @@ public class TradeEngineMgt : TradeEngine
     {
     }
 
-    protected override string DataFileName
-    {
-        get { return "TradeGoods-MGT.xml"; }
-    }
+    protected override string DataFileName => "TradeGoods-MGT.xml";
 
     public override FreightList Freight(World origin, World destination, Dice dice)
     {
@@ -135,11 +132,6 @@ public class TradeEngineMgt : TradeEngine
         result.Lots.AddRange(lots.OrderByDescending(f => f.Size));
 
         return result;
-    }
-
-    public override World GenerateRandomWorld()
-    {
-        throw new NotImplementedException();
     }
 
     public override PassengerList Passengers(World origin, World destination, Dice random, bool advancedCharacters)

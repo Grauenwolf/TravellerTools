@@ -6,7 +6,7 @@ using Tortuga.Anchor.Modeling;
 
 namespace Grauenwolf.TravellerTools.Web.Data;
 
-public class FreightOptions : ModelBase
+public class PassengerOptions : ModelBase
 {
     public static readonly ImmutableArray<(string Name, string Code)> EditionList = ImmutableArray.Create(
             ("Mongoose 1", Edition.MGT.ToString()),
@@ -14,6 +14,7 @@ public class FreightOptions : ModelBase
             ("Mongoose 2022", Edition.MGT2022.ToString())
         );
 
+    public bool AdvancedCharacters { get => GetDefault(false); set => Set(value); }
     public Edition SelectedEdition { get => GetDefault<Edition>(Edition.MGT2022); set => Set(value); }
 
     public string SelectedEditionCode
@@ -28,21 +29,19 @@ public class FreightOptions : ModelBase
         }
     }
 
-    //public bool AdvancedMode { get => GetDefault(false); set => Set(value); }
-
     public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)
     {
         if (keyValuePairs.TryGetValue("edition", out var editionCode))
             SelectedEditionCode = editionCode;
-        //if (keyValuePairs.TryGetValue("advancedMode", out var advancedMode))
-        //    AdvancedMode = bool.Parse(advancedMode);
+        if (keyValuePairs.TryGetValue("advancedCharacters", out var advancedMode))
+            AdvancedCharacters = bool.Parse(advancedMode);
     }
 
     public Dictionary<string, string?> ToQueryString()
     {
         var result = new Dictionary<string, string?>();
         result.Add("edition", SelectedEditionCode);
-        //result.Add("advancedMode", AdvancedMode.ToString());
+        result.Add("advancedCharacters", AdvancedCharacters.ToString());
 
         return result;
     }

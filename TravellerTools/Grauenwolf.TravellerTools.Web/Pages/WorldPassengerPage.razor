@@ -1,0 +1,116 @@
+﻿@page "/world/{milieuCode}/{sectorHex}/{planetHex}/destination/{destinationSectorHex}/{destinationPlanetHex}/passengers"
+
+@inherits NullablePageBase<PassengerModel>
+
+@if (Model != null)
+{
+
+    <h2>@(Model.World.Name + " to " + Model.Destination.Name)</h2>
+    <WorldNavigation CurrentPage="passengers" World="@Model.World" MilieuCode="@MilieuCode" />
+    <div>&nbsp;</div>
+
+    <div>
+        <EditForm Model="@Options">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <table class="gridtable">
+                <tr>
+                    <th>Traveller Edition</th>
+                </tr>
+                <tr>
+                    <td>
+                        <InputSelect @bind-Value="Options.SelectedEdition">
+                            @foreach (var item in TradeOptions.EditionList)
+                            {
+                                if (Options.SelectedEditionCode == item.Code)
+                                {
+                                    <option value="@(item.Code)" selected> @(item.Name)</option>
+                                }
+                                else
+                                {
+                                    <option value="@(item.Code)"> @(item.Name)</option>
+                                }
+                            }
+                        </InputSelect>
+                    </td>
+                </tr>
+            </table>
+        </EditForm>
+    </div>
+
+    <div>&nbsp;</div>
+
+    <h3>
+        Passenger Info
+        <a @onclick="OnReroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
+        <a @onclick="OnPermalink" href="@(Permalink())" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
+    </h3>
+@*     <div>
+        @if (Options.SelectedEdition == Edition.MGT2022)
+        {
+            <span>For more information see "Freight" (page 207) and "Mail" (page 239).</span>
+        }
+        else if (Options.SelectedEdition == Edition.MGT2)
+        {
+            <span>For more information see "Freight" (page 207) and "Mail" (page 208).</span>
+        }
+        else
+        {
+            <span>For more information see "Freight" and "Mail" (page 160).</span>
+        }
+    </div>
+ *@
+
+    if (Model.PassengerList?.Passengers.Count > 0)
+    {
+        <h3>Passengers</h3>
+        <ul id="listofthings">
+            @foreach (var passenger in Model.PassengerList!.Passengers)
+            {
+                <li>
+                    @if (Options.AdvancedCharacters)
+                    {
+                        <!-- TODO URL 
+                        <h4><a target="_blank" href="@String.Format("/Home/Character?name={0}&seed={1}&minAge={2}&maxAge={3}", Url.Encode(passenger.Name), passenger.Seed, passenger.ApparentAge, passenger.ApparentAge)">@passenger.Title @passenger.Name</a></h4>
+                        -->
+                        <h4>@passenger.Name</h4>
+                    }
+                    else
+                    {
+                        <h4>@passenger.Name</h4>
+                    }
+                    <div>Age: @passenger.ApparentAge (@passenger.Gender)</div>
+                    <div>UPP: @passenger.Upp</div>
+                    <div>Passage Desired: @passenger.TravelType</div>
+                    @if (@passenger.TravelType == "Low")
+                    {
+                        <div>Endurance DM: @passenger.EnduranceDM</div>
+                    }
+                    <div>Notes: @passenger.PassengerType, @passenger.Trait, @passenger.PersonalityList</div>
+                    @if (passenger.IsPatron)
+                    {
+                        <div><b>Mission Offered</b>: @passenger.PatronMission</div>
+                    }
+                    @if (Options.AdvancedCharacters)
+                    {
+                        <div>@passenger.Skills</div>
+                    }
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <div>No passengers avilable at this time.</div>
+    }
+
+}
+else if (LoadFailed)
+{
+    <h1>Error loading page.</h1>
+}
+else
+{
+    <h1>Loading</h1>
+}
