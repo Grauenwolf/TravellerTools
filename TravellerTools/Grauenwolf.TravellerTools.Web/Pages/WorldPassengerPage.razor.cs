@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace Grauenwolf.TravellerTools.Web.Pages;
 
-partial class WorldFreightPage
+partial class WorldPassengerPage
 {
-    public WorldFreightPage()
+    public WorldPassengerPage()
     {
         Options.PropertyChanged += (sender, e) => OnOptionsChanged();
     }
@@ -33,7 +33,7 @@ partial class WorldFreightPage
     public string? SectorHex { get => Get<string?>(); set => Set(value, true); }
 
     public int? Seed { get => Get<int?>(); set => Set(value, true); }
-    protected FreightOptions Options { get; } = new();
+    protected PassengerOptions Options { get; } = new();
     [Inject] TradeEngineLocator TradeEngineLocator { get; set; } = null!;
     [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
 
@@ -67,9 +67,9 @@ partial class WorldFreightPage
         if (destination == null)
             goto ReturnToIndex;
 
-        Model = new FreightModel(milieu, world, destination);
+        Model = new PassengerModel(milieu, world, destination);
 
-        PageTitle = Model.World.Name + " to " + Model.Destination.Name + " Freight";
+        PageTitle = Model.World.Name + " to " + Model.Destination.Name + " Passengers";
 
         OnOptionsChanged();
 
@@ -91,7 +91,7 @@ partial class WorldFreightPage
                 var dice = new Dice(Seed.Value);
                 var tradeEngine = TradeEngineLocator.GetTradeEngine(MilieuCode!, Options.SelectedEdition);
 
-                Model.FreightList = tradeEngine.Freight(Model.World, Model.Destination, dice);
+                Model.PassengerList = tradeEngine.Passengers(Model.World, Model.Destination, dice, Options.AdvancedCharacters);
 
                 StateHasChanged();
             }
@@ -111,8 +111,7 @@ partial class WorldFreightPage
     void OnReroll(MouseEventArgs _)
     {
         string uri;
-
-        uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/destination/{DestinationSectorHex}/{DestinationPlanetHex}/freight";
+        uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/destination/{DestinationSectorHex}/{DestinationPlanetHex}/passengers";
         uri = QueryHelpers.AddQueryString(uri, Options.ToQueryString());
         Navigation.NavigateTo(uri, false);
     }
@@ -120,7 +119,7 @@ partial class WorldFreightPage
     string Permalink()
     {
         string uri;
-        uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/destination/{DestinationSectorHex}/{DestinationPlanetHex}/freight";
+        uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/destination/{DestinationSectorHex}/{DestinationPlanetHex}/passengers";
 
         uri = QueryHelpers.AddQueryString(uri, Options.ToQueryString());
         uri = QueryHelpers.AddQueryString(uri, "seed", (Seed ?? 0).ToString());

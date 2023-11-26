@@ -229,10 +229,10 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return result;
         }
 
-        internal override void OnManifestsBuilt(ManifestCollection result)
-        {
-            result.Edition = Edition.MGT;
-        }
+        //internal override void OnManifestsBuilt(ManifestCollection result)
+        //{
+        //    result.Edition = Edition.MGT;
+        //}
 
         override protected decimal PurchasePriceModifier(Dice random, int purchaseBonus, int brokerScore, out int roll)
         {

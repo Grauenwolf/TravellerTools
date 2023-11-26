@@ -153,55 +153,55 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             }
         }
 
-        /// <summary>
-        /// This has the cargo, people, etc. that want to travel from one location to another.
-        /// </summary>
-        /// <param name="origin"></param>
-        /// <param name="destination"></param>
-        /// <param name="random"></param>
-        /// <param name="illegalGoods"></param>
-        /// <param name="advancedCharacters"></param>
-        /// <returns></returns>
-        public Manifest BuildManifest(World origin, World destination, Dice random, bool illegalGoods, bool advancedCharacters)
-        {
-            var result = new Manifest() { Origin = origin, Destination = destination };
+        ///// <summary>
+        ///// This has the cargo, people, etc. that want to travel from one location to another.
+        ///// </summary>
+        ///// <param name="origin"></param>
+        ///// <param name="destination"></param>
+        ///// <param name="random"></param>
+        ///// <param name="illegalGoods"></param>
+        ///// <param name="advancedCharacters"></param>
+        ///// <returns></returns>
+        //public Manifest BuildManifest(World origin, World destination, Dice random, bool illegalGoods, bool advancedCharacters)
+        //{
+        //    var result = new Manifest() { Origin = origin, Destination = destination };
 
-            result.PassengerList = Passengers(origin, destination, random, advancedCharacters);
+        //    result.PassengerList = Passengers(origin, destination, random, advancedCharacters);
 
-            result.FreightList = Freight(origin, destination, random);
+        //    result.FreightList = Freight(origin, destination, random);
 
-            IReadOnlyList<TradeGood> goods;
-            if (!illegalGoods)
-                goods = LegalTradeGoods;
-            else
-                goods = TradeGoods;
+        //    IReadOnlyList<TradeGood> goods;
+        //    if (!illegalGoods)
+        //        goods = LegalTradeGoods;
+        //    else
+        //        goods = TradeGoods;
 
-            var offers = new List<TradeOffer>();
-            var bids = new List<TradeBid>();
+        //    var offers = new List<TradeOffer>();
+        //    var bids = new List<TradeBid>();
 
-            foreach (var good in goods)
-            {
-                //List the goods that are readily available or usually cheap on this planet
-                var purchaseDM = PurchaseDM(destination, good);
-                if (good.BasePrice > 0 && purchaseDM > 0) //(purchaseDM > 0 || (purchaseDM >= 0 && good.Availability == "*") || (good.AvailabilityList.Any(a => destination.ContainsRemark(a)))))
-                    offers.Add(new TradeOffer(type: good.Name, purchaseDM: purchaseDM, legal: good.Legal, tradeGood: good, isCommonGood: true));
+        //    foreach (var good in goods)
+        //    {
+        //        //List the goods that are readily available or usually cheap on this planet
+        //        var purchaseDM = PurchaseDM(destination, good);
+        //        if (good.BasePrice > 0 && purchaseDM > 0) //(purchaseDM > 0 || (purchaseDM >= 0 && good.Availability == "*") || (good.AvailabilityList.Any(a => destination.ContainsRemark(a)))))
+        //            offers.Add(new TradeOffer(type: good.Name, purchaseDM: purchaseDM, legal: good.Legal, tradeGood: good, isCommonGood: true));
 
-                //List the goods that are usually desired on this planet
-                var saleDM = SaleDM(destination, good);
-                if (saleDM > 0)
-                    bids.Add(new TradeBid()
-                    {
-                        Type = good.Name,
-                        SaleDM = saleDM,
-                        Legal = good.Legal
-                    });
-            }
+        //        //List the goods that are usually desired on this planet
+        //        var saleDM = SaleDM(destination, good);
+        //        if (saleDM > 0)
+        //            bids.Add(new TradeBid()
+        //            {
+        //                Type = good.Name,
+        //                SaleDM = saleDM,
+        //                Legal = good.Legal
+        //            });
+        //    }
 
-            result.Offers.AddRange(offers.OrderBy(o => o.Type));
-            result.Bids.AddRange(bids.OrderBy(o => o.Type));
+        //    result.Offers.AddRange(offers.OrderBy(o => o.Type));
+        //    result.Bids.AddRange(bids.OrderBy(o => o.Type));
 
-            return result;
-        }
+        //    return result;
+        //}
 
         /*
         /// <summary>
@@ -477,7 +477,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         public abstract PassengerList Passengers(World origin, World destination, Dice random, bool advancedCharacters);
 
-        internal abstract void OnManifestsBuilt(ManifestCollection result);
+        //internal abstract void OnManifestsBuilt(ManifestCollection result);
 
         protected static FreightLot GenerateMail(World origin, Dice dice, int traffic)
         {
@@ -685,23 +685,23 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             }
         }
 
-        /// <summary>
-        /// This has the cargo, people, etc. that want to travel from one location to another.
-        /// </summary>
-        /// <param name="worlds">The worlds.</param>
-        /// <param name="random">The random.</param>
-        /// <param name="illegalGoods">if set to <c>true</c> [illegal goods].</param>
-        /// <param name="advancedCharacters">if set to <c>true</c> [advanced characters].</param>
-        /// <returns></returns>
-        ManifestCollection BuildManifests(IReadOnlyList<World> worlds, Dice random, bool illegalGoods, bool advancedCharacters)
-        {
-            var result = new ManifestCollection(worlds[0]);
+        ///// <summary>
+        ///// This has the cargo, people, etc. that want to travel from one location to another.
+        ///// </summary>
+        ///// <param name="worlds">The worlds.</param>
+        ///// <param name="random">The random.</param>
+        ///// <param name="illegalGoods">if set to <c>true</c> [illegal goods].</param>
+        ///// <param name="advancedCharacters">if set to <c>true</c> [advanced characters].</param>
+        ///// <returns></returns>
+        //ManifestCollection BuildManifests(IReadOnlyList<World> worlds, Dice random, bool illegalGoods, bool advancedCharacters)
+        //{
+        //    var result = new ManifestCollection(worlds[0]);
 
-            for (var i = 1; i < worlds.Count; i++)
-                if (worlds[i].UWP != null && !worlds[i].UWP!.Contains("?")) //skip uncharted words
-                    result.Add(BuildManifest(result.Origin, worlds[i], random, illegalGoods, advancedCharacters));
+        //    for (var i = 1; i < worlds.Count; i++)
+        //        if (worlds[i].UWP != null && !worlds[i].UWP!.Contains("?")) //skip uncharted words
+        //            result.Add(BuildManifest(result.Origin, worlds[i], random, illegalGoods, advancedCharacters));
 
-            return result;
-        }
+        //    return result;
+        //}
     }
 }

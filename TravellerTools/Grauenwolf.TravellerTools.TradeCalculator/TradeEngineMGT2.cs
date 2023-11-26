@@ -245,10 +245,10 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
         return result;
     }
 
-    internal override void OnManifestsBuilt(ManifestCollection result)
-    {
-        result.Edition = Edition.MGT2;
-    }
+    //internal override void OnManifestsBuilt(ManifestCollection result)
+    //{
+    //    result.Edition = Edition.MGT2;
+    //}
 
     override protected decimal PurchasePriceModifier(Dice random, int purchaseBonus, int brokerScore, out int roll)
     {
