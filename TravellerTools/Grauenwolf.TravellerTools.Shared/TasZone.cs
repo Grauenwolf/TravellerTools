@@ -1,9 +1,8 @@
-﻿namespace Grauenwolf.TravellerTools
+﻿namespace Grauenwolf.TravellerTools;
+
+public enum TasZone
 {
-    public enum TasZone
-    {
-        Green = 0,
-        Amber = 1,
-        Red = 2
-    }
+    Green = 0,
+    Amber = 1,
+    Red = 2
 }

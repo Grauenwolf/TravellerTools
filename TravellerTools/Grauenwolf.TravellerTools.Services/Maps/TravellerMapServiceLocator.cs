@@ -2,41 +2,40 @@
 using System;
 using System.Collections.Concurrent;
 
-namespace Grauenwolf.TravellerTools.Maps
+namespace Grauenwolf.TravellerTools.Maps;
+
+/// <summary>
+/// TravellerMapServiceLocator is used to get TravellerMapService objects. It handles the necessary caching.
+/// </summary>
+/// <remarks>Thread-safe. Only create one or the caching won't work.</remarks>
+public class TravellerMapServiceLocator
 {
+    ConcurrentDictionary<string, TravellerMapService> s_Cache = new ConcurrentDictionary<string, TravellerMapService>();
+
     /// <summary>
-    /// TravellerMapServiceLocator is used to get TravellerMapService objects. It handles the necessary caching.
+    /// Initializes a new instance of the <see cref="TravellerMapServiceLocator"/> class.
     /// </summary>
-    /// <remarks>Thread-safe. Only create one or the caching won't work.</remarks>
-    public class TravellerMapServiceLocator
+    /// <param name="filterUnpopulatedSectors">if set to <c>true</c>, startup takes longer. Recommend using false for testing.</param>
+    public TravellerMapServiceLocator(bool filterUnpopulatedSectors)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TravellerMapServiceLocator"/> class.
-        /// </summary>
-        /// <param name="filterUnpopulatedSectors">if set to <c>true</c>, startup takes longer. Recommend using false for testing.</param>
-        public TravellerMapServiceLocator(bool filterUnpopulatedSectors)
-        {
-            FilterUnpopulatedSectors = filterUnpopulatedSectors;
-        }
+        FilterUnpopulatedSectors = filterUnpopulatedSectors;
+    }
 
-        public bool FilterUnpopulatedSectors { get; }
+    public bool FilterUnpopulatedSectors { get; }
 
-        ConcurrentDictionary<string, TravellerMapService> s_Cache = new ConcurrentDictionary<string, TravellerMapService>();
+    public TravellerMapService GetMapService(Milieu milieu)
+    {
+        if (milieu == null)
+            throw new ArgumentNullException(nameof(milieu), $"{nameof(milieu)} is null.");
 
-        public TravellerMapService GetMapService(Milieu milieu)
-        {
-            if (milieu == null)
-                throw new ArgumentNullException(nameof(milieu), $"{nameof(milieu)} is null.");
+        return GetMapService(milieu.Code);
+    }
 
-            return GetMapService(milieu.Code);
-        }
+    public TravellerMapService GetMapService(string milieuCode)
+    {
+        if (string.IsNullOrEmpty(milieuCode))
+            throw new ArgumentException($"{nameof(milieuCode)} is null or empty.", nameof(milieuCode));
 
-        public TravellerMapService GetMapService(string milieuCode)
-        {
-            if (string.IsNullOrEmpty(milieuCode))
-                throw new ArgumentException($"{nameof(milieuCode)} is null or empty.", nameof(milieuCode));
-
-            return s_Cache.GetOrAdd(milieuCode, mc => new TravellerMapService(FilterUnpopulatedSectors, mc));
-        }
+        return s_Cache.GetOrAdd(milieuCode, mc => new TravellerMapService(FilterUnpopulatedSectors, mc));
     }
 }

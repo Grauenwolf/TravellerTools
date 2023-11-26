@@ -1,24 +1,10 @@
-using Tortuga.Anchor.Modeling;
+namespace Grauenwolf.TravellerTools.Characters;
 
-namespace Grauenwolf.TravellerTools.Characters
+public class History(int term, int age, string text)
 {
-    public class History : EditableObjectModelBase
-    {
+    public int Age { get; set; } = age;
+    public int Term { get; set; } = term;
+    public string Text { get; set; } = text;
 
-        public History(int term, int age, string text)
-        {
-            Term = term;
-            Age = age;
-            Text = text;
-        }
-
-        public string Text { get { return Get<string>(); } set { Set(value); } }
-        public int Term { get { return Get<int>(); } set { Set(value); } }
-        public int Age { get { return Get<int>(); } set { Set(value); } }
-
-        public override string ToString()
-        {
-            return Text;
-        }
-    }
+    public override string ToString() => Text;
 }

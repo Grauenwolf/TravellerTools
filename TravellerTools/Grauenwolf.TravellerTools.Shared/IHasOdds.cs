@@ -1,7 +1,6 @@
-namespace Grauenwolf.TravellerTools
+namespace Grauenwolf.TravellerTools;
+
+public interface IHasOdds
 {
-    public interface IHasOdds
-    {
-        int Odds { get; }
-    }
+    int Odds { get; }
 }

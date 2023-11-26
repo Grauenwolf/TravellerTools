@@ -1,12 +1,6 @@
-namespace Grauenwolf.TravellerTools.Characters
-{
-	public class PsionicSkillTemplate : SkillTemplate
-	{
-		public PsionicSkillTemplate(string name, int learningDM) : base(name)
-		{
-			LearningDM = learningDM;
-		}
+namespace Grauenwolf.TravellerTools.Characters;
 
-		public int LearningDM { get; }
-	}
+public class PsionicSkillTemplate(string name, int learningDM) : SkillTemplate(name)
+{
+    public int LearningDM { get; } = learningDM;
 }

@@ -318,7 +318,7 @@ abstract class Prisoner : CareerBase
             if (advancementRoll >= AdvancementTarget)
             {
                 careerHistory.Rank += 1;
-                character.AddHistory($"Promoted to rank {careerHistory.Rank}", character.Age);
+                character.AddHistory($"Promoted to {careerHistory.ShortName} rank {careerHistory.Rank}", character.Age);
 
                 UpdateTitle(character, careerHistory, dice);
 

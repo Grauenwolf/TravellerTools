@@ -2,147 +2,136 @@ using Grauenwolf.TravellerTools.Characters;
 using System.Collections.Generic;
 using Tortuga.Anchor.Modeling;
 
-namespace Grauenwolf.TravellerTools.Animals.AE
+namespace Grauenwolf.TravellerTools.Animals.AE;
+
+public class Animal : ModelBase
 {
-    public class Animal : ModelBase
+    public string AnimalClass { get => Get<string>(); set => Set(value); }
+    public int Armor { get => Get<int>(); set => Set(value); }
+    public int? Attack { get => Get<int?>(); set => Set(value); }
+    public string Behavior { get => Get<string>(); set => Set(value); }
+    public int BehaviorCount { get => GetDefault(1); set { Set(value); } }
+    public int Dexterity { get => Get<int>(); set => Set(value); }
+
+    [CalculatedField("Dexterity")]
+    public int DexterityDM => DMCalc(Dexterity);
+
+    public string Diet { get => Get<string>(); set => Set(value); }
+    public int Endurance { get => Get<int>(); set => Set(value); }
+
+    [CalculatedField("Endurance")]
+    public int EnduranceDM => DMCalc(Endurance);
+
+    public int EvolutionDM { get => Get<int>(); set => Set(value); }
+    public int EvolutionRolls { get => Get<int>(); set => Set(value); }
+    public int EvolutionSkills { get => Get<int>(); set => Set(value); }
+    public FeatureCollection Features => GetNew<FeatureCollection>();
+    public int? Flee { get => Get<int?>(); set => Set(value); }
+    public int InitiativeDM { get => Get<int>(); set => Set(value); }
+    public int Instinct { get => Get<int>(); set => Set(value); }
+
+    [CalculatedField("Instinct")]
+    public int InstinctDM => DMCalc(Instinct);
+
+    public int Intelligence { get => Get<int>(); set => Set(value); }
+
+    [CalculatedField("Intelligence")]
+    public int IntelligenceDM => DMCalc(Intelligence);
+
+    public string Movement { get => Get<string>(); set => Set(value); }
+    public string NumberEncountered { get => Get<string>(); set => Set(value); }
+    public int Pack { get => Get<int>(); set => Set(value); }
+
+    [CalculatedField("Pack")]
+    public int PackDM => DMCalc(Pack);
+
+    public int PhysicalSkills { get => Get<int>(); set => Set(value); }
+
+    /// <summary>
+    /// Gets the scripts to run at the very end of character creation.
+    /// </summary>
+    /// <value>The scripts.</value>
+    public List<string> PostScripts => GetNew<List<string>>();
+
+    public int QuirkRolls { get => Get<int>(); set => Set(value); }
+
+    /// <summary>
+    /// Roll used for encounter tables.
+    /// </summary>
+    public int Roll { get => Get<int>(); set => Set(value); }
+
+    public string SecondaryBehavior { get => Get<string>(); set => Set(value); }
+    public int Size { get => Get<int>(); set => Set(value); }
+    public SkillCollection Skills => GetNew<SkillCollection>();
+    public int SocialSkills { get => Get<int>(); set => Set(value); }
+    public int Strength { get => Get<int>(); set => Set(value); }
+
+    [CalculatedField("Strength")]
+    public int StrengthDM => DMCalc(Strength);
+
+    public string TerrainType { get => Get<string>(); set => Set(value); }
+    public WeaponCollection Weapons => GetNew<WeaponCollection>();
+    public int WeightKG { get => Get<int>(); set => Set(value); }
+
+    public void Increase(string attributeName, int bonus)
     {
-        public string AnimalClass { get { return Get<string>(); } set { Set(value); } }
-        public string TerrainType { get { return Get<string>(); } set { Set(value); } }
-
-        public string Diet { get { return Get<string>(); } set { Set(value); } }
-        public string Behavior { get { return Get<string>(); } set { Set(value); } }
-        public string SecondaryBehavior { get { return Get<string>(); } set { Set(value); } }
-        public string Movement { get { return Get<string>(); } set { Set(value); } }
-
-        public int Size { get { return Get<int>(); } set { Set(value); } }
-
-        public int WeightKG { get { return Get<int>(); } set { Set(value); } }
-
-        public int Strength { get { return Get<int>(); } set { Set(value); } }
-        public int Dexterity { get { return Get<int>(); } set { Set(value); } }
-        public int Endurance { get { return Get<int>(); } set { Set(value); } }
-        public int Intelligence { get { return Get<int>(); } set { Set(value); } }
-        public int Instinct { get { return Get<int>(); } set { Set(value); } }
-        public int Pack { get { return Get<int>(); } set { Set(value); } }
-        public int BehaviorCount { get { return GetDefault(1); } set { Set(value); } }
-
-        [CalculatedField("Strength")]
-        public int StrengthDM { get { return DMCalc(Strength); } }
-
-        [CalculatedField("Dexterity")]
-        public int DexterityDM { get { return DMCalc(Dexterity); } }
-
-        [CalculatedField("Endurance")]
-        public int EnduranceDM { get { return DMCalc(Endurance); } }
-
-        [CalculatedField("Intelligence")]
-        public int IntelligenceDM { get { return DMCalc(Intelligence); } }
-
-        [CalculatedField("Instinct")]
-        public int InstinctDM { get { return DMCalc(Instinct); } }
-
-        [CalculatedField("Pack")]
-        public int PackDM { get { return DMCalc(Pack); } }
-
-        /// <summary>
-        /// Roll used for encounter tables.
-        /// </summary>
-        public int Roll { get { return Get<int>(); } set { Set(value); } }
-
-        public SkillCollection Skills { get { return GetNew<SkillCollection>(); } }
-
-        public WeaponCollection Weapons { get { return GetNew<WeaponCollection>(); } }
-
-        public FeatureCollection Features { get { return GetNew<FeatureCollection>(); } }
-
-        /// <summary>
-        /// Gets the scripts to run at the very end of character creation.
-        /// </summary>
-        /// <value>The scripts.</value>
-        public List<string> PostScripts { get { return GetNew<List<string>>(); } }
-
-        public int Armor { get { return Get<int>(); } set { Set(value); } }
-
-        public int? Attack { get { return Get<int?>(); } set { Set(value); } }
-
-        public int? Flee { get { return Get<int?>(); } set { Set(value); } }
-
-        public string NumberEncountered { get { return Get<string>(); } set { Set(value); } }
-
-        public int QuirkRolls { get { return Get<int>(); } set { Set(value); } }
-        public int PhysicalSkills { get { return Get<int>(); } set { Set(value); } }
-        public int SocialSkills { get { return Get<int>(); } set { Set(value); } }
-        public int EvolutionSkills { get { return Get<int>(); } set { Set(value); } }
-        public int EvolutionDM { get { return Get<int>(); } set { Set(value); } }
-
-        public int EvolutionRolls { get { return Get<int>(); } set { Set(value); } }
-
-        public int InitiativeDM { get; set; }
-
-        static int DMCalc(int value)
+        switch (attributeName)
         {
-            if (value <= 0)
-                return -3;
-            if (value <= 2)
-                return -2;
-            if (value <= 5)
-                return -1;
-            if (value <= 8)
-                return 0;
-            if (value <= 11)
-                return 1;
-            if (value <= 14)
-                return 2;
-            //if (value >= 15)
-            return 3;
-        }
+            case "Size": Size += bonus; return;
 
-        public void Increase(string attributeName, int bonus)
+            case "Strength":
+            case "Str":
+                Strength += bonus; return;
+
+            case "Dexterity":
+            case "Dex":
+                Dexterity += bonus; return;
+
+            case "Endurance":
+            case "End":
+                Endurance += bonus; return;
+
+            case "Intelligence":
+            case "Int":
+                Intelligence += bonus; return;
+
+            case "Instinct":
+            case "Ins":
+                Instinct += bonus; return;
+
+            case "Pack": Pack += bonus; return;
+
+            case "Armor": Armor += bonus; return;
+
+            case "QuirkRolls":
+            case "Quirks":
+                QuirkRolls += bonus; return;
+
+            case "PhysicalSkills": PhysicalSkills += bonus; return;
+            case "SocialSkills": SocialSkills += bonus; return;
+
+            case "EvolutionSkills": EvolutionSkills += bonus; return;
+            case "EvolutionDM": EvolutionDM += bonus; return;
+            case "EvolutionRolls": EvolutionRolls += bonus; return;
+            case "InitiativeDM": InitiativeDM += bonus; return;
+            case "BehaviorCount": BehaviorCount += bonus; return;
+
+            default:
+                throw new System.ArgumentOutOfRangeException("attributeName", attributeName, "Unknown attribute " + attributeName);
+        }
+    }
+
+    static int DMCalc(int value)
+    {
+        return value switch
         {
-            switch (attributeName)
-            {
-                case "Size": Size += bonus; return;
-
-                case "Strength":
-                case "Str":
-                    Strength += bonus; return;
-
-                case "Dexterity":
-                case "Dex":
-                    Dexterity += bonus; return;
-
-                case "Endurance":
-                case "End":
-                    Endurance += bonus; return;
-
-                case "Intelligence":
-                case "Int":
-                    Intelligence += bonus; return;
-
-                case "Instinct":
-                case "Ins":
-                    Instinct += bonus; return;
-
-                case "Pack": Pack += bonus; return;
-
-                case "Armor": Armor += bonus; return;
-
-                case "QuirkRolls":
-                case "Quirks":
-                    QuirkRolls += bonus; return;
-
-                case "PhysicalSkills": PhysicalSkills += bonus; return;
-                case "SocialSkills": SocialSkills += bonus; return;
-
-                case "EvolutionSkills": EvolutionSkills += bonus; return;
-                case "EvolutionDM": EvolutionDM += bonus; return;
-                case "EvolutionRolls": EvolutionRolls += bonus; return;
-                case "InitiativeDM": InitiativeDM += bonus; return;
-                case "BehaviorCount": BehaviorCount += bonus; return;
-
-                default:
-                    throw new System.ArgumentOutOfRangeException("attributeName", attributeName, "Unknown attribute " + attributeName);
-            }
-        }
+            <= 0 => -3,
+            <= 2 => -2,
+            <= 5 => -1,
+            <= 8 => 0,
+            <= 11 => 1,
+            <= 14 => 2,
+            _ => 3
+        };
     }
 }

@@ -98,12 +98,12 @@ abstract class MilitaryCareer : FullCareer
                 if (careerHistory.CommissionRank > 0)
                 {
                     careerHistory.CommissionRank += 1;
-                    character.AddHistory($"Promoted to {careerHistory.Assignment} officer rank {careerHistory.CommissionRank}", character.Age);
+                    character.AddHistory($"Promoted to {careerHistory.ShortName} officer rank {careerHistory.CommissionRank}", character.Age);
                 }
                 else
                 {
                     careerHistory.Rank += 1;
-                    character.AddHistory($"Promoted to {careerHistory.Assignment} rank {careerHistory.Rank}", character.Age);
+                    character.AddHistory($"Promoted to {careerHistory.ShortName} rank {careerHistory.Rank}", character.Age);
                 }
                 UpdateTitle(character, dice, careerHistory);
 

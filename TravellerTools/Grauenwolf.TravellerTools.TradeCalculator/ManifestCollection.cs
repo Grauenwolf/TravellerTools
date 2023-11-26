@@ -1,15 +1,10 @@
 using Grauenwolf.TravellerTools.Maps;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 
 namespace Grauenwolf.TravellerTools.TradeCalculator
 {
-    public class ManifestCollection : Collection<Manifest>
+    public class ManifestCollection(World origin) : List<Manifest>
     {
-        public ManifestCollection(World origin)
-        {
-            Origin = origin;
-        }
-
         public bool AdvancedCharacters { get; set; }
         public bool? AdvancedMode { get; set; }
         public int BrokerScore { get; set; }
@@ -22,7 +17,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         public bool? IllegalGoods { get; set; }
         public int MaxJumpDistance { get; set; }
         public string? Milieu { get; set; }
-        public World Origin { get; }
+        public World Origin { get; } = origin;
         public bool? Raffle { get; set; }
         public int? SectorX { get; set; }
         public int? SectorY { get; set; }

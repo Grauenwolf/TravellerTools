@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 
-namespace Grauenwolf.TravellerTools.Equipment
-{
-    public class Store
-    {
-        internal Store()
-        {
-        }
+namespace Grauenwolf.TravellerTools.Equipment;
 
-        public List<Section> Sections { get; } = new List<Section>();
-        public List<CatalogBook> Books { get; } = new List<CatalogBook>();
+public class Store
+{
+    internal Store()
+    {
     }
+
+    public List<CatalogBook> Books { get; } = new();
+    public List<Section> Sections { get; } = new();
 }

@@ -1,12 +1,7 @@
-using Tortuga.Anchor.Collections;
+using System.Collections.Generic;
 
-namespace Grauenwolf.TravellerTools.Characters
+namespace Grauenwolf.TravellerTools.Characters;
+
+public class WeaponCollection : List<Weapon>
 {
-    public class WeaponCollection : ObservableCollectionExtended<Weapon>
-    {
-
-    }
-
-
-
 }

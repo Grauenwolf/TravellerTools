@@ -1,15 +1,7 @@
-using System.Linq;
-using Tortuga.Anchor.Collections;
+using System.Collections.Generic;
 
-namespace Grauenwolf.TravellerTools.Characters
+namespace Grauenwolf.TravellerTools.Characters;
+
+public class HistoryCollection : List<History>
 {
-    public class HistoryCollection : ObservableCollectionExtended<History>
-    {
-        //public void Add(string text)
-        //{
-        //    if (this.Any(x => x.Text == text))
-        //        return;
-        //    Add(new History(text));
-        //}
-    }
 }

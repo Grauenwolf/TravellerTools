@@ -1,8 +1,6 @@
-﻿namespace Grauenwolf.TravellerTools
-{
-    public interface ITablePick
-    {
-        bool IsMatch(int value);
-    }
-}
+﻿namespace Grauenwolf.TravellerTools;
 
+public interface ITablePick
+{
+    bool IsMatch(int value);
+}

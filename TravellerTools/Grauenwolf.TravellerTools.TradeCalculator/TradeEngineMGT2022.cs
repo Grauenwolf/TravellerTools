@@ -9,10 +9,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator;
 
 public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath, NameGenerator nameGenerator) : TradeEngine(mapService, dataPath, nameGenerator)
 {
-    protected override string DataFileName
-    {
-        get { return "TradeGoods-MGT2.xml"; }
-    }
+    protected override string DataFileName => "TradeGoods-MGT2.xml";
 
     protected override bool UseCounterpartyScore => true;
 
@@ -254,11 +251,6 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
             result.Passengers.Add(PassengerDetail(random, "Low", advancedCharacters));
 
         return result;
-    }
-
-    internal override void OnManifestsBuilt(ManifestCollection result)
-    {
-        result.Edition = Edition.MGT2;
     }
 
     override protected decimal PurchasePriceModifier(Dice random, int purchaseBonus, int brokerScore, out int roll)

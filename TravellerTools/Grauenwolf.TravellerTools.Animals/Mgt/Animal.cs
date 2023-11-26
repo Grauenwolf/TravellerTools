@@ -1,77 +1,69 @@
 using Grauenwolf.TravellerTools.Characters;
 using Tortuga.Anchor.Modeling;
 
-namespace Grauenwolf.TravellerTools.Animals.Mgt
+namespace Grauenwolf.TravellerTools.Animals.Mgt;
+
+public class Animal : ModelBase
 {
-    public class Animal : ModelBase
+    public string AnimalType { get => Get<string>(); set => Set(value); }
+    public int Armor { get => Get<int>(); set => Set(value); }
+    public string Attack { get => Get<string>(); set => Set(value); }
+    public string Behavior { get => Get<string>(); set => Set(value); }
+    public int Dexterity { get => Get<int>(); set => Set(value); }
+
+    [CalculatedField("Dexterity")]
+    public int DexterityDM => DMCalc(Dexterity);
+
+    public int Endurance { get => Get<int>(); set => Set(value); }
+
+    [CalculatedField("Endurance")]
+    public int EnduranceDM => DMCalc(Endurance);
+
+    public string Flee { get => Get<string>(); set => Set(value); }
+    public int Instinct { get => Get<int>(); set => Set(value); }
+
+    [CalculatedField("Instinct")]
+    public int InstinctDM => DMCalc(Instinct);
+
+    public int Intelligence { get => Get<int>(); set => Set(value); }
+
+    [CalculatedField("Intelligence")]
+    public int IntelligenceDM => DMCalc(Intelligence);
+
+    public string Movement { get => Get<string>(); set => Set(value); }
+    public string NumberEncountered { get => Get<string>(); set => Set(value); }
+    public int Pack { get => Get<int>(); set => Set(value); }
+
+    [CalculatedField("Pack")]
+    public int PackDM => DMCalc(Pack);
+
+    /// <summary>
+    /// Roll used for encoutner tables.
+    /// </summary>
+    public int Roll { get => Get<int>(); set => Set(value); }
+
+    public int Size { get => Get<int>(); set => Set(value); }
+    public SkillCollection Skills => GetNew<SkillCollection>();
+    public int Strength { get => Get<int>(); set => Set(value); }
+
+    [CalculatedField("Strength")]
+    public int StrengthDM => DMCalc(Strength);
+
+    public string TerrainType { get => Get<string>(); set => Set(value); }
+    public WeaponCollection Weapons => GetNew<WeaponCollection>();
+    public int WeightKG { get { return Get<int>(); } set { Set(value); } }
+
+    int DMCalc(int value)
     {
-        public string TerrainType { get { return Get<string>(); } set { Set(value); } }
-
-        public string AnimalType { get { return Get<string>(); } set { Set(value); } }
-
-        public string Behavior { get { return Get<string>(); } set { Set(value); } }
-        public string Movement { get { return Get<string>(); } set { Set(value); } }
-
-
-        public int Size { get { return Get<int>(); } set { Set(value); } }
-
-        public int WeightKG { get { return Get<int>(); } set { Set(value); } }
-
-
-        public int Strength { get { return Get<int>(); } set { Set(value); } }
-        public int Dexterity { get { return Get<int>(); } set { Set(value); } }
-        public int Endurance { get { return Get<int>(); } set { Set(value); } }
-        public int Intelligence { get { return Get<int>(); } set { Set(value); } }
-        public int Instinct { get { return Get<int>(); } set { Set(value); } }
-        public int Pack { get { return Get<int>(); } set { Set(value); } }
-
-        [CalculatedField("Strength")]
-        public int StrengthDM { get { return DMCalc(Strength); } }
-        [CalculatedField("Dexterity")]
-        public int DexterityDM { get { return DMCalc(Dexterity); } }
-        [CalculatedField("Endurance")]
-        public int EnduranceDM { get { return DMCalc(Endurance); } }
-        [CalculatedField("Intelligence")]
-        public int IntelligenceDM { get { return DMCalc(Intelligence); } }
-        [CalculatedField("Instinct")]
-        public int InstinctDM { get { return DMCalc(Instinct); } }
-        [CalculatedField("Pack")]
-        public int PackDM { get { return DMCalc(Pack); } }
-
-        /// <summary>
-        /// Roll used for encoutner tables.
-        /// </summary>
-        public int Roll { get { return Get<int>(); } set { Set(value); } }
-
-
-        public SkillCollection Skills { get { return GetNew<SkillCollection>(); } }
-
-        public WeaponCollection Weapons { get { return GetNew<WeaponCollection>(); } }
-
-        public int Armor { get { return Get<int>(); } set { Set(value); } }
-
-        public string Attack { get { return Get<string>(); } set { Set(value); } }
-
-        public string Flee { get { return Get<string>(); } set { Set(value); } }
-
-        public string NumberEncountered { get { return Get<string>(); } set { Set(value); } }
-
-        int DMCalc(int value)
+        return value switch
         {
-            if (value == 0)
-                return -3;
-            if (value <= 2)
-                return -2;
-            if (value <= 5)
-                return -1;
-            if (value <= 8)
-                return 0;
-            if (value <= 11)
-                return 1;
-            if (value <= 14)
-                return 2;
-            //if (value >= 15)
-            return 3;
-        }
+            0 => -3,
+            <= 2 => -2,
+            <= 5 => -1,
+            <= 8 => 0,
+            <= 11 => 1,
+            <= 14 => 2,
+            _ => 3
+        };
     }
 }

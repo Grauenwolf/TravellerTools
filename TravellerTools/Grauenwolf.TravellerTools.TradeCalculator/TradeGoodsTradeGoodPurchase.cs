@@ -5,20 +5,19 @@ using System.Xml.Serialization;
 #nullable disable
 #pragma warning disable RCS1139 // Add summary element to documentation comment.
 
-namespace Grauenwolf.TravellerTools.TradeCalculator
+namespace Grauenwolf.TravellerTools.TradeCalculator;
+
+/// <remarks/>
+[SerializableAttribute()]
+[DesignerCategoryAttribute("code")]
+[XmlTypeAttribute(AnonymousType = true)]
+public class TradeGoodPurchase
 {
     /// <remarks/>
-    [SerializableAttribute()]
-    [DesignerCategoryAttribute("code")]
-    [XmlTypeAttribute(AnonymousType = true)]
-    public class TradeGoodPurchase
-    {
-        /// <remarks/>
-        [XmlAttributeAttribute()]
-        public string Tag { get; set; }
+    [XmlAttributeAttribute()]
+    public string Tag { get; set; }
 
-        /// <remarks/>
-        [XmlAttributeAttribute()]
-        public int Bonus { get; set; }
-    }
+    /// <remarks/>
+    [XmlAttributeAttribute()]
+    public int Bonus { get; set; }
 }

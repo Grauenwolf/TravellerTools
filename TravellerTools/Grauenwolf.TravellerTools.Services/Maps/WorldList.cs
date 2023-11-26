@@ -1,7 +1,6 @@
-namespace Grauenwolf.TravellerTools.Maps
+namespace Grauenwolf.TravellerTools.Maps;
+
+class WorldList
 {
-    class WorldList
-    {
-        public World[]? Worlds { get; set; }
-    }
+    public World[]? Worlds { get; set; }
 }

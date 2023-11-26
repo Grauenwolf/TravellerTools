@@ -1,95 +1,46 @@
-﻿namespace Grauenwolf.TravellerTools.Animals.AE
+﻿namespace Grauenwolf.TravellerTools.Animals.AE;
+
+partial class AnimalTemplatesTerrainOption : IHasOdds
 {
-
-
-    partial class TerrainTemplate
-    {
-        public override string ToString()
-        {
-            return Name;
-        }
-    }
-
-    //partial class AnimalTemplatesAnimalType
-    //{
-    //    public override string ToString()
-    //    {
-    //        return Name;
-    //    }
-    //}
-
-    partial class AnimalTemplatesTerrainOption : IHasOdds
-    {
-        int IHasOdds.Odds
-        {
-            get { return Odds; }
-        }
-    }
-
-    partial class DietOption : IHasOdds
-    {
-        int IHasOdds.Odds
-        {
-            get { return Odds; }
-        }
-    }
-
-    //partial class AnimalTemplatesTerrainOption : ITablePick
-    //{
-    //    public bool IsMatch(int value)
-    //    {
-    //        return Roll == value;
-    //    }
-    //}
-    partial class AnimalTemplatesTerrainOption1 : ITablePick
-    {
-        public bool IsMatch(int value)
-        {
-            return Roll == value;
-        }
-    }
-
-    partial class BehaviorOption : ITablePick
-    {
-        public bool IsMatch(int value)
-        {
-            return Roll == value;
-        }
-    }
-    partial class ChartOption : ITablePick
-    {
-        public bool IsMatch(int value)
-        {
-            return Roll == value;
-        }
-    }
-
-    
-
-    partial class Size : ITablePick
-    {
-        public bool IsMatch(int value)
-        {
-            return Roll == value;
-        }
-    }
-
-
-    partial class ArmorOption : ITablePick
-    {
-        public bool IsMatch(int value)
-        {
-            return Roll == value;
-        }
-    }
-
-    partial class WeaponTemplate : ITablePick
-    {
-        public bool IsMatch(int value)
-        {
-            return Roll == value;
-        }
-    }
-
+    int IHasOdds.Odds => Odds;
 }
 
+partial class AnimalTemplatesTerrainOption1 : ITablePick
+{
+    public bool IsMatch(int value) => Roll == value;
+}
+
+partial class ArmorOption : ITablePick
+{
+    public bool IsMatch(int value) => Roll == value;
+}
+
+partial class BehaviorOption : ITablePick
+{
+    public bool IsMatch(int value) => Roll == value;
+}
+
+partial class ChartOption : ITablePick
+{
+    public bool IsMatch(int value) => Roll == value;
+}
+
+partial class DietOption : IHasOdds
+{
+    int IHasOdds.Odds => Odds;
+}
+
+partial class Size : ITablePick
+{
+    public bool IsMatch(int value) => Roll == value;
+}
+
+partial class TerrainTemplate
+{
+    public override string ToString() => Name;
+}
+
+partial class WeaponTemplate : ITablePick
+{
+    public bool IsMatch(int value) => Roll == value;
+}

@@ -1,15 +1,7 @@
-namespace Grauenwolf.TravellerTools
+namespace Grauenwolf.TravellerTools;
+
+public class OddsRow<T>(T value, int odds) : IHasOdds
 {
-    public class OddsRow<T> : IHasOdds
-    {
-        public OddsRow(T value, int odds)
-        {
-            Odds = odds;
-            Value = value;
-        }
-
-        public T Value { get; }
-
-        public int Odds { get; }
-    }
+    public int Odds { get; } = odds;
+    public T Value { get; } = value;
 }
