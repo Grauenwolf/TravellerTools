@@ -126,7 +126,7 @@ public class CharacterBuilder
             nextCareer.Run(character, dice);
 
             if (character.LongTermBenefits.MayTestPsi && dice.RollHigh(10))
-                Book.TestPsionic(character, dice);
+                Book.TestPsionic(character, dice, character.Age);
 
             character.CurrentTerm += 1;
 

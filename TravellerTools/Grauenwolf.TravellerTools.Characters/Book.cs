@@ -423,13 +423,13 @@ public class Book
         }
     }
 
-    public void TestPsionic(Character character, Dice dice)
+    public void TestPsionic(Character character, Dice dice, int age)
     {
         if (character.Psi.HasValue)
             return; //already tested
 
         character.LongTermBenefits.MayTestPsi = false;
-        character.AddHistory("Tested for psionic powers");
+        character.AddHistory("Tested for psionic powers", age);
 
         character.Psi = dice.D(2, 6) - character.CurrentTerm;
 
@@ -468,8 +468,8 @@ public class Book
         switch (dice.D(6))
         {
             case 1:
-                character.AddHistory("Encounter a Psionic institute.", dice);
-                TestPsionic(character, dice);
+                var age = character.AddHistory("Encounter a Psionic institute.", dice);
+                TestPsionic(character, dice, age);
                 return;
 
             case 2:

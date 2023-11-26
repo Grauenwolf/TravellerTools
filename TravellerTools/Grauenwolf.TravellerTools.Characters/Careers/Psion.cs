@@ -179,7 +179,7 @@ abstract class Psion : NormalCareer
     {
         //Force Psionic Testing. This can only happen if the character is forced into this career.
         if (character.Psi == null)
-            Book.TestPsionic(character, dice);
+            Book.TestPsionic(character, dice, character.Age);
 
         base.Run(character, dice);
     }
