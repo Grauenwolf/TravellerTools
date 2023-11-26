@@ -21,6 +21,7 @@ public class FreightLot(int size, int shippingFee)
     }
 
     public int LateFee { get; set; }
+    public int? MailRoll { get; set; }
     public int ShippingFee { get; set; } = shippingFee;
     public int Size { get; set; } = size;
 }

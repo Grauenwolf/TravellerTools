@@ -83,6 +83,27 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
 
         AddLotDetails(destination, random, lots);
 
+        //Mail
+
+        var mailDM = baseDM switch
+        {
+            <= -10 => -2,
+            <= -5 => -1,
+            <= 4 => 0,
+            <= 9 => 1,
+            _ => 2
+        };
+        if (origin.TechCode.Value <= 5)
+            mailDM += -4;
+
+        var mailRoll = 12 - mailDM;
+
+        if (true) //TODO, page 241
+        {
+            var containerCount = random.D(6);
+            result.Lots.Add(new(5 * containerCount, 25000 * containerCount) { Contents = $"{containerCount} mail containers.", Size = 5 * containerCount, MailRoll = mailRoll });
+        }
+
         result.Lots.AddRange(lots.OrderByDescending(f => f.Size));
 
         return result;

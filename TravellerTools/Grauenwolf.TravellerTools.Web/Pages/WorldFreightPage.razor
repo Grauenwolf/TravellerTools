@@ -76,24 +76,52 @@
 
             @foreach (var lot in Model.FreightList.Lots)
             {
+  
+
                 <tr>
                     <td>@lot.Size</td>
                     <td>@lot.ShippingFee.ToString("N0")</td>
-                    <td>@lot.ActualValue.ToString("N0")</td>
+                    <td>
+                        @if (lot.ActualValue > 0)
+                        {
+                            @lot.ActualValue.ToString("N0")
+                        }
+                    </td>
                     <td>@lot.Contents</td>
-                    <td>@lot.DueInWeeks</td>
-                    <td>
-                        <label title="This fee is applied if the cargo is delivered late.">
-                            @lot.LateFee.ToString("N0")
-                        </label>
-                    </td>
-                    <td>
-                        <label title="This fee paid after penalties are deducted.">
-                            @((lot.ShippingFee - lot.LateFee).ToString("N0"))
-                        </label>
-                    </td>
+                    @if (lot.DueInDays > 0)
+                    {
+
+                        <td>
+                            @lot.DueInWeeks
+                        </td>
+                        <td>
+                            <label title="This fee is applied if the cargo is delivered late.">
+                                @lot.LateFee.ToString("N0")
+                            </label>
+                        </td>
+                        <td>
+                            <label title="This fee paid after penalties are deducted.">
+                                @((lot.ShippingFee - lot.LateFee).ToString("N0"))
+                            </label>
+                        </td>
+                    }
+                    else
+                    {
+                        <td />
+                        <td />
+                        <td />
+                    }
 
                 </tr>
+
+              @if (lot.MailRoll > 0)
+                {
+                    <tr>
+                        <td colspan="7">
+                            Mail Contract: Roll SOC DM + Highest Navy/Scout Rank, target @lot.MailRoll. DM+2 if ship is armed.
+                        </td>
+                    </tr>
+                }
             }
         </table>
     }
@@ -102,7 +130,6 @@
         <div>No freight is avilable at this time.</div>
     }
 
-    <div>The mail feature is not ready.</div>
 }
 else if (LoadFailed)
 {
