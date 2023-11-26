@@ -14,7 +14,7 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
         get { return "TradeGoods-MGT2.xml"; }
     }
 
-    public override FreightList Freight(World origin, World destination, Dice random)
+    public override FreightList Freight(World origin, World destination, Dice dice)
     {
         if (origin == null)
             throw new ArgumentNullException(nameof(origin), $"{nameof(origin)} is null.");
@@ -22,57 +22,58 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
         if (destination == null)
             throw new ArgumentNullException(nameof(destination), $"{nameof(destination)} is null.");
 
-        if (random == null)
-            throw new ArgumentNullException(nameof(random), $"{nameof(random)} is null.");
+        if (dice == null)
+            throw new ArgumentNullException(nameof(dice), $"{nameof(dice)} is null.");
 
         var result = new FreightList();
 
-        var baseDM = 0;
+        var traffic = 0;
         var incidentalDM = 2;
         var minorDM = 0;
         var majorDM = -4;
 
         if (origin.PopulationCode.Value <= 1)
-            baseDM += -4;
+            traffic += -4;
         else if (origin.PopulationCode.Value == 6 || origin.PopulationCode.Value == 7)
-            baseDM += 2;
+            traffic += 2;
         else if (origin.PopulationCode.Value >= 8)
-            baseDM += 4;
+            traffic += 4;
 
-        if (origin.TechCode.Value <= 6) baseDM += -1;
-        if (origin.TechCode.Value >= 9) baseDM += 2;
+        if (origin.TechCode.Value <= 6) traffic += -1;
+        if (origin.TechCode.Value >= 9) traffic += 2;
 
-        if (origin.ContainsRemark("A")) baseDM += -2;
-        if (origin.ContainsRemark("R")) baseDM += -6;
+        if (origin.ContainsRemark("A")) traffic += -2;
+        if (origin.ContainsRemark("R")) traffic += -6;
 
-        result.Incidental = random.D(FreightTraffic(baseDM + incidentalDM, random));
-        result.Minor = random.D(FreightTraffic(baseDM + minorDM, random));
-        result.Major = random.D(FreightTraffic(baseDM + majorDM, random));
+        result.Incidental = dice.D(FreightTraffic(traffic + incidentalDM, dice));
+        result.Minor = dice.D(FreightTraffic(traffic + minorDM, dice));
+        result.Major = dice.D(FreightTraffic(traffic + majorDM, dice));
 
         var lots = new List<FreightLot>();
         for (var i = 0; i < result.Incidental; i++)
         {
-            int size = random.D("1D6");
+            int size = dice.D("1D6");
             int value = FreightCost(destination.JumpDistance) * size;
             lots.Add(new FreightLot(size, value));
         }
 
         for (var i = 0; i < result.Minor; i++)
         {
-            int size = random.D("1D6") * 5;
+            int size = dice.D("1D6") * 5;
             int value = FreightCost(destination.JumpDistance) * size;
             lots.Add(new FreightLot(size, value));
         }
 
         for (var i = 0; i < result.Major; i++)
         {
-            int size = random.D("1D6") * 10;
+            int size = dice.D("1D6") * 10;
             int value = FreightCost(destination.JumpDistance) * size;
             lots.Add(new FreightLot(size, value)); ;
         }
 
-        AddLotDetails(destination, random, lots);
+        AddLotDetails(destination, dice, lots);
 
+        result.Lots.Add(GenerateMail(origin, dice, traffic));
         result.Lots.AddRange(lots.OrderByDescending(f => f.Size));
 
         return result;

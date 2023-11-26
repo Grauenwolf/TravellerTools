@@ -17,7 +17,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             get { return "TradeGoods-MGT.xml"; }
         }
 
-        public override FreightList Freight(World origin, World destination, Dice random)
+        public override FreightList Freight(World origin, World destination, Dice dice)
         {
             if (origin == null)
                 throw new ArgumentNullException(nameof(origin), $"{nameof(origin)} is null.");
@@ -25,16 +25,16 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             if (destination == null)
                 throw new ArgumentNullException(nameof(destination), $"{nameof(destination)} is null.");
 
-            if (random == null)
-                throw new ArgumentNullException(nameof(random), $"{nameof(random)} is null.");
+            if (dice == null)
+                throw new ArgumentNullException(nameof(dice), $"{nameof(dice)} is null.");
 
             var result = new FreightList();
 
             Action<string, string, string> SetValues = (low, middle, high) =>
             {
-                result.Incidental = random.D(low);
-                result.Minor = random.D(middle);
-                result.Major = random.D(high);
+                result.Incidental = dice.D(low);
+                result.Minor = dice.D(middle);
+                result.Major = dice.D(high);
             };
 
             var traffic = origin.PopulationCode.Value;
@@ -110,27 +110,28 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             var lots = new List<FreightLot>();
             for (var i = 0; i < result.Incidental; i++)
             {
-                int size = random.D("1D6");
+                int size = dice.D("1D6");
                 int value = (1000 + (destination.JumpDistance - 1 * 200)) * size;
                 lots.Add(new FreightLot(size, value));
             }
 
             for (var i = 0; i < result.Minor; i++)
             {
-                int size = random.D("1D6") * 5;
+                int size = dice.D("1D6") * 5;
                 int value = (1000 + (destination.JumpDistance - 1 * 200)) * size;
                 lots.Add(new FreightLot(size, value));
             }
 
             for (var i = 0; i < result.Major; i++)
             {
-                int size = random.D("1D6") * 10;
+                int size = dice.D("1D6") * 10;
                 int value = (1000 + ((destination.JumpDistance - 1) * 200)) * size;
                 lots.Add(new FreightLot(size, value));
             }
 
-            AddLotDetails(destination, random, lots);
+            AddLotDetails(destination, dice, lots);
 
+            result.Lots.Add(GenerateMail(origin, dice, traffic));
             result.Lots.AddRange(lots.OrderByDescending(f => f.Size));
 
             return result;

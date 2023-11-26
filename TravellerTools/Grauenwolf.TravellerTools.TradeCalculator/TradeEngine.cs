@@ -479,6 +479,26 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         internal abstract void OnManifestsBuilt(ManifestCollection result);
 
+        protected static FreightLot GenerateMail(World origin, Dice dice, int traffic)
+        {
+            var mailDM = traffic switch
+            {
+                <= -10 => -2,
+                <= -5 => -1,
+                <= 4 => 0,
+                <= 9 => 1,
+                _ => 2
+            };
+            if (origin.TechCode.Value <= 5)
+                mailDM += -4;
+
+            var mailRoll = 12 - mailDM;
+
+            var containerCount = dice.D(6);
+            var mailLot = new FreightLot(5 * containerCount, 25000 * containerCount) { Contents = $"{containerCount} mail containers.", Size = 5 * containerCount, MailRoll = mailRoll };
+            return mailLot;
+        }
+
         protected void AddLotDetails(World destination, Dice random, List<FreightLot> lots)
         {
             foreach (var lot in lots)

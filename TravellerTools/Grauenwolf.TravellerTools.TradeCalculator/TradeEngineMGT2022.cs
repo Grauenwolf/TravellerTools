@@ -16,7 +16,7 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
 
     protected override bool UseCounterpartyScore => true;
 
-    public override FreightList Freight(World origin, World destination, Dice random)
+    public override FreightList Freight(World origin, World destination, Dice dice)
     {
         if (origin == null)
             throw new ArgumentNullException(nameof(origin), $"{nameof(origin)} is null.");
@@ -24,17 +24,17 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
         if (destination == null)
             throw new ArgumentNullException(nameof(destination), $"{nameof(destination)} is null.");
 
-        if (random == null)
-            throw new ArgumentNullException(nameof(random), $"{nameof(random)} is null.");
+        if (dice == null)
+            throw new ArgumentNullException(nameof(dice), $"{nameof(dice)} is null.");
 
         var result = new FreightList();
 
-        var baseDM = 0;
+        var traffic = 0;
         var incidentalDM = 2;
         var minorDM = 0;
         var majorDM = -4;
 
-        baseDM += origin.PopulationCode.Value switch
+        traffic += origin.PopulationCode.Value switch
         {
             <= 1 => -4,
             6 => 2,
@@ -43,66 +43,47 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
             _ => 0
         };
 
-        baseDM += origin.TechCode.Value switch
+        traffic += origin.TechCode.Value switch
         {
             <= 6 => -1,
             >= 9 => 2,
             _ => 0
         };
 
-        if (origin.ContainsRemark("R")) baseDM += -6;
-        else if (origin.ContainsRemark("A")) baseDM += -2;
+        if (origin.ContainsRemark("R")) traffic += -6;
+        else if (origin.ContainsRemark("A")) traffic += -2;
 
-        baseDM += 1 - destination.JumpDistance;
+        traffic += 1 - destination.JumpDistance;
 
-        result.Incidental = random.D(FreightTraffic(baseDM + incidentalDM, random));
-        result.Minor = random.D(FreightTraffic(baseDM + minorDM, random));
-        result.Major = random.D(FreightTraffic(baseDM + majorDM, random));
+        result.Incidental = dice.D(FreightTraffic(traffic + incidentalDM, dice));
+        result.Minor = dice.D(FreightTraffic(traffic + minorDM, dice));
+        result.Major = dice.D(FreightTraffic(traffic + majorDM, dice));
 
         var lots = new List<FreightLot>();
         for (var i = 0; i < result.Incidental; i++)
         {
-            var size = random.D("1D6");
+            var size = dice.D("1D6");
             var value = FreightCost(destination.JumpDistance) * size;
             lots.Add(new FreightLot(size, value));
         }
 
         for (var i = 0; i < result.Minor; i++)
         {
-            var size = random.D("1D6") * 5;
+            var size = dice.D("1D6") * 5;
             var value = FreightCost(destination.JumpDistance) * size;
             lots.Add(new FreightLot(size, value));
         }
 
         for (var i = 0; i < result.Major; i++)
         {
-            var size = random.D("1D6") * 10;
+            var size = dice.D("1D6") * 10;
             var value = FreightCost(destination.JumpDistance) * size;
             lots.Add(new FreightLot(size, value));
         }
 
-        AddLotDetails(destination, random, lots);
+        AddLotDetails(destination, dice, lots);
 
-        //Mail
-
-        var mailDM = baseDM switch
-        {
-            <= -10 => -2,
-            <= -5 => -1,
-            <= 4 => 0,
-            <= 9 => 1,
-            _ => 2
-        };
-        if (origin.TechCode.Value <= 5)
-            mailDM += -4;
-
-        var mailRoll = 12 - mailDM;
-
-        if (true) //TODO, page 241
-        {
-            var containerCount = random.D(6);
-            result.Lots.Add(new(5 * containerCount, 25000 * containerCount) { Contents = $"{containerCount} mail containers.", Size = 5 * containerCount, MailRoll = mailRoll });
-        }
+        result.Lots.Add(GenerateMail(origin, dice, traffic));
 
         result.Lots.AddRange(lots.OrderByDescending(f => f.Size));
 
