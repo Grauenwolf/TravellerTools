@@ -11,7 +11,7 @@
 
         protected void GotoPlanet2()
         {
-            Navigation.NavigateTo($"/uwp/{Model.CalculatedUwp}/info");
+            Navigation.NavigateTo($"/uwp/{Model.CalculatedUwp}/info?tasZone={Model.TasZone}");
         }
     }
 }

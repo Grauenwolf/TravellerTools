@@ -1,6 +1,8 @@
 ﻿@page "/uwp"
 @inherits PageBase<UwpOptions>
-@{PageTitle = "Univeral World Profile";}
+@{
+    PageTitle = "Univeral World Profile";
+}
 
 <h3>Univeral World Profile</h3>
 
@@ -56,7 +58,7 @@
                     <InputSelect @bind-Value="Model.AtmosphereCode">
                         @foreach (var code in Tables.AtmosphereCodes)
                         {
-                            <option value="@(code)" selected="@(Model.AtmosphereCode == code)">@(code + " " + Tables.Atmosphere(code) )</option>
+                            <option value="@(code)" selected="@(Model.AtmosphereCode == code)">@(code + " " + Tables.Atmosphere(code))</option>
                         }
                     </InputSelect>
                 </td>
@@ -68,7 +70,7 @@
                     <InputSelect @bind-Value="Model.HydrographicsCode">
                         @foreach (var code in Tables.HydrographicsCodes)
                         {
-                            <option value="@(code)" selected="@(Model.HydrographicsCode == code)">@(code + " " + Tables.Hydrographics(code) )</option>
+                            <option value="@(code)" selected="@(Model.HydrographicsCode == code)">@(code + " " + Tables.Hydrographics(code))</option>
                         }
                     </InputSelect>
                 </td>
@@ -80,7 +82,7 @@
                     <InputSelect @bind-Value="Model.PopulationCode">
                         @foreach (var code in Tables.PopulationCodes)
                         {
-                            <option value="@(code)" selected="@(Model.PopulationCode == code)">@(code + " " + Tables.PopulationExponent(code).ToString("N0") )</option>
+                            <option value="@(code)" selected="@(Model.PopulationCode == code)">@(code + " " + Tables.PopulationExponent(code).ToString("N0"))</option>
                         }
                     </InputSelect>
                 </td>
@@ -92,7 +94,7 @@
                     <InputSelect @bind-Value="Model.GovernmentCode">
                         @foreach (var code in Tables.GovernmentCodes)
                         {
-                            <option value="@(code)" selected="@(Model.GovernmentCode == code)">@(code + " " + Tables.GovernmentType(code) )</option>
+                            <option value="@(code)" selected="@(Model.GovernmentCode == code)">@(code + " " + Tables.GovernmentType(code))</option>
                         }
                     </InputSelect>
                 </td>
@@ -104,7 +106,7 @@
                     <InputSelect @bind-Value="Model.LawLevelCode">
                         @foreach (var code in Tables.LawLevelCodes)
                         {
-                            <option value="@(code)" selected="@(Model.LawLevelCode == code)">@(code + " " + Tables.LawLevel(code) )</option>
+                            <option value="@(code)" selected="@(Model.LawLevelCode == code)">@(code + " " + Tables.LawLevel(code))</option>
                         }
                     </InputSelect>
                 </td>
@@ -127,11 +129,23 @@
                     <InputSelect @bind-Value="Model.TechLevelCode">
                         @foreach (var code in Tables.TechLevelCodes)
                         {
-                            <option value="@(code)" selected="@(Model.TechLevelCode == code)">@(code + " " + Tables.TechLevel(code) )</option>
+                            <option value="@(code)" selected="@(Model.TechLevelCode == code)">@(code + " " + Tables.TechLevel(code))</option>
                         }
                     </InputSelect>
                 </td>
                 <td>@(Tables.TechLevelDescription(Model.TechLevelCode[0]))</td>
+            </tr>
+            <tr>
+                <td>TAS Code</td>
+                <td>
+                    <InputSelect @bind-Value="Model.TasZone">
+                        <option value="" selected="@(true)"></option>
+                        <option value="A">Amber</option>
+                        <option value="R">Red</option>
+
+                    </InputSelect>
+                </td>
+                <td></td>
             </tr>
             <tr>
                 <td colspan="3">

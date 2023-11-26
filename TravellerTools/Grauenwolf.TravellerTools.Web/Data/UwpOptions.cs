@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Tortuga.Anchor.Modeling;
+﻿using Tortuga.Anchor.Modeling;
 
 namespace Grauenwolf.TravellerTools.Web.Data
 {
@@ -19,6 +18,11 @@ namespace Grauenwolf.TravellerTools.Web.Data
         public string SizeCode { get => GetDefault("0"); set => Set(value); }
 
         public string StarportCode { get => GetDefault("A"); set => Set(value); }
+
+        /// <summary>
+        /// Gets or sets the TAS zone, which can be 'A' or 'R' (amber or red).
+        /// </summary>
+        public string TasZone { get => GetDefault(""); set => Set(value); }
 
         public string TechLevelCode { get => GetDefault("0"); set => Set(value); }
 
