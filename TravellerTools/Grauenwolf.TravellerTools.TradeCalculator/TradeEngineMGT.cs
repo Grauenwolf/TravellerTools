@@ -129,19 +129,16 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 lots.Add(new FreightLot(size, value));
             }
 
-            //Add contents
-            foreach (var lot in lots)
-            {
-                var good = random.Choose(LegalTradeGoods);
-                var detail = good.ChooseRandomDetail(random);
-                lot.Contents = detail.Name;
-                lot.ActualValue = detail.Price * 1000 * lot.Size;
-                lot.LateFee = (int)Math.Floor(lot.ShippingFee * ((random.D(1, 6) + 4) * 0.1));
-            }
+            AddLotDetails(destination, random, lots);
 
             result.Lots.AddRange(lots.OrderByDescending(f => f.Size));
 
             return result;
+        }
+
+        public override World GenerateRandomWorld()
+        {
+            throw new NotImplementedException();
         }
 
         public override PassengerList Passengers(World origin, World destination, Dice random, bool advancedCharacters)
@@ -306,11 +303,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 20 => 3M,
                 _ => 4M,
             };
-        }
-
-        public override World GenerateRandomWorld()
-        {
-            throw new NotImplementedException();
         }
     }
 }

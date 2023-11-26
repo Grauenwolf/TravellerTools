@@ -71,15 +71,7 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
             lots.Add(new FreightLot(size, value)); ;
         }
 
-        //Add contents
-        foreach (var lot in lots)
-        {
-            var good = random.Choose(LegalTradeGoods);
-            var detail = good.ChooseRandomDetail(random);
-            lot.Contents = detail.Name;
-            lot.ActualValue = detail.Price * 1000 * lot.Size;
-            lot.LateFee = (int)Math.Floor(lot.ShippingFee * ((random.D(1, 6) + 4) * 0.1));
-        }
+        AddLotDetails(destination, random, lots);
 
         result.Lots.AddRange(lots.OrderByDescending(f => f.Size));
 
