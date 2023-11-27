@@ -91,7 +91,7 @@ partial class WorldPassengerPage
                 var dice = new Dice(Seed.Value);
                 var tradeEngine = TradeEngineLocator.GetTradeEngine(MilieuCode!, Options.SelectedEdition);
 
-                Model.PassengerList = tradeEngine.Passengers(Model.World, Model.Destination, dice);
+                Model.PassengerList = tradeEngine.Passengers(Model.World, Model.Destination, dice, Options.VariablePrices);
 
                 StateHasChanged();
             }

@@ -29,10 +29,15 @@ public class PassengerOptions : ModelBase
         }
     }
 
+    public bool ShowDetails { get => GetDefault(false); set => Set(value); }
+    public bool VariablePrices { get => GetDefault(false); set => Set(value); }
+
     public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)
     {
         if (keyValuePairs.TryGetValue("edition", out var editionCode))
             SelectedEditionCode = editionCode;
+        if (keyValuePairs.TryGetValue("variablePrices", out var variablePrices))
+            VariablePrices = bool.Parse(variablePrices);
         //if (keyValuePairs.TryGetValue("advancedCharacters", out var advancedMode))
         //    AdvancedCharacters = bool.Parse(advancedMode);
     }
@@ -41,6 +46,7 @@ public class PassengerOptions : ModelBase
     {
         var result = new Dictionary<string, string?>();
         result.Add("edition", SelectedEditionCode);
+        result.Add("variablePrices", VariablePrices.ToString());
         //result.Add("advancedCharacters", AdvancedCharacters.ToString());
 
         return result;

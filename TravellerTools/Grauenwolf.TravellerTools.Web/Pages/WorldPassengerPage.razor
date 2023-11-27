@@ -18,6 +18,7 @@
             <table class="gridtable">
                 <tr>
                     <th>Traveller Edition</th>
+                    <th>Options</th>
                 </tr>
                 <tr>
                     <td>
@@ -35,6 +36,17 @@
                             }
                         </InputSelect>
                     </td>
+                    <td>
+                        <label title="Ticket prices can vary from 0 to 200%.">
+                            <InputCheckbox @bind-Value="Options.VariablePrices" />
+                            Variable Prices
+                        </label>
+                        <br />
+                        <label title="Show details meant for the referee">
+                            <InputCheckbox @bind-Value="Options.ShowDetails" />
+                            Show Details
+                        </label>
+                    </td>
                 </tr>
             </table>
         </EditForm>
@@ -43,10 +55,26 @@
     <div>&nbsp;</div>
 
     <h3>
-        Passenger Info
+        Waiting Room
         <a @onclick="OnReroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
         <a @onclick="OnPermalink" href="@(Permalink())" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
     </h3>
+    <table class="gridtable">
+        <tr>
+            <th>High Passengers</th>
+            <th>Middle Passengers</th>
+            <th>Basic Passengers</th>
+            <th>Low Passengers</th>
+        </tr>
+        <tr>
+            <td>@Model.PassengerList?.HighPassengers</td>
+            <td>@Model.PassengerList?.MiddlePassengers</td>
+            <td>@Model.PassengerList?.BasicPassengers</td>
+            <td>@Model.PassengerList?.LowPassengers</td>
+        </tr>
+    </table>
+    <div>&nbsp;</div>
+
     @*     <div>
         @if (Options.SelectedEdition == Edition.MGT2022)
         {
@@ -65,28 +93,37 @@
 
     if (Model.PassengerList?.Passengers.Count > 0)
     {
-        <h3>Passengers</h3>
-        <ul id="listofthings">
-            @foreach (var passenger in Model.PassengerList!.Passengers)
-            {
-                <li>
-                    <h4><a target="_blank" href="@QueryHelpers.AddQueryString("/character/view", passenger.PermalinkDetails!)">@passenger.Title @passenger.Name</a></h4>
-                    <div>Age: @passenger.ApparentAge (@passenger.Gender)</div>
-                    <div>UPP: @passenger.Upp</div>
-                    <div>Passage Desired: @passenger.TravelType</div>
-                    @if (@passenger.TravelType == "Low")
-                    {
-                        <div>Endurance DM: @passenger.EnduranceDM</div>
-                    }
-                    <div>Notes: @passenger.PassengerType, @passenger.Trait, @passenger.PersonalityList</div>
-                    @if (passenger.IsPatron)
-                    {
-                        <div><b>Mission Offered</b>: @passenger.PatronMission</div>
-                    }
-                    <div>@passenger.Skills</div>
-                </li>
-            }
-        </ul>
+        foreach (var type in Model.PassengerList!.Passengers.Select(p => p.TravelType).Distinct())
+        {
+            <h3>@type Ticket Passengers</h3>
+            <ul id="listofthings">
+                @foreach (var passenger in Model.PassengerList!.Passengers.Where(p => p.TravelType == type).OrderBy(p => p.Name))
+                {
+                    <li>
+                        <h4><a target="_blank" href="@QueryHelpers.AddQueryString("/character/view", passenger.PermalinkDetails!)">@passenger.Title @passenger.Name</a></h4>
+                        <div>Age: @passenger.ApparentAge (@passenger.Gender)</div>
+                        @if(@Options.ShowDetails)
+                        {
+                        <div>UPP: @passenger.Upp</div>
+                        }
+                        <div>Passage Desired: @passenger.TravelType (@passenger.TicketPrice.ToString("N0"))</div>
+                        @if (@Options.ShowDetails)
+                        {
+                            @if (@passenger.TravelType == "Low")
+                            {
+                                <div>Endurance DM: @passenger.EnduranceDM</div>
+                            }
+                            <div>Notes: @passenger.PassengerType, @passenger.Trait, @passenger.PersonalityList</div>
+                            @if (passenger.IsPatron)
+                            {
+                                <div><b>Mission Offered</b>: @passenger.PatronMission</div>
+                            }
+                            <div>@passenger.Skills</div>
+                        }
+                    </li>
+                }
+            </ul>
+        }
     }
     else
     {

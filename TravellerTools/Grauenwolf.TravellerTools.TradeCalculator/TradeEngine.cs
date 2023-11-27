@@ -340,7 +340,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         public abstract FreightList Freight(World origin, World destination, Dice random, bool variableFees);
 
-        public abstract PassengerList Passengers(World origin, World destination, Dice random);
+        public abstract PassengerList Passengers(World origin, World destination, Dice random, bool variablePrice);
 
         //internal abstract void OnManifestsBuilt(ManifestCollection result);
 
@@ -446,20 +446,41 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             }
         }
 
-        protected Passenger PassengerDetail(Dice random, string travelType)
+        protected Passenger PassengerDetail(Dice dice, string travelType, decimal ticketPrice, bool variablePrice)
         {
-            var user = m_NameGenerator.CreateRandomPerson(random);
+            var user = m_NameGenerator.CreateRandomPerson(dice);
 
             var result = new Passenger()
             {
                 TravelType = travelType,
                 Name = $"{user.FirstName} {user.LastName}",
                 Gender = user.Gender,
-                ApparentAge = 12 + random.D(1, 60),
+                ApparentAge = 12 + dice.D(1, 60),
+                TicketPrice = ticketPrice,
             };
-            Passenger.AddPassengerType(result, random);
 
-            SimpleCharacterEngine.AddTrait(result, random);
+            if (variablePrice)
+            {
+                var dayModifer = dice.D(2, 6) switch
+                {
+                    2 => 0M,
+                    3 => 0.50M,
+                    4 => 0.75M,
+                    5 => 1.00M,
+                    6 => 1.00M,
+                    7 => 1.00M,
+                    8 => 1.00M,
+                    9 => 1.00M,
+                    10 => 1.25M,
+                    11 => 1.50M,
+                    _ => 2.00M,
+                };
+                result.TicketPrice *= dayModifer;
+            }
+
+            Passenger.AddPassengerType(result, dice);
+
+            SimpleCharacterEngine.AddTrait(result, dice);
 
             //if (!advancedCharacters)
             //{
@@ -472,7 +493,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             //}
             //else
             //{
-            result.Seed = random.Next();
+            result.Seed = dice.Next();
             var options = new CharacterBuilderOptions() { MaxAge = result.ApparentAge, Gender = result.Gender, Name = result.Name, Seed = result.Seed };
             var character = m_CharacterBuilder.Build(options);
 

@@ -134,7 +134,7 @@ public class TradeEngineMgt : TradeEngine
         return result;
     }
 
-    public override PassengerList Passengers(World origin, World destination, Dice random)
+    public override PassengerList Passengers(World origin, World destination, Dice random, bool variablePrice)
     {
         var result = new PassengerList();
 
@@ -207,16 +207,41 @@ public class TradeEngineMgt : TradeEngine
         if (traffic == 15) SetValues("8D", "5D", "4D");
         if (traffic >= 16) SetValues("9D", "6D", "5D");
 
-        if (result.LowPassengers < 0) result.LowPassengers = 0;
-        if (result.MiddlePassengers < 0) result.MiddlePassengers = 0;
-        if (result.HighPassengers < 0) result.HighPassengers = 0;
+        var highTicket = destination.JumpDistance switch
+        {
+            1 => 6_000M,
+            2 => 12_000M,
+            3 => 20_000M,
+            4 => 30_000M,
+            5 => 40_000M,
+            _ => 50_000M,
+        };
+        var middleTicket = destination.JumpDistance switch
+        {
+            1 => 3_000M,
+            2 => 6_000M,
+            3 => 10_000M,
+            4 => 15_000M,
+            5 => 20_000M,
+            _ => 25_000M,
+        };
+
+        var lowTicket = destination.JumpDistance switch
+        {
+            1 => 1_000M,
+            2 => 1_200M,
+            3 => 1_400M,
+            4 => 1_600M,
+            5 => 1_800M,
+            _ => 2_000M,
+        };
 
         for (var i = 0; i < result.HighPassengers; i++)
-            result.Passengers.Add(PassengerDetail(random, "High"));
+            result.Passengers.Add(PassengerDetail(random, "High", highTicket, variablePrice));
         for (var i = 0; i < result.MiddlePassengers; i++)
-            result.Passengers.Add(PassengerDetail(random, "Middle"));
+            result.Passengers.Add(PassengerDetail(random, "Middle", middleTicket, variablePrice));
         for (var i = 0; i < result.LowPassengers; i++)
-            result.Passengers.Add(PassengerDetail(random, "Low"));
+            result.Passengers.Add(PassengerDetail(random, "Low", lowTicket, variablePrice));
 
         return result;
     }

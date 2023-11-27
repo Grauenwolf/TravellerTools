@@ -86,7 +86,7 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
         return result;
     }
 
-    public override PassengerList Passengers(World origin, World destination, Dice random)
+    public override PassengerList Passengers(World origin, World destination, Dice random, bool variablePrice)
     {
         var baseDM = 0;
         var lowDM = 1;
@@ -118,14 +118,51 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
         result.MiddlePassengers = random.D(PassengerTraffic(baseDM + middleDM, random));
         result.HighPassengers = random.D(PassengerTraffic(baseDM + highDM, random));
 
+        var highTicket = destination.JumpDistance switch
+        {
+            1 => 9_000M,
+            2 => 14_000M,
+            3 => 21_000M,
+            4 => 34_000M,
+            5 => 60_000M,
+            _ => 210_000M,
+        };
+        var middleTicket = destination.JumpDistance switch
+        {
+            1 => 6_500M,
+            2 => 10_000M,
+            3 => 14_000M,
+            4 => 23_000M,
+            5 => 40_000M,
+            _ => 130_000M,
+        };
+        var basicTicket = destination.JumpDistance switch
+        {
+            1 => 2_000M,
+            2 => 3_000M,
+            3 => 5_000M,
+            4 => 8_000M,
+            5 => 14_000M,
+            _ => 55_000M,
+        };
+        var lowTicket = destination.JumpDistance switch
+        {
+            1 => 700M,
+            2 => 1_300M,
+            3 => 2_200M,
+            4 => 3_900M,
+            5 => 7_200M,
+            _ => 27_000M,
+        };
+
         for (var i = 0; i < result.HighPassengers; i++)
-            result.Passengers.Add(PassengerDetail(random, "High"));
+            result.Passengers.Add(PassengerDetail(random, "High", highTicket, variablePrice));
         for (var i = 0; i < result.MiddlePassengers; i++)
-            result.Passengers.Add(PassengerDetail(random, "Middle"));
+            result.Passengers.Add(PassengerDetail(random, "Middle", middleTicket, variablePrice));
         for (var i = 0; i < result.BasicPassengers; i++)
-            result.Passengers.Add(PassengerDetail(random, "Basic"));
+            result.Passengers.Add(PassengerDetail(random, "Basic", basicTicket, variablePrice));
         for (var i = 0; i < result.LowPassengers; i++)
-            result.Passengers.Add(PassengerDetail(random, "Low"));
+            result.Passengers.Add(PassengerDetail(random, "Low", lowTicket, variablePrice));
 
         return result;
     }

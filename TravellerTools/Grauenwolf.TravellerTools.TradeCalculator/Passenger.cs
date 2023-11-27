@@ -12,6 +12,7 @@ public class Passenger : Person
     public string PersonalityList => string.Join(", ", Personality);
     public int? Seed { get; set; }
     public string? Skills { get; set; }
+    public decimal TicketPrice { get; set; }
     public string? TravelType { get; set; }
 
     public static void AddPassengerType(Passenger passenger, Dice dice)
@@ -53,14 +54,14 @@ public class Passenger : Person
                 return;
 
             case 35: passenger.PassengerType = "Unusually Pretty or Handsome"; return;
-            case 36: passenger.PassengerType = string.Format("Engineer (Engineer {0}, Mechanic {1})", (roll2 - 1), (roll3 - 1)); return;
+            case 36: passenger.PassengerType = $"Engineer (Engineer {(roll2 - 1)}, Mechanic {(roll3 - 1)})"; return;
             case 41: passenger.PassengerType = "Ex-scout"; return;
             case 42: passenger.PassengerType = "Wanderer"; return;
             case 43: passenger.PassengerType = "Thief or other criminal"; return;
             case 44: passenger.PassengerType = "Scientist"; return;
             case 45: passenger.PassengerType = "Journalist or researcher"; return;
-            case 46: passenger.PassengerType = string.Format("Entertainer (Steward {0}, Perform {1})", (roll2 - 1), (roll3 - 1)); return;
-            case 51: passenger.PassengerType = string.Format("Gambler (Gambler {0})", (roll2 - 1)); return;
+            case 46: passenger.PassengerType = $"Entertainer (Steward {(roll2 - 1)}, Perform {(roll3 - 1)})"; return;
+            case 51: passenger.PassengerType = $"Gambler (Gambler {(roll2 - 1)})"; return;
             case 52: passenger.PassengerType = "Rich noble - complains a lot"; return;
             case 53: passenger.PassengerType = "Rich noble - eccentric"; return;
             case 54: passenger.PassengerType = "Rich noble - raconteur"; return;
