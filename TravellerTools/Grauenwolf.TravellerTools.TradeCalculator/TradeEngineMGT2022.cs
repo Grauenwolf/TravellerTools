@@ -12,7 +12,7 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
 
     protected override bool UseCounterpartyScore => true;
 
-    public override FreightList Freight(World origin, World destination, Dice dice)
+    public override FreightList Freight(World origin, World destination, Dice dice, bool variableFees)
     {
         if (origin == null)
             throw new ArgumentNullException(nameof(origin), $"{nameof(origin)} is null.");
@@ -77,7 +77,7 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
             lots.Add(new FreightLot(size, value));
         }
 
-        AddLotDetails(destination, dice, lots);
+        AddLotDetails(destination, dice, lots, variableFees);
 
         result.Lots.Add(GenerateMail(origin, dice, traffic));
 

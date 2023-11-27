@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator;
 
 public class FreightLot(int size, int shippingFee)
 {
-    public decimal ActualValue { get; set; }
+    public decimal DeclaredValue { get; set; }
     public string? Contents { get; set; }
     public int DueInDays { get; set; }
 

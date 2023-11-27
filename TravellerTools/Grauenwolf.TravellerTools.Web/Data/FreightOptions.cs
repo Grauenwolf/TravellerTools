@@ -28,20 +28,21 @@ public class FreightOptions : ModelBase
         }
     }
 
-    //public bool AdvancedMode { get => GetDefault(false); set => Set(value); }
+    public bool VariableFees { get => GetDefault(false); set => Set(value); }
 
     public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)
     {
         if (keyValuePairs.TryGetValue("edition", out var editionCode))
             SelectedEditionCode = editionCode;
-        //if (keyValuePairs.TryGetValue("advancedMode", out var advancedMode))
-        //    AdvancedMode = bool.Parse(advancedMode);
+        if (keyValuePairs.TryGetValue("variableFees", out var variableFees))
+            VariableFees = bool.Parse(variableFees);
     }
 
     public Dictionary<string, string?> ToQueryString()
     {
         var result = new Dictionary<string, string?>();
         result.Add("edition", SelectedEditionCode);
+        result.Add("variableFees", VariableFees.ToString());
         //result.Add("advancedMode", AdvancedMode.ToString());
 
         return result;

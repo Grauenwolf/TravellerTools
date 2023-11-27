@@ -17,6 +17,7 @@
             <table class="gridtable">
                 <tr>
                     <th>Traveller Edition</th>
+                    <th>Options</th>
                 </tr>
                 <tr>
                     <td>
@@ -33,6 +34,12 @@
                                 }
                             }
                         </InputSelect>
+                    </td>
+                    <td>
+                        <label title="Shipping fees can vary from 50 to 150%.">
+                            <InputCheckbox @bind-Value="Options.VariableFees" />
+                            Variable Fees
+                        </label>
                     </td>
                 </tr>
             </table>
@@ -67,7 +74,7 @@
             <tr>
                 <th>Tons</th>
                 <th>Shipping Fee</th>
-                <th>Value</th>
+                <th>Delcared Value</th>
                 <th>Contents</th>
                 <th>Deliver By</th>
                 <th>Late Penalties</th>
@@ -82,9 +89,9 @@
                     <td>@lot.Size</td>
                     <td>@lot.ShippingFee.ToString("N0")</td>
                     <td>
-                        @if (lot.ActualValue > 0)
+                        @if (lot.DeclaredValue > 0)
                         {
-                            @lot.ActualValue.ToString("N0")
+                            @lot.DeclaredValue.ToString("N0")
                         }
                     </td>
                     <td>@lot.Contents</td>

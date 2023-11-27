@@ -10,7 +10,7 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
 {
     protected override string DataFileName => "TradeGoods-MGT2.xml";
 
-    public override FreightList Freight(World origin, World destination, Dice dice)
+    public override FreightList Freight(World origin, World destination, Dice dice, bool variableFees)
     {
         if (origin == null)
             throw new ArgumentNullException(nameof(origin), $"{nameof(origin)} is null.");
@@ -67,7 +67,7 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
             lots.Add(new FreightLot(size, value)); ;
         }
 
-        AddLotDetails(destination, dice, lots);
+        AddLotDetails(destination, dice, lots, variableFees);
 
         result.Lots.Add(GenerateMail(origin, dice, traffic));
         result.Lots.AddRange(lots.OrderByDescending(f => f.Size));

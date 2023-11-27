@@ -338,7 +338,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return result;
         }
 
-        public abstract FreightList Freight(World origin, World destination, Dice random);
+        public abstract FreightList Freight(World origin, World destination, Dice random, bool variableFees);
 
         public abstract PassengerList Passengers(World origin, World destination, Dice random);
 
@@ -364,40 +364,85 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return mailLot;
         }
 
-        protected void AddLotDetails(World destination, Dice dice, List<FreightLot> lots)
+        protected void AddLotDetails(World destination, Dice dice, List<FreightLot> lots, bool variableFees)
         {
             foreach (var lot in lots)
             {
+                if (variableFees)
+                {
+                    var feeModifer = dice.D(2, 6) switch
+                    {
+                        2 => 0.5M,
+                        3 => 0.6M,
+                        4 => 0.7M,
+                        5 => 0.8M,
+                        6 => 0.9M,
+                        7 => 1.0M,
+                        8 => 1.1M,
+                        9 => 1.2M,
+                        10 => 1.3M,
+                        11 => 1.4M,
+                        _ => 1.5M,
+                    };
+
+                    lot.ShippingFee = (int)Math.Floor(feeModifer * lot.ShippingFee);
+                }
+
+                var declaredValueModifer = dice.D(4, 6) switch
+                {
+                    4 => 10M,
+                    5 => 20M,
+                    6 => 30M,
+                    7 => 40M,
+                    8 => 50M,
+                    9 => 60M,
+                    10 => 70M,
+                    11 => 80M,
+                    12 => 90M,
+                    13 => 100M,
+                    14 => 125M,
+                    15 => 150M,
+                    16 => 175M,
+                    17 => 200M,
+                    18 => 250M,
+                    19 => 300M,
+                    20 => 350M,
+                    21 => 400M,
+                    22 => 500M,
+                    23 => 750M,
+                    _ => 1000M
+                };
+
                 var good = dice.Choose(LegalTradeGoods);
                 var detail = good.ChooseRandomDetail(dice);
                 lot.Contents = detail.Name;
-                lot.ActualValue = detail.Price * 1000 * lot.Size;
+                lot.DeclaredValue = Math.Floor(detail.Price * 1000 * lot.Size * declaredValueModifer);
                 lot.LateFee = (int)Math.Floor(lot.ShippingFee * ((dice.D(1, 6) + 4) * 0.1));
 
                 var baseDays = destination.JumpDistance switch
                 {
-                    1 or 2 => 14.0,
-                    3 or 4 => 28.0,
-                    5 or 6 => 42.0,
-                    _ => 999.0,
+                    1 or 2 => 14.0M,
+                    3 or 4 => 28.0M,
+                    5 or 6 => 42.0M,
+                    _ => 999.0M,
                 };
 
-                var modifer = dice.D(2, 6) switch
+                var dayModifer = dice.D(2, 6) switch
                 {
-                    2 => 0.5,
-                    3 => 0.6,
-                    4 => 0.7,
-                    5 => 0.8,
-                    6 => 0.9,
-                    7 => 1,
-                    8 => 1.1,
-                    9 => 1.2,
-                    10 => 1.3,
-                    11 => 1.4,
-                    _ => 1.5,
+                    2 => 0.5M,
+                    3 => 0.6M,
+                    4 => 0.7M,
+                    5 => 0.8M,
+                    6 => 0.9M,
+                    7 => 1.0M,
+                    8 => 1.1M,
+                    9 => 1.2M,
+                    10 => 1.3M,
+                    11 => 1.4M,
+                    _ => 1.5M,
                 };
 
-                lot.DueInDays = (int)Math.Ceiling(baseDays * modifer);
+                lot.DueInDays = (int)Math.Ceiling(baseDays * dayModifer);
             }
         }
 

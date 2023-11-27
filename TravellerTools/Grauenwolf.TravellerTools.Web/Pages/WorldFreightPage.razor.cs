@@ -91,7 +91,7 @@ partial class WorldFreightPage
                 var dice = new Dice(Seed.Value);
                 var tradeEngine = TradeEngineLocator.GetTradeEngine(MilieuCode!, Options.SelectedEdition);
 
-                Model.FreightList = tradeEngine.Freight(Model.World, Model.Destination, dice);
+                Model.FreightList = tradeEngine.Freight(Model.World, Model.Destination, dice, Options.VariableFees);
 
                 StateHasChanged();
             }
