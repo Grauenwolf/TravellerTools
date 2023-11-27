@@ -364,16 +364,40 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return mailLot;
         }
 
-        protected void AddLotDetails(World destination, Dice random, List<FreightLot> lots)
+        protected void AddLotDetails(World destination, Dice dice, List<FreightLot> lots)
         {
             foreach (var lot in lots)
             {
-                var good = random.Choose(LegalTradeGoods);
-                var detail = good.ChooseRandomDetail(random);
+                var good = dice.Choose(LegalTradeGoods);
+                var detail = good.ChooseRandomDetail(dice);
                 lot.Contents = detail.Name;
                 lot.ActualValue = detail.Price * 1000 * lot.Size;
-                lot.LateFee = (int)Math.Floor(lot.ShippingFee * ((random.D(1, 6) + 4) * 0.1));
-                lot.DueInDays = 7 + random.D(destination.JumpDistance * 2, 6);
+                lot.LateFee = (int)Math.Floor(lot.ShippingFee * ((dice.D(1, 6) + 4) * 0.1));
+
+                var baseDays = destination.JumpDistance switch
+                {
+                    1 or 2 => 14.0,
+                    3 or 4 => 28.0,
+                    5 or 6 => 42.0,
+                    _ => 999.0,
+                };
+
+                var modifer = dice.D(2, 6) switch
+                {
+                    2 => 0.5,
+                    3 => 0.6,
+                    4 => 0.7,
+                    5 => 0.8,
+                    6 => 0.9,
+                    7 => 1,
+                    8 => 1.1,
+                    9 => 1.2,
+                    10 => 1.3,
+                    11 => 1.4,
+                    _ => 1.5,
+                };
+
+                lot.DueInDays = (int)Math.Ceiling(baseDays * modifer);
             }
         }
 
