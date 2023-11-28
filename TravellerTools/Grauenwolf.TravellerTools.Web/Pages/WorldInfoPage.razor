@@ -38,15 +38,22 @@
         </tr>
 
         <tr><th>Tech</th><td>@current.TechCode</td><td colspan="5">@current.TechLevel</td></tr>
-        <tr><th>Remarks</th><td colspan="6">@current.RemarksDescription</td></tr>
+        <tr><th>Remarks</th><td colspan="6">
+                @foreach(var item in current.RemarksList.Values)
+                {
+                    <b> @item.RemarkCode: </b> @(item.Description + " ")
+                }
+
+        </td></tr>
     </table>
 
-    @if (current.Demographics.Count > 0)
+    var demograhics = Model.World.RemarksList.GetDemographics();
+    @if (demograhics.Count > 0)
     {
         <div>&nbsp;</div>
         <table class="gridtable">
             <tr><th>Sophonts</th><th>Population</th><th>Remarks</th></tr>
-            @foreach (var item in current.Demographics)
+            @foreach (var item in demograhics)
             {
                 <tr>
                     <td>

@@ -89,7 +89,7 @@ public class TravellerMapService(bool filterUnpopulatedSectors, string milieu) /
         var rawList = await s_Client.GetStringAsync(new Uri("https://travellermap.com/t5ss/sophonts")).ConfigureAwait(false);
 
         var set = JsonConvert.DeserializeObject<List<SophontCode>>(rawList)!;
-        World.AddSophontCodes(set);
+        RemarkDictionary.AddSophontCodes(set);
         m_SophontCodes = set.ToImmutableArray();
         return m_SophontCodes;
     }
@@ -192,6 +192,8 @@ public class TravellerMapService(bool filterUnpopulatedSectors, string milieu) /
 
     public async Task<World?> FetchWorldAsync(string sectorHex, string planetHex)
     {
+        await FetchSophontCodesAsync();
+
         var cord = sectorHex.Split(',').Select(s => int.Parse(s)).ToArray();
         var hexX = int.Parse(planetHex[..2]);
         var hexY = int.Parse(planetHex[2..4]);

@@ -31,7 +31,7 @@ public class EquipmentBuilder
             TechLevel = world.TechCode,
         };
 
-        options.TradeCodes.AddRange(world.RemarksList);
+        options.TradeCodes.AddRange(world.RemarksList.Keys);
         return AvailabilityTable(options);
     }
 
