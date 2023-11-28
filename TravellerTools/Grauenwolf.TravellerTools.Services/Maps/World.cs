@@ -1,29 +1,41 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Grauenwolf.TravellerTools.Maps;
 
 public class World
 {
+    static readonly Dictionary<string, Demographics> s_DemographicsMap = new(StringComparer.OrdinalIgnoreCase);
     static readonly Dictionary<string, string> s_RemarkMap = new(StringComparer.OrdinalIgnoreCase);
     readonly HashSet<string> m_RemarksList = new(StringComparer.OrdinalIgnoreCase);
+    IReadOnlyList<Demographics>? m_Demographics;
     private string? m_Remarks;
+
+    string? m_RemarksDescription;
 
     static World()
     {
+        s_RemarkMap.Add("A", "Amber.");
         s_RemarkMap.Add("Ab", "Data Repository.");
         s_RemarkMap.Add("Ag", "Agricultural.");
         s_RemarkMap.Add("An", "Ancient Site.");
         s_RemarkMap.Add("As", "Asteroid Belt.");
         s_RemarkMap.Add("Ba", "Barren.");
         s_RemarkMap.Add("Co", "Cold.");
-        s_RemarkMap.Add("Da", "Danger.");
+        s_RemarkMap.Add("Cp", "Subsector Capital.");
+        s_RemarkMap.Add("Cs", "Sector Capital.");
+        s_RemarkMap.Add("Cx", "Capital.");
+        s_RemarkMap.Add("Cy", "Colony.");
+        s_RemarkMap.Add("Da", "Danger (Amber Zone).");
         s_RemarkMap.Add("De", "Desert.");
         s_RemarkMap.Add("Di", "Dieback.");
         s_RemarkMap.Add("Ex", "Exile Camp.");
         s_RemarkMap.Add("Fa", "Farming.");
         s_RemarkMap.Add("Fl", "Fluid Hydrographics (in place of water).");
-        s_RemarkMap.Add("Fo", "Forbidden.");
+        s_RemarkMap.Add("Fo", "Forbidden (Red Zone).");
         s_RemarkMap.Add("Fr", "Frozen.");
         s_RemarkMap.Add("Ga", "Garden World.");
         s_RemarkMap.Add("He", "Hellworld.");
@@ -47,14 +59,15 @@ public class World
         s_RemarkMap.Add("Po", "Poor.");
         s_RemarkMap.Add("Pr", "Pre-Rich.");
         s_RemarkMap.Add("Px", "Prison, Exile Camp.");
-        s_RemarkMap.Add("Pz", "Puzzle.");
+        s_RemarkMap.Add("Pz", "Puzzle (Amber Zone).");
+        s_RemarkMap.Add("R", "Red.");
         s_RemarkMap.Add("Re", "Reserve.");
         s_RemarkMap.Add("Ri", "Rich.");
         s_RemarkMap.Add("Rs", "Research Station.");
         s_RemarkMap.Add("RsA", "Research Station Alpha.");
         s_RemarkMap.Add("RsB", "Research Station Beta.");
         s_RemarkMap.Add("RsG", "Research Station Gamma.");
-        s_RemarkMap.Add("Sa", "Satellite.");
+        s_RemarkMap.Add("Sa", "Satellite (Main World is a moon of a Gas Giant).");
         s_RemarkMap.Add("St", "Steppeworld.");
         s_RemarkMap.Add("Tr", "Tropic.");
         s_RemarkMap.Add("Tu", "Tundra.");
@@ -62,11 +75,6 @@ public class World
         s_RemarkMap.Add("Va", "Vacuum World.");
         s_RemarkMap.Add("Wa", "Water World.");
         s_RemarkMap.Add("Xb", "Xboat Station.");
-        s_RemarkMap.Add("A", "Amber.");
-        s_RemarkMap.Add("R", "Red.");
-
-        //s_RemarkMap.Add("Fa", "Fascinating.");
-        //s_RemarkMap.Add("Pr", "Prison World.");
     }
 
     public World()
@@ -119,6 +127,24 @@ public class World
     public string? Bases { get; set; }
 
     public string? Cx { get; set; }
+
+    public IReadOnlyList<Demographics> Demographics
+    {
+        get
+        {
+            if (m_Demographics == null)
+            {
+                var result = new List<Demographics>(); ;
+                foreach (var remark in m_RemarksList)
+                {
+                    if (s_DemographicsMap.TryGetValue(remark, out var item))
+                        result.Add(item);
+                }
+                m_Demographics = result.OrderByDescending(d => d.Population).ThenBy(d => d.Name).ToImmutableArray();
+            }
+            return m_Demographics;
+        }
+    }
 
     public string? Ex { get; set; }
 
@@ -183,7 +209,9 @@ public class World
         set
         {
             m_Remarks = value ?? "";
+            m_RemarksDescription = null;
             m_RemarksList.Clear();
+            m_Demographics = null;
             foreach (var item in m_Remarks.Split(' '))
                 m_RemarksList.Add(item);
         }
@@ -193,24 +221,33 @@ public class World
     {
         get
         {
-            var source = (Remarks ?? "").Split(' ');
-            var result = new List<string>();
-            foreach (var remark in source)
+            if (m_RemarksDescription == null)
             {
-                if (s_RemarkMap.TryGetValue(remark, out var des))
-                    result.Add(string.Format("{0}: {1}", remark, des));
-                else
-                    result.Add(remark);
+                var result = new List<string>();
+                foreach (var remark in m_RemarksList)
+                {
+                    var des = TryGetRemarkDescription(remark);
+                    if (des != null)
+                        result.Add(string.Format("{0}: {1}", remark, des));
+                    else
+                        result.Add(remark);
+
+                    //if (s_RemarkMap.TryGetValue(remark, out var des))
+                    //    result.Add(string.Format("{0}: {1}", remark, des));
+                    //else
+                    //    result.Add(remark);
+                }
+                //Add TAS zone
+                if (Zone != null)
+                {
+                    if (s_RemarkMap.TryGetValue(Zone, out var des))
+                        result.Add(string.Format("{0}: {1}", Zone, des));
+                    else
+                        result.Add(Zone);
+                }
+                m_RemarksDescription = string.Join(" ", result);
             }
-            //Add TAS zone
-            if (Zone != null)
-            {
-                if (s_RemarkMap.TryGetValue(Zone, out var des))
-                    result.Add(string.Format("{0}: {1}", Zone, des));
-                else
-                    result.Add(Zone);
-            }
-            return string.Join(" ", result);
+            return m_RemarksDescription;
         }
     }
 
@@ -242,6 +279,7 @@ public class World
     public int Subsector { get; set; }
 
     public string? SubSectorIndex { get; set; }
+
     public string? SubsectorName { get; set; }
 
     public EHex TechCode { get { return UWP?[8]; } }
@@ -334,22 +372,72 @@ public class World
 
     internal static void AddSophontCodes(IEnumerable<SophontCode> sophontCodes)
     {
-        static void TryAdd(string name, string description)
+        static void TryAdd(string code, string? name, decimal? population, bool isHomeworld)
         {
-            if (!s_RemarkMap.ContainsKey(name))
-                s_RemarkMap.Add(name, description);
+            name ??= "<unknown>";
+
+            string description = name;
+            if (isHomeworld)
+                description += " Homeworld";
+
+            if (population.HasValue)
+            {
+                if (population == -1)
+                    description += ", Extinct";
+                else
+                    description += ", " + population.Value.ToString("P0");
+            }
+            description += ".";
+
+            if (!s_RemarkMap.ContainsKey(code))
+                s_RemarkMap.Add(code, description);
+            if (!s_DemographicsMap.ContainsKey(code))
+                s_DemographicsMap.Add(code, new(code, name, population, isHomeworld));
         }
 
         foreach (var code in sophontCodes)
         {
             if (code.Code != null)
             {
-                TryAdd(code.Code, code.Name ?? "<unknown>");
-                for (int i = 1; i <= 9; i++)
+                TryAdd(code.Code, code.Name, null, false);
+                for (int i = 0; i <= 9; i++)
                 {
-                    TryAdd(code.Code + i, $"{code.Name}, Population {i * 10}%.");
+                    TryAdd(code.Code + i, code.Name, i * 0.10M, false);
                 }
+                TryAdd(code.Code + 'W', code.Name, 1.0M, false);
+
+                for (int i = 0; i <= 9; i++)
+                {
+                    TryAdd("[" + code.Code + "]" + i, code.Name, i * 0.10M, true);
+                }
+                TryAdd("[" + code.Code + "]", code.Name, null, true);
+                TryAdd("[" + code.Code + "]W", code.Name, 1.0M, true);
+
+                for (int i = 0; i <= 9; i++)
+                {
+                    TryAdd("(" + code.Code + ")" + i, code.Name, i * 0.10M, true);
+                }
+                TryAdd("(" + code.Code + ")", code.Name, null, true);
+                TryAdd("(" + code.Code + ")W", code.Name, 1.0M, true);
             }
+            TryAdd("Di(" + code.Code + ")", code.Name, -1, true);
         }
+    }
+
+    static string? TryGetRemarkDescription(string remark)
+    {
+        if (s_RemarkMap.TryGetValue(remark, out var des))
+            return des;
+
+        var regex = new Regex(@"\((.*)\)(\d)");
+        //var regex = new Regex(@"([.*])[#]");
+        var match = regex.Match(remark);
+        if (match.Success)
+        {
+            s_RemarkMap.Add(remark, match.Groups[1].Value + ", " + match.Groups[2].Value + "0%");
+            s_DemographicsMap.Add(remark, new(remark, match.Groups[1].Value, 0.1M * decimal.Parse(match.Groups[2].Value), true));
+        }
+
+        return null;
     }
 }

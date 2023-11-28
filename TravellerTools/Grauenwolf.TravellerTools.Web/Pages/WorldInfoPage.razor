@@ -40,6 +40,25 @@
         <tr><th>Tech</th><td>@current.TechCode</td><td colspan="5">@current.TechLevel</td></tr>
         <tr><th>Remarks</th><td colspan="6">@current.RemarksDescription</td></tr>
     </table>
+
+    @if (current.Demographics.Count > 0)
+    {
+        <div>&nbsp;</div>
+        <table class="gridtable">
+            <tr><th>Sophonts</th><th>Population</th><th>Remarks</th></tr>
+            @foreach (var item in current.Demographics)
+            {
+                <tr>
+                    <td>
+                        @item.Name <a href="@string.Format("https://wiki.travellerrpg.com/{0}", @item.Name)" target="_blank" title="Search Traveller Wiki for this sophont.">
+                            <span class="oi oi-globe" aria-hidden="true" /> TAS
+                        </a></td><td>@item.PopulationString
+                    </td><td>@item.HomeworldString
+                    </td></tr>
+            }
+
+        </table>
+    }
     <div>&nbsp;</div>
 
     if (Model.HighportDetails != null || Model.DownportDetails != null)
