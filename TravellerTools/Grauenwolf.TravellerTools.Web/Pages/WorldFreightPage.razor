@@ -1,4 +1,5 @@
 ﻿@page "/world/{milieuCode}/{sectorHex}/{planetHex}/destination/{destinationSectorHex}/{destinationPlanetHex}/freight"
+@using Microsoft.AspNetCore.WebUtilities
 
 @inherits NullablePageBase<FreightModel>
 
@@ -79,6 +80,7 @@
                 <th>Deliver By</th>
                 <th>Late Penalties</th>
                 <th>Shipping Fee if Late</th>
+                <th>Owner</th>
             </tr>
 
             @foreach (var lot in Model.FreightList.Lots)
@@ -111,9 +113,26 @@
                                 @((lot.ShippingFee - lot.LateFee).ToString("N0"))
                             </label>
                         </td>
+                        <td>
+                            @if(lot.OwnerIsMegacorp)
+                            {
+                                @lot.Owner <a href="@(string.Format("https://wiki.travellerrpg.com/{0}", lot.Owner))" target="_blank"><span class="oi oi-globe" aria-hidden="true" /> TAS</a>
+                            }
+                            else if(lot.OwnerCharacter != null)
+                            {
+                                <a target="_blank" href="@QueryHelpers.AddQueryString("/character/view", lot.OwnerCharacter.GetCharacterBuilderOptions().ToQueryString())">@lot.Owner</a>
+                            }
+                            else
+                            {
+                                @lot.Owner
+                            }
+
+
+                        </td>
                     }
                     else
                     {
+                        <td />
                         <td />
                         <td />
                         <td />

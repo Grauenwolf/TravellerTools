@@ -443,6 +443,21 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 };
 
                 lot.DueInDays = (int)Math.Ceiling(baseDays * dayModifer);
+
+                if (dice.D(10) <= 9)
+                {
+                    lot.Owner = m_NameGenerator.CreateCompanyName(dice);
+                    lot.OwnerIsMegacorp = m_NameGenerator.IsMegacorp(lot.Owner);
+                }
+                else
+                {
+                    var user = m_NameGenerator.CreateRandomPerson(dice);
+
+                    var options = new CharacterBuilderOptions() { MaxAge = 22 + dice.D(1, 50), Gender = user.Gender, Name = $"{user.FirstName} {user.LastName}", Seed = dice.Next() };
+
+                    lot.OwnerCharacter = m_CharacterBuilder.Build(options);
+                    lot.Owner = (lot.OwnerCharacter.Title + " " + lot.OwnerCharacter.Name).Trim();
+                }
             }
         }
 

@@ -6,29 +6,47 @@ namespace Grauenwolf.TravellerTools.Names;
 
 public class NameGenerator
 {
-    readonly ImmutableList<string> m_FemaleNames;
-    readonly ImmutableList<string> m_LastNames;
-    readonly ImmutableList<string> m_MaleNames;
+    readonly ImmutableArray<string> m_CompanyFirstNames;
+    readonly ImmutableArray<string> m_CompanyLastNames;
+    readonly ImmutableArray<string> m_FemaleNames;
+    readonly ImmutableArray<string> m_LastNames;
+    readonly ImmutableArray<string> m_MaleNames;
+    readonly ImmutableArray<string> m_MegacorpNames;
 
     public NameGenerator(string dataPath)
     {
-        var femaleFile = new FileInfo(Path.Combine(dataPath, "female_first.txt"));
-        var lastFile = new FileInfo(Path.Combine(dataPath, "last.txt"));
-        var maleFile = new FileInfo(Path.Combine(dataPath, "male_first.txt"));
+        ImmutableArray<string> LoadFile(string fileName)
+        {
+            return File.ReadAllLines(new FileInfo(Path.Combine(dataPath, fileName)).FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableArray();
+        }
 
-        m_LastNames = File.ReadAllLines(lastFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableList();
-        m_FemaleNames = File.ReadAllLines(femaleFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableList();
-        m_MaleNames = File.ReadAllLines(maleFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableList();
+        m_FemaleNames = LoadFile("female_first.txt");
+        m_LastNames = LoadFile("last.txt");
+        m_MaleNames = LoadFile("male_first.txt");
+
+        m_CompanyFirstNames = LoadFile("company_first.txt");
+        m_CompanyLastNames = LoadFile("company_last.txt");
+        m_MegacorpNames = LoadFile("megacorp.txt");
     }
 
-    public RandomPerson CreateRandomPerson(Dice random, bool? isMale = null)
+    public string CreateCompanyName(Dice dice)
     {
-        isMale ??= random.NextBoolean();
+        if (dice.D(20) == 1)
+            return dice.Choose(m_MegacorpNames);
+
+        return dice.Choose(m_CompanyFirstNames) + " " + dice.Choose(m_CompanyLastNames);
+    }
+
+    public RandomPerson CreateRandomPerson(Dice dice, bool? isMale = null)
+    {
+        isMale ??= dice.NextBoolean();
 
         return new RandomPerson(
-             isMale.Value ? random.Choose(m_MaleNames) : random.Choose(m_FemaleNames),
-             random.Choose(m_LastNames),
+             isMale.Value ? dice.Choose(m_MaleNames) : dice.Choose(m_FemaleNames),
+             dice.Choose(m_LastNames),
              isMale.Value ? "M" : "F"
             );
     }
+
+    public bool IsMegacorp(string name) => m_MegacorpNames.Contains(name);
 }

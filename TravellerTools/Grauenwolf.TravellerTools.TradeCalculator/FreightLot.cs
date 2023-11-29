@@ -1,9 +1,11 @@
+using Grauenwolf.TravellerTools.Characters;
+
 namespace Grauenwolf.TravellerTools.TradeCalculator;
 
 public class FreightLot(int size, int shippingFee)
 {
-    public decimal DeclaredValue { get; set; }
     public string? Contents { get; set; }
+    public decimal DeclaredValue { get; set; }
     public int DueInDays { get; set; }
 
     public string DueInWeeks
@@ -22,6 +24,9 @@ public class FreightLot(int size, int shippingFee)
 
     public int LateFee { get; set; }
     public int? MailRoll { get; set; }
+    public string? Owner { get; set; }
+    public Character? OwnerCharacter { get; set; }
+    public bool OwnerIsMegacorp { get; set; }
     public int ShippingFee { get; set; } = shippingFee;
     public int Size { get; set; } = size;
 }
