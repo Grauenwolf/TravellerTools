@@ -67,7 +67,7 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
             lots.Add(new FreightLot(size, value)); ;
         }
 
-        AddLotDetails(destination, dice, lots, variableFees);
+        AddLotDetails(origin, destination, dice, lots, variableFees);
 
         result.Lots.Add(GenerateMail(origin, dice, traffic));
         result.Lots.AddRange(lots.OrderByDescending(f => f.Size));

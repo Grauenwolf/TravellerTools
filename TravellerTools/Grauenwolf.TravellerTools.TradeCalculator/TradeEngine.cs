@@ -364,7 +364,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             return mailLot;
         }
 
-        protected void AddLotDetails(World destination, Dice dice, List<FreightLot> lots, bool variableFees)
+        protected void AddLotDetails(World origin, World destination, Dice dice, List<FreightLot> lots, bool variableFees)
         {
             foreach (var lot in lots)
             {
@@ -444,19 +444,42 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
                 lot.DueInDays = (int)Math.Ceiling(baseDays * dayModifer);
 
-                if (dice.D(10) <= 9)
+                switch (dice.D(20))
                 {
-                    lot.Owner = m_NameGenerator.CreateCompanyName(dice);
-                    lot.OwnerIsMegacorp = m_NameGenerator.IsMegacorp(lot.Owner);
-                }
-                else
-                {
-                    var user = m_NameGenerator.CreateRandomPerson(dice);
+                    case <= 17: //company 85%
+                        lot.Owner = m_NameGenerator.CreateCompanyName(dice); //5% chance of megacorp
+                        lot.OwnerIsMegacorp = m_NameGenerator.IsMegacorp(lot.Owner);
+                        break;
 
-                    var options = new CharacterBuilderOptions() { MaxAge = 22 + dice.D(1, 50), Gender = user.Gender, Name = $"{user.FirstName} {user.LastName}", Seed = dice.Next() };
+                    case 18: //govenment 5%
 
-                    lot.OwnerCharacter = m_CharacterBuilder.Build(options);
-                    lot.Owner = (lot.OwnerCharacter.Title + " " + lot.OwnerCharacter.Name).Trim();
+                        lot.Owner = dice.D(15) switch
+                        {
+                            // 1 Imperium
+                            1 => "Imperium govenment",
+                            // 2 sector
+                            2 => origin.Sector + " sector goverment",
+                            3 => destination.Sector + " sector goverment",
+                            // 4 subsector
+                            <= 5 => origin.SubsectorName + " subsector goverment",
+                            <= 7 => destination.SubsectorName + " subsector goverment",
+                            // 8 world
+                            <= 11 => destination.Name + " local govenment",
+                            _ => origin.Name + " local govenment",
+                        };
+
+                        break;
+
+                    default: //individual 10%
+                        {
+                            var user = m_NameGenerator.CreateRandomPerson(dice);
+
+                            var options = new CharacterBuilderOptions() { MaxAge = 22 + dice.D(1, 50), Gender = user.Gender, Name = $"{user.FirstName} {user.LastName}", Seed = dice.Next() };
+
+                            lot.OwnerCharacter = m_CharacterBuilder.Build(options);
+                            lot.Owner = (lot.OwnerCharacter.Title + " " + lot.OwnerCharacter.Name).Trim();
+                            break;
+                        }
                 }
             }
         }

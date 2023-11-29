@@ -9,6 +9,9 @@
     <h2>@(Model.World.Name + " to " + Model.Destination.Name)</h2>
     <WorldNavigation CurrentPage="passengers" World="@Model.World" MilieuCode="@MilieuCode" />
     <div>&nbsp;</div>
+    <h3>Destination</h3>
+    <WorldNavigation CurrentPage="destination" World="@Model.Destination" MilieuCode="@MilieuCode" />
+    <div>&nbsp;</div>
 
     <div>
         <EditForm Model="@Options">
