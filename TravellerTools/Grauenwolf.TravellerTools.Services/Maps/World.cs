@@ -1,24 +1,18 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Grauenwolf.TravellerTools.Maps;
 
 public class World
 {
-    static readonly RemarkDictionary s_RemarkMasterList = new();
-
-    //static readonly Dictionary<string, Demographic> s_DemographicsMap = new(StringComparer.OrdinalIgnoreCase);
-    //static readonly Dictionary<string, string> s_RemarkMap = new(StringComparer.OrdinalIgnoreCase);
-    //readonly HashSet<string> RemarksList = new(StringComparer.OrdinalIgnoreCase);
-    //IReadOnlyList<Demographic>? m_Demographics;
-
+    string? m_Bases;
     string? m_Remarks;
 
     public World()
     {
     }
 
-    //string? m_RemarksDescription;
     public World(string uwp, string name, int jumpDistance, string? tasZone)
     {
         uwp = uwp.Trim();
@@ -34,31 +28,50 @@ public class World
         AddMissingRemarks();
     }
 
-    public World(string uwp, string name, int jumpDistance, TasZone tasZone)
-    {
-        uwp = uwp.Trim();
-        if (!uwp.Contains('-') && uwp.Length == 8)
-            uwp = string.Concat(uwp.AsSpan(0, 7), "-", uwp.AsSpan(7)); //add the missing dash
+    //public World(string uwp, string name, int jumpDistance, TasZone tasZone)
+    //{
+    //    uwp = uwp.Trim();
+    //    if (!uwp.Contains('-') && uwp.Length == 8)
+    //        uwp = string.Concat(uwp.AsSpan(0, 7), "-", uwp.AsSpan(7)); //add the missing dash
 
-        UWP = uwp;
-        Name = name;
-        JumpDistance = jumpDistance;
+    //    UWP = uwp;
+    //    Name = name;
+    //    JumpDistance = jumpDistance;
 
-        if (tasZone == TasZone.Amber)
-            Zone = "A";
-        else if (tasZone == TasZone.Red)
-            Zone = "R";
+    //    if (tasZone == TasZone.Amber)
+    //        Zone = "A";
+    //    else if (tasZone == TasZone.Red)
+    //        Zone = "R";
 
-        AddMissingRemarks();
-    }
+    //    AddMissingRemarks();
+    //}
 
+    public string Acceptance => Tables.Acceptance(AcceptanceCode);
+    public EHex AcceptanceCode => Cx?.Length >= 3 ? new EHex(Cx[2]) : EHex.Unknown;
     public string? Allegiance { get; set; }
-    public string? AllegianceName { get; set; }
+    public string? AllegianceName => Tables.Allegiance(Allegiance);
     public string Atmosphere => Tables.Atmosphere(AtmosphereCode);
     public EHex AtmosphereCode { get { return UWP?[2]; } }
     public string? AtmosphereDescription => Tables.AtmosphereDescription(AtmosphereCode);
-    public string? Bases { get; set; }
+
+    public string? Bases
+    {
+        get => m_Bases;
+        set
+        {
+            m_Bases = value;
+            MilitaryBases.Clear();
+            if (m_Bases != null)
+                foreach (var code in m_Bases)
+                {
+                    MilitaryBases.Add(Tables.MilitaryBase(code));
+                }
+        }
+    }
+
     public string? Cx { get; set; }
+    public string Efficiency => Tables.Efficiency(EfficiencyCode);
+    public string? EfficiencyCode => Ex?.Length >= 6 ? Ex[4..6] : null;
     public string? Ex { get; set; }
 
     //public IReadOnlyList<Demographics> Demographics
@@ -81,16 +94,25 @@ public class World
     public EHex GovernmentCode { get { return UWP?[5]; } }
 
     public string? GovernmentType => Tables.GovernmentDescriptionWithContraband(GovernmentCode);
+    public string Heterogeneity => Tables.Heterogeneity(HeterogeneityCode);
+    public EHex HeterogeneityCode => Cx?.Length >= 2 ? new EHex(Cx[1]) : EHex.Unknown;
     public string? Hex { get; set; }
     public string? HexX { get { return Hex?.Substring(0, 2); } }
     public string? HexY { get { return Hex?.Substring(2, 2); } }
     public string Hydrographics => Tables.Hydrographics(HydrographicsCode);
     public EHex HydrographicsCode { get { return UWP?[3]; } }
+    public string Importance => Tables.Importance(ImportanceCode);
+    public string? ImportanceCode => Ix?.Replace("{", "").Replace("}", "").Replace(" ", "");
+    public string Infrastructure => Tables.Infrastructure(InfrastructureCode);
+    public EHex InfrastructureCode => Ex?.Length >= 4 ? new EHex(Ex[3]) : EHex.Unknown;
     public string? Ix { get; set; }
     public int JumpDistance { get; set; }
+    public string Labor => Tables.Labor(LaborCode);
+    public EHex LaborCode => Ex?.Length >= 3 ? new EHex(Ex[2]) : EHex.Unknown;
     public EHex LawCode { get { return UWP?[6]; } }
     public string LawLevel => Tables.LawLevelDescription(LawCode);
     public string? LegacyBaseCode { get; set; }
+    public List<MilitaryBase> MilitaryBases { get; } = new();
     public string? Name { get; set; }
     public string? Nobility { get; set; }
     public string? PBG { get; set; }
@@ -138,71 +160,30 @@ public class World
     }
 
     public RemarkDictionary RemarksList { get; private set; } = new();
-    //public string RemarksDescription
-    //{
-    //    get
-    //    {
-    //        if (m_RemarksDescription == null)
-    //        {
-    //            var result = new List<string>();
-    //            foreach (var remark in RemarksList)
-    //            {
-    //                var des = TryGetRemarkDescription(remark);
-    //                if (des != null)
-    //                    result.Add(string.Format("{0}: {1}", remark, des));
-    //                else
-    //                    result.Add(remark);
 
-    //                //if (s_RemarkMap.TryGetValue(remark, out var des))
-    //                //    result.Add(string.Format("{0}: {1}", remark, des));
-    //                //else
-    //                //    result.Add(remark);
-    //            }
-    //            //Add TAS zone
-    //            if (Zone != null)
-    //            {
-    //                if (s_RemarkMap.TryGetValue(Zone, out var des))
-    //                    result.Add(string.Format("{0}: {1}", Zone, des));
-    //                else
-    //                    result.Add(Zone);
-    //            }
-    //            m_RemarksDescription = string.Join(" ", result);
-    //        }
-    //        return m_RemarksDescription;
-    //    }
-    //}
-
-    //public HashSet<string> RemarksList => RemarksList;
-
+    public string Resources => Tables.Resources(ResourcesCode);
+    public EHex ResourcesCode => Ex?.Length >= 2 ? new EHex(Ex[1]) : EHex.Unknown;
     public int ResourceUnits { get; set; }
-
     public string? Sector { get; set; }
 
-    //These are added later
     public int? SectorX { get; set; }
 
     public int? SectorY { get; set; }
-
     public EHex SizeCode { get { return UWP?[1]; } }
-
     public int SizeKM => Tables.SizeKM(SizeCode);
-
     public string? SS { get => SubSectorIndex; set => SubSectorIndex = value; }
-
     public string? Starport => Tables.Starport(StarportCode);
-
     public EHex StarportCode { get { return UWP?[0]; } }
-
     public string? StarportDescription => Tables.StarportDescription(StarportCode);
-
     public string? Stellar { get; set; }
+    public string Strangeness => Tables.Strangeness(StrangenessCode);
+    public EHex StrangenessCode => Cx?.Length >= 4 ? new EHex(Cx[3]) : EHex.Unknown;
 
     public int Subsector { get; set; }
-
     public string? SubSectorIndex { get; set; }
-
     public string? SubsectorName { get; set; }
-
+    public string Symbols => Tables.Symbols(SymbolsCode);
+    public EHex SymbolsCode => Cx?.Length >= 5 ? new EHex(Cx[4]) : EHex.Unknown;
     public EHex TechCode { get { return UWP?[8]; } }
 
     public string? TechLevel => Tables.TechLevel(TechCode);
@@ -284,58 +265,4 @@ public class World
         var timeSeconds = 2 * Math.Sqrt(distanceM / (G * thrustRating));
         return TimeSpan.FromSeconds(timeSeconds);
     }
-
-    //internal static void AddSophontCodes(IEnumerable<SophontCode> sophontCodes)
-    //{
-    //    static void TryAdd(string code, string? name, decimal? population, bool isHomeworld)
-    //    {
-    //        name ??= "<unknown>";
-
-    //        string description = name;
-    //        if (isHomeworld)
-    //            description += " Homeworld";
-
-    //        if (population.HasValue)
-    //        {
-    //            if (population == -1)
-    //                description += ", Extinct";
-    //            else
-    //                description += ", " + population.Value.ToString("P0");
-    //        }
-    //        description += ".";
-
-    //        if (!s_RemarkMap.ContainsKey(code))
-    //            s_RemarkMap.Add(code, description);
-    //        if (!s_DemographicsMap.ContainsKey(code))
-    //            s_DemographicsMap.Add(code, new(code, name, population, isHomeworld));
-    //    }
-
-    //    foreach (var code in sophontCodes)
-    //    {
-    //        if (code.Code != null)
-    //        {
-    //            TryAdd(code.Code, code.Name, null, false);
-    //            for (int i = 0; i <= 9; i++)
-    //            {
-    //                TryAdd(code.Code + i, code.Name, i * 0.10M, false);
-    //            }
-    //            TryAdd(code.Code + 'W', code.Name, 1.0M, false);
-
-    //            for (int i = 0; i <= 9; i++)
-    //            {
-    //                TryAdd("[" + code.Code + "]" + i, code.Name, i * 0.10M, true);
-    //            }
-    //            TryAdd("[" + code.Code + "]", code.Name, null, true);
-    //            TryAdd("[" + code.Code + "]W", code.Name, 1.0M, true);
-
-    //            for (int i = 0; i <= 9; i++)
-    //            {
-    //                TryAdd("(" + code.Code + ")" + i, code.Name, i * 0.10M, true);
-    //            }
-    //            TryAdd("(" + code.Code + ")", code.Name, null, true);
-    //            TryAdd("(" + code.Code + ")W", code.Name, 1.0M, true);
-    //        }
-    //        TryAdd("Di(" + code.Code + ")", code.Name, -1, true);
-    //    }
-    //}
 }

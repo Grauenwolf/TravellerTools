@@ -16,6 +16,282 @@ public static class Tables
 
     public static ImmutableArray<EHex> TechLevelCodes => BuildCodes('0', 'W');
 
+    public static string Acceptance(EHex acceptanceCode)
+    {
+        return (acceptanceCode.ToChar()) switch
+        {
+            '0' => "N/A",
+            '1' => "Extremely xenophobic",
+            '2' => "Very xenophobic",
+            '3' => "Xenophobic",
+            '4' => "Extremely aloof",
+            '5' => "Very aloof",
+            '6' => "Aloof",
+            '7' => "Aloof",
+            '8' => "Friendly",
+            '9' => "Friendly",
+            'A' => "Very friendly",
+            'B' => "Extremely friendly",
+            'C' => "Xenophilic",
+            'D' => "Very Xenophilic",
+            'E' => "Extremely xenophilic",
+            'F' => "Extremely xenophilic",
+            _ => "Unknown"
+        };
+    }
+
+    public static string? Allegiance(string? allegianceCode)
+    {
+        return allegianceCode switch
+        {
+            "3EoG" or "Ga" => "Third Empire of Gashikan",
+            "4Wor" or "Fw" => "Four Worlds",
+            "AkUn" or "Ak" => "Akeena Union",
+            "AlCo" or "Al" => "Altarean Confederation",
+            "AnTC" or "Ac" => "Anubian Trade Coalition",
+            "AsIf" or "As" => "Iyeaao'fte",
+            "AsMw" or "As" => "Aslan Hierate, single multiple-world clan dominates",
+            "AsOf" or "As" => "Oleaiy'fte",
+            "AsSc" or "As" => "Aslan Hierate, multiple clans split control",
+            "AsSF" or "As" => "Aslan Hierate, small facility",
+            "AsT0" or "A0" => "Aslan Hierate, Tlaukhu control, Yerlyaruiwo (1), Hrawoao (13), Eisohiyw (14), Ferekhearl (19)",
+            "AsT1" or "A1" => "Aslan Hierate, Tlaukhu control, Khauleairl (2), Estoieie' (16), Toaseilwi (22)",
+            "AsT2" or "A2" => "Aslan Hierate, Tlaukhu control, Syoisuis (3)",
+            "AsT3" or "A3" => "Aslan Hierate, Tlaukhu control, Tralyeaeawi (4), Yulraleh (12), Aiheilar (25), Riyhalaei (28)",
+            "AsT4" or "A4" => "Aslan Hierate, Tlaukhu control, Eakhtiyho (5), Eteawyolei' (11), Fteweyeakh (23)",
+            "AsT5" or "A5" => "Aslan Hierate, Tlaukhu control, Hlyueawi (6), Isoitiyro (15)",
+            "AsT6" or "A6" => "Aslan Hierate, Tlaukhu control, Uiktawa (7), Iykyasea (17), Faowaou (27)",
+            "AsT7" or "A7" => "Aslan Hierate, Tlaukhu control, Ikhtealyo (8), Tlerfearlyo (20), Yehtahikh (24)",
+            "AsT8" or "A8" => "Aslan Hierate, Tlaukhu control, Seieakh (9), Akatoiloh (18), We'okunir (29)",
+            "AsT9" or "A9" => "Aslan Hierate, Tlaukhu control, Aokhalte (10), Sahao' (21), Ouokhoi (26)",
+            "AsTA" or "Ta" => "Tealou Arlaoh",
+            "AsTv" or "As" => "Aslan Hierate, Tlaukhu vassal clan dominates",
+            "AsTz" or "As" => "Aslan Hierate, Zodia clan",
+            "AsVc" or "As" => "Aslan Hierate, vassal clan dominates",
+            "AsWc" or "As" => "Aslan Hierate, single one-world clan dominates",
+            "AsXX" or "As" => "Aslan Hierate, unknown",
+            "AvCn" or "Ac" => "Avalar Consulate",
+            "BaCl" or "Bc" => "Backman Cluster",
+            "Bium" or "Bi" => "The Biumvirate",
+            "BlSo" or "Bs" => "Belgardian Sojurnate",
+            "BoWo" or "Bw" => "Border Worlds",
+            "CaAs" or "Cb" => "Carrillian Assembly",
+            "CaPr" or "Ca" => "Principality of Caledon",
+            "CaTe" or "Ct" => "Carter Technocracy",
+            "CoAl" or "Ca" => "Corsair Alliance",
+            "CoBa" or "Ba" => "Confederation of Bammesuka",
+            "CoLg" or "CL" => "Corellan League",
+            "CoLp" or "Lp" => "Council of Leh Perash",
+            "CRAk" or "CA" => "Anakudnu Cultural Region",
+            "CRGe" or "CG" => "Geonee Cultural Region",
+            "CRSu" or "CS" => "Suerrat Cultural Region",
+            "CRVi" or "CV" => "Vilani Cultural Region",
+            "CsCa" or "Ca" => "Client state, Principality of Caledon",
+            "CsHv" or "Hc" => "Client state, Hive Federation",
+            "CsIm" or "Cs" => "Client state, Third Imperium",
+            "CsMo" or "Cm" => "Client state, Duchy of Mora",
+            "CsPt" or "CP" => "Client state, The Protectorate",
+            "CsRr" or "Cr" => "Client state, Republic of Regina",
+            "CsTw" or "KC" => "Client state, Two Thousand Worlds",
+            "CsZh" or "Cz" => "Client state, Zhodani Consulate",
+            "CyUn" or "Cu" => "Cytralin Unity",
+            "DaCf" or "Da" => "Darrian Confederation",
+            "DeHg" or "Dh" => "Descarothe Hegemony",
+            "DeNo" or "Dn" => "Demos of Nobles",
+            "DiGr" or "Dg" => "Dienbach Grüpen",
+            "DoAl" or "Az" => "Domain of Alntzar",
+            "DuCf" or "Cd" => "Confederation of Duncinae",
+            "DuMo" or "Mo" => "Duchy of Mora",
+            "ECRp" or "EC" => "Eberhardt Corporate Republic",
+            "EsMa" or "Es" => "Eslyat Magistracy",
+            "FdAr" or "Fa" => "Federation of Arden",
+            "FdDa" or "Fd" => "Federation of Daibei",
+            "FdIl" or "Fi" => "Federation of Ilelish",
+            "FeAl" or "Fa" => "Federation of Alsas",
+            "FeAm" or "FA" => "Federation of Amil",
+            "FeHe" or "Fh" => "Federation of Heron",
+            "FlLe" or "Fl" => "Florian League",
+            "GaFd" or "Ga" => "Galian Federation",
+            "GaRp" or "Gr" => "Gamma Republic",
+            "GdKa" or "Rm" => "Grand Duchy of Kalradin",
+            "GdMh" or "Ma" => "Grand Duchy of Marlheim",
+            "GdSt" or "Gs" => "Grand Duchy of Stoner",
+            "GeOr" or "Go" => "Gerontocracy of Ormine",
+            "GlEm" or "Gl" => "Glorious Empire",
+            "GlFe" or "Gf" => "Glimmerdrift Federation",
+            "GnCl" or "Gi" => "Gniivi Collective",
+            "HaCo" or "Hc" => "Haladon Cooperative",
+            "HeCo" or "HC" => "Hefrin Colony",
+            "HoPA" or "Ho" => "Hochiken People's Assembly",
+            "HvFd" or "Hv" => "Hive Federation",
+            "HyLe" or "Hy" => "Hyperion League",
+            "IHPr" or "IS" => "I'Sred*Ni Protectorate",
+            "ImAp" or "Im" => "Third Imperium, Amec Protectorate",
+            "ImDa" or "Im" => "Third Imperium, Domain of Antares",
+            "ImDc" or "Im" => "Third Imperium, Domain of Sylea",
+            "ImDd" or "Im" => "Third Imperium, Domain of Deneb",
+            "ImDg" or "Im" => "Third Imperium, Domain of Gateway",
+            "ImDi" or "Im" => "Third Imperium, Domain of Ilelish",
+            "ImDs" or "Im" => "Third Imperium, Domain of Sol",
+            "ImDv" or "Im" => "Third Imperium, Domain of Vland",
+            "ImLa" or "Im" => "Third Imperium, League of Antares",
+            "ImLc" or "Im" => "Third Imperium, Lancian Cultural Region",
+            "ImLu" or "Im" => "Third Imperium, Luriani Cultural Association",
+            "ImSy" or "Im" => "Third Imperium, Sylean Worlds",
+            "ImVd" or "Ve" => "Third Imperium, Vegan Autonomous District",
+            "InRp" or "Ir" => "Interstellar Republic",
+            "IsDo" or "Id" => "Islaiat Dominate",
+            "JAOz" or "Jo" => "Julian Protectorate, Alliance of Ozuvon",
+            "JaPa" or "Ja" => "Jarnac Pashalic",
+            "JAsi" or "Ja" => "Julian Protectorate, Asimikigir Confederation",
+            "JCoK" or "Jc" => "Julian Protectorate, Constitution of Koekhon",
+            "JHhk" or "Jh" => "Julian Protectorate, Hhkar Sphere",
+            "JLum" or "Jd" => "Julian Protectorate, Lumda Dower",
+            "JMen" or "Jm" => "Julian Protectorate, Commonwealth of Mendan",
+            "JPSt" or "Jp" => "Julian Protectorate, Pirbarish Starlane",
+            "JRar" or "Vw" => "Julian Protectorate, Rar Errall/Wolves Warren",
+            "JuHl" or "Hl" => "Julian Protectorate, Hegemony of Lorean",
+            "JUkh" or "Ju" => "Julian Protectorate, Ukhanzi Coordinate",
+            "JuNa" or "Jn" => "Jurisdiction of Nadon",
+            "JuPr" or "Jp" => "Julian Protectorate",
+            "JuRu" or "Jr" => "Julian Protectorate, Rukadukaz Republic",
+            "JVug" or "Jv" => "Julian Protectorate, Vugurar Dominion",
+            "KaCo" or "KC" => "Katowice Conquest",
+            "KaEm" or "KE" => "Katanga Empire",
+            "KaTr" or "Kt" => "Kajaani Triumverate",
+            "KaWo" or "KW" => "Karhyri Worlds",
+            "KhLe" or "Kl" => "Khuur League",
+            "KkTw" or "Kk" => "Two Thousand Worlds",
+            "KoEm" or "Ko" => "Korsumug Empire",
+            "KoPm" or "Pm" => "Percavid Marches",
+            "KPel" or "Pe" => "Kingdom of Peladon",
+            "KrPr" or "Kr" => "Krotan Primacy",
+            "LeSu" or "Ls" => "League of Suns",
+            "LnRp" or "Ln" => "Loyal Nineworlds Republic",
+            "LuIm" or "Li" => "Lucan's Imperium",
+            "LyCo" or "Ly" => "Lanyard Colonies",
+            "MaCl" or "Ma" => "Mapepire Cluster",
+            "MaEm" or "Mk" => "Maskai Empire",
+            "MaSt" or "Ma" => "Maragaret's Domain",
+            "MaUn" or "Mu" => "Malorn Union",
+            "MeCo" or "Me" => "Megusard Corporate",
+            "MiCo" or "Mi" => "Mische Conglomerate",
+            "MnPr" or "Mn" => "Mnemosyne Principality",
+            "MoLo" or "ML" => "Monarchy of Lod",
+            "MrCo" or "MC" => "Mercantile Concord",
+            "NaAs" or "As" => "Non-Aligned, Aslan-dominated",
+            "NaCh" or "Na" => "Non-Aligned, TBD",
+            "NaDr" or "Dr" => "Non-Aligned, Droyne-dominated",
+            "NaHu" or "Na" => "Non-Aligned, Human-dominated",
+            "NaVa" or "Va" => "Non-Aligned, Vargr-dominated",
+            "NaXX" or "Na" => "Non-Aligned, unclaimed",
+            "NkCo" or "NC" => "Nakris Confederation",
+            "OcWs" or "Ow" => "Outcasts of the Whispering Sky",
+            "OlWo" or "Ow" => "Old Worlds",
+            "PlLe" or "Pl" => "Plavian League",
+            "PrBr" or "PB" => "Principality of Bruhkarr",
+            "Prot" or "Pt" => "The Protectorate",
+            "RamW" or "RW" => "Rammak Worlds",
+            "RaRa" or "Ra" => "Ral Ranta",
+            "Reac" or "Rh" => "The Reach",
+            "ReUn" or "Re" => "Renkard Union",
+            "Rule" or "RM" => "Rule of Man",
+            "SaCo" or "Sc" => "Salinaikin Concordance",
+            "Sark" or "Sc" => "Sarkan Constellation",
+            "SeFo" or "Sf" => "Senlis Foederate",
+            "SELK" or "Lk" => "Sha Elden Lith Kindriu",
+            "ShRp" or "SR" => "Stormhaven Republic",
+            "SoBF" or "So" => "Solomani Confederation, Bootean Federation",
+            "SoCf" or "So" => "Solomani Confederation",
+            "SoCT" or "So" => "Solomani Confederation, Consolidation of Turin",
+            "SoFr" or "Fr" => "Solomani Confederation, Third Reformed French Confederate Republic",
+            "SoHn" or "Hn" => "Solomani Confederation, Hanuman Systems",
+            "SoKE" or "So" => "Solomani Confederation, Kruse Enclave",
+            "SoKv" or "Kv" => "Solomani Confederation, Kostov Confederate Republic",
+            "SoLE" or "So" => "Solomani Confederation, Lubbock Enclave",
+            "SoNS" or "So" => "Solomani Confederation, New Slavic Solidarity",
+            "SoQu" or "Qu" => "Solomani Confederation, Grand United States of Quesada",
+            "SoRD" or "So" => "Solomani Confederation, Reformed Dootchen Estates",
+            "SoRz" or "So" => "Solomani Confederation, Restricted Zone",
+            "Sovr" or "Sv" => "The Sovereignty",
+            "SoWu" or "So" => "Solomani Confederation, Wuan Technology Association",
+            "SoXE" or "So" => "Solomani Confederation, Xuanzang Enclave",
+            "StCl" or "Sc" => "Strend Cluster",
+            "StIm" or "St" => "Strephon's Worlds",
+            "SwCf" or "Sw" => "Sword Worlds Confederation",
+            "SwFW" or "Sw" => "Swanfei Free Worlds",
+            "SyRe" or "Sy" => "Syzlin Republic",
+            "TeCl" or "Tc" => "Tellerian Cluster",
+            "TrBr" or "Tb" => "Trita Brotherhood",
+            "TrCo" or "Tr" => "Trindel Confederacy",
+            "TrDo" or "Td" => "Trelyn Domain",
+            "TroC" or "Tr" => "Trooles Confederation",
+            "UnGa" or "Ug" => "Union of Garth",
+            "UnHa" or "Uh" => "Union of Harmony",
+            "V17D" or "V7" => "17th Disjucture",
+            "V40S" or "Ve" => "40th Squadron",
+            "VA16" or "V6" => "Assemblage of 1116",
+            "VAkh" or "VA" => "Akhstuti",
+            "VAnP" or "Vx" => "Antares Pact",
+            "VARC" or "Vr" => "Anti-Rukh Coalition",
+            "VAsP" or "Vx" => "Ascendancy Pact",
+            "VAug" or "Vu" => "United Followers of Augurgh",
+            "VBkA" or "Vb" => "Bakne Alliance",
+            "VCKd" or "Vk" => "Commonality of Kedzudh",
+            "VDeG" or "Vd" => "Democracy of Greats",
+            "VDrN" or "VN" => "Drr'lana Network",
+            "VDzF" or "Vf" => "Dzarrgh Federate",
+            "VFFD" or "V1" => "First Fleet of Dzo",
+            "VGoT" or "Vg" => "Glory of Taarskoerzn",
+            "ViCo" or "Vi" => "Viyard Concourse",
+            "VInL" or "V9" => "Infinity League",
+            "VIrM" or "Vh" => "Irrgh Manifest",
+            "VJoF" or "Vj" => "Jihad of Faarzgaen",
+            "VKfu" or "Vk" => "Kfue",
+            "VLIn" or "Vi" => "Llaeghskath Interacterate",
+            "VLPr" or "Vl" => "Lair Protectorate",
+            "VNgC" or "Vn" => "Ngath Confederation",
+            "VNoe" or "VN" => "Noefa",
+            "VOpA" or "Vo" => "Opposition Alliance",
+            "VOpp" or "Vo" => "Opposition Alliance",
+            "VOuz" or "VO" => "Ouzvothon",
+            "VPGa" or "Vg" => "Pact of Gaerr",
+            "VRo5" or "V5" => "Ruler of Five",
+            "VRrS" or "VW" => "Rranglloez Stronghold",
+            "VRuk" or "Vn" => "Worlds of Leader Rukh",
+            "VSDp" or "Vs" => "Saeknouth Dependency",
+            "VSEq" or "Vd" => "Society of Equals",
+            "VThE" or "Vt" => "Thoengling Empire",
+            "VTrA" or "VT" => "Trae Aggregation",
+            "VTzE" or "Vp" => "Thirz Empire",
+            "VUru" or "Vu" => "Urukhu",
+            "VVar" or "Ve" => "Empire of Varroerth",
+            "VVoS" or "Vv" => "Voekhaeb Society",
+            "VWan" or "Vw" => "People of Wanz",
+            "VWP2" or "V2" => "Windhorn Pact of Two",
+            "VYoe" or "VQ" => "Union of Yoetyqq",
+            "WiDe" or "Wd" => "Winston Democracy",
+            "Wild" or "Wi" => "Wilds",
+            "XXXX" or "Xx" => "Unknown",
+            "ZePr" or "Zp" => "Zelphic Primacy",
+            "ZhAx" or "Ax" => "Zhodani Consulate, Addaxur Reserve",
+            "ZhCa" or "Ca" => "Zhodani Consulate, Colonnade Province",
+            "ZhCh" or "Zh" => "Zhodani Consulate, Chtierabl Province",
+            "ZhCo" or "Zh" => "Zhodani Consulate",
+            "ZhIa" or "Zh" => "Zhodani Consulate, Iabrensh Province",
+            "ZhIN" or "Zh" => "Zhodani Consulate, Iadr Nsobl Province",
+            "ZhJp" or "Zh" => "Zhodani Consulate, Jadlapriants Province",
+            "ZhMe" or "Zh" => "Zhodani Consulate, Meqlemianz Province",
+            "ZhOb" or "Zh" => "Zhodani Consulate, Obrefripl Province",
+            "ZhSh" or "Zh" => "Zhodani Consulate, Shtochiadr Province",
+            "ZhVQ" or "Zh" => "Zhodani Consulate, Vlanchiets Qlom Province",
+            "ZiSi" or "Rv" => "Restored Vilani Imperium",
+            "Zuug" or "Zu" => "Zuugabish Tripartite",
+            "ZyCo" or "Zc" => "Zydarian Codominium",
+            _ => null
+        };
+    }
+
     public static string Atmosphere(EHex atmosphereCode)
     {
         return (atmosphereCode.ToChar()) switch
@@ -64,9 +340,28 @@ public static class Tables
         };
     }
 
+    public static string Efficiency(string? efficiencyCode)
+    {
+        return efficiencyCode switch
+        {
+            "-5" => "Extremely poor",
+            "-4" => "Very poor",
+            "-3" => "Poor",
+            "-2" => "Fair",
+            "-1" => "Average",
+            "0" => "Average",
+            "+1" => "Average",
+            "+2" => "Good",
+            "+3" => "Improved",
+            "+4" => "Advanced",
+            "+5" => "Very advanced",
+            _ => "Unknown"
+        };
+    }
+
     public static List<string> GovernmentContraband(EHex governmentCode)
     {
-        return (governmentCode.ToChar()) switch
+        return governmentCode.ToChar() switch
         {
             '0' => new List<string>(),
             '1' => new List<string>() { "Weapons", "Drugs", "Technology", "Travellers", "Psionics" },
@@ -196,6 +491,31 @@ public static class Tables
         };
     }
 
+    public static string Heterogeneity(EHex heterogeneityCode)
+    {
+        return (heterogeneityCode.ToChar()) switch
+        {
+            '0' => "N/A",
+            '1' => "Monolithic",
+            '2' => "Monolithic",
+            '3' => "Monolithic",
+            '4' => "Harmonious",
+            '5' => "Harmonious",
+            '6' => "Harmonious",
+            '7' => "Discordant",
+            '8' => "Discordant",
+            '9' => "Discordant",
+            'A' => "Discordant",
+            'B' => "Discordant",
+            'C' => "Fragmented",
+            'D' => "Fragmented",
+            'E' => "Fragmented",
+            'F' => "Fragmented",
+            'G' => "Fragmented",
+            _ => "Unknown"
+        };
+    }
+
     public static string Hydrographics(EHex hydrographicsCode)
     {
         return (hydrographicsCode.ToChar()) switch
@@ -231,6 +551,74 @@ public static class Tables
             '9' => "90% water",
             'A' => "100% water. Water World",
             _ => "",
+        };
+    }
+
+    public static string Importance(string? importanceCode)
+    {
+        return importanceCode switch
+        {
+            "-3" => "Very unimportant",
+            "-2" => "Very unimportant",
+            "-1" => "Unimportant",
+            "0" => "Unimportant",
+            "1" => "Ordinary",
+            "2" => "Ordinary",
+            "3" => "Ordinary",
+            "4" => "Important",
+            "5" => "Very important",
+            _ => "Unknown"
+        };
+    }
+
+    public static string Infrastructure(EHex infrastructureCode)
+    {
+        return infrastructureCode.ToChar() switch
+        {
+            '0' => "Non-existent",
+            '1' => "Extremely limited",
+            '2' => "Extremely limited",
+            '3' => "Very limited",
+            '4' => "Very limited",
+            '5' => "Limited",
+            '6' => "Limited",
+            '7' => "Generally available",
+            '8' => "Generally available",
+            '9' => "Extensive",
+            'A' => "Extensive",
+            'B' => "Very extensive",
+            'C' => "Very extensive",
+            'D' => "Comprehensive",
+            'E' => "Comprehensive",
+            'F' => "Very comprehensive",
+            'G' => "Very comprehensive",
+            'H' => "Very comprehensive",
+            _ => "Unknown"
+        };
+    }
+
+    public static string Labor(EHex laborCode)
+    {
+        return laborCode.ToChar() switch
+        {
+            '0' => "Unpopulated",
+            '1' => "Tens",
+            '2' => "Hundreds",
+            '3' => "Thousands",
+            '4' => "Tens of thousands",
+            '5' => "Hundreds of thousands",
+            '6' => "Millions",
+            '7' => "Tens of millions",
+            '8' => "Hundreds of millions",
+            '9' => "Billions",
+            'A' => "Tens of billions",
+            'B' => "Hundreds of billions",
+            'C' => "Trillions",
+            'D' => "Tens of trillions",
+            'E' => "Hundreds of tillions",
+            'F' => "Quadrillions",
+            'X' => "Unknown",
+            _ => "Unknown"
         };
     }
 
@@ -512,7 +900,76 @@ public static class Tables
         }
     }
 
+    public static MilitaryBase MilitaryBase(char code)
+    {
+        return code switch
+        {
+            'C' => new MilitaryBase(code, "Corsair Base", "Vargr"),
+            'D' => new MilitaryBase(code, "Naval Depot", null),
+            'E' => new MilitaryBase(code, "Embassy", "Hiver"),
+            'K' => new MilitaryBase(code, "Naval Base", null),
+            'M' => new MilitaryBase(code, "Military Base", null),
+            'N' => new MilitaryBase(code, "Naval Base", "Imperial"),
+            'R' => new MilitaryBase(code, "Clan Base", "Aslan"),
+            'S' => new MilitaryBase(code, "Scout Base", "Imperial"),
+            'T' => new MilitaryBase(code, "Tlaukhu Base", "Aslan"),
+            'V' => new MilitaryBase(code, "Exploration Base", null),
+            'W' => new MilitaryBase(code, "Way Station", null),
+            'A' => new MilitaryBase(code, "Naval Base and Scout Base", "Imperial"),
+            'B' => new MilitaryBase(code, "Naval Base and Way Station", "Imperial"),
+            //'C' => new MilitaryBase(code, "Corsair Base", "Vargr"),
+            //'D' => new MilitaryBase(code, "Depot", "Imperial"),
+            //'E' => new MilitaryBase(code, "Embassy Center", "Hiver"),
+            //'F' => new MilitaryBase(code, "Military and Naval Base", ""),
+            'G' => new MilitaryBase(code, "Naval Base", "Vargr"),
+            'H' => new MilitaryBase(code, "Naval Base and Corsair Base", "Vargr"),
+            'J' => new MilitaryBase(code, "Naval Base", null),
+            //'K' => new MilitaryBase(code, "Naval Base", "K'kre"),
+            'L' => new MilitaryBase(code, "Naval Base", "Hiver"),
+            //'M' => new MilitaryBase(code, "Military Base", ""),
+            //'N' => new MilitaryBase(code, "Naval Base", "Imperial"),
+            'O' => new MilitaryBase(code, "Naval Outpost", "K'kre"),
+            'P' => new MilitaryBase(code, "Naval Base", "Droyne"),
+            'Q' => new MilitaryBase(code, "Military Garrison", "Droyne"),
+            //'R' => new MilitaryBase(code, "Clan Base", "Aslan"),
+            //'S' => new MilitaryBase(code, "Scout Base", "Imperial"),
+            //'T' => new MilitaryBase(code, "Tlauku Base", "Aslan"),
+            'U' => new MilitaryBase(code, "Tlauku and Clan Base", "Aslan"),
+            //'V' => new MilitaryBase(code, "Scout/Exploration Base", null),
+            //'W' => new MilitaryBase(code, "Way Station", "Imperial"),
+            'X' => new MilitaryBase(code, "Relay Station", "Zhodani"),
+            'Y' => new MilitaryBase(code, "Depot", "Zhodani"),
+            'Z' => new MilitaryBase(code, "Naval/Military Base", "Zhodani"),
+            _ => new MilitaryBase(code, "<Unknown>", null)
+        };
+    }
+
     public static double PopulationExponent(EHex populationCode) => Math.Pow(10, populationCode.Value);
+
+    public static string Resources(EHex resourcesCode)
+    {
+        return resourcesCode.ToChar() switch
+        {
+            '2' => "Very scarce",
+            '3' => "Very scarce",
+            '4' => "Scarce",
+            '5' => "Scarce",
+            '6' => "Few",
+            '7' => "Few",
+            '8' => "Moderate",
+            '9' => "Moderate",
+            'A' => "Abundant",
+            'B' => "Abundant",
+            'C' => "Very abundant",
+            'D' => "Very abundant",
+            'E' => "Extremely abundant",
+            'F' => "Extremely abundant",
+            'G' => "Extremely abundant",
+            'H' => "Extremely abundant",
+            'J' => "Extremely abundant",
+            _ => "Unknown"
+        };
+    }
 
     public static EHex? RestrictedTechLevel(EHex lawCode)
     {
@@ -622,7 +1079,7 @@ public static class Tables
 
     public static string StarportDescription(EHex starportCode)
     {
-        return (starportCode.ToChar()) switch
+        return starportCode.ToChar() switch
         {
             'A' => "Excellent Quality. Refined fuel available. Annual maintenance overhaul available. Shipyard capable of constructing starships and non-starships present. Nava base and/or scout base may be present",
             'B' => "Good Quality. Refined fuel available. Annual maintenance overhaul available. Shipyard capable of constructing non-starships present. Naval base and/or scout base may be present",
@@ -635,6 +1092,54 @@ public static class Tables
             'H' => "Primitive Quality. No repairs or fuel available",
             'Y' => "None",
             _ => "",
+        };
+    }
+
+    public static string Strangeness(EHex strangenessCode)
+    {
+        return strangenessCode.ToChar() switch
+        {
+            '0' => "N/A",
+            '1' => "Very typical",
+            '2' => "Typical",
+            '3' => "Somewhat typical",
+            '4' => "Somewhat distinct",
+            '5' => "Distinct",
+            '6' => "Very distinct",
+            '7' => "Confusing",
+            '8' => "Very confusing",
+            '9' => "Extremely confusing",
+            'A' => "Incomprehensible",
+            _ => "Unknown"
+        };
+    }
+
+    public static string Symbols(EHex symbolsCode)
+    {
+        return symbolsCode.ToChar() switch
+        {
+            '0' => "Extremely concrete",
+            '1' => "Extremely concrete",
+            '2' => "Very concrete",
+            '3' => "Very concrete",
+            '4' => "Concrete",
+            '5' => "Concrete",
+            '6' => "Somewhat concrete",
+            '7' => "Somewhat concrete",
+            '8' => "Somewhat abstract",
+            '9' => "Somewhat abstract",
+            'A' => "Abstract",
+            'B' => "Abstract",
+            'C' => "Very abstract",
+            'D' => "Very abstract",
+            'E' => "Extremely abstract",
+            'F' => "Extremely abstract",
+            'G' => "Extremely abstract",
+            'H' => "Incomprehensibly abstract",
+            'J' => "Incomprehensibly abstract",
+            'K' => "Incomprehensibly abstract",
+            'L' => "Incomprehensibly abstract",
+            _ => "Unknown"
         };
     }
 

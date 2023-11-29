@@ -5,6 +5,7 @@ namespace Grauenwolf.TravellerTools;
 
 public struct EHex : IEquatable<EHex>
 {
+    public static EHex Unknown = new('?');
     readonly int m_Value;
 
     public EHex(char value) => m_Value = Parse(value);
@@ -122,6 +123,7 @@ public struct EHex : IEquatable<EHex>
             31 => 'X',
             32 => 'Y',
             33 => 'Z',
+            99 => '?',
             _ => '_',
         };
     }
@@ -164,6 +166,7 @@ public struct EHex : IEquatable<EHex>
             31 => "X",
             32 => "Y",
             33 => "Z",
+            99 => "?",
             _ => "_",
         };
     }
@@ -206,8 +209,8 @@ public struct EHex : IEquatable<EHex>
             'X' => 31,
             'Y' => 32,
             'Z' => 33,
-            '?' => 0,
-            _ => throw new ArgumentOutOfRangeException(nameof(value)),
+            '?' => 99,
+            _ => throw new ArgumentOutOfRangeException(nameof(value), value, "Cannot parse EHex value."),
         };
     }
 }

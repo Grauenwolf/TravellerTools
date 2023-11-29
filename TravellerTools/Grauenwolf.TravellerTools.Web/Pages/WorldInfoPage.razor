@@ -15,8 +15,23 @@
     <h3>World Info</h3>
 
     <table class="gridtable">
-        <tr><th>UWP</th><td>@current.UWP</td></tr>
+        <tr><th>UWP</th><td colspan="6">@current.UWP</td></tr>
         <tr><th>Starport</th><td>@current.StarportCode</td><td colspan="5" width="500">@current.StarportDescription</td></tr>
+
+        @if (current.MilitaryBases.Count > 0)
+        {
+            <tr>
+                <th>Bases</th>
+                <td colspan="6">
+                    @foreach (var item in current.MilitaryBases)
+                    {
+                        <b> @item.Code: </b> @(item.Description + " ")
+                    }
+
+                </td>
+            </tr>
+        }
+
         <tr><th>Size</th><td>@current.SizeCode</td><td colspan="5">@current.SizeKM.ToString("N0") km</td></tr>
         <tr><th>Atmosphere</th><td>@current.AtmosphereCode</td><td colspan="5">@current.AtmosphereDescription</td></tr>
 
@@ -24,6 +39,7 @@
 
         <tr><th>Population</th><td>@current.PopulationCode</td><td colspan="5">@current.Population.ToString("N0")</td></tr>
         <tr><th>Government</th><td>@current.GovernmentCode</td><td colspan="5">@current.GovernmentType</td></tr>
+        <tr><th>Allegiance</th><td>@current.Allegiance</td><td colspan="5">@current.AllegianceName</td></tr>
         <tr><th>Law</th><td>@current.LawCode</td><td colspan="5">@current.LawLevel</td></tr>
 
         <tr>
@@ -38,13 +54,61 @@
         </tr>
 
         <tr><th>Tech</th><td>@current.TechCode</td><td colspan="5">@current.TechLevel</td></tr>
-        <tr><th>Remarks</th><td colspan="6">
-                @foreach(var item in current.RemarksList.Values)
+        <tr>
+            <th>Remarks</th>
+            <td colspan="6">
+                @foreach (var item in current.RemarksList.Values)
                 {
                     <b> @item.RemarkCode: </b> @(item.Description + " ")
                 }
 
-        </td></tr>
+            </td>
+        </tr>
+        <tr>
+            <th>Importance</th>
+            <td colspan="6">
+                <b>@(current.ImportanceCode ?? "?"):</b> @current.Importance <br />
+            </td>
+        </tr>
+
+        <tr>
+            <th rowspan="4">Economics</th>
+            <th >Resources </th>
+            <td colspan="4"><b>@current.ResourcesCode:</b> @current.Resources</td>
+        </tr>
+        <tr>
+            <th >Labor</th>
+            <td colspan="4"><b>@current.LaborCode:</b> @current.Labor</td>
+        </tr>
+        <tr>
+            <th >Infrastructure</th>
+            <td colspan="4"><b>@current.InfrastructureCode:</b> @current.Infrastructure</td>
+        </tr>
+        <tr>
+            <th>Efficiency</th>
+            <td colspan="4"><b>@current.EfficiencyCode:</b> @current.Efficiency</td>
+        </tr>
+
+
+        <tr>
+            <th rowspan="4">Culture</th>
+            <th >Heterogeneity </th>
+            <td colspan="4"><b>@current.HeterogeneityCode:</b> @current.Heterogeneity</td>
+        </tr>
+        <tr>
+            <th >Acceptance</th>
+            <td colspan="4"><b>@current.AcceptanceCode:</b> @current.Acceptance</td>
+        </tr>
+        <tr>
+            <th >Strangeness</th>
+            <td colspan="4"><b>@current.StrangenessCode:</b> @current.Strangeness</td>
+        </tr>
+        <tr>
+            <th>Symbols</th>
+            <td colspan="4"><b>@current.SymbolsCode:</b> @current.Symbols</td>
+        </tr>
+
+
     </table>
 
     var demograhics = Model.World.RemarksList.GetDemographics();
@@ -59,9 +123,15 @@
                     <td>
                         @item.Name <a href="@string.Format("https://wiki.travellerrpg.com/{0}", @item.Name)" target="_blank" title="Search Traveller Wiki for this sophont.">
                             <span class="oi oi-globe" aria-hidden="true" /> TAS
-                        </a></td><td>@item.PopulationString
-                    </td><td>@item.HomeworldString
-                    </td></tr>
+                        </a>
+                    </td>
+                    <td>
+                        @item.PopulationString
+                    </td>
+                    <td>
+                        @item.HomeworldString
+                    </td>
+                </tr>
             }
 
         </table>

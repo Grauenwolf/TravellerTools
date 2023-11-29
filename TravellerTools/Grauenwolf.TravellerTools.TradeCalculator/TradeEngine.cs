@@ -366,6 +366,26 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         protected void AddLotDetails(World origin, World destination, Dice dice, List<FreightLot> lots, bool variableFees)
         {
+            var govTable = new OddsTable<string>
+            {
+                { origin.Sector + " sector goverment", 2 },
+                { destination.Sector + " sector goverment", 2 },
+                { origin.SubsectorName + " subsector goverment", 4 },
+                { destination.SubsectorName + " subsector goverment", 4 },
+                { origin.Name + " local goverment", 8 },
+                { destination.Name + " local goverment", 8 }
+            };
+
+            if (origin.AllegianceName != null)
+                govTable.Add(origin.AllegianceName + " govenment", 1);
+            if (destination.AllegianceName != null)
+                govTable.Add(destination.AllegianceName + " govenment", 1);
+
+            foreach (var mBase in origin.MilitaryBases)
+                govTable.Add(origin.Name + " " + mBase.Description, 8);
+            foreach (var mBase in destination.MilitaryBases)
+                govTable.Add(destination.Name + " " + mBase.Description, 8);
+
             foreach (var lot in lots)
             {
                 if (variableFees)
@@ -452,22 +472,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                         break;
 
                     case 18: //govenment 5%
-
-                        lot.Owner = dice.D(15) switch
-                        {
-                            // 1 Imperium
-                            1 => "Imperium govenment",
-                            // 2 sector
-                            2 => origin.Sector + " sector goverment",
-                            3 => destination.Sector + " sector goverment",
-                            // 4 subsector
-                            <= 5 => origin.SubsectorName + " subsector goverment",
-                            <= 7 => destination.SubsectorName + " subsector goverment",
-                            // 8 world
-                            <= 11 => destination.Name + " local govenment",
-                            _ => origin.Name + " local govenment",
-                        };
-
+                        lot.Owner = govTable.Choose(dice);
                         break;
 
                     default: //individual 10%
