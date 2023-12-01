@@ -13,7 +13,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Tortuga.Anchor" Version="4.0.0" />
+		<PackageReference Include="Tortuga.Anchor" Version="4.1.0" />
 	</ItemGroup>
 
 </Project>
