@@ -25,23 +25,6 @@ namespace Grauenwolf.TravellerTools.Web
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
-        {
-            services.AddRazorPages();
-            services.AddServerSideBlazor();
-
-            var mapService = new TravellerMapServiceLocator(false);
-
-            services.AddSingleton(mapService); //make this configurable!
-            var nameGenerator = new NameGenerator(AppDataPath);
-            services.AddSingleton(new TradeEngineLocator(mapService, AppDataPath, nameGenerator));
-            services.AddSingleton(new EquipmentBuilder(AppDataPath));
-            services.AddSingleton(nameGenerator);
-            services.AddSingleton(new CharacterBuilder(AppDataPath));
-        }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -67,6 +50,23 @@ namespace Grauenwolf.TravellerTools.Web
                 endpoints.MapFallbackToPage("/_Host");
             });
         }
+
+        // This method gets called by the runtime. Use this method to add services to the container.
+        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddRazorPages();
+            services.AddServerSideBlazor();
+
+            var mapService = new TravellerMapServiceLocator(false);
+
+            services.AddSingleton(mapService); //make this configurable!
+            var nameGenerator = new NameGenerator(AppDataPath);
+            services.AddSingleton(new TradeEngineLocator(mapService, AppDataPath, nameGenerator));
+            services.AddSingleton(new EquipmentBuilder(AppDataPath));
+            services.AddSingleton(nameGenerator);
+            services.AddSingleton(new CharacterBuilder(AppDataPath, nameGenerator));
+        }
     }
 
     public class TradeEngineLocator
@@ -79,6 +79,12 @@ namespace Grauenwolf.TravellerTools.Web
             DataPath = dataPath;
             NameGenerator = nameGenerator;
         }
+
+        public string DataPath { get; }
+
+        public TravellerMapServiceLocator MapService { get; }
+
+        public NameGenerator NameGenerator { get; }
 
         public TradeEngine GetTradeEngine(string milieu, Edition edition)
         {
@@ -106,9 +112,5 @@ namespace Grauenwolf.TravellerTools.Web
             TradeEngines[(milieu, (int)edition)] = engine;
             return engine;
         }
-
-        public TravellerMapServiceLocator MapService { get; }
-        public string DataPath { get; }
-        public NameGenerator NameGenerator { get; }
     }
 }

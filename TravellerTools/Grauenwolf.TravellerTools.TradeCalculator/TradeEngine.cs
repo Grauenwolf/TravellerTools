@@ -28,7 +28,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 TradeGoods = ((TradeGoods)converter.Deserialize(stream)!).TradeGood.ToImmutableList();
 
             LegalTradeGoods = TradeGoods.Where(g => g.Legal).ToImmutableList();
-            m_CharacterBuilder = new CharacterBuilder(dataPath);
+            m_CharacterBuilder = new CharacterBuilder(dataPath, m_NameGenerator);
 
             var personalityFile = new FileInfo(Path.Combine(dataPath, "personality.txt"));
             m_Personalities = File.ReadAllLines(personalityFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableArray();

@@ -9,6 +9,7 @@ public class Character
     public int Age { get; set; } = 18;
     public int BenefitRolls { get; set; }
     public List<CareerHistory> CareerHistory { get; } = new();
+    public List<Contact> Contacts { get; } = new();
     public int CurrentTerm { get; set; }
     public int Debt { get; set; }
     public int Dexterity { get; set; }
@@ -82,27 +83,25 @@ public class Character
 
     internal NextTermBenefits NextTermBenefits { get; set; } = new();
 
-    internal int UnusedAllies { get; private set; }
-
-    internal int UnusedContacts { get; private set; }
-
-    internal int UnusedEnemies { get; private set; }
-
-    internal int UnusedRivals { get; private set; }
+    //internal int UnusedAllies { get; private set; }
+    internal Queue<ContactType> UnusedContacts { get; } = new();
 
     public void AddAlly(int count = 1)
     {
-        UnusedAllies += count;
+        for (var i = 0; i < count; i++)
+            UnusedContacts.Enqueue(ContactType.Ally);
     }
 
     public void AddContact(int count = 1)
     {
-        UnusedContacts += count;
+        for (var i = 0; i < count; i++)
+            UnusedContacts.Enqueue(ContactType.Contact);
     }
 
     public void AddEnemy(int count = 1)
     {
-        UnusedEnemies += count;
+        for (var i = 0; i < count; i++)
+            UnusedContacts.Enqueue(ContactType.Enemy);
     }
 
     [Obsolete("Explicitly indicate the age.")]
@@ -131,7 +130,8 @@ public class Character
 
     public void AddRival(int count = 1)
     {
-        UnusedRivals += count;
+        for (var i = 0; i < count; i++)
+            UnusedContacts.Enqueue(ContactType.Rival);
     }
 
     /// <summary>
