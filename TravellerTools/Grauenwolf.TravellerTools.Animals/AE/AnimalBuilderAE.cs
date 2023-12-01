@@ -1,11 +1,7 @@
 ﻿using CSScriptLib;
 using Grauenwolf.TravellerTools.Characters;
-using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.IO;
-using System.Linq;
 using System.Xml.Serialization;
 
 namespace Grauenwolf.TravellerTools.Animals.AE;

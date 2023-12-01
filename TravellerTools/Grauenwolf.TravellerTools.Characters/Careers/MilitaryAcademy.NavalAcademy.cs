@@ -1,5 +1,3 @@
-using System;
-
 namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 class NavalAcademy(Book book) : MilitaryAcademy("Naval Academy", book)

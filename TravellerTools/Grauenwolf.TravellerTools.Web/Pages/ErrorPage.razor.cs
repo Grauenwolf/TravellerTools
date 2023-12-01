@@ -1,6 +1,5 @@
-﻿namespace Grauenwolf.TravellerTools.Web.Pages
+﻿namespace Grauenwolf.TravellerTools.Web.Pages;
+
+partial class ErrorPage
 {
-    partial class ErrorPage
-    {
-    }
 }

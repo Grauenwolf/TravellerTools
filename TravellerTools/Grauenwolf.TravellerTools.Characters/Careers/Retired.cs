@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 class Retired(Book book) : CareerBase("Retired", null, book)

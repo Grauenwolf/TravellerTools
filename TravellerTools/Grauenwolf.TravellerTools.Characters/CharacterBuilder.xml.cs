@@ -1,11 +1,8 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace Grauenwolf.TravellerTools.Characters
 {
-
-
     /// <remarks/>
     [System.SerializableAttribute()]
     [DesignerCategoryAttribute("code")]
@@ -13,7 +10,6 @@ namespace Grauenwolf.TravellerTools.Characters
     [XmlRootAttribute(Namespace = "", IsNullable = false)]
     public partial class CharacterTemplates
     {
-
         /// <remarks/>
         [XmlArrayItemAttribute("Skill", IsNullable = false)]
         public CharacterTemplatesSkill[] Skills { get; set; }
@@ -25,6 +21,9 @@ namespace Grauenwolf.TravellerTools.Characters
     [XmlTypeAttribute(AnonymousType = true)]
     public partial class CharacterTemplatesSkill
     {
+        /// <remarks/>
+        [XmlAttributeAttribute()]
+        public string Name { get; set; }
 
         /// <remarks/>
         [XmlElementAttribute("Specialty")]
@@ -33,10 +32,6 @@ namespace Grauenwolf.TravellerTools.Characters
         /// <remarks/>
         [XmlTextAttribute()]
         public string[] Text { get; set; }
-
-        /// <remarks/>
-        [XmlAttributeAttribute()]
-        public string Name { get; set; }
     }
 
     /// <remarks/>
@@ -45,11 +40,8 @@ namespace Grauenwolf.TravellerTools.Characters
     [XmlTypeAttribute(AnonymousType = true)]
     public partial class CharacterTemplatesSkillSpecialty
     {
-
         /// <remarks/>
         [XmlAttributeAttribute()]
         public string Name { get; set; }
     }
-
-
 }

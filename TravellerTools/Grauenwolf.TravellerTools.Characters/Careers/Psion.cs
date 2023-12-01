@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace Grauenwolf.TravellerTools.Characters.Careers;
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 abstract class Psion : NormalCareer
 {

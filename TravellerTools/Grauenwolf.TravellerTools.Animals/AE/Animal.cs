@@ -1,5 +1,4 @@
 using Grauenwolf.TravellerTools.Characters;
-using System.Collections.Generic;
 using Tortuga.Anchor.Modeling;
 
 namespace Grauenwolf.TravellerTools.Animals.AE;

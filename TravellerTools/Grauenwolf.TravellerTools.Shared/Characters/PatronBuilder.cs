@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Grauenwolf.TravellerTools.Characters;
+﻿namespace Grauenwolf.TravellerTools.Characters;
 
 //TODO: Replace with one that will support a name generator
 //TODO: Replace with one that will support a character generator

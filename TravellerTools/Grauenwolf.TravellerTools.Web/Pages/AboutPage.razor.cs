@@ -1,10 +1,9 @@
-﻿namespace Grauenwolf.TravellerTools.Web.Pages
+﻿namespace Grauenwolf.TravellerTools.Web.Pages;
+
+partial class AboutPage
 {
-    partial class AboutPage
+    public AboutPage()
     {
-        public AboutPage()
-        {
-            PageTitle = "About";
-        }
+        PageTitle = "About";
     }
 }

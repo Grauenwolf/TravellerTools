@@ -1,10 +1,6 @@
 using Grauenwolf.TravellerTools.Characters.Careers;
 using Grauenwolf.TravellerTools.Names;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.IO;
-using System.Linq;
 using System.Xml.Serialization;
 
 namespace Grauenwolf.TravellerTools.Characters;
@@ -163,6 +159,12 @@ public class CharacterBuilder
         BuildContacts(dice, character);
 
         return character;
+    }
+
+    public void BuildContacts(Dice dice, Character character)
+    {
+        while (character.UnusedContacts.Count > 0)
+            character.Contacts.Add(CreateContact(dice, character.UnusedContacts.Dequeue(), character));
     }
 
     public Contact CreateContact(Dice dice, ContactType contactType, Character? character)
@@ -328,15 +330,15 @@ public class CharacterBuilder
                         break;
 
                     case 34:
-                        result.History.Add("This individual is actually an organisation such as a political movement or modest sized business.");
+                        result.History.Add($"{result.CharacterStub.Name} is actually an organisation such as a political movement or modest sized business.");
                         break;
 
                     case 35:
-                        result.History.Add("This individual is a member of an organisation which holds a generally opposite view of the Traveller.");
+                        result.History.Add($"{result.CharacterStub.Name} is a member of an organisation which holds a generally opposite view of the Traveller.");
                         break;
 
                     case 36:
-                        result.History.Add("This individual is a questionable figure such as a criminal, pirate or disgraced noble.");
+                        result.History.Add($"{result.CharacterStub.Name} is a questionable figure such as a criminal, pirate or disgraced noble.");
                         break;
 
                     case 41:
@@ -350,62 +352,62 @@ public class CharacterBuilder
                         break;
 
                     case 43:
-                        result.History.Add("This individual fell on hard times.");
+                        result.History.Add($"{result.CharacterStub.Name} fell on hard times.");
                         result.Power -= 1;
                         break;
 
                     case 44:
-                        result.History.Add("This individual was ruined by misfortune caused by the character.");
+                        result.History.Add($"{result.CharacterStub.Name} was ruined by misfortune caused by the character.");
                         result.Power = 0;
                         result.Enmity += 1;
                         break;
 
                     case 45:
-                        result.History.Add("This individual gained influence with the character’s assistance.");
+                        result.History.Add($"{result.CharacterStub.Name} gained influence with the character’s assistance.");
                         result.Influence += 1;
                         result.Affinity += 1;
                         break;
 
                     case 46:
-                        result.History.Add("This individual gained power at the expense of a third party who now blames the character.");
+                        result.History.Add($"{result.CharacterStub.Name} gained power at the expense of a third party who now blames the character.");
                         result.Power += 1;
                         character?.AddEnemy();
                         break;
 
                     case 51:
-                        result.History.Add("This individual is missing under suspicious circumstances.");
+                        result.History.Add($"{result.CharacterStub.Name} is missing under suspicious circumstances.");
                         break;
 
                     case 52:
-                        result.History.Add("This individual is out of contact doing something interesting but not suspicious.");
+                        result.History.Add($"{result.CharacterStub.Name} is out of contact doing something interesting but not suspicious.");
                         break;
 
                     case 53:
-                        result.History.Add("This individual is in desperate trouble and could use the character’s help.");
+                        result.History.Add($"{result.CharacterStub.Name} is in desperate trouble and could use the character’s help.");
                         break;
 
                     case 54:
-                        result.History.Add("This individual has had an unexpected run of good fortune lately.");
+                        result.History.Add($"{result.CharacterStub.Name} has had an unexpected run of good fortune lately.");
                         break;
 
                     case 55:
-                        result.History.Add("This individual is in prison or otherwise trapped somewhere.");
+                        result.History.Add($"{result.CharacterStub.Name} is in prison or otherwise trapped somewhere.");
                         break;
 
                     case 56:
-                        result.History.Add("This individual is found or reported dead.");
+                        result.History.Add($"{result.CharacterStub.Name} is found or reported dead.");
                         break;
 
                     case 61:
-                        result.History.Add("This individual has life-changing event that creates new responsibilities.");
+                        result.History.Add($"{result.CharacterStub.Name} has life-changing event that creates new responsibilities.");
                         break;
 
                     case 62:
-                        result.History.Add("This individual has negatively life-changing event.");
+                        result.History.Add($"{result.CharacterStub.Name} has negatively life-changing event.");
                         break;
 
                     case 63:
-                        result.History.Add("This individual’s relationships have begun to affect the character.");
+                        result.History.Add($"{result.CharacterStub.Name}’s relationships have begun to affect the character.");
                         if (result.Affinity > result.Enmity)
                             character?.AddContact();
                         else if (result.Affinity < result.Enmity)
@@ -637,12 +639,6 @@ public class CharacterBuilder
             return true;
 
         return false;
-    }
-
-    void BuildContacts(Dice dice, Character character)
-    {
-        while (character.UnusedContacts.Count > 0)
-            character.Contacts.Add(CreateContact(dice, character.UnusedContacts.Dequeue(), character));
     }
 
     CareerBase PickNextCareer(Character character, Dice dice)

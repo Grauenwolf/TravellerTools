@@ -1,6 +1,5 @@
-﻿namespace Grauenwolf.TravellerTools.Web.Pages
+﻿namespace Grauenwolf.TravellerTools.Web.Pages;
+
+partial class GalaxyIndexPage
 {
-    partial class GalaxyIndexPage
-    {
-    }
 }

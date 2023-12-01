@@ -1,0 +1,81 @@
+﻿@page "/contacts"
+@using Microsoft.AspNetCore.WebUtilities
+@inherits NullablePageBase<ContactOptions>
+@{
+    PageTitle = "Contact Generator";
+}
+
+<h3>Characters</h3>
+
+@if (Model != null)
+{
+    <div>
+        <EditForm Model="@Model">
+
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div>This creates contacts using the rules from Traveller Companion. You'll need that book to interper the stats. Note that some contact events can trigger the creation of additional contacts.</div>
+            <table class="gridtable">
+                <tr>
+                    <th>Allies</th>
+                    <th>Contacts</th>
+                    <th>Rivals</th>
+                    <th>Enemies</th>
+                </tr>
+                <tr>
+                    <td>
+                        <InputSelect @bind-Value="Model.Allies">
+                            @for (var score = 0; score <= 15; score++)
+                            {
+                                <option value="@(score)" selected="@(Model.Allies == score)"> @(score)</option>
+                            }
+                        </InputSelect>
+                    </td>
+                    <td>
+                        <InputSelect @bind-Value="Model.Contacts">
+                            @for (var score = 0; score <= 15; score++)
+                            {
+                                <option value="@(score)" selected="@(Model.Contacts == score)"> @(score)</option>
+                            }
+                        </InputSelect>
+                    </td>
+                    <td>
+                        <InputSelect @bind-Value="Model.Rivals">
+                            @for (var score = 0; score <= 15; score++)
+                            {
+                                <option value="@(score)" selected="@(Model.Rivals == score)"> @(score)</option>
+                            }
+                        </InputSelect>
+                    </td>
+                    <td>
+                        <InputSelect @bind-Value="Model.Enemies">
+                            @for (var score = 0; score <= 15; score++)
+                            {
+                                <option value="@(score)" selected="@(Model.Enemies == score)"> @(score)</option>
+                            }
+                        </InputSelect>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align:center">
+                        <button @onclick="GenerateContacts">Generate Contacts</button>
+                    </td>
+                </tr>
+            </table>
+        </EditForm>
+    </div>
+    @if(ContactsModel!= null)
+    {
+        <div>&nbsp;</div>
+        <ContactListViewer Contacts="ContactsModel.Contacts" />
+    }
+}
+else if (LoadFailed)
+{
+    <h1>Error loading page.</h1>
+}
+else
+{
+    <h1>Loading</h1>
+}

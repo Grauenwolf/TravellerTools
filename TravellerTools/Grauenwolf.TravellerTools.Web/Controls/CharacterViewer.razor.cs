@@ -1,26 +1,24 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.WebUtilities;
 
-namespace Grauenwolf.TravellerTools.Web.Controls
+namespace Grauenwolf.TravellerTools.Web.Controls;
+
+partial class CharacterViewer
 {
-    partial class CharacterViewer
+    [Parameter] public Character? Character { get; set; }
+
+    //protected void Permalink(MouseEventArgs _)
+    //{
+    //    string uri = Permalink();
+    //    Navigation.NavigateTo(uri, true);
+    //}
+
+    protected string Permalink()
     {
-        [Parameter] public Character? Character { get; set; }
+        if (Character == null)
+            return $"/character";
 
-        protected void Permalink(MouseEventArgs _)
-        {
-            string uri = Permalink();
-            Navigation.NavigateTo(uri, true);
-        }
-
-        protected string Permalink()
-        {
-            if (Character == null)
-                return $"/character";
-
-            return QueryHelpers.AddQueryString("/character/view", Character.GetCharacterBuilderOptions().ToQueryString());
-        }
+        return QueryHelpers.AddQueryString("/character/view", Character.GetCharacterBuilderOptions().ToQueryString());
     }
 }

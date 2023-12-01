@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 abstract class MilitaryAcademy(string assignment, Book book) : CareerBase("Military Academy", assignment, book)

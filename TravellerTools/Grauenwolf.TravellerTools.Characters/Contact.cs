@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Grauenwolf.TravellerTools.Characters;
+﻿namespace Grauenwolf.TravellerTools.Characters;
 
 public class Contact(ContactType contactType, CharacterBuilderOptions characterStub)
 {

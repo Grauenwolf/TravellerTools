@@ -1,7 +1,6 @@
 ﻿using Grauenwolf.TravellerTools.Equipment;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
-using System.IO;
 using System.Reflection;
 
 namespace Grauenwolf.TravellerTools.Tests

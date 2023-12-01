@@ -1,19 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <LangVersion>12.0</LangVersion>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<LangVersion>12.0</LangVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Grauenwolf.TravellerTools.Animals\Grauenwolf.TravellerTools.Animals.csproj" />
-    <ProjectReference Include="..\Grauenwolf.TravellerTools.Characters\Grauenwolf.TravellerTools.Characters.csproj" />
-    <ProjectReference Include="..\Grauenwolf.TravellerTools.Equipment\Grauenwolf.TravellerTools.Equipment.csproj" />
-    <ProjectReference Include="..\Grauenwolf.TravellerTools.Services\Grauenwolf.TravellerTools.Services.csproj" />
-    <ProjectReference Include="..\Grauenwolf.TravellerTools.Shared\Grauenwolf.TravellerTools.Shared.csproj" />
-    <ProjectReference Include="..\Grauenwolf.TravellerTools.TradeCalculator\Grauenwolf.TravellerTools.TradeCalculator.csproj" />
-    <ProjectReference Include="..\Tortuga.Yardarm\Tortuga.Yardarm.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Grauenwolf.TravellerTools.Animals\Grauenwolf.TravellerTools.Animals.csproj" />
+		<ProjectReference Include="..\Grauenwolf.TravellerTools.Characters\Grauenwolf.TravellerTools.Characters.csproj" />
+		<ProjectReference Include="..\Grauenwolf.TravellerTools.Equipment\Grauenwolf.TravellerTools.Equipment.csproj" />
+		<ProjectReference Include="..\Grauenwolf.TravellerTools.Services\Grauenwolf.TravellerTools.Services.csproj" />
+		<ProjectReference Include="..\Grauenwolf.TravellerTools.Shared\Grauenwolf.TravellerTools.Shared.csproj" />
+		<ProjectReference Include="..\Grauenwolf.TravellerTools.TradeCalculator\Grauenwolf.TravellerTools.TradeCalculator.csproj" />
+		<ProjectReference Include="..\Tortuga.Yardarm\Tortuga.Yardarm.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Update="Pages\ContactsPage.razor">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
+	</ItemGroup>
 
 </Project>

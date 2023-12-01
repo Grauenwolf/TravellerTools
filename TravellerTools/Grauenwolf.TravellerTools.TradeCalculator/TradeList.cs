@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Grauenwolf.TravellerTools.TradeCalculator;
 
 public class TradeGoodsList

@@ -1,5 +1,3 @@
-using System;
-
 namespace Grauenwolf.TravellerTools.Characters;
 
 public class Person

@@ -1,6 +1,4 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
-using System;
-using System.Collections.Generic;
 
 namespace Grauenwolf.TravellerTools.TradeCalculator;
 

@@ -4,125 +4,125 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using Tortuga.Anchor.Modeling;
 
-namespace Grauenwolf.TravellerTools.Web.Data
+namespace Grauenwolf.TravellerTools.Web.Data;
+
+public class TradeOptions : ModelBase
 {
-    public class TradeOptions : ModelBase
+    public static readonly ImmutableArray<(string Name, string Code)> EditionList = ImmutableArray.Create(
+            ("Mongoose 1", Edition.MGT.ToString()),
+            ("Mongoose 2", Edition.MGT2.ToString()),
+            ("Mongoose 2022", Edition.MGT2022.ToString())
+        );
+
+    public bool AdvancedMode { get => GetDefault(false); set => Set(value); }
+    public int BrokerScore { get => GetDefault(0); set => Set(value); }
+
+    public string? BrokerScoreCode
     {
-        public static readonly ImmutableArray<(string Name, string Code)> EditionList = ImmutableArray.Create(
-                ("Mongoose 1", Edition.MGT.ToString()),
-                ("Mongoose 2", Edition.MGT2.ToString()),
-                ("Mongoose 2022", Edition.MGT2022.ToString())
-            );
-
-        public Edition SelectedEdition { get => GetDefault<Edition>(Edition.MGT2022); set => Set(value); }
-
-        public string SelectedEditionCode
+        get => BrokerScore.ToString();
+        set
         {
-            get => SelectedEdition.ToString();
-            set
-            {
-                if (Enum.TryParse<Edition>(value, out var edition))
-                    SelectedEdition = edition;
-                else
-                    SelectedEdition = Edition.MGT2022;
-            }
+            if (int.TryParse(value, out var score))
+                BrokerScore = score;
+            else
+                BrokerScore = 0;
         }
+    }
 
-        public bool AdvancedMode { get => GetDefault(false); set => Set(value); }
-        public bool Raffle { get => GetDefault(false); set => Set(value); }
-        public bool IllegalGoods { get => GetDefault(false); set => Set(value); }
-        public bool SkipPriceRoll { get => GetDefault(false); set => Set(value); }
+    public int CounterpartyScore { get => GetDefault(2); set => Set(value); }
 
-        public int BrokerScore { get => GetDefault(0); set => Set(value); }
-        public int CounterpartyScore { get => GetDefault(2); set => Set(value); }
-        public int StreetwiseScore { get => GetDefault(0); set => Set(value); }
-
-        public string? CounterpartyScoreCode
+    public string? CounterpartyScoreCode
+    {
+        get => CounterpartyScore.ToString();
+        set
         {
-            get => CounterpartyScore.ToString();
-            set
-            {
-                if (int.TryParse(value, out var score))
-                    CounterpartyScore = score;
-                else
-                    CounterpartyScore = 0;
-            }
+            if (int.TryParse(value, out var score))
+                CounterpartyScore = score;
+            else
+                CounterpartyScore = 0;
         }
+    }
 
-        public string? BrokerScoreCode
+    public int DestinationIndex { get => GetDefault(-1); set => Set(value); }
+
+    public string? DestinationIndexCode
+    {
+        get => DestinationIndex.ToString();
+        set
         {
-            get => BrokerScore.ToString();
-            set
-            {
-                if (int.TryParse(value, out var score))
-                    BrokerScore = score;
-                else
-                    BrokerScore = 0;
-            }
+            if (int.TryParse(value, out var score))
+                DestinationIndex = score;
+            else
+                DestinationIndex = -1;
         }
+    }
 
-        public string? StreetwiseScoreCode
+    public bool IllegalGoods { get => GetDefault(false); set => Set(value); }
+    public bool Raffle { get => GetDefault(false); set => Set(value); }
+    public Edition SelectedEdition { get => GetDefault<Edition>(Edition.MGT2022); set => Set(value); }
+
+    public string SelectedEditionCode
+    {
+        get => SelectedEdition.ToString();
+        set
         {
-            get => StreetwiseScore.ToString();
-            set
-            {
-                if (int.TryParse(value, out var score))
-                    StreetwiseScore = score;
-                else
-                    StreetwiseScore = 0;
-            }
+            if (Enum.TryParse<Edition>(value, out var edition))
+                SelectedEdition = edition;
+            else
+                SelectedEdition = Edition.MGT2022;
         }
+    }
 
-        public int DestinationIndex { get => GetDefault(-1); set => Set(value); }
+    public bool SkipPriceRoll { get => GetDefault(false); set => Set(value); }
+    public int StreetwiseScore { get => GetDefault(0); set => Set(value); }
 
-        public string? DestinationIndexCode
+    public string? StreetwiseScoreCode
+    {
+        get => StreetwiseScore.ToString();
+        set
         {
-            get => DestinationIndex.ToString();
-            set
-            {
-                if (int.TryParse(value, out var score))
-                    DestinationIndex = score;
-                else
-                    DestinationIndex = -1;
-            }
+            if (int.TryParse(value, out var score))
+                StreetwiseScore = score;
+            else
+                StreetwiseScore = 0;
         }
+    }
 
-        public Dictionary<string, string?> ToQueryString()
-        {
-            return new Dictionary<string, string?>
-            {
-                { "edition", SelectedEditionCode },
-                { "advancedMode", AdvancedMode.ToString() },
-                { "raffle", Raffle.ToString() },
-                { "illegalGoods", IllegalGoods.ToString() },
-                { "skipPriceRoll", SkipPriceRoll.ToString() },
-                { "brokerScore", BrokerScore.ToString() },
-                { "streetwiseScore", StreetwiseScore.ToString() },
-                { "destinationIndex", DestinationIndex.ToString() },
-                { "counterpartyScore", CounterpartyScore.ToString() }
-            };
-        }
+    public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)
+    {
+        if (keyValuePairs.TryGetValue("edition", out var editionCode))
+            SelectedEditionCode = editionCode;
+        if (keyValuePairs.TryGetValue("advancedMode", out var advancedMode))
+            AdvancedMode = bool.Parse(advancedMode);
+        if (keyValuePairs.TryGetValue("raffle", out var raffle))
+            Raffle = bool.Parse(raffle);
+        if (keyValuePairs.TryGetValue("illegalGoods", out var illegalGoods))
+            IllegalGoods = bool.Parse(illegalGoods);
+        if (keyValuePairs.TryGetValue("skipPriceRoll", out var skipPriceRoll))
+            SkipPriceRoll = bool.Parse(skipPriceRoll);
+        if (keyValuePairs.TryGetValue("brokerScore", out var brokerScore))
+            BrokerScore = int.Parse(brokerScore);
+        if (keyValuePairs.TryGetValue("counterpartyScore", out var counterpartyScore))
+            CounterpartyScore = int.Parse(counterpartyScore);
+        if (keyValuePairs.TryGetValue("streetwiseScore", out var streetwiseScore))
+            StreetwiseScore = int.Parse(streetwiseScore);
+        if (keyValuePairs.TryGetValue("destinationIndex", out var destinationIndex))
+            DestinationIndex = int.Parse(destinationIndex);
+    }
 
-        public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)
+    public Dictionary<string, string?> ToQueryString()
+    {
+        return new Dictionary<string, string?>
         {
-            if (keyValuePairs.TryGetValue("edition", out var editionCode))
-                SelectedEditionCode = editionCode;
-            if (keyValuePairs.TryGetValue("advancedMode", out var advancedMode))
-                AdvancedMode = bool.Parse(advancedMode);
-            if (keyValuePairs.TryGetValue("raffle", out var raffle))
-                Raffle = bool.Parse(raffle);
-            if (keyValuePairs.TryGetValue("illegalGoods", out var illegalGoods))
-                IllegalGoods = bool.Parse(illegalGoods);
-            if (keyValuePairs.TryGetValue("skipPriceRoll", out var skipPriceRoll))
-                SkipPriceRoll = bool.Parse(skipPriceRoll);
-            if (keyValuePairs.TryGetValue("brokerScore", out var brokerScore))
-                BrokerScore = int.Parse(brokerScore);
-            if (keyValuePairs.TryGetValue("counterpartyScore", out var counterpartyScore))
-                CounterpartyScore = int.Parse(counterpartyScore);
-            if (keyValuePairs.TryGetValue("streetwiseScore", out var streetwiseScore))
-                StreetwiseScore = int.Parse(streetwiseScore);
-            if (keyValuePairs.TryGetValue("destinationIndex", out var destinationIndex))
-                DestinationIndex = int.Parse(destinationIndex);
-        }
+            { "edition", SelectedEditionCode },
+            { "advancedMode", AdvancedMode.ToString() },
+            { "raffle", Raffle.ToString() },
+            { "illegalGoods", IllegalGoods.ToString() },
+            { "skipPriceRoll", SkipPriceRoll.ToString() },
+            { "brokerScore", BrokerScore.ToString() },
+            { "streetwiseScore", StreetwiseScore.ToString() },
+            { "destinationIndex", DestinationIndex.ToString() },
+            { "counterpartyScore", CounterpartyScore.ToString() }
+        };
     }
 }

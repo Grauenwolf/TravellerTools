@@ -1,8 +1,5 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.IO;
-using System.Linq;
 using System.Xml.Serialization;
 
 namespace Grauenwolf.TravellerTools.Animals.Mgt;

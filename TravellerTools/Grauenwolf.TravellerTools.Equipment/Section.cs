@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Grauenwolf.TravellerTools.Equipment;
+﻿namespace Grauenwolf.TravellerTools.Equipment;
 
 public class Section : IHasItems
 {

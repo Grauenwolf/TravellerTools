@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace Grauenwolf.TravellerTools.Characters;
 
 public class SkillTemplateCollection : SkillTemplateCollection<SkillTemplate>

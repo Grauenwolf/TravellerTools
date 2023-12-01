@@ -1,6 +1,4 @@
 using System.Collections.Immutable;
-using System.IO;
-using System.Linq;
 
 namespace Grauenwolf.TravellerTools.Names;
 

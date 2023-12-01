@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 class NextTermBenefits

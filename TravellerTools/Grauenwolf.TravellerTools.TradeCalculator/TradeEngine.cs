@@ -1,12 +1,8 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
 using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Names;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Linq;
 using System.Xml.Serialization;
 
 namespace Grauenwolf.TravellerTools.TradeCalculator

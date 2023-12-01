@@ -1,6 +1,4 @@
 ﻿using Grauenwolf.TravellerTools;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers;
 

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Grauenwolf.TravellerTools.Characters.Careers;
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 abstract class Navy(string assignment, Book book) : MilitaryCareer("Navy", assignment, book)
 {

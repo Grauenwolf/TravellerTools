@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Grauenwolf.TravellerTools.Characters;
+﻿namespace Grauenwolf.TravellerTools.Characters;
 
 public static class SimpleCharacterEngine
 {

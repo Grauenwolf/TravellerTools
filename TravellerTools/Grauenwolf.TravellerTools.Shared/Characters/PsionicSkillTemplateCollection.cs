@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace Grauenwolf.TravellerTools.Characters;
 
 public class PsionicSkillTemplateCollection : SkillTemplateCollection<PsionicSkillTemplate>

@@ -1,5 +1,4 @@
 ﻿using Grauenwolf.TravellerTools.Shared;
-using System;
 using System.Collections.Concurrent;
 
 namespace Grauenwolf.TravellerTools.Maps;

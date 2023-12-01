@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.WebUtilities
+@inherits ControlBase
+
+@if (Contacts != null)
+{
+    <table class="gridtable">
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Affinity</th>
+            <th>Enmity</th>
+            <th>Power</th>
+            <th>Influence</th>
+        </tr>
+        @foreach (var contact in Contacts)
+        {
+            <tr>
+                <td>
+                    <a target="_blank" href="@QueryHelpers.AddQueryString("/character/view", contact.CharacterStub.ToQueryString())">@contact.CharacterStub.Name</a>
+                </td>
+                <td>@contact.ContactType</td>
+                <td>@contact.Affinity</td>
+                <td>@(contact.Enmity == 0 ? "0": 1*contact.Enmity)</td>
+                <td>@contact.Power</td>
+                <td>@contact.Influence</td>
+            </tr>
+            @foreach (var line in contact.History)
+            {
+                <tr>
+                    <td colspan="6">
+                        @line
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+}
+else
+{
+    <div>Error - Contact list is missing</div>
+}

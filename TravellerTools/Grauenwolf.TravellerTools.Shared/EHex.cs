@@ -1,6 +1,3 @@
-using System;
-using System.Linq;
-
 namespace Grauenwolf.TravellerTools;
 
 public struct EHex : IEquatable<EHex>

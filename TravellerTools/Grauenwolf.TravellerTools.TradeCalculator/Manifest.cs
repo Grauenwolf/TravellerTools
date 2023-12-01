@@ -1,5 +1,4 @@
 using Grauenwolf.TravellerTools.Maps;
-using System.Collections.Generic;
 
 namespace Grauenwolf.TravellerTools.TradeCalculator;
 

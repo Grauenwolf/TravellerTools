@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Grauenwolf.TravellerTools.Characters.Careers;
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 abstract class Drifter(string assignment, Book book) : NormalCareer("Drifter", assignment, book)
 {
