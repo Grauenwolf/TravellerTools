@@ -1,0 +1,26 @@
+﻿@page "/contacts/view"
+@using Microsoft.AspNetCore.WebUtilities
+@inherits PageBase<ContactOptions>
+@{
+    PageTitle = "Contacts";
+}
+
+
+
+@if (ContactsModel != null)
+{
+    <h3>
+        Allies, Contacts, Rivals, and Enemies
+        @* <a @onclick="Reroll" href="#" title="Reroll"><span class="oi oi-random" /></a> *@
+        <a href="@(Permalink())" target="_blank" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
+    </h3>
+    <ContactListViewer Contacts="ContactsModel.Contacts" />
+}
+else if (LoadFailed)
+{
+    <h1>Error loading page.</h1>
+}
+else
+{
+    <h1>Loading</h1>
+}

@@ -6,17 +6,39 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace Grauenwolf.TravellerTools.Web.Pages;
 
-partial class ContactsPage
+partial class ContactsViewPage
 {
+    public int? Seed { get => Get<int?>(); set => Set(value); }
     protected ContactsModel? ContactsModel { get; set; }
     [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
     [Inject] NameGenerator NameGenerator { get; set; } = null!;
 
-    protected void GenerateContacts()
+    protected override void Initialized()
+    {
+        if (Navigation.TryGetQueryString("seed", out int seed))
+            Seed = seed;
+
+        Model.FromQueryString(Navigation.ParsedQueryString());
+
+        if (Seed != null)
+            GenerateContacts(Seed.Value);
+        else
+            Navigation.NavigateTo("/contacts", true, true);
+    }
+
+    protected string Permalink()
+    {
+        var uri = $"/contacts/view";
+
+        uri = QueryHelpers.AddQueryString(uri, Model.ToQueryString());
+        uri = QueryHelpers.AddQueryString(uri, "seed", (ContactsModel?.Seed ?? 0).ToString());
+        return uri;
+    }
+
+    private void GenerateContacts(int seed)
     {
         try
         {
-            int seed = new Random().Next();
             var dice = new Dice(seed);
             var result = new ContactsModel();
 
@@ -37,14 +59,5 @@ partial class ContactsPage
         {
             LogError(ex, $"Error in creating contacts using {nameof(GenerateContacts)}.");
         }
-    }
-
-    protected string Permalink()
-    {
-        var uri = $"/contacts/view";
-
-        uri = QueryHelpers.AddQueryString(uri, Model.ToQueryString());
-        uri = QueryHelpers.AddQueryString(uri, "seed", (ContactsModel?.Seed ?? 0).ToString());
-        return uri;
     }
 }
