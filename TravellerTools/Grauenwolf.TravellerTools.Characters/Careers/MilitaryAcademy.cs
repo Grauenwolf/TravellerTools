@@ -31,7 +31,7 @@ abstract class MilitaryAcademy(string assignment, Book book) : CareerBase("Milit
     {
         character.LongTermBenefits.MayEnrollInSchool = false;
 
-        character.AddHistory($"Entered {Assignment}", character.Age);
+        character.AddHistory($"Entered {Career}({Assignment})", character.Age);
         Stub.BasicTrainingSkills(character, dice, true);
 
         var gradDM = character.IntellectDM;

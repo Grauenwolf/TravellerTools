@@ -15,36 +15,35 @@ abstract class NormalCareer : FullCareer
         CareerHistory careerHistory;
         if (!character.CareerHistory.Any(pc => pc.Career == Career))
         {
-            character.AddHistory($"Became a {Assignment}.", character.Age);
+            careerHistory = new CareerHistory(Career, Assignment, 0);
+            ChangeCareer(character, dice, careerHistory);
             BasicTrainingSkills(character, dice, character.CareerHistory.Count == 0);
 
-            careerHistory = new CareerHistory(Career, Assignment, 0);
             character.CareerHistory.Add(careerHistory);
-            UpdateTitle(character, dice, careerHistory);
         }
         else
         {
             if (!character.CareerHistory.Any(pc => pc.Assignment == Assignment))
             {
-                character.AddHistory($"Switched to {Assignment}.", character.Age);
                 careerHistory = new CareerHistory(Career, Assignment, 0);
+                character.AddHistory($"Switched to {careerHistory.LongName}.", character.Age);
                 character.CareerHistory.Add(careerHistory);
 
-                if (!RankCarryover) //then this is a new career
+                if (!RankCarryover) //then this is a new career path
                 {
-                    UpdateTitle(character, dice, careerHistory);
+                    ChangeAssignment(character, dice, careerHistory);
                     BasicTrainingSkills(character, dice, false);
                 }
             }
             else if (character.LastCareer?.Assignment == Assignment)
             {
-                character.AddHistory($"Continued as {Assignment}.", character.Age);
                 careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
+                character.AddHistory($"Continued as {careerHistory.LongName}.", character.Age);
             }
             else
             {
-                character.AddHistory($"Returned to {Assignment}.", character.Age);
                 careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
+                character.AddHistory($"Returned to {careerHistory.LongName}.", character.Age);
             }
 
             var skillTables = new List<SkillTable>();
@@ -76,17 +75,14 @@ abstract class NormalCareer : FullCareer
             var advancementRoll = dice.D(2, 6);
             if (advancementRoll == 12)
             {
-                character.AddHistory("Forced to continue current assignment", character.Age);
+                character.AddHistory("Forced to continue current assignment.", character.Age);
                 character.NextTermBenefits.MustEnroll = Assignment;
             }
             advancementRoll += character.GetDM(AdvancementAttribute) + character.CurrentTermBenefits.AdvancementDM + character.LongTermBenefits.AdvancementDM;
 
             if (advancementRoll >= AdvancementTarget)
             {
-                careerHistory.Rank += 1;
-                character.AddHistory($"Promoted to {careerHistory.ShortName} rank {careerHistory.Rank}", character.Age);
-
-                UpdateTitle(character, dice, careerHistory);
+                Promote(character, dice, careerHistory);
 
                 //advancement skill
                 var skillTables = new List<SkillTable>

@@ -105,6 +105,7 @@ public class CharacterBuilder
         character.Name = options.Name;
         character.Gender = options.Gender;
         character.MaxAge = options.MaxAge;
+        character.Year = options.Year;
 
         character.Strength = dice.D(2, 6);
         character.Dexterity = dice.D(2, 6);

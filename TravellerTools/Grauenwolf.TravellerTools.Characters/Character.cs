@@ -16,39 +16,22 @@ public class Character
     public int EducationDM => DMCalc(Education);
     public EducationHistory? EducationHistory { get; set; }
     public int Endurance { get; set; }
-
     public int EnduranceDM => DMCalc(Endurance);
-
     public string? FirstAssignment { get; set; }
-
     public string? FirstCareer { get; set; }
-
     public string? Gender { get; set; }
-
     public HistoryCollection History { get; } = new();
-
     public int Intellect { get; set; }
-
     public int IntellectDM => DMCalc(Intellect);
-
     public bool IsDead { get; set; }
-
     public CareerHistory? LastCareer { get; set; }
-
     public int? MaxAge { get; set; }
-
     public string? Name { get; set; }
-
     public int? Parole { get; set; }
-
     public List<string> Personality { get; } = new();
-
     public string PersonalityList => string.Join(", ", Personality);
-
     public int PreviousPsiAttempts { get; set; }
-
     public int? Psi { get; set; }
-
     public int PsiDM => Psi == null ? -100 : DMCalc(Psi.Value);
 
     /// <summary>
@@ -58,21 +41,14 @@ public class Character
     public int Seed { get; set; }
 
     public SkillCollection Skills { get; } = new();
-
     public int SocialStanding { get; set; }
-
     public int SocialStandingDM => DMCalc(SocialStanding);
-
     public int Strength { get; set; }
-
     public int StrengthDM => DMCalc(Strength);
-
     public string? Title { get; set; }
-
     public List<string> Trace { get; } = new();
-
     public WeaponCollection Weapons { get; } = new();
-
+    public int? Year { get; set; }
     internal List<int> BenefitRollDMs { get; } = new();
 
     internal NextTermBenefits CurrentTermBenefits { get; set; } = new();
@@ -144,7 +120,8 @@ public class Character
             FirstCareer = FirstCareer,
             Gender = Gender,
             MaxAge = Age,
-            Name = Name
+            Name = Name,
+            Year = Year
         };
     }
 

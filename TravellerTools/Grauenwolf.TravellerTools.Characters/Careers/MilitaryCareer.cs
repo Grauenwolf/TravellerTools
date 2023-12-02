@@ -13,31 +13,29 @@ abstract class MilitaryCareer : FullCareer
         CareerHistory careerHistory;
         if (!character.CareerHistory.Any(pc => pc.Career == Career))
         {
-            character.AddHistory($"Became a {Assignment}.", character.Age);
+            careerHistory = new CareerHistory(Career, Assignment, 0);
+            ChangeCareer(character, dice, careerHistory);
             BasicTraining(character, dice, character.CareerHistory.Count == 0);
 
-            careerHistory = new CareerHistory(Career, Assignment, 0);
-            character.CareerHistory.Add(careerHistory);
-
-            UpdateTitle(character, dice, careerHistory);
+            character.CareerHistory.Add(careerHistory); //add this after basic training so the prior count isn't wrong.
         }
         else
         {
             if (!character.CareerHistory.Any(pc => pc.Assignment == Assignment))
             {
-                character.AddHistory($"Switched to {Assignment}.", character.Age);
                 careerHistory = new CareerHistory(Career, Assignment, 0);
+                ChangeAssignment(character, dice, careerHistory);
                 character.CareerHistory.Add(careerHistory);
             }
             else if (character.LastCareer?.Assignment == Assignment)
             {
-                character.AddHistory($"Continued as {Assignment}.", character.Age);
                 careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
+                character.AddHistory($"Continued as {careerHistory.LongName}.", character.Age);
             }
             else
             {
-                character.AddHistory($"Returned to {Assignment}.", character.Age);
                 careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
+                character.AddHistory($"Returned to {careerHistory.LongName}.", character.Age);
             }
 
             var skillTables = new List<SkillTable>();
@@ -67,10 +65,10 @@ abstract class MilitaryCareer : FullCareer
         var survived = dice.RollHigh(character.GetDM(SurvivalAttribute) + character.NextTermBenefits.SurvivalDM, SurvivalTarget);
         if (survived)
         {
+            Event(character, dice);
+
             character.Age += 4;
             character.BenefitRolls += 1;
-
-            Event(character, dice);
 
             var totalTermsInCareer = character.CareerHistory.Where(pc => pc.Career == Career).Sum(c => c.Terms);
 
@@ -93,17 +91,7 @@ abstract class MilitaryCareer : FullCareer
 
             if (advancementRoll >= AdvancementTarget)
             {
-                if (careerHistory.CommissionRank > 0)
-                {
-                    careerHistory.CommissionRank += 1;
-                    character.AddHistory($"Promoted to {careerHistory.ShortName} officer rank {careerHistory.CommissionRank}", character.Age);
-                }
-                else
-                {
-                    careerHistory.Rank += 1;
-                    character.AddHistory($"Promoted to {careerHistory.ShortName} rank {careerHistory.Rank}", character.Age);
-                }
-                UpdateTitle(character, dice, careerHistory);
+                Promote(character, dice, careerHistory);
 
                 //advancement skill
                 var skillTables = new List<SkillTable>();
@@ -161,10 +149,7 @@ abstract class MilitaryCareer : FullCareer
 
         if (dice.RollHigh(commissionDM, 8))
         {
-            character.AddHistory($"Commissioned in {Career}/{Assignment}", character.Age);
-            careerHistory.CommissionRank = 1;
-
-            UpdateTitle(character, dice, careerHistory);
+            Comissioned(character, dice, careerHistory);
             return true;
         }
         else

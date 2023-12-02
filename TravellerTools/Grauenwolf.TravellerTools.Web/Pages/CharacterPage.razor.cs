@@ -2,9 +2,6 @@
 using Grauenwolf.TravellerTools.Names;
 using Grauenwolf.TravellerTools.Web.Data;
 using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Tortuga.Anchor;
 
 namespace Grauenwolf.TravellerTools.Web.Pages;
@@ -66,6 +63,8 @@ partial class CharacterPage
                 options.MaxAge = 12 + dice.D(1, maxAge.Value - 12);
             else
                 options.MaxAge = 12 + dice.D(1, 60);
+
+            options.Year = Model.Year;
 
             options.FirstCareer = Model.FirstCareer;
             options.FirstAssignment = Model.FirstAssignment;

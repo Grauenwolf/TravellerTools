@@ -156,7 +156,7 @@
                 </tr>
                 <tr>
                     <th title="Prefer a character with the following skills.">Desired Skills</th>
-                    <td colspan="2">
+                    <td colspan="3">
                         <InputSelect @bind-Value="Model.SkillA">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.SkillA))"></option>
                             @foreach (var item in Model.SkillList)
@@ -193,6 +193,11 @@
                                 }
                         </InputSelect>
                     </td>
+                </tr>
+                <tr>
+                    <th>Current Year</th>
+                    <td><InputNumber @bind-Value="Model.Year"></InputNumber>"</td>
+                    <td colspan="2"></td>
                 </tr>
                 <tr>
                     <td colspan="5" style="text-align:center">

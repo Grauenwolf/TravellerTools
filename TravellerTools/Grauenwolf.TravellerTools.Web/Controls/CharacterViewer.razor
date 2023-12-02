@@ -121,6 +121,10 @@
 
     <table class="gridtable">
         <tr>
+            @if (Character.Year != null)
+            {
+                <th>Year</th>
+            }
             <th>Term</th>
             <th>Age</th>
             <th>History</th>
@@ -128,6 +132,10 @@
         @foreach (var line in Character.History)
         {
             <tr>
+                @if(Character.Year!= null)
+                {
+                    <td>@(Character.Year - Character.Age + line.Age) </td>
+                }
                 <td>@line.Term</td>
                 <td>@line.Age</td>
                 <td>@line</td>

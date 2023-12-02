@@ -1,7 +1,4 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Tortuga.Anchor.Modeling;
 
 namespace Grauenwolf.TravellerTools.Web.Data;
@@ -121,4 +118,6 @@ public class CharacterOptions : ModelBase
                 Terms = null;
         }
     }
+
+    public int? Year { get => Get<int?>(); set => Set(value); }
 }

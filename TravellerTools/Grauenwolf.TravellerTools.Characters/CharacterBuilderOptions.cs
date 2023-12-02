@@ -13,9 +13,13 @@ public class CharacterBuilderOptions
     public string? Name { get; set; }
 
     public int? Seed { get; set; }
+    public int? Year { get; set; }
 
     public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)
     {
+        if (keyValuePairs.TryGetValue("year", out var year))
+            Year = int.Parse(year!);
+
         if (keyValuePairs.TryGetValue("seed", out var seed))
             Seed = int.Parse(seed!);
         if (keyValuePairs.TryGetValue("name", out var name))
@@ -45,7 +49,8 @@ public class CharacterBuilderOptions
             { "maxAge", (MaxAge??0).ToString() },
             { "gender", Gender },
             { "firstAssignment", FirstAssignment },
-            { "firstCareer", FirstCareer }
+            { "firstCareer", FirstCareer },
+            { "year", Year?.ToString() }
         };
     }
 }
