@@ -1,5 +1,4 @@
-﻿using Grauenwolf.TravellerTools.Characters;
-using System.Collections.Generic;
+﻿using Microsoft.Extensions.Primitives;
 using Tortuga.Anchor.Modeling;
 
 namespace Grauenwolf.TravellerTools.Web.Data;
@@ -10,10 +9,23 @@ public class ContactOptions : ModelBase
     public int Contacts { get => Get<int>(); set => Set(value); }
     public int Enemies { get => Get<int>(); set => Set(value); }
     public int Rivals { get => Get<int>(); set => Set(value); }
-}
 
-public class ContactsModel
-{
-    public List<Contact> Contacts { get; set; } = new List<Contact>();
-    public int Seed { get; set; }
+    public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)
+    {
+        Allies = keyValuePairs.ParseInt("allies");
+        Contacts = keyValuePairs.ParseInt("contacts");
+        Enemies = keyValuePairs.ParseInt("enemies");
+        Rivals = keyValuePairs.ParseInt("rivals");
+    }
+
+    public IDictionary<string, string?> ToQueryString()
+    {
+        return new Dictionary<string, string?>
+        {
+            { "allies", Allies.ToString() },
+            { "contacts", Contacts.ToString() },
+            { "enemies", Enemies.ToString() },
+            { "rivals", Rivals.ToString() }
+        };
+    }
 }
