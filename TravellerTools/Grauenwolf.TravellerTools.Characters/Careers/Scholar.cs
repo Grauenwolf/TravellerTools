@@ -15,9 +15,9 @@ abstract class Scholar : NormalCareer
         var roll = dice.D(6);
 
         if (all || roll == 1)
-            character.Skills.AddRange(SpecialtiesFor("Drive"));
+            character.Skills.Add("Drive");
         if (all || roll == 2)
-            character.Skills.AddRange(SpecialtiesFor("Electronics"));
+            character.Skills.Add("Electronics");
         if (all || roll == 3)
             character.Skills.Add("Diplomat");
         if (all || roll == 4)
@@ -25,7 +25,7 @@ abstract class Scholar : NormalCareer
         if (all || roll == 5)
             character.Skills.Add("Investigate");
         if (all || roll == 6)
-            character.Skills.AddRange(SpecialtiesFor("Science"));
+            character.Skills.Add("Science");
     }
 
     internal override void Event(Character character, Dice dice)

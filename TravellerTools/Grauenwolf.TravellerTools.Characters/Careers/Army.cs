@@ -12,13 +12,13 @@ abstract class Army(string assignment, Book book) : MilitaryCareer("Army", assig
         {
             if (all)
             {
-                character.Skills.AddRange(SpecialtiesFor("Drive"));
+                character.Skills.Add("Drive");
                 character.Skills.Add("Vacc Suit");
             }
             else
             {
                 var skillList = new SkillTemplateCollection();
-                skillList.AddRange(SpecialtiesFor("Drive"));
+                skillList.Add("Drive");
                 skillList.Add("Vacc Suit");
                 skillList.RemoveOverlap(character.Skills, 0);
                 if (skillList.Count > 0)
@@ -27,15 +27,15 @@ abstract class Army(string assignment, Book book) : MilitaryCareer("Army", assig
         }
 
         if (all || roll == 2)
-            character.Skills.AddRange(SpecialtiesFor("Athletics"));
+            character.Skills.Add("Athletics");
         if (all || roll == 3)
-            character.Skills.AddRange(SpecialtiesFor("Gun Combat"));
+            character.Skills.Add("Gun Combat");
         if (all || roll == 4)
             character.Skills.Add("Recon");
         if (all || roll == 5)
-            character.Skills.AddRange(SpecialtiesFor("Melee"));
+            character.Skills.Add("Melee");
         if (all || roll == 6)
-            character.Skills.AddRange(SpecialtiesFor("Heavy Weapons"));
+            character.Skills.Add("Heavy Weapons");
     }
 
     internal override void Event(Character character, Dice dice)

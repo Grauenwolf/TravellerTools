@@ -9,17 +9,17 @@ abstract class Navy(string assignment, Book book) : MilitaryCareer("Navy", assig
         var roll = dice.D(6);
 
         if (all || roll == 1)
-            character.Skills.Increase(dice.Choose(SpecialtiesFor("Pilot")));
+            character.Skills.Add("Pilot");
         if (all || roll == 2)
-            character.Skills.Increase("Vacc Suit");
+            character.Skills.Add("Vacc Suit");
         if (all || roll == 3)
-            character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+            character.Skills.Add("Athletics");
         if (all || roll == 4)
-            character.Skills.Increase(dice.Choose(SpecialtiesFor("Gunner")));
+            character.Skills.Add("Gunner");
         if (all || roll == 5)
-            character.Skills.Increase("Mechanic");
+            character.Skills.Add("Mechanic");
         if (all || roll == 6)
-            character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat ")));
+            character.Skills.Add("Gun Combat ");
     }
 
     internal override void Event(Character character, Dice dice)

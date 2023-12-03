@@ -46,7 +46,7 @@ class Scavenger(Book book) : Drifter("Scavenger", book)
         var roll = dice.D(6);
 
         if (all || roll == 1)
-            character.Skills.Add("Pilot", "Small Craft");
+            character.Skills.Add("Pilot");
         if (all || roll == 2)
             character.Skills.Add("Mechanic");
         if (all || roll == 3)
@@ -54,9 +54,9 @@ class Scavenger(Book book) : Drifter("Scavenger", book)
         if (all || roll == 4)
             character.Skills.Add("Vacc Suit");
         if (all || roll == 5)
-            character.Skills.AddRange(SpecialtiesFor("Profession"));
+            character.Skills.Add("Profession");
         if (all || roll == 6)
-            character.Skills.AddRange(SpecialtiesFor("Gun Combat"));
+            character.Skills.Add("Gun Combat");
     }
 
     internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)

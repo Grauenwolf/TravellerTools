@@ -21,15 +21,15 @@ abstract class Prisoner : CareerBase
         var roll = dice.D(6);
 
         if (all || roll == 1)
-            character.Skills.Add(dice.Choose(SpecialtiesFor("Athletics")));
+            character.Skills.Add("Athletics");
         if (all || roll == 2)
             character.Skills.Add("Deception");
         if (all || roll == 3)
-            character.Skills.Add(dice.Choose(SpecialtiesFor("Profession")));
+            character.Skills.Add("Profession");
         if (all || roll == 4)
             character.Skills.Add("Streetwise");
         if (all || roll == 5)
-            character.Skills.Add("Melee", "Unarmed");
+            character.Skills.Add("Melee");
         if (all || roll == 6)
             character.Skills.Add("Persuade");
     }

@@ -14,15 +14,26 @@ public class Skill
         Level = level;
     }
 
+    public string? Group { get; set; }
     public int Level { get; set; }
     public string Name { get; set; }
     public string? Specialty { get; set; }
 
     public override string ToString()
     {
-        if (Level > 0 && !string.IsNullOrEmpty(Specialty))
-            return Name + " (" + Specialty + ") " + Level;
+        if (!string.IsNullOrEmpty(Specialty))
+        {
+            if (!string.IsNullOrEmpty(Group))
+                return $"{Name} ({Group}/{Specialty}) {Level}";
+            else
+                return $"{Name} ({Specialty}) {Level}";
+        }
         else
-            return Name + " " + Level;
+        {
+            if (!string.IsNullOrEmpty(Group))
+                return $"{Name} ({Group}) {Level}";
+            else
+                return $"{Name} {Level}";
+        }
     }
 }

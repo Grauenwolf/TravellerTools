@@ -31,15 +31,15 @@ abstract class Agent : NormalCareer
         if (all || roll == 1)
             character.Skills.Add("Streetwise");
         if (all || roll == 2)
-            character.Skills.AddRange(SpecialtiesFor("Drive"));
+            character.Skills.Add("Drive");
         if (all || roll == 3)
             character.Skills.Add("Investigate");
         if (all || roll == 4)
-            character.Skills.AddRange(SpecialtiesFor("Flyer"));
+            character.Skills.Add("Flyer");
         if (all || roll == 5)
             character.Skills.Add("Recon");
         if (all || roll == 6)
-            character.Skills.AddRange(SpecialtiesFor("Gun Combat"));
+            character.Skills.Add("Gun Combat");
     }
 
     internal override void Event(Character character, Dice dice)

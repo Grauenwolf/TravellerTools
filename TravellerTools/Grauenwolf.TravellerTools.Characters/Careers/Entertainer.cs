@@ -11,11 +11,11 @@ abstract class Entertainer(string assignment, Book book) : NormalCareer("Enterta
         var roll = dice.D(6);
 
         if (all || roll == 1)
-            character.Skills.AddRange(SpecialtiesFor("Art"));
+            character.Skills.Add("Art");
         if (all || roll == 2)
             character.Skills.Add("Carouse");
         if (all || roll == 3)
-            character.Skills.AddRange(SpecialtiesFor("Drive"));
+            character.Skills.Add("Drive");
         if (all || roll == 4)
             character.Skills.Add("Deception");
         if (all || roll == 5)

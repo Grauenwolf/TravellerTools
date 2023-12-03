@@ -11,7 +11,7 @@ abstract class Merchant(string assignment, Book book) : NormalCareer("Merchant",
         var roll = dice.D(6);
 
         if (all || roll == 1)
-            character.Skills.AddRange(SpecialtiesFor("Drive"));
+            character.Skills.Add("Drive");
         if (all || roll == 2)
             character.Skills.Add("Vacc Suit");
         if (all || roll == 3)
@@ -19,7 +19,7 @@ abstract class Merchant(string assignment, Book book) : NormalCareer("Merchant",
         if (all || roll == 4)
             character.Skills.Add("Steward");
         if (all || roll == 5)
-            character.Skills.AddRange(SpecialtiesFor("Electronics"));
+            character.Skills.Add("Electronics");
         if (all || roll == 6)
             character.Skills.Add("Persuade");
     }

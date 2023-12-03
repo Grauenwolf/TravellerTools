@@ -47,7 +47,7 @@ class Wanderer(Book book) : Drifter("Wanderer", book)
         var roll = dice.D(6);
 
         if (all || roll == 1)
-            character.Skills.AddRange(SpecialtiesFor("Drive"));
+            character.Skills.Add("Drive");
         if (all || roll == 2)
             character.Skills.Add("Deception");
         if (all || roll == 3)

@@ -41,6 +41,11 @@ namespace Grauenwolf.TravellerTools.Characters
     public partial class CharacterTemplatesSkillSpecialty
     {
         /// <remarks/>
+        ///
+        [XmlAttributeAttribute()]
+        public string? Group { get; set; }
+
+        /// <remarks/>
         [XmlAttributeAttribute()]
         public string Name { get; set; }
     }

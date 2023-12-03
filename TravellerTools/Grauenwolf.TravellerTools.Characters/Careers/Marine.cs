@@ -9,15 +9,15 @@ abstract class Marine(string assignment, Book book) : MilitaryCareer("Marine", a
         var roll = dice.D(6);
 
         if (all || roll == 1)
-            character.Skills.Add(dice.Choose(SpecialtiesFor("Athletics")));
+            character.Skills.Add("Athletics");
         if (all || roll == 2)
             character.Skills.Add("Vacc Suit");
         if (all || roll == 3)
-            character.Skills.Add(dice.Choose(SpecialtiesFor("Tactics")));
+            character.Skills.Add("Tactics");
         if (all || roll == 4)
-            character.Skills.Add(dice.Choose(SpecialtiesFor("Heavy Weapons")));
+            character.Skills.Add("Heavy Weapons");
         if (all || roll == 5)
-            character.Skills.Add(dice.Choose(SpecialtiesFor("Gun Combat")));
+            character.Skills.Add("Gun Combat");
         if (all || roll == 6)
             character.Skills.Add("Stealth");
     }

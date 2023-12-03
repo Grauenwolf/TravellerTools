@@ -48,18 +48,15 @@ class Barbarian(Book book) : Drifter("Barbarian", book)
         var roll = dice.D(6);
 
         if (all || roll == 1)
-            character.Skills.AddRange(SpecialtiesFor("Animals"));
+            character.Skills.Add("Animals");
         if (all || roll == 2)
             character.Skills.Add("Carouse");
         if (all || roll == 3)
-            character.Skills.Add("Melee", "Blade");
+            character.Skills.Add("Melee");
         if (all || roll == 4)
             character.Skills.Add("Stealth");
         if (all || roll == 5)
-        {
-            character.Skills.Add(new SkillTemplate("Seafarer", "Personal"));
-            character.Skills.Add(new SkillTemplate("Seafarer", "Sails"));
-        }
+            character.Skills.Add("Seafarer");
         if (all || roll == 6)
             character.Skills.Add("Survival");
     }

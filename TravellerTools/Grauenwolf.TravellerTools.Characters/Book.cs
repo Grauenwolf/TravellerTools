@@ -22,8 +22,9 @@ public class Book
             if (skill.Specialty?.Length > 0)
                 foreach (var specialty in skill.Specialty)
                 {
-                    skills.Add(new SkillTemplate(skill.Name, specialty.Name));
-                    allSkills.Add(new SkillTemplate(skill.Name, specialty.Name));
+                    var template = new SkillTemplate(skill.Name, specialty.Name, specialty.Group);
+                    skills.Add(template);
+                    allSkills.Add(template);
                 }
             else
                 skills.Add(new SkillTemplate(skill.Name));
@@ -41,7 +42,7 @@ public class Book
     }
 
     /// <summary>
-    /// Gets all of the skills, including unspecialized skills. For example, both "Art" and "Art (Perform)" will be included.
+    /// Gets all of the skills, including unspecialized skills. For example, both "Art" and "Art (Performer)" will be included.
     /// </summary>
     /// <value>All skills.</value>
     public ImmutableArray<SkillTemplate> AllSkills { get; }
@@ -49,7 +50,7 @@ public class Book
     public ImmutableArray<PsionicSkillTemplate> PsionicTalents { get; }
 
     /// <summary>
-    /// Gets the list of random skills. Skills needing specialization will be excluded. For example, "Art (Perform)" will be included but just "Art" will not.
+    /// Gets the list of random skills. Skills needing specialization will be excluded. For example, "Art (Performer)" will be included but just "Art" will not.
     /// </summary>
     /// <value>The random skills.</value>
     public ImmutableArray<SkillTemplate> RandomSkills { get; }

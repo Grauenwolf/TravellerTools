@@ -45,17 +45,17 @@ class Worker(Book book) : Citizen("Worker", book)
         var roll = dice.D(6);
 
         if (all || roll == 1)
-            character.Skills.AddRange(SpecialtiesFor("Drive"));
+            character.Skills.Add("Drive");
         if (all || roll == 2)
             character.Skills.Add("Mechanic");
         if (all || roll == 3)
-            character.Skills.AddRange(SpecialtiesFor("Electronics"));
+            character.Skills.Add("Electronics");
         if (all || roll == 4)
-            character.Skills.AddRange(SpecialtiesFor("Engineer"));
+            character.Skills.Add("Engineer");
         if (all || roll == 5)
-            character.Skills.AddRange(SpecialtiesFor("Profession"));
+            character.Skills.Add("Profession");
         if (all || roll == 6)
-            character.Skills.AddRange(SpecialtiesFor("Science"));
+            character.Skills.Add("Science");
     }
 
     internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)

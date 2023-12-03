@@ -51,7 +51,7 @@ class Corporate(Book book) : Citizen("Corporate", book)
         if (all || roll == 3)
             character.Skills.Add("Broker");
         if (all || roll == 4)
-            character.Skills.Add("Electronics", "Computer");
+            character.Skills.Add("Electronics");
         if (all || roll == 5)
             character.Skills.Add("Diplomat");
         if (all || roll == 6)

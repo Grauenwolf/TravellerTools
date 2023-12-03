@@ -155,7 +155,23 @@ public class CharacterBuilder
 
         character.Title = character.CareerHistory.Where(c => c.Title != null).OrderByDescending(c => c.Rank + c.CommissionRank).Select(c => c.Title).FirstOrDefault();
 
+        //Add the skill groups [Art, Profession, Science]
+        foreach (var skill in character.Skills.Where(s => s.Specialty != null))
+        {
+            var template = Book.RandomSkills.FirstOrDefault(s => s.Name == skill.Name && s.Specialty == skill.Specialty && s.Group != null);
+            if (template != null)
+                skill.Group = template.Group;
+        }
+        //Remove redundant level 0 skills
         character.Skills.Collapse();
+
+        //Add specialties for remaining level 0 broad skills [Art, Profession, Science]
+        foreach (var skill in character.Skills.Where(s => s.Level == 0 && s.Specialty is null))
+        {
+            var groups = Book.RandomSkills.Where(s => s.Name == skill.Name && s.Group != null).Select(s => s.Group).Distinct().ToList();
+            if (groups.Count > 0)
+                skill.Group = dice.Choose(groups);
+        }
 
         BuildContacts(dice, character);
 

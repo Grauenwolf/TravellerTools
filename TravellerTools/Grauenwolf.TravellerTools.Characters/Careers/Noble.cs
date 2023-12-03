@@ -15,7 +15,7 @@ abstract class Noble(string assignment, Book book) : NormalCareer("Noble", assig
         if (all || roll == 2)
             character.Skills.Add("Advocate");
         if (all || roll == 3)
-            character.Skills.AddRange(SpecialtiesFor("Electronics"));
+            character.Skills.Add("Electronics");
         if (all || roll == 4)
             character.Skills.Add("Diplomat");
         if (all || roll == 5)

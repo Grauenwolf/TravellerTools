@@ -19,9 +19,9 @@ abstract class Rogue : NormalCareer
         if (all || roll == 2)
             character.Skills.Add("Recon");
         if (all || roll == 3)
-            character.Skills.AddRange(SpecialtiesFor("Athletics"));
+            character.Skills.Add("Athletics");
         if (all || roll == 4)
-            character.Skills.AddRange(SpecialtiesFor("Gun Combat"));
+            character.Skills.Add("Gun Combat");
         if (all || roll == 5)
             character.Skills.Add("Stealth");
         if (all || roll == 6)

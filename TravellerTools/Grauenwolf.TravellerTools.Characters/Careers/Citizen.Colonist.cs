@@ -45,13 +45,13 @@ class Colonist(Book book) : Citizen("Colonist", book)
         var roll = dice.D(6);
 
         if (all || roll == 1)
-            character.Skills.AddRange(SpecialtiesFor("Animals"));
+            character.Skills.Add("Animals");
         if (all || roll == 2)
-            character.Skills.AddRange(SpecialtiesFor("Athletics"));
+            character.Skills.Add("Athletics");
         //if (all || roll == 3)
         //character.Skills.Add("Jack-of-all-Trades"); Getting this as level 0 has no effect.
         if (all || roll == 4)
-            character.Skills.AddRange(SpecialtiesFor("Drive"));
+            character.Skills.Add("Drive");
         if (all || roll == 5)
             character.Skills.Add("Survival");
         if (all || roll == 6)

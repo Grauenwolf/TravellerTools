@@ -15,10 +15,7 @@ abstract class Scout : NormalCareer
         var roll = dice.D(6);
 
         if (all || roll == 1)
-        {
-            character.Skills.Add("Pilot", "Small craft");
-            character.Skills.Add("Pilot", "Spacecraft");
-        }
+            character.Skills.Add("Pilot");
         if (all || roll == 2)
             character.Skills.Add("Survival");
         if (all || roll == 3)
@@ -28,7 +25,7 @@ abstract class Scout : NormalCareer
         if (all || roll == 5)
             character.Skills.Add("Vacc Suit");
         if (all || roll == 6)
-            character.Skills.AddRange(SpecialtiesFor("Gun Combat"));
+            character.Skills.Add("Gun Combat");
     }
 
     internal override void Event(Character character, Dice dice)
