@@ -2,9 +2,7 @@
 using Grauenwolf.TravellerTools.Shared;
 using Grauenwolf.TravellerTools.Web.Data;
 using Microsoft.AspNetCore.Components;
-using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 
 namespace Grauenwolf.TravellerTools.Web.Controls;
 
@@ -19,36 +17,6 @@ partial class WorldPicker
     //PlanetPickerOptions Model { get; } = new PlanetPickerOptions();
     [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
 
-    protected void GotoAnimals() => GotoPlanet("animals");
-
-    protected void GotoPlanet() => GotoPlanet("info"); protected void GotoPlanet(string suffix)
-
-    {
-        if (Model.SelectedMilieuCode == null || Model.SelectedSectorHex == null || Model.SelectedWorldHex == null)
-            return;
-        Navigation.NavigateTo($"/world/{Model.SelectedMilieuCode}/{Model.SelectedSectorHex}/{Model.SelectedWorldHex}/{suffix}");
-    }
-
-    protected void GotoSector()
-    {
-        if (Model.SelectedMilieuCode == null || Model.SelectedSectorHex == null)
-            return;
-        Navigation.NavigateTo($"/world/{Model.SelectedMilieuCode}/{Model.SelectedSectorHex}");
-    }
-
-    protected void GotoShopping() => GotoPlanet("store");
-
-    protected void GotoSubsector()
-    {
-        if (Model.SelectedMilieuCode == null || Model.SelectedSectorHex == null || Model.SelectedSubsectorIndex == null)
-            return;
-        Navigation.NavigateTo($"/world/{Model.SelectedMilieuCode}/{Model.SelectedSectorHex}/subsector/{Model.SelectedSubsectorIndex}");
-    }
-
-    protected void GotoTrade() => GotoPlanet("trade");
-
-    protected void GotoTravel() => GotoPlanet("travel");
-
     protected override async Task InitializedAsync()
     {
         await OnMilieuChangedAsync();
@@ -62,6 +30,41 @@ partial class WorldPicker
             case nameof(PlanetPickerOptions.SelectedSector): await OnSectorChangedAsync(); break;
             case nameof(PlanetPickerOptions.SelectedSubsector): await OnSubsectorChangedAsync(); break;
         }
+    }
+
+    protected string? PlanetUrl(string suffix)
+    {
+        if (Model.SelectedMilieuCode == null || Model.SelectedSectorHex == null || Model.SelectedWorldHex == null)
+            return null;
+        return $"/world/{Model.SelectedMilieuCode}/{Model.SelectedSectorHex}/{Model.SelectedWorldHex}/{suffix}";
+    }
+
+    protected string? SectorTasUrl()
+    {
+        if (Model.SelectedMilieuCode == null || Model.SelectedSector == null)
+            return null;
+        return $"https://wiki.travellerrpg.com/{Model.SelectedSector.Name}_Sector";
+    }
+
+    protected string? SectorUrl()
+    {
+        if (Model.SelectedMilieuCode == null || Model.SelectedSectorHex == null)
+            return null;
+        return $"/world/{Model.SelectedMilieuCode}/{Model.SelectedSectorHex}";
+    }
+
+    protected string? SubsectorTasUrl()
+    {
+        if (Model.SelectedMilieuCode == null || Model.SelectedSectorHex == null || Model.SelectedSubsectorIndex == null)
+            return null;
+        return $"/world/{Model.SelectedMilieuCode}/{Model.SelectedSectorHex}/subsector/{Model.SelectedSubsectorIndex}";
+    }
+
+    protected string? SubsectorUrl()
+    {
+        if (Model.SelectedMilieuCode == null || Model.SelectedSectorHex == null || Model.SelectedSubsectorIndex == null)
+            return null;
+        return $"/world/{Model.SelectedMilieuCode}/{Model.SelectedSectorHex}/subsector/{Model.SelectedSubsectorIndex}";
     }
 
     async Task OnMilieuChangedAsync()

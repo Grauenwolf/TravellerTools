@@ -26,7 +26,7 @@
                 </td>
             </tr>
             <tr>
-                <th>Sector</th>
+                <th rowspan="2">Sector</th>
                 <td>
                     <InputSelect @bind-Value="Model.SelectedSectorHex">
                         @if (Model.SelectedMilieu == null)
@@ -50,11 +50,21 @@
                             }
                         }
                     </InputSelect>
-                    <button @onclick="GotoSector" disabled="@SectorNotSelected">Sector Info</button>
                 </td>
             </tr>
             <tr>
-                <th>Subector</th>
+                <td>
+                    <a href="@SectorUrl()">
+                        <span class="oi oi-list" aria-hidden="true" /> Index
+                    </a>
+                    <a href="@SectorTasUrl()" target="_blank" title="Search Traveller Wiki for this sector.">
+                        <span class="oi oi-globe" aria-hidden="true" /> TAS
+                    </a>
+
+                </td>
+            </tr>
+            <tr>
+                <th rowspan="2">Subector</th>
                 <td>
                     <InputSelect @bind-Value="Model.SelectedSubsectorIndex">
                         @if (Model.SelectedSubsector == null)
@@ -77,11 +87,21 @@
                             }
                         }
                     </InputSelect>
-                    <button @onclick="GotoSubsector" disabled="@(SubsectorNotSelected)">Subsector Info</button>
                 </td>
             </tr>
             <tr>
-                <th>World</th>
+                <td>
+                    <a href="@SubsectorUrl()">
+                        <span class="oi oi-list" aria-hidden="true" /> Index
+                    </a>
+                    <a href="@SubsectorTasUrl()" target="_blank" title="Search Traveller Wiki for this subsector.">
+                        <span class="oi oi-globe" aria-hidden="true" /> TAS
+                    </a>
+
+                </td>
+            </tr>
+            <tr>
+                <th rowspan="2">World</th>
                 <td>
                     <InputSelect @bind-Value="Model.SelectedWorldHex">
                         @if (Model.SelectedWorld == null)
@@ -107,13 +127,13 @@
                 </td>
             </tr>
             <tr>
-                <th>Jump to...</th>
                 <td>
-                    <button @onclick="GotoPlanet" disabled="@WorldNotSelected">Planet Info</button>
-                    <button @onclick="GotoTrade" disabled="@WorldNotSelected">Trade</button>
-                    <button @onclick="GotoTravel" disabled="@WorldNotSelected">Travel</button>
-                    <button @onclick="GotoShopping" disabled="@WorldNotSelected">Shopping</button>
-                    <button @onclick="GotoAnimals" disabled>Animals</button>
+                    <a href="@PlanetUrl("info")"><span class="oi oi-globe" aria-hidden="true" /> Info</a>
+                    <a href="@PlanetUrl("trade")"><span class="oi oi-box" aria-hidden="true" /> Trade</a>
+                    <a href="@PlanetUrl("travel")"><span class="oi oi-compass" aria-hidden="true" /> Travel</a>
+                    <a href="@PlanetUrl("store")"><span class="oi oi-cart" aria-hidden="true" /> Store</a>
+                    <a href="@PlanetUrl("animals")"><span class="oi oi-bug" aria-hidden="true" /> Animals</a>
+                    <a href="@PlanetUrl("encounters")"><span class="oi oi-puzzle-piece" aria-hidden="true" /> Encounters</a>
                 </td>
             </tr>
         </table>
