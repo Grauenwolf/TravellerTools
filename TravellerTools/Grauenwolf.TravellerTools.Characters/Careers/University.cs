@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class University(Book book) : CareerBase("University", null, book)
+class University(CharacterBuilder characterBuilder) : CareerBase("University", null, characterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice)
     {

@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Corporate(Book book) : Citizen("Corporate", book)
+class Corporate(CharacterBuilder characterBuilder) : Citizen("Corporate", characterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

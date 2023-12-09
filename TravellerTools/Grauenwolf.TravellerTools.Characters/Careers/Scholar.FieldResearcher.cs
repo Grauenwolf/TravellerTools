@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class FieldResearcher(Book book) : Scholar("Field Researcher", book)
+class FieldResearcher(CharacterBuilder characterBuilder) : Scholar("Field Researcher", characterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

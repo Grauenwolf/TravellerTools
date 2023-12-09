@@ -9,7 +9,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 partial class ContactsPage
 {
     protected ContactsModel? ContactsModel { get; set; }
-    [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
+    [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
     [Inject] NameGenerator NameGenerator { get; set; } = null!;
 
     protected void GenerateContacts()
@@ -27,7 +27,7 @@ partial class ContactsPage
             character.AddRival(Model.Rivals);
             character.AddEnemy(Model.Enemies);
 
-            CharacterBuilder.BuildContacts(dice, character);
+            CharacterBuilderLocator.BuildContacts(dice, character);
             result.Contacts = character.Contacts;
             result.Seed = seed;
 

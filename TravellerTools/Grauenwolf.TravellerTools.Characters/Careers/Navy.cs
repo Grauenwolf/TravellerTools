@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-abstract class Navy(string assignment, Book book) : MilitaryCareer("Navy", assignment, book)
+abstract class Navy(string assignment, CharacterBuilder characterBuilder) : MilitaryCareer("Navy", assignment, characterBuilder)
 {
     protected override int AdvancedEductionMin => 8;
 

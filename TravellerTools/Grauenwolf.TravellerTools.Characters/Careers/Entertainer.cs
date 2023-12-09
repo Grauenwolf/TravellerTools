@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-abstract class Entertainer(string assignment, Book book) : NormalCareer("Entertainer", assignment, book)
+abstract class Entertainer(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Entertainer", assignment, characterBuilder)
 {
     protected override int AdvancedEductionMin => 10;
 

@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Broker(Book book) : Merchant("Broker", book)
+class Broker(CharacterBuilder characterBuilder) : Merchant("Broker", characterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

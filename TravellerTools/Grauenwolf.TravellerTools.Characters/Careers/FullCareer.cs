@@ -2,7 +2,7 @@
 
 abstract class FullCareer : CareerBase
 {
-    protected FullCareer(string name, string assignment, Book book) : base(name, assignment, book)
+    protected FullCareer(string name, string assignment, CharacterBuilder characterBuilder) : base(name, assignment, characterBuilder)
     {
     }
 

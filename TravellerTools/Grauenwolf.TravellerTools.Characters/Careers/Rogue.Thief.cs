@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Thief(Book book) : Rogue("Thief", book)
+class Thief(CharacterBuilder characterBuilder) : Rogue("Thief", characterBuilder)
 {
     protected override string AdvancementAttribute => "Dex";
 

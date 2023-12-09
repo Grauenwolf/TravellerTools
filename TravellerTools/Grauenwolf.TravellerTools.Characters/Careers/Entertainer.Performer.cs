@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Performer(Book book) : Entertainer("Performer", book)
+class Performer(CharacterBuilder characterBuilder) : Entertainer("Performer", characterBuilder)
 {
     protected override string AdvancementAttribute => "Dex";
 

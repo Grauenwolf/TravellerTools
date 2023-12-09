@@ -2,7 +2,7 @@
 
 abstract class Rogue : NormalCareer
 {
-    protected Rogue(string assignment, Book book) : base("Rogue", assignment, book)
+    protected Rogue(string assignment, CharacterBuilder characterBuilder) : base("Rogue", assignment, characterBuilder)
     {
     }
 

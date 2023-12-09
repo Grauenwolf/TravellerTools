@@ -5,9 +5,9 @@ namespace Grauenwolf.TravellerTools.Web.Data;
 
 public class CharacterOptions : ModelBase
 {
-    public CharacterOptions(CharacterBuilder characterBuilder)
+    public CharacterOptions(CharacterBuilderLocator characterBuilderLocator)
     {
-        CharacterBuilder = characterBuilder ?? throw new ArgumentNullException(nameof(characterBuilder), $"{nameof(characterBuilder)} is null.");
+        CharacterBuilder = characterBuilderLocator.GetCharacterBuilder(null); //TODO: Make this user configurable
         CareerList = CharacterBuilder.Careers.Select(c => c.Career).Distinct().OrderBy(s => s).ToList();
         SkillList = CharacterBuilder.Book.AllSkills.AddRange(CharacterBuilder.Book.PsionicTalents).ToList();
 
@@ -19,7 +19,7 @@ public class CharacterOptions : ModelBase
     public List<int> AgeList { get; }
     public List<string> CareerList { get; }
 
-    public CharacterBuilder CharacterBuilder { get; }
+    public CharacterBuilder CharacterBuilder { get; } //TODO: Make this user configurable
 
     /// <summary>
     /// Valid values are High, Low, and empty.
@@ -69,7 +69,7 @@ public class CharacterOptions : ModelBase
             if (CharacterBuilder == null || string.IsNullOrEmpty(FirstCareer))
                 return new List<string>();
             else
-                return CharacterBuilder.Careers.Where(c => c.Career == FirstCareer).Select(c => c.Assignment).OrderBy(s => s).ToList();
+                return CharacterBuilder.Careers.Where(c => c.Career == FirstCareer && c.Assignment != null).Select(c => c.Assignment).OrderBy(s => s).ToList()!;
         }
     }
 

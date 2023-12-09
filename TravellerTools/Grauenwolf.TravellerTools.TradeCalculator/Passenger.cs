@@ -10,6 +10,7 @@ public class Passenger : Person
     public string PersonalityList => string.Join(", ", Personality);
     public int? Seed { get; set; }
     public string? Skills { get; set; }
+    public string? Species { get; set; }
     public decimal TicketPrice { get; set; }
     public string? TravelType { get; set; }
 

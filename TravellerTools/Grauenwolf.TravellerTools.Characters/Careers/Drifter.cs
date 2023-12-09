@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-abstract class Drifter(string assignment, Book book) : NormalCareer("Drifter", assignment, book)
+abstract class Drifter(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Drifter", assignment, characterBuilder)
 {
     protected override int AdvancedEductionMin => int.MaxValue;
     protected override bool RankCarryover => false;

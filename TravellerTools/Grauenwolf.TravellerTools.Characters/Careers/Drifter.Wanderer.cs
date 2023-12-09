@@ -2,7 +2,7 @@
 
 namespace Grauenwolf.TravellerTools.Characters;
 
-class Wanderer(Book book) : Drifter("Wanderer", book)
+class Wanderer(CharacterBuilder characterBuilder) : Drifter("Wanderer", characterBuilder)
 {
     protected override string AdvancementAttribute => "Str";
 

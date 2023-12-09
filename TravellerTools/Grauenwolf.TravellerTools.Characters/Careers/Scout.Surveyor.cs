@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Surveyor(Book book) : Scout("Surveyor", book)
+class Surveyor(CharacterBuilder characterBuilder) : Scout("Surveyor", characterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

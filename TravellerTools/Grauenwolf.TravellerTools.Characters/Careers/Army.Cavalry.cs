@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Cavalry(Book book) : Army("Cavalry", book)
+class Cavalry(CharacterBuilder characterBuilder) : Army("Cavalry", characterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

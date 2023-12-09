@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class MerchantMarine(Book book) : Merchant("Merchant Marine", book)
+class MerchantMarine(CharacterBuilder characterBuilder) : Merchant("Merchant Marine", characterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

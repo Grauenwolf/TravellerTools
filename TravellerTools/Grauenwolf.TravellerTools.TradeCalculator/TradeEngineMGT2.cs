@@ -3,7 +3,7 @@ using Grauenwolf.TravellerTools.Names;
 
 namespace Grauenwolf.TravellerTools.TradeCalculator;
 
-public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, NameGenerator nameGenerator) : TradeEngine(mapService, dataPath, nameGenerator)
+public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, NameGenerator nameGenerator, Characters.CharacterBuilderLocator characterBuilderLocator) : TradeEngine(mapService, dataPath, nameGenerator, characterBuilderLocator)
 {
     protected override string DataFileName => "TradeGoods-MGT2.xml";
 

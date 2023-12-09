@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Dilettante(Book book) : Noble("Dilettante", book)
+class Dilettante(CharacterBuilder characterBuilder) : Noble("Dilettante", characterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

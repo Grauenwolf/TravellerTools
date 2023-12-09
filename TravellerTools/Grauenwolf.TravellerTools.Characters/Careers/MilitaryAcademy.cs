@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-abstract class MilitaryAcademy(string assignment, Book book) : CareerBase("Military Academy", assignment, book)
+abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuilder) : CareerBase("Military Academy", assignment, characterBuilder)
 {
     protected abstract string QualifyAttribute { get; }
 

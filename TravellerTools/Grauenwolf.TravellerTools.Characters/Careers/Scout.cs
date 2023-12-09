@@ -2,7 +2,7 @@
 
 abstract class Scout : NormalCareer
 {
-    public Scout(string assignment, Book book) : base("Scout", assignment, book)
+    public Scout(string assignment, CharacterBuilder characterBuilder) : base("Scout", assignment, characterBuilder)
     {
     }
 

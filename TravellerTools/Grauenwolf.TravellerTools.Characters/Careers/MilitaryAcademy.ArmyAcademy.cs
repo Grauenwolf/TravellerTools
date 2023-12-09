@@ -1,12 +1,17 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class ArmyAcademy(Book book) : MilitaryAcademy("Army Academy", book)
+class ArmyAcademy : MilitaryAcademy
 {
+    public ArmyAcademy(CharacterBuilder characterBuilder) : base("Army Academy", characterBuilder)
+    {
+        Stub = new ArmyStub(characterBuilder);
+    }
+
     protected override string QualifyAttribute => "End";
     protected override int QualifyTarget => 7;
-    protected override MilitaryCareer Stub { get; } = new ArmyStub(book);
+    protected override MilitaryCareer Stub { get; }
 
-    class ArmyStub(Book book) : Army("", book)
+    class ArmyStub(CharacterBuilder characterBuilder) : Army("", characterBuilder)
     {
         protected override string AdvancementAttribute => throw new NotImplementedException();
 

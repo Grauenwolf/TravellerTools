@@ -5,7 +5,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator;
 
 public class TradeEngineMgt : TradeEngine
 {
-    public TradeEngineMgt(TravellerMapService mapService, string dataPath, NameGenerator nameGenerator) : base(mapService, dataPath, nameGenerator)
+    public TradeEngineMgt(TravellerMapService mapService, string dataPath, NameGenerator nameGenerator, Characters.CharacterBuilderLocator characterBuilderLocator) : base(mapService, dataPath, nameGenerator, characterBuilderLocator)
     {
     }
 

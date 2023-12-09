@@ -4,15 +4,14 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
 {
     public abstract class CareerBase
     {
-        protected CareerBase(string career, string? assignment, Book book)
+        protected CareerBase(string career, string? assignment, CharacterBuilder characterBuilder)
         {
-            Book = book;
             Career = career;
             Assignment = assignment;
+            m_CharacterBuilder = characterBuilder;
         }
 
         public string? Assignment { get; }
-
         public string Career { get; }
 
         public string Key
@@ -20,12 +19,14 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
             get { return Assignment ?? Career; }
         }
 
-        internal Book Book { get; }
+        internal Book Book => m_CharacterBuilder.Book;
 
         protected ImmutableArray<SkillTemplate> RandomSkills
         {
             get { return Book.RandomSkills; }
         }
+
+        CharacterBuilder m_CharacterBuilder { get; }
 
         public override string ToString()
         {
@@ -43,6 +44,11 @@ namespace Grauenwolf.TravellerTools.Characters.Careers
         internal abstract bool Qualify(Character character, Dice dice);
 
         internal abstract void Run(Character character, Dice dice);
+
+        protected void FixupSkills(Character character)
+        {
+            m_CharacterBuilder.FixupSkills(character);
+        }
 
         protected void Injury(Character character, Dice dice, bool severe, int age) => Book.Injury(character, dice, this, severe, age);
 

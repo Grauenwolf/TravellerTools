@@ -10,7 +10,7 @@ partial class ContactsViewPage
 {
     public int? Seed { get => Get<int?>(); set => Set(value); }
     protected ContactsModel? ContactsModel { get; set; }
-    [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
+    [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
     [Inject] NameGenerator NameGenerator { get; set; } = null!;
 
     protected override void Initialized()
@@ -49,7 +49,7 @@ partial class ContactsViewPage
             character.AddRival(Model.Rivals);
             character.AddEnemy(Model.Enemies);
 
-            CharacterBuilder.BuildContacts(dice, character);
+            CharacterBuilderLocator.BuildContacts(dice, character);
             result.Contacts = character.Contacts;
             result.Seed = seed;
 

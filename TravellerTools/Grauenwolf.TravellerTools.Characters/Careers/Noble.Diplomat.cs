@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Diplomat(Book book) : Noble("Diplomat", book)
+class Diplomat(CharacterBuilder characterBuilder) : Noble("Diplomat", characterBuilder)
 {
     protected override string AdvancementAttribute => "Soc";
 

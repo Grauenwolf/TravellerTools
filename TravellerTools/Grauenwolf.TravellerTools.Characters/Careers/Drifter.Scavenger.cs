@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Scavenger(Book book) : Drifter("Scavenger", book)
+class Scavenger(CharacterBuilder characterBuilder) : Drifter("Scavenger", characterBuilder)
 {
     protected override string AdvancementAttribute => "Str";
 

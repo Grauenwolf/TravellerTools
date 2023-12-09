@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Artist(Book book) : Entertainer("Artist", book)
+class Artist(CharacterBuilder characterBuilder) : Entertainer("Artist", characterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

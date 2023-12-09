@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Enforcer(Book book) : Rogue("Enforcer", book)
+class Enforcer(CharacterBuilder characterBuilder) : Rogue("Enforcer", characterBuilder)
 {
     protected override string AdvancementAttribute => "Str";
 

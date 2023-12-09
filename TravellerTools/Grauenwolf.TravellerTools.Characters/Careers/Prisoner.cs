@@ -4,7 +4,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 abstract class Prisoner : CareerBase
 {
-    protected Prisoner(string assignment, Book book) : base("Prisoner", assignment, book)
+    protected Prisoner(string assignment, CharacterBuilder characterBuilder) : base("Prisoner", assignment, characterBuilder)
     {
     }
 

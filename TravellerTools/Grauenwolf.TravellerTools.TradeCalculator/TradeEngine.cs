@@ -9,12 +9,12 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 {
     public abstract class TradeEngine
     {
-        readonly CharacterBuilder m_CharacterBuilder;
+        readonly CharacterBuilderLocator m_CharacterBuilderLocator;
         readonly NameGenerator m_NameGenerator;
         ImmutableArray<string> m_Personalities;
 
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        protected TradeEngine(TravellerMapService mapService, string dataPath, NameGenerator nameGenerator)
+        protected TradeEngine(TravellerMapService mapService, string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator)
         {
             MapService = mapService;
             m_NameGenerator = nameGenerator;
@@ -24,7 +24,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 TradeGoods = ((TradeGoods)converter.Deserialize(stream)!).TradeGood.ToImmutableList();
 
             LegalTradeGoods = TradeGoods.Where(g => g.Legal).ToImmutableList();
-            m_CharacterBuilder = new CharacterBuilder(dataPath, m_NameGenerator);
+            m_CharacterBuilderLocator = characterBuilderLocator;
 
             var personalityFile = new FileInfo(Path.Combine(dataPath, "personality.txt"));
             m_Personalities = File.ReadAllLines(personalityFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableArray();
@@ -475,9 +475,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                         {
                             var user = m_NameGenerator.CreateRandomPerson(dice);
 
-                            var options = new CharacterBuilderOptions() { MaxAge = 22 + dice.D(1, 50), Gender = user.Gender, Name = $"{user.FirstName} {user.LastName}", Seed = dice.Next() };
+                            var options = new CharacterBuilderOptions() { MaxAge = 22 + dice.D(1, 50), Gender = user.Gender, Name = $"{user.FirstName} {user.LastName}", Seed = dice.Next(), Species = m_CharacterBuilderLocator.GetRandomSpecies(dice) };
 
-                            lot.OwnerCharacter = m_CharacterBuilder.Build(options);
+                            lot.OwnerCharacter = m_CharacterBuilderLocator.Build(options);
                             lot.Owner = (lot.OwnerCharacter.Title + " " + lot.OwnerCharacter.Name).Trim();
                             break;
                         }
@@ -496,6 +496,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 Gender = user.Gender,
                 ApparentAge = 12 + dice.D(1, 60),
                 TicketPrice = ticketPrice,
+                Species = m_CharacterBuilderLocator.GetRandomSpecies(dice)
             };
 
             if (variablePrice)
@@ -533,8 +534,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             //else
             //{
             result.Seed = dice.Next();
-            var options = new CharacterBuilderOptions() { MaxAge = result.ApparentAge, Gender = result.Gender, Name = result.Name, Seed = result.Seed };
-            var character = m_CharacterBuilder.Build(options);
+            var options = new CharacterBuilderOptions() { MaxAge = result.ApparentAge, Gender = result.Gender, Name = result.Name, Seed = result.Seed, Species = result.Species };
+            var character = m_CharacterBuilderLocator.Build(options);
 
             result.PermalinkDetails = character.GetCharacterBuilderOptions().ToQueryString();
             result.Strength += character.Strength;

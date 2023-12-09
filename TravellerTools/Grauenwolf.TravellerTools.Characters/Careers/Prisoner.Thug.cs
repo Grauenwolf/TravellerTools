@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Thug(Book book) : Prisoner("Thug", book)
+class Thug(CharacterBuilder characterBuilder) : Prisoner("Thug", characterBuilder)
 {
     protected override string AdvancementAttribute => "End";
 

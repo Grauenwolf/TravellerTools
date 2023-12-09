@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class WildTalent(Book book) : Psion("Wild Talent", book)
+class WildTalent(CharacterBuilder characterBuilder) : Psion("Wild Talent", characterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

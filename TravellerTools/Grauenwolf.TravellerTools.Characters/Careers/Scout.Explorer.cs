@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Explorer(Book book) : Scout("Explorer", book)
+class Explorer(CharacterBuilder characterBuilder) : Scout("Explorer", characterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

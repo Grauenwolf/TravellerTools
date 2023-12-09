@@ -5,16 +5,18 @@ using System.Xml.Serialization;
 
 namespace Grauenwolf.TravellerTools.Characters;
 
-public class CharacterBuilder
+public abstract class CharacterBuilder
 {
     static readonly ImmutableList<string> s_BackgroundSkills = ImmutableList.Create("Admin", "Animals", "Art", "Athletics", "Carouse", "Drive", "Science", "Seafarer", "Streetwise", "Survival", "Vacc Suit", "Electronics", "Flyer", "Language", "Mechanic", "Medic", "Profession");
 
+    CharacterBuilderLocator m_CharacterBuilderLocator;
     NameGenerator m_NameGenerator;
     ImmutableArray<string> m_Personalities;
 
-    public CharacterBuilder(string dataPath, NameGenerator nameGenerator)
+    public CharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator)
     {
         m_NameGenerator = nameGenerator;
+        m_CharacterBuilderLocator = characterBuilderLocator;
         var file = new FileInfo(Path.Combine(dataPath, "CharacterBuilder.xml"));
 
         var converter = new XmlSerializer(typeof(CharacterTemplates));
@@ -22,76 +24,19 @@ public class CharacterBuilder
         using (var stream = file.OpenRead())
             Book = new Book((CharacterTemplates)converter.Deserialize(stream)!);
 
-        var careers = new List<CareerBase>
-        {
-            new ArmyAcademy(Book),
-            new MarineAcademy(Book),
-            new NavalAcademy(Book),
-            new ArmySupport(Book),
-            new Administrator(Book),
-            new Artist(Book),
-            new Barbarian(Book),
-            new Broker(Book),
-            new Cavalry(Book),
-            new Colonist(Book),
-            new Corporate(Book),
-            new CorporateAgent(Book),
-            new Enforcer(Book),
-            new Fixer(Book),
-            new FreeTrader(Book),
-            new GroundAssault(Book),
-            new Infantry(Book),
-            new Inmate(Book),
-            new Intelligence(Book),
-            new Journalist(Book),
-            new LawEnforcement(Book),
-            new MarineSupport(Book),
-            new MerchantMarine(Book),
-            new Performer(Book),
-            new Pirate(Book),
-            new Retired(Book),
-            new Scavenger(Book),
-            new StarMarine(Book),
-            new Thief(Book),
-            new Thug(Book),
-            new University(Book),
-            new ColonialUpbringing(Book),
-            new Wanderer(Book),
-            new Worker(Book),
-            new Flight(Book),
-            new EngineerGunner(Book),
-            new LineCrew(Book),
-            new Dilettante(Book),
-            new Diplomat(Book),
-            new FieldResearcher(Book),
-            new Scientist(Book),
-            new Physician(Book),
-            new Courier(Book),
-            new Surveyor(Book),
-            new Explorer(Book),
-            new WildTalent(Book),
-            new Adept(Book),
-            new PsiWarrrior(Book)
-        };
-
-        Careers = careers.ToImmutableArray();
+        Careers = CreateCareerList();
 
         var personalityFile = new FileInfo(Path.Combine(dataPath, "personality.txt"));
         m_Personalities = File.ReadAllLines(personalityFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableArray();
     }
 
-    //    PITable(dice.D(2, 6)
-
-    //PITable(dice.D(2, 6)
-
-    //RollAffinityEnmity(dice, result);
-
-    //    RollAffinityEnmity(dice, result);
-
-    //    RollAffinityEnmity(dice, result);
-
     public Book Book { get; }
+
     public ImmutableArray<CareerBase> Careers { get; }
+
+    public abstract string Species { get; }
+
+    protected virtual int AgingRollMinAge => 34;
 
     public Character Build(CharacterBuilderOptions options)
     {
@@ -100,6 +45,7 @@ public class CharacterBuilder
         var character = new Character();
 
         character.Seed = seed;
+        character.Species = Species;
         character.FirstAssignment = options.FirstAssignment;
         character.FirstCareer = options.FirstCareer;
         character.Name = options.Name;
@@ -107,12 +53,7 @@ public class CharacterBuilder
         character.MaxAge = options.MaxAge;
         character.Year = options.Year;
 
-        character.Strength = dice.D(2, 6);
-        character.Dexterity = dice.D(2, 6);
-        character.Endurance = dice.D(2, 6);
-        character.Intellect = dice.D(2, 6);
-        character.Education = dice.D(2, 6);
-        character.SocialStanding = dice.D(2, 6);
+        InitialCharacterStats(dice, character);
 
         if (character.EducationDM + 3 > 0)
         {
@@ -140,7 +81,7 @@ public class CharacterBuilder
 
             character.CurrentTerm += 1;
 
-            if (character.CurrentTerm >= 4)
+            if (character.Age >= AgingRollMinAge)
                 AgingRoll(character, dice);
         }
 
@@ -173,337 +114,57 @@ public class CharacterBuilder
                 skill.Group = dice.Choose(groups);
         }
 
-        BuildContacts(dice, character);
+        m_CharacterBuilderLocator.BuildContacts(dice, character);
 
         return character;
     }
 
-    public void BuildContacts(Dice dice, Character character)
+    internal virtual void FixupSkills(Character character)
     {
-        while (character.UnusedContacts.Count > 0)
-            character.Contacts.Add(CreateContact(dice, character.UnusedContacts.Dequeue(), character));
     }
 
-    public Contact CreateContact(Dice dice, ContactType contactType, Character? character)
+    protected virtual int AgingRollDM(Character character)
     {
-        int PITable(int roll)
-        {
-            return roll switch
-            {
-                <= 5 => 0,
-                <= 7 => 1,
-                8 => 2,
-                9 => 3,
-                10 => 4,
-                11 => 5,
-                _ => 6,
-            };
-        }
-
-        int AffinityTable(int roll)
-        {
-            return roll switch
-            {
-                2 => 0,
-                <= 4 => 1,
-                <= 6 => 2,
-                <= 8 => 3,
-                <= 10 => 4,
-                <= 11 => 5,
-                _ => 6,
-            };
-        }
-
-        var user = m_NameGenerator.CreateRandomPerson(dice);
-
-        var options = new CharacterBuilderOptions() { MaxAge = 22 + dice.D(1, 50), Gender = user.Gender, Name = $"{user.FirstName} {user.LastName}", Seed = dice.Next() };
-
-        var result = new Contact(contactType, options);
-        RollAffinityEnmity(dice, result);
-        result.Power = PITable(dice.D(2, 6));
-        result.Influence = PITable(dice.D(2, 6));
-
-        if (dice.D(2, 6) >= 8) //special!
-        {
-            var specialCount = 1;
-
-            while (specialCount > 0)
-            {
-                specialCount -= 1;
-
-                switch (dice.D66())
-                {
-                    case 11:
-                        result.History.Add("Forgiveness.");
-                        result.Affinity += 1;
-                        break;
-
-                    case 12:
-                        result.History.Add("Relationship soured.");
-                        result.Affinity -= 1;
-                        result.Enmity += 1;
-                        break;
-
-                    case 13:
-                        result.History.Add("Relationship altered.");
-                        result.Affinity += 1;
-                        result.Enmity -= 1;
-                        break;
-
-                    case 14:
-                        result.History.Add("An incident occured.");
-                        result.Enmity += 1;
-                        break;
-
-                    case 15:
-                        switch (result.ContactType)
-                        {
-                            case ContactType.Enemy:
-                                result.History.Add("Relationship becomes more moderate. Enemy becomes a rival.");
-                                result.ContactType = ContactType.Rival;
-                                break;
-
-                            case ContactType.Ally:
-                                result.History.Add("Relationship becomes more moderate. Ally becomes a contact.");
-                                result.ContactType = ContactType.Contact;
-                                break;
-
-                            default:
-                                result.History.Add("Relationship becomes more moderate.");
-                                result.Enmity -= 1;
-                                result.Affinity += 1;
-                                break;
-                        }
-                        break;
-
-                    case 16:
-                        switch (result.ContactType)
-                        {
-                            case ContactType.Rival:
-                                result.History.Add("Relationship becomes more moderate. Rival becomes an enemy.");
-                                result.ContactType = ContactType.Enemy;
-                                RollAffinityEnmity(dice, result);
-                                break;
-
-                            case ContactType.Contact:
-                                result.History.Add("Relationship becomes more moderate. Contact becomes an ally.");
-                                result.ContactType = ContactType.Ally;
-                                RollAffinityEnmity(dice, result);
-                                break;
-
-                            case ContactType.Enemy:
-                                result.History.Add("Relationship becomes more intense.");
-                                result.Enmity += 1;
-                                break;
-
-                            case ContactType.Ally:
-                                result.History.Add("Relationship becomes more intense.");
-                                result.Affinity += 1;
-                                break;
-                        }
-                        break;
-
-                    case 21:
-                        result.History.Add($"{result.CharacterStub.Name} gains in power.");
-                        result.Power += 1;
-                        break;
-
-                    case 22:
-                        result.History.Add($"{result.CharacterStub.Name} loses some of their power base.");
-                        result.Power -= 1;
-                        break;
-
-                    case 23:
-                        result.History.Add($"{result.CharacterStub.Name} gains in influence.");
-                        result.Influence += 1;
-                        break;
-
-                    case 24:
-                        result.History.Add($"{result.CharacterStub.Name}'s influence is diminished.");
-                        result.Influence -= 1;
-                        break;
-
-                    case 25:
-                        result.History.Add($"{result.CharacterStub.Name} gains in power and influence.");
-                        result.Power += 1;
-                        result.Influence += 1;
-                        break;
-
-                    case 26:
-                        result.History.Add($"{result.CharacterStub.Name} is diminished in both power and influence.");
-                        result.Power -= 1;
-                        result.Influence -= 1; break;
-
-                    case 31:
-                        result.History.Add($"{result.CharacterStub.Name} belongs to an unusual cultural or religious group.");
-                        break;
-
-                    case 32:
-                        result.History.Add($"{result.CharacterStub.Name} belongs to an uncommon alien species.");
-                        break;
-
-                    case 33:
-                        result.History.Add($"{result.CharacterStub.Name} is particularly unusual, such as an artificial intelligence or very alien being. ");
-                        break;
-
-                    case 34:
-                        result.History.Add($"{result.CharacterStub.Name} is actually an organisation such as a political movement or modest sized business.");
-                        break;
-
-                    case 35:
-                        result.History.Add($"{result.CharacterStub.Name} is a member of an organisation which holds a generally opposite view of the Traveller.");
-                        break;
-
-                    case 36:
-                        result.History.Add($"{result.CharacterStub.Name} is a questionable figure such as a criminal, pirate or disgraced noble.");
-                        break;
-
-                    case 41:
-                        result.History.Add("Very bad falling out.");
-                        result.Enmity = Math.Max(result.Enmity, dice.D(2, 6));
-                        break;
-
-                    case 42:
-                        result.History.Add("reconciliation.");
-                        result.Affinity = Math.Max(result.Affinity, dice.D(2, 6));
-                        break;
-
-                    case 43:
-                        result.History.Add($"{result.CharacterStub.Name} fell on hard times.");
-                        result.Power -= 1;
-                        break;
-
-                    case 44:
-                        result.History.Add($"{result.CharacterStub.Name} was ruined by misfortune caused by the character.");
-                        result.Power = 0;
-                        result.Enmity += 1;
-                        break;
-
-                    case 45:
-                        result.History.Add($"{result.CharacterStub.Name} gained influence with the character’s assistance.");
-                        result.Influence += 1;
-                        result.Affinity += 1;
-                        break;
-
-                    case 46:
-                        result.History.Add($"{result.CharacterStub.Name} gained power at the expense of a third party who now blames the character.");
-                        result.Power += 1;
-                        character?.AddEnemy();
-                        break;
-
-                    case 51:
-                        result.History.Add($"{result.CharacterStub.Name} is missing under suspicious circumstances.");
-                        break;
-
-                    case 52:
-                        result.History.Add($"{result.CharacterStub.Name} is out of contact doing something interesting but not suspicious.");
-                        break;
-
-                    case 53:
-                        result.History.Add($"{result.CharacterStub.Name} is in desperate trouble and could use the character’s help.");
-                        break;
-
-                    case 54:
-                        result.History.Add($"{result.CharacterStub.Name} has had an unexpected run of good fortune lately.");
-                        break;
-
-                    case 55:
-                        result.History.Add($"{result.CharacterStub.Name} is in prison or otherwise trapped somewhere.");
-                        break;
-
-                    case 56:
-                        result.History.Add($"{result.CharacterStub.Name} is found or reported dead.");
-                        break;
-
-                    case 61:
-                        result.History.Add($"{result.CharacterStub.Name} has life-changing event that creates new responsibilities.");
-                        break;
-
-                    case 62:
-                        result.History.Add($"{result.CharacterStub.Name} has negatively life-changing event.");
-                        break;
-
-                    case 63:
-                        result.History.Add($"{result.CharacterStub.Name}’s relationships have begun to affect the character.");
-                        if (result.Affinity > result.Enmity)
-                            character?.AddContact();
-                        else if (result.Affinity < result.Enmity)
-                            character?.AddRival();
-                        break;
-
-                    case 64:
-
-                        var temp = result.Affinity;
-                        result.Affinity = result.Enmity;
-                        result.Enmity = temp;
-
-                        switch (result.ContactType)
-                        {
-                            case ContactType.Rival:
-                                result.History.Add("Relationship redefined. Rival becomes a contact.");
-                                result.ContactType = ContactType.Contact;
-                                break;
-
-                            case ContactType.Contact:
-                                result.History.Add("Relationship redefined. Contact becomes an rival.");
-                                result.ContactType = ContactType.Rival;
-                                break;
-
-                            case ContactType.Enemy:
-                                result.History.Add("Relationship redefined. Enemy becomes an ally.");
-                                result.ContactType = ContactType.Ally;
-                                break;
-
-                            case ContactType.Ally:
-                                result.History.Add("Relationship redefined. Ally becomes an enemy.");
-                                result.ContactType = ContactType.Enemy;
-                                break;
-                        }
-                        break;
-
-                    case 65:
-                        specialCount += 2;
-                        break;
-
-                    case 66:
-                        specialCount += 3;
-                        break;
-                }
-            }
-        }
-
-        return result;
-
-        void RollAffinityEnmity(Dice dice, Contact result)
-        {
-            switch (result.ContactType)
-            {
-                case ContactType.Ally:
-                    result.Affinity = AffinityTable(dice.D(2, 6));
-                    break;
-
-                case ContactType.Enemy:
-                    result.Enmity = AffinityTable(dice.D(2, 6));
-                    break;
-
-                case ContactType.Rival:
-                    result.Affinity = AffinityTable(dice.D(1, 6) - 1);
-                    result.Enmity = AffinityTable(dice.D(1, 6) + 1);
-                    break;
-
-                case ContactType.Contact:
-                    result.Affinity = AffinityTable(dice.D(1, 6) + 1);
-                    result.Enmity = AffinityTable(dice.D(1, 6) - 1);
-                    break;
-            }
-        }
+        return -1 * character.CurrentTerm;
     }
 
-    static void AgingRoll(Character character, Dice dice)
+    protected abstract ImmutableArray<CareerBase> CreateCareerList();
+
+    protected virtual void InitialCharacterStats(Dice dice, Character character)
+    {
+        character.Strength = dice.D(2, 6);
+        character.Dexterity = dice.D(2, 6);
+        character.Endurance = dice.D(2, 6);
+        character.Intellect = dice.D(2, 6);
+        character.Education = dice.D(2, 6);
+        character.SocialStanding = dice.D(2, 6);
+    }
+
+    static bool IsDone(CharacterBuilderOptions options, Character character)
+    {
+        if (character.Strength <= 0 ||
+            character.Dexterity <= 0 ||
+            character.Endurance <= 0 ||
+            character.Intellect <= 0 ||
+            character.Education <= 0 ||
+            character.SocialStanding <= 0)
+        {
+            character.AddHistory($"Died at age {character.Age}", character.Age);
+            character.IsDead = true;
+            return true;
+        }
+
+        if ((character.Age + 3) >= options.MaxAge) //+3 because terms are 4 years long
+            return true;
+
+        return false;
+    }
+
+    void AgingRoll(Character character, Dice dice)
     {
         //TODO: Anagathics page 47
 
-        var roll = dice.D(2, 6) - character.CurrentTerm;
+        var roll = dice.D(2, 6) + AgingRollDM(character);
         if (roll <= -6)
         {
             character.Strength += -2;
@@ -636,26 +297,6 @@ public class CharacterBuilder
             character.LongTermBenefits.QualificationDM = -100;
             character.LongTermBenefits.Retired = true;
         }
-    }
-
-    static bool IsDone(CharacterBuilderOptions options, Character character)
-    {
-        if (character.Strength <= 0 ||
-            character.Dexterity <= 0 ||
-            character.Endurance <= 0 ||
-            character.Intellect <= 0 ||
-            character.Education <= 0 ||
-            character.SocialStanding <= 0)
-        {
-            character.AddHistory($"Died at age {character.Age}", character.Age);
-            character.IsDead = true;
-            return true;
-        }
-
-        if ((character.Age + 3) >= options.MaxAge) //+3 because terms are 4 years long
-            return true;
-
-        return false;
     }
 
     CareerBase PickNextCareer(Character character, Dice dice)

@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Retired(Book book) : CareerBase("Retired", null, book)
+class Retired(CharacterBuilder characterBuilder) : CareerBase("Retired", null, characterBuilder)
 {
     public void Event(Character character, Dice dice)
     {

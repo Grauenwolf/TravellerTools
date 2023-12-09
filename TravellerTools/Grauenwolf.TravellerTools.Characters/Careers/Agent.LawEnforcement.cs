@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class LawEnforcement(Book book) : Agent("Law Enforcement", book)
+class LawEnforcement(CharacterBuilder characterBuilder) : Agent("Law Enforcement", characterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

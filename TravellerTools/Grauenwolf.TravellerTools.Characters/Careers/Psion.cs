@@ -2,7 +2,7 @@
 
 abstract class Psion : NormalCareer
 {
-    protected Psion(string assignment, Book book) : base("Psion", assignment, book)
+    protected Psion(string assignment, CharacterBuilder characterBuilder) : base("Psion", assignment, characterBuilder)
     {
     }
 

@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class GroundAssault(Book book) : Marine("Ground Assault", book)
+class GroundAssault(CharacterBuilder characterBuilder) : Marine("Ground Assault", characterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

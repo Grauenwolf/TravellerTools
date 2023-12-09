@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class LineCrew(Book book) : Navy("Line/Crew", book)
+class LineCrew(CharacterBuilder characterBuilder) : Navy("Line/Crew", characterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class PsiWarrrior(Book book) : Psion("Psi-Warrrior", book)
+class PsiWarrrior(CharacterBuilder characterBuilder) : Psion("Psi-Warrrior", characterBuilder)
 {
     protected override string AdvancementAttribute => "End";
 

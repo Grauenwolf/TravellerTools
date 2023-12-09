@@ -2,7 +2,7 @@
 
 abstract class Scholar : NormalCareer
 {
-    protected Scholar(string assignment, Book book) : base("Scholar", assignment, book)
+    protected Scholar(string assignment, CharacterBuilder characterBuilder) : base("Scholar", assignment, characterBuilder)
     {
     }
 

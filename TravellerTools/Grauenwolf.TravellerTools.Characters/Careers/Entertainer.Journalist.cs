@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Journalist(Book book) : Entertainer("Journalist", book)
+class Journalist(CharacterBuilder characterBuilder) : Entertainer("Journalist", characterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

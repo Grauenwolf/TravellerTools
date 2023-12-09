@@ -13,6 +13,7 @@ public class CharacterBuilderOptions
     public string? Name { get; set; }
 
     public int? Seed { get; set; }
+    public string? Species { get; set; }
     public int? Year { get; set; }
 
     public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)
@@ -38,6 +39,9 @@ public class CharacterBuilderOptions
 
         if (keyValuePairs.TryGetValue("firstCareer", out var firstCareer))
             FirstCareer = firstCareer;
+
+        if (keyValuePairs.TryGetValue("species", out var species))
+            Species = species;
     }
 
     public Dictionary<string, string?> ToQueryString()
@@ -50,6 +54,7 @@ public class CharacterBuilderOptions
             { "gender", Gender },
             { "firstAssignment", FirstAssignment },
             { "firstCareer", FirstCareer },
+            { "species", Species },
             { "year", Year?.ToString() }
         };
     }

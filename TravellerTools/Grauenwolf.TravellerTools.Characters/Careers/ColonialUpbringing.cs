@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class ColonialUpbringing(Book book) : CareerBase("Colonial Upbringing", null, book)
+class ColonialUpbringing(CharacterBuilder characterBuilder) : CareerBase("Colonial Upbringing", null, characterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice)
     {

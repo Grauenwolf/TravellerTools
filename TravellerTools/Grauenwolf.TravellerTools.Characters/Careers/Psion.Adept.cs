@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Adept(Book book) : Psion("Adept", book)
+class Adept(CharacterBuilder characterBuilder) : Psion("Adept", characterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

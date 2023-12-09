@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class MarineSupport(Book book) : Marine("Marine Support", book)
+class MarineSupport(CharacterBuilder characterBuilder) : Marine("Marine Support", characterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

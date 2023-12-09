@@ -17,6 +17,7 @@
     <table class="gridtable">
 
         <tr>
+            <th width="50" style="text-align:center;">Species</th>
             <th width="50" style="text-align:center;">Age</th>
             <th width="50" style="text-align:center;">Sex</th>
             <th width="50" style="text-align:center;">Str</th>
@@ -31,6 +32,7 @@
             }
         </tr>
         <tr>
+            <td>@(Character.Species)</td>
             <td>@(Character.Age)</td>
             <td>@(Character.Gender)</td>
             <td>@(Character.Strength) (@Character.StrengthDM)</td>
@@ -51,7 +53,7 @@
                 }
             }
         </tr>
-        <tr><td colspan="8">@(Character.PersonalityList)</td></tr>
+        <tr><td colspan="9">@(Character.PersonalityList)</td></tr>
     </table>
 
     <div>&nbsp;</div>

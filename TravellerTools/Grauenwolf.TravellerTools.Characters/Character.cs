@@ -33,6 +33,7 @@ public class Character
     public int PreviousPsiAttempts { get; set; }
     public int? Psi { get; set; }
     public int PsiDM => Psi == null ? -100 : DMCalc(Psi.Value);
+    public string? Race { get; set; }
 
     /// <summary>
     /// Gets or sets the seed used to randomly create the character.
@@ -43,6 +44,7 @@ public class Character
     public SkillCollection Skills { get; } = new();
     public int SocialStanding { get; set; }
     public int SocialStandingDM => DMCalc(SocialStanding);
+    public string? Species { get; set; }
     public int Strength { get; set; }
     public int StrengthDM => DMCalc(Strength);
     public string? Title { get; set; }
@@ -121,7 +123,8 @@ public class Character
             Gender = Gender,
             MaxAge = Age,
             Name = Name,
-            Year = Year
+            Year = Year,
+            Species = Species,
         };
     }
 

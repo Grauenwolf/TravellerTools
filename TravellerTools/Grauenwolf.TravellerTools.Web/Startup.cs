@@ -2,8 +2,6 @@ using Grauenwolf.TravellerTools.Characters;
 using Grauenwolf.TravellerTools.Equipment;
 using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Names;
-using Grauenwolf.TravellerTools.TradeCalculator;
-using System.Collections.Concurrent;
 
 namespace Grauenwolf.TravellerTools.Web;
 
@@ -56,54 +54,10 @@ public class Startup
 
         services.AddSingleton(mapService); //make this configurable!
         var nameGenerator = new NameGenerator(AppDataPath);
-        services.AddSingleton(new TradeEngineLocator(mapService, AppDataPath, nameGenerator));
+        var characterBuilderLocator = new CharacterBuilderLocator(AppDataPath, nameGenerator);
+        services.AddSingleton(new TradeEngineLocator(mapService, AppDataPath, nameGenerator, characterBuilderLocator));
         services.AddSingleton(new EquipmentBuilder(AppDataPath));
         services.AddSingleton(nameGenerator);
-        services.AddSingleton(new CharacterBuilder(AppDataPath, nameGenerator));
-    }
-}
-
-public class TradeEngineLocator
-{
-    readonly ConcurrentDictionary<(string, int), TradeEngine> TradeEngines = new ConcurrentDictionary<(string, int), TradeEngine>();
-
-    public TradeEngineLocator(TravellerMapServiceLocator mapService, string dataPath, NameGenerator nameGenerator)
-    {
-        MapService = mapService;
-        DataPath = dataPath;
-        NameGenerator = nameGenerator;
-    }
-
-    public string DataPath { get; }
-
-    public TravellerMapServiceLocator MapService { get; }
-
-    public NameGenerator NameGenerator { get; }
-
-    public TradeEngine GetTradeEngine(string milieu, Edition edition)
-    {
-        if (TradeEngines.TryGetValue((milieu, (int)edition), out var engine))
-            return engine;
-
-        switch (edition)
-        {
-            case Edition.Mongoose:
-                engine = new TradeEngineMgt(MapService.GetMapService(milieu), DataPath, NameGenerator);
-                break;
-
-            case Edition.Mongoose2:
-                engine = new TradeEngineMgt2(MapService.GetMapService(milieu), DataPath, NameGenerator);
-                break;
-
-            case Edition.Mongoose2022:
-                engine = new TradeEngineMgt2022(MapService.GetMapService(milieu), DataPath, NameGenerator);
-                break;
-
-            default:
-                throw new ArgumentOutOfRangeException(nameof(edition));
-        }
-
-        TradeEngines[(milieu, (int)edition)] = engine;
-        return engine;
+        services.AddSingleton(characterBuilderLocator);
     }
 }

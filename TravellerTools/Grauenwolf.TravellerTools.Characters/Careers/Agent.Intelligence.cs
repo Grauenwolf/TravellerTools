@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Intelligence(Book book) : Agent("Intelligence", book)
+class Intelligence(CharacterBuilder characterBuilder) : Agent("Intelligence", characterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

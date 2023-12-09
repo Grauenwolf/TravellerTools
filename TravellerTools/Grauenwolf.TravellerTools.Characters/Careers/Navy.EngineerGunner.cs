@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class EngineerGunner(Book book) : Navy("Engineer/Gunner", book)
+class EngineerGunner(CharacterBuilder characterBuilder) : Navy("Engineer/Gunner", characterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

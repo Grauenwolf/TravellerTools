@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Colonist(Book book) : Citizen("Colonist", book)
+class Colonist(CharacterBuilder characterBuilder) : Citizen("Colonist", characterBuilder)
 {
     protected override string AdvancementAttribute => "End";
 

@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class ArmySupport(Book book) : Army("Army Support", book)
+class ArmySupport(CharacterBuilder characterBuilder) : Army("Army Support", characterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

@@ -4,7 +4,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 abstract class NormalCareer : FullCareer
 {
-    protected NormalCareer(string name, string assignment, Book book) : base(name, assignment, book)
+    protected NormalCareer(string name, string assignment, CharacterBuilder characterBuilder) : base(name, assignment, characterBuilder)
     {
     }
 
@@ -18,7 +18,7 @@ abstract class NormalCareer : FullCareer
             careerHistory = new CareerHistory(Career, Assignment, 0);
             ChangeCareer(character, dice, careerHistory);
             BasicTrainingSkills(character, dice, character.CareerHistory.Count == 0);
-
+            FixupSkills(character);
             character.CareerHistory.Add(careerHistory);
         }
         else
@@ -33,6 +33,7 @@ abstract class NormalCareer : FullCareer
                 {
                     ChangeAssignment(character, dice, careerHistory);
                     BasicTrainingSkills(character, dice, false);
+                    FixupSkills(character);
                 }
             }
             else if (character.LastCareer?.Assignment == Assignment)
@@ -54,6 +55,7 @@ abstract class NormalCareer : FullCareer
                 skillTables.Add(AdvancedEducation);
 
             dice.Choose(skillTables)(character, dice);
+            FixupSkills(character);
         }
         careerHistory.Terms += 1;
 
@@ -83,6 +85,7 @@ abstract class NormalCareer : FullCareer
             if (advancementRoll >= AdvancementTarget)
             {
                 Promote(character, dice, careerHistory);
+                FixupSkills(character);
 
                 //advancement skill
                 var skillTables = new List<SkillTable>
@@ -95,6 +98,7 @@ abstract class NormalCareer : FullCareer
                     skillTables.Add(AdvancedEducation);
 
                 dice.Choose(skillTables)(character, dice); //Choose a skill table and execute it.
+                FixupSkills(character);
             }
 
             if (advancementRoll <= careerHistory.Terms)

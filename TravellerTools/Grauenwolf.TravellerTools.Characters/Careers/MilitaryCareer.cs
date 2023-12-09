@@ -4,7 +4,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 abstract class MilitaryCareer : FullCareer
 {
-    protected MilitaryCareer(string name, string assignment, Book book) : base(name, assignment, book)
+    protected MilitaryCareer(string name, string assignment, CharacterBuilder characterBuilder) : base(name, assignment, characterBuilder)
     {
     }
 

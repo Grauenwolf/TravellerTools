@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-abstract class Citizen(string assignment, Book book) : NormalCareer("Citizen", assignment, book)
+abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Citizen", assignment, characterBuilder)
 {
     protected override int AdvancedEductionMin => 10;
 

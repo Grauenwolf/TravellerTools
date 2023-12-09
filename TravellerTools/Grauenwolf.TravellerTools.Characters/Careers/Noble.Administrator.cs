@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Administrator(Book book) : Noble("Administrator", book)
+class Administrator(CharacterBuilder characterBuilder) : Noble("Administrator", characterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

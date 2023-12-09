@@ -32,7 +32,7 @@ partial class WorldTradePage
     public string? Uwp { get => Get<string?>(); set => Set(value, true); }
 
     protected TradeOptions Options { get; } = new TradeOptions();
-    [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
+    [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
     Character? CounterpartyCharacter { get; set; }
     bool CounterpartyIsInformer { get; set; }
     bool IsInformer { get; set; }
@@ -66,13 +66,13 @@ partial class WorldTradePage
         var temp = NameGenerator.CreateRandomPerson(dice);
         options.Name = temp.FullName;
         options.Gender = temp.Gender;
-
+        options.Species = CharacterBuilderLocator.GetRandomSpecies(dice);
         options.MaxAge = 22 + dice.D(1, 60);
 
         CounterpartyCharacter = null;
         for (var i = 0; i < 500; i++)
         {
-            var result = CharacterBuilder.Build(options);
+            var result = CharacterBuilderLocator.Build(options);
             if (result.Skills["Broker"]?.Level == Options.CounterpartyScore && !result.IsDead)
             {
                 CounterpartyCharacter = result;
@@ -92,7 +92,7 @@ partial class WorldTradePage
         var temp = NameGenerator.CreateRandomPerson(dice);
         options.Name = temp.FullName;
         options.Gender = temp.Gender;
-
+        options.Species = CharacterBuilderLocator.GetRandomSpecies(dice);
         options.MaxAge = 22 + dice.D(1, 60);
 
         LocalBrokerCharacter = null;
@@ -100,7 +100,7 @@ partial class WorldTradePage
 
         for (var i = 0; i < 500; i++)
         {
-            var result = CharacterBuilder.Build(options);
+            var result = CharacterBuilderLocator.Build(options);
             if (result.Skills["Streetwise"]?.Level == Options.StreetwiseScore && !result.IsDead)
             {
                 LocalBrokerCharacter = result;
@@ -125,13 +125,13 @@ partial class WorldTradePage
         var temp = NameGenerator.CreateRandomPerson(dice);
         options.Name = temp.FullName;
         options.Gender = temp.Gender;
-
+        options.Species = CharacterBuilderLocator.GetRandomSpecies(dice);
         options.MaxAge = 22 + dice.D(1, 60);
 
         LocalBrokerCharacter = null;
         for (var i = 0; i < 500; i++)
         {
-            var result = CharacterBuilder.Build(options);
+            var result = CharacterBuilderLocator.Build(options);
             if (result.Skills["Broker"]?.Level == Options.BrokerScore && !result.IsDead)
             {
                 LocalBrokerCharacter = result;

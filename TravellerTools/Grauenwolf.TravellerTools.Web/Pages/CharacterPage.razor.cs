@@ -8,7 +8,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 
 partial class CharacterPage
 {
-    [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
+    [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
     List<Character> Characters { get; set; } = new List<Character>();
     [Inject] NameGenerator NameGenerator { get; set; } = null!;
     //public int? Seed { get => Get<int?>(); set => Set(value); }
@@ -68,6 +68,7 @@ partial class CharacterPage
 
             options.FirstCareer = Model.FirstCareer;
             options.FirstAssignment = Model.FirstAssignment;
+            options.Species = CharacterBuilderLocator.GetRandomSpecies(dice);
 
             bool hasDesiredStats =
                 !Model.Str.IsNullOrEmpty() || !Model.Dex.IsNullOrEmpty() || !Model.End.IsNullOrEmpty() ||
@@ -84,7 +85,7 @@ partial class CharacterPage
 
                 for (int i = 0; i < 500; i++)
                 {
-                    var candidateCharacter = CharacterBuilder.Build(options);
+                    var candidateCharacter = CharacterBuilderLocator.Build(options);
                     if (!candidateCharacter.IsDead)
                     {
                         if (!string.IsNullOrEmpty(Model.FinalAssignment))
@@ -174,7 +175,7 @@ partial class CharacterPage
                 }
             }
             else
-                Characters.Insert(0, CharacterBuilder.Build(options));
+                Characters.Insert(0, CharacterBuilderLocator.Build(options));
         }
         catch (Exception ex)
         {
@@ -194,6 +195,7 @@ partial class CharacterPage
         //if (Navigation.TryGetQueryString("tasZone", out string tasZone))
         //    TasZone = tasZone;
 
-        Model = new CharacterOptions(CharacterBuilder);
+        //TODO: Make this configurable
+        Model = new CharacterOptions(CharacterBuilderLocator);
     }
 }

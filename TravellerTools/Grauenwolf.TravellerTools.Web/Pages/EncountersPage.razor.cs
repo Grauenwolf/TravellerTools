@@ -6,7 +6,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 
 partial class EncountersPage
 {
-    [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
+    [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
 
     protected void GenerateAlliesAndEnemies()
     {

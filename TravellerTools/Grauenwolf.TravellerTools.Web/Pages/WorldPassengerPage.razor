@@ -104,7 +104,7 @@
                 {
                     <li>
                         <h4><a target="_blank" href="@QueryHelpers.AddQueryString("/character/view", passenger.PermalinkDetails!)">@passenger.Title @passenger.Name</a></h4>
-                        <div>Age: @passenger.ApparentAge (@passenger.Gender)</div>
+                        <div>@passenger.Species, Age: @passenger.ApparentAge (@passenger.Gender)</div>
                         @if(@Options.ShowDetails)
                         {
                         <div>UPP: @passenger.Upp</div>

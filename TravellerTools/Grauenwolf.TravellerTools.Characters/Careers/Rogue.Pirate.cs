@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Pirate(Book book) : Rogue("Pirate", book)
+class Pirate(CharacterBuilder characterBuilder) : Rogue("Pirate", characterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 
