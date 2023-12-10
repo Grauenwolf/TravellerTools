@@ -57,7 +57,7 @@ partial class WorldPicker
     {
         if (Model.SelectedMilieuCode == null || Model.SelectedSectorHex == null || Model.SelectedSubsectorIndex == null)
             return null;
-        return $"/world/{Model.SelectedMilieuCode}/{Model.SelectedSectorHex}/subsector/{Model.SelectedSubsectorIndex}";
+        return $"https://wiki.travellerrpg.com/{Model.SelectedSubsector!.Name}_Subsector";
     }
 
     protected string? SubsectorUrl()
