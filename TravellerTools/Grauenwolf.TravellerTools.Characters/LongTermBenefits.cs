@@ -4,6 +4,7 @@ class LongTermBenefits
 {
     public int AdvancementDM { get; set; }
 
+    public Dictionary<string, int> CareerAdvancementDM { get; } = new();
     public int CommissionDM { get; set; }
 
     /// <summary>

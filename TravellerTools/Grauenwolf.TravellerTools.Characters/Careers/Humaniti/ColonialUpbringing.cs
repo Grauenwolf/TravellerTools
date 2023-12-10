@@ -20,17 +20,26 @@ class ColonialUpbringing(CharacterBuilder characterBuilder) : CareerBase("Coloni
         character.LongTermBenefits.EnlistmentDM.Add("Rogue", 3); //This is a net +1 after QualificationDM
         character.LongTermBenefits.EnlistmentDM.Add("Scout", 3); //This is a net +1 after QualificationDM
 
-        character.Skills.Add("Animals");
-        character.Skills.Add("Athletics");
-        character.Skills.Add("Drive");
-        character.Skills.Add("Gun Combat");
-        character.Skills.Add("Mechanic");
-        character.Skills.Add("Medic");
-        character.Skills.Add("Navigation");
-        character.Skills.Add("Recon");
-        character.Skills.Add("Profession");
-        character.Skills.Add("Seafarer");
+        var skillChoices = new SkillTemplateCollection();
+        skillChoices.AddRange(SpecialtiesFor("Animals"));
+        skillChoices.AddRange(SpecialtiesFor("Athletics"));
+        skillChoices.AddRange(SpecialtiesFor("Drive"));
+        skillChoices.AddRange(SpecialtiesFor("Gun Combat"));
+        skillChoices.Add("Mechanic");
+        skillChoices.Add("Medic");
+        skillChoices.Add("Navigation");
+        skillChoices.Add("Recon");
+        skillChoices.AddRange(SpecialtiesFor("Profession"));
+        skillChoices.AddRange(SpecialtiesFor("Seafarer"));
+        skillChoices.Add("Survival");
+
+        //Add basic skills at level 0
+        foreach (var skill in skillChoices.Select(x => x.Name).Distinct())
+            character.Skills.Add(skill);
         character.Skills.Add("Survival", 1);
+        FixupSkills(character);
+
+        Book.PreCareerEvents(character, dice, this, skillChoices);
         FixupSkills(character);
 
         var graduation = dice.D(2, 6) + character.IntellectDM + character.CurrentTermBenefits.GraduationDM;

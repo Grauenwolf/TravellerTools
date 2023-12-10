@@ -1,41 +1,41 @@
-﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Partisan(CharacterBuilder characterBuilder) : ShaperPriest("Partisan", characterBuilder)
+class HolyWarrior(CharacterBuilder characterBuilder) : Believer("Holy Warrior", characterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 
-    protected override int AdvancementTarget => 6;
+    protected override int AdvancementTarget => 5;
 
-    protected override string SurvivalAttribute => "End";
+    protected override string SurvivalAttribute => "Int";
 
-    protected override int SurvivalTarget => 6;
+    protected override int SurvivalTarget => 8;
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase("Academic");
-                return;
-
-            case 2:
                 character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
                 return;
 
-            case 3:
+            case 2:
                 character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
                 return;
 
+            case 3:
+                character.Skills.Increase("Explosives");
+                return;
+
             case 4:
-                character.Skills.Increase("Tactics", "Military");
+                character.Skills.Increase(dice.Choose(SpecialtiesFor("Heavy Weapons")));
                 return;
 
             case 5:
-                character.Skills.Increase("Recon");
+                character.Skills.Increase("Tactics", "Military");
                 return;
 
             case 6:
-                character.Skills.Increase("Stealth");
+                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
                 return;
         }
     }
@@ -45,39 +45,37 @@ class Partisan(CharacterBuilder characterBuilder) : ShaperPriest("Partisan", cha
         switch (careerHistory.Rank)
         {
             case 0:
-                careerHistory.Title = "Least Claw";
+                careerHistory.Title = "Hopeful";
                 return;
 
             case 1:
-                careerHistory.Title = "Third Claw";
+                careerHistory.Title = "Fighter";
                 if (allowBonus)
                     character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
                 return;
 
             case 2:
-                careerHistory.Title = "Second Claw";
+                careerHistory.Title = "Combat Leader";
                 if (allowBonus)
                     character.Skills.Increase("Leadership");
                 return;
 
             case 3:
-                careerHistory.Title = "First Claw";
+                careerHistory.Title = "Force Commander";
                 return;
 
             case 4:
-                careerHistory.Title = "Kaltrhar";
+                careerHistory.Title = "Area Commander";
                 if (allowBonus)
                     character.Skills.Increase("Tactics", "Military");
                 return;
 
             case 5:
-                careerHistory.Title = "Shilahn";
+                careerHistory.Title = "Movement Sub-Leader";
                 return;
 
             case 6:
-                careerHistory.Title = "Shil Shintrah";
-                if (allowBonus)
-                    character.SocialStanding += 1;
+                careerHistory.Title = "Movement Leader";
                 return;
         }
     }

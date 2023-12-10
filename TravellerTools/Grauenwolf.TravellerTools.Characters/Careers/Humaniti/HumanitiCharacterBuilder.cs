@@ -17,9 +17,9 @@ public class HumanitiCharacterBuilder(string dataPath, NameGenerator nameGenerat
             new NavalAcademy(this),
             new University(this),
             new ColonialUpbringing(this),
+            new MerchantAcademy(this),
 
             //These are not implemented yet
-            //new MerchantAcademy(this),
             //new PsionicCommunity(this),
             //new SchoolOfHardKnocks(this),
             //new SpacerCommunity (this),
@@ -68,12 +68,12 @@ public class HumanitiCharacterBuilder(string dataPath, NameGenerator nameGenerat
             new Wanderer(this),
             new WildTalent(this),
             new Worker(this),
+            new MainstreamBeliever(this),
+            new Missionary(this),
+            new HolyWarrior(this),
 
             //These are not implemented yet
-            //new MainstreamBeliever(Book),
-            //new Missionary(Book),
-            //new HolyWarrior(Book),
-            //new Truther(Book),
+            //new Truther(this),
         };
         return careers.ToImmutableArray();
     }

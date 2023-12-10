@@ -65,6 +65,10 @@ abstract class NormalCareer : FullCareer
             careerHistory.CommissionRank = character.CareerHistory.Where(c => c.Career == Career).Max(c => c.CommissionRank);
         }
 
+        if (character.CurrentTermBenefits.MinRank.HasValue)
+            while (careerHistory.Rank < character.CurrentTermBenefits.MinRank)
+                Promote(character, dice, careerHistory);
+
         var survived = dice.RollHigh(character.GetDM(SurvivalAttribute) + character.NextTermBenefits.SurvivalDM, SurvivalTarget);
         if (survived)
         {
@@ -81,7 +85,7 @@ abstract class NormalCareer : FullCareer
                 character.AddHistory("Forced to continue current assignment.", character.Age);
                 character.NextTermBenefits.MustEnroll = Assignment;
             }
-            advancementRoll += character.GetDM(AdvancementAttribute) + character.CurrentTermBenefits.AdvancementDM + character.LongTermBenefits.AdvancementDM;
+            advancementRoll += character.GetDM(AdvancementAttribute) + character.GetAdvancementBonus(Career, Assignment);
 
             if (advancementRoll >= AdvancementTarget)
             {

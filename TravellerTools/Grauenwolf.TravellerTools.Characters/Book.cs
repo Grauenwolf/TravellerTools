@@ -327,7 +327,7 @@ public class Book
         }
     }
 
-    public void PreCareerEvents(Character character, Dice dice, CareerBase career, params string[] skills)
+    public void PreCareerEvents(Character character, Dice dice, CareerBase career, SkillTemplateCollection skills)
     {
         //TODO: Move this to the character builder.
         switch (dice.D(2, 6))
@@ -400,8 +400,9 @@ public class Book
                 if (dice.RollHigh(9))
                 {
                     var skill = dice.Choose(skills);
-                    character.Skills.Increase(skill, 1);
+                    character.Skills.Increase(skill);
                     character.AddHistory($"Expand the field of {skill}, but gain a Rival in your former tutor.", dice);
+                    character.AddRival();
                 }
                 return;
 

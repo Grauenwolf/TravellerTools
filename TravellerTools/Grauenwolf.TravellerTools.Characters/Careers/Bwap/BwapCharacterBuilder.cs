@@ -30,6 +30,14 @@ public class BwapCharacterBuilder(string dataPath, NameGenerator nameGenerator, 
     {
         var careers = new List<CareerBase>
         {
+           //Pre-Career Options
+            new Humaniti.ArmyAcademy(this),
+            new Humaniti.MarineAcademy(this),
+            new Humaniti.NavalAcademy(this),
+            new Humaniti.ColonialUpbringing(this),
+            new Humaniti.MerchantAcademy(this),
+
+            //Careers
             new Humaniti.Adept(this),
             new Humaniti.Administrator(this),
             new ArmySupport(this),
@@ -68,11 +76,11 @@ public class BwapCharacterBuilder(string dataPath, NameGenerator nameGenerator, 
             new Humaniti.Wanderer(this),
             new Humaniti.WildTalent(this),
             new Humaniti.Worker(this),
+            new Humaniti.MainstreamBeliever(this),
+            new Humaniti.Missionary(this),
+            new Humaniti.HolyWarrior(this),
 
             //These are not implemented yet
-            //new MainstreamBeliever(this),
-            //new Missionary(this),
-            //new HolyWarrior(this),
             //new Truther(this),
         };
         return careers.ToImmutableArray();

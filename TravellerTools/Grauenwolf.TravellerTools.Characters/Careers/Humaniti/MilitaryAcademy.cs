@@ -2,14 +2,14 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
 abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuilder) : CareerBase("Military Academy", assignment, characterBuilder)
 {
+    protected abstract string Branch { get; }
     protected abstract string QualifyAttribute { get; }
-
     protected abstract int QualifyTarget { get; }
 
-    /// <summary>
-    /// This is a stub for military careers used to get basic skills.
-    /// </summary>
-    protected abstract MilitaryCareer Stub { get; }
+    ///// <summary>
+    ///// This is a stub for military careers used to get basic skills.
+    ///// </summary>
+    //protected abstract MilitaryCareer Stub { get; }
 
     internal override bool Qualify(Character character, Dice dice)
     {
@@ -34,7 +34,12 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
         character.LongTermBenefits.MayEnrollInSchool = false;
 
         character.AddHistory($"Entered {Career}({Assignment})", character.Age);
-        Stub.BasicTrainingSkills(character, dice, true);
+
+        var skillChoices = GetBasicSkills();
+        //Add basic skills at level 0
+        foreach (var skill in skillChoices.Select(x => x.Name).Distinct())
+            character.Skills.Add(skill);
+        FixupSkills(character);
 
         var gradDM = character.IntellectDM;
         if (character.Endurance >= 8)
@@ -45,14 +50,15 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
         character.EducationHistory = new EducationHistory();
         character.EducationHistory.Name = Assignment;
 
-        Book.PreCareerEvents(character, dice, this, character.Skills.Select(s => s.Name).ToArray());
+        Book.PreCareerEvents(character, dice, this, skillChoices);
+        FixupSkills(character);
 
         var graduation = dice.D(2, 6);
         if (graduation == 2)
         {
             character.Age += dice.D(4);
             character.AddHistory($"Kicked out of military academy.", character.Age);
-            character.NextTermBenefits.EnlistmentDM[Stub.Career] = -100;
+            character.NextTermBenefits.EnlistmentDM[Branch] = -100;
         }
         else
         {
@@ -62,7 +68,7 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
                 character.Age += dice.D(4);
                 character.AddHistory("Dropped out of military academy.", character.Age);
                 character.EducationHistory.Status = "Failed";
-                character.NextTermBenefits.EnlistmentDM[Stub.Career] = 100;
+                character.NextTermBenefits.EnlistmentDM[Branch] = 100;
                 character.NextTermBenefits.CommissionDM = -100;
             }
             else
@@ -82,13 +88,20 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
                     character.AddHistory($"Graduated.", character.Age);
                     character.NextTermBenefits.CommissionDM += 2;
                 }
-                Stub.ServiceSkill(character, dice);
-                Stub.ServiceSkill(character, dice);
-                Stub.ServiceSkill(character, dice);
+
+                for (var i = 1; i <= 3; i++)
+                    character.Skills.Increase(dice.Pick(skillChoices)); //Use pick so we don't get duplicates
+                FixupSkills(character);
+
                 character.Education += 1;
 
-                character.NextTermBenefits.MustEnroll = Stub.Career;
+                character.NextTermBenefits.MustEnroll = Branch;
             }
         }
     }
+
+    /// <summary>
+    /// Gets a list of skills you can choose from for pre-career events.
+    /// </summary>
+    protected abstract SkillTemplateCollection GetBasicSkills();
 }

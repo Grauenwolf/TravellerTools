@@ -17,7 +17,7 @@ class University(CharacterBuilder characterBuilder) : CareerBase("University", n
         if (character.SocialStanding >= 9)
             dm += 1;
 
-        dm += character.GetEnlistmentBonus("University", null);
+        dm += character.GetEnlistmentBonus(Career, null);
         dm += QualifyDM;
 
         return dice.RollHigh(dm, 7);
@@ -62,7 +62,8 @@ class University(CharacterBuilder characterBuilder) : CareerBase("University", n
         character.EducationHistory = new EducationHistory();
         character.EducationHistory.Name = "University";
 
-        Book.PreCareerEvents(character, dice, this, skillA.Name, skillB.Name);
+        Book.PreCareerEvents(character, dice, this, new() { skillA, skillB });
+        FixupSkills(character);
 
         var graduation = dice.D(2, 6) + character.IntellectDM + character.CurrentTermBenefits.GraduationDM;
         if (graduation < 5)
@@ -92,6 +93,7 @@ class University(CharacterBuilder characterBuilder) : CareerBase("University", n
 
             character.Skills.Increase(skillA, 1);
             character.Skills.Increase(skillB, 1);
+            FixupSkills(character);
 
             character.NextTermBenefits.FreeCommissionRoll = true;
             character.NextTermBenefits.CommissionDM = bonus;

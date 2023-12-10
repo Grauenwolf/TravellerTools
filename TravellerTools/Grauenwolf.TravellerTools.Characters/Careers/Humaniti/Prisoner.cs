@@ -312,7 +312,7 @@ abstract class Prisoner : CareerBase
 
             var advancementRoll = dice.D(2, 6);
 
-            advancementRoll += character.GetDM(AdvancementAttribute) + character.CurrentTermBenefits.AdvancementDM + character.LongTermBenefits.AdvancementDM;
+            advancementRoll += character.GetDM(AdvancementAttribute) + character.GetAdvancementBonus(Career, Assignment);
 
             if (advancementRoll >= AdvancementTarget)
             {

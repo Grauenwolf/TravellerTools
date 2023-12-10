@@ -107,6 +107,7 @@
 			<Specialty Name="Hydroponics" Group="Worker" />
 			<Specialty Name="Metalworking" Group="Worker" />
 			<Specialty Name="Polymers" Group="Worker" />
+			<Specialty Name="Religion" Group="Worker" />
 
 			<Specialty Name="Farming"  Group="Colonist" />
 			<Specialty Name="Ranching" Group="Colonist" />
@@ -150,6 +151,7 @@
 			<Specialty Name="Philosophy" Group="Social Sciences" />
 			<Specialty Name="Psychology" Group="Social Sciences" />
 			<Specialty Name="Sophontology" Group="Social Sciences" />
+			<Specialty Name="Belief" Group="Social Sciences" />
 
 			<Specialty Name="Astronomy"   Group="Spaces Sciences" />
 			<Specialty Name="Cosmology"   Group="Spaces Sciences" />

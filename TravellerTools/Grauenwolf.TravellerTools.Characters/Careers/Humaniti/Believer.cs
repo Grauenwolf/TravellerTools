@@ -1,8 +1,8 @@
-﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-abstract class ShaperPriest : NormalCareer
+abstract class Believer : NormalCareer
 {
-    public ShaperPriest(string assignment, CharacterBuilder characterBuilder) : base("Shaper Priest", assignment, characterBuilder)
+    protected Believer(string assignment, CharacterBuilder characterBuilder) : base("Believer", assignment, characterBuilder)
     {
     }
 
@@ -17,15 +17,15 @@ abstract class ShaperPriest : NormalCareer
         if (all || roll == 1)
             character.Skills.Add("Profession", "Religion");
         if (all || roll == 2)
-            character.Skills.Add("Science", "Shaper Church");
+            character.Skills.Add("Science", "Belief");
         if (all || roll == 3)
             character.Skills.Add("Admin");
         if (all || roll == 4)
-            character.Skills.Add("Diplomat");
+            character.Skills.Add("Electronics", "Computers");
         if (all || roll == 5)
-            character.Skills.Add("Persuade");
+            character.Skills.Add("Diplomat");
         if (all || roll == 6)
-            character.Skills.Add("Electronics", "Computer");
+            character.Skills.Add("Persuade");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -38,36 +38,28 @@ abstract class ShaperPriest : NormalCareer
                 return;
 
             case 3:
-                character.AddHistory("You are involved in good works in the community gaining the respect of a large segment of society. Gain an alley", dice);
-                character.SocialStanding += 1;
+                character.AddHistory("You are involved in good works in the community, gaining the respect of a large segment of \r\nsociety. Gain SOC +1 and an Ally. ", dice);
                 character.AddAlly();
+                character.SocialStanding += 1;
                 return;
 
             case 4:
-                character.AddHistory("A notable academic consults with you about a publication or documentary they are working on. Gain a Contact in academia.", dice);
-                character.AddContact();
+                character.AddHistory("A notable academic consults with you about a publication or documentary he is working on. Gain a Contact in academia.", dice);
                 return;
 
             case 5:
-                character.AddHistory("You are sent to a new community or parish to preach Shaper doctrine among the poor.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Streetwise");
-                    skillList.Add("Persuade");
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
-
+                character.AddHistory("You are sent to a new community or parish to preach The Word among the poor.", dice);
+                if (dice.NextBoolean())
+                    character.Skills.Increase("Streetwise");
+                else
+                    character.Skills.Increase("Persuade");
                 return;
 
             case 6:
-                character.AddHistory("You retreat from the mundane world for a time in the hope of a revelation, although this affects your work and relationships.", dice);
+                character.AddHistory("You retreat from the mundane world for a time in the hope of a revelation, although this affects \r\nyour work and relationships.", dice);
                 character.SocialStanding -= dice.D(3);
-                if (character.SocialStanding < 1)
-                    character.SocialStanding = 1;
                 character.BenefitRolls += dice.D(3);
                 character.BenefitRollsPermanentDM += 1;
-
                 return;
 
             case 7:
@@ -75,47 +67,43 @@ abstract class ShaperPriest : NormalCareer
                 return;
 
             case 8:
-                character.AddHistory("You are chosen to represent the Shaper Church in a vid show or other highly public forum.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Carouse");
-                    skillList.Add("Persuade");
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                character.AddHistory("You are chosen to represent your faith in a vid show or other highly public forum.", dice);
+                if (dice.NextBoolean())
+                    character.Skills.Increase("Carouse");
+                else
+                    character.Skills.Increase("Persuade");
+
                 return;
 
             case 9:
                 if (dice.NextBoolean())
                 {
                     var enemies = dice.D(6);
-                    character.AddHistory($"You refuse an offer of inducements to betray the Shaper Church. Gain {enemies} enemies.", dice);
+                    character.AddHistory($"You refuse an offer of inducements to betray your faith. Gain {enemies} enemies.", dice);
                     character.AddEnemy(enemies);
                 }
                 else
                 {
                     var cash = 10000 * dice.D(character.BenefitRolls * 2, 6);
                     character.BenefitRolls = 0;
-                    character.AddHistory($"You accept an offer of inducements to betray the Shaper Church. Gain {cash.ToString("N0")} in cash.", dice);
+                    character.AddHistory($"You accept an offer of inducements to betray your faith. Gain {cash.ToString("N0")} in cash.", dice);
                     character.NextTermBenefits.MusterOut = true;
                 }
                 return;
 
             case 10:
+                if (dice.NextBoolean())
                 {
-                    if (dice.NextBoolean())
-                    {
-                        character.AddHistory($"A leader or other important personage confides in you about their highly damaging indiscretions. Gain an ally", dice);
-                        character.AddAlly();
-                    }
-                    else
-                    {
-                        character.AddHistory($"You betray a leader or other important personage who confided in you about their highly damaging indiscretions. Gain an enemy", dice);
-                        character.BenefitRolls += dice.D(3);
-                        character.AddEnemy();
-                    }
-                    return;
+                    character.AddHistory($"You secretly provide religious rites for a dying leader or noble, although they do not share your faith. Gain an Ally in the family and a Rival who disagrees with your choice.", dice);
+                    character.AddAlly();
+                    character.AddRival();
                 }
+                else
+                {
+                    character.AddHistory($"You refuse to secretly provide religious rites for a dying leader or noble, because they do not share your faith.", dice);
+                }
+                return;
+
             case 11:
                 character.AddHistory("Someone more charismatic but less devout than you has become your superior.", dice);
                 character.LongTermBenefits.AdvancementDM = -1;
@@ -144,7 +132,7 @@ abstract class ShaperPriest : NormalCareer
                 return;
 
             case 3:
-                character.AddHistory("You are caught in a scandal.", age);
+                character.AddHistory("You are caught in the periphery of a scandal.", age);
                 Demote(character, dice, character.LastCareer!, age);
                 character.BenefitRolls -= 1;
                 character.NextTermBenefits.MusterOut = false;
@@ -167,29 +155,20 @@ abstract class ShaperPriest : NormalCareer
 
             case 5:
                 character.AddHistory("Your faith is shaken.", age);
-                character.BenefitRolls -= 1;
+                character.BenefitRolls = 0;
                 character.NextTermBenefits.MusterOut = false;
                 return;
 
             case 6:
                 var rivals = dice.D(3);
-                character.AddHistory($"You come into conflict with a splinter group of the Shaper Church which maintains your version is the wrong one. Gain {rivals} Rivals.", age);
+                character.AddHistory($"You come into conflict with a splinter group your own religion which maintains your version is the wrong one. Gain {rivals} Rivals.", age);
                 character.AddRival(3);
 
                 return;
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice)
-    {
-        var dm = character.IntellectDM;
-        dm += -1 * character.CareerHistory.Count;
-
-        dm += character.GetEnlistmentBonus(Career, Assignment);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 6);
-    }
+    internal override bool Qualify(Character character, Dice dice) => true;
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
@@ -200,7 +179,7 @@ abstract class ShaperPriest : NormalCareer
                 return;
 
             case 2:
-                character.Skills.Increase("Science", "Shaper Church");
+                character.Skills.Increase("Science", "Belief");
                 return;
 
             case 3:
@@ -208,15 +187,15 @@ abstract class ShaperPriest : NormalCareer
                 return;
 
             case 4:
-                character.Skills.Increase("Diplomat");
+                character.Skills.Increase("Electronics", "Computers");
                 return;
 
             case 5:
-                character.Skills.Increase("Persuade");
+                character.Skills.Increase("Diplomat");
                 return;
 
             case 6:
-                character.Skills.Increase("Electronics", "Computer");
+                character.Skills.Increase("Persuade");
                 return;
         }
     }
@@ -235,7 +214,7 @@ abstract class ShaperPriest : NormalCareer
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Science")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
                 return;
 
             case 3:
@@ -247,11 +226,11 @@ abstract class ShaperPriest : NormalCareer
                 return;
 
             case 5:
-                character.Skills.Increase("Advocate");
+                character.Skills.Increase("Electronics", "Computers");
                 return;
 
             case 6:
-                character.Skills.Increase("Electronics", "Computer");
+                character.Skills.Increase("Advocate");
                 return;
         }
     }
@@ -299,7 +278,7 @@ abstract class ShaperPriest : NormalCareer
                 return;
 
             case 4:
-                character.Skills.Increase("Science", "Shaper Church");
+                character.Skills.Increase("Science", "Belief");
                 return;
 
             case 5:
@@ -312,45 +291,5 @@ abstract class ShaperPriest : NormalCareer
         }
     }
 
-    protected virtual void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
-    {
-        switch (careerHistory.Rank)
-        {
-            case 0:
-                careerHistory.Title = "Novice";
-                return;
-
-            case 1:
-                careerHistory.Title = "Initiate";
-                if (allowBonus)
-                    character.Skills.Increase("Science", "Shaper Church");
-                return;
-
-            case 2:
-                careerHistory.Title = "Acolyte";
-                if (allowBonus)
-                    character.Skills.Increase("Persuade");
-                return;
-
-            case 3:
-                careerHistory.Title = "Priest";
-                return;
-
-            case 4:
-                careerHistory.Title = "High Priest";
-                if (allowBonus)
-                    character.SocialStanding += 1;
-                return;
-
-            case 5:
-                careerHistory.Title = "Prelate";
-                return;
-
-            case 6:
-                careerHistory.Title = "Primate";
-                if (allowBonus)
-                    character.SocialStanding += 1;
-                return;
-        }
-    }
+    protected abstract void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus);
 }

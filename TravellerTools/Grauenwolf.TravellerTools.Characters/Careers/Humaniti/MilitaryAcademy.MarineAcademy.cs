@@ -1,29 +1,22 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class MarineAcademy : MilitaryAcademy
+class MarineAcademy(CharacterBuilder characterBuilder) : MilitaryAcademy("Marine Academy", characterBuilder)
 {
-    public MarineAcademy(CharacterBuilder characterBuilder) : base("Marine Academy", characterBuilder)
-    {
-        Stub = new MarineStub(characterBuilder);
-    }
-
+    protected override string Branch => "Marine";
     protected override string QualifyAttribute => "End";
     protected override int QualifyTarget => 8;
-    protected override MilitaryCareer Stub { get; }
 
-    class MarineStub(CharacterBuilder characterBuilder) : Marine("", characterBuilder)
+    protected override SkillTemplateCollection GetBasicSkills()
     {
-        protected override string AdvancementAttribute => throw new NotImplementedException();
+        var skillList = new SkillTemplateCollection();
 
-        protected override int AdvancementTarget => throw new NotImplementedException();
+        skillList.AddRange(SpecialtiesFor("Athletics"));
+        skillList.Add("Vacc Suit");
+        skillList.AddRange(SpecialtiesFor("Tactics"));
+        skillList.AddRange(SpecialtiesFor("Heavy Weapons"));
+        skillList.AddRange(SpecialtiesFor("Gun Combat"));
+        skillList.Add("Stealth");
 
-        protected override string SurvivalAttribute => throw new NotImplementedException();
-
-        protected override int SurvivalTarget => throw new NotImplementedException();
-
-        internal override void AssignmentSkills(Character character, Dice dice)
-        {
-            throw new NotImplementedException();
-        }
+        return skillList;
     }
 }

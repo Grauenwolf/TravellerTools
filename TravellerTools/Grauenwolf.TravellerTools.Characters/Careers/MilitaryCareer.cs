@@ -92,7 +92,7 @@ abstract class MilitaryCareer : FullCareer
                 character.AddHistory("Forced to continue current assignment", character.Age);
                 character.NextTermBenefits.MustEnroll = Assignment;
             }
-            advancementRoll += character.GetDM(AdvancementAttribute) + character.CurrentTermBenefits.AdvancementDM + character.LongTermBenefits.AdvancementDM;
+            advancementRoll += character.GetDM(AdvancementAttribute) + character.GetAdvancementBonus(Career, Assignment); ;
 
             if (advancementRoll >= AdvancementTarget)
             {

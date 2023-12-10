@@ -235,7 +235,22 @@ public class Character
         }
     }
 
-    //public FeatureCollection Features { get { return GetNew<FeatureCollection>(); } }
+    internal int GetAdvancementBonus(string career, string? assignment)
+    {
+        var result = CurrentTermBenefits.AdvancementDM + LongTermBenefits.AdvancementDM;
+
+        if (LongTermBenefits.CareerAdvancementDM.ContainsKey(career))
+            result += LongTermBenefits.CareerAdvancementDM[career];
+
+        if (assignment != null)
+        {
+            if (LongTermBenefits.CareerAdvancementDM.ContainsKey(assignment))
+                result += LongTermBenefits.CareerAdvancementDM[assignment];
+        }
+
+        return result;
+    }
+
     internal int GetEnlistmentBonus(string career, string? assignment)
     {
         var result = NextTermBenefits.QualificationDM + LongTermBenefits.QualificationDM;
