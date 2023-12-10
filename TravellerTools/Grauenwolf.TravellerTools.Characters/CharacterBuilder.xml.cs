@@ -1,52 +1,51 @@
 ﻿using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace Grauenwolf.TravellerTools.Characters
+namespace Grauenwolf.TravellerTools.Characters;
+
+/// <remarks/>
+[System.SerializableAttribute()]
+[DesignerCategory("code")]
+[XmlType(AnonymousType = true)]
+[XmlRoot(Namespace = "", IsNullable = false)]
+public partial class CharacterTemplates
 {
     /// <remarks/>
-    [System.SerializableAttribute()]
-    [DesignerCategoryAttribute("code")]
-    [XmlTypeAttribute(AnonymousType = true)]
-    [XmlRootAttribute(Namespace = "", IsNullable = false)]
-    public partial class CharacterTemplates
-    {
-        /// <remarks/>
-        [XmlArrayItemAttribute("Skill", IsNullable = false)]
-        public CharacterTemplatesSkill[] Skills { get; set; }
-    }
+    [XmlArrayItem("Skill", IsNullable = false)]
+    public CharacterTemplatesSkill[] Skills { get; set; } = null!;
+}
+
+/// <remarks/>
+[Serializable()]
+[DesignerCategory("code")]
+[XmlType(AnonymousType = true)]
+public partial class CharacterTemplatesSkill
+{
+    /// <remarks/>
+    [XmlAttribute()]
+    public string Name { get; set; } = null!;
 
     /// <remarks/>
-    [System.SerializableAttribute()]
-    [DesignerCategoryAttribute("code")]
-    [XmlTypeAttribute(AnonymousType = true)]
-    public partial class CharacterTemplatesSkill
-    {
-        /// <remarks/>
-        [XmlAttributeAttribute()]
-        public string Name { get; set; }
+    [XmlElement("Specialty")]
+    public CharacterTemplatesSkillSpecialty[] Specialty { get; set; } = null!;
 
-        /// <remarks/>
-        [XmlElementAttribute("Specialty")]
-        public CharacterTemplatesSkillSpecialty[] Specialty { get; set; }
+    ///// <remarks/>
+    //[XmlText()]
+    //public string[] Text { get; set; } = null!;
+}
 
-        /// <remarks/>
-        [XmlTextAttribute()]
-        public string[] Text { get; set; }
-    }
+/// <remarks/>
+[Serializable()]
+[DesignerCategory("code")]
+[XmlType(AnonymousType = true)]
+public partial class CharacterTemplatesSkillSpecialty
+{
+    /// <remarks/>
+    ///
+    [XmlAttribute()]
+    public string? Group { get; set; }
 
     /// <remarks/>
-    [SerializableAttribute()]
-    [DesignerCategoryAttribute("code")]
-    [XmlTypeAttribute(AnonymousType = true)]
-    public partial class CharacterTemplatesSkillSpecialty
-    {
-        /// <remarks/>
-        ///
-        [XmlAttributeAttribute()]
-        public string? Group { get; set; }
-
-        /// <remarks/>
-        [XmlAttributeAttribute()]
-        public string Name { get; set; }
-    }
+    [XmlAttribute()]
+    public string Name { get; set; } = null!;
 }

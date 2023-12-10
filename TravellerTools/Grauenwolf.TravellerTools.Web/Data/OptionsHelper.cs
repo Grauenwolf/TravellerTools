@@ -25,4 +25,12 @@ static class OptionsHelper
         }
         return null;
     }
+
+    public static string? ParseStringOrNull(this Dictionary<string, StringValues> keyValuePairs, string key)
+    {
+        if (keyValuePairs.TryGetValue(key, out var value))
+            return value;
+        else
+            return null;
+    }
 }

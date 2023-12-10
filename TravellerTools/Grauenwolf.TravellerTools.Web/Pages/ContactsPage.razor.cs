@@ -3,6 +3,7 @@ using Grauenwolf.TravellerTools.Names;
 using Grauenwolf.TravellerTools.Web.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
+using Tortuga.Anchor;
 
 namespace Grauenwolf.TravellerTools.Web.Pages;
 
@@ -27,7 +28,11 @@ partial class ContactsPage
             character.AddRival(Model.Rivals);
             character.AddEnemy(Model.Enemies);
 
-            CharacterBuilderLocator.BuildContacts(dice, character);
+            var odds = new OddsTable<string>();
+            if (!Model.Species.IsNullOrEmpty())
+                odds.Add(Model.Species, 100); //TODO - Add the option for 50% of the contacts to be of the selected race
+
+            CharacterBuilderLocator.BuildContacts(dice, character, odds);
             result.Contacts = character.Contacts;
             result.Seed = seed;
 
@@ -37,6 +42,11 @@ partial class ContactsPage
         {
             LogError(ex, $"Error in creating contacts using {nameof(GenerateContacts)}.");
         }
+    }
+
+    protected override void Initialized()
+    {
+        Model = new ContactOptions(CharacterBuilderLocator);
     }
 
     protected string Permalink()

@@ -1,3 +1,4 @@
+using Grauenwolf.TravellerTools.Characters.Careers;
 using System.Collections.Immutable;
 
 namespace Grauenwolf.TravellerTools.Characters;
@@ -55,7 +56,7 @@ public class Book
     /// <value>The random skills.</value>
     public ImmutableArray<SkillTemplate> RandomSkills { get; }
 
-    public static void Injury(Character character, Dice dice, Careers.CareerBase career, bool severe, int age)
+    public static void Injury(Character character, Dice dice, CareerBase career, bool severe, int age)
     {
         //TODO: Add medical bills support. Page 47
 
@@ -214,12 +215,17 @@ public class Book
         character.AddHistory(logMessage, age);
     }
 
-    public static int OddsOfSuccess(Character character, string attributeName, int target)
-
+    public static int OddsOfSuccess(Character character, int dm, int target)
     {
-        var dm = character.GetDM(attributeName);
         return OddsOfSuccess(target - dm);
     }
+
+    //public static int OddsOfSuccess(Character character, string attributeName, int target)
+
+    //{
+    //    var dm = character.GetDM(attributeName);
+    //    return OddsOfSuccess(target - dm);
+    //}
 
     public static int OddsOfSuccess(int target)
     {
@@ -239,6 +245,7 @@ public class Book
 
     public static string RollDraft(Dice dice)
     {
+        //TODO: Move this to the character builder.
         switch (dice.D(6))
         {
             case 1: return "Navy";
@@ -251,8 +258,9 @@ public class Book
         return null!;
     }
 
-    public void LifeEvent(Character character, Dice dice, Careers.CareerBase career)
+    public void LifeEvent(Character character, Dice dice, CareerBase career)
     {
+        //TODO: Move this to the character builder.
         switch (dice.D(2, 6))
         {
             case 2:
@@ -265,14 +273,20 @@ public class Book
 
             case 4:
                 character.AddHistory("A romantic relationship ends badly. Gain a Rival or Enemy.", dice);
+                if (dice.NextBoolean())
+                    character.AddRival();
+                else
+                    character.AddEnemy();
                 return;
 
             case 5:
                 character.AddHistory("A romantic relationship deepens, possibly leading to marriage. Gain an Ally.", dice);
+                character.AddAlly();
                 return;
 
             case 6:
                 character.AddHistory("A new romantic starts. Gain an Ally.", dice);
+                character.AddAlly();
                 return;
 
             case 7:
@@ -280,7 +294,8 @@ public class Book
                 return;
 
             case 8:
-                character.AddHistory("Betrayal. Convert an Ally into a Rival or Enemy.", dice);
+                character.AddHistory("Betrayal. Convert an Ally into a Rival or Contact into an Enemy.", dice);
+                character.DowngradeContact();
                 return;
 
             case 9:
@@ -312,8 +327,9 @@ public class Book
         }
     }
 
-    public void PreCareerEvents(Character character, Dice dice, Careers.CareerBase career, params string[] skills)
+    public void PreCareerEvents(Character character, Dice dice, CareerBase career, params string[] skills)
     {
+        //TODO: Move this to the character builder.
         switch (dice.D(2, 6))
         {
             case 2:
@@ -463,6 +479,7 @@ public class Book
 
     public void UnusualLifeEvent(Character character, Dice dice)
     {
+        //TODO: Move this to the character builder.
         switch (dice.D(6))
         {
             case 1:

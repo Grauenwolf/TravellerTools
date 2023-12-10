@@ -1,3 +1,6 @@
+using Grauenwolf.TravellerTools.Characters.Careers.Bwap;
+using Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
+using Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
 using Grauenwolf.TravellerTools.Names;
 using System.Collections.Immutable;
 
@@ -7,7 +10,6 @@ public class CharacterBuilderLocator
 {
     readonly Dictionary<string, CharacterBuilder> m_CharacterBuilders = new(StringComparer.OrdinalIgnoreCase);
     private readonly NameGenerator m_NameGenerator;
-    readonly ImmutableArray<string> m_SpeciesList;
 
     public CharacterBuilderLocator(string dataPath, NameGenerator nameGenerator)
     {
@@ -15,10 +17,30 @@ public class CharacterBuilderLocator
 
         Add(new HumanitiCharacterBuilder(dataPath, nameGenerator, this));
         Add(new BwapCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new TezcatCharacterBuilder(dataPath, nameGenerator, this));
 
-        m_SpeciesList = m_CharacterBuilders.Keys.ToImmutableArray();
+        SpeciesList = m_CharacterBuilders.Keys.OrderBy(x => x).ToImmutableArray();
+
+        CareerNameList = m_CharacterBuilders.Values.SelectMany(x => x.Careers).Select(x => x.Career).Distinct().OrderBy(x => x).ToImmutableArray();
+
+        var skills = new SkillTemplateCollection();
+        foreach (var builder in m_CharacterBuilders.Values)
+            skills.CopyFrom(builder.Book.AllSkills);
+        AllSkills = skills.OrderBy(x => x.ToString()).ToImmutableArray();
+
+        var talents = new PsionicSkillTemplateCollection();
+        foreach (var builder in m_CharacterBuilders.Values)
+            talents.CopyFrom(builder.Book.PsionicTalents);
+        AllPsionicTalents = talents.OrderBy(x => x.ToString()).ToImmutableArray();
+
         m_NameGenerator = nameGenerator;
     }
+
+    public ImmutableArray<PsionicSkillTemplate> AllPsionicTalents { get; }
+    public ImmutableArray<SkillTemplate> AllSkills { get; }
+    public ImmutableArray<string> CareerNameList { get; }
+
+    public ImmutableArray<string> SpeciesList { get; }
 
     public Character Build(CharacterBuilderOptions options)
     {
@@ -26,13 +48,19 @@ public class CharacterBuilderLocator
         return builder.Build(options);
     }
 
-    public void BuildContacts(Dice dice, Character character)
+    public void BuildContacts(Dice dice, Character character, OddsTable<string> odds)
     {
         while (character.UnusedContacts.Count > 0)
-            character.Contacts.Add(CreateContact(dice, character.UnusedContacts.Dequeue(), character));
+        {
+            string? species = null;
+            if (odds.Count > 0)
+                species = odds.Choose(dice);
+
+            character.Contacts.Add(CreateContact(dice, character.UnusedContacts.Dequeue(), character, species));
+        }
     }
 
-    public Contact CreateContact(Dice dice, ContactType contactType, Character? character)
+    public Contact CreateContact(Dice dice, ContactType contactType, Character? character, string? species)
     {
         int PITable(int roll)
         {
@@ -64,7 +92,7 @@ public class CharacterBuilderLocator
 
         var user = m_NameGenerator.CreateRandomPerson(dice);
 
-        var options = new CharacterBuilderOptions() { MaxAge = 22 + dice.D(1, 50), Gender = user.Gender, Name = $"{user.FirstName} {user.LastName}", Seed = dice.Next(), Species = GetRandomSpecies(dice) };
+        var options = new CharacterBuilderOptions() { MaxAge = 22 + dice.D(1, 50), Gender = user.Gender, Name = $"{user.FirstName} {user.LastName}", Seed = dice.Next(), Species = species ?? GetRandomSpecies(dice) };
 
         var result = new Contact(contactType, options);
         RollAffinityEnmity(dice, result);
@@ -347,6 +375,14 @@ public class CharacterBuilderLocator
         }
     }
 
+    public List<string> GetAssignmentList(string? species, string career)
+    {
+        if (species == null)
+            return m_CharacterBuilders.Values.SelectMany(x => x.Careers).Where(x => x.Career == career && x.Assignment != null).Select(x => x.Assignment).Distinct().OrderBy(x => x).ToList()!;
+        else
+            return GetCharacterBuilder(species).Careers.Where(x => x.Career == career && x.Assignment != null).Select(x => x.Assignment).Distinct().OrderBy(x => x).ToList()!;
+    }
+
     public CharacterBuilder GetCharacterBuilder(string? species)
     {
         if (species != null && m_CharacterBuilders.TryGetValue(species, out var result))
@@ -357,6 +393,15 @@ public class CharacterBuilderLocator
 
     public string GetRandomSpecies(Dice dice)
     {
-        return dice.Choose(m_SpeciesList);
+        return dice.Choose(SpeciesList);
+    }
+
+    public string GetRandomSpeciesForCareer(Dice dice, string career)
+    {
+        var builders = m_CharacterBuilders.Values.Where(x => x.Careers.Any(c => c.Career == career)).ToList();
+        if (builders.Count > 0)
+            return dice.Choose(builders).Species;
+        else
+            return GetRandomSpecies(dice);
     }
 }

@@ -1,68 +1,86 @@
 ﻿@page "/contacts"
 @using Microsoft.AspNetCore.WebUtilities
-@inherits PageBase<ContactOptions>
+@inherits NullablePageBase<ContactOptions>
 @{
     PageTitle = "Contact Generator";
 }
 
+@if (Model != null)
+{
+    <h3>Contact Generator</h3>
+    <div>
+        <EditForm Model="@Model">
 
-<h3>Contact Generator</h3>
-<div>
-    <EditForm Model="@Model">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-        <DataAnnotationsValidator />
-        <ValidationSummary />
-
-        <div>This creates contacts using the rules from Traveller Companion. You'll need that book to interper the stats. Note that some contact events can trigger the creation of additional contacts.</div>
-        <table class="gridtable">
-            <tr>
-                <th>Allies</th>
-                <th>Contacts</th>
-                <th>Rivals</th>
-                <th>Enemies</th>
-            </tr>
-            <tr>
-                <td>
-                    <InputSelect @bind-Value="Model.Allies">
-                        @for (var score = 0; score <= 15; score++)
-                        {
-                            <option value="@(score)" selected="@(Model.Allies == score)"> @(score)</option>
-                        }
-                    </InputSelect>
-                </td>
-                <td>
-                    <InputSelect @bind-Value="Model.Contacts">
-                        @for (var score = 0; score <= 15; score++)
-                        {
-                            <option value="@(score)" selected="@(Model.Contacts == score)"> @(score)</option>
-                        }
-                    </InputSelect>
-                </td>
-                <td>
-                    <InputSelect @bind-Value="Model.Rivals">
-                        @for (var score = 0; score <= 15; score++)
-                        {
-                            <option value="@(score)" selected="@(Model.Rivals == score)"> @(score)</option>
-                        }
-                    </InputSelect>
-                </td>
-                <td>
-                    <InputSelect @bind-Value="Model.Enemies">
-                        @for (var score = 0; score <= 15; score++)
-                        {
-                            <option value="@(score)" selected="@(Model.Enemies == score)"> @(score)</option>
-                        }
-                    </InputSelect>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="4" style="text-align:center">
-                    <button @onclick="GenerateContacts">Generate Contacts</button>
-                </td>
-            </tr>
-        </table>
-    </EditForm>
-</div>
+            <div>This creates contacts using the rules from Traveller Companion. You'll need that book to interper the stats. Note that some contact events can trigger the creation of additional contacts.</div>
+            <table class="gridtable">
+                <tr>
+                    <th>Species</th>
+                    <td colspan="3">
+                        <InputSelect @bind-Value="Model.Species">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.Species))">(Random)</option>
+                            @foreach (var item in Model.SpeciesList)
+                            {
+                                <option value="@(item)" selected="@(Model.Species == item)"> @(item)</option>
+                            }
+                        </InputSelect>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Allies</th>
+                    <th>Contacts</th>
+                    <th>Rivals</th>
+                    <th>Enemies</th>
+                </tr>
+                <tr>
+                    <td>
+                        <InputNumber @bind-Value="Model.Allies" style="width: 50px;" />
+              @*           <InputSelect @bind-Value="Model.Allies">
+                            @for (var score = 0; score <= 15; score++)
+                            {
+                                <option value="@(score)" selected="@(Model.Allies == score)"> @(score)</option>
+                            }
+                        </InputSelect> *@
+                    </td>
+                    <td>
+                        <InputNumber @bind-Value="Model.Contacts" style="width: 50px;" />
+    @*                     <InputSelect @bind-Value="Model.Contacts">
+                            @for (var score = 0; score <= 15; score++)
+                            {
+                                <option value="@(score)" selected="@(Model.Contacts == score)"> @(score)</option>
+                            }
+                        </InputSelect> *@
+                    </td>
+                    <td>
+                        <InputNumber @bind-Value="Model.Rivals" style="width: 50px;" />
+     @*                    <InputSelect @bind-Value="Model.Rivals">
+                            @for (var score = 0; score <= 15; score++)
+                            {
+                                <option value="@(score)" selected="@(Model.Rivals == score)"> @(score)</option>
+                            }
+                        </InputSelect> *@
+                    </td>
+                    <td>
+                        <InputNumber @bind-Value="Model.Enemies" style="width: 50px;" />
+    @*                     <InputSelect @bind-Value="Model.Enemies">
+                            @for (var score = 0; score <= 15; score++)
+                            {
+                                <option value="@(score)" selected="@(Model.Enemies == score)"> @(score)</option>
+                            }
+                        </InputSelect> *@
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align:center">
+                        <button @onclick="GenerateContacts">Generate Contacts</button>
+                    </td>
+                </tr>
+            </table>
+        </EditForm>
+    </div>
+}
 @if (ContactsModel != null)
 {
     <h3>

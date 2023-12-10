@@ -15,6 +15,18 @@
             <div>This is used for creating NPCs only. Certain liberties where taken with the rules to allow for random character generation.</div>
             <table class="gridtable">
                 <tr>
+                    <th>Species</th>
+                    <td colspan="4">
+                        <InputSelect @bind-Value="Model.Species">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.Species))">(Random)</option>
+                            @foreach (var item in Model.SpeciesList)
+                            {
+                                <option value="@(item)" selected="@(Model.Species == item)"> @(item)</option>
+                            }
+                        </InputSelect>
+                    </td>
+                </tr>
+                <tr>
                     <th>First Career</th>
                     <td>
                         <InputSelect @bind-Value="Model.FirstCareer">

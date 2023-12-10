@@ -68,7 +68,15 @@ partial class CharacterPage
 
             options.FirstCareer = Model.FirstCareer;
             options.FirstAssignment = Model.FirstAssignment;
-            options.Species = CharacterBuilderLocator.GetRandomSpecies(dice);
+            if (Model.Species.IsNullOrEmpty())
+            {
+                if (Model.FirstCareer.IsNullOrEmpty())
+                    options.Species = CharacterBuilderLocator.GetRandomSpecies(dice);
+                else
+                    options.Species = CharacterBuilderLocator.GetRandomSpeciesForCareer(dice, Model.FirstCareer);
+            }
+            else
+                options.Species = Model.Species;
 
             bool hasDesiredStats =
                 !Model.Str.IsNullOrEmpty() || !Model.Dex.IsNullOrEmpty() || !Model.End.IsNullOrEmpty() ||
@@ -185,17 +193,6 @@ partial class CharacterPage
 
     protected override void Initialized()
     {
-        //if (Navigation.TryGetQueryString("seed", out int seed))
-        //    Seed = seed;
-        //else
-        //    Seed = (new Random()).Next();
-
-        //Options.FromQueryString(Navigation.ParsedQueryString());
-
-        //if (Navigation.TryGetQueryString("tasZone", out string tasZone))
-        //    TasZone = tasZone;
-
-        //TODO: Make this configurable
         Model = new CharacterOptions(CharacterBuilderLocator);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
+using Tortuga.Anchor;
 using Tortuga.Anchor.Modeling;
 
 namespace Grauenwolf.TravellerTools.Web.Data;
@@ -7,9 +8,10 @@ public class CharacterOptions : ModelBase
 {
     public CharacterOptions(CharacterBuilderLocator characterBuilderLocator)
     {
-        CharacterBuilder = characterBuilderLocator.GetCharacterBuilder(null); //TODO: Make this user configurable
-        CareerList = CharacterBuilder.Careers.Select(c => c.Career).Distinct().OrderBy(s => s).ToList();
-        SkillList = CharacterBuilder.Book.AllSkills.AddRange(CharacterBuilder.Book.PsionicTalents).ToList();
+        CharacterBuilderLocator = characterBuilderLocator;
+        //CharacterBuilder = characterBuilderLocator.GetCharacterBuilder(null); //TODO: Make this user configurable
+        //CareerList = CharacterBuilder.Careers.Select(c => c.Career).Distinct().OrderBy(s => s).ToList();
+        SkillList = CharacterBuilderLocator.AllSkills.AddRange(CharacterBuilderLocator.AllPsionicTalents).ToList();
 
         AgeList = new List<int>();
         for (var terms = 0; terms <= 15; terms++)
@@ -17,15 +19,27 @@ public class CharacterOptions : ModelBase
     }
 
     public List<int> AgeList { get; }
-    public List<string> CareerList { get; }
 
-    public CharacterBuilder CharacterBuilder { get; } //TODO: Make this user configurable
+    [CalculatedField("Species")]
+    public IReadOnlyList<string> CareerList
+    {
+        get
+        {
+            if (Species.IsNullOrEmpty())
+                return CharacterBuilderLocator.CareerNameList;
+            else
+                return CharacterBuilderLocator.GetCharacterBuilder(Species).Careers.Select(c => c.Career).Distinct().OrderBy(s => s).ToList();
+        }
+    }
+
+    public CharacterBuilderLocator CharacterBuilderLocator { get; }
 
     /// <summary>
     /// Valid values are High, Low, and empty.
     /// </summary>
     public string? Dex { get => Get<string?>(); set => Set(value); }
 
+    //TODO: Make this user configurable
     /// <summary>
     /// Valid values are High, Low, and empty.
     /// </summary>
@@ -43,10 +57,10 @@ public class CharacterOptions : ModelBase
     {
         get
         {
-            if (CharacterBuilder == null || string.IsNullOrEmpty(FinalCareer))
+            if (FinalCareer.IsNullOrEmpty())
                 return new List<string>();
             else
-                return CharacterBuilder.Careers.Where(c => c.Career == FinalCareer).Select(c => c.Assignment).OrderBy(s => s).ToList()!;
+                return CharacterBuilderLocator.GetAssignmentList(Species, FinalCareer);
         }
     }
 
@@ -66,10 +80,10 @@ public class CharacterOptions : ModelBase
     {
         get
         {
-            if (CharacterBuilder == null || string.IsNullOrEmpty(FirstCareer))
+            if (FirstCareer.IsNullOrEmpty())
                 return new List<string>();
             else
-                return CharacterBuilder.Careers.Where(c => c.Career == FirstCareer && c.Assignment != null).Select(c => c.Assignment).OrderBy(s => s).ToList()!;
+                return CharacterBuilderLocator.GetAssignmentList(Species, FirstCareer);
         }
     }
 
@@ -93,12 +107,26 @@ public class CharacterOptions : ModelBase
     public string? SkillB { get => Get<string?>(); set => Set(value); }
     public string? SkillC { get => Get<string?>(); set => Set(value); }
     public string? SkillD { get => Get<string?>(); set => Set(value); }
-    public List<SkillTemplate> SkillList { get; }
+    public IReadOnlyList<SkillTemplate> SkillList { get; }
 
     /// <summary>
     /// Valid values are High, Low, and empty.
     /// </summary>
     public string? Soc { get => Get<string?>(); set => Set(value); }
+
+    public string? Species
+    {
+        get => Get<string?>(); set
+        {
+            if (Set(value))
+            {
+                FirstCareer = "";
+                FinalCareer = "";
+            }
+        }
+    }
+
+    public IReadOnlyList<string> SpeciesList => CharacterBuilderLocator.SpeciesList;
 
     /// <summary>
     /// Valid values are High, Low, and empty.

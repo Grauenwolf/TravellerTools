@@ -126,8 +126,8 @@
 			<Specialty Name="Golf"  Group="Sports" />
 			<Specialty Name="Motorsports"  Group="Sports" />
 			<Specialty Name="Racquet Sports"  Group="Sports" />
-			<Specialty Name="Team Ball Sports"  Group="" />
-			<Specialty Name="Track &amp; Field"  Group="" />
+			<Specialty Name="Team Ball Sports"  Group="Sports" />
+			<Specialty Name="Track &amp; Field"  Group="Sports" />
 		</Skill>
 		<Skill Name="Recon" />
 		<Skill Name="Science">

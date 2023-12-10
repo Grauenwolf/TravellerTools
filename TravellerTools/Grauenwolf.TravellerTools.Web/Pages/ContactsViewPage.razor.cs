@@ -3,6 +3,7 @@ using Grauenwolf.TravellerTools.Names;
 using Grauenwolf.TravellerTools.Web.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.WebUtilities;
+using Tortuga.Anchor;
 
 namespace Grauenwolf.TravellerTools.Web.Pages;
 
@@ -18,6 +19,7 @@ partial class ContactsViewPage
         if (Navigation.TryGetQueryString("seed", out int seed))
             Seed = seed;
 
+        Model = new ContactOptions(CharacterBuilderLocator);
         Model.FromQueryString(Navigation.ParsedQueryString());
 
         if (Seed != null)
@@ -49,7 +51,11 @@ partial class ContactsViewPage
             character.AddRival(Model.Rivals);
             character.AddEnemy(Model.Enemies);
 
-            CharacterBuilderLocator.BuildContacts(dice, character);
+            var odds = new OddsTable<string>();
+            if (!Model.Species.IsNullOrEmpty())
+                odds.Add(Model.Species, 100);
+
+            CharacterBuilderLocator.BuildContacts(dice, character, odds);
             result.Contacts = character.Contacts;
             result.Seed = seed;
 

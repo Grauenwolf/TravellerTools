@@ -17,7 +17,7 @@ public abstract class CharacterBuilder
     {
         m_NameGenerator = nameGenerator;
         m_CharacterBuilderLocator = characterBuilderLocator;
-        var file = new FileInfo(Path.Combine(dataPath, "CharacterBuilder.xml"));
+        var file = new FileInfo(Path.Combine(dataPath, CharacterBuilderFilename));
 
         var converter = new XmlSerializer(typeof(CharacterTemplates));
 
@@ -38,6 +38,8 @@ public abstract class CharacterBuilder
 
     protected virtual int AgingRollMinAge => 34;
 
+    protected virtual string CharacterBuilderFilename => "CharacterBuilder.xml";
+
     public Character Build(CharacterBuilderOptions options)
     {
         var seed = options.Seed ?? (new Random()).Next();
@@ -55,12 +57,8 @@ public abstract class CharacterBuilder
 
         InitialCharacterStats(dice, character);
 
-        if (character.EducationDM + 3 > 0)
-        {
-            var backgroundSKills = dice.Choose(s_BackgroundSkills, character.EducationDM + 3, allowDuplicates: false);
-            foreach (var skill in backgroundSKills)
-                character.Skills.Add(skill); //all skills added at level 0
-        }
+        AddBackgroundSkills(dice, character);
+        FixupSkills(character);
 
         character.CurrentTerm = 1;
 
@@ -114,13 +112,31 @@ public abstract class CharacterBuilder
                 skill.Group = dice.Choose(groups);
         }
 
-        m_CharacterBuilderLocator.BuildContacts(dice, character);
+        //Half of all contacts should be the same species.
+        var odds = new OddsTable<string>();
+        foreach (var species in m_CharacterBuilderLocator.SpeciesList)
+            if (species == character.Species)
+                odds.Add(species, m_CharacterBuilderLocator.SpeciesList.Length - 1);
+            else
+                odds.Add(species, 1);
+
+        m_CharacterBuilderLocator.BuildContacts(dice, character, odds);
 
         return character;
     }
 
     internal virtual void FixupSkills(Character character)
     {
+    }
+
+    protected virtual void AddBackgroundSkills(Dice dice, Character character)
+    {
+        if (character.EducationDM + 3 > 0)
+        {
+            var backgroundSKills = dice.Choose(s_BackgroundSkills, character.EducationDM + 3, allowDuplicates: false);
+            foreach (var skill in backgroundSKills)
+                character.Skills.Add(skill); //all skills added at level 0
+        }
     }
 
     protected virtual int AgingRollDM(Character character)
@@ -304,7 +320,7 @@ public abstract class CharacterBuilder
         var careers = new List<CareerBase>();
 
         //Forced picks (e.g. Draft)
-        if (character.NextTermBenefits?.MustEnroll != null)
+        if (character.NextTermBenefits.MustEnroll != null)
         {
             foreach (var career in Careers)
             {
@@ -339,7 +355,7 @@ public abstract class CharacterBuilder
         {
             foreach (var career in Careers)
             {
-                if (character.NextTermBenefits.MusterOut && character.LastCareer.Career == career.Career && character.LastCareer.Assignment == career.Assignment)
+                if (character.NextTermBenefits.MusterOut && character.LastCareer!.Career == career.Career && character.LastCareer.Assignment == career.Assignment)
                     continue;
 
                 if (career.Qualify(character, dice))

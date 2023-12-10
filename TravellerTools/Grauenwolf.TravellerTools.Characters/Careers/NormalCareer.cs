@@ -71,6 +71,7 @@ abstract class NormalCareer : FullCareer
             character.BenefitRolls += 1;
 
             Event(character, dice);
+            FixupSkills(character);
 
             character.Age += 4;
 
@@ -113,6 +114,7 @@ abstract class NormalCareer : FullCareer
 
             character.NextTermBenefits.MusterOut = true;
             Mishap(character, dice, mishapAge);
+            FixupSkills(character);
 
             if (character.NextTermBenefits.MusterOut)
                 character.Age = mishapAge;

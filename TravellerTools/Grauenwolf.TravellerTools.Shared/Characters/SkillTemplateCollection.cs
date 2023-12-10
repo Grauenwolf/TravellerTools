@@ -59,4 +59,11 @@ public class SkillTemplateCollection : SkillTemplateCollection<SkillTemplate>
         foreach (var specialty in specialties)
             Add(name, specialty);
     }
+
+    public void CopyFrom(IEnumerable<SkillTemplate> skills)
+    {
+        foreach (var item in skills)
+            if (!this.Any(s => s.Name == item.Name && s.Specialty == item.Specialty))
+                Add(item);
+    }
 }

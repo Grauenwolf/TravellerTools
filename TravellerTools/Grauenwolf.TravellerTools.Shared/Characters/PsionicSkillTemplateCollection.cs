@@ -20,4 +20,11 @@ public class PsionicSkillTemplateCollection : SkillTemplateCollection<PsionicSki
         if (skill == null)
             Add(new PsionicSkillTemplate(name, learningDM));
     }
+
+    public void CopyFrom(IEnumerable<PsionicSkillTemplate> skills)
+    {
+        foreach (var item in skills)
+            if (!this.Any(s => s.Name == item.Name))
+                Add(item);
+    }
 }

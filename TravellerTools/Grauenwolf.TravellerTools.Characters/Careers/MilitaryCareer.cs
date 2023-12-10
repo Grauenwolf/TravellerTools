@@ -8,6 +8,8 @@ abstract class MilitaryCareer : FullCareer
     {
     }
 
+    protected virtual int CommssionTargetNumber => 8;
+
     internal override void Run(Character character, Dice dice)
     {
         CareerHistory careerHistory;
@@ -16,6 +18,7 @@ abstract class MilitaryCareer : FullCareer
             careerHistory = new CareerHistory(Career, Assignment, 0);
             ChangeCareer(character, dice, careerHistory);
             BasicTraining(character, dice, character.CareerHistory.Count == 0);
+            FixupSkills(character);
 
             character.CareerHistory.Add(careerHistory); //add this after basic training so the prior count isn't wrong.
         }
@@ -48,6 +51,7 @@ abstract class MilitaryCareer : FullCareer
                 skillTables.Add(OfficerTraining);
 
             dice.Choose(skillTables)(character, dice);
+            FixupSkills(character);
         }
         careerHistory.Terms += 1;
         character.LastCareer = careerHistory;
@@ -66,6 +70,7 @@ abstract class MilitaryCareer : FullCareer
         if (survived)
         {
             Event(character, dice);
+            FixupSkills(character);
 
             character.Age += 4;
             character.BenefitRolls += 1;
@@ -73,7 +78,7 @@ abstract class MilitaryCareer : FullCareer
             var totalTermsInCareer = character.CareerHistory.Where(pc => pc.Career == Career).Sum(c => c.Terms);
 
             //Not all people will attempt a commission even when possible
-            var attemptCommission = (totalTermsInCareer == 1 || character.SocialStanding >= 9) && dice.D(100) < Book.OddsOfSuccess(character, "Soc", 8 - character.CurrentTermBenefits.CommissionDM);
+            var attemptCommission = (totalTermsInCareer == 1 || CommissionAttribute(character) >= 9) && dice.D(100) < Book.OddsOfSuccess(character, CommissionAttributeDM(character), CommssionTargetNumber - character.CurrentTermBenefits.CommissionDM);
 
             var commissionEarned = false;
 
@@ -103,6 +108,7 @@ abstract class MilitaryCareer : FullCareer
                 if (careerHistory.CommissionRank > 0)
                     skillTables.Add(OfficerTraining);
                 dice.Choose(skillTables)(character, dice);
+                FixupSkills(character);
             }
             if (advancementRoll <= careerHistory.Terms)
             {
@@ -116,6 +122,7 @@ abstract class MilitaryCareer : FullCareer
 
             character.NextTermBenefits.MusterOut = true;
             Mishap(character, dice, mishapAge);
+            FixupSkills(character);
 
             if (character.NextTermBenefits.MusterOut)
                 character.Age = mishapAge;
@@ -133,12 +140,17 @@ abstract class MilitaryCareer : FullCareer
             ServiceSkill(character, dice);
     }
 
+    /// <summary>
+    /// This is used when determining if a commission will be attempted.
+    /// </summary>
+    protected virtual int CommissionAttribute(Character character) => character.SocialStanding;
+
     protected abstract void OfficerTraining(Character character, Dice dice);
 
-    private bool AttemptCommission(Character character, Dice dice, CareerHistory careerHistory)
+    bool AttemptCommission(Character character, Dice dice, CareerHistory careerHistory)
     {
         var commissionDM =
-               character.SocialStandingDM +
+               CommissionAttributeDM(character) +
                character.CurrentTermBenefits.AdvancementDM +
                character.CurrentTermBenefits.CommissionDM +
                character.LongTermBenefits.CommissionDM +
@@ -147,7 +159,7 @@ abstract class MilitaryCareer : FullCareer
         character.CurrentTermBenefits.FreeCommissionRoll = false;
         character.CurrentTermBenefits.CommissionDM = 0;
 
-        if (dice.RollHigh(commissionDM, 8))
+        if (dice.RollHigh(commissionDM, CommssionTargetNumber))
         {
             Comissioned(character, dice, careerHistory);
             return true;
@@ -158,4 +170,9 @@ abstract class MilitaryCareer : FullCareer
             return false;
         }
     }
+
+    /// <summary>
+    /// This is the DM used for the actual commission roll.
+    /// </summary>
+    int CommissionAttributeDM(Character character) => Character.DMCalc(CommissionAttribute(character));
 }

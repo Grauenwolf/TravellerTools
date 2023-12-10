@@ -51,6 +51,10 @@ public class SkillCollection : List<Skill>
             Add(skill, minLevel);
     }
 
+    /// <summary>
+    /// Gets the best the skill level from the list.
+    /// </summary>
+    /// <param name="skillNames">The skill names or specialities.</param>
     public int BestSkillLevel(params string[] skillNames)
     {
         if (skillNames == null || skillNames.Length == 0)
@@ -60,7 +64,7 @@ public class SkillCollection : List<Skill>
         foreach (var skill in this)
         {
             foreach (var name in skillNames)
-                if (skill.Name == name)
+                if (skill.Name == name || skill.Specialty == name)
                     bestScore = Math.Max(bestScore, skill.Level);
 
             if (skill.Name == "Jack-of-All-Trades" && bestScore < 0)

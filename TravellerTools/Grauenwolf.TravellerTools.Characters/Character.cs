@@ -6,6 +6,12 @@ public class Character
 {
     public int Age { get; set; } = 18;
     public int BenefitRolls { get; set; }
+
+    /// <summary>
+    /// This applies to all benefit rolls.
+    /// </summary>
+    public int BenefitRollsPermanentDM { get; set; }
+
     public List<CareerHistory> CareerHistory { get; } = new();
     public List<Contact> Contacts { get; } = new();
     public int CurrentTerm { get; set; }
@@ -51,6 +57,10 @@ public class Character
     public List<string> Trace { get; } = new();
     public WeaponCollection Weapons { get; } = new();
     public int? Year { get; set; }
+
+    /// <summary>
+    /// These bonuses are lost when used.
+    /// </summary>
     internal List<int> BenefitRollDMs { get; } = new();
 
     internal NextTermBenefits CurrentTermBenefits { get; set; } = new();
@@ -61,6 +71,28 @@ public class Character
 
     //internal int UnusedAllies { get; private set; }
     internal Queue<ContactType> UnusedContacts { get; } = new();
+
+    public static int DMCalc(int value)
+    {
+        return value switch
+        {
+            <= 0 => -3,
+            <= 2 => -2,
+            <= 5 => -1,
+            <= 8 => 0,
+            <= 11 => 1,
+            <= 14 => 2,
+            <= 17 => 3,
+            <= 20 => 4,
+            <= 23 => 5,
+            <= 26 => 6,
+            <= 29 => 7,
+            <= 32 => 8,
+            <= 35 => 9,
+            <= 38 => 10,
+            _ => 11,
+        };
+    }
 
     public void AddAlly(int count = 1)
     {
@@ -108,6 +140,20 @@ public class Character
     {
         for (var i = 0; i < count; i++)
             UnusedContacts.Enqueue(ContactType.Rival);
+    }
+
+    /// <summary>
+    /// Turns one contact into a enemy or one ally into a rival. If none, add a new rival.
+    /// </summary>
+    public void DowngradeContact()
+    {
+        var contact = Contacts.FirstOrDefault(c => c.ContactType == ContactType.Ally || c.ContactType == ContactType.Contact);
+        if (contact == null)
+            AddRival();
+        else if (contact.ContactType == ContactType.Contact)
+            contact.ContactType = ContactType.Enemy;
+        else if (contact.ContactType == ContactType.Ally)
+            contact.ContactType = ContactType.Rival;
     }
 
     /// <summary>
@@ -208,19 +254,5 @@ public class Character
         }
 
         return result;
-    }
-
-    static int DMCalc(int value)
-    {
-        return value switch
-        {
-            <= 0 => -3,
-            <= 2 => -2,
-            <= 5 => -1,
-            <= 8 => 0,
-            <= 11 => 1,
-            <= 14 => 2,
-            _ => 3
-        };
     }
 }

@@ -82,7 +82,7 @@ abstract class FullCareer : CareerBase
 
     protected abstract void PersonalDevelopment(Character character, Dice dice);
 
-    protected void Promote(Character character, Dice dice, CareerHistory careerHistory)
+    protected void Promote(Character character, Dice dice, CareerHistory careerHistory, int? age = null)
     {
         string historyMessage;
         if (careerHistory.CommissionRank > 0)
@@ -105,7 +105,7 @@ abstract class FullCareer : CareerBase
             character.Title = newTitle;
         }
         historyMessage += ".";
-        character.AddHistory(historyMessage, character.Age);
+        character.AddHistory(historyMessage, age ?? character.Age);
     }
 
     protected void UpdateTitle(Character character, Dice dice, CareerHistory careerHistory)
