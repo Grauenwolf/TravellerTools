@@ -180,7 +180,7 @@ abstract class ShaperPriest : NormalCareer
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.IntellectDM;
         dm += -1 * character.CareerHistory.Count;

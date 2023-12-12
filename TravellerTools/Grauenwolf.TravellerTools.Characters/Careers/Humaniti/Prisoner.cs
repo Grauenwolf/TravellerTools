@@ -258,7 +258,7 @@ abstract class Prisoner : CareerBase
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice) => false;
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck) => false;
 
     internal override void Run(Character character, Dice dice)
     {

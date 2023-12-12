@@ -1,8 +1,8 @@
-namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
+namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class University(CharacterBuilder characterBuilder) : CareerBase("University", null, characterBuilder)
 {
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         if (!character.LongTermBenefits.MayEnrollInSchool)
             return false;
@@ -20,7 +20,7 @@ class University(CharacterBuilder characterBuilder) : CareerBase("University", n
         dm += character.GetEnlistmentBonus(Career, null);
         dm += QualifyDM;
 
-        return dice.RollHigh(dm, 7);
+        return dice.RollHigh(dm, 7, isPrecheck);
     }
 
     internal override void Run(Character character, Dice dice)
@@ -62,7 +62,7 @@ class University(CharacterBuilder characterBuilder) : CareerBase("University", n
         character.EducationHistory = new EducationHistory();
         character.EducationHistory.Name = "University";
 
-        Book.PreCareerEvents(character, dice, this, new() { skillA, skillB });
+        PreCareerEvents(character, dice, this, new() { skillA, skillB });
         FixupSkills(character);
 
         var graduation = dice.D(2, 6) + character.IntellectDM + character.CurrentTermBenefits.GraduationDM;

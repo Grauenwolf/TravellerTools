@@ -162,7 +162,7 @@ abstract class Psion : NormalCareer
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         if ((character.Psi ?? 0) <= 0)
             return false; //not possible
@@ -173,14 +173,14 @@ abstract class Psion : NormalCareer
         dm += character.GetEnlistmentBonus(Career, Assignment);
         dm += QualifyDM;
 
-        return dice.RollHigh(dm, 6);
+        return dice.RollHigh(dm, 6, isPrecheck);
     }
 
     internal override void Run(Character character, Dice dice)
     {
         //Force Psionic Testing. This can only happen if the character is forced into this career.
         if (character.Psi == null)
-            Book.TestPsionic(character, dice, character.Age);
+            TestPsionic(character, dice, character.Age);
 
         base.Run(character, dice);
     }

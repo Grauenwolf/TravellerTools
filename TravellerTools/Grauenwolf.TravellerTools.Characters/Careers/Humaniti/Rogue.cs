@@ -214,7 +214,7 @@ abstract class Rogue : NormalCareer
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.DexterityDM;
         dm += -1 * character.CareerHistory.Count;
@@ -222,7 +222,7 @@ abstract class Rogue : NormalCareer
         dm += character.GetEnlistmentBonus(Career, Assignment);
         dm += QualifyDM;
 
-        return dice.RollHigh(dm, 6);
+        return dice.RollHigh(dm, 6, isPrecheck);
     }
 
     internal override void ServiceSkill(Character character, Dice dice)

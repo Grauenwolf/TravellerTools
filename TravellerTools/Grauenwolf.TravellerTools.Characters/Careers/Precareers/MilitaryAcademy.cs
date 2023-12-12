@@ -1,4 +1,4 @@
-namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
+namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuilder) : CareerBase("Military Academy", assignment, characterBuilder)
 {
@@ -11,7 +11,7 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
     ///// </summary>
     //protected abstract MilitaryCareer Stub { get; }
 
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         if (!character.LongTermBenefits.MayEnrollInSchool)
             return false;
@@ -26,7 +26,7 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
         dm += character.GetEnlistmentBonus(Career, Assignment);
         dm += QualifyDM;
 
-        return dice.RollHigh(dm, QualifyTarget);
+        return dice.RollHigh(dm, QualifyTarget, isPrecheck);
     }
 
     internal override void Run(Character character, Dice dice)
@@ -50,7 +50,7 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
         character.EducationHistory = new EducationHistory();
         character.EducationHistory.Name = Assignment;
 
-        Book.PreCareerEvents(character, dice, this, skillChoices);
+        PreCareerEvents(character, dice, this, skillChoices);
         FixupSkills(character);
 
         var graduation = dice.D(2, 6);

@@ -221,7 +221,7 @@ abstract class Noble(string assignment, CharacterBuilder characterBuilder) : Nor
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         if (character.SocialStanding >= 10 && !character.LongTermBenefits.Retired)
             return true;
@@ -232,7 +232,7 @@ abstract class Noble(string assignment, CharacterBuilder characterBuilder) : Nor
         dm += character.GetEnlistmentBonus(Career, Assignment);
         dm += QualifyDM;
 
-        return dice.RollHigh(dm, 10);
+        return dice.RollHigh(dm, 10, isPrecheck);
     }
 
     internal override void ServiceSkill(Character character, Dice dice)

@@ -67,7 +67,7 @@ class Retired(CharacterBuilder characterBuilder) : CareerBase("Retired", null, c
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         return character.LongTermBenefits.Retired;
     }

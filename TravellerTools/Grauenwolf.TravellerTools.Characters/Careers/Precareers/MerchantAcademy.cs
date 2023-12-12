@@ -1,8 +1,33 @@
-namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
+namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
+/*
+class PsionicCommunity(CharacterBuilder characterBuilder) : CareerBase("Psionic Community", null, characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        adadadsa
+        if (character.CurrentTerm != 1)
+            return false;
+
+        var dm = character.Psi.HasValue ? character.PsiDM : -3;
+
+        if (character.Intellect >= 8)
+            dm += 1;
+        dm += character.GetEnlistmentBonus(Career, null);
+        dm += QualifyDM;
+
+        return dice.RollHigh(dm, 8, isPrecheck);
+    }
+
+    internal override void Run(Character character, Dice dice)
+    {
+        throw new NotImplementedException();
+    }
+}
+*/
 
 class MerchantAcademy(CharacterBuilder characterBuilder) : CareerBase("Merchant Academy", null, characterBuilder)
 {
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         if (!character.LongTermBenefits.MayEnrollInSchool)
             return false;
@@ -15,7 +40,7 @@ class MerchantAcademy(CharacterBuilder characterBuilder) : CareerBase("Merchant 
         dm += character.GetEnlistmentBonus(Career, null);
         dm += QualifyDM;
 
-        return dice.RollHigh(dm, 9);
+        return dice.RollHigh(dm, 9, isPrecheck);
     }
 
     internal override void Run(Character character, Dice dice)
@@ -52,34 +77,20 @@ class MerchantAcademy(CharacterBuilder characterBuilder) : CareerBase("Merchant 
             character.Skills.Add(skill);
         FixupSkills(character);
 
-        /*
-            skillChoices.Add("Admin");
-            skillChoices.Add("Advocate");
-            skillChoices.Add("Animals", "Training");
-            skillChoices.Add("Animals", "Veterinary");
-            skillChoices.AddRange(SpecialtiesFor("Art"));
-            skillChoices.Add("Astrogation");
-            skillChoices.AddRange(SpecialtiesFor("Electronics"));
-            skillChoices.AddRange(SpecialtiesFor("Engineer"));
-            skillChoices.AddRange(SpecialtiesFor("Language"));
-            skillChoices.Add("Medic");
-            skillChoices.Add("Navigation");
-            skillChoices.AddRange(SpecialtiesFor("Profession"));
-            skillChoices.AddRange(SpecialtiesFor("Science"));
-
-            //Remove skills we already have at level 1
-            skillChoices.RemoveOverlap(character.Skills, 1);
-        */
-
         character.Education += 1;
         character.EducationHistory = new EducationHistory();
         character.EducationHistory.Name = "Merchant Academy";
 
-        Book.PreCareerEvents(character, dice, this, skillChoices);
+        PreCareerEvents(character, dice, this, skillChoices);
         FixupSkills(character);
 
         var graduation = dice.D(2, 6) + character.IntellectDM + character.CurrentTermBenefits.GraduationDM;
-        if (graduation < 5)
+        if (character.Education >= 8)
+            graduation += 1;
+        if (character.SocialStanding >= 8)
+            graduation += 1;
+
+        if (graduation < 7)
         {
             character.Age += dice.D(4);
             character.AddHistory($"Dropped out of the merchant academy.", character.Age);
@@ -89,7 +100,7 @@ class MerchantAcademy(CharacterBuilder characterBuilder) : CareerBase("Merchant 
         {
             character.Age += 4;
             int bonus;
-            if (graduation >= 10)
+            if (graduation >= 11)
             {
                 character.EducationHistory.Status = "Honors";
                 character.AddHistory($"Graduated with honors.", character.Age);
@@ -104,7 +115,8 @@ class MerchantAcademy(CharacterBuilder characterBuilder) : CareerBase("Merchant 
                 bonus = 1;
             }
             skillChoices.RemoveOverlap(character.Skills, 1);
-            character.Skills.Increase(dice.Choose(skillChoices));
+            if (skillChoices.Count > 0)
+                character.Skills.Increase(dice.Choose(skillChoices));
             FixupSkills(character);
             character.Education += 1;
 

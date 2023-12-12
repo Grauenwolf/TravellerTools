@@ -58,6 +58,7 @@ abstract class NormalCareer : FullCareer
             FixupSkills(character);
         }
         careerHistory.Terms += 1;
+        character.LastCareer = careerHistory;
 
         if (RankCarryover)
         {
@@ -125,7 +126,5 @@ abstract class NormalCareer : FullCareer
             else
                 character.Age += +4; //Complete the term dispite the mishap.
         }
-
-        character.LastCareer = careerHistory;
     }
 }

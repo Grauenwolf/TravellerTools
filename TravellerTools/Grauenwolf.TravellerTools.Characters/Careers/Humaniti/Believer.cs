@@ -168,7 +168,7 @@ abstract class Believer : NormalCareer
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice) => true;
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck) => true;
 
     internal override void ServiceSkill(Character character, Dice dice)
     {

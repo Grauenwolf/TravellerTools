@@ -246,7 +246,7 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.Intellect;
         dm += -1 * character.CareerHistory.Count;
@@ -256,7 +256,7 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
         dm += character.GetEnlistmentBonus(Career, Assignment);
         dm += QualifyDM;
 
-        return dice.RollHigh(dm, 6);
+        return dice.RollHigh(dm, 6, isPrecheck);
     }
 
     internal override void ServiceSkill(Character character, Dice dice)

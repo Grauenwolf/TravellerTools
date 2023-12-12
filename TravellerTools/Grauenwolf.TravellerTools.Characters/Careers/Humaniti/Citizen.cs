@@ -176,7 +176,7 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.EducationDM;
         dm += -1 * character.CareerHistory.Count;
@@ -184,7 +184,7 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
         dm += character.GetEnlistmentBonus(Career, Assignment);
         dm += QualifyDM;
 
-        return dice.RollHigh(dm, 5);
+        return dice.RollHigh(dm, 5, isPrecheck);
     }
 
     internal override void ServiceSkill(Character character, Dice dice)

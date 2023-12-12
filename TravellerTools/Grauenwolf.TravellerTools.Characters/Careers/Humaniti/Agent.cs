@@ -205,7 +205,7 @@ abstract class Agent : NormalCareer
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.IntellectDM;
         dm += -1 * character.CareerHistory.Count;
@@ -213,7 +213,7 @@ abstract class Agent : NormalCareer
         dm += character.GetEnlistmentBonus(Career, Assignment);
         dm += QualifyDM;
 
-        return dice.RollHigh(dm, 6);
+        return dice.RollHigh(dm, 6, isPrecheck);
     }
 
     internal override void ServiceSkill(Character character, Dice dice)

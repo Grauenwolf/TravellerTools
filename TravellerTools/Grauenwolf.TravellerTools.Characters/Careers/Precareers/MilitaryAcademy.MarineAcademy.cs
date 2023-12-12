@@ -1,4 +1,4 @@
-namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
+namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class MarineAcademy(CharacterBuilder characterBuilder) : MilitaryAcademy("Marine Academy", characterBuilder)
 {

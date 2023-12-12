@@ -12,7 +12,7 @@ class Cavalry(CharacterBuilder characterBuilder) : Humaniti.Cavalry(characterBui
 
 class Corporate(CharacterBuilder characterBuilder) : Humaniti.Corporate(characterBuilder)
 {
-    internal override bool Qualify(Character character, Dice dice) => true;
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck) => true;
 }
 
 class Courier(CharacterBuilder characterBuilder) : Humaniti.Courier(characterBuilder)

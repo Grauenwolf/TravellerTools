@@ -159,4 +159,18 @@ public class Dice : RandomExtended
     /// <param name="target">The target.</param>
     [SuppressMessage("Microsoft.Naming", "CA1704:IdentifiersShouldBeSpelledCorrectly", MessageId = "dm")]
     public bool RollHigh(int dm, int target) => D(2, 6) + dm >= target;
+
+    /// <summary>
+    /// Rolls 2D6, returns true if equal or greater than target.
+    /// </summary>
+    /// <param name="dm">The dm.</param>
+    /// <param name="target">The target.</param>
+    /// <param name="isPrecheck">If true, use 8 instead of rolling.</param>
+    public bool RollHigh(int dm, int target, bool isPrecheck)
+    {
+        if (isPrecheck)
+            return 8 + dm >= target;
+        else
+            return D(2, 6) + dm >= target;
+    }
 }

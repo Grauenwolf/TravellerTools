@@ -211,7 +211,7 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.EnduranceDM;
         dm += -1 * character.CareerHistory.Count;

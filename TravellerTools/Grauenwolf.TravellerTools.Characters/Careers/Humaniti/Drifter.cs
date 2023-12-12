@@ -89,7 +89,7 @@ abstract class Drifter(string assignment, CharacterBuilder characterBuilder) : N
 
             case 11:
                 character.NextTermBenefits.MusterOut = true;
-                character.NextTermBenefits.MustEnroll = Book.RollDraft(dice);
+                character.NextTermBenefits.MustEnroll = RollDraft(dice).ShortName;
                 character.AddHistory("Drafted into " + character.NextTermBenefits.MustEnroll, dice);
                 return;
 
@@ -144,7 +144,7 @@ abstract class Drifter(string assignment, CharacterBuilder characterBuilder) : N
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         return !character.LongTermBenefits.Retired;
     }

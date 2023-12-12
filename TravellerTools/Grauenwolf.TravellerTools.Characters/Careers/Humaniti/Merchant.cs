@@ -198,7 +198,7 @@ abstract class Merchant(string assignment, CharacterBuilder characterBuilder) : 
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.IntellectDM;
         dm += -1 * character.CareerHistory.Count;
@@ -206,7 +206,7 @@ abstract class Merchant(string assignment, CharacterBuilder characterBuilder) : 
         dm += character.GetEnlistmentBonus(Career, Assignment);
         dm += QualifyDM;
 
-        return dice.RollHigh(dm, 4);
+        return dice.RollHigh(dm, 4, isPrecheck);
     }
 
     internal override void ServiceSkill(Character character, Dice dice)

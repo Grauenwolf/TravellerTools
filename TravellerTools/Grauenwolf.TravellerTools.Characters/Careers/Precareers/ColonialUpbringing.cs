@@ -1,8 +1,8 @@
-namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
+namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class ColonialUpbringing(CharacterBuilder characterBuilder) : CareerBase("Colonial Upbringing", null, characterBuilder)
 {
-    internal override bool Qualify(Character character, Dice dice)
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         if (character.CurrentTerm != 1)
             return false;
@@ -39,7 +39,7 @@ class ColonialUpbringing(CharacterBuilder characterBuilder) : CareerBase("Coloni
         character.Skills.Add("Survival", 1);
         FixupSkills(character);
 
-        Book.PreCareerEvents(character, dice, this, skillChoices);
+        PreCareerEvents(character, dice, this, skillChoices);
         FixupSkills(character);
 
         var graduation = dice.D(2, 6) + character.IntellectDM + character.CurrentTermBenefits.GraduationDM;

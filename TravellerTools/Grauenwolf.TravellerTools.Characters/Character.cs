@@ -36,6 +36,7 @@ public class Character
     public int? Parole { get; set; }
     public List<string> Personality { get; } = new();
     public string PersonalityList => string.Join(", ", Personality);
+    public bool PreviouslyDrafted { get; set; }
     public int PreviousPsiAttempts { get; set; }
     public int? Psi { get; set; }
     public int PsiDM => Psi == null ? -100 : DMCalc(Psi.Value);
@@ -112,7 +113,6 @@ public class Character
             UnusedContacts.Enqueue(ContactType.Enemy);
     }
 
-    [Obsolete("Explicitly indicate the age.")]
     public void AddHistory(string text)
     {
         History.Add(new History(CurrentTerm, Age, text));
