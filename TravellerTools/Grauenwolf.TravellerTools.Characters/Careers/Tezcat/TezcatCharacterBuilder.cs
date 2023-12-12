@@ -89,9 +89,9 @@ public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator
             new Precareers.MarineAcademy(this),
             new Precareers.NavalAcademy(this),
             new Precareers.University(this),
+            new Precareers.MerchantAcademy(this),
 
             //Careers
-            new Humaniti.Adept(this),
             new Humaniti.Artist(this),
             new Humaniti.Broker(this),
             new Humaniti.Colonist(this),
@@ -107,12 +107,10 @@ public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator
             new Humaniti.Performer(this),
             new Humaniti.Physician(this),
             new Humaniti.Pirate(this),
-            new Humaniti.PsiWarrrior(this),
             new Retired(this),
             new Humaniti.Scientist(this),
             new Humaniti.Thief(this),
             new Humaniti.Thug(this),
-            new Humaniti.WildTalent(this),
             new Humaniti.Worker(this),
             new Commando(this),
             new Flight(this),

@@ -67,7 +67,7 @@ class PsiWarrrior(CharacterBuilder characterBuilder) : Psion("Psi-Warrrior", cha
         switch (careerHistory.Rank)
         {
             case 0:
-                careerHistory.Title = "Marine";
+                careerHistory.Title = "Psi-Soldier";
                 return;
 
             case 1:
@@ -81,7 +81,7 @@ class PsiWarrrior(CharacterBuilder characterBuilder) : Psion("Psi-Warrrior", cha
                 return;
 
             case 2:
-                careerHistory.Title = "Captain";
+                careerHistory.Title = "Knight";
                 character.Skills.Add("Leadership", 1);
                 return;
 
@@ -92,7 +92,7 @@ class PsiWarrrior(CharacterBuilder characterBuilder) : Psion("Psi-Warrrior", cha
                 return;
 
             case 5:
-                careerHistory.Title = "Force Commander";
+                careerHistory.Title = "Master of Wills";
                 {
                     var skills = new SkillTemplateCollection();
                     skills.AddRange(SpecialtiesFor("Tactics"));

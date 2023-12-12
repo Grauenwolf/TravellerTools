@@ -11,11 +11,11 @@ public class SkillCollection : List<Skill>
     /// </summary>
     /// <param name="name">The name.</param>
     /// <param name="minLevel">The minimum level.</param>
-    public void Add(string name, int minLevel = 0)
+    public void Add(string name, int minLevel = 0, bool isPsionicTalent = false)
     {
         var skill = this[name];
         if (skill == null)
-            Add(new Skill(name, minLevel));
+            Add(new Skill(name, minLevel) { IsPsionicTalent = isPsionicTalent });
         else
             skill.Level = Math.Max(skill.Level, minLevel);
     }
@@ -25,11 +25,11 @@ public class SkillCollection : List<Skill>
     /// </summary>
     /// <param name="name">The name.</param>
     /// <param name="minLevel">The minimum level.</param>
-    public void Add(string name, string? specialty, int minLevel = 0)
+    public void Add(string name, string? specialty, int minLevel = 0, bool isPsionicTalent = false)
     {
         var skill = this[name, specialty];
         if (skill == null)
-            Add(new Skill(name, specialty, minLevel));
+            Add(new Skill(name, specialty, minLevel) { IsPsionicTalent = isPsionicTalent });
         else
             skill.Level = Math.Max(skill.Level, minLevel);
     }
@@ -39,7 +39,7 @@ public class SkillCollection : List<Skill>
         if (skill == null)
             throw new ArgumentNullException(nameof(skill), $"{nameof(skill)} is null.");
 
-        Add(skill.Name, skill.Specialty, minLevel);
+        Add(skill.Name, skill.Specialty, minLevel, skill is PsionicSkillTemplate);
     }
 
     public void AddRange(List<SkillTemplate> skillList, int minLevel = 0)

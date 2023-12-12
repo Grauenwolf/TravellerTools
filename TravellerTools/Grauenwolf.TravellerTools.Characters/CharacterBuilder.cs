@@ -356,6 +356,12 @@ public abstract class CharacterBuilder
 
     public void PreCareerEvents(Character character, Dice dice, CareerBase career, SkillTemplateCollection skills)
     {
+        if (skills.Count == 0)
+        {
+            skills = new SkillTemplateCollection();
+            skills.AddRange(character.Skills.Select(s => s.ToSkillTemplate()));
+        }
+
         switch (dice.D(2, 6))
         {
             case 2:
@@ -425,10 +431,13 @@ public abstract class CharacterBuilder
 
                 if (dice.RollHigh(9))
                 {
-                    var skill = dice.Choose(skills);
-                    character.Skills.Increase(skill);
-                    character.AddHistory($"Expand the field of {skill}, but gain a Rival in your former tutor.", dice);
-                    character.AddRival();
+                    if (skills.Count > 0)
+                    {
+                        var skill = dice.Choose(skills);
+                        character.Skills.Increase(skill);
+                        character.AddHistory($"Expand the field of {skill}, but gain a Rival in your former tutor.", dice);
+                        character.AddRival();
+                    }
                 }
                 return;
 
@@ -479,12 +488,19 @@ public abstract class CharacterBuilder
         //return null!;
     }
 
-    public void TestPsionic(Character character, Dice dice, int age)
+    /// <summary>
+    /// Tests for psionic talents.
+    /// </summary>
+    /// <param name="character">The character.</param>
+    /// <param name="dice">The dice.</param>
+    /// <param name="age">The age.</param>
+    /// <returns>Returns true is at least one psionic skill was gained.</returns>
+    public bool TestPsionic(Character character, Dice dice, int age)
     {
         if (!AllowPsionics)
-            return; //not allowed
+            return false;  //not allowed
         if (character.Psi.HasValue)
-            return; //already tested
+            return false; //already tested
 
         character.LongTermBenefits.MayTestPsi = false;
         character.AddHistory("Tested for psionic powers", age);
@@ -494,13 +510,14 @@ public abstract class CharacterBuilder
         if (character.Psi <= 0)
         {
             character.Psi = 0;
-            return;
+            return false;
         }
 
         var availableSkills = new PsionicSkillTemplateCollection(Book.PsionicTalents);
 
         character.PreviousPsiAttempts = 0;
 
+        bool result = false;
         //roll for every skill
         while (availableSkills.Count > 0)
         {
@@ -514,11 +531,13 @@ public abstract class CharacterBuilder
                 if ((dice.D(2, 6) + nextSkill.LearningDM + character.PsiDM - character.PreviousPsiAttempts) >= 8)
                 {
                     character.Skills.Add(nextSkill);
+                    result = true;
                 }
             }
 
             character.PreviousPsiAttempts += 1;
         }
+        return result;
     }
 
     public void UnusualLifeEvent(Character character, Dice dice)
@@ -528,7 +547,8 @@ public abstract class CharacterBuilder
             case 1:
                 var age = character.AddHistory("Encounter a Psionic institute.", dice);
                 if (AllowPsionics)
-                    TestPsionic(character, dice, age);
+                    if (TestPsionic(character, dice, age))
+                        character.NextTermBenefits.MustEnroll = "Psion";
                 return;
 
             case 2:
@@ -808,7 +828,7 @@ public abstract class CharacterBuilder
 
         var result = dice.Choose(careers);
 
-        if (noRoll || result.Qualify(character, dice, false))
+        if (result.Qualify(character, dice, false) || noRoll) //Force a Qualify roll so we can get special behavior for Psionic Community
             return result;
         else
         {

@@ -15,9 +15,12 @@ public class Skill
     }
 
     public string? Group { get; set; }
+    public bool IsPsionicTalent { get; set; }
     public int Level { get; set; }
     public string Name { get; set; }
     public string? Specialty { get; set; }
+
+    public SkillTemplate ToSkillTemplate() => new(Name, Specialty);
 
     public override string ToString()
     {

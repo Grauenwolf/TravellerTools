@@ -80,6 +80,7 @@ public class BwapCharacterBuilder(string dataPath, NameGenerator nameGenerator, 
             new Precareers.NavalAcademy(this),
             new Precareers.ColonialUpbringing(this),
             new Precareers.MerchantAcademy(this),
+            new Precareers.PsionicCommunity(this),
 
             //Careers
             new Humaniti.Adept(this),

@@ -1,29 +1,4 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
-/*
-class PsionicCommunity(CharacterBuilder characterBuilder) : CareerBase("Psionic Community", null, characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        adadadsa
-        if (character.CurrentTerm != 1)
-            return false;
-
-        var dm = character.Psi.HasValue ? character.PsiDM : -3;
-
-        if (character.Intellect >= 8)
-            dm += 1;
-        dm += character.GetEnlistmentBonus(Career, null);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 8, isPrecheck);
-    }
-
-    internal override void Run(Character character, Dice dice)
-    {
-        throw new NotImplementedException();
-    }
-}
-*/
 
 class MerchantAcademy(CharacterBuilder characterBuilder) : CareerBase("Merchant Academy", null, characterBuilder)
 {

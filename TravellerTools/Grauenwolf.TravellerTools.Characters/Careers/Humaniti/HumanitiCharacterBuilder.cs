@@ -62,10 +62,11 @@ public class HumanitiCharacterBuilder(string dataPath, NameGenerator nameGenerat
             new Precareers.University(this),
             new Precareers.ColonialUpbringing(this),
             new Precareers.MerchantAcademy(this),
+            new Precareers.PsionicCommunity(this),
+
             //These are not implemented yet
-            //new PsionicCommunity(this),
-            //new SchoolOfHardKnocks(this),
-            //new SpacerCommunity (this),
+            //new Precareers.SchoolOfHardKnocks(this),
+            //new Precareers.SpacerCommunity (this),
 
             //Careers
             new Adept(this),
