@@ -315,17 +315,11 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
         };
     }
 
-    override protected decimal SalePriceModifier(Dice random, int saleBonus, int brokerScore, out int roll)
+    protected override decimal SalePriceModifier(int roll)
     {
-        if (random == null)
-            throw new ArgumentNullException(nameof(random), $"{nameof(random)} is null.");
-
-        roll = random.D(3, 6) + saleBonus + brokerScore;
-        if (roll < 0)
-            return 0.30M;
-
         return roll switch
         {
+            < 0 => 0.30M,
             0 => 0.4M,
             1 => 0.45M,
             2 => 0.50M,
@@ -351,6 +345,16 @@ public class TradeEngineMgt2(TravellerMapService mapService, string dataPath, Na
             22 => 1.55M,
             _ => 1.60M,
         };
+    }
+
+    override protected decimal SalePriceModifier(Dice random, int saleBonus, int brokerScore, out int roll)
+    {
+        if (random == null)
+            throw new ArgumentNullException(nameof(random), $"{nameof(random)} is null.");
+
+        roll = random.D(3, 6) + saleBonus + brokerScore;
+
+        return SalePriceModifier(roll);
     }
 
     static int FreightCost(int distance)

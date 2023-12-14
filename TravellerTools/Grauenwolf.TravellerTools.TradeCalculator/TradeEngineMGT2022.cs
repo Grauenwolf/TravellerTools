@@ -213,9 +213,12 @@ public class TradeEngineMgt2022(TravellerMapService mapService, string dataPath,
             throw new ArgumentNullException(nameof(random), $"{nameof(random)} is null.");
 
         roll = random.D(3, 6) + saleBonus + brokerScore;
-        if (roll < 0)
-            return 0.30M;
 
+        return SalePriceModifier(roll);
+    }
+
+    override protected decimal SalePriceModifier(int roll)
+    {
         return roll switch
         {
             <= -3 => 0.10M,

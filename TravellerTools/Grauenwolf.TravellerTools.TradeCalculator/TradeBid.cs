@@ -5,6 +5,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator;
 /// </summary>
 public class TradeBid
 {
+    public decimal AgedPrice => BasePrice * AgedPriceModifier;
+    public decimal AgedPriceModifier { get; set; }
+    public int AgedRoll { get; internal set; }
     public decimal BasePrice { get; set; }
     public decimal CurrentPrice => BasePrice * PriceModifier;
     public bool Legal { get; set; }

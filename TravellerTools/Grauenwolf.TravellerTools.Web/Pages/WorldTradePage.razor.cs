@@ -190,7 +190,7 @@ partial class WorldTradePage
                 if (Options.DestinationIndex >= 0)
                     destination = Model.Destinations![Options.DestinationIndex];
 
-                Model!.TradeList = tradeEngine.BuildTradeGoodsList(Model.World, Options.AdvancedMode, Options.IllegalGoods, Options.BrokerScore, dice, Options.Raffle, Options.StreetwiseScore, Options.CounterpartyScore, destination);
+                Model!.TradeList = tradeEngine.BuildTradeGoodsList(Model.World, Options.AdvancedMode, Options.IllegalGoods, Options.BrokerScore, dice, Options.Raffle, Options.StreetwiseScore, Options.CounterpartyScore, destination, Options.AgeWeeks);
 
                 InvokeAsync(StateHasChanged);
             }

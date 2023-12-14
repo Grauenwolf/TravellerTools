@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Primitives;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using Tortuga.Anchor.Modeling;
 
@@ -15,6 +13,7 @@ public class TradeOptions : ModelBase
         );
 
     public bool AdvancedMode { get => GetDefault(false); set => Set(value); }
+    public int AgeWeeks { get => GetDefault(0); set => Set(value); }
     public int BrokerScore { get => GetDefault(0); set => Set(value); }
 
     public string? BrokerScoreCode
@@ -108,6 +107,8 @@ public class TradeOptions : ModelBase
             StreetwiseScore = int.Parse(streetwiseScore);
         if (keyValuePairs.TryGetValue("destinationIndex", out var destinationIndex))
             DestinationIndex = int.Parse(destinationIndex);
+        if (keyValuePairs.TryGetValue("ageWeeks", out var ageWeeks))
+            AgeWeeks = int.Parse(ageWeeks);
     }
 
     public Dictionary<string, string?> ToQueryString()
@@ -122,7 +123,8 @@ public class TradeOptions : ModelBase
             { "brokerScore", BrokerScore.ToString() },
             { "streetwiseScore", StreetwiseScore.ToString() },
             { "destinationIndex", DestinationIndex.ToString() },
-            { "counterpartyScore", CounterpartyScore.ToString() }
+            { "counterpartyScore", CounterpartyScore.ToString() },
+            { "ageWeeks", AgeWeeks.ToString() }
         };
     }
 }

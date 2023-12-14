@@ -149,6 +149,21 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             }
         }
 
+        public void AgeTradeBids(List<TradeBid> Bids, Dice dice, int ageWeeks)
+        {
+            //Setup the aging process
+            foreach (var item in Bids)
+                item.AgedRoll = item.Roll;
+
+            //Apply the weeks one at a time so that as the age is changed, the values flow naturally.
+            for (var i = 1; i <= ageWeeks; i++)
+                foreach (var item in Bids)
+                {
+                    item.AgedRoll = item.AgedRoll + dice.D(2, 6) - 7; // +/-5 points per week
+                    item.AgedPriceModifier = SalePriceModifier(item.AgedRoll);
+                }
+        }
+
         /// <summary>
         /// Builds the trade goods list.
         /// </summary>
@@ -156,7 +171,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         /// <param name="advancedMode">if set to <c>true</c> [advanced mode].</param>
         /// <param name="illegalGoods">if set to <c>true</c> [illegal goods].</param>
         /// <param name="brokerScore">The broker score.</param>
-        /// <param name="random">The random.</param>
+        /// <param name="dice">The random.</param>
         /// <param name="raffleGoods">if set to <c>true</c> [raffle goods].</param>
         /// <param name="streetwiseScore">The streetwise score.</param>
         /// <param name="counterpartyScore">The counterparty score. This is only used in MGT2022.</param>
@@ -164,13 +179,13 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         /// <returns>TradeGoodsList.</returns>
         /// <exception cref="System.ArgumentNullException">origin</exception>
         /// <exception cref="System.ArgumentNullException">random</exception>
-        public TradeGoodsList BuildTradeGoodsList(World origin, bool advancedMode, bool illegalGoods, int brokerScore, Dice random, bool raffleGoods, int streetwiseScore, int counterpartyScore, World? destination = null)
+        public TradeGoodsList BuildTradeGoodsList(World origin, bool advancedMode, bool illegalGoods, int brokerScore, Dice dice, bool raffleGoods, int streetwiseScore, int counterpartyScore, World? destination = null, int ageWeeks = 0)
         {
             if (origin == null)
                 throw new ArgumentNullException(nameof(origin), $"{nameof(origin)} is null.");
 
-            if (random == null)
-                throw new ArgumentNullException(nameof(random), $"{nameof(random)} is null.");
+            if (dice == null)
+                throw new ArgumentNullException(nameof(dice), $"{nameof(dice)} is null.");
 
             if (!UseCounterpartyScore)
                 counterpartyScore = 0;
@@ -200,7 +215,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 {
                     if (good.Availability == "*")
                     {
-                        AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, true);
+                        AddTradeGood(origin, dice, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, true);
                     }
                     else if (good.Availability == "") //extremely rare
                     {
@@ -215,9 +230,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
                 for (var i = 0; i < origin.PopulationCode.Value; i++)
                 {
-                    var good = random.Choose(randomGoods);
+                    var good = dice.Choose(randomGoods);
                     var isCommonGood = good.AvailabilityList.Any(a => origin.ContainsRemark(a));
-                    AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, isCommonGood);
+                    AddTradeGood(origin, dice, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, isCommonGood);
                     randomGoods = randomGoods.Where(g => g != good).ToList();
                 }
             }
@@ -233,11 +248,11 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 {
                     if (good.Availability == "*")
                     {
-                        AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, true);
+                        AddTradeGood(origin, dice, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, true);
                     }
                     else if (good.AvailabilityList.Any(a => origin.ContainsRemark(a)))
                     {
-                        AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, true);
+                        AddTradeGood(origin, dice, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, true);
                     }
                     else
                     {
@@ -248,8 +263,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 var picks = Math.Min(randomGoods.Count, origin.PopulationCode.Value);
                 for (var i = 0; i < picks; i++)
                 {
-                    var good = random.Pick(randomGoods);
-                    AddTradeGood(origin, random, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, false);
+                    var good = dice.Pick(randomGoods);
+                    AddTradeGood(origin, dice, availableLots, good, advancedMode, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, false);
                 }
             }
 
@@ -281,7 +296,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
                                 //TODO: Auto-bump the price so that the merchant isn't buying from the PCs at a higher price than he would sell to them
                                 int roll;
-                                bid.PriceModifier = SalePriceModifier(random, bid.SaleDM, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, out roll);
+                                bid.PriceModifier = SalePriceModifier(dice, bid.SaleDM, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, out roll);
                                 bid.Roll = roll;
 
                                 requests.Add(bid);
@@ -300,7 +315,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
                         //TODO: Auto-bump the price so that the merchant isn't buying from the PCs at a higher price than he would sell to them
                         int roll;
-                        bid.PriceModifier = SalePriceModifier(random, bid.SaleDM, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, out roll);
+                        bid.PriceModifier = SalePriceModifier(dice, bid.SaleDM, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, out roll);
                         bid.Roll = roll;
 
                         requests.Add(bid);
@@ -322,7 +337,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
                             //TODO: Auto-bump the price so that the merchant isn't buying from the PCs at a higher price than he would sell to them
                             int roll;
-                            bid.PriceModifier = SalePriceModifier(random, bid.SaleDM, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, out roll);
+                            bid.PriceModifier = SalePriceModifier(dice, bid.SaleDM, (good.Legal ? brokerScore : streetwiseScore) - counterpartyScore, out roll);
                             bid.Roll = roll;
 
                             requests.Add(bid);
@@ -330,6 +345,9 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
             result.Lots.AddRange(availableLots.OrderBy(r => r.Type).ThenBy(r => r.Subtype));
             result.Bids.AddRange(requests.OrderBy(r => r.Type).ThenBy(r => r.Subtype));
+
+            if (ageWeeks > 0)
+                AgeTradeBids(result.Bids, dice, ageWeeks);
 
             return result;
         }
@@ -559,6 +577,8 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "3#")]
         protected abstract decimal SalePriceModifier(Dice random, int saleBonus, int brokerScore, out int roll);
+
+        protected abstract decimal SalePriceModifier(int roll);
 
         static int PurchaseDM(World world, TradeGood good)
         {

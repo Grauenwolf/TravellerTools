@@ -279,17 +279,11 @@ public class TradeEngineMgt : TradeEngine
         };
     }
 
-    override protected decimal SalePriceModifier(Dice random, int saleBonus, int brokerScore, out int roll)
+    protected override decimal SalePriceModifier(int roll)
     {
-        if (random == null)
-            throw new ArgumentNullException(nameof(random), $"{nameof(random)} is null.");
-
-        roll = random.D(3, 6) + saleBonus + brokerScore;
-        if (roll < 0)
-            return 0.25M;
-
         return roll switch
         {
+            < 0 => 0.25M,
             0 => 0.45M,
             1 => 0.50M,
             2 => 0.55M,
@@ -313,5 +307,15 @@ public class TradeEngineMgt : TradeEngine
             20 => 3M,
             _ => 4M,
         };
+    }
+
+    override protected decimal SalePriceModifier(Dice random, int saleBonus, int brokerScore, out int roll)
+    {
+        if (random == null)
+            throw new ArgumentNullException(nameof(random), $"{nameof(random)} is null.");
+
+        roll = random.D(3, 6) + saleBonus + brokerScore;
+
+        return SalePriceModifier(roll);
     }
 }
