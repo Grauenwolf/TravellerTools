@@ -107,9 +107,7 @@ public class BwapCharacterBuilder(string dataPath, NameGenerator nameGenerator, 
             new Humaniti.MainstreamBeliever(this),
             new Humaniti.Missionary(this),
             new Humaniti.HolyWarrior(this),
-
-            //These are not implemented yet
-            //new Truther(this),
+            new Humaniti.Truther(this),
         };
 
         //Need to remove duplicates that affect odds

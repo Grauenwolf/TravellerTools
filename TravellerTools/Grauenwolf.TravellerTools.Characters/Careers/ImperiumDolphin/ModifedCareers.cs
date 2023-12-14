@@ -92,6 +92,18 @@ class EngineerGunner(CharacterBuilder characterBuilder) : Humaniti.EngineerGunne
     }
 }
 
+class Explorer(CharacterBuilder characterBuilder) : Humaniti.Explorer(characterBuilder)
+{
+    protected override int QualifyDM => 1;
+
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
 class FieldResearcher(CharacterBuilder characterBuilder) : Humaniti.FieldResearcher(characterBuilder)
 {
     protected override int QualifyDM => 1;
@@ -305,19 +317,6 @@ class Worker(CharacterBuilder characterBuilder) : Humaniti.Worker(characterBuild
     }
 }
 
-class Explorer(CharacterBuilder characterBuilder) : Humaniti.Explorer(characterBuilder)
-{
-    protected override int QualifyDM => 1;
-
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-/*
 class Truther(CharacterBuilder characterBuilder) : Humaniti.Truther(characterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
@@ -327,4 +326,3 @@ class Truther(CharacterBuilder characterBuilder) : Humaniti.Truther(characterBui
         return base.Qualify(character, dice, isPrecheck);
     }
 }
-*/

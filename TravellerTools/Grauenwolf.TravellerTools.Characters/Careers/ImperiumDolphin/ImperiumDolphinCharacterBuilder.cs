@@ -86,9 +86,7 @@ public class ImperiumDolphinCharacterBuilder(string dataPath, NameGenerator name
             new MainstreamBeliever(this),
             new Missionary(this),
             new HolyWarrior(this),
-
-            //These are not implemented yet
-            //new Truther(this),
+            new Truther(this),
         };
 
         //Need to remove duplicates that affect odds

@@ -96,9 +96,7 @@ public class HumanitiCharacterBuilder(string dataPath, NameGenerator nameGenerat
             new MainstreamBeliever(this),
             new Missionary(this),
             new HolyWarrior(this),
-
-            //These are not implemented yet
-            //new Truther(this),
+            new Truther(this),
         };
 
         //Need to remove duplicates that affect odds

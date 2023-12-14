@@ -4,6 +4,8 @@
 	<Books>
 		<Book Code="Core 2" Name="Traveller Core Rulebook, 2nd edition" Url="https://www.mongoosepublishing.com/us/traveller-core-rulebook.html" />
 		<Book Code="CSC 2" Name="Central Supply Catalogue, 2nd edition" Url="https://www.mongoosepublishing.com/us/central-supply-catalogue.html" />
+		<Book Code="Core 2022" Name="Traveller Core Rulebook, 2022 edition" Url="https://www.mongoosepublishing.com/products/traveller-core-rulebook-update-2022" />
+		<Book Code="CSC 2023" Name="Central Supply Catalogue, 2023 edition" Url="https://www.mongoosepublishing.com/products/central-supply-catalogue-update-2023" />
 		<Book Code="Aliens 1" Name="Aliens of Charted Space Volume 1" Url="https://www.mongoosepublishing.com/products/aliens-of-charted-space-vol-1" />
 		<Book Code="Aliens 2" Name="Aliens of Charted Space Volume 2" Url="https://www.mongoosepublishing.com/products/aliens-of-charted-space-vol-2" />
 		<Book Code="Aliens 3" Name="Aliens of Charted Space Volume 3" Url="https://www.mongoosepublishing.com/products/aliens-of-charted-space-vol-3" />
@@ -110,10 +112,16 @@
 	</Section>
 	<Section Name="Electronics" Book="CSC 2">
 		<Subsection Name="Modifications">
+			<!-- TODO: Allow mulitple species for the same equipment. -->
 			<Item Name="Waterproofing-6" TL="6" Page="257" Book="Aliens 3" Species="Bwap" Notes="+200% of weight, +250% of cost" />
 			<Item Name="Waterproofing-7" TL="7" Page="257" Book="Aliens 3" Species="Bwap" Notes="+100% of weight +100% of cost" />
-			<Item Name="Waterproofing-8" TL="8" Page="257" Book="Aliens 3" Species="Bwap" Notes="+25% of weight +50 % of cost" />
-			<Item Name="Waterproofing-9" TL="9" Page="257" Book="Aliens 3" Species="Bwap" Notes="+0.10% of weight +25% of cost" />
+			<Item Name="Waterproofing-8" TL="8" Page="257" Book="Aliens 3" Species="Bwap" Notes="+25% of weight +50% of cost" />
+			<Item Name="Waterproofing-9" TL="9" Page="257" Book="Aliens 3" Species="Bwap" Notes="+10% of weight +25% of cost" />
+
+			<Item Name="Waterproofing-6" TL="6" Page="176" Book="Aliens 3" Species="Dolphin" Notes="+200% of weight, +250% of cost" />
+			<Item Name="Waterproofing-7" TL="7" Page="176" Book="Aliens 3" Species="Dolphin" Notes="+100% of weight +100% of cost" />
+			<Item Name="Waterproofing-8" TL="8" Page="176" Book="Aliens 3" Species="Dolphin" Notes="+25% of weight +50% of cost" />
+			<Item Name="Waterproofing-9" TL="9" Page="176" Book="Aliens 3" Species="Dolphin" Notes="+10% of weight +25% of cost" />
 		</Subsection>
 
 		<Subsection Name="Communications">
@@ -494,7 +502,8 @@
 			<Item Name="Vivarium (1-2 hits)" TL="8" Price="Cr400" Mass="2" Page="97" />
 			<Item Name="Vivarium (3-5 hits)" TL="8" Price="Cr1000" Mass="4" Page="97" />
 			<Item Name="Vivarium (6-10 hits)" TL="8" Price="Cr2200" Mass="8" Page="97" />
-
+		</Subsection>
+		<Subsection Name="Historical and Religious Texts" Contraband="Information" Law="9">
 			<Item Name="Wapawab Scrolls" TL="1" Mass="100" Price="Cr1000" Page="259" Species="Bwap" Book="Aliens 3" />
 			<Item Name="Wapawab Books" TL="4" Mass="50" Price="Cr2500" Page="259" Species="Bwap" Book="Aliens 3" />
 			<Item Name="Electronic Wapawab-9" TL="9" Mass="2" Price="Cr500" Page="259" Species="Bwap" Book="Aliens 3" />
@@ -524,9 +533,9 @@
 			<Item Name="Starlight Drops" TL="12" Price="Cr500" Page="85" Law="3" />
 			<Item Name="Stims" TL="8" Price="Cr50" Page="85" Law="4" />
 			<Item Name="Truth Serum" TL="5" Price="Cr500" Page="85" Law="1" />
-			<Item Name="Amino Acid Supplements" TL="8" Price="Cr20" Page="258" Species="Bwap" Book="Aliens 3" />
-			<Item Name="Hydronol 9" TL="11" Price="Cr100" Page="258" Species="Bwap" Book="Aliens 3" />
-			<Item Name="Regenerax" TL="12" Price="Cr10000" Page="259" Species="Bwap" Book="Aliens 3" />
+			<Item Name="Amino Acid Supplements" TL="8" Price="Cr20" Page="258" Species="Bwap" Book="Aliens 3" Law="9" />
+			<Item Name="Hydronol 9" TL="11" Price="Cr100" Page="258" Species="Bwap" Book="Aliens 3" Law="9" />
+			<Item Name="Regenerax" TL="12" Price="Cr10000" Page="259" Species="Bwap" Book="Aliens 3" Law="8" />
 		</Subsection>
 		<Subsection Name="Medical Equipment">
 			<Item Name="Adhesive bandages" TL="6" Price="Cr50" Page="81" />
@@ -683,7 +692,7 @@
 			<Item Name="Vacc Suit-12" TL="12" Price="Cr20000" Mass="8" Law="9" Category="1" Page="23" Skill="Vacc Suit 0" />
 			<Item Name="Ceremonial Armour" Species="Bwap" TL="2" Price="Cr1750" Mass="1" Law="2" Category="4" Page="256"  Book="Aliens 3" />
 		</Subsection>
-		<Subsection Name="Powered Armor" Law="2" Category="5" Mod="Military">
+		<Subsection Name="Powered Armor" Law="2" Category="4" Mod="Military">
 			<Item Name="Ceramic Powered Plate" TL="13" Price="Cr90000" Mass="35" Page="25" Skill="Vacc Suit 1" />
 			<Item Name="Grav-Enhanced Powered Plate" TL="15" Price="Cr120000" Mass="32" Page="25" Skill="Vacc Suit 0" />
 			<Item Name="Mechanical Carapace-12" TL="12" Price="Cr30000" Mass="25" Page="26" Skill="Vacc Suit 1" />

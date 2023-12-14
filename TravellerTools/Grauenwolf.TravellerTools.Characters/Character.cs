@@ -25,7 +25,7 @@ public class Character
     public int EnduranceDM => DMCalc(Endurance);
     public string? FirstAssignment { get; set; }
     public string? FirstCareer { get; set; }
-    public int Following { get; set; }
+    public int? Following { get; set; }
 
     public int FollowingDM
     {
@@ -33,6 +33,7 @@ public class Character
         {
             return Following switch
             {
+                null => 0,
                 <= 3 => 0,
                 <= 6 => 1,
                 <= 9 => 2,

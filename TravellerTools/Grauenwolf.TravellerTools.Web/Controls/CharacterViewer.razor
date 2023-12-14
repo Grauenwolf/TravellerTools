@@ -30,6 +30,10 @@
             {
                 <th width="50" style="text-align:center;">Psi</th>
             }
+            @if (Character.Following.HasValue)
+            {
+                <th width="50" style="text-align:center;">Fol</th>
+            }
         </tr>
         <tr>
             <td>@(Character.Species)</td>
@@ -52,8 +56,12 @@
                     <td>None</td>
                 }
             }
+            @if (Character.Following.HasValue)
+            {
+                <td>@(Character.Following) (@Character.FollowingDM)</td>
+            }
         </tr>
-        <tr><td colspan="9">@(Character.PersonalityList)</td></tr>
+        <tr><td colspan="11">@(Character.PersonalityList)</td></tr>
     </table>
 
     <div>&nbsp;</div>

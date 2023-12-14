@@ -232,7 +232,18 @@ internal class Truther(CharacterBuilder characterBuilder) : RanklessCareer("Trut
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck) => true;
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        return (character.Following == null && character.Following >= 0);
+    }
+
+    internal override void Run(Character character, Dice dice)
+    {
+        if (character.Following == null)
+            character.Following = 0;
+
+        base.Run(character, dice);
+    }
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
