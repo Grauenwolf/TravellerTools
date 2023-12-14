@@ -2,20 +2,13 @@ using System.Collections.Immutable;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-public abstract class CareerBase
+public abstract class CareerBase(string career, string? assignment, CharacterBuilder characterBuilder)
 {
-    readonly CharacterBuilder m_CharacterBuilder;
+    readonly CharacterBuilder m_CharacterBuilder = characterBuilder;
 
-    protected CareerBase(string career, string? assignment, CharacterBuilder characterBuilder)
-    {
-        Career = career;
-        Assignment = assignment;
-        m_CharacterBuilder = characterBuilder;
-    }
+    public string? Assignment { get; } = assignment;
 
-    public string? Assignment { get; }
-
-    public string Career { get; }
+    public string Career { get; } = career;
 
     public string Key
     {

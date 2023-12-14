@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Primitives;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using Tortuga.Anchor.Modeling;
 
@@ -34,21 +32,16 @@ public class PassengerOptions : ModelBase
 
     public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)
     {
-        if (keyValuePairs.TryGetValue("edition", out var editionCode))
-            SelectedEditionCode = editionCode;
-        if (keyValuePairs.TryGetValue("variablePrices", out var variablePrices))
-            VariablePrices = bool.Parse(variablePrices);
-        //if (keyValuePairs.TryGetValue("advancedCharacters", out var advancedMode))
-        //    AdvancedCharacters = bool.Parse(advancedMode);
+        SelectedEditionCode = keyValuePairs.ParseString("edition");
+        VariablePrices = keyValuePairs.ParseBool("variablePrices");
     }
 
     public Dictionary<string, string?> ToQueryString()
     {
-        var result = new Dictionary<string, string?>();
-        result.Add("edition", SelectedEditionCode);
-        result.Add("variablePrices", VariablePrices.ToString());
-        //result.Add("advancedCharacters", AdvancedCharacters.ToString());
-
-        return result;
+        return new Dictionary<string, string?>
+        {
+            { "edition", SelectedEditionCode },
+            { "variablePrices", VariablePrices.ToString() }
+        };
     }
 }

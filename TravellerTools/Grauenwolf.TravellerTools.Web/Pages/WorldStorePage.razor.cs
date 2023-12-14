@@ -25,6 +25,8 @@ partial class WorldStorePage
     public string? SectorHex { get => Get<string?>(); set => Set(value, true); }
 
     public int? Seed { get => Get<int?>(); set => Set(value, true); }
+    public string? SpeciesFilter { get => Get<string?>(); set => Set(value); }
+    public List<string> SpeciesList => EquipmentBuilder.GetSpeciesNames();
     public Store? Store { get => Get<Store?>(); set => Set(value); }
     public string? StoreTypeFilter { get => Get<string?>(); set => Set(value); }
     public List<string> StoreTypeList => EquipmentBuilder.GetSectionNames();
@@ -46,6 +48,8 @@ partial class WorldStorePage
 
         if (Navigation.TryGetQueryString("storeTypeFilter", out string storeTypeFilter))
             StoreTypeFilter = storeTypeFilter;
+        if (Navigation.TryGetQueryString("speciesFilter", out string speciesFilter))
+            SpeciesFilter = speciesFilter;
 
         Options.FromQueryString(Navigation.ParsedQueryString());
 
@@ -158,6 +162,8 @@ partial class WorldStorePage
         uri = QueryHelpers.AddQueryString(uri, "seed", (Seed ?? 0).ToString());
         if (!string.IsNullOrEmpty(StoreTypeFilter))
             uri = QueryHelpers.AddQueryString(uri, "storeTypeFilter", StoreTypeFilter);
+        if (!string.IsNullOrEmpty(SpeciesFilter))
+            uri = QueryHelpers.AddQueryString(uri, "speciesFilter", SpeciesFilter);
         return uri;
     }
 
@@ -174,6 +180,8 @@ partial class WorldStorePage
             uri = QueryHelpers.AddQueryString(uri, Options.ToQueryString());
             if (!string.IsNullOrEmpty(StoreTypeFilter))
                 uri = QueryHelpers.AddQueryString(uri, "storeTypeFilter", StoreTypeFilter);
+            if (!string.IsNullOrEmpty(SpeciesFilter))
+                uri = QueryHelpers.AddQueryString(uri, "speciesFilter", SpeciesFilter);
 
             Navigation.NavigateTo(uri, false);
         }

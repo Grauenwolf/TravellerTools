@@ -25,6 +25,23 @@ public class Character
     public int EnduranceDM => DMCalc(Endurance);
     public string? FirstAssignment { get; set; }
     public string? FirstCareer { get; set; }
+    public int Following { get; set; }
+
+    public int FollowingDM
+    {
+        get
+        {
+            return Following switch
+            {
+                <= 3 => 0,
+                <= 6 => 1,
+                <= 9 => 2,
+                <= 12 => 3,
+                _ => 4
+            };
+        }
+    }
+
     public string? Gender { get; set; }
     public HistoryCollection History { get; } = new();
     public int Intellect { get; set; }
@@ -184,6 +201,7 @@ public class Character
             "Intellect" or "Int" => IntellectDM,
             "Education" or "Edu" => EducationDM,
             "SS" or "Soc" or "SocialStanding" => SocialStandingDM,
+            "Fol" or "Following" => FollowingDM,
             _ => throw new ArgumentOutOfRangeException(nameof(attributeName), attributeName, "Unknown attribute " + attributeName),
         };
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace Tortuga.Yardarm;
 
@@ -26,8 +25,7 @@ public abstract class ControlBase<T> : ControlBase where T : class, new()
         get => m_Model;
         set
         {
-            if (value == null)
-                throw new ArgumentNullException();
+            ArgumentNullException.ThrowIfNull(value);
 
             if (m_Model != value)
             {

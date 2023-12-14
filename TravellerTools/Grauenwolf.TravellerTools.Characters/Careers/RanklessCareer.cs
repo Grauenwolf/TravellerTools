@@ -2,9 +2,34 @@
 
 namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-abstract class NormalCareer(string name, string assignment, CharacterBuilder characterBuilder) : FullCareer(name, assignment, characterBuilder)
+/// <summary>
+/// This type of career doesn't have ranks.
+/// </summary>
+abstract class RanklessCareer(string name, string? assignment, CharacterBuilder characterBuilder) : CareerBase(name, assignment, characterBuilder)
 {
-    protected abstract bool RankCarryover { get; }
+    protected abstract int AdvancedEductionMin { get; }
+
+    /// <summary>
+    /// Override this if the career has multiple assignments and you don't get basic skills for changing assignments.
+    /// </summary>
+    protected virtual bool RankCarryover => false;
+
+    protected abstract string SurvivalAttribute { get; }
+
+    protected abstract int SurvivalTarget { get; }
+
+    internal abstract void AssignmentSkills(Character character, Dice dice);
+
+    internal abstract void BasicTrainingSkills(Character character, Dice dice, bool all);
+
+    internal abstract void Event(Character character, Dice dice);
+
+    internal abstract void Mishap(Character character, Dice dice, int age);
+
+    internal void MishapRollAge(Character character, Dice dice)
+    {
+        Mishap(character, dice, character.Age + dice.D(4));
+    }
 
     internal override void Run(Character character, Dice dice)
     {
@@ -12,7 +37,7 @@ abstract class NormalCareer(string name, string assignment, CharacterBuilder cha
         if (!character.CareerHistory.Any(pc => pc.Career == Career))
         {
             careerHistory = new CareerHistory(Career, Assignment, 0);
-            ChangeCareer(character, dice, careerHistory);
+            character.AddHistory($"Became a {careerHistory.LongName}.", character.Age);
             BasicTrainingSkills(character, dice, character.CareerHistory.Count == 0);
             FixupSkills(character, dice);
             character.CareerHistory.Add(careerHistory);
@@ -27,7 +52,7 @@ abstract class NormalCareer(string name, string assignment, CharacterBuilder cha
 
                 if (!RankCarryover) //then this is a new career path
                 {
-                    ChangeAssignment(character, dice, careerHistory);
+                    character.AddHistory($"Switched to {careerHistory.LongName}.", character.Age);
                     BasicTrainingSkills(character, dice, false);
                     FixupSkills(character, dice);
                 }
@@ -56,16 +81,6 @@ abstract class NormalCareer(string name, string assignment, CharacterBuilder cha
         careerHistory.Terms += 1;
         character.LastCareer = careerHistory;
 
-        if (RankCarryover)
-        {
-            careerHistory.Rank = character.CareerHistory.Where(c => c.Career == Career).Max(c => c.Rank);
-            careerHistory.CommissionRank = character.CareerHistory.Where(c => c.Career == Career).Max(c => c.CommissionRank);
-        }
-
-        if (character.CurrentTermBenefits.MinRank.HasValue)
-            while (careerHistory.Rank < character.CurrentTermBenefits.MinRank)
-                Promote(character, dice, careerHistory);
-
         var survived = dice.RollHigh(character.GetDM(SurvivalAttribute) + character.NextTermBenefits.SurvivalDM, SurvivalTarget);
         if (survived)
         {
@@ -75,39 +90,6 @@ abstract class NormalCareer(string name, string assignment, CharacterBuilder cha
             FixupSkills(character, dice);
 
             character.Age += 4;
-
-            var advancementRoll = dice.D(2, 6);
-            if (advancementRoll == 12)
-            {
-                character.AddHistory("Forced to continue current assignment.", character.Age);
-                character.NextTermBenefits.MustEnroll = Assignment;
-            }
-            advancementRoll += character.GetDM(AdvancementAttribute) + character.GetAdvancementBonus(Career, Assignment);
-
-            if (advancementRoll >= AdvancementTarget)
-            {
-                Promote(character, dice, careerHistory);
-                FixupSkills(character, dice);
-
-                //advancement skill
-                var skillTables = new List<SkillTable>
-                {
-                    PersonalDevelopment,
-                    ServiceSkill,
-                    AssignmentSkills
-                };
-                if (character.Education >= AdvancedEductionMin)
-                    skillTables.Add(AdvancedEducation);
-
-                dice.Choose(skillTables)(character, dice); //Choose a skill table and execute it.
-                FixupSkills(character, dice);
-            }
-
-            if (advancementRoll <= careerHistory.Terms)
-            {
-                character.AddHistory("Forced to muster out.", character.Age);
-                character.NextTermBenefits.MusterOut = true;
-            }
         }
         else
         {
@@ -123,4 +105,10 @@ abstract class NormalCareer(string name, string assignment, CharacterBuilder cha
                 character.Age += +4; //Complete the term dispite the mishap.
         }
     }
+
+    internal abstract void ServiceSkill(Character character, Dice dice);
+
+    protected abstract void AdvancedEducation(Character character, Dice dice);
+
+    protected abstract void PersonalDevelopment(Character character, Dice dice);
 }

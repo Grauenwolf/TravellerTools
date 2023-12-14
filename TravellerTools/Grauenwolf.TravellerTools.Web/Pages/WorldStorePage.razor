@@ -19,19 +19,26 @@
             <table class="gridtable">
                 <tr>
                     <th>Store Type</th>
+                    <th>Species</th>
                     <th>Options</th>
-                    <th>Broker Score</th>
-                    <th>Streetwise Score</th>
-                    <th>Restrictions</th>
                 </tr>
                 <tr>
                     <td>
                         <InputSelect @bind-Value="StoreTypeFilter">
                             <option value="">(all)</option>
                             @foreach (var item in StoreTypeList)
-                                {
+                            {
                                 <option value="@(item)" selected="@(StoreTypeFilter == item)"> @(item)</option>
-                                }
+                            }
+                        </InputSelect>
+                    </td>
+                    <td>
+                        <InputSelect @bind-Value="SpeciesFilter">
+                            <option value="">(all)</option>
+                            @foreach (var item in SpeciesList)
+                            {
+                                <option value="@(item)" selected="@(SpeciesFilter == item)"> @(item)</option>
+                            }
                         </InputSelect>
                     </td>
                     <td>
@@ -45,20 +52,27 @@
                             Discount Pricing
                         </label>
                     </td>
+                </tr>
+                <tr>
+                    <th>Broker Score</th>
+                    <th>Streetwise Score</th>
+                    <th>Restrictions</th>
+                </tr>
+                <tr>
                     <td>
                         <InputSelect @bind-Value="Options.BrokerScoreCode">
                             @for (var score = -6; score <= 8; score++)
-                                {
+                            {
                                 <option value="@(score)" selected="@(Options.BrokerScore == score)"> @(score)</option>
-                                }
+                            }
                         </InputSelect>
                     </td>
                     <td>
                         <InputSelect @bind-Value="Options.StreetwiseScoreCode">
                             @for (var score = -6; score <= 8; score++)
-                                {
+                            {
                                 <option value="@(score)" selected="@(Options.StreetwiseScore == score)"> @(score)</option>
-                                }
+                            }
                         </InputSelect>
                     </td>
                     <td>
@@ -99,7 +113,8 @@
         @foreach (var section in Store.Sections.OrderBy(s => s.Name))
         {
 
-            if (string.IsNullOrEmpty(StoreTypeFilter) || StoreTypeFilter == section.Name)
+            if ((string.IsNullOrEmpty(StoreTypeFilter) || StoreTypeFilter == section.Name)
+                && (string.IsNullOrEmpty(SpeciesFilter) || section.ContainsSpecies(SpeciesFilter)))
             {
 
                 <h3>
@@ -111,6 +126,7 @@
                 if (section.Items.Count > 0)
                 {
                     var showMass = section.Items.Any(i => !string.IsNullOrEmpty(i.Mass));
+                    var showSpecies = section.Items.Any(i => !string.IsNullOrEmpty(i.Species));
                     var showLaw = section.Items.Any(i => i.Law > 0);
                     var showBM = section.Items.Any(i => i.BlackMarket || i.SentencingDM.HasValue);
                     var showSkill = section.Items.Any(i => !string.IsNullOrEmpty(i.Skill));
@@ -119,6 +135,10 @@
                     <table class="gridtable">
                         <tr>
                             <th>Name</th>
+                            @if (showSpecies)
+                            {
+                                <th>Species</th>
+                            }
                             <th>TL</th>
                             @if (showMass)
                             {
@@ -149,10 +169,16 @@
                             }
                         </tr>
 
-                        @foreach (var item in section.Items.OrderBy(s => s.Name).ThenBy(s => s.TechLevel))
+                        @foreach (var item in section.Items
+                       .Where(s => (string.IsNullOrEmpty(SpeciesFilter) || s.Species == SpeciesFilter))
+                       .OrderBy(s => s.Name).ThenBy(s => s.TechLevel))
                         {
                             <tr>
                                 <td>@item.Name</td>
+                                @if (showSpecies)
+                                {
+                                    <td>@item.Species</td>
+                                }
                                 <td>@item.TechLevel</td>
                                 @if (showMass)
                                 {
@@ -178,7 +204,7 @@
                                 }
                                 @if (showLaw)
                                 {
-                                    <td>@(item.Law )</td>
+                                    <td>@(item.Law)</td>
                                 }
                                 @if (showBM)
                                 {
@@ -195,19 +221,28 @@
                                     <td>@(item.Skill)</td>
                                 }
                             </tr>
+
+                            if (!string.IsNullOrEmpty(item.Notes))
+                            {
+                                <tr>
+                                    <td colspan="10">@item.Notes</td>
+                                </tr>
+                            }
                         }
                     </table>
                 }
 
                 foreach (var subsection in section.Subsections.OrderBy(s => s.Name))
                 {
-                    if (section.Name != subsection.Name)
+                    if (subsection.Items.Count > 0 && (string.IsNullOrEmpty(SpeciesFilter) || subsection.ContainsSpecies(SpeciesFilter)))
                     {
-                        <h4>@(subsection.Name)</h4>
-                    }
 
-                    if (subsection.Items.Count > 0)
-                    {
+                        if (section.Name != subsection.Name)
+                        {
+                            <h4>@(subsection.Name)</h4>
+                        }
+
+                        var showSpecies = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Species));
                         var showMass = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Mass));
                         var showLaw = subsection.Items.Any(i => i.Law > 0);
                         var showBM = subsection.Items.Any(i => i.BlackMarket || i.SentencingDM.HasValue);
@@ -217,6 +252,10 @@
                         <table class="gridtable">
                             <tr>
                                 <th>Name</th>
+                                @if (showSpecies)
+                                {
+                                    <th>Species</th>
+                                }
                                 <th>TL</th>
                                 @if (showMass)
                                 {
@@ -247,10 +286,16 @@
                                 }
                             </tr>
 
-                            @foreach (var item in subsection.Items.OrderBy(s => s.Name).ThenBy(s => s.TechLevel))
+                            @foreach (var item in subsection.Items
+                           .Where(s => (string.IsNullOrEmpty(SpeciesFilter) || s.Species == SpeciesFilter))
+                           .OrderBy(s => s.Name).ThenBy(s => s.TechLevel))
                             {
                                 <tr>
                                     <td>@item.Name</td>
+                                    @if (showSpecies)
+                                    {
+                                        <td>@item.Species</td>
+                                    }
                                     <td>@item.TechLevel</td>
                                     @if (showMass)
                                     {
@@ -277,7 +322,7 @@
                                     }
                                     @if (showLaw)
                                     {
-                                        <td>@(item.Law )</td>
+                                        <td>@(item.Law)</td>
                                     }
                                     @if (showBM)
                                     {
@@ -294,10 +339,18 @@
                                         <td>@(item.Skill)</td>
                                     }
                                 </tr>
+
+                                if (!string.IsNullOrEmpty(item.Notes))
+                                {
+                                    <tr>
+                                        <td colspan="10">@item.Notes</td>
+                                    </tr>
+                                }
+
                             }
                         </table>
+                        <div>&nbsp;</div>
                     }
-                    <div>&nbsp;</div>
                 }
 
             }

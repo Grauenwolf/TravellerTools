@@ -1,5 +1,6 @@
 ﻿using Grauenwolf.TravellerTools.Maps;
 using System.Xml.Serialization;
+using Tortuga.Anchor;
 using static System.StringComparison;
 
 namespace Grauenwolf.TravellerTools.Equipment;
@@ -66,6 +67,7 @@ public class EquipmentBuilder
                     subsectionXml.Page = subsectionXml.Page ?? sectionXml.Page;
                     subsectionXml.Skill = subsectionXml.Skill ?? sectionXml.Skill;
                     subsectionXml.TL = ReadString(subsectionXml.TL, sectionXml.TL);
+                    subsectionXml.Species = ReadString(subsectionXml.Species, sectionXml.Species);
 
                     var subsection = section.Subsections.SingleOrDefault(s => s.Name == subsectionXml.Name);
                     if (subsection == null)
@@ -110,6 +112,26 @@ public class EquipmentBuilder
         return result.OrderBy(s => s).ToList();
     }
 
+    public List<string> GetSpeciesNames()
+    {
+        var result = new HashSet<string>();
+
+        foreach (var sectionXml in m_Book.Section)
+        {
+            if (sectionXml.Item != null)
+                foreach (var itemXml in sectionXml.Item.Where(x => !x.Species.IsNullOrEmpty()))
+                    result.Add(itemXml.Species);
+
+            if (sectionXml.Subsection != null)
+                foreach (var subsectionXml in sectionXml.Subsection)
+                    if (subsectionXml.Item != null)
+                        foreach (var itemXml in subsectionXml.Item.Where(x => !x.Species.IsNullOrEmpty()))
+                            result.Add(itemXml.Species);
+        }
+
+        return result.OrderBy(s => s).ToList();
+    }
+
     private static int ParseInt(string? arg1, string? arg2)
     {
         if (!string.IsNullOrWhiteSpace(arg1))
@@ -146,9 +168,11 @@ public class EquipmentBuilder
             Mod = itemXml.Mod ?? sectionXml.Mod,
             Contraband = itemXml.Contraband ?? sectionXml.Contraband,
             Mass = itemXml.Mass,
+            Notes = itemXml.Notes,
+            Species = itemXml.Species ?? sectionXml.Species,
             AmmoPrice = itemXml.AmmoPriceCredits,
             Skill = itemXml.Skill ?? sectionXml.Skill,
-            Page = itemXml.Page ?? sectionXml.Page
+            Page = itemXml.Page ?? sectionXml.Page,
         };
         if (item.Category == 0)
             item.Category = 1; //force a minimum category

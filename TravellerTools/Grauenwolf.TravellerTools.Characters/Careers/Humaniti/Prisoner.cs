@@ -2,18 +2,14 @@
 
 namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-abstract class Prisoner : CareerBase
+abstract class Prisoner(string assignment, CharacterBuilder characterBuilder) : CareerBase("Prisoner", assignment, characterBuilder)
 {
-    protected Prisoner(string assignment, CharacterBuilder characterBuilder) : base("Prisoner", assignment, characterBuilder)
-    {
-    }
-
     protected abstract string AdvancementAttribute { get; }
     protected abstract int AdvancementTarget { get; }
     protected abstract string SurvivalAttribute { get; }
     protected abstract int SurvivalTarget { get; }
 
-    internal void BasicTrainingSkills(Character character, Dice dice, bool all)
+    internal virtual void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
         //Rank 0 skill
         character.Skills.Add("Melee", "Unarmed", 1);
@@ -299,8 +295,7 @@ abstract class Prisoner : CareerBase
         }
         careerHistory.Terms += 1;
 
-        if (character.Parole == null)
-            character.Parole = dice.D(6) + 4;
+        character.Parole ??= dice.D(6) + 4;
 
         var survived = dice.RollHigh(character.GetDM(SurvivalAttribute) + character.NextTermBenefits.SurvivalDM, SurvivalTarget);
         if (survived)

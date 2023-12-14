@@ -1,1021 +1,1075 @@
 ﻿<?xml version="1.0"?>
 <Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <!--<Section Name="Ammunition" Book="CSC 2" />-->
-  <Books>
-    <Book Code="Core 2" Name="Traveller Core Rulebook, 2nd edition" Url="https://www.mongoosepublishing.com/us/traveller-core-rulebook.html" />
-    <Book Code="CSC 2" Name="Central Supply Catalogue, 2nd edition" Url="https://www.mongoosepublishing.com/us/central-supply-catalogue.html" />
-  </Books>
-  <Section Name="Augmentation" Book="CSC 2" Law="10" Category="1">
-    <Subsection Name="Head">
-      <Item Name="Assisted Ambulation-13" TL="13" Price="Cr100000" Page="90" />
-      <Item Name="Assisted Ambulation-14" TL="14" Price="Cr300000" Page="90" />
-      <Item Name="Assisted Ambulation-15" TL="15" Price="Cr500000" Page="90" />
-      <Item Name="Ballistic Tracking Lenses" TL="12" Price="Cr40000" Page="90" />
-      <Item Name="Cockpit Sensory Suite" TL="9" Price="MCr1" Page="90" />
-      <Item Name="Cognitive Augmentation INT +1" TL="12" Price="MCr0.5" Page="90" />
-      <Item Name="Cognitive Augmentation INT +2" TL="14" Price="MCr1" Page="90" />
-      <Item Name="Cognitive Augmentation INT +3" TL="16" Price="MCr5" Page="90" />
-      <Item Name="Complex Cranial Processing Unit" TL="14" Price="Cr350000" Page="91" />
-      <Item Name="Enhanced Vision-13" TL="13" Price="Cr25000" Page="91" />
-      <Item Name="Enhanced Vision-14" TL="14" Price="Cr50000" Page="91" />
-      <Item Name="Fabulous Augmentation Treatrment" TL="15" Price="MCr3.5" Page="91" />
-      <Item Name="Mechanostatic Scanner" TL="13" Price="Cr10000" Page="91" />
-      <Item Name="Nerve-Plug Response Rig" TL="13" Price="Cr225000" Page="91" />
-      <Item Name="Neural Comm - Audio Only" TL="10" Price="Cr1000" Page="91" />
-      <Item Name="Neural Comm - Audio/Visual, Computer/0" TL="12" Price="Cr5000" Page="91" />
-      <Item Name="Neural Comm - Multiple forms of data, Computer/1" TL="14" Price="Cr20000" Page="91" />
-      <Item Name="Neural Link" TL="13" Price="Cr30000" Page="91" />
-      <Item Name="Null Skull" TL="16" Price="MCr1" Page="92" />
-      <Item Name="Peripheral Vision Enhancement" TL="10" Price="Cr50000" Page="92" />
-      <Item Name="Psi-Taps" TL="16" Price="Cr750000" Page="92" />
-      <Item Name="Shriekbox-10" TL="10" Price="Cr8000" Page="92" />
-      <Item Name="Shriekbox-12" TL="12" Price="Cr16000" Page="92" />
-      <Item Name="Skill Augmentation" TL="12" Price="Cr150000" Page="92" />
-      <Item Name="Venom Glands" TL="11" Price="Cr10000" Page="92" />
-      <Item Name="Wafer Jack - Storage Rating/4" TL="12" Price="Cr10000" Page="92" />
-      <Item Name="Wafer jack - Storage Rating/8" TL="13" Price="Cr15000" Page="92" />
-    </Subsection>
-    <Subsection Name="Limbs">
-      <Item Name="Aslan Cyber-claw" TL="10" Price="Cr20000" Page="86" />
-      <Item Name="Autonomous Locomotion Rig" TL="9" Price="Cr15000" Page="86" />
-      <Item Name="Combat Arm-11" TL="11" Price="Cr50000" Page="86" />
-      <Item Name="Combat Arm-13" TL="13" Price="Cr75000" Page="86" />
-      <Item Name="Combat Arm-8" TL="8" Price="Cr25000" Page="86" />
-      <Item Name="Crude Prosthetic" TL="3" Price="Cr100" Page="87" />
-      <Item Name="Dexterity Augmentation DEX +1" TL="11" Price="Cr500000" Book="Core 2" />
-      <Item Name="Dexterity Augmentation DEX +2" TL="12" Price="MCr1" Book="Core 2" />
-      <Item Name="Dexterity Augmentation DEX +3" TL="15" Price="MCr5" Book="Core 2" />
-      <Item Name="Enhanced Mobility-11" TL="11" Price="Cr15000" Page="87" />
-      <Item Name="Enhanced Mobility-13" TL="13" Price="Cr25000" Page="87" />
-      <Item Name="Enhanced Mobility-8" TL="8" Price="Cr10000" Page="87" />
-      <Item Name="Functional Prosthetic" TL="7" Price="Cr250" Page="87" />
-      <Item Name="Strength Augmentation STR +1" TL="11" Price="Cr500000" Book="Core 2" />
-      <Item Name="Strength Augmentation STR +2" TL="12" Price="MCr1" Book="Core 2" />
-      <Item Name="Strength Augmentation STR +3" TL="15" Price="MCr5" Book="Core 2" />
-      <Item Name="Weapon Implant - Autopistol" TL="10" Price="Cr12000" Page="87" />
-      <Item Name="Weapon Implant - Dagger" TL="10" Price="Cr5000" Page="87" />
-      <Item Name="Weapon Implant - Laser Pistol" TL="10" Price="Cr25000" Page="87" />
-      <Item Name="Weapon Implant - Stunstick" TL="10" Price="Cr10000" Page="87" />
-    </Subsection>
-    <Subsection Name="Torso">
-      <Item Name="Additional Manipulator" TL="10" Price="Cr7500" Page="88" />
-      <Item Name="All-Temperture Epidermal Symbiote" TL="14" Price="Cr2500" Page="88" />
-      <Item Name="Bio-Fusion Power Port" TL="13" Price="Cr10000" Page="88" />
-      <Item Name="Cardiotrigger Detonator" TL="7" Price="0" Page="88" />
-      <Item Name="Endurance Augmentation END +1" TL="11" Price="Cr500000" Book="Core 2" />
-      <Item Name="Endurance Augmentation END +2" TL="12" Price="MCr1" Book="Core 2" />
-      <Item Name="Endurance Augmentation END +3" TL="15" Price="MCr5" Book="Core 2" />
-      <Item Name="Full Body Transplant" TL="18" Price="MCr1000" Page="88" />
-      <Item Name="Internal Auto-Injector" TL="10" Price="Cr50000" Page="89" />
-      <Item Name="Metastatic Platelet Injection" TL="12" Price="Cr25000" Page="89" />
-      <Item Name="Muscular Bridging" TL="13" Price="Cr250000" Page="89" />
-      <Item Name="Physical Augmentation +1" TL="11" Price="Cr500000" Page="89" />
-      <Item Name="Physical Augmentation +2" TL="12" Price="MCr1" Page="89" />
-      <Item Name="Physical Augmentation +3" TL="15" Price="MCr5" Page="89" />
-      <Item Name="Smuggling Container" TL="8" Price="Cr15000" Page="89" />
-      <Item Name="Soldier's Organ Package" TL="12" Price="MCr1.5" Page="89" />
-      <Item Name="Subdermal Armor +1" TL="10" Price="Cr50000" Page="90" />
-      <Item Name="Subdermal Armor +3" TL="11" Price="Cr100000" Page="90" />
-      <Item Name="Subdermal Armor +4" TL="12" Price="Cr250000" Page="90" />
-      <Item Name="Subdermal Armor +5" TL="14" Price="Cr500000" Page="90" />
-      <Item Name="Terminal Stabilisation System" TL="16" Price="MCr2.5" Page="90" />
-    </Subsection>
-  </Section>
-  <Section Name="Discerning Weapons Specialist" Law="9" Book="CSC 2" Contraband="Weapons">
-    <Subsection Name="Explosives" Skill="Explosives" Mod="Military" Law="1" Category="3">
-      <Item Name="Breaching Charge" TL="8" Price="Cr250" Mass="1" Page="136" />
-      <Item Name="Complex Chemical Charge" TL="10" Price="Cr500" Mass="1" Page="136" />
-      <Item Name="Fusion Block" TL="16" Price="Cr10000" Mass="1" Category="6" Page="136" />
-      <Item Name="Neutrino Charge" TL="17" Price="Cr50000" Mass="1" Page="137" />
-      <Item Name="Plastic" TL="6" Price="Cr200" Page="137" />
-      <Item Name="Pocket Nuke" TL="12" Price="Cr250000" Mass="4" Category="6" Page="137" />
-      <Item Name="TDX" TL="12" Price="Cr1000" Page="137" />
-    </Subsection>
-    <Subsection Name="Gun Combat Weapons" Skill="Gun Combat">
-      <Item Name="Bolas" TL="0" Price="Cr5" Mass="1" Page="134" />
-      <Item Name="Boomerang" TL="0" Price="0" Mass="1" Page="134" />
-      <Item Name="Monofilament Bolas" TL="12" Price="Cr500" Mass="1" Page="135" />
-      <Item Name="Net" TL="1" Price="Cr10" Mass="1" Page="135" />
-    </Subsection>
-    <Subsection Name="Melee Weapons" Skill="Melee">
-      <Item Name="Shock Whip" TL="9" Price="Cr450" Mass="1" Page="135" />
-      <Item Name="Whip" TL="1" Price="Cr15" Mass="1" Page="135" />
-    </Subsection>
-  </Section>
-  <Section Name="Electronics" Book="CSC 2">
-    <Subsection Name="Communications">
-      <Item Name="Bug-Audio only" TL="5" Price="Cr50" Mass="" Page="62" />
-      <Item Name="Bug-Audio or Visual" TL="7" Price="Cr100" Mass="" Page="62" />
-      <Item Name="Bug-Audio or Visual or Data" TL="9" Price="Cr200" Mass="" Page="62" />
-      <Item Name="Bug-Audio/Visual/Data" TL="11" Price="Cr300" Mass="" Page="62" />
-      <Item Name="Bug-Audio/Visual/Data/Bioscan" TL="13" Price="Cr400" Mass="" Page="62" />
-      <Item Name="Bug-Audio/Visual/Data/Bioscan/Computer/1" TL="15" Price="Cr500" Mass="" Page="62" />
-      <Item Name="Commdot" TL="10" Price="Cr10" Page="62" />
-      <Item Name="Holographic Projector-11" TL="11" Price="Cr1000" Mass="16" Page="62" />
-      <Item Name="Holographic Projector-12" TL="12" Price="Cr2000" Mass="12" Page="62" />
-      <Item Name="Holographic Projector-13" TL="13" Price="Cr10000" Mass="4" Page="62" />
-      <Item Name="Holographic Projector-15" TL="15" Price="Cr25000" Page="62" />
-      <Item Name="Laser Transceiver - 500km" TL="9" Price="Cr2500" Mass="1.5" Page="63" />
-      <Item Name="Laser Transceiver (Computer/0) - 500km" TL="11" Price="Cr1500" Mass="0.5" Page="63" />
-      <Item Name="Laser Transceiver (Computer/1) - 500km" TL="13" Price="Cr500" Mass="" Page="63" />
-      <Item Name="Mobile Comm-Audio and visual, Computer/0" TL="8" Price="Cr150" Mass="" Page="62" />
-      <Item Name="Mobile Comm-Audio only" TL="6" Price="Cr50" Mass="" Page="62" />
-      <Item Name="Mobile Comm-Multiple forms of data, Computer/1" TL="10" Price="Cr500" Mass="" Page="62" />
-      <Item Name="Radio Transceiver - 5000km" TL="5" Price="Cr15000" Mass="300" Page="63" />
-      <Item Name="Radio Transceiver - 500km" TL="14" Price="Cr500" Page="63" />
-      <Item Name="Radio Transceiver - 500km" TL="5" Price="Cr1500" Mass="150" Page="63" />
-      <Item Name="Radio Transceiver - 500km" TL="9" Price="Cr500" Page="63" />
-      <Item Name="Radio Transceiver - 50km" TL="10" Price="Cr250" Page="63" />
-      <Item Name="Radio Transceiver - 50km" TL="5" Price="Cr750" Mass="70" Page="63" />
-      <Item Name="Radio Transceiver - 5km" TL="5" Price="Cr225" Mass="20" Page="63" />
-      <Item Name="Radio Transceiver - 5km" TL="8" Price="Cr75" Page="63" />
-      <Item Name="Radio Transceiver (Computer/0) - 5000km" TL="12" Price="Cr1000" Mass="1" Page="63" />
-      <Item Name="Radio Transceiver (Computer/0) - 5000km" TL="9" Price="Cr5000" Page="63" />
-      <Item Name="Radio Transceiver (Computer/1) - 50km" TL="13" Price="Cr250" Page="63" />
-    </Subsection>
-    <Subsection Name="Computers">
-      <Item Name="Data Display/Recorder" TL="13" Price="5000" Book="Core 2" />
-      <Item Name="Data Wafer" TL="10" Price="5" Book="Core 2" />
-      <Item Name="Mainframe (Computer/0)" TL="5" Price="MCr2" Mass="5 tons" Page="66" Computer="Computer/0" />
-      <Item Name="Mainframe (Computer/1)" TL="6" Price="MCr4" Mass="4 tons" Page="66" Computer="Computer/1" />
-      <Item Name="Mainframe (Computer/2)" TL="7" Price="MCr5" Mass="1 ton" Page="66" Computer="Computer/2" />
-      <Item Name="Portable Computer (Computer/0)" TL="7" Price="Cr500" Mass="5" Page="66" Computer="Computer/0" />
-      <Item Name="Portable Computer (Computer/1)" TL="8" Price="Cr250" Mass="2" Page="66" Computer="Computer/1" />
-      <Item Name="Portable Computer (Computer/1)" TL="9" Price="Cr100" Mass="1" Page="66" Computer="Computer/1" />
-      <Item Name="Portable Computer (Computer/2)" TL="10" Price="Cr500" Mass="0.5" Page="66" Computer="Computer/2" />
-      <Item Name="Portable Computer (Computer/2)" TL="11" Price="Cr300" Mass="0.5" Page="66" Computer="Computer/2" />
-      <Item Name="Portable Computer (Computer/3)" TL="12" Price="Cr1000" Mass="0.5" Page="66" Computer="Computer/3" />
-      <Item Name="Portable Computer (Computer/4)" TL="13" Price="Cr1500" Mass="0.5" Page="66" Computer="Computer/4" />
-      <Item Name="Portable Computer (Computer/5)" TL="14" Price="Cr5000" Mass="0.5" Page="66" Computer="Computer/5" />
-      <Item Name="Portable Computer/0 Prototype 1" TL="6" Price="Cr5000" Mass="50 kg" Book="Core 2" />
-      <Item Name="Portable Computer/0 Prototype 2" TL="5" Price="Cr50000" Mass="500 kg" Book="Core 2" />
-      <Item Name="Portable Computer/0 Retrotech 1" TL="8" Price="250" Mass="2.5 kg" Book="Core 2" />
-      <Item Name="Portable Computer/0 Retrotech 2" TL="9" Price="125" Mass="1.25 kg" Book="Core 2" />
-      <Item Name="Portable Computer/0 Retrotech 3" TL="10" Price="63" Mass="0.5 kg" Book="Core 2" />
-      <Item Name="Portable Computer/1 Prototype 1" TL="7" Price="Cr2500" Mass="20 kg" Book="Core 2" />
-      <Item Name="Portable Computer/1 Prototype 1" TL="8" Price="Cr1000" Mass="10 kg" Book="Core 2" />
-      <Item Name="Portable Computer/1 Prototype 2" TL="6" Price="Cr25000" Mass="200 kg" Book="Core 2" />
-      <Item Name="Portable Computer/1 Prototype 2" TL="7" Price="Cr10000" Mass="100 kg" Book="Core 2" />
-      <Item Name="Portable Computer/1 Retrotech 1" TL="10" Price="50" Mass="0.5 kg" Book="Core 2" />
-      <Item Name="Portable Computer/1 Retrotech 1" TL="9" Price="125" Mass="1 kg" Book="Core 2" />
-      <Item Name="Portable Computer/1 Retrotech 2" TL="10" Price="63" Mass="0.5 kg" Book="Core 2" />
-      <Item Name="Portable Computer/1 Retrotech 2" TL="11" Price="25" Book="Core 2" />
-      <Item Name="Portable Computer/1 Retrotech 3" TL="11" Price="31" Book="Core 2" />
-      <Item Name="Portable Computer/1 Retrotech 3" TL="12" Price="13" Book="Core 2" />
-      <Item Name="Portable Computer/2 Prototype 1" TL="10" Price="Cr3000" Mass="5 kg" Book="Core 2" />
-      <Item Name="Portable Computer/2 Prototype 1" TL="9" Price="Cr5000" Mass="5 kg" Book="Core 2" />
-      <Item Name="Portable Computer/2 Prototype 2" TL="8" Price="Cr50000" Mass="50 kg" Book="Core 2" />
-      <Item Name="Portable Computer/2 Prototype 2" TL="9" Price="Cr30000" Mass="50 kg" Book="Core 2" />
-      <Item Name="Portable Computer/2 Retrotech 1" TL="11" Price="250" Book="Core 2" />
-      <Item Name="Portable Computer/2 Retrotech 1" TL="12" Price="150" Book="Core 2" />
-      <Item Name="Portable Computer/2 Retrotech 2" TL="12" Price="125" Book="Core 2" />
-      <Item Name="Portable Computer/2 Retrotech 2" TL="13" Price="75" Book="Core 2" />
-      <Item Name="Portable Computer/2 Retrotech 3" TL="13" Price="63" Book="Core 2" />
-      <Item Name="Portable Computer/2 Retrotech 3" TL="14" Price="38" Book="Core 2" />
-      <Item Name="Portable Computer/3 Prototype 1" TL="11" Price="Cr10000" Mass="5 kg" Book="Core 2" />
-      <Item Name="Portable Computer/3 Prototype 2" TL="10" Price="Cr100000" Mass="50 kg" Book="Core 2" />
-      <Item Name="Portable Computer/3 Retrotech 1" TL="13" Price="500" Book="Core 2" />
-      <Item Name="Portable Computer/3 Retrotech 2" TL="14" Price="250" Book="Core 2" />
-      <Item Name="Portable Computer/3 Retrotech 3" TL="15" Price="125" Book="Core 2" />
-      <Item Name="Portable Computer/4 Prototype 1" TL="12" Price="Cr15000" Mass="5 kg" Book="Core 2" />
-      <Item Name="Portable Computer/4 Prototype 2" TL="11" Price="Cr150000" Mass="50 kg" Book="Core 2" />
-      <Item Name="Portable Computer/4 Retrotech 1" TL="14" Price="750" Book="Core 2" />
-      <Item Name="Portable Computer/4 Retrotech 2" TL="15" Price="375" Book="Core 2" />
-      <Item Name="Portable Computer/4 Retrotech 3" TL="16" Price="188" Book="Core 2" />
-      <Item Name="Portable Computer/5 Prototype 1" TL="13" Price="Cr50000" Mass="5 kg" Book="Core 2" />
-      <Item Name="Portable Computer/5 Prototype 2" TL="12" Price="Cr500000" Mass="50 kg" Book="Core 2" />
-      <Item Name="Portable Computer/5 Retrotech 1" TL="15" Price="2500" Book="Core 2" />
-      <Item Name="Portable Computer/5 Retrotech 2" TL="16" Price="1250" Book="Core 2" />
-      <Item Name="Portable Computer/5 Retrotech 3" TL="17" Price="625" Book="Core 2" />
-    </Subsection>
-    <Subsection Name="Gadgets and Essentials">
-      <Item Name="Ring Laser" TL="16" Price="Cr1000" Page="64" />
-      <Item Name="Wrist Watch" TL="10" Price="Cr200" Page="64" />
-      <Item Name="Wrist Watch" TL="4" Price="Cr100" Page="64" />
-      <Item Name="Wrist Watch" TL="7" Price="Cr10" Page="64" />
-      <Item Name="Wrist Watch" TL="9" Price="Cr150" Page="64" />
-    </Subsection>
-    <Subsection Name="Software Packages" Contraband="Information">
-      <Item Name="Agent 0" TL="11" Price="Cr500" Law="2" Page="67" Bandwidth="0" />
-      <Item Name="Agent 1" TL="12" Price="Cr2000" Law="2" Page="67" Bandwidth="1" />
-      <Item Name="Agent 2" TL="13" Price="Cr100000" Law="2" Page="67" Bandwidth="2" />
-      <Item Name="Agent 3" TL="14" Price="Cr250000" Law="2" Page="67" Bandwidth="3" />
-      <Item Name="Database" TL="7" Price="Cr10000" Page="67" Bandwidth="1" />
-      <Item Name="Decryptor" TL="10" Price="Cr5000" Page="67" Bandwidth="1" />
-      <Item Name="Decryptor" TL="12" Price="Cr10000" Page="67" Bandwidth="2" />
-      <Item Name="Decryptor" TL="14" Price="Cr20000" Page="67" Bandwidth="3" />
-      <Item Name="Digital Friend" TL="12" Price="Cr1750" Page="68" Bandwidth="2" />
-      <Item Name="Expert" TL="11" Price="Cr1000" Page="68" Bandwidth="1" />
-      <Item Name="Expert" TL="12" Price="Cr10000" Page="68" Bandwidth="2" />
-      <Item Name="Expert" TL="13" Price="Cr100000" Page="68" Bandwidth="3" />
-      <Item Name="Expert (Admin) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Admin) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Admin) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Advocate) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Advocate) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Advocate) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Animal/Veterinary) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Animal/Veterinary) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Animal/Veterinary) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Astrogation) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Astrogation) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Astrogation) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Broker) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Broker) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Broker) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Electrionics/Comms) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Electrionics/Comms) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Electrionics/Comms) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Electrionics/Remote Ops) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Electrionics/Remote Ops) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Electrionics/Remote Ops) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Electrionics/Sensors) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Electrionics/Sensors) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Electrionics/Sensors) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Engineer/J-Drive) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Engineer/J-Drive) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Engineer/J-Drive) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Engineer/Life Support) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Engineer/Life Support) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Engineer/Life Support) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Engineer/M-Drive) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Engineer/M-Drive) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Engineer/M-Drive) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Engineer/Power) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Engineer/Power) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Engineer/Power) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Investigate) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Investigate) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Investigate) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Mechanic) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Mechanic) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Mechanic) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Medic) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Medic) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Medic) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Navigation) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Navigation) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Navigation) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Belter) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Belter) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Belter) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Biologicals) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Biologicals) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Biologicals) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Civil Engineering) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Civil Engineering) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Civil Engineering) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Construction) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Construction) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Construction) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Hydroponics) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Hydroponics) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Hydroponics) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Polymers) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Polymers) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Profession/Polymers) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Archaeology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Archaeology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Archaeology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Biology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Biology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Biology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Chemistry) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Chemistry) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Chemistry) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Cosmology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Cosmology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Cosmology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Cybernetics) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Cybernetics) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Cybernetics) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Economics) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Economics) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Economics) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Genetics) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Genetics) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Genetics) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/History) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/History) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/History) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Linguistics) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Linguistics) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Linguistics) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Philosophy) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Philosophy) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Philosophy) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Physics) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Physics) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Physics) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Planetology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Planetology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Planetology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Psionicology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Psionicology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Psionicology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Psychology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Psychology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Psychology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Robotics) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Robotics) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Robotics) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Sophontology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Sophontology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Sophontology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Xenology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Xenology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Science/Xenology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Survival) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Survival) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
-      <Item Name="Expert (Survival) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
-      <Item Name="Intellect 1" TL="12" Price="Cr2000" Page="68" Bandwidth="1" />
-      <Item Name="Intellect 2" TL="13" Price="Cr50000" Page="68" Bandwidth="2" />
-      <Item Name="Intellect 3" TL="14" Price="Cr200000" Page="68" Bandwidth="3" />
-      <Item Name="Intelligent Interface" TL="11" Price="Cr100" Page="68" Bandwidth="1" />
-      <Item Name="Interface" TL="7" Price="Cr0" Page="68" Bandwidth="0" />
-      <Item Name="Intrusion 1" TL="10" Price="Cr1000" Law="3" Page="68" Bandwidth="1" />
-      <Item Name="Intrusion 2" TL="11" Price="Cr10000" Law="3" Page="68" Bandwidth="2" />
-      <Item Name="Intrusion 3" TL="13" Price="Cr100000" Law="3" Page="68" Bandwidth="3" />
-      <Item Name="Intrusion 4" TL="15" Price="MCr1" Law="3" Page="68" Bandwidth="4" />
-      <Item Name="Personal Trainer" TL="8" Price="Cr2000" Page="69" Bandwidth="1" />
-      <Item Name="Security 0" TL="8" Price="Cr0" Law="4" Page="69" Difficulty="Difficult (10+)" Bandwidth="0" />
-      <Item Name="Security 1" TL="10" Price="Cr200" Law="4" Page="69" Difficulty="Very Difficult (12+)" Bandwidth="1" />
-      <Item Name="Security 2" TL="11" Price="Cr1000" Law="4" Page="69" Difficulty="Formidable (14+)" Bandwidth="2" />
-      <Item Name="Security 3" TL="12" Price="Cr20000" Law="4" Page="69" Difficulty="Impossible (16+)" Bandwidth="3" />
-      <Item Name="Translator" TL="10" Price="Cr500" Page="69" Bandwidth="1" />
-      <Item Name="Translator" TL="9" Price="Cr50" Page="69" Bandwidth="0" />
-      <Item Name="Universal Translator" TL="12" Price="Cr25000" Page="69" Bandwidth="3" />
-    </Subsection>
-    <Subsection Name="Vision and Detection">
-      <Item Name="Bioscanner" TL="15" Price="Cr350000" Mass="3.5" Book="Core 2" />
-      <Item Name="Chemi-view Goggles" TL="13" Price="Cr5000" Page="59" />
-      <Item Name="Cold Light Lantern" TL="6" Price="Cr20" Mass="0.25" Page="59" />
-      <Item Name="Densitometer" TL="14" Price="Cr20000" Mass="5" Book="Core 2" />
-      <Item Name="Electronic Binoculars" TL="8" Price="Cr750" Mass="1" Page="60" />
-      <Item Name="Geiger Counter" TL="5" Price="Cr250" Mass="1" Page="60" />
-      <Item Name="Geiger Counter" TL="8" Price="Cr400" Page="60" />
-      <Item Name="Infrared Electric Torch" TL="7" Price="Cr50" Page="60" />
-      <Item Name="Infrared Goggles" TL="6" Price="Cr500" Page="60" />
-      <Item Name="Light Intensifier Goggles" TL="7" Price="Cr500" Mass="1" Page="60" />
-      <Item Name="Light Intensifier Goggles" TL="9" Price="Cr1250" Mass="-" Page="60" />
-      <Item Name="NAS" TL="15" Price="Cr35000" Mass="10" Book="Core 2" />
-      <Item Name="Personal HUD" TL="9" Price="Cr1500" Mass="-" Page="61" />
-      <Item Name="PRIS Binoculars" TL="12" Price="Cr3500" Mass="1" Page="61" />
-      <Item Name="PRIS Goggles" TL="12" Price="Cr4000" Page="61" />
-      <Item Name="Psi-finder Binoculars" TL="16" Price="Cr10000" Mass="1" Page="61" />
-    </Subsection>
-  </Section>
-  <Section Name="Heavy Weapons" Book="CSC 2" Mod="Military" Law="3" Category="4" Contraband="Weapons">
-    <Subsection Name="Artillery" Skill="Heavy Weapons (artillery)" Mod="Military" Category="4">
-      <Item Name="Black Powder Mortar" TL="3" Price="Cr2000" Mass=".5 tons" Page="126" />
-      <Item Name="Bombardment Gun" TL="5" Price="MCr0.5" Mass="220 tons" Page="126" />
-      <Item Name="Demolition Gun" TL="6" Price="Cr30000" Mass="5 tons" Page="126" />
-      <Item Name="Heavy Bombardment Gun" TL="5" Price="MCr0.75" Mass="500 tons" Page="126" />
-      <Item Name="Heavy Gun" TL="8" Price="Cr120000" Mass="12 tons" Page="127" />
-      <Item Name="Infantry Mortar" TL="5" Price="Cr3500" Mass="12" Page="127" />
-      <Item Name="Light Gun" TL="6" Price="Cr75000" Mass="2 tons" Page="127" />
-      <Item Name="Light Howitzer" TL="5" Price="Cr50000" Mass="2 tons" Page="127" />
-      <Item Name="Mass Driver" TL="12" Price="MCr0.5" Mass="7 tons" Page="128" />
-      <Item Name="Siege Gun" TL="7" Price="MCr19" Mass="1200 tons" Page="127" />
-    </Subsection>
-    <Subsection Name="Man Portable Weaponry" Skill="Heavy Weapons (Man Portable)" Mod="Military" Category="4">
-      <Item Name="Anti-Materiel Rifle" TL="7" Price="Cr3000" Mass="15" Page="123" />
-      <Item Name="Cryojet" TL="11" Price="Cr4000" Mass="14" Page="123" />
-      <Item Name="Disposable Plasma Launcher" TL="12" Price="Cr8000" Mass="8" Category="5" Page="123" />
-      <Item Name="FGMP-14" TL="14" Price="Cr100000" Mass="12" Category="5" Page="124" />
-      <Item Name="FGMP-15" TL="15" Price="Cr400000" Mass="12" Category="5" Page="124" />
-      <Item Name="FGMP-16" TL="16" Price="MCr.5" Mass="15" Category="5" Page="124" />
-      <Item Name="Flamethrower-4" TL="4" Price="Cr800" Mass="20" Page="124" />
-      <Item Name="Flamethrower-6" TL="6" Price="Cr1500" Mass="15" Page="124" />
-      <Item Name="Flamethrower-8" TL="8" Price="Cr2000" Mass="10" Page="124" />
-      <Item Name="Grenade Launcher" TL="7" Price="0" Mass="6" Page="124" />
-      <Item Name="Machinegun" TL="6" Price="Cr1500" Mass="12" Page="124" />
-      <Item Name="PGMP-12" TL="12" Price="Cr20000" Mass="10" Category="5" Page="125" />
-      <Item Name="PGMP-14" TL="14" Price="Cr65000" Mass="10" Category="5" Page="125" />
-      <Item Name="PGMP-16" TL="16" Price="Cr100000" Mass="10" Category="5" Page="125" />
-      <Item Name="Plasma Jet-12" TL="12" Price="Cr16000" Mass="10" Category="5" Page="125" />
-      <Item Name="Plasma Jet-4" TL="14" Price="Cr80000" Mass="10" Category="5" Page="125" />
-      <Item Name="RAM Grenade Launcher" TL="8" Price="Cr800" Mass="2" Page="125" />
-      <Item Name="Rapid-Fire Machine Gun" TL="7" Price="Cr3000" Mass="12" Page="125" />
-      <Item Name="Rocket Launcher-6" TL="6" Price="Cr2000" Mass="8" Page="125" />
-      <Item Name="Rocket Launcher-7" TL="7" Price="Cr2000" Mass="8" Page="125" />
-      <Item Name="Rocket Launcher-8" TL="8" Price="Cr2000" Mass="8" Page="125" />
-      <Item Name="Rocket Launcher-9" TL="9" Price="Cr2000" Mass="8" Page="125" />
-    </Subsection>
-    <Subsection Name="Rockets and Missiles" Skill="Heavy Weapons (vehicle)" Mod="Military">
-      <Item Name="Bombardment Rocket Pack" TL="6" Price="Cr30000" Mass="2 tons" Page="133" />
-      <Item Name="Heavy Rocket Pod" TL="6" Price="Cr12000" Mass="0.5 tons" Page="133" />
-      <Item Name="Rocket Pod" TL="6" Price="Cr8000" Mass="0.25 tons" Page="133" />
-      <Item Name="Tac Launcher (Anti-Aircraft)" TL="10" Price="Cr16000" Mass=".025 tons" Page="133" />
-      <Item Name="Tac Launcher (Anti-Personnel)" TL="10" Price="Cr12000" Mass=".025 tons" Page="133" />
-      <Item Name="Tac Launcher (Armor Piercing)" TL="10" Price="Cr15000" Mass=".025 tons" Page="133" />
-    </Subsection>
-    <Subsection Name="Vehicle Weapons" Skill="Heavy Weapons (vehicle)" Mod="Military" Category="4">
-      <Item Name="Aerospace Defence Laser" TL="12" Price="MCr4" Mass="12 tons" Page="128" />
-      <Item Name="Black Powder Cannon" TL="3" Price="Cr3000" Mass="0.5 tons" Page="128" />
-      <Item Name="Cannon" TL="8" Price="Cr400000" Mass="2.5 tons" Page="129" />
-      <Item Name="Field Gun" TL="4" Price="Cr5000" Mass="0.5 tons" Category="5" Page="129" />
-      <Item Name="Fusion Gun-X" TL="13" Price="MCr2" Mass="4 tons" Category="5" Page="129" />
-      <Item Name="Fusion Gun-Y" TL="14" Price="MCr3" Mass="4 tons" Category="5" Page="129" />
-      <Item Name="Fusion Gun-Z" TL="15" Price="MCr8" Mass="4 tons" Category="5" Page="129" />
-      <Item Name="Gatling Laser" TL="8" Price="Cr125000" Mass="7 tons" Page="129" />
-      <Item Name="Gauss Cannon" TL="12" Price="Cr100000" Mass="1 ton" Page="129" />
-      <Item Name="Heavy Autocannon" TL="6" Price="Cr45000" Mass="1 ton" Page="130" />
-      <Item Name="Heavy Cannon" TL="8" Price="Cr600000" Mass="4 tons" Page="130" />
-      <Item Name="Heavy Gauss Cannon" TL="12" Price="Cr225000" Mass="2 tons" Page="130" />
-      <Item Name="Heavy Laser Cannon" TL="9" Price="Cr250000" Mass="9 tons" Page="130" />
-      <Item Name="Heavy Machinegun" TL="6" Price="Cr4500" Mass="0.1 tons" Page="130" />
-      <Item Name="Hypervelocity Cannon" TL="13" Price="MCr28" Mass="20 tons" Page="130" />
-      <Item Name="Laser Cannon" TL="9" Price="Cr100000" Mass="6 tons" Page="131" />
-      <Item Name="Light Autocannon" TL="6" Price="Cr10000" Mass="0.25 tons" Page="131" />
-      <Item Name="Medium Autocannon" TL="6" Price="Cr25000" Mass="0.5 tons" Page="131" />
-      <Item Name="Meson Accelerator" TL="16" Price="MCr20" Mass="60 tons" Page="131" />
-      <Item Name="Orbital Defence Cannon" TL="14" Price="MCr40" Mass="35 tons" Page="132" />
-      <Item Name="Plasma Gun-A" TL="10" Price="MCr0.5" Mass="4 tons" Category="5" Page="132" />
-      <Item Name="Plasma Gun-B" TL="11" Price="MCr1" Mass="4 tons" Category="5" Page="132" />
-      <Item Name="Plasma Gun-C" TL="12" Price="MCr1.5" Mass="4 tons" Category="5" Page="132" />
-      <Item Name="Rail Gun" TL="9" Price="Cr75000" Mass="3 tons" Page="132" />
-      <Item Name="Support Mortar" TL="7" Price="Cr11000" Mass="0.25 tons" Page="128" />
-      <Item Name="Vulcan Machinegun" TL="7" Price="Cr12000" Mass="0.25 tons" Page="132" />
-    </Subsection>
-  </Section>
-  <Section Name="Home Comforts" Book="CSC 2">
-    <Subsection Name="Home Comforts">
-      <Item Name="Alien Cosplay Kit" TL="7" Price="Cr350" Mass="1" Page="94" />
-      <Item Name="Autobar" TL="8" Price="Cr300" Mass="4" Page="94" />
-      <Item Name="Autochef" TL="9" Price="Cr200" Mass="6" Page="94" />
-      <Item Name="Autochef (gourmet model)" TL="10" Price="Cr2500" Mass="5" Page="94" />
-      <Item Name="Autolaundry" TL="10" Price="Cr500" Mass="6" Page="94" />
-      <Item Name="Autolaundry" TL="17" Price="Cr1000" Mass="5" Page="94" />
-      <Item Name="Autolaundry" TL="7" Price="Cr250" Mass="18" Page="94" />
-      <Item Name="Bed (anti-grav)" TL="12" Price="Cr1500" Mass="5" Page="95" />
-      <Item Name="Bed (anti-grav, king-size)" TL="12" Price="Cr7500" Mass="15" Page="95" />
-      <Item Name="Bed (hammock)" TL="2" Price="Cr10" Page="95" />
-      <Item Name="Bed (mattress)" TL="1" Price="Cr200" Mass="80" Page="95" />
-      <Item Name="Bed (mattress, king-size)" TL="1" Price="Cr1000" Mass="240" Page="95" />
-      <Item Name="Clothing Consultant" TL="9" Price="Cr800" Mass="6" Page="94" />
-      <Item Name="Environment Replicator" TL="8" Price="Cr2000" Mass="12" Page="95" />
-      <Item Name="Float Table (large)" TL="10" Price="Cr600" Mass="4" Page="95" />
-      <Item Name="Float Table (small)" TL="10" Price="Cr200" Mass="1" Page="95" />
-      <Item Name="Full Body Hair Styler" TL="8" Price="Cr1250" Mass="8" Page="95" />
-      <Item Name="Hair Styler" TL="8" Price="Cr450" Mass="2" Page="95" />
-      <Item Name="High Fidelity Music System" TL="11" Price="Cr4500" Mass="8" Page="95" />
-      <Item Name="High Fidelity Music System" TL="6" Price="Cr1500" Mass="8" Page="95" />
-      <Item Name="Holographic Play Table" TL="9" Price="Cr750" Mass="9" Page="95" />
-      <Item Name="Home Theatre" TL="10" Price="Cr36000" Mass="9" Page="96" />
-      <Item Name="Home Theatre" TL="8" Price="Cr4500" Mass="30" Page="96" />
-      <Item Name="Home Theatre" TL="9" Price="Cr12000" Mass="20" Page="96" />
-      <Item Name="Lords of Space" TL="10" Price="Cr250" Mass="1" Page="96" />
-      <Item Name="Miniatures Wargame" TL="10" Price="Cr2500" Mass="1" Page="96" />
-      <Item Name="Miniatures Wargame" TL="11" Price="Cr25000" Mass="1" Page="96" />
-      <Item Name="Miniatures Wargame" TL="5" Price="Cr25" Mass="1" Page="96" />
-      <Item Name="Miniatures Wargame" TL="7" Price="Cr250" Mass="1" Page="96" />
-      <Item Name="Personal Safe (difficult)" TL="5" Price="Cr150" Mass="5" Page="96" />
-      <Item Name="Personal Safe (formidable)" TL="12" Price="Cr600" Mass="3" Page="96" />
-      <Item Name="Personal Safe (very difficult)" TL="6" Price="Cr250" Mass="4" Page="96" />
-      <Item Name="Personal Safe (very difficult)" TL="8" Price="Cr400" Mass="3" Page="96" />
-      <Item Name="Remembrance Hologram" TL="9" Price="Cr250" Page="96" />
-      <Item Name="Sleep Inducer" TL="10" Price="Cr1000" Mass="2" Page="96" />
-      <Item Name="Sonic Sweat and Stain Remover" TL="13" Price="Cr125" Mass="1" Page="97" />
-      <Item Name="Sphere of Solace" TL="10" Price="Cr500" Mass="1" Page="97" />
-      <Item Name="Vivarium (1-2 hits)" TL="8" Price="Cr400" Mass="2" Page="97" />
-      <Item Name="Vivarium (3-5 hits)" TL="8" Price="Cr1000" Mass="4" Page="97" />
-      <Item Name="Vivarium (6-10 hits)" TL="8" Price="Cr2200" Mass="8" Page="97" />
-    </Subsection>
-  </Section>
-  <Section Name="Medical Supplies" Book="CSC 2">
-    <Subsection Name="Drugs and Pharmaceuticals" Contraband="Drugs">
-      <Item Name="Adrenaliser" TL="10" Price="Cr150" Page="83" Law="4" />
-      <Item Name="Anagathics" TL="15" Price="Cr20000" Page="83" Law="5" />
-      <Item Name="Anti-Rad" TL="8" Price="Cr1000" Page="83" Law="8" />
-      <Item Name="Combat Drug" TL="10" Price="Cr1000" Page="83" Law="3" />
-      <Item Name="Fast Drug" TL="10" Price="Cr200" Page="83" Law="6" />
-      <Item Name="Inhibitor Drug" TL="9" Price="Cr500" Page="83" Law="9" />
-      <Item Name="Metabolic Accelerator" TL="10" Price="Cr500" Page="84" Law="3" />
-      <Item Name="Meta-Performance Enhancer" TL="10" Price="Cr600" Page="83" Law="3" />
-      <Item Name="Nervous Response Dampener" TL="9" Price="Cr100" Page="84" Law="4" />
-      <Item Name="Null Drug" TL="16" Price="Cr5000" Page="84" Law="9" />
-      <Item Name="Panacea" TL="8" Price="Cr200" Page="84" Law="8" />
-      <Item Name="Psi-Drug (double)" TL="8" Price="Cr4000" Page="84" Contraband="Psionics" Law="6" />
-      <Item Name="Psi-Drug (special)" TL="8" Price="Cr10000" Page="84"  Contraband="Psionics" Law="6" />
-      <Item Name="Psi-Drug (standard)" TL="8" Price="Cr1000" Page="84"  Contraband="Psionics" Law="6" />
-      <Item Name="Radiation Emergency Applicator" TL="10" Price="Cr250" Page="84" Law="8" />
-      <Item Name="Recreational Drugs" TL="1" Price="Cr10+" Page="84" Law="4" />
-      <Item Name="Slow Drug" TL="11" Price="Cr500" Page="85" Law="6" />
-      <Item Name="Starlight Drops" TL="12" Price="Cr500" Page="85" Law="3" />
-      <Item Name="Stims" TL="8" Price="Cr50" Page="85" Law="4" />
-      <Item Name="Truth Serum" TL="5" Price="Cr500" Page="85" Law="1" />
-    </Subsection>
-    <Subsection Name="Medical Equipment">
-      <Item Name="Adhesive bandages" TL="6" Price="Cr50" Page="81" />
-      <Item Name="Autodoc-13" TL="13" Price="Cr100000" Mass="500" Page="81" />
-      <Item Name="Autodoc-14" TL="14" Price="MCr1" Mass="500" Page="81" />
-      <Item Name="Cryoberth" TL="10" Price="Cr50000" Mass="200" Page="81" />
-      <Item Name="Field Medical Kit" TL="6" Price="Cr500" Mass="3" Page="81" />
-      <Item Name="Field Surgical Kit" TL="5" Price="Cr1000" Page="81" />
-      <Item Name="First Aid Kit-2" TL="2" Price="Cr10" Page="82" />
-      <Item Name="First Aid Kit-5" TL="5" Price="Cr125" Page="82" />
-      <Item Name="Laser Scalpel" TL="10" Price="Cr2000" Page="79" />
-      <Item Name="Medkit-10" TL="10" Price="Cr1500" Mass="1" Page="82" />
-      <Item Name="Medkit-12" TL="12" Price="Cr5000" Mass="1" Page="82" />
-      <Item Name="Medkit-14" TL="14" Price="Cr10000" Page="82" />
-      <Item Name="Medkit-8" TL="8" Price="Cr1000" Mass="1" Page="82" />
-      <Item Name="Personal Automedic" TL="11" Price="Cr15000" Page="82" />
-      <Item Name="Personal Mediscanner" TL="12" Price="Cr1000" Page="82" />
-      <Item Name="Portable mediscanner" TL="12" Price="Cr2000" Mass="1" Page="82" />
-      <Item Name="Trauma Pack" TL="8" Price="Cr750" Mass="2" Page="82" />
-    </Subsection>
-  </Section>
-  <Section Name="Personal Protection" Book="CSC 2" Contraband="Weapons">
-    <Subsection Name="Armor">
-      <Item Name="Ablat" TL="9" Price="Cr75" Mass="2" Law="2" Category="4" Page="16" />
-      <Item Name="Advanced Poly Carapace" TL="13" Price="Cr35000" Mass="2" Law="2" Category="4" Page="13" />
-      <Item Name="Ballistic Vest" TL="8" Price="Cr500" Mass="1" Law="3" Category="4" Page="11" />
-      <Item Name="Breastplate" TL="1" Price="Cr200" Mass="5" Law="8" Category="3" Page="15" />
-      <Item Name="Ceramic Carapace" TL="12" Price="Cr12000" Mass="4" Law="2" Category="4" Page="11" />
-      <Item Name="Cloth-10" TL="10" Price="Cr500" Mass="5" Law="4" Category="3" Page="11" />
-      <Item Name="Cloth-12" TL="12" Price="Cr750" Mass="2" Law="4" Category="3" Page="11" />
-      <Item Name="Cloth-7" TL="7" Price="Cr250" Mass="10" Law="4" Category="3" Page="11" />
-      <Item Name="Conduit Bleed" TL="14" Price="Cr3500" Mass="8" Law="2" Category="4" Page="17" />
-      <Item Name="Diplo Vest" TL="10" Price="Cr250" Law="2" Category="4" Page="12" />
-      <Item Name="Dispersion" TL="12" Price="Cr2000" Mass="3" Law="2" Category="4" Page="17" />
-      <Item Name="Fireproof Suit" TL="7" Price="Cr50" Mass="1" Law="8" Category="1" Page="17" />
-      <Item Name="Flak Jacket-7" TL="7" Price="Cr100" Mass="8" Law="3" Category="3" Page="12" />
-      <Item Name="Flak jacket-8" TL="8" Price="Cr300" Mass="6" Law="3" Category="3" Page="12" />
-      <Item Name="Flak Shell" TL="9" Price="Cr1000" Mass="8" Law="3" Category="3" Page="12" />
-      <Item Name="Full Plate" TL="2" Price="Cr1000" Mass="20" Law="8" Category="3" Page="15" />
-      <Item Name="Half-Plate" TL="2" Price="Cr800" Mass="12" Law="8" Category="3" Page="15" />
-      <Item Name="Jack" TL="1" Price="Cr50" Mass="1" Law="8" Category="3" Page="12" />
-      <Item Name="Lightweight Poly Carapace" TL="11" Price="Cr15000" Mass="2" Law="2" Category="4" Page="13" />
-      <Item Name="Mail Hauberk" TL="2" Price="Cr500" Mass="8" Law="8" Category="3" Page="16" />
-      <Item Name="Mesh" TL="6" Price="Cr150" Mass="2" Law="5" Category="3" Page="13" />
-      <Item Name="Neural Sheath" TL="17" Price="Cr80000" Mass="2" Law="2" Category="4" Page="18" />
-      <Item Name="Poly Carapace" TL="10" Price="Cr10000" Mass="2" Law="2" Category="4" Page="13" />
-      <Item Name="Post-Apocalyptic" TL="6" Price="Cr150" Mass="3" Law="2" Category="4" Page="13" />
-      <Item Name="Protect Suit" TL="9" Price="Cr500" Mass="1" Law="2" Category="4" Page="14" />
-      <Item Name="Reflec" TL="10" Price="Cr1500" Mass="1" Law="8" Category="3" Page="18" />
-      <Item Name="Tactical Riot Armor" TL="7" Price="Cr600" Mass="6" Law="3" Category="4" Page="14" />
-    </Subsection>
-    <Subsection Name="Armor Modifications">
-      <Item Name="Additional Padding" TL="1" Price="Cr50" Mass="5" Page="27" />
-      <Item Name="Camouflage" TL="3" Price="Cr25" Law="3" Category="3" Page="27" />
-      <Item Name="Chameleon, IR" TL="12" Price="Cr5000" Law="3" Category="3" Page="27" />
-      <Item Name="Chameleon, Visilight" TL="13" Price="Cr50000" Law="3" Category="3" Page="27" />
-      <Item Name="Computer Weave-10" TL="10" Price="Cr500" Page="27" />
-      <Item Name="Computer Weave-11" TL="11" Price="Cr1000" Page="27" />
-      <Item Name="Computer Weave-13" TL="13" Price="Cr5000" Page="27" />
-      <Item Name="Coolant Rig" TL="8" Price="Cr100" Mass="2" Page="27" />
-      <Item Name="Environment Reader" TL="8" Price="Cr100" Page="27" />
-      <Item Name="Extended Life Support" TL="10" Price="Cr10000" Page="27" />
-      <Item Name="Eye Protection" TL="6" Price="Cr50" Page="27" />
-      <Item Name="Friend or Foe HUD" TL="11" Price="Cr4000" Page="27" />
-      <Item Name="Gyro-Stabilizer Rig-12" TL="12" Price="Cr10000" Mass="1" Page="27" />
-      <Item Name="Gyro-Stabilizer Rig-14" TL="14" Price="Cr50000" Mass="1" Page="27" />
-      <Item Name="Magnetic Grapples" TL="8" Price="Cr100" Law="3" Category="3" Page="28" />
-      <Item Name="Medkit-10" TL="10" Price="Cr5000" Page="28" />
-      <Item Name="Medkit-11" TL="11" Price="Cr10000" Page="28" />
-      <Item Name="Minefield Boots" TL="8" Price="Cr250" Mass="3" Page="28" />
-      <Item Name="Null Shield" TL="17" Price="Cr150000" Page="28" />
-      <Item Name="Personalized Image" TL="2" Price="Cr10" Page="28" />
-      <Item Name="Psionic Shield Helmet" TL="12" Price="Cr4000" Mass="2" Page="28" />
-      <Item Name="Self-Sealing" TL="11" Price="Cr2000" Page="28" />
-      <Item Name="Smart Fabric" TL="10" Price="Cr1000" Page="28" />
-      <Item Name="Submarine Functionality" TL="9" Price="0" Mass="6" Page="28" />
-      <Item Name="Tactical Video Suite" TL="7" Price="Cr75" Mass="2" Page="28" />
-      <Item Name="Thruster Pack-12" TL="12" Price="Cr14000" Page="28" />
-      <Item Name="Thruster Pack-14" TL="14" Price="Cr20000" Page="28" />
-      <Item Name="Thruster Pack-9" TL="9" Price="Cr2000" Page="28" />
-    </Subsection>
-    <Subsection Name="Battle Dress" Law="1" Category="5" Mod="Military">
-      <Item Name="Artillery Battle Dress-13" TL="13" Price="Cr275000" Mass="180" Page="31" Skill="Vacc Suit 2" />
-      <Item Name="Artillery Battle Dress-14" TL="14" Price="Cr320000" Mass="180" Page="31" Skill="Vacc Suit 1" />
-      <Item Name="Assault Battle Dress-13" TL="13" Price="Cr300000" Mass="140" Page="31" Skill="Vacc Suit 2" />
-      <Item Name="Assault Battle Dress-14" TL="14" Price="Cr330000" Mass="140" Page="31" Skill="Vacc Suit 1" />
-      <Item Name="Battle Dress-13" TL="13" Price="Cr200000" Mass="100" Page="32" Skill="Vacc Suit 2" />
-      <Item Name="Battle Dress-14" TL="14" Price="Cr220000" Mass="100" Page="32" Skill="Vacc Suit 1" />
-      <Item Name="Ceramic Battle Dress-13" TL="13" Price="Cr400000" Mass="100" Page="32" Skill="Vacc Suit 2" />
-      <Item Name="Ceramic Battle Dress-14" TL="14" Price="Cr440000" Mass="100" Page="32" Skill="Vacc Suit 1" />
-      <Item Name="Combat Pioneer Battle Dress" TL="13" Price="Cr270000" Mass="120" Page="33" Skill="Vacc Suit 2" />
-      <Item Name="Command Battle Dress-13" TL="13" Price="Cr325000" Mass="110" Page="33" Skill="Vacc Suit 2" />
-      <Item Name="Command Battle Dress-14" TL="14" Price="Cr350000" Mass="110" Page="33" Skill="Vacc Suit 1" />
-      <Item Name="Logistics Battle Dress-13" TL="13" Price="Cr290000" Mass="220" Page="34" Skill="Vacc Suit 2" />
-      <Item Name="Logistics Battle Dress-14" TL="14" Price="Cr320000" Mass="220" Page="34" Skill="Vacc Suit 1" />
-      <Item Name="Psi-Commando Battle Dress" TL="15" Price="MCr1.2" Mass="110" Page="34" Skill="Vacc Suit 1" />
-      <Item Name="Psi-Enhanced Battle Dress-13" TL="13" Price="Cr800000" Mass="100" Page="35" Skill="Vacc Suit 1" />
-      <Item Name="Psi-Enhanced Battle Dress-14" TL="14" Price="Cr880000" Mass="100" Page="35" Skill="Vacc Suit 1" />
-      <Item Name="Scout Battle Dress-13" TL="13" Price="Cr270000" Mass="90" Page="35" Skill="Vacc Suit 1" />
-      <Item Name="Scout Battle Dress-14" TL="14" Price="Cr300000" Mass="90" Page="35" Skill="Vacc Suit 1" />
-    </Subsection>
-    <Subsection Name="Battle Dress Modifications" Law="1" Category="5" Mod="Military">
-      <Item Name="Flight Pack" TL="13" Price="Cr50000" Page="36" />
-      <Item Name="Fuel Cells" TL="13" Price="Cr1000" Page="36" />
-      <Item Name="Grav Assist-12" TL="12" Price="Cr110000" Page="36" />
-      <Item Name="Grav Assist-15" TL="15" Price="Cr120000" Page="36" />
-      <Item Name="Heavy Mount" TL="13" Price="Cr10000" Page="36" />
-      <Item Name="Heavy Plating" TL="13" Price="Cr4000" Page="36" />
-      <Item Name="High Velocity Targeting Array" TL="15" Price="MCr0.75" Page="36" />
-      <Item Name="Integrated Toolkit" TL="13" Price="Cr3000" Page="36" />
-      <Item Name="Integrated Weapon Mount (Close Combat)" TL="13" Price="Cr1000" Page="36" />
-      <Item Name="Integrated Weapon Mount (Heavy)" TL="13" Price="Cr5000" Page="36" />
-      <Item Name="Integrated Weapon Mount (Pistol)" TL="13" Price="Cr500" Page="36" />
-      <Item Name="Integrated Weapon Mount (Rifle)" TL="13" Price="Cr1000" Page="36" />
-      <Item Name="Parachute" TL="13" Price="Cr2500" Page="38" />
-      <Item Name="Prismatic Aerosol" TL="13" Price="Cr6000" Page="38" />
-      <Item Name="Sensor Suite (+1)" TL="13" Price="Cr20000" Page="38" />
-      <Item Name="Sensor Suite (+2)" TL="14" Price="Cr50000" Page="38" />
-      <Item Name="Sensor Suite (+3)" TL="15" Price="Cr65000" Page="38" />
-      <Item Name="Stealth (+1)" TL="13" Price="Cr50000" Page="38" />
-      <Item Name="Stealth (+2)" TL="14" Price="Cr100000" Page="38" />
-      <Item Name="Stealth (+3)" TL="15" Price="Cr125000" Page="38" />
-      <Item Name="Vehicle Weapon  Mount" TL="13" Price="Cr10000" Page="38" />
-    </Subsection>
-    <Subsection Name="Non-Powered Suits">
-      <Item Name="Boarding Vacc Suit-11" TL="11" Price="Cr18000" Mass="25" Law="2" Category="4" Page="19" Skill="Vacc Suit 1" />
-      <Item Name="Boarding Vacc Suit-12" TL="12" Price="Cr24000" Mass="12" Law="2" Category="4" Page="19" Skill="Vacc Suit 1" />
-      <Item Name="Ceramic Combat Armor" TL="13" Price="Cr300000" Mass="15" Law="2" Category="4" Mod="Military" Page="20" Skill="Vacc Suit 1" />
-      <Item Name="Combat Armor-10" TL="10" Price="Cr96000" Mass="20" Law="2" Category="4" Mod="Military" Page="20" Skill="Vacc Suit 1" />
-      <Item Name="Combat Armor-12" TL="12" Price="Cr88000" Mass="16" Law="2" Category="4" Mod="Military" Page="20" Skill="Vacc Suit 0" />
-      <Item Name="Combat Armor-14" TL="14" Price="Cr160000" Mass="12" Law="2" Category="4" Mod="Military" Page="20" Skill="Vacc Suit 0" />
-      <Item Name="Combat Environment Suit" TL="10" Price="Cr1000" Mass="2" Law="2" Category="4" Mod="Military" Page="21" />
-      <Item Name="Emergency Hostile Environment Suit" TL="10" Price="Cr9000" Mass="20" Law="9" Category="1" Page="21" Skill="Vacc Suit 1" />
-      <Item Name="Emergency Softsuit" TL="10" Price="Cr2000" Mass="10" Law="9" Category="1" Page="21" Skill="Vacc Suit 0" />
-      <Item Name="Explosive Ordnance Disposal Suit" TL="8" Price="Cr8000" Mass="35" Law="3" Category="3" Page="21" />
-      <Item Name="Hostile Environment Vacc Suit-10" TL="10" Price="Cr20000" Mass="13" Law="9" Category="1" Page="21" Skill="Vacc Suit 1" />
-      <Item Name="Hostile Environment Vacc Suit-11" TL="11" Price="Cr22000" Mass="13" Law="9" Category="1" Page="21" Skill="Vacc Suit 0" />
-      <Item Name="Hostile Environment Vacc Suit-13" TL="13" Price="Cr40000" Mass="10" Law="9" Category="1" Page="21" Skill="Vacc Suit 0" />
-      <Item Name="Hostile Environment Vacc Suit-14" TL="14" Price="Cr60000" Mass="9" Law="9" Category="1" Page="21" Skill="Vacc Suit 0" />
-      <Item Name="Hostile Environment Vacc Suit-9" TL="9" Price="Cr24000" Mass="22" Law="9" Category="1" Page="21" Skill="Vacc Suit 1" />
-      <Item Name="Pressure Sleeve" TL="10" Price="Cr600" Law="9" Category="1" Page="22" />
-      <Item Name="Psi-Enhanced Combat Armor" TL="16" Price="Cr500000" Mass="10" Law="1" Category="6" Mod="Military" Page="22" />
-      <Item Name="Rescue Suit" TL="12" Price="Cr25000" Mass="22" Law="9" Category="1" Page="23" Skill="Vacc Suit 1" />
-      <Item Name="Vacc Suit=8" TL="8" Price="Cr12000" Mass="17" Law="9" Category="1" Page="23" Skill="Vacc Suit 1" />
-      <Item Name="Vacc Suit-10" TL="10" Price="Cr11000" Mass="10" Law="9" Category="1" Page="23" Skill="Vacc Suit 0" />
-      <Item Name="Vacc Suit-12" TL="12" Price="Cr20000" Mass="8" Law="9" Category="1" Page="23" Skill="Vacc Suit 0" />
-    </Subsection>
-    <Subsection Name="Powered Armor" Law="2" Category="5" Mod="Military">
-      <Item Name="Ceramic Powered Plate" TL="13" Price="Cr90000" Mass="35" Page="25" Skill="Vacc Suit 1" />
-      <Item Name="Grav-Enhanced Powered Plate" TL="15" Price="Cr120000" Mass="32" Page="25" Skill="Vacc Suit 0" />
-      <Item Name="Mechanical Carapace-12" TL="12" Price="Cr30000" Mass="25" Page="26" Skill="Vacc Suit 1" />
-      <Item Name="Mechanical Carapace-9" TL="9" Price="Cr15000" Mass="30" Page="26" Skill="Vacc Suit 2" />
-      <Item Name="Powered Plate-10" TL="10" Price="Cr50000" Mass="40" Page="26" Skill="Vacc Suit 1" />
-      <Item Name="Powered Plate-14" TL="14" Price="Cr85000" Mass="30" Page="26" Skill="Vacc Suit 0" />
-    </Subsection>
-  </Section>
-  <Section Name="Robots" Book="CSC">
-    <Subsection Name="Robots">
-      <Item Name="Astro-Mech Droid" TL="14" Price="MCr6" Page="72" />
-      <Item Name="Centurion" TL="12" Price="MCr10" Law="3" Mod="Military" Category="5" Page="72" />
-      <Item Name="Creeper Assassin" TL="12" Price="Cr600000" Law="3" Category="3" Page="73" />
-      <Item Name="Protocol Droid" TL="14" Price="MCr3" Page="73" />
-      <Item Name="Sanitation Droid" TL="11" Price="Cr350000" Page="74" />
-      <Item Name="Security Drone" TL="10" Price="Cr850000" Law="6" Category="1" Page="74" />
-      <Item Name="Skinjob" TL="16" Price="MCr18" Page="75" />
-      <Item Name="Spider Bomb" TL="12" Price="Cr60000" Law="1" Mod="Military" Category="5" Page="75" />
-      <Item Name="Urban Pacification Police Robot" TL="12" Price="MCr12" Law="3" Mod="Military" Category="4" Page="76" />
-      <Item Name="Utility Droid" TL="9" Price="Cr100000" Page="76" />
-    </Subsection>
-  </Section>
-  <Section Name="Survival Gear" Book="CSC 2">
-    <Subsection Name="Aerial">
-      <Item Name="Grav Parachute" TL="10" Price="Cr2000" Mass="4" Page="39" />
-      <Item Name="Parachute" TL="4" Price="Cr250" Mass="3" Page="39" />
-      <Item Name="Parawing" TL="7" Price="Cr400" Mass="8" Page="39" />
-      <Item Name="Squirrel Suit" TL="7" Price="Cr500" Mass="1" Page="39" />
-    </Subsection>
-    <Subsection Name="Arctic and Cold Environments">
-      <Item Name="Cold Weather Clothing" TL="0" Price="Cr200" Mass="4" Page="43" />
-      <Item Name="Cold Weather Clothing" TL="5" Price="Cr500" Mass="2" Page="43" />
-      <Item Name="Heatsuit" TL="8" Price="Cr350" Mass="2" Page="43" />
-      <Item Name="Ice Axe" TL="3" Price="Cr50" Mass="3" Page="43" />
-      <Item Name="Ice Terrain Kit" TL="1" Price="Cr50" Mass="4" Page="43" />
-      <Item Name="Skis" TL="3" Price="Cr75" Page="43" />
-      <Item Name="Snowshoes" TL="1" Price="Cr30" Mass="1" Page="43" />
-    </Subsection>
-    <Subsection Name="Atmospheric Protection">
-      <Item Name="Combination Mask" TL="5" Price="Cr150" Page="41" />
-      <Item Name="Environment Mask" TL="5" Price="Cr50" Page="41" />
-      <Item Name="Environment Suit" TL="8" Price="Cr500" Mass="1" Page="41" />
-      <Item Name="Face Mask" TL="5" Price="Cr20" Page="41" />
-      <Item Name="Filter Mask" TL="3" Price="Cr10" Page="41" />
-      <Item Name="Heavy Protective Suit" TL="7" Price="Cr1400" Page="41" />
-      <Item Name="Life-Support Mask" TL="7" Price="Cr1000" Page="41" />
-      <Item Name="NBC Suit" TL="8" Price="Cr250" Mass="2" Page="41" />
-      <Item Name="Oxygen/Air Tanks" TL="5" Price="Cr500" Mass="12" Page="41" />
-      <Item Name="Protective Suit" TL="6" Price="Cr1000" Mass="6" Page="41" />
-      <Item Name="Radiation Suit" TL="6" Price="Cr5000" Mass="10" Page="41" />
-      <Item Name="Rebreather" TL="6" Price="Cr250" Mass="10" Page="41" />
-      <Item Name="Respirator (TL10)" TL="10" Price="Cr1000" Page="41" />
-      <Item Name="Respirator (TL8)" TL="6" Price="Cr100" Page="41" />
-    </Subsection>
-    <Subsection Name="Desert and Arid Environments">
-      <Item Name="Advanced Desert Suit" TL="9" Price="Cr1000" Mass="2" Page="44" />
-      <Item Name="Desert Kit" TL="5" Price="Cr75" Mass="1" Page="44" />
-      <Item Name="Goggles/Shades" TL="5" Price="Cr20" Page="44" />
-      <Item Name="Goggles/Shades" TL="9" Price="Cr200" Page="44" />
-      <Item Name="Heatproof Suit" TL="8" Price="Cr100" Mass="6" Page="44" />
-      <Item Name="Hydro-Collector" TL="11" Price="Cr1000" Mass="8" Page="44" />
-      <Item Name="Hydro-Reclamation Suit" TL="11" Price="Cr10000" Mass="6" Page="44" />
-      <Item Name="Solar Vaporator" TL="10" Price="Cr1250" Mass="5" Page="44" />
-    </Subsection>
-    <Subsection Name="General Survival Gear">
-      <Item Name="Advanced Purification Tablets (10 pack)" TL="13" Price="Cr50" Page="54" />
-      <Item Name="Antimatter Battery" TL="18" Price="MCr1" Mass="5" Category="6" Page="51" />
-      <Item Name="Backpack" TL="3" Price="Cr45" Mass="3" Page="51" />
-      <Item Name="Backpack" TL="6" Price="Cr75" Mass="1" Page="51" />
-      <Item Name="Binoculars" TL="3" Price="Cr75" Mass="1" Page="51" />
-      <Item Name="Bivvy Pack" TL="7" Price="Cr150" Mass="1" Page="51" />
-      <Item Name="Canteen" TL="3" Price="Cr10" Mass="1" Page="51" />
-      <Item Name="Cargo Cable" TL="9" Price="Cr100" Mass="2" Page="51" />
-      <Item Name="Chemical Lightstick" TL="6" Price="Cr1" Page="51" />
-      <Item Name="Distress Flare" TL="6" Price="Cr15" Page="51" />
-      <Item Name="Duct Tape" TL="6" Price="Cr5" Page="51" />
-      <Item Name="Electric Torch" TL="5" Price="Cr10" Page="51" />
-      <Item Name="Field Kit" TL="3" Price="Cr100" Page="52" />
-      <Item Name="Fire Extinguisher" TL="5" Price="Cr50" Mass="2" Page="52" />
-      <Item Name="Flare Launcher" TL="5" Price="Cr75" Page="52" />
-      <Item Name="Fusion Still" TL="13" Price="Cr4500" Page="52" />
-      <Item Name="Gas/Oil Lamp" TL="2" Price="Cr10" Mass="1" Page="52" />
-      <Item Name="Illuminating Flare" TL="5" Price="Cr25" Page="52" />
-      <Item Name="Inertial Locator" TL="9" Price="Cr1200" Page="52" />
-      <Item Name="Infinite Rope" TL="16" Price="Cr1000" Mass="1" Page="54" />
-      <Item Name="Internal Combustion Generator" TL="5" Price="Cr50" Mass="25" Page="54" />
-      <Item Name="Magnetic Compass" TL="3" Price="Cr10" Page="54" />
-      <Item Name="Microturbine Generator" TL="8" Price="Cr170" Mass="4" Page="54" />
-      <Item Name="Pocket Saw" TL="6" Price="Cr25" Page="54" />
-      <Item Name="Portable Fusion Generator" TL="10" Price="Cr500000" Mass="20" Page="54" />
-      <Item Name="Protein Tap" TL="9" Price="Cr1000" Mass="1" Page="54" />
-      <Item Name="Purification Tablets (10 pack)" TL="7" Price="Cr5" Page="54" />
-      <Item Name="Rad Blanket" TL="9" Price="Cr150" Mass="2" Page="54" />
-      <Item Name="Reflectorised Tarpaulin" TL="7" Price="Cr400" Mass="1" Page="54" />
-      <Item Name="Rope" TL="13" Price="Cr100" Mass="2" Page="55" />
-      <Item Name="Rope" TL="5" Price="Cr20" Mass="5" Page="55" />
-      <Item Name="Rope" TL="9" Price="Cr50" Mass="3" Page="55" />
-      <Item Name="Signaling Flare" TL="5" Price="Cr5" Page="52" />
-      <Item Name="Sleeping Bag" TL="5" Price="Cr25" Mass="1" Page="55" />
-      <Item Name="Survival Kit" TL="5" Price="Cr50" Page="55" />
-      <Item Name="Torch" TL="0" Price="Cr1" Page="55" />
-      <Item Name="Whistling Flare" TL="5" Price="Cr10" Page="52" />
-    </Subsection>
-    <Subsection Name="Housing Options">
-      <Item Name="Armoured" TL="9" Price="Cr2500" Mass="x3" Page="58" />
-      <Item Name="Chameleon Fibres" TL="12" Price="Cr8000" Page="58" />
-      <Item Name="Chameleon Fibres" TL="13" Price="Cr60000" Page="58" />
-      <Item Name="Holosimulacrum" TL="17" Price="MCr5" Page="58" />
-      <Item Name="Null-Shielding" TL="16" Price="Cr25000" Page="58" />
-      <Item Name="Psi-Amplifier" TL="16" Price="Cr100000" Page="58" />
-      <Item Name="Rad Shielding" TL="10" Price="Cr3000" Page="58" />
-      <Item Name="Self-Assembling" TL="11" Price="Cr5000" Page="58" />
-      <Item Name="Self-Sealing" TL="13" Price="Cr2000" Page="58" />
-    </Subsection>
-    <Subsection Name="Marine Environments">
-      <Item Name="Artificial Gill" TL="8" Price="Cr4000" Mass="4" Page="46" />
-      <Item Name="Deep-Diving Suit" TL="8" Price="Cr20000" Mass="22" Page="46" />
-      <Item Name="Dive Suit" TL="6" Price="Cr60" Mass="1" Page="46" />
-      <Item Name="Heated Dive Suit" TL="8" Price="Cr650" Mass="4" Page="46" />
-      <Item Name="Swimming Equipment" TL="3" Price="Cr200" Mass="2" Page="46" />
-      <Item Name="Underwater Air Tanks" TL="5" Price="Cr800" Mass="12" Page="46" />
-      <Item Name="Water Dye" TL="4" Price="Cr25" Page="46" />
-    </Subsection>
-    <Subsection Name="Mountains and Cliffs">
-      <Item Name="Climbing Hoist" TL="8" Price="Cr175" Mass="2" Page="47" />
-      <Item Name="Climbing Kit" TL="4" Price="Cr100" Mass="4" Page="48" />
-      <Item Name="Climbing Kit" TL="8" Price="Cr500" Mass="2" Page="48" />
-      <Item Name="Grapnel and Cable" TL="2" Price="Cr35" Mass="2" Page="48" />
-      <Item Name="Grapnel Launcher" TL="7" Price="Cr100" Mass="3" Page="47" />
-      <Item Name="Hiking Boots" TL="1" Price="Cr50" Mass="2" Page="47" />
-      <Item Name="Piton Hammer" TL="4" Price="Cr10" Page="47" />
-      <Item Name="Pitons" TL="4" Price="Cr5" Mass="2" Page="47" />
-    </Subsection>
-    <Subsection Name="Vacuum Environments">
-      <Item Name="Bulkhead Patches" TL="10" Price="Cr150" Page="49" />
-      <Item Name="Iris Valve Opener" TL="10" Price="Cr2000" Mass="6" Page="49" />
-      <Item Name="Personal Re-entry Kit" TL="8" Price="Cr15000" Mass="50" Page="49" />
-      <Item Name="Portable Airlock" TL="9" Price="Cr1000" Mass="8" Page="49" />
-      <Item Name="Rescue Ball" TL="7" Price="Cr150" Mass="6" Page="49" />
-      <Item Name="Rescue Bubble" TL="9" Price="Cr600" Mass="2" Page="49" />
-      <Item Name="Thrust Pistol" TL="7" Price="Cr1000" Mass="1" Page="50" />
-      <Item Name="Vacc Emergency Kit" TL="8" Price="Cr500" Mass="4" Page="50" />
-    </Subsection>
-    <Subsection Name="Wilderness Housing">
-      <Item Name="Advanced Base" TL="8" Price="Cr75000" Page="56" />
-      <Item Name="Habitat Module" TL="10" Price="Cr20000" Mass="500" Page="56" />
-      <Item Name="Habitat Module" TL="8" Price="Cr10000" Mass="1000" Page="56" />
-      <Item Name="Pre-Fabricated Cabin" TL="6" Price="Cr2000" Mass="400" Page="56" />
-      <Item Name="Tarpaulin" TL="1" Price="Cr10" Mass="4" Page="56" />
-      <Item Name="Tent" TL="3" Price="Cr200" Mass="6" Page="56" />
-      <Item Name="Tent" TL="7" Price="Cr2000" Mass="5" Page="56" />
-      <Item Name="Tent-Barracks" TL="10" Price="Cr5000" Mass="10" Page="57" />
-      <Item Name="Tent-Barracks" TL="8" Price="Cr500" Mass="10" Page="57" />
-    </Subsection>
-  </Section>
-  <Section Name="Tools" Book="CSC 2">
-    <Subsection Name="Tools">
-      <Item Name="Advanced Welding Kit" TL="10" Price="Cr5000" Mass="3" Page="78" />
-      <Item Name="Carpenters Tool Set" TL="2" Price="Cr300" Mass="12" Page="78" />
-      <Item Name="Chain" TL="4" Price="Cr100" Mass="6" Page="77" />
-      <Item Name="Chainsaw" TL="6" Price="Cr500" Mass="6" Page="78" />
-      <Item Name="Combat Engineering Tool Set" TL="3" Price="Cr150" Mass="12" Page="78" />
-      <Item Name="Combat Engineering Tool Set" TL="6" Price="Cr300" Mass="15" Page="78" />
-      <Item Name="Combat Engineering Tool Set" TL="8" Price="Cr500" Mass="15" Page="78" />
-      <Item Name="Cutting Torch" TL="5" Price="Cr500" Mass="3" Page="78" />
-      <Item Name="Electric Welding Kit" TL="5" Price="Cr1500" Mass="6" Page="78" />
-      <Item Name="Electronic Tool Set" TL="7" Price="Cr2000" Mass="2" Page="78" />
-      <Item Name="Electronics Toolkit" TL="7" Price="Cr2000" Mass="2" Book="Core 2" />
-      <Item Name="Engineering Toolkit" TL="12" Price="Cr4000" Mass="12" Book="Core 2" />
-      <Item Name="Excavation Tool Set" TL="3" Price="Cr30" Mass="12" Page="78" />
-      <Item Name="Forensics Toolkit" TL="8" Price="Cr2000" Mass="12" Book="Core 2" />
-      <Item Name="Laser Cutting Gear" TL="9" Price="Cr4000" Mass="4" Page="78" />
-      <Item Name="Laser Drill" TL="9" Price="Cr7500" Mass="16" Page="79" />
-      <Item Name="Laser Scalpel" TL="10" Price="Cr2000" Page="79" />
-      <Item Name="Mechanical Tool Set" TL="5" Price="Cr1000" Mass="12" Page="79" />
-      <Item Name="Metalwork Tool Set" TL="5" Price="Cr3000" Mass="12" Page="79" />
-      <Item Name="Pocket Magnet" TL="3" Price="Cr20" Page="77" />
-      <Item Name="Rescue Tool Set" TL="7" Price="Cr2000" Mass="15" Page="79" />
-      <Item Name="Return Mirror" TL="4" Price="Cr500" Page="77" />
-      <Item Name="Scientific Toolkit" TL="5" Price="Cr2000" Mass="8" Book="Core 2" />
-      <Item Name="Spade/Shovel" TL="3" Price="Cr5" Mass="1" Page="79" />
-      <Item Name="Starship Engineer Tool Set" TL="12" Price="Cr4000" Mass="12" Page="79" />
-      <Item Name="Surveying Toolkit" TL="6" Price="Cr1000" Mass="12" Book="Core 2" />
-      <Item Name="Tool Laser" TL="12" Price="Cr500" Page="79" />
-      <Item Name="Weapon Engineering Tool Set" TL="3" Price="Cr300" Mass="12" Page="79" />
-    </Subsection>
-  </Section>
-  <Section Name="Weapons" Book="CSC 2" Contraband="Weapons">
-    <Subsection Name="Archaic Weapons" Law="8" Category="2" Skill="Gun Combat (archaic)">
-      <Item Name="Compound Cam Bow" TL="5" Price="Cr250" Mass="1" Page="121" />
-      <Item Name="Crossbow" TL="2" Price="Cr200" Mass="3" Page="121" />
-      <Item Name="Javelin" TL="1" Price="Cr15" Mass="1" Page="122" />
-      <Item Name="Long Bow" TL="2" Price="Cr150" Mass="1.5" Page="122" />
-      <Item Name="Repeating Crossbow" TL="3" Price="Cr400" Mass="4" Page="122" />
-      <Item Name="Short Bow" TL="1" Price="Cr50" Mass="1" Page="122" />
-      <Item Name="Sling" TL="0" Price="Cr10" Page="122" />
-    </Subsection>
-    <Subsection Name="Energy Pistols" Law="2" Category="3" Skill="Gun Combat (energy)">
-      <Item Name="Gauntlet Laser" TL="10" Price="Cr1100" Mass="4" Page="115" />
-      <Item Name="Hand Flamer" TL="10" Price="Cr1500" Mass="2" Page="115" />
-      <Item Name="Laser Pistol (TL10)" TL="10" Price="Cr3000" Mass="2" Page="116" />
-      <Item Name="Laser Pistol (TL9)" TL="9" Price="Cr2000" Mass="3" Page="116" />
-      <Item Name="Maser Pistol" TL="17" Price="Cr25000" Mass="3" Mod="Military" Page="116" />
-      <Item Name="Matter Disintegrator (TL19)" TL="19" Price="MCr4" Mass="1" Mod="Military" Page="116" />
-      <Item Name="Matter Disintegrator (TL18)" TL="18" Price="MCr2.5" Mass="1" Mod="Military" Page="116" />
-      <Item Name="Personal Defence Laser" TL="13" Price="Cr6000" Mass="3" Page="116" />
-      <Item Name="Stunner (TL10)" TL="10" Price="Cr750" Mass=".5" Law="8" Category="1" Page="116" />
-      <Item Name="Stunner (TL12)" TL="12" Price="Cr1000" Mass=".5" Law="8" Category="1" Page="116" />
-      <Item Name="Stunner (TL8)" TL="8" Price="Cr500" Mass=".5" Law="8" Category="1" Page="116" />
-    </Subsection>
-    <Subsection Name="Energy Rifles" Law="2" Category="3">
-      <Item Name="Cryo Rifle" TL="13" Price="Cr6000" Mass="9" Page="117" />
-      <Item Name="Flame Rifle" TL="9" Price="Cr2500" Mass="8" Page="117" />
-      <Item Name="Heavy Laser Rifle" TL="12" Price="Cr14000" Mass="18" Mod="Military" Page="117" />
-      <Item Name="Laser Carbine (TL10)" TL="10" Price="Cr4000" Mass="3" Mod="Military" Page="117" />
-      <Item Name="Laser Carbine (TL9)" TL="9" Price="Cr2500" Mass="4" Page="117" />
-      <Item Name="Laser Rifle (TL10)" TL="10" Price="Cr8000" Mass="5" Mod="Military" Page="117" />
-      <Item Name="Laser Rifle (TL9)" TL="9" Price="Cr3500" Mass="8" Mod="Military" Page="117" />
-      <Item Name="Laser Sniper Rifle" TL="12" Price="Cr9000" Mass="6" Mod="Military" Page="118" />
-      <Item Name="Maser Rifle" TL="16" Price="Cr30000" Mass="8" Mod="Military" Page="118" />
-      <Item Name="Plasma Rifle" TL="16" Price="Cr100000" Mass="6" Category="5" Page="118" />
-      <Item Name="Solar Beam Rifle" TL="17" Price="0" Mass="4" Category="5" Page="118" />
-      <Item Name="Stagger Laser Rifle (TL12)" TL="12" Price="Cr10000" Mass="6" Page="118" />
-      <Item Name="Stagger Laser Rifle (TL14)" TL="14" Price="Cr15000" Mass="5" Page="118" />
-    </Subsection>
-    <Subsection Name="Grenade Weapons" Law="1" Category="4" Skill="Heavy Weapons(Man Portable)">
-      <Item Name="Aerosol" TL="9" Price="Cr15" Mass=".5" Page="119" />
-      <Item Name="Baton" TL="7" Price="Cr10" Mass=".5" Page="119" />
-      <Item Name="Electromagnetic Pulse" TL="9" Price="Cr100" Mass=".5" Page="119" />
-      <Item Name="Frag" TL="6" Price="Cr30" Mass=".5" Page="119" />
-      <Item Name="Incendiary" TL="8" Price="Cr75" Mass=".5" Page="120" />
-      <Item Name="Neurotoxin" TL="9" Price="Cr250" Mass=".5" Page="120" />
-      <Item Name="Plasma" TL="16" Price="Cr500" Mass=".5" Category="5" Page="120" />
-      <Item Name="Smoke" TL="6" Price="Cr15" Mass=".5" Page="120" />
-      <Item Name="Stun" TL="7" Price="Cr30" Mass=".5" Page="120" />
-      <Item Name="Thermal Smoke" TL="7" Price="Cr30" Mass=".5" Page="121" />
-      <Item Name="Tranq Gas" TL="8" Price="Cr75" Mass=".5" Page="121" />
-    </Subsection>
-    <Subsection Name="Melee Weapons" Law="9" Category="1">
-      <Item Name="Anti-Armor Flail" TL="8" Price="Cr250" Mass="3" Page="98" Skill="Melee (bludgeon)" />
-      <Item Name="Garrotte" TL="1" Price="Cr10" Page="105" Skill="Melee (unarmed)" />
-      <Item Name="Gravity Hammer" TL="13" Price="Cr10000" Mass="5" Page="99" Skill="Melee (bludgeon)" />
-      <Item Name="Handspikes" TL="2" Price="Cr100" Page="105" Skill="Melee (unarmed)" />
-      <Item Name="Knuckleblasters" TL="8" Price="Cr150" Page="106" Skill="Melee (unarmed)" />
-      <Item Name="Piston Fist" TL="9" Price="Cr150" Page="106" Skill="Melee (unarmed)" />
-      <Item Name="Static Maul" TL="11" Price="Cr650" Mass="3" Page="100" Skill="Melee (bludgeon)" />
-    </Subsection>
-    <Subsection Name="Melee Weapons" Law="8" Category="1">
-      <Item Name="Arc-Field Weapon" TL="14" Price="Cr25000" Mass="4" Page="100" Skill="Melee (blade)" />
-      <Item Name="Assault Pike" TL="5" Price="Cr200" Mass="8" Page="100" Skill="Melee (blade)" />
-      <Item Name="Battle Axe" TL="2" Price="Cr225" Mass="4" Page="101" Skill="Melee (blade)" />
-      <Item Name="Blade" TL="2" Price="Cr100" Mass="2" Page="101" Skill="Melee (blade)" />
-      <Item Name="Broadsword" TL="2" Price="Cr500" Mass="8" Page="101" Skill="Melee (blade)" />
-      <Item Name="Chaindrive Axe" TL="10" Price="Cr600" Mass="7" Page="101" Skill="Melee (blade)" />
-      <Item Name="Chaindrive Sword" TL="10" Price="Cr500" Mass="5" Page="101" Skill="Melee (blade)" />
-      <Item Name="Cutlass" TL="2" Price="Cr200" Mass="4" Page="101" Skill="Melee (blade)" />
-      <Item Name="Dagger" TL="1" Price="Cr10" Mass="1" Page="102" Skill="Melee (blade)" />
-      <Item Name="Great Axe" TL="2" Price="Cr750" Mass="10" Page="102" Skill="Melee (blade)" />
-      <Item Name="Hatchet" TL="3" Price="Cr250" Mass="2" Page="102" Skill="Melee (blade)" />
-      <Item Name="Knife" TL="1" Price="Cr5" Page="102" Skill="Melee (blade)" />
-      <Item Name="Lance" TL="2" Price="Cr75" Mass="4" Page="102" Skill="Melee (blade)" />
-      <Item Name="Long Blade (TL2)" TL="2" Price="Cr200" Mass="4" Page="102" Skill="Melee (blade)" />
-      <Item Name="Long Blade (TL3)" TL="3" Price="Cr300" Mass="4" Page="102" Skill="Melee (blade)" />
-      <Item Name="Monoblade" TL="12" Price="Cr2500" Mass="2" Page="103" Skill="Melee (blade)" />
-      <Item Name="Piston Spear" TL="7" Price="Cr400" Mass="3" Page="103" Skill="Melee (blade)" />
-      <Item Name="Psi Blade" TL="16" Price="Cr30000" Mass="2" Page="103" Skill="Melee (blade)" />
-      <Item Name="Psi Dagger" TL="17" Price="Cr25000" Mass="1" Page="103" Skill="Melee (blade)" />
-      <Item Name="Rapier" TL="3" Price="Cr200" Mass="2" Page="103" Skill="Melee (blade)" />
-      <Item Name="Spear" TL="1" Price="Cr10" Mass="2" Page="104" Skill="Melee (blade)" />
-      <Item Name="Static Axe (TL11)" TL="11" Price="Cr750" Mass="6" Page="104" Skill="Melee (blade)" />
-      <Item Name="Static Axe (TL12)" TL="12" Price="Cr1000" Mass="5" Page="104" Skill="Melee (blade)" />
-      <Item Name="Static Blade (TL11)" TL="11" Price="Cr700" Mass="4" Page="104" Skill="Melee (blade)" />
-      <Item Name="Static Blade (TL12)" TL="12" Price="Cr900" Mass="3" Page="104" Skill="Melee (blade)" />
-      <Item Name="Stealth Dagger" TL="8" Price="Cr175" Mass="1" Page="104" Skill="Melee (blade)" />
-      <Item Name="Stone Axe" TL="0" Price="Cr5" Mass="3" Page="104" Skill="Melee (blade)" />
-      <Item Name="Stunfist" TL="8" Price="Cr250" Page="106" Skill="Melee (unarmed)" Law="8" />
-      <Item Name="Stunstick" TL="8" Price="Cr300" Mass="1" Page="100" Skill="Melee (bludgeon)" Law="8" />
-      <Item Name="War Axe" TL="0" Price="0" Page="105" Skill="Melee (blade)" />
-    </Subsection>
-    <Subsection Name="Melee Weapons" Law="9" Category="1">
-      <Item Name="Brass Knuckles" TL="1" Price="Cr10" Page="105" Skill="Melee (unarmed)" />
-      <Item Name="Club" TL="1" Price="0" Mass="3" Page="98" Skill="Melee (bludgeon)" />
-      <Item Name="Mace" TL="1" Price="Cr20" Mass="3" Page="99" Skill="Melee (bludgeon)" />
-      <Item Name="Sap" TL="2" Price="Cr30" Mass="1" Page="99" Skill="Melee (bludgeon)" />
-      <Item Name="Sledgehammer" TL="1" Price="Cr30" Mass="8" Page="99" Skill="Melee (bludgeon)" />
-      <Item Name="Staff" TL="1" Price="0" Mass="3" Page="99" Skill="Melee (bludgeon)" />
-    </Subsection>
-    <Subsection Name="Shields" Law="8" Category="1">
-      <Item Name="Boarding Shield" TL="9" Price="Cr1500" Mass="7" Page="106" />
-      <Item Name="Buckler" TL="2" Price="Cr10" Mass="2" Page="107" />
-      <Item Name="Gravitic Shield" TL="17" Price="Cr2500" Page="107" />
-      <Item Name="Large Shield" TL="1" Price="Cr200" Mass="8" Page="107" />
-      <Item Name="Riot Shield" TL="6" Price="Cr175" Mass="4" Page="107" />
-      <Item Name="Shield" TL="1" Price="Cr150" Mass="6" Page="107" />
-    </Subsection>
-    <Subsection Name="Slug Pistols" Law="5" Category="2" Skill="Gun Combat (slug)">
-      <Item Name="Antique Pistol" TL="3" Price="Cr100" Mass="1" Page="108" />
-      <Item Name="Assault Pistol" Law="4" Category="3" TL="6" Price="Cr250" Mass="1" Page="108" />
-      <Item Name="Autopistol" TL="6" Price="Cr200" Mass="1" Page="108" />
-      <Item Name="Body Pistol" Law="1" TL="8" Price="Cr500" Page="109" />
-      <Item Name="Cartridge Pistol" TL="7" Price="Cr300" Mass="1.5" Page="109" />
-      <Item Name="Coach Pistol" TL="3" Price="Cr200" Mass="2" Page="109" />
-      <Item Name="Duck's Foot Pistol" TL="3" Price="Cr300" Mass="2" Page="109" />
-      <Item Name="Flechette Pistol" TL="9" Price="Cr275" Mass="1" Page="109" />
-      <Item Name="Gauss Pistol" Law="4" Category="4" TL="13" Price="Cr500" Mass="1" Page="110" />
-      <Item Name="Heavy Revolver" TL="6" Price="Cr400" Mass="1.5" Page="110" />
-      <Item Name="Magrail Pistol" Law="4" Category="4" TL="14" Price="Cr750" Mass="1" Page="110" />
-      <Item Name="Revolver" TL="5" Price="Cr150" Mass="1" Page="110" />
-      <Item Name="Shot Pistol" TL="5" Price="Cr60" Mass=".5" Page="110" />
-      <Item Name="Snub Pistol" TL="8" Price="Cr150" Page="110" />
-      <Item Name="Universal Autopistol" TL="8" Price="Cr300" Mass="1" Page="111" />
-      <Item Name="Zip Gun" TL="3" Price="Cr50" Page="111" />
-    </Subsection>
-    <Subsection Name="Slug Rifles" Law="6" Category="2" Skill="Gun Combat (slug)">
-      <Item Name="Accelerator Rifle" TL="9" Price="Cr900" Mass="2" Page="111" />
-      <Item Name="Advanced Combat Rifle" Law="3" TL="10" Price="Cr1000" Mass="3" Mod="Military" Category="4" Page="111" />
-      <Item Name="Air Rifle (TL3)" TL="3" Price="Cr225" Mass="4" Page="112" />
-      <Item Name="Air Rifle (TL4)" TL="4" Price="Cr350" Mass="5" Page="112" />
-      <Item Name="Antique Rifle" TL="3" Price="Cr150" Mass="6" Page="112" />
-      <Item Name="Assault Rifle" Law="4" TL="7" Price="Cr500" Mass="4" Mod="Military" Category="3" Page="112" />
-      <Item Name="Assault Shotgun" Law="3" TL="6" Price="Cr500" Mass="5" Mod="Military" Category="3" Page="112" />
-      <Item Name="Autorifle" Law="3" TL="6" Price="Cr750" Mass="5" Mod="Military" Category="3" Page="112" />
-      <Item Name="Big Game Rifle" TL="5" Price="Cr1250" Mass="9" Page="113" />
-      <Item Name="Flechette Submachine Gun" Law="4" TL="9" Price="Cr500" Mass="3" Category="3" Page="113" />
-      <Item Name="Gauss Rifle" Law="3" TL="12" Price="Cr1500" Mass="4" Mod="Military" Category="4" Page="113" />
-      <Item Name="Gauss Sniper Rifle" Law="3" TL="12" Price="Cr2500" Mass="4" Mod="Military" Category="4" Page="113" />
-      <Item Name="Heavy Advanced Combat Rifle" Law="3" TL="10" Price="Cr2000" Mass="5" Mod="Military" Category="4" Page="113" />
-      <Item Name="Magrail Rifle" Law="3" TL="14" Price="Cr2500" Mass="4" Category="4" Page="114" />
-      <Item Name="Rifle" TL="5" Price="Cr200" Mass="5" Page="114" />
-      <Item Name="Sawed-Off Shotgun" Law="7" TL="5" Price="Cr200" Mass="2" Page="114" />
-      <Item Name="Shotgun" Law="7" TL="4" Price="Cr200" Mass="4" Page="114" />
-      <Item Name="Sniper Rifle" TL="8" Price="Cr700" Mass="5" Page="114" />
-      <Item Name="Spear Gun" TL="6" Price="Cr50" Mass="2" Page="114" />
-      <Item Name="Submachine Gun" Law="4" TL="6" Price="Cr400" Mass="3" Category="3" Page="115" />
-    </Subsection>
-  </Section>
-  <Section Name="Weapons" Book="CSC 2" Contraband="Weapons">
-    <Subsection Name="Accessories" Book="CSC 2" Law="9">
-      <Item Name="Auxiliary Grenade Launcher" TL="7" Price="Cr1000" Mass="1" Category="4" Page="142" />
-      <Item Name="Bandolier" TL="3" Price="Cr10" Page="142" />
-      <Item Name="Bayonet" TL="3" Price="Cr20" Mass="1" Page="142" />
-      <Item Name="Bipod" TL="4" Price="Cr250" Mass="1" Page="143" />
-      <Item Name="Chaindrive Bayonet" TL="9" Price="Cr1000" Mass="3" Page="143" />
-      <Item Name="FOF Safety" TL="9" Price="Cr250" Page="143" />
-      <Item Name="Gyrostabilizer" TL="9" Price="Cr500" Mass="1" Page="143" />
-      <Item Name="Heavy Tripod" TL="4" Price="Cr100" Mass="5" Page="143" />
-      <Item Name="Holographic Sights" TL="10" Price="Cr2000" Mass=".5" Page="144" />
-      <Item Name="Intelligent Weapon (TL13)" TL="13" Price="Cr5000" Page="144" />
-      <Item Name="Intelligent Weapon (TL11)" TL="11" Price="Cr1000" Page="144" />
-      <Item Name="Laser Sight (TL10)" TL="10" Price="Cr200" Page="144" />
-      <Item Name="Laser Sight (TL8)" TL="8" Price="Cr200" Page="144" />
-      <Item Name="Personal Heads-Up Display (TL11)" TL="11" Price="Cr2500" Page="144" />
-      <Item Name="Personal Heads-Up Display (TL9)" TL="9" Price="Cr1500" Mass=".5" Page="144" />
-      <Item Name="Psi-Enhanced Targeting" TL="16" Price="Cr3000" Mass=".5" Page="145" />
-      <Item Name="Scan Jammer" TL="8" Price="Cr2500" Page="145" />
-      <Item Name="Scope (TL5)" TL="5" Price="Cr50" Page="145" />
-      <Item Name="Scope (TL7)" TL="7" Price="Cr50" Page="145" />
-      <Item Name="Secure Weapon" TL="10" Price="Cr250" Page="145" />
-      <Item Name="Shoulder Stock" TL="4" Price="Cr75" Mass="1" Page="146" />
-      <Item Name="Smart Tracker" TL="11" Price="Cr500" Page="146" />
-      <Item Name="Suppressor" Price="Cr250" Page="146" />
-      <Item Name="X-Ray Outlining Aid (TL11)" TL="11" Price="Cr500" Page="146" />
-      <Item Name="X-Ray Outlining Aid (TL9)" TL="9" Price="Cr300" Page="146" />
-    </Subsection>
-  </Section>
+	<!--<Section Name="Ammunition" Book="CSC 2" />-->
+	<Books>
+		<Book Code="Core 2" Name="Traveller Core Rulebook, 2nd edition" Url="https://www.mongoosepublishing.com/us/traveller-core-rulebook.html" />
+		<Book Code="CSC 2" Name="Central Supply Catalogue, 2nd edition" Url="https://www.mongoosepublishing.com/us/central-supply-catalogue.html" />
+		<Book Code="Aliens 1" Name="Aliens of Charted Space Volume 1" Url="https://www.mongoosepublishing.com/products/aliens-of-charted-space-vol-1" />
+		<Book Code="Aliens 2" Name="Aliens of Charted Space Volume 2" Url="https://www.mongoosepublishing.com/products/aliens-of-charted-space-vol-2" />
+		<Book Code="Aliens 3" Name="Aliens of Charted Space Volume 3" Url="https://www.mongoosepublishing.com/products/aliens-of-charted-space-vol-3" />
+		<Book Code="Aliens 4" Name="Aliens of Charted Space Volume 4" Url="https://www.mongoosepublishing.com/products/copy-of-aliens-of-charted-space-vol-4" />
+	</Books>
+	<Section Name="Augmentation" Book="CSC 2" Law="10" Category="1">
+		<Subsection Name="Head">
+			<Item Name="Assisted Ambulation-13" TL="13" Price="Cr100000" Page="90" />
+			<Item Name="Assisted Ambulation-14" TL="14" Price="Cr300000" Page="90" />
+			<Item Name="Assisted Ambulation-15" TL="15" Price="Cr500000" Page="90" />
+			<Item Name="Ballistic Tracking Lenses" TL="12" Price="Cr40000" Page="90" />
+			<Item Name="Cockpit Sensory Suite" TL="9" Price="MCr1" Page="90" />
+			<Item Name="Cognitive Augmentation INT +1" TL="12" Price="MCr0.5" Page="90" />
+			<Item Name="Cognitive Augmentation INT +2" TL="14" Price="MCr1" Page="90" />
+			<Item Name="Cognitive Augmentation INT +3" TL="16" Price="MCr5" Page="90" />
+			<Item Name="Complex Cranial Processing Unit" TL="14" Price="Cr350000" Page="91" />
+			<Item Name="Enhanced Vision-13" TL="13" Price="Cr25000" Page="91" />
+			<Item Name="Enhanced Vision-14" TL="14" Price="Cr50000" Page="91" />
+			<Item Name="Fabulous Augmentation Treatrment" TL="15" Price="MCr3.5" Page="91" />
+			<Item Name="Mechanostatic Scanner" TL="13" Price="Cr10000" Page="91" />
+			<Item Name="Nerve-Plug Response Rig" TL="13" Price="Cr225000" Page="91" />
+			<Item Name="Neural Comm - Audio Only" TL="10" Price="Cr1000" Page="91" />
+			<Item Name="Neural Comm - Audio/Visual, Computer/0" TL="12" Price="Cr5000" Page="91" />
+			<Item Name="Neural Comm - Multiple forms of data, Computer/1" TL="14" Price="Cr20000" Page="91" />
+			<Item Name="Neural Link" TL="13" Price="Cr30000" Page="91" />
+			<Item Name="Null Skull" TL="16" Price="MCr1" Page="92" />
+			<Item Name="Peripheral Vision Enhancement" TL="10" Price="Cr50000" Page="92" />
+			<Item Name="Psi-Taps" TL="16" Price="Cr750000" Page="92" />
+			<Item Name="Shriekbox-10" TL="10" Price="Cr8000" Page="92" />
+			<Item Name="Shriekbox-12" TL="12" Price="Cr16000" Page="92" />
+			<Item Name="Skill Augmentation" TL="12" Price="Cr150000" Page="92" />
+			<Item Name="Venom Glands" TL="11" Price="Cr10000" Page="92" />
+			<Item Name="Wafer Jack - Storage Rating/4" TL="12" Price="Cr10000" Page="92" />
+			<Item Name="Wafer jack - Storage Rating/8" TL="13" Price="Cr15000" Page="92" />
+		</Subsection>
+		<Subsection Name="Limbs">
+			<Item Name="Aslan Cyber-claw" TL="10" Price="Cr20000" Page="86" />
+			<Item Name="Autonomous Locomotion Rig" TL="9" Price="Cr15000" Page="86" />
+			<Item Name="Combat Arm-11" TL="11" Price="Cr50000" Page="86" />
+			<Item Name="Combat Arm-13" TL="13" Price="Cr75000" Page="86" />
+			<Item Name="Combat Arm-8" TL="8" Price="Cr25000" Page="86" />
+			<Item Name="Crude Prosthetic" TL="3" Price="Cr100" Page="87" />
+			<Item Name="Dexterity Augmentation DEX +1" TL="11" Price="Cr500000" Book="Core 2" />
+			<Item Name="Dexterity Augmentation DEX +2" TL="12" Price="MCr1" Book="Core 2" />
+			<Item Name="Dexterity Augmentation DEX +3" TL="15" Price="MCr5" Book="Core 2" />
+			<Item Name="Enhanced Mobility-11" TL="11" Price="Cr15000" Page="87" />
+			<Item Name="Enhanced Mobility-13" TL="13" Price="Cr25000" Page="87" />
+			<Item Name="Enhanced Mobility-8" TL="8" Price="Cr10000" Page="87" />
+			<Item Name="Functional Prosthetic" TL="7" Price="Cr250" Page="87" />
+			<Item Name="Strength Augmentation STR +1" TL="11" Price="Cr500000" Book="Core 2" />
+			<Item Name="Strength Augmentation STR +2" TL="12" Price="MCr1" Book="Core 2" />
+			<Item Name="Strength Augmentation STR +3" TL="15" Price="MCr5" Book="Core 2" />
+			<Item Name="Weapon Implant - Autopistol" TL="10" Price="Cr12000" Page="87" />
+			<Item Name="Weapon Implant - Dagger" TL="10" Price="Cr5000" Page="87" />
+			<Item Name="Weapon Implant - Laser Pistol" TL="10" Price="Cr25000" Page="87" />
+			<Item Name="Weapon Implant - Stunstick" TL="10" Price="Cr10000" Page="87" />
+
+			<Item Name="Tail" TL="11" Price="Cr125000" Page="259" Species="Bwap" Book="Aliens 3" />
+		</Subsection>
+		<Subsection Name="Torso">
+			<Item Name="Additional Manipulator" TL="10" Price="Cr7500" Page="88" />
+			<Item Name="All-Temperture Epidermal Symbiote" TL="14" Price="Cr2500" Page="88" />
+			<Item Name="Bio-Fusion Power Port" TL="13" Price="Cr10000" Page="88" />
+			<Item Name="Cardiotrigger Detonator" TL="7" Price="0" Page="88" />
+			<Item Name="Endurance Augmentation END +1" TL="11" Price="Cr500000" Book="Core 2" />
+			<Item Name="Endurance Augmentation END +2" TL="12" Price="MCr1" Book="Core 2" />
+			<Item Name="Endurance Augmentation END +3" TL="15" Price="MCr5" Book="Core 2" />
+			<Item Name="Full Body Transplant" TL="18" Price="MCr1000" Page="88" />
+			<Item Name="Internal Auto-Injector" TL="10" Price="Cr50000" Page="89" />
+			<Item Name="Metastatic Platelet Injection" TL="12" Price="Cr25000" Page="89" />
+			<Item Name="Muscular Bridging" TL="13" Price="Cr250000" Page="89" />
+			<Item Name="Physical Augmentation +1" TL="11" Price="Cr500000" Page="89" />
+			<Item Name="Physical Augmentation +2" TL="12" Price="MCr1" Page="89" />
+			<Item Name="Physical Augmentation +3" TL="15" Price="MCr5" Page="89" />
+			<Item Name="Smuggling Container" TL="8" Price="Cr15000" Page="89" />
+			<Item Name="Soldier's Organ Package" TL="12" Price="MCr1.5" Page="89" />
+			<Item Name="Subdermal Armor +1" TL="10" Price="Cr50000" Page="90" />
+			<Item Name="Subdermal Armor +3" TL="11" Price="Cr100000" Page="90" />
+			<Item Name="Subdermal Armor +4" TL="12" Price="Cr250000" Page="90" />
+			<Item Name="Subdermal Armor +5" TL="14" Price="Cr500000" Page="90" />
+			<Item Name="Terminal Stabilisation System" TL="16" Price="MCr2.5" Page="90" />
+		</Subsection>
+	</Section>
+	<Section Name="Discerning Weapons Specialist" Law="9" Book="CSC 2" Contraband="Weapons">
+		<Subsection Name="Explosives" Skill="Explosives" Mod="Military" Law="1" Category="3">
+			<Item Name="Breaching Charge" TL="8" Price="Cr250" Mass="1" Page="136" />
+			<Item Name="Complex Chemical Charge" TL="10" Price="Cr500" Mass="1" Page="136" />
+			<Item Name="Fusion Block" TL="16" Price="Cr10000" Mass="1" Category="6" Page="136" />
+			<Item Name="Neutrino Charge" TL="17" Price="Cr50000" Mass="1" Page="137" />
+			<Item Name="Plastic" TL="6" Price="Cr200" Page="137" />
+			<Item Name="Pocket Nuke" TL="12" Price="Cr250000" Mass="4" Category="6" Page="137" />
+			<Item Name="TDX" TL="12" Price="Cr1000" Page="137" />
+		</Subsection>
+		<Subsection Name="Gun Combat Weapons" Skill="Gun Combat">
+			<Item Name="Bolas" TL="0" Price="Cr5" Mass="1" Page="134" />
+			<Item Name="Boomerang" TL="0" Price="0" Mass="1" Page="134" />
+			<Item Name="Monofilament Bolas" TL="12" Price="Cr500" Mass="1" Page="135" />
+			<Item Name="Net" TL="1" Price="Cr10" Mass="1" Page="135" />
+		</Subsection>
+		<Subsection Name="Melee Weapons" Skill="Melee">
+			<Item Name="Shock Whip" TL="9" Price="Cr450" Mass="1" Page="135" />
+			<Item Name="Whip" TL="1" Price="Cr15" Mass="1" Page="135" />
+		</Subsection>
+	</Section>
+	<Section Name="Electronics" Book="CSC 2">
+		<Subsection Name="Modifications">
+			<Item Name="Waterproofing-6" TL="6" Page="257" Book="Aliens 3" Species="Bwap" Notes="+200% of weight, +250% of cost" />
+			<Item Name="Waterproofing-7" TL="7" Page="257" Book="Aliens 3" Species="Bwap" Notes="+100% of weight +100% of cost" />
+			<Item Name="Waterproofing-8" TL="8" Page="257" Book="Aliens 3" Species="Bwap" Notes="+25% of weight +50 % of cost" />
+			<Item Name="Waterproofing-9" TL="9" Page="257" Book="Aliens 3" Species="Bwap" Notes="+0.10% of weight +25% of cost" />
+		</Subsection>
+
+		<Subsection Name="Communications">
+			<Item Name="Bug-Audio only" TL="5" Price="Cr50" Mass="" Page="62" />
+			<Item Name="Bug-Audio or Visual" TL="7" Price="Cr100" Mass="" Page="62" />
+			<Item Name="Bug-Audio or Visual or Data" TL="9" Price="Cr200" Mass="" Page="62" />
+			<Item Name="Bug-Audio/Visual/Data" TL="11" Price="Cr300" Mass="" Page="62" />
+			<Item Name="Bug-Audio/Visual/Data/Bioscan" TL="13" Price="Cr400" Mass="" Page="62" />
+			<Item Name="Bug-Audio/Visual/Data/Bioscan/Computer/1" TL="15" Price="Cr500" Mass="" Page="62" />
+			<Item Name="Commdot" TL="10" Price="Cr10" Page="62" />
+			<Item Name="Holographic Projector-11" TL="11" Price="Cr1000" Mass="16" Page="62" />
+			<Item Name="Holographic Projector-12" TL="12" Price="Cr2000" Mass="12" Page="62" />
+			<Item Name="Holographic Projector-13" TL="13" Price="Cr10000" Mass="4" Page="62" />
+			<Item Name="Holographic Projector-15" TL="15" Price="Cr25000" Page="62" />
+			<Item Name="Laser Transceiver - 500km" TL="9" Price="Cr2500" Mass="1.5" Page="63" />
+			<Item Name="Laser Transceiver (Computer/0) - 500km" TL="11" Price="Cr1500" Mass="0.5" Page="63" />
+			<Item Name="Laser Transceiver (Computer/1) - 500km" TL="13" Price="Cr500" Mass="" Page="63" />
+			<Item Name="Mobile Comm-Audio and visual, Computer/0" TL="8" Price="Cr150" Mass="" Page="62" />
+			<Item Name="Mobile Comm-Audio only" TL="6" Price="Cr50" Mass="" Page="62" />
+			<Item Name="Mobile Comm-Multiple forms of data, Computer/1" TL="10" Price="Cr500" Mass="" Page="62" />
+			<Item Name="Radio Transceiver - 5000km" TL="5" Price="Cr15000" Mass="300" Page="63" />
+			<Item Name="Radio Transceiver - 500km" TL="14" Price="Cr500" Page="63" />
+			<Item Name="Radio Transceiver - 500km" TL="5" Price="Cr1500" Mass="150" Page="63" />
+			<Item Name="Radio Transceiver - 500km" TL="9" Price="Cr500" Page="63" />
+			<Item Name="Radio Transceiver - 50km" TL="10" Price="Cr250" Page="63" />
+			<Item Name="Radio Transceiver - 50km" TL="5" Price="Cr750" Mass="70" Page="63" />
+			<Item Name="Radio Transceiver - 5km" TL="5" Price="Cr225" Mass="20" Page="63" />
+			<Item Name="Radio Transceiver - 5km" TL="8" Price="Cr75" Page="63" />
+			<Item Name="Radio Transceiver (Computer/0) - 5000km" TL="12" Price="Cr1000" Mass="1" Page="63" />
+			<Item Name="Radio Transceiver (Computer/0) - 5000km" TL="9" Price="Cr5000" Page="63" />
+			<Item Name="Radio Transceiver (Computer/1) - 50km" TL="13" Price="Cr250" Page="63" />
+		</Subsection>
+		<Subsection Name="Computers">
+			<Item Name="Data Display/Recorder" TL="13" Price="5000" Book="Core 2" />
+			<Item Name="Data Wafer" TL="10" Price="5" Book="Core 2" />
+			<Item Name="Mainframe (Computer/0)" TL="5" Price="MCr2" Mass="5 tons" Page="66" Computer="Computer/0" />
+			<Item Name="Mainframe (Computer/1)" TL="6" Price="MCr4" Mass="4 tons" Page="66" Computer="Computer/1" />
+			<Item Name="Mainframe (Computer/2)" TL="7" Price="MCr5" Mass="1 ton" Page="66" Computer="Computer/2" />
+			<Item Name="Portable Computer (Computer/0)" TL="7" Price="Cr500" Mass="5" Page="66" Computer="Computer/0" />
+			<Item Name="Portable Computer (Computer/1)" TL="8" Price="Cr250" Mass="2" Page="66" Computer="Computer/1" />
+			<Item Name="Portable Computer (Computer/1)" TL="9" Price="Cr100" Mass="1" Page="66" Computer="Computer/1" />
+			<Item Name="Portable Computer (Computer/2)" TL="10" Price="Cr500" Mass="0.5" Page="66" Computer="Computer/2" />
+			<Item Name="Portable Computer (Computer/2)" TL="11" Price="Cr300" Mass="0.5" Page="66" Computer="Computer/2" />
+			<Item Name="Portable Computer (Computer/3)" TL="12" Price="Cr1000" Mass="0.5" Page="66" Computer="Computer/3" />
+			<Item Name="Portable Computer (Computer/4)" TL="13" Price="Cr1500" Mass="0.5" Page="66" Computer="Computer/4" />
+			<Item Name="Portable Computer (Computer/5)" TL="14" Price="Cr5000" Mass="0.5" Page="66" Computer="Computer/5" />
+			<Item Name="Portable Computer/0 Prototype 1" TL="6" Price="Cr5000" Mass="50 kg" Book="Core 2" />
+			<Item Name="Portable Computer/0 Prototype 2" TL="5" Price="Cr50000" Mass="500 kg" Book="Core 2" />
+			<Item Name="Portable Computer/0 Retrotech 1" TL="8" Price="250" Mass="2.5 kg" Book="Core 2" />
+			<Item Name="Portable Computer/0 Retrotech 2" TL="9" Price="125" Mass="1.25 kg" Book="Core 2" />
+			<Item Name="Portable Computer/0 Retrotech 3" TL="10" Price="63" Mass="0.5 kg" Book="Core 2" />
+			<Item Name="Portable Computer/1 Prototype 1" TL="7" Price="Cr2500" Mass="20 kg" Book="Core 2" />
+			<Item Name="Portable Computer/1 Prototype 1" TL="8" Price="Cr1000" Mass="10 kg" Book="Core 2" />
+			<Item Name="Portable Computer/1 Prototype 2" TL="6" Price="Cr25000" Mass="200 kg" Book="Core 2" />
+			<Item Name="Portable Computer/1 Prototype 2" TL="7" Price="Cr10000" Mass="100 kg" Book="Core 2" />
+			<Item Name="Portable Computer/1 Retrotech 1" TL="10" Price="50" Mass="0.5 kg" Book="Core 2" />
+			<Item Name="Portable Computer/1 Retrotech 1" TL="9" Price="125" Mass="1 kg" Book="Core 2" />
+			<Item Name="Portable Computer/1 Retrotech 2" TL="10" Price="63" Mass="0.5 kg" Book="Core 2" />
+			<Item Name="Portable Computer/1 Retrotech 2" TL="11" Price="25" Book="Core 2" />
+			<Item Name="Portable Computer/1 Retrotech 3" TL="11" Price="31" Book="Core 2" />
+			<Item Name="Portable Computer/1 Retrotech 3" TL="12" Price="13" Book="Core 2" />
+			<Item Name="Portable Computer/2 Prototype 1" TL="10" Price="Cr3000" Mass="5 kg" Book="Core 2" />
+			<Item Name="Portable Computer/2 Prototype 1" TL="9" Price="Cr5000" Mass="5 kg" Book="Core 2" />
+			<Item Name="Portable Computer/2 Prototype 2" TL="8" Price="Cr50000" Mass="50 kg" Book="Core 2" />
+			<Item Name="Portable Computer/2 Prototype 2" TL="9" Price="Cr30000" Mass="50 kg" Book="Core 2" />
+			<Item Name="Portable Computer/2 Retrotech 1" TL="11" Price="250" Book="Core 2" />
+			<Item Name="Portable Computer/2 Retrotech 1" TL="12" Price="150" Book="Core 2" />
+			<Item Name="Portable Computer/2 Retrotech 2" TL="12" Price="125" Book="Core 2" />
+			<Item Name="Portable Computer/2 Retrotech 2" TL="13" Price="75" Book="Core 2" />
+			<Item Name="Portable Computer/2 Retrotech 3" TL="13" Price="63" Book="Core 2" />
+			<Item Name="Portable Computer/2 Retrotech 3" TL="14" Price="38" Book="Core 2" />
+			<Item Name="Portable Computer/3 Prototype 1" TL="11" Price="Cr10000" Mass="5 kg" Book="Core 2" />
+			<Item Name="Portable Computer/3 Prototype 2" TL="10" Price="Cr100000" Mass="50 kg" Book="Core 2" />
+			<Item Name="Portable Computer/3 Retrotech 1" TL="13" Price="500" Book="Core 2" />
+			<Item Name="Portable Computer/3 Retrotech 2" TL="14" Price="250" Book="Core 2" />
+			<Item Name="Portable Computer/3 Retrotech 3" TL="15" Price="125" Book="Core 2" />
+			<Item Name="Portable Computer/4 Prototype 1" TL="12" Price="Cr15000" Mass="5 kg" Book="Core 2" />
+			<Item Name="Portable Computer/4 Prototype 2" TL="11" Price="Cr150000" Mass="50 kg" Book="Core 2" />
+			<Item Name="Portable Computer/4 Retrotech 1" TL="14" Price="750" Book="Core 2" />
+			<Item Name="Portable Computer/4 Retrotech 2" TL="15" Price="375" Book="Core 2" />
+			<Item Name="Portable Computer/4 Retrotech 3" TL="16" Price="188" Book="Core 2" />
+			<Item Name="Portable Computer/5 Prototype 1" TL="13" Price="Cr50000" Mass="5 kg" Book="Core 2" />
+			<Item Name="Portable Computer/5 Prototype 2" TL="12" Price="Cr500000" Mass="50 kg" Book="Core 2" />
+			<Item Name="Portable Computer/5 Retrotech 1" TL="15" Price="2500" Book="Core 2" />
+			<Item Name="Portable Computer/5 Retrotech 2" TL="16" Price="1250" Book="Core 2" />
+			<Item Name="Portable Computer/5 Retrotech 3" TL="17" Price="625" Book="Core 2" />
+		</Subsection>
+		<Subsection Name="Gadgets and Essentials">
+			<Item Name="Ring Laser" TL="16" Price="Cr1000" Page="64" />
+			<Item Name="Wrist Watch" TL="10" Price="Cr200" Page="64" />
+			<Item Name="Wrist Watch" TL="4" Price="Cr100" Page="64" />
+			<Item Name="Wrist Watch" TL="7" Price="Cr10" Page="64" />
+			<Item Name="Wrist Watch" TL="9" Price="Cr150" Page="64" />
+		</Subsection>
+		<Subsection Name="Software Packages" Contraband="Information">
+			<Item Name="Agent 0" TL="11" Price="Cr500" Law="2" Page="67" Bandwidth="0" />
+			<Item Name="Agent 1" TL="12" Price="Cr2000" Law="2" Page="67" Bandwidth="1" />
+			<Item Name="Agent 2" TL="13" Price="Cr100000" Law="2" Page="67" Bandwidth="2" />
+			<Item Name="Agent 3" TL="14" Price="Cr250000" Law="2" Page="67" Bandwidth="3" />
+			<Item Name="Database" TL="7" Price="Cr10000" Page="67" Bandwidth="1" />
+			<Item Name="Decryptor" TL="10" Price="Cr5000" Page="67" Bandwidth="1" />
+			<Item Name="Decryptor" TL="12" Price="Cr10000" Page="67" Bandwidth="2" />
+			<Item Name="Decryptor" TL="14" Price="Cr20000" Page="67" Bandwidth="3" />
+			<Item Name="Digital Friend" TL="12" Price="Cr1750" Page="68" Bandwidth="2" />
+			<Item Name="Expert" TL="11" Price="Cr1000" Page="68" Bandwidth="1" />
+			<Item Name="Expert" TL="12" Price="Cr10000" Page="68" Bandwidth="2" />
+			<Item Name="Expert" TL="13" Price="Cr100000" Page="68" Bandwidth="3" />
+			<Item Name="Expert (Admin) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Admin) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Admin) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Advocate) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Advocate) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Advocate) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Animal/Veterinary) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Animal/Veterinary) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Animal/Veterinary) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Astrogation) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Astrogation) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Astrogation) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Broker) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Broker) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Broker) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Electrionics/Comms) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Electrionics/Comms) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Electrionics/Comms) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Electrionics/Remote Ops) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Electrionics/Remote Ops) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Electrionics/Remote Ops) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Electrionics/Sensors) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Electrionics/Sensors) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Electrionics/Sensors) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Engineer/J-Drive) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Engineer/J-Drive) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Engineer/J-Drive) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Engineer/Life Support) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Engineer/Life Support) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Engineer/Life Support) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Engineer/M-Drive) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Engineer/M-Drive) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Engineer/M-Drive) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Engineer/Power) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Engineer/Power) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Engineer/Power) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Investigate) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Investigate) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Investigate) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Mechanic) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Mechanic) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Mechanic) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Medic) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Medic) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Medic) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Navigation) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Navigation) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Navigation) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Belter) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Belter) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Belter) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Biologicals) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Biologicals) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Biologicals) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Civil Engineering) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Civil Engineering) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Civil Engineering) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Construction) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Construction) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Construction) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Hydroponics) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Hydroponics) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Hydroponics) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Polymers) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Polymers) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Profession/Polymers) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Archaeology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Archaeology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Archaeology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Biology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Biology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Biology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Chemistry) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Chemistry) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Chemistry) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Cosmology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Cosmology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Cosmology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Cybernetics) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Cybernetics) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Cybernetics) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Economics) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Economics) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Economics) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Genetics) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Genetics) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Genetics) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/History) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/History) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/History) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Linguistics) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Linguistics) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Linguistics) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Philosophy) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Philosophy) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Philosophy) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Physics) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Physics) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Physics) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Planetology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Planetology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Planetology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Psionicology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Psionicology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Psionicology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Psychology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Psychology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Psychology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Robotics) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Robotics) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Robotics) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Sophontology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Sophontology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Sophontology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Xenology) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Xenology) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Science/Xenology) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Survival) 1" TL="11" Price="Cr1000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Survival) 2" TL="12" Price="Cr10000" Law="5" Book="Core 2" />
+			<Item Name="Expert (Survival) 3" TL="13" Price="Cr100000" Law="5" Book="Core 2" />
+			<Item Name="Intellect 1" TL="12" Price="Cr2000" Page="68" Bandwidth="1" />
+			<Item Name="Intellect 2" TL="13" Price="Cr50000" Page="68" Bandwidth="2" />
+			<Item Name="Intellect 3" TL="14" Price="Cr200000" Page="68" Bandwidth="3" />
+			<Item Name="Intelligent Interface" TL="11" Price="Cr100" Page="68" Bandwidth="1" />
+			<Item Name="Interface" TL="7" Price="Cr0" Page="68" Bandwidth="0" />
+			<Item Name="Intrusion 1" TL="10" Price="Cr1000" Law="3" Page="68" Bandwidth="1" />
+			<Item Name="Intrusion 2" TL="11" Price="Cr10000" Law="3" Page="68" Bandwidth="2" />
+			<Item Name="Intrusion 3" TL="13" Price="Cr100000" Law="3" Page="68" Bandwidth="3" />
+			<Item Name="Intrusion 4" TL="15" Price="MCr1" Law="3" Page="68" Bandwidth="4" />
+			<Item Name="Personal Trainer" TL="8" Price="Cr2000" Page="69" Bandwidth="1" />
+			<Item Name="Security 0" TL="8" Price="Cr0" Law="4" Page="69" Difficulty="Difficult (10+)" Bandwidth="0" />
+			<Item Name="Security 1" TL="10" Price="Cr200" Law="4" Page="69" Difficulty="Very Difficult (12+)" Bandwidth="1" />
+			<Item Name="Security 2" TL="11" Price="Cr1000" Law="4" Page="69" Difficulty="Formidable (14+)" Bandwidth="2" />
+			<Item Name="Security 3" TL="12" Price="Cr20000" Law="4" Page="69" Difficulty="Impossible (16+)" Bandwidth="3" />
+			<Item Name="Translator" TL="10" Price="Cr500" Page="69" Bandwidth="1" />
+			<Item Name="Translator" TL="9" Price="Cr50" Page="69" Bandwidth="0" />
+			<Item Name="Universal Translator" TL="12" Price="Cr25000" Page="69" Bandwidth="3" />
+		</Subsection>
+		<Subsection Name="Vision and Detection">
+			<Item Name="Bioscanner" TL="15" Price="Cr350000" Mass="3.5" Book="Core 2" />
+			<Item Name="Chemi-view Goggles" TL="13" Price="Cr5000" Page="59" />
+			<Item Name="Cold Light Lantern" TL="6" Price="Cr20" Mass="0.25" Page="59" />
+			<Item Name="Densitometer" TL="14" Price="Cr20000" Mass="5" Book="Core 2" />
+			<Item Name="Electronic Binoculars" TL="8" Price="Cr750" Mass="1" Page="60" />
+			<Item Name="Geiger Counter" TL="5" Price="Cr250" Mass="1" Page="60" />
+			<Item Name="Geiger Counter" TL="8" Price="Cr400" Page="60" />
+			<Item Name="Infrared Electric Torch" TL="7" Price="Cr50" Page="60" />
+			<Item Name="Infrared Goggles" TL="6" Price="Cr500" Page="60" />
+			<Item Name="Light Intensifier Goggles" TL="7" Price="Cr500" Mass="1" Page="60" />
+			<Item Name="Light Intensifier Goggles" TL="9" Price="Cr1250" Mass="-" Page="60" />
+			<Item Name="NAS" TL="15" Price="Cr35000" Mass="10" Book="Core 2" />
+			<Item Name="Personal HUD" TL="9" Price="Cr1500" Mass="-" Page="61" />
+			<Item Name="PRIS Binoculars" TL="12" Price="Cr3500" Mass="1" Page="61" />
+			<Item Name="PRIS Goggles" TL="12" Price="Cr4000" Page="61" />
+			<Item Name="Psi-finder Binoculars" TL="16" Price="Cr10000" Mass="1" Page="61" />
+		</Subsection>
+	</Section>
+	<Section Name="Heavy Weapons" Book="CSC 2" Mod="Military" Law="3" Category="4" Contraband="Weapons">
+		<Subsection Name="Artillery" Skill="Heavy Weapons (artillery)" Mod="Military" Category="4">
+			<Item Name="Black Powder Mortar" TL="3" Price="Cr2000" Mass=".5 tons" Page="126" />
+			<Item Name="Bombardment Gun" TL="5" Price="MCr0.5" Mass="220 tons" Page="126" />
+			<Item Name="Demolition Gun" TL="6" Price="Cr30000" Mass="5 tons" Page="126" />
+			<Item Name="Heavy Bombardment Gun" TL="5" Price="MCr0.75" Mass="500 tons" Page="126" />
+			<Item Name="Heavy Gun" TL="8" Price="Cr120000" Mass="12 tons" Page="127" />
+			<Item Name="Infantry Mortar" TL="5" Price="Cr3500" Mass="12" Page="127" />
+			<Item Name="Light Gun" TL="6" Price="Cr75000" Mass="2 tons" Page="127" />
+			<Item Name="Light Howitzer" TL="5" Price="Cr50000" Mass="2 tons" Page="127" />
+			<Item Name="Mass Driver" TL="12" Price="MCr0.5" Mass="7 tons" Page="128" />
+			<Item Name="Siege Gun" TL="7" Price="MCr19" Mass="1200 tons" Page="127" />
+		</Subsection>
+		<Subsection Name="Man Portable Weaponry" Skill="Heavy Weapons (Man Portable)" Mod="Military" Category="4">
+			<Item Name="Anti-Materiel Rifle" TL="7" Price="Cr3000" Mass="15" Page="123" />
+			<Item Name="Cryojet" TL="11" Price="Cr4000" Mass="14" Page="123" />
+			<Item Name="Disposable Plasma Launcher" TL="12" Price="Cr8000" Mass="8" Category="5" Page="123" />
+			<Item Name="FGMP-14" TL="14" Price="Cr100000" Mass="12" Category="5" Page="124" />
+			<Item Name="FGMP-15" TL="15" Price="Cr400000" Mass="12" Category="5" Page="124" />
+			<Item Name="FGMP-16" TL="16" Price="MCr.5" Mass="15" Category="5" Page="124" />
+			<Item Name="Flamethrower-4" TL="4" Price="Cr800" Mass="20" Page="124" />
+			<Item Name="Flamethrower-6" TL="6" Price="Cr1500" Mass="15" Page="124" />
+			<Item Name="Flamethrower-8" TL="8" Price="Cr2000" Mass="10" Page="124" />
+			<Item Name="Grenade Launcher" TL="7" Price="0" Mass="6" Page="124" />
+			<Item Name="Machinegun" TL="6" Price="Cr1500" Mass="12" Page="124" />
+			<Item Name="PGMP-12" TL="12" Price="Cr20000" Mass="10" Category="5" Page="125" />
+			<Item Name="PGMP-14" TL="14" Price="Cr65000" Mass="10" Category="5" Page="125" />
+			<Item Name="PGMP-16" TL="16" Price="Cr100000" Mass="10" Category="5" Page="125" />
+			<Item Name="Plasma Jet-12" TL="12" Price="Cr16000" Mass="10" Category="5" Page="125" />
+			<Item Name="Plasma Jet-4" TL="14" Price="Cr80000" Mass="10" Category="5" Page="125" />
+			<Item Name="RAM Grenade Launcher" TL="8" Price="Cr800" Mass="2" Page="125" />
+			<Item Name="Rapid-Fire Machine Gun" TL="7" Price="Cr3000" Mass="12" Page="125" />
+			<Item Name="Rocket Launcher-6" TL="6" Price="Cr2000" Mass="8" Page="125" />
+			<Item Name="Rocket Launcher-7" TL="7" Price="Cr2000" Mass="8" Page="125" />
+			<Item Name="Rocket Launcher-8" TL="8" Price="Cr2000" Mass="8" Page="125" />
+			<Item Name="Rocket Launcher-9" TL="9" Price="Cr2000" Mass="8" Page="125" />
+		</Subsection>
+		<Subsection Name="Rockets and Missiles" Skill="Heavy Weapons (vehicle)" Mod="Military">
+			<Item Name="Bombardment Rocket Pack" TL="6" Price="Cr30000" Mass="2 tons" Page="133" />
+			<Item Name="Heavy Rocket Pod" TL="6" Price="Cr12000" Mass="0.5 tons" Page="133" />
+			<Item Name="Rocket Pod" TL="6" Price="Cr8000" Mass="0.25 tons" Page="133" />
+			<Item Name="Tac Launcher (Anti-Aircraft)" TL="10" Price="Cr16000" Mass=".025 tons" Page="133" />
+			<Item Name="Tac Launcher (Anti-Personnel)" TL="10" Price="Cr12000" Mass=".025 tons" Page="133" />
+			<Item Name="Tac Launcher (Armor Piercing)" TL="10" Price="Cr15000" Mass=".025 tons" Page="133" />
+		</Subsection>
+		<Subsection Name="Vehicle Weapons" Skill="Heavy Weapons (vehicle)" Mod="Military" Category="4">
+			<Item Name="Aerospace Defence Laser" TL="12" Price="MCr4" Mass="12 tons" Page="128" />
+			<Item Name="Black Powder Cannon" TL="3" Price="Cr3000" Mass="0.5 tons" Page="128" />
+			<Item Name="Cannon" TL="8" Price="Cr400000" Mass="2.5 tons" Page="129" />
+			<Item Name="Field Gun" TL="4" Price="Cr5000" Mass="0.5 tons" Category="5" Page="129" />
+			<Item Name="Fusion Gun-X" TL="13" Price="MCr2" Mass="4 tons" Category="5" Page="129" />
+			<Item Name="Fusion Gun-Y" TL="14" Price="MCr3" Mass="4 tons" Category="5" Page="129" />
+			<Item Name="Fusion Gun-Z" TL="15" Price="MCr8" Mass="4 tons" Category="5" Page="129" />
+			<Item Name="Gatling Laser" TL="8" Price="Cr125000" Mass="7 tons" Page="129" />
+			<Item Name="Gauss Cannon" TL="12" Price="Cr100000" Mass="1 ton" Page="129" />
+			<Item Name="Heavy Autocannon" TL="6" Price="Cr45000" Mass="1 ton" Page="130" />
+			<Item Name="Heavy Cannon" TL="8" Price="Cr600000" Mass="4 tons" Page="130" />
+			<Item Name="Heavy Gauss Cannon" TL="12" Price="Cr225000" Mass="2 tons" Page="130" />
+			<Item Name="Heavy Laser Cannon" TL="9" Price="Cr250000" Mass="9 tons" Page="130" />
+			<Item Name="Heavy Machinegun" TL="6" Price="Cr4500" Mass="0.1 tons" Page="130" />
+			<Item Name="Hypervelocity Cannon" TL="13" Price="MCr28" Mass="20 tons" Page="130" />
+			<Item Name="Laser Cannon" TL="9" Price="Cr100000" Mass="6 tons" Page="131" />
+			<Item Name="Light Autocannon" TL="6" Price="Cr10000" Mass="0.25 tons" Page="131" />
+			<Item Name="Medium Autocannon" TL="6" Price="Cr25000" Mass="0.5 tons" Page="131" />
+			<Item Name="Meson Accelerator" TL="16" Price="MCr20" Mass="60 tons" Page="131" />
+			<Item Name="Orbital Defence Cannon" TL="14" Price="MCr40" Mass="35 tons" Page="132" />
+			<Item Name="Plasma Gun-A" TL="10" Price="MCr0.5" Mass="4 tons" Category="5" Page="132" />
+			<Item Name="Plasma Gun-B" TL="11" Price="MCr1" Mass="4 tons" Category="5" Page="132" />
+			<Item Name="Plasma Gun-C" TL="12" Price="MCr1.5" Mass="4 tons" Category="5" Page="132" />
+			<Item Name="Rail Gun" TL="9" Price="Cr75000" Mass="3 tons" Page="132" />
+			<Item Name="Support Mortar" TL="7" Price="Cr11000" Mass="0.25 tons" Page="128" />
+			<Item Name="Vulcan Machinegun" TL="7" Price="Cr12000" Mass="0.25 tons" Page="132" />
+		</Subsection>
+	</Section>
+	<Section Name="Home Comforts" Book="CSC 2">
+		<Subsection Name="Home Comforts">
+			<Item Name="Alien Cosplay Kit" TL="7" Price="Cr350" Mass="1" Page="94" />
+			<Item Name="Autobar" TL="8" Price="Cr300" Mass="4" Page="94" />
+			<Item Name="Autochef" TL="9" Price="Cr200" Mass="6" Page="94" />
+			<Item Name="Autochef (gourmet model)" TL="10" Price="Cr2500" Mass="5" Page="94" />
+			<Item Name="Autolaundry" TL="10" Price="Cr500" Mass="6" Page="94" />
+			<Item Name="Autolaundry" TL="17" Price="Cr1000" Mass="5" Page="94" />
+			<Item Name="Autolaundry" TL="7" Price="Cr250" Mass="18" Page="94" />
+			<Item Name="Bed (anti-grav)" TL="12" Price="Cr1500" Mass="5" Page="95" />
+			<Item Name="Bed (anti-grav, king-size)" TL="12" Price="Cr7500" Mass="15" Page="95" />
+			<Item Name="Bed (hammock)" TL="2" Price="Cr10" Page="95" />
+			<Item Name="Bed (mattress)" TL="1" Price="Cr200" Mass="80" Page="95" />
+			<Item Name="Bed (mattress, king-size)" TL="1" Price="Cr1000" Mass="240" Page="95" />
+			<Item Name="Clothing Consultant" TL="9" Price="Cr800" Mass="6" Page="94" />
+			<Item Name="Environment Replicator" TL="8" Price="Cr2000" Mass="12" Page="95" />
+			<Item Name="Float Table (large)" TL="10" Price="Cr600" Mass="4" Page="95" />
+			<Item Name="Float Table (small)" TL="10" Price="Cr200" Mass="1" Page="95" />
+			<Item Name="Full Body Hair Styler" TL="8" Price="Cr1250" Mass="8" Page="95" />
+			<Item Name="Hair Styler" TL="8" Price="Cr450" Mass="2" Page="95" />
+			<Item Name="High Fidelity Music System" TL="11" Price="Cr4500" Mass="8" Page="95" />
+			<Item Name="High Fidelity Music System" TL="6" Price="Cr1500" Mass="8" Page="95" />
+			<Item Name="Holographic Play Table" TL="9" Price="Cr750" Mass="9" Page="95" />
+			<Item Name="Home Theatre" TL="10" Price="Cr36000" Mass="9" Page="96" />
+			<Item Name="Home Theatre" TL="8" Price="Cr4500" Mass="30" Page="96" />
+			<Item Name="Home Theatre" TL="9" Price="Cr12000" Mass="20" Page="96" />
+			<Item Name="Lords of Space" TL="10" Price="Cr250" Mass="1" Page="96" />
+			<Item Name="Miniatures Wargame" TL="10" Price="Cr2500" Mass="1" Page="96" />
+			<Item Name="Miniatures Wargame" TL="11" Price="Cr25000" Mass="1" Page="96" />
+			<Item Name="Miniatures Wargame" TL="5" Price="Cr25" Mass="1" Page="96" />
+			<Item Name="Miniatures Wargame" TL="7" Price="Cr250" Mass="1" Page="96" />
+			<Item Name="Personal Safe (difficult)" TL="5" Price="Cr150" Mass="5" Page="96" />
+			<Item Name="Personal Safe (formidable)" TL="12" Price="Cr600" Mass="3" Page="96" />
+			<Item Name="Personal Safe (very difficult)" TL="6" Price="Cr250" Mass="4" Page="96" />
+			<Item Name="Personal Safe (very difficult)" TL="8" Price="Cr400" Mass="3" Page="96" />
+			<Item Name="Remembrance Hologram" TL="9" Price="Cr250" Page="96" />
+			<Item Name="Sleep Inducer" TL="10" Price="Cr1000" Mass="2" Page="96" />
+			<Item Name="Sonic Sweat and Stain Remover" TL="13" Price="Cr125" Mass="1" Page="97" />
+			<Item Name="Sphere of Solace" TL="10" Price="Cr500" Mass="1" Page="97" />
+			<Item Name="Vivarium (1-2 hits)" TL="8" Price="Cr400" Mass="2" Page="97" />
+			<Item Name="Vivarium (3-5 hits)" TL="8" Price="Cr1000" Mass="4" Page="97" />
+			<Item Name="Vivarium (6-10 hits)" TL="8" Price="Cr2200" Mass="8" Page="97" />
+
+			<Item Name="Wapawab Scrolls" TL="1" Mass="100" Price="Cr1000" Page="259" Species="Bwap" Book="Aliens 3" />
+			<Item Name="Wapawab Books" TL="4" Mass="50" Price="Cr2500" Page="259" Species="Bwap" Book="Aliens 3" />
+			<Item Name="Electronic Wapawab-9" TL="9" Mass="2" Price="Cr500" Page="259" Species="Bwap" Book="Aliens 3" />
+			<Item Name="Electronic Wapawab-10" TL="10" Mass="1" Price="Cr750" Page="259" Species="Bwap" Book="Aliens 3" />
+			<Item Name="Electronic Wapawab-12" TL="12" Mass="0.5" Price="Cr1500" Page="259" Species="Bwap" Book="Aliens 3" />
+		</Subsection>
+	</Section>
+	<Section Name="Medical Supplies" Book="CSC 2">
+		<Subsection Name="Drugs and Pharmaceuticals" Contraband="Drugs">
+			<Item Name="Adrenaliser" TL="10" Price="Cr150" Page="83" Law="4" />
+			<Item Name="Anagathics" TL="15" Price="Cr20000" Page="83" Law="5" />
+			<Item Name="Anti-Rad" TL="8" Price="Cr1000" Page="83" Law="8" />
+			<Item Name="Combat Drug" TL="10" Price="Cr1000" Page="83" Law="3" />
+			<Item Name="Fast Drug" TL="10" Price="Cr200" Page="83" Law="6" />
+			<Item Name="Inhibitor Drug" TL="9" Price="Cr500" Page="83" Law="9" />
+			<Item Name="Metabolic Accelerator" TL="10" Price="Cr500" Page="84" Law="3" />
+			<Item Name="Meta-Performance Enhancer" TL="10" Price="Cr600" Page="83" Law="3" />
+			<Item Name="Nervous Response Dampener" TL="9" Price="Cr100" Page="84" Law="4" />
+			<Item Name="Null Drug" TL="16" Price="Cr5000" Page="84" Law="9" />
+			<Item Name="Panacea" TL="8" Price="Cr200" Page="84" Law="8" />
+			<Item Name="Psi-Drug (double)" TL="8" Price="Cr4000" Page="84" Contraband="Psionics" Law="6" />
+			<Item Name="Psi-Drug (special)" TL="8" Price="Cr10000" Page="84"  Contraband="Psionics" Law="6" />
+			<Item Name="Psi-Drug (standard)" TL="8" Price="Cr1000" Page="84"  Contraband="Psionics" Law="6" />
+			<Item Name="Radiation Emergency Applicator" TL="10" Price="Cr250" Page="84" Law="8" />
+			<Item Name="Recreational Drugs" TL="1" Price="Cr10+" Page="84" Law="4" />
+			<Item Name="Slow Drug" TL="11" Price="Cr500" Page="85" Law="6" />
+			<Item Name="Starlight Drops" TL="12" Price="Cr500" Page="85" Law="3" />
+			<Item Name="Stims" TL="8" Price="Cr50" Page="85" Law="4" />
+			<Item Name="Truth Serum" TL="5" Price="Cr500" Page="85" Law="1" />
+			<Item Name="Amino Acid Supplements" TL="8" Price="Cr20" Page="258" Species="Bwap" Book="Aliens 3" />
+			<Item Name="Hydronol 9" TL="11" Price="Cr100" Page="258" Species="Bwap" Book="Aliens 3" />
+			<Item Name="Regenerax" TL="12" Price="Cr10000" Page="259" Species="Bwap" Book="Aliens 3" />
+		</Subsection>
+		<Subsection Name="Medical Equipment">
+			<Item Name="Adhesive bandages" TL="6" Price="Cr50" Page="81" />
+			<Item Name="Autodoc-13" TL="13" Price="Cr100000" Mass="500" Page="81" />
+			<Item Name="Autodoc-14" TL="14" Price="MCr1" Mass="500" Page="81" />
+			<Item Name="Cryoberth" TL="10" Price="Cr50000" Mass="200" Page="81" />
+			<Item Name="Field Medical Kit" TL="6" Price="Cr500" Mass="3" Page="81" />
+			<Item Name="Field Surgical Kit" TL="5" Price="Cr1000" Page="81" />
+			<Item Name="First Aid Kit-2" TL="2" Price="Cr10" Page="82" />
+			<Item Name="First Aid Kit-5" TL="5" Price="Cr125" Page="82" />
+			<Item Name="Laser Scalpel" TL="10" Price="Cr2000" Page="79" />
+			<Item Name="Medkit-10" TL="10" Price="Cr1500" Mass="1" Page="82" />
+			<Item Name="Medkit-12" TL="12" Price="Cr5000" Mass="1" Page="82" />
+			<Item Name="Medkit-14" TL="14" Price="Cr10000" Page="82" />
+			<Item Name="Medkit-8" TL="8" Price="Cr1000" Mass="1" Page="82" />
+			<Item Name="Personal Automedic" TL="11" Price="Cr15000" Page="82" />
+			<Item Name="Personal Mediscanner" TL="12" Price="Cr1000" Page="82" />
+			<Item Name="Portable mediscanner" TL="12" Price="Cr2000" Mass="1" Page="82" />
+			<Item Name="Trauma Pack" TL="8" Price="Cr750" Mass="2" Page="82" />
+		</Subsection>
+	</Section>
+	<Section Name="Personal Protection" Book="CSC 2" Contraband="Weapons">
+		<Subsection Name="Armor">
+			<Item Name="Armoured Kaftan-7"  Species="Bwap" TL="7" Price="Cr300" Mass="8" Law="2" Category="4" Page="256"   Book="Aliens 3" />
+			<Item Name="Armoured Kaftan-10" Species="Bwap" TL="10" Price="Cr600" Mass="4" Law="2" Category="4" Page="256" Book="Aliens 3" />
+			<Item Name="Armoured Kaftan-12" Species="Bwap" TL="12" Price="Cr900" Mass="1" Law="2" Category="4" Page="256" Book="Aliens 3" />
+
+			<Item Name="Ablat" TL="9" Price="Cr75" Mass="2" Law="2" Category="4" Page="16" />
+			<Item Name="Advanced Poly Carapace" TL="13" Price="Cr35000" Mass="2" Law="2" Category="4" Page="13" />
+			<Item Name="Ballistic Vest" TL="8" Price="Cr500" Mass="1" Law="3" Category="4" Page="11" />
+			<Item Name="Breastplate" TL="1" Price="Cr200" Mass="5" Law="8" Category="3" Page="15" />
+			<Item Name="Ceramic Carapace" TL="12" Price="Cr12000" Mass="4" Law="2" Category="4" Page="11" />
+			<Item Name="Cloth-10" TL="10" Price="Cr500" Mass="5" Law="4" Category="3" Page="11" />
+			<Item Name="Cloth-12" TL="12" Price="Cr750" Mass="2" Law="4" Category="3" Page="11" />
+			<Item Name="Cloth-7" TL="7" Price="Cr250" Mass="10" Law="4" Category="3" Page="11" />
+			<Item Name="Conduit Bleed" TL="14" Price="Cr3500" Mass="8" Law="2" Category="4" Page="17" />
+			<Item Name="Diplo Vest" TL="10" Price="Cr250" Law="2" Category="4" Page="12" />
+			<Item Name="Dispersion" TL="12" Price="Cr2000" Mass="3" Law="2" Category="4" Page="17" />
+			<Item Name="Fireproof Suit" TL="7" Price="Cr50" Mass="1" Law="8" Category="1" Page="17" />
+			<Item Name="Flak Jacket-7" TL="7" Price="Cr100" Mass="8" Law="3" Category="3" Page="12" />
+			<Item Name="Flak jacket-8" TL="8" Price="Cr300" Mass="6" Law="3" Category="3" Page="12" />
+			<Item Name="Flak Shell" TL="9" Price="Cr1000" Mass="8" Law="3" Category="3" Page="12" />
+			<Item Name="Full Plate" TL="2" Price="Cr1000" Mass="20" Law="8" Category="3" Page="15" />
+			<Item Name="Half-Plate" TL="2" Price="Cr800" Mass="12" Law="8" Category="3" Page="15" />
+			<Item Name="Jack" TL="1" Price="Cr50" Mass="1" Law="8" Category="3" Page="12" />
+			<Item Name="Lightweight Poly Carapace" TL="11" Price="Cr15000" Mass="2" Law="2" Category="4" Page="13" />
+			<Item Name="Mail Hauberk" TL="2" Price="Cr500" Mass="8" Law="8" Category="3" Page="16" />
+			<Item Name="Mesh" TL="6" Price="Cr150" Mass="2" Law="5" Category="3" Page="13" />
+			<Item Name="Neural Sheath" TL="17" Price="Cr80000" Mass="2" Law="2" Category="4" Page="18" />
+			<Item Name="Poly Carapace" TL="10" Price="Cr10000" Mass="2" Law="2" Category="4" Page="13" />
+			<Item Name="Post-Apocalyptic" TL="6" Price="Cr150" Mass="3" Law="2" Category="4" Page="13" />
+			<Item Name="Protect Suit" TL="9" Price="Cr500" Mass="1" Law="2" Category="4" Page="14" />
+			<Item Name="Reflec" TL="10" Price="Cr1500" Mass="1" Law="8" Category="3" Page="18" />
+			<Item Name="Tactical Riot Armor" TL="7" Price="Cr600" Mass="6" Law="3" Category="4" Page="14" />
+		</Subsection>
+		<Subsection Name="Armor Modifications">
+			<Item Name="Additional Padding" TL="1" Price="Cr50" Mass="5" Page="27" />
+			<Item Name="Camouflage" TL="3" Price="Cr25" Law="3" Category="3" Page="27" />
+			<Item Name="Chameleon, IR" TL="12" Price="Cr5000" Law="3" Category="3" Page="27" />
+			<Item Name="Chameleon, Visilight" TL="13" Price="Cr50000" Law="3" Category="3" Page="27" />
+			<Item Name="Computer Weave-10" TL="10" Price="Cr500" Page="27" />
+			<Item Name="Computer Weave-11" TL="11" Price="Cr1000" Page="27" />
+			<Item Name="Computer Weave-13" TL="13" Price="Cr5000" Page="27" />
+			<Item Name="Coolant Rig" TL="8" Price="Cr100" Mass="2" Page="27" />
+			<Item Name="Environment Reader" TL="8" Price="Cr100" Page="27" />
+			<Item Name="Extended Life Support" TL="10" Price="Cr10000" Page="27" />
+			<Item Name="Eye Protection" TL="6" Price="Cr50" Page="27" />
+			<Item Name="Friend or Foe HUD" TL="11" Price="Cr4000" Page="27" />
+			<Item Name="Gyro-Stabilizer Rig-12" TL="12" Price="Cr10000" Mass="1" Page="27" />
+			<Item Name="Gyro-Stabilizer Rig-14" TL="14" Price="Cr50000" Mass="1" Page="27" />
+			<Item Name="Magnetic Grapples" TL="8" Price="Cr100" Law="3" Category="3" Page="28" />
+			<Item Name="Medkit-10" TL="10" Price="Cr5000" Page="28" />
+			<Item Name="Medkit-11" TL="11" Price="Cr10000" Page="28" />
+			<Item Name="Minefield Boots" TL="8" Price="Cr250" Mass="3" Page="28" />
+			<Item Name="Null Shield" TL="17" Price="Cr150000" Page="28" />
+			<Item Name="Personalized Image" TL="2" Price="Cr10" Page="28" />
+			<Item Name="Psionic Shield Helmet" TL="12" Price="Cr4000" Mass="2" Page="28" />
+			<Item Name="Self-Sealing" TL="11" Price="Cr2000" Page="28" />
+			<Item Name="Smart Fabric" TL="10" Price="Cr1000" Page="28" />
+			<Item Name="Submarine Functionality" TL="9" Price="0" Mass="6" Page="28" />
+			<Item Name="Tactical Video Suite" TL="7" Price="Cr75" Mass="2" Page="28" />
+			<Item Name="Thruster Pack-12" TL="12" Price="Cr14000" Page="28" />
+			<Item Name="Thruster Pack-14" TL="14" Price="Cr20000" Page="28" />
+			<Item Name="Thruster Pack-9" TL="9" Price="Cr2000" Page="28" />
+			<Item Name="Swimming Fins" Species="Bwap" TL="8" Price="Cr100" Page="255" Book="Aliens 3" />
+			<Item Name="Armoured Fins" Species="Bwap" TL="10" Price="Cr150" Page="255" Book="Aliens 3" />
+			<Item Name="Tail Mount-10" Species="Bwap" TL="10" Price="Cr50" Mass="2" Page="257" Book="Aliens 3" />
+			<Item Name="Tail Mount-14" Species="Bwap" TL="14" Price="Cr75" Mass="2" Page="257" Book="Aliens 3" />
+		</Subsection>
+		<Subsection Name="Battle Dress" Law="1" Category="5" Mod="Military">
+			<Item Name="Artillery Battle Dress-13" TL="13" Price="Cr275000" Mass="180" Page="31" Skill="Vacc Suit 2" />
+			<Item Name="Artillery Battle Dress-14" TL="14" Price="Cr320000" Mass="180" Page="31" Skill="Vacc Suit 1" />
+			<Item Name="Assault Battle Dress-13" TL="13" Price="Cr300000" Mass="140" Page="31" Skill="Vacc Suit 2" />
+			<Item Name="Assault Battle Dress-14" TL="14" Price="Cr330000" Mass="140" Page="31" Skill="Vacc Suit 1" />
+			<Item Name="Battle Dress-13" TL="13" Price="Cr200000" Mass="100" Page="32" Skill="Vacc Suit 2" />
+			<Item Name="Battle Dress-14" TL="14" Price="Cr220000" Mass="100" Page="32" Skill="Vacc Suit 1" />
+			<Item Name="Ceramic Battle Dress-13" TL="13" Price="Cr400000" Mass="100" Page="32" Skill="Vacc Suit 2" />
+			<Item Name="Ceramic Battle Dress-14" TL="14" Price="Cr440000" Mass="100" Page="32" Skill="Vacc Suit 1" />
+			<Item Name="Combat Pioneer Battle Dress" TL="13" Price="Cr270000" Mass="120" Page="33" Skill="Vacc Suit 2" />
+			<Item Name="Command Battle Dress-13" TL="13" Price="Cr325000" Mass="110" Page="33" Skill="Vacc Suit 2" />
+			<Item Name="Command Battle Dress-14" TL="14" Price="Cr350000" Mass="110" Page="33" Skill="Vacc Suit 1" />
+			<Item Name="Logistics Battle Dress-13" TL="13" Price="Cr290000" Mass="220" Page="34" Skill="Vacc Suit 2" />
+			<Item Name="Logistics Battle Dress-14" TL="14" Price="Cr320000" Mass="220" Page="34" Skill="Vacc Suit 1" />
+			<Item Name="Psi-Commando Battle Dress" TL="15" Price="MCr1.2" Mass="110" Page="34" Skill="Vacc Suit 1" />
+			<Item Name="Psi-Enhanced Battle Dress-13" TL="13" Price="Cr800000" Mass="100" Page="35" Skill="Vacc Suit 1" />
+			<Item Name="Psi-Enhanced Battle Dress-14" TL="14" Price="Cr880000" Mass="100" Page="35" Skill="Vacc Suit 1" />
+			<Item Name="Scout Battle Dress-13" TL="13" Price="Cr270000" Mass="90" Page="35" Skill="Vacc Suit 1" />
+			<Item Name="Scout Battle Dress-14" TL="14" Price="Cr300000" Mass="90" Page="35" Skill="Vacc Suit 1" />
+		</Subsection>
+		<Subsection Name="Battle Dress Modifications" Law="1" Category="5" Mod="Military">
+			<Item Name="Flight Pack" TL="13" Price="Cr50000" Page="36" />
+			<Item Name="Fuel Cells" TL="13" Price="Cr1000" Page="36" />
+			<Item Name="Grav Assist-12" TL="12" Price="Cr110000" Page="36" />
+			<Item Name="Grav Assist-15" TL="15" Price="Cr120000" Page="36" />
+			<Item Name="Heavy Mount" TL="13" Price="Cr10000" Page="36" />
+			<Item Name="Heavy Plating" TL="13" Price="Cr4000" Page="36" />
+			<Item Name="High Velocity Targeting Array" TL="15" Price="MCr0.75" Page="36" />
+			<Item Name="Integrated Toolkit" TL="13" Price="Cr3000" Page="36" />
+			<Item Name="Integrated Weapon Mount (Close Combat)" TL="13" Price="Cr1000" Page="36" />
+			<Item Name="Integrated Weapon Mount (Heavy)" TL="13" Price="Cr5000" Page="36" />
+			<Item Name="Integrated Weapon Mount (Pistol)" TL="13" Price="Cr500" Page="36" />
+			<Item Name="Integrated Weapon Mount (Rifle)" TL="13" Price="Cr1000" Page="36" />
+			<Item Name="Parachute" TL="13" Price="Cr2500" Page="38" />
+			<Item Name="Prismatic Aerosol" TL="13" Price="Cr6000" Page="38" />
+			<Item Name="Sensor Suite (+1)" TL="13" Price="Cr20000" Page="38" />
+			<Item Name="Sensor Suite (+2)" TL="14" Price="Cr50000" Page="38" />
+			<Item Name="Sensor Suite (+3)" TL="15" Price="Cr65000" Page="38" />
+			<Item Name="Stealth (+1)" TL="13" Price="Cr50000" Page="38" />
+			<Item Name="Stealth (+2)" TL="14" Price="Cr100000" Page="38" />
+			<Item Name="Stealth (+3)" TL="15" Price="Cr125000" Page="38" />
+			<Item Name="Vehicle Weapon  Mount" TL="13" Price="Cr10000" Page="38" />
+		</Subsection>
+		<Subsection Name="Non-Powered Suits">
+			<Item Name="Boarding Vacc Suit-11" TL="11" Price="Cr18000" Mass="25" Law="2" Category="4" Page="19" Skill="Vacc Suit 1" />
+			<Item Name="Boarding Vacc Suit-12" TL="12" Price="Cr24000" Mass="12" Law="2" Category="4" Page="19" Skill="Vacc Suit 1" />
+			<Item Name="Ceramic Combat Armor" TL="13" Price="Cr300000" Mass="15" Law="2" Category="4" Mod="Military" Page="20" Skill="Vacc Suit 1" />
+			<Item Name="Combat Armor-10" TL="10" Price="Cr96000" Mass="20" Law="2" Category="4" Mod="Military" Page="20" Skill="Vacc Suit 1" />
+			<Item Name="Combat Armor-12" TL="12" Price="Cr88000" Mass="16" Law="2" Category="4" Mod="Military" Page="20" Skill="Vacc Suit 0" />
+			<Item Name="Combat Armor-14" TL="14" Price="Cr160000" Mass="12" Law="2" Category="4" Mod="Military" Page="20" Skill="Vacc Suit 0" />
+			<Item Name="Combat Environment Suit" TL="10" Price="Cr1000" Mass="2" Law="2" Category="4" Mod="Military" Page="21" />
+			<Item Name="Emergency Hostile Environment Suit" TL="10" Price="Cr9000" Mass="20" Law="9" Category="1" Page="21" Skill="Vacc Suit 1" />
+			<Item Name="Emergency Softsuit" TL="10" Price="Cr2000" Mass="10" Law="9" Category="1" Page="21" Skill="Vacc Suit 0" />
+			<Item Name="Explosive Ordnance Disposal Suit" TL="8" Price="Cr8000" Mass="35" Law="3" Category="3" Page="21" />
+			<Item Name="Hostile Environment Vacc Suit-10" TL="10" Price="Cr20000" Mass="13" Law="9" Category="1" Page="21" Skill="Vacc Suit 1" />
+			<Item Name="Hostile Environment Vacc Suit-11" TL="11" Price="Cr22000" Mass="13" Law="9" Category="1" Page="21" Skill="Vacc Suit 0" />
+			<Item Name="Hostile Environment Vacc Suit-13" TL="13" Price="Cr40000" Mass="10" Law="9" Category="1" Page="21" Skill="Vacc Suit 0" />
+			<Item Name="Hostile Environment Vacc Suit-14" TL="14" Price="Cr60000" Mass="9" Law="9" Category="1" Page="21" Skill="Vacc Suit 0" />
+			<Item Name="Hostile Environment Vacc Suit-9" TL="9" Price="Cr24000" Mass="22" Law="9" Category="1" Page="21" Skill="Vacc Suit 1" />
+			<Item Name="Pressure Sleeve" TL="10" Price="Cr600" Law="9" Category="1" Page="22" />
+			<Item Name="Psi-Enhanced Combat Armor" TL="16" Price="Cr500000" Mass="10" Law="1" Category="6" Mod="Military" Page="22" />
+			<Item Name="Rescue Suit" TL="12" Price="Cr25000" Mass="22" Law="9" Category="1" Page="23" Skill="Vacc Suit 1" />
+			<Item Name="Vacc Suit=8" TL="8" Price="Cr12000" Mass="17" Law="9" Category="1" Page="23" Skill="Vacc Suit 1" />
+			<Item Name="Vacc Suit-10" TL="10" Price="Cr11000" Mass="10" Law="9" Category="1" Page="23" Skill="Vacc Suit 0" />
+			<Item Name="Vacc Suit-12" TL="12" Price="Cr20000" Mass="8" Law="9" Category="1" Page="23" Skill="Vacc Suit 0" />
+			<Item Name="Ceremonial Armour" Species="Bwap" TL="2" Price="Cr1750" Mass="1" Law="2" Category="4" Page="256"  Book="Aliens 3" />
+		</Subsection>
+		<Subsection Name="Powered Armor" Law="2" Category="5" Mod="Military">
+			<Item Name="Ceramic Powered Plate" TL="13" Price="Cr90000" Mass="35" Page="25" Skill="Vacc Suit 1" />
+			<Item Name="Grav-Enhanced Powered Plate" TL="15" Price="Cr120000" Mass="32" Page="25" Skill="Vacc Suit 0" />
+			<Item Name="Mechanical Carapace-12" TL="12" Price="Cr30000" Mass="25" Page="26" Skill="Vacc Suit 1" />
+			<Item Name="Mechanical Carapace-9" TL="9" Price="Cr15000" Mass="30" Page="26" Skill="Vacc Suit 2" />
+			<Item Name="Powered Plate-10" TL="10" Price="Cr50000" Mass="40" Page="26" Skill="Vacc Suit 1" />
+			<Item Name="Powered Plate-14" TL="14" Price="Cr85000" Mass="30" Page="26" Skill="Vacc Suit 0" />
+
+			<Item Name="Powered Plate-10" TL="10" Price="Cr62500" Mass="30" Page="256" Book="Aliens 3" Skill="Vacc Suit 1" Species="Bwap" />
+			<Item Name="Powered Plate-14" TL="14" Price="Cr87150" Mass="20" Page="256" Book="Aliens 3" Skill="Vacc Suit 0" Species="Bwap" />
+		</Subsection>
+	</Section>
+	<Section Name="Robots" Book="CSC">
+		<Subsection Name="Robots">
+			<Item Name="Astro-Mech Droid" TL="14" Price="MCr6" Page="72" />
+			<Item Name="Centurion" TL="12" Price="MCr10" Law="3" Mod="Military" Category="5" Page="72" />
+			<Item Name="Creeper Assassin" TL="12" Price="Cr600000" Law="3" Category="3" Page="73" />
+			<Item Name="Protocol Droid" TL="14" Price="MCr3" Page="73" />
+			<Item Name="Sanitation Droid" TL="11" Price="Cr350000" Page="74" />
+			<Item Name="Security Drone" TL="10" Price="Cr850000" Law="6" Category="1" Page="74" />
+			<Item Name="Skinjob" TL="16" Price="MCr18" Page="75" />
+			<Item Name="Spider Bomb" TL="12" Price="Cr60000" Law="1" Mod="Military" Category="5" Page="75" />
+			<Item Name="Urban Pacification Police Robot" TL="12" Price="MCr12" Law="3" Mod="Military" Category="4" Page="76" />
+			<Item Name="Utility Droid" TL="9" Price="Cr100000" Page="76" />
+			<Item Name="Interaction Bot" TL="14" Price="MCr2" Page="258" Book="Aliens 3" Species="Bwap" />
+		</Subsection>
+	</Section>
+	<Section Name="Survival Gear" Book="CSC 2">
+		<Subsection Name="Aerial">
+			<Item Name="Grav Parachute" TL="10" Price="Cr2000" Mass="4" Page="39" />
+			<Item Name="Parachute" TL="4" Price="Cr250" Mass="3" Page="39" />
+			<Item Name="Parawing" TL="7" Price="Cr400" Mass="8" Page="39" />
+			<Item Name="Squirrel Suit" TL="7" Price="Cr500" Mass="1" Page="39" />
+		</Subsection>
+		<Subsection Name="Arctic and Cold Environments">
+			<Item Name="Cold Weather Clothing" TL="0" Price="Cr200" Mass="4" Page="43" />
+			<Item Name="Cold Weather Clothing" TL="5" Price="Cr500" Mass="2" Page="43" />
+			<Item Name="Heatsuit" TL="8" Price="Cr350" Mass="2" Page="43" />
+			<Item Name="Ice Axe" TL="3" Price="Cr50" Mass="3" Page="43" />
+			<Item Name="Ice Terrain Kit" TL="1" Price="Cr50" Mass="4" Page="43" />
+			<Item Name="Skis" TL="3" Price="Cr75" Page="43" />
+			<Item Name="Snowshoes" TL="1" Price="Cr30" Mass="1" Page="43" />
+		</Subsection>
+		<Subsection Name="Atmospheric Protection">
+			<Item Name="Combination Mask" TL="5" Price="Cr150" Page="41" />
+			<Item Name="Environment Mask" TL="5" Price="Cr50" Page="41" />
+			<Item Name="Environment Suit" TL="8" Price="Cr500" Mass="1" Page="41" />
+			<Item Name="Face Mask" TL="5" Price="Cr20" Page="41" />
+			<Item Name="Filter Mask" TL="3" Price="Cr10" Page="41" />
+			<Item Name="Heavy Protective Suit" TL="7" Price="Cr1400" Page="41" />
+			<Item Name="Life-Support Mask" TL="7" Price="Cr1000" Page="41" />
+			<Item Name="NBC Suit" TL="8" Price="Cr250" Mass="2" Page="41" />
+			<Item Name="Oxygen/Air Tanks" TL="5" Price="Cr500" Mass="12" Page="41" />
+			<Item Name="Protective Suit" TL="6" Price="Cr1000" Mass="6" Page="41" />
+			<Item Name="Radiation Suit" TL="6" Price="Cr5000" Mass="10" Page="41" />
+			<Item Name="Rebreather" TL="6" Price="Cr250" Mass="10" Page="41" />
+			<Item Name="Respirator (TL10)" TL="10" Price="Cr1000" Page="41" />
+			<Item Name="Respirator (TL8)" TL="6" Price="Cr100" Page="41" />
+
+			<Item Name="Hydrosuit" TL="11" Price="Cr12500" Mass="4"  Page="257" Book="Aliens 3" Species="Bwap" />
+			<Item Name="Kaftan-6" TL="6" Price="Cr75" Mass="1"  Page="257" Book="Aliens 3" Species="Bwap" />
+			<Item Name="Kaftan-9" TL="9" Price="Cr250" Mass="1"  Page="257" Book="Aliens 3" Species="Bwap" />
+			<Item Name="Polymer Gloves" TL="6" Price="Cr50" Mass="1"  Page="257" Book="Aliens 3" Species="Bwap" />
+		</Subsection>
+		<Subsection Name="Desert and Arid Environments">
+			<Item Name="Advanced Desert Suit" TL="9" Price="Cr1000" Mass="2" Page="44" />
+			<Item Name="Desert Kit" TL="5" Price="Cr75" Mass="1" Page="44" />
+			<Item Name="Goggles/Shades" TL="5" Price="Cr20" Page="44" />
+			<Item Name="Goggles/Shades" TL="9" Price="Cr200" Page="44" />
+			<Item Name="Heatproof Suit" TL="8" Price="Cr100" Mass="6" Page="44" />
+			<Item Name="Hydro-Collector" TL="11" Price="Cr1000" Mass="8" Page="44" />
+			<Item Name="Hydro-Reclamation Suit" TL="11" Price="Cr10000" Mass="6" Page="44" />
+			<Item Name="Solar Vaporator" TL="10" Price="Cr1250" Mass="5" Page="44" />
+		</Subsection>
+		<Subsection Name="General Survival Gear">
+			<Item Name="Advanced Purification Tablets (10 pack)" TL="13" Price="Cr50" Page="54" />
+			<Item Name="Antimatter Battery" TL="18" Price="MCr1" Mass="5" Category="6" Page="51" />
+			<Item Name="Backpack" TL="3" Price="Cr45" Mass="3" Page="51" />
+			<Item Name="Backpack" TL="6" Price="Cr75" Mass="1" Page="51" />
+			<Item Name="Binoculars" TL="3" Price="Cr75" Mass="1" Page="51" />
+			<Item Name="Bivvy Pack" TL="7" Price="Cr150" Mass="1" Page="51" />
+			<Item Name="Canteen" TL="3" Price="Cr10" Mass="1" Page="51" />
+			<Item Name="Cargo Cable" TL="9" Price="Cr100" Mass="2" Page="51" />
+			<Item Name="Chemical Lightstick" TL="6" Price="Cr1" Page="51" />
+			<Item Name="Distress Flare" TL="6" Price="Cr15" Page="51" />
+			<Item Name="Duct Tape" TL="6" Price="Cr5" Page="51" />
+			<Item Name="Electric Torch" TL="5" Price="Cr10" Page="51" />
+			<Item Name="Field Kit" TL="3" Price="Cr100" Page="52" />
+			<Item Name="Fire Extinguisher" TL="5" Price="Cr50" Mass="2" Page="52" />
+			<Item Name="Flare Launcher" TL="5" Price="Cr75" Page="52" />
+			<Item Name="Fusion Still" TL="13" Price="Cr4500" Page="52" />
+			<Item Name="Gas/Oil Lamp" TL="2" Price="Cr10" Mass="1" Page="52" />
+			<Item Name="Illuminating Flare" TL="5" Price="Cr25" Page="52" />
+			<Item Name="Inertial Locator" TL="9" Price="Cr1200" Page="52" />
+			<Item Name="Infinite Rope" TL="16" Price="Cr1000" Mass="1" Page="54" />
+			<Item Name="Internal Combustion Generator" TL="5" Price="Cr50" Mass="25" Page="54" />
+			<Item Name="Magnetic Compass" TL="3" Price="Cr10" Page="54" />
+			<Item Name="Microturbine Generator" TL="8" Price="Cr170" Mass="4" Page="54" />
+			<Item Name="Pocket Saw" TL="6" Price="Cr25" Page="54" />
+			<Item Name="Portable Fusion Generator" TL="10" Price="Cr500000" Mass="20" Page="54" />
+			<Item Name="Protein Tap" TL="9" Price="Cr1000" Mass="1" Page="54" />
+			<Item Name="Purification Tablets (10 pack)" TL="7" Price="Cr5" Page="54" />
+			<Item Name="Rad Blanket" TL="9" Price="Cr150" Mass="2" Page="54" />
+			<Item Name="Reflectorised Tarpaulin" TL="7" Price="Cr400" Mass="1" Page="54" />
+			<Item Name="Rope" TL="13" Price="Cr100" Mass="2" Page="55" />
+			<Item Name="Rope" TL="5" Price="Cr20" Mass="5" Page="55" />
+			<Item Name="Rope" TL="9" Price="Cr50" Mass="3" Page="55" />
+			<Item Name="Signaling Flare" TL="5" Price="Cr5" Page="52" />
+			<Item Name="Sleeping Bag" TL="5" Price="Cr25" Mass="1" Page="55" />
+			<Item Name="Survival Kit" TL="5" Price="Cr50" Page="55" />
+			<Item Name="Torch" TL="0" Price="Cr1" Page="55" />
+			<Item Name="Whistling Flare" TL="5" Price="Cr10" Page="52" />
+		</Subsection>
+		<Subsection Name="Housing Options">
+			<Item Name="Armoured" TL="9" Price="Cr2500" Mass="x3" Page="58" />
+			<Item Name="Chameleon Fibres" TL="12" Price="Cr8000" Page="58" />
+			<Item Name="Chameleon Fibres" TL="13" Price="Cr60000" Page="58" />
+			<Item Name="Holosimulacrum" TL="17" Price="MCr5" Page="58" />
+			<Item Name="Null-Shielding" TL="16" Price="Cr25000" Page="58" />
+			<Item Name="Psi-Amplifier" TL="16" Price="Cr100000" Page="58" />
+			<Item Name="Rad Shielding" TL="10" Price="Cr3000" Page="58" />
+			<Item Name="Self-Assembling" TL="11" Price="Cr5000" Page="58" />
+			<Item Name="Self-Sealing" TL="13" Price="Cr2000" Page="58" />
+		</Subsection>
+		<Subsection Name="Marine Environments">
+			<Item Name="Artificial Gill" TL="8" Price="Cr4000" Mass="4" Page="46" />
+			<Item Name="Deep-Diving Suit" TL="8" Price="Cr20000" Mass="22" Page="46" />
+			<Item Name="Dive Suit" TL="6" Price="Cr60" Mass="1" Page="46" />
+			<Item Name="Heated Dive Suit" TL="8" Price="Cr650" Mass="4" Page="46" />
+			<Item Name="Swimming Equipment" TL="3" Price="Cr200" Mass="2" Page="46" />
+			<Item Name="Underwater Air Tanks" TL="5" Price="Cr800" Mass="12" Page="46" />
+			<Item Name="Water Dye" TL="4" Price="Cr25" Page="46" />
+
+			<Item Name="Equipment Webbing" TL="2" Price="Cr50"  Page="257" Book="Aliens 3" Species="Bwap" />
+		</Subsection>
+		<Subsection Name="Mountains and Cliffs">
+			<Item Name="Climbing Hoist" TL="8" Price="Cr175" Mass="2" Page="47" />
+			<Item Name="Climbing Kit" TL="4" Price="Cr100" Mass="4" Page="48" />
+			<Item Name="Climbing Kit" TL="8" Price="Cr500" Mass="2" Page="48" />
+			<Item Name="Grapnel and Cable" TL="2" Price="Cr35" Mass="2" Page="48" />
+			<Item Name="Grapnel Launcher" TL="7" Price="Cr100" Mass="3" Page="47" />
+			<Item Name="Hiking Boots" TL="1" Price="Cr50" Mass="2" Page="47" />
+			<Item Name="Piton Hammer" TL="4" Price="Cr10" Page="47" />
+			<Item Name="Pitons" TL="4" Price="Cr5" Mass="2" Page="47" />
+		</Subsection>
+		<Subsection Name="Vacuum Environments">
+			<Item Name="Bulkhead Patches" TL="10" Price="Cr150" Page="49" />
+			<Item Name="Iris Valve Opener" TL="10" Price="Cr2000" Mass="6" Page="49" />
+			<Item Name="Personal Re-entry Kit" TL="8" Price="Cr15000" Mass="50" Page="49" />
+			<Item Name="Portable Airlock" TL="9" Price="Cr1000" Mass="8" Page="49" />
+			<Item Name="Rescue Ball" TL="7" Price="Cr150" Mass="6" Page="49" />
+			<Item Name="Rescue Bubble" TL="9" Price="Cr600" Mass="2" Page="49" />
+			<Item Name="Thrust Pistol" TL="7" Price="Cr1000" Mass="1" Page="50" />
+			<Item Name="Vacc Emergency Kit" TL="8" Price="Cr500" Mass="4" Page="50" />
+		</Subsection>
+		<Subsection Name="Wilderness Housing">
+			<Item Name="Advanced Base" TL="8" Price="Cr75000" Page="56" />
+			<Item Name="Habitat Module" TL="10" Price="Cr20000" Mass="500" Page="56" />
+			<Item Name="Habitat Module" TL="8" Price="Cr10000" Mass="1000" Page="56" />
+			<Item Name="Pre-Fabricated Cabin" TL="6" Price="Cr2000" Mass="400" Page="56" />
+			<Item Name="Tarpaulin" TL="1" Price="Cr10" Mass="4" Page="56" />
+			<Item Name="Tent" TL="3" Price="Cr200" Mass="6" Page="56" />
+			<Item Name="Tent" TL="7" Price="Cr2000" Mass="5" Page="56" />
+			<Item Name="Tent-Barracks" TL="10" Price="Cr5000" Mass="10" Page="57" />
+			<Item Name="Tent-Barracks" TL="8" Price="Cr500" Mass="10" Page="57" />
+		</Subsection>
+	</Section>
+	<Section Name="Tools" Book="CSC 2">
+		<Subsection Name="Tools">
+			<Item Name="Advanced Welding Kit" TL="10" Price="Cr5000" Mass="3" Page="78" />
+			<Item Name="Carpenters Tool Set" TL="2" Price="Cr300" Mass="12" Page="78" />
+			<Item Name="Chain" TL="4" Price="Cr100" Mass="6" Page="77" />
+			<Item Name="Chainsaw" TL="6" Price="Cr500" Mass="6" Page="78" />
+			<Item Name="Combat Engineering Tool Set" TL="3" Price="Cr150" Mass="12" Page="78" />
+			<Item Name="Combat Engineering Tool Set" TL="6" Price="Cr300" Mass="15" Page="78" />
+			<Item Name="Combat Engineering Tool Set" TL="8" Price="Cr500" Mass="15" Page="78" />
+			<Item Name="Cutting Torch" TL="5" Price="Cr500" Mass="3" Page="78" />
+			<Item Name="Electric Welding Kit" TL="5" Price="Cr1500" Mass="6" Page="78" />
+			<Item Name="Electronic Tool Set" TL="7" Price="Cr2000" Mass="2" Page="78" />
+			<Item Name="Electronics Toolkit" TL="7" Price="Cr2000" Mass="2" Book="Core 2" />
+			<Item Name="Engineering Toolkit" TL="12" Price="Cr4000" Mass="12" Book="Core 2" />
+			<Item Name="Excavation Tool Set" TL="3" Price="Cr30" Mass="12" Page="78" />
+			<Item Name="Forensics Toolkit" TL="8" Price="Cr2000" Mass="12" Book="Core 2" />
+			<Item Name="Laser Cutting Gear" TL="9" Price="Cr4000" Mass="4" Page="78" />
+			<Item Name="Laser Drill" TL="9" Price="Cr7500" Mass="16" Page="79" />
+			<Item Name="Laser Scalpel" TL="10" Price="Cr2000" Page="79" />
+			<Item Name="Mechanical Tool Set" TL="5" Price="Cr1000" Mass="12" Page="79" />
+			<Item Name="Metalwork Tool Set" TL="5" Price="Cr3000" Mass="12" Page="79" />
+			<Item Name="Pocket Magnet" TL="3" Price="Cr20" Page="77" />
+			<Item Name="Rescue Tool Set" TL="7" Price="Cr2000" Mass="15" Page="79" />
+			<Item Name="Return Mirror" TL="4" Price="Cr500" Page="77" />
+			<Item Name="Scientific Toolkit" TL="5" Price="Cr2000" Mass="8" Book="Core 2" />
+			<Item Name="Spade/Shovel" TL="3" Price="Cr5" Mass="1" Page="79" />
+			<Item Name="Starship Engineer Tool Set" TL="12" Price="Cr4000" Mass="12" Page="79" />
+			<Item Name="Surveying Toolkit" TL="6" Price="Cr1000" Mass="12" Book="Core 2" />
+			<Item Name="Tool Laser" TL="12" Price="Cr500" Page="79" />
+			<Item Name="Weapon Engineering Tool Set" TL="3" Price="Cr300" Mass="12" Page="79" />
+		</Subsection>
+	</Section>
+	<Section Name="Weapons" Book="CSC 2" Contraband="Weapons">
+		<Subsection Name="Archaic Weapons" Law="8" Category="2" Skill="Gun Combat (archaic)">
+			<Item Name="Compound Cam Bow" TL="5" Price="Cr250" Mass="1" Page="121" />
+			<Item Name="Crossbow" TL="2" Price="Cr200" Mass="3" Page="121" />
+			<Item Name="Javelin" TL="1" Price="Cr15" Mass="1" Page="122" />
+			<Item Name="Long Bow" TL="2" Price="Cr150" Mass="1.5" Page="122" />
+			<Item Name="Repeating Crossbow" TL="3" Price="Cr400" Mass="4" Page="122" />
+			<Item Name="Short Bow" TL="1" Price="Cr50" Mass="1" Page="122" />
+			<Item Name="Sling" TL="0" Price="Cr10" Page="122" />
+		</Subsection>
+
+		<Subsection Name="Bwap Weapons" Law="8" Category="2" Species="Bwap" Book="Aliens 3" Page="260">
+			<Item Name="Blade Tail" TL="2" Price="Cr150" Mass="1" />
+			<Item Name="Ceremonial Dagger" TL="1" Price="Cr800" Mass="1" />
+			<Item Name="Ceremonial Staff-2" TL="2" Price="Cr300" Mass="3" />
+			<Item Name="Ceremonial Staff-4" TL="4" Price="Cr500" Mass="3" />
+			<Item Name="Club Tail" TL="2" Price="Cr150" Mass="1" />
+			<Item Name="Spiked Club Tail" TL="2" Price="Cr175" Mass="1" />
+			<Item Name="Whip Sword" TL="2" Price="Cr150" Mass="1" />
+			<Item Name="Multi-bladed Whip Sword" TL="2" Price="Cr150" Mass="2" />
+		</Subsection>
+
+		<Subsection Name="Energy Pistols" Law="2" Category="3" Skill="Gun Combat (energy)">
+			<Item Name="Gauntlet Laser" TL="10" Price="Cr1100" Mass="4" Page="115" />
+			<Item Name="Hand Flamer" TL="10" Price="Cr1500" Mass="2" Page="115" />
+			<Item Name="Laser Pistol (TL10)" TL="10" Price="Cr3000" Mass="2" Page="116" />
+			<Item Name="Laser Pistol (TL9)" TL="9" Price="Cr2000" Mass="3" Page="116" />
+			<Item Name="Maser Pistol" TL="17" Price="Cr25000" Mass="3" Mod="Military" Page="116" />
+			<Item Name="Matter Disintegrator (TL19)" TL="19" Price="MCr4" Mass="1" Mod="Military" Page="116" />
+			<Item Name="Matter Disintegrator (TL18)" TL="18" Price="MCr2.5" Mass="1" Mod="Military" Page="116" />
+			<Item Name="Personal Defence Laser" TL="13" Price="Cr6000" Mass="3" Page="116" />
+			<Item Name="Stunner (TL10)" TL="10" Price="Cr750" Mass=".5" Law="8" Category="1" Page="116" />
+			<Item Name="Stunner (TL12)" TL="12" Price="Cr1000" Mass=".5" Law="8" Category="1" Page="116" />
+			<Item Name="Stunner (TL8)" TL="8" Price="Cr500" Mass=".5" Law="8" Category="1" Page="116" />
+		</Subsection>
+		<Subsection Name="Energy Rifles" Law="2" Category="3">
+			<Item Name="Cryo Rifle" TL="13" Price="Cr6000" Mass="9" Page="117" />
+			<Item Name="Flame Rifle" TL="9" Price="Cr2500" Mass="8" Page="117" />
+			<Item Name="Heavy Laser Rifle" TL="12" Price="Cr14000" Mass="18" Mod="Military" Page="117" />
+			<Item Name="Laser Carbine (TL10)" TL="10" Price="Cr4000" Mass="3" Mod="Military" Page="117" />
+			<Item Name="Laser Carbine (TL9)" TL="9" Price="Cr2500" Mass="4" Page="117" />
+			<Item Name="Laser Rifle (TL10)" TL="10" Price="Cr8000" Mass="5" Mod="Military" Page="117" />
+			<Item Name="Laser Rifle (TL9)" TL="9" Price="Cr3500" Mass="8" Mod="Military" Page="117" />
+			<Item Name="Laser Sniper Rifle" TL="12" Price="Cr9000" Mass="6" Mod="Military" Page="118" />
+			<Item Name="Maser Rifle" TL="16" Price="Cr30000" Mass="8" Mod="Military" Page="118" />
+			<Item Name="Plasma Rifle" TL="16" Price="Cr100000" Mass="6" Category="5" Page="118" />
+			<Item Name="Solar Beam Rifle" TL="17" Price="0" Mass="4" Category="5" Page="118" />
+			<Item Name="Stagger Laser Rifle (TL12)" TL="12" Price="Cr10000" Mass="6" Page="118" />
+			<Item Name="Stagger Laser Rifle (TL14)" TL="14" Price="Cr15000" Mass="5" Page="118" />
+		</Subsection>
+		<Subsection Name="Grenade Weapons" Law="1" Category="4" Skill="Heavy Weapons(Man Portable)">
+			<Item Name="Aerosol" TL="9" Price="Cr15" Mass=".5" Page="119" />
+			<Item Name="Baton" TL="7" Price="Cr10" Mass=".5" Page="119" />
+			<Item Name="Electromagnetic Pulse" TL="9" Price="Cr100" Mass=".5" Page="119" />
+			<Item Name="Frag" TL="6" Price="Cr30" Mass=".5" Page="119" />
+			<Item Name="Incendiary" TL="8" Price="Cr75" Mass=".5" Page="120" />
+			<Item Name="Neurotoxin" TL="9" Price="Cr250" Mass=".5" Page="120" />
+			<Item Name="Plasma" TL="16" Price="Cr500" Mass=".5" Category="5" Page="120" />
+			<Item Name="Smoke" TL="6" Price="Cr15" Mass=".5" Page="120" />
+			<Item Name="Stun" TL="7" Price="Cr30" Mass=".5" Page="120" />
+			<Item Name="Thermal Smoke" TL="7" Price="Cr30" Mass=".5" Page="121" />
+			<Item Name="Tranq Gas" TL="8" Price="Cr75" Mass=".5" Page="121" />
+		</Subsection>
+		<Subsection Name="Melee Weapons" Law="9" Category="1">
+			<Item Name="Anti-Armor Flail" TL="8" Price="Cr250" Mass="3" Page="98" Skill="Melee (bludgeon)" />
+			<Item Name="Garrotte" TL="1" Price="Cr10" Page="105" Skill="Melee (unarmed)" />
+			<Item Name="Gravity Hammer" TL="13" Price="Cr10000" Mass="5" Page="99" Skill="Melee (bludgeon)" />
+			<Item Name="Handspikes" TL="2" Price="Cr100" Page="105" Skill="Melee (unarmed)" />
+			<Item Name="Knuckleblasters" TL="8" Price="Cr150" Page="106" Skill="Melee (unarmed)" />
+			<Item Name="Piston Fist" TL="9" Price="Cr150" Page="106" Skill="Melee (unarmed)" />
+			<Item Name="Static Maul" TL="11" Price="Cr650" Mass="3" Page="100" Skill="Melee (bludgeon)" />
+		</Subsection>
+		<Subsection Name="Melee Weapons" Law="8" Category="1">
+			<Item Name="Arc-Field Weapon" TL="14" Price="Cr25000" Mass="4" Page="100" Skill="Melee (blade)" />
+			<Item Name="Assault Pike" TL="5" Price="Cr200" Mass="8" Page="100" Skill="Melee (blade)" />
+			<Item Name="Battle Axe" TL="2" Price="Cr225" Mass="4" Page="101" Skill="Melee (blade)" />
+			<Item Name="Blade" TL="2" Price="Cr100" Mass="2" Page="101" Skill="Melee (blade)" />
+			<Item Name="Broadsword" TL="2" Price="Cr500" Mass="8" Page="101" Skill="Melee (blade)" />
+			<Item Name="Chaindrive Axe" TL="10" Price="Cr600" Mass="7" Page="101" Skill="Melee (blade)" />
+			<Item Name="Chaindrive Sword" TL="10" Price="Cr500" Mass="5" Page="101" Skill="Melee (blade)" />
+			<Item Name="Cutlass" TL="2" Price="Cr200" Mass="4" Page="101" Skill="Melee (blade)" />
+			<Item Name="Dagger" TL="1" Price="Cr10" Mass="1" Page="102" Skill="Melee (blade)" />
+			<Item Name="Great Axe" TL="2" Price="Cr750" Mass="10" Page="102" Skill="Melee (blade)" />
+			<Item Name="Hatchet" TL="3" Price="Cr250" Mass="2" Page="102" Skill="Melee (blade)" />
+			<Item Name="Knife" TL="1" Price="Cr5" Page="102" Skill="Melee (blade)" />
+			<Item Name="Lance" TL="2" Price="Cr75" Mass="4" Page="102" Skill="Melee (blade)" />
+			<Item Name="Long Blade (TL2)" TL="2" Price="Cr200" Mass="4" Page="102" Skill="Melee (blade)" />
+			<Item Name="Long Blade (TL3)" TL="3" Price="Cr300" Mass="4" Page="102" Skill="Melee (blade)" />
+			<Item Name="Monoblade" TL="12" Price="Cr2500" Mass="2" Page="103" Skill="Melee (blade)" />
+			<Item Name="Piston Spear" TL="7" Price="Cr400" Mass="3" Page="103" Skill="Melee (blade)" />
+			<Item Name="Psi Blade" TL="16" Price="Cr30000" Mass="2" Page="103" Skill="Melee (blade)" />
+			<Item Name="Psi Dagger" TL="17" Price="Cr25000" Mass="1" Page="103" Skill="Melee (blade)" />
+			<Item Name="Rapier" TL="3" Price="Cr200" Mass="2" Page="103" Skill="Melee (blade)" />
+			<Item Name="Spear" TL="1" Price="Cr10" Mass="2" Page="104" Skill="Melee (blade)" />
+			<Item Name="Static Axe (TL11)" TL="11" Price="Cr750" Mass="6" Page="104" Skill="Melee (blade)" />
+			<Item Name="Static Axe (TL12)" TL="12" Price="Cr1000" Mass="5" Page="104" Skill="Melee (blade)" />
+			<Item Name="Static Blade (TL11)" TL="11" Price="Cr700" Mass="4" Page="104" Skill="Melee (blade)" />
+			<Item Name="Static Blade (TL12)" TL="12" Price="Cr900" Mass="3" Page="104" Skill="Melee (blade)" />
+			<Item Name="Stealth Dagger" TL="8" Price="Cr175" Mass="1" Page="104" Skill="Melee (blade)" />
+			<Item Name="Stone Axe" TL="0" Price="Cr5" Mass="3" Page="104" Skill="Melee (blade)" />
+			<Item Name="Stunfist" TL="8" Price="Cr250" Page="106" Skill="Melee (unarmed)" Law="8" />
+			<Item Name="Stunstick" TL="8" Price="Cr300" Mass="1" Page="100" Skill="Melee (bludgeon)" Law="8" />
+			<Item Name="War Axe" TL="0" Price="0" Page="105" Skill="Melee (blade)" />
+		</Subsection>
+		<Subsection Name="Melee Weapons" Law="9" Category="1">
+			<Item Name="Brass Knuckles" TL="1" Price="Cr10" Page="105" Skill="Melee (unarmed)" />
+			<Item Name="Club" TL="1" Price="0" Mass="3" Page="98" Skill="Melee (bludgeon)" />
+			<Item Name="Mace" TL="1" Price="Cr20" Mass="3" Page="99" Skill="Melee (bludgeon)" />
+			<Item Name="Sap" TL="2" Price="Cr30" Mass="1" Page="99" Skill="Melee (bludgeon)" />
+			<Item Name="Sledgehammer" TL="1" Price="Cr30" Mass="8" Page="99" Skill="Melee (bludgeon)" />
+			<Item Name="Staff" TL="1" Price="0" Mass="3" Page="99" Skill="Melee (bludgeon)" />
+		</Subsection>
+		<Subsection Name="Shields" Law="8" Category="1">
+			<Item Name="Boarding Shield" TL="9" Price="Cr1500" Mass="7" Page="106" />
+			<Item Name="Buckler" TL="2" Price="Cr10" Mass="2" Page="107" />
+			<Item Name="Gravitic Shield" TL="17" Price="Cr2500" Page="107" />
+			<Item Name="Large Shield" TL="1" Price="Cr200" Mass="8" Page="107" />
+			<Item Name="Riot Shield" TL="6" Price="Cr175" Mass="4" Page="107" />
+			<Item Name="Shield" TL="1" Price="Cr150" Mass="6" Page="107" />
+		</Subsection>
+		<Subsection Name="Slug Pistols" Law="5" Category="2" Skill="Gun Combat (slug)">
+			<Item Name="Antique Pistol" TL="3" Price="Cr100" Mass="1" Page="108" />
+			<Item Name="Assault Pistol" Law="4" Category="3" TL="6" Price="Cr250" Mass="1" Page="108" />
+			<Item Name="Autopistol" TL="6" Price="Cr200" Mass="1" Page="108" />
+			<Item Name="Body Pistol" Law="1" TL="8" Price="Cr500" Page="109" />
+			<Item Name="Cartridge Pistol" TL="7" Price="Cr300" Mass="1.5" Page="109" />
+			<Item Name="Coach Pistol" TL="3" Price="Cr200" Mass="2" Page="109" />
+			<Item Name="Duck's Foot Pistol" TL="3" Price="Cr300" Mass="2" Page="109" />
+			<Item Name="Flechette Pistol" TL="9" Price="Cr275" Mass="1" Page="109" />
+			<Item Name="Gauss Pistol" Law="4" Category="4" TL="13" Price="Cr500" Mass="1" Page="110" />
+			<Item Name="Heavy Revolver" TL="6" Price="Cr400" Mass="1.5" Page="110" />
+			<Item Name="Magrail Pistol" Law="4" Category="4" TL="14" Price="Cr750" Mass="1" Page="110" />
+			<Item Name="Revolver" TL="5" Price="Cr150" Mass="1" Page="110" />
+			<Item Name="Shot Pistol" TL="5" Price="Cr60" Mass=".5" Page="110" />
+			<Item Name="Snub Pistol" TL="8" Price="Cr150" Page="110" />
+			<Item Name="Universal Autopistol" TL="8" Price="Cr300" Mass="1" Page="111" />
+			<Item Name="Zip Gun" TL="3" Price="Cr50" Page="111" />
+		</Subsection>
+		<Subsection Name="Slug Rifles" Law="6" Category="2" Skill="Gun Combat (slug)">
+			<Item Name="Accelerator Rifle" TL="9" Price="Cr900" Mass="2" Page="111" />
+			<Item Name="Advanced Combat Rifle" Law="3" TL="10" Price="Cr1000" Mass="3" Mod="Military" Category="4" Page="111" />
+			<Item Name="Air Rifle (TL3)" TL="3" Price="Cr225" Mass="4" Page="112" />
+			<Item Name="Air Rifle (TL4)" TL="4" Price="Cr350" Mass="5" Page="112" />
+			<Item Name="Antique Rifle" TL="3" Price="Cr150" Mass="6" Page="112" />
+			<Item Name="Assault Rifle" Law="4" TL="7" Price="Cr500" Mass="4" Mod="Military" Category="3" Page="112" />
+			<Item Name="Assault Shotgun" Law="3" TL="6" Price="Cr500" Mass="5" Mod="Military" Category="3" Page="112" />
+			<Item Name="Autorifle" Law="3" TL="6" Price="Cr750" Mass="5" Mod="Military" Category="3" Page="112" />
+			<Item Name="Big Game Rifle" TL="5" Price="Cr1250" Mass="9" Page="113" />
+			<Item Name="Flechette Submachine Gun" Law="4" TL="9" Price="Cr500" Mass="3" Category="3" Page="113" />
+			<Item Name="Gauss Rifle" Law="3" TL="12" Price="Cr1500" Mass="4" Mod="Military" Category="4" Page="113" />
+			<Item Name="Gauss Sniper Rifle" Law="3" TL="12" Price="Cr2500" Mass="4" Mod="Military" Category="4" Page="113" />
+			<Item Name="Heavy Advanced Combat Rifle" Law="3" TL="10" Price="Cr2000" Mass="5" Mod="Military" Category="4" Page="113" />
+			<Item Name="Magrail Rifle" Law="3" TL="14" Price="Cr2500" Mass="4" Category="4" Page="114" />
+			<Item Name="Rifle" TL="5" Price="Cr200" Mass="5" Page="114" />
+			<Item Name="Sawed-Off Shotgun" Law="7" TL="5" Price="Cr200" Mass="2" Page="114" />
+			<Item Name="Shotgun" Law="7" TL="4" Price="Cr200" Mass="4" Page="114" />
+			<Item Name="Sniper Rifle" TL="8" Price="Cr700" Mass="5" Page="114" />
+			<Item Name="Spear Gun" TL="6" Price="Cr50" Mass="2" Page="114" />
+			<Item Name="Submachine Gun" Law="4" TL="6" Price="Cr400" Mass="3" Category="3" Page="115" />
+		</Subsection>
+	</Section>
+	<Section Name="Weapons" Book="CSC 2" Contraband="Weapons">
+		<Subsection Name="Accessories" Book="CSC 2" Law="9">
+			<Item Name="Auxiliary Grenade Launcher" TL="7" Price="Cr1000" Mass="1" Category="4" Page="142" />
+			<Item Name="Bandolier" TL="3" Price="Cr10" Page="142" />
+			<Item Name="Bayonet" TL="3" Price="Cr20" Mass="1" Page="142" />
+			<Item Name="Bipod" TL="4" Price="Cr250" Mass="1" Page="143" />
+			<Item Name="Chaindrive Bayonet" TL="9" Price="Cr1000" Mass="3" Page="143" />
+			<Item Name="FOF Safety" TL="9" Price="Cr250" Page="143" />
+			<Item Name="Gyrostabilizer" TL="9" Price="Cr500" Mass="1" Page="143" />
+			<Item Name="Heavy Tripod" TL="4" Price="Cr100" Mass="5" Page="143" />
+			<Item Name="Holographic Sights" TL="10" Price="Cr2000" Mass=".5" Page="144" />
+			<Item Name="Intelligent Weapon (TL13)" TL="13" Price="Cr5000" Page="144" />
+			<Item Name="Intelligent Weapon (TL11)" TL="11" Price="Cr1000" Page="144" />
+			<Item Name="Laser Sight (TL10)" TL="10" Price="Cr200" Page="144" />
+			<Item Name="Laser Sight (TL8)" TL="8" Price="Cr200" Page="144" />
+			<Item Name="Personal Heads-Up Display (TL11)" TL="11" Price="Cr2500" Page="144" />
+			<Item Name="Personal Heads-Up Display (TL9)" TL="9" Price="Cr1500" Mass=".5" Page="144" />
+			<Item Name="Psi-Enhanced Targeting" TL="16" Price="Cr3000" Mass=".5" Page="145" />
+			<Item Name="Scan Jammer" TL="8" Price="Cr2500" Page="145" />
+			<Item Name="Scope (TL5)" TL="5" Price="Cr50" Page="145" />
+			<Item Name="Scope (TL7)" TL="7" Price="Cr50" Page="145" />
+			<Item Name="Secure Weapon" TL="10" Price="Cr250" Page="145" />
+			<Item Name="Shoulder Stock" TL="4" Price="Cr75" Mass="1" Page="146" />
+			<Item Name="Smart Tracker" TL="11" Price="Cr500" Page="146" />
+			<Item Name="Suppressor" Price="Cr250" Page="146" />
+			<Item Name="X-Ray Outlining Aid (TL11)" TL="11" Price="Cr500" Page="146" />
+			<Item Name="X-Ray Outlining Aid (TL9)" TL="9" Price="Cr300" Page="146" />
+		</Subsection>
+	</Section>
 </Catalog>

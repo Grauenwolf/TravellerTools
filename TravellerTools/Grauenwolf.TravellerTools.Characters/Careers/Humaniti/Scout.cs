@@ -1,11 +1,7 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-abstract class Scout : NormalCareer
+abstract class Scout(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Scout", assignment, characterBuilder)
 {
-    public Scout(string assignment, CharacterBuilder characterBuilder) : base("Scout", assignment, characterBuilder)
-    {
-    }
-
     protected override int AdvancedEductionMin => 8;
 
     protected override bool RankCarryover => false;

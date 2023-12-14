@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.Primitives;
-using System.Collections.Generic;
 using Tortuga.Anchor.Modeling;
 
 namespace Grauenwolf.TravellerTools.Web.Data;
@@ -44,40 +43,31 @@ public class StoreOptions : ModelBase
 
     public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)
     {
-        if (keyValuePairs.TryGetValue("autoRoll", out var autoRoll))
-            AutoRoll = bool.Parse(autoRoll);
-        if (keyValuePairs.TryGetValue("brokerScore", out var brokerScore))
-            BrokerScore = int.Parse(brokerScore);
-        if (keyValuePairs.TryGetValue("streetwiseScore", out var streetwiseScore))
-            StreetwiseScore = int.Parse(streetwiseScore);
-        if (keyValuePairs.TryGetValue("discountPrices", out var discountPrices))
-            DiscountPrices = bool.Parse(discountPrices);
+        AutoRoll = keyValuePairs.ParseBool("autoRoll");
+        BrokerScore = keyValuePairs.ParseInt("brokerScore");
+        StreetwiseScore = keyValuePairs.ParseInt("streetwiseScore");
+        DiscountPrices = keyValuePairs.ParseBool("discountPrices");
 
-        if (keyValuePairs.TryGetValue("weapons", out var weapons))
-            WeaponsRestricted = bool.Parse(weapons);
-        if (keyValuePairs.TryGetValue("drugs", out var drugs))
-            DrugsRestricted = bool.Parse(drugs);
-        if (keyValuePairs.TryGetValue("technology", out var technology))
-            TechnologyRestricted = bool.Parse(technology);
-        if (keyValuePairs.TryGetValue("information", out var information))
-            InformationRestricted = bool.Parse(information);
-        if (keyValuePairs.TryGetValue("psionics", out var psionics))
-            PsionicsRestricted = bool.Parse(psionics);
+        WeaponsRestricted = keyValuePairs.ParseBool("weapons");
+        DrugsRestricted = keyValuePairs.ParseBool("drugs");
+        TechnologyRestricted = keyValuePairs.ParseBool("technology");
+        InformationRestricted = keyValuePairs.ParseBool("information");
+        PsionicsRestricted = keyValuePairs.ParseBool("psionics");
     }
 
     public Dictionary<string, string?> ToQueryString()
     {
-        var result = new Dictionary<string, string?>();
-        result.Add("autoRoll", AutoRoll.ToString());
-        result.Add("discountPrices", DiscountPrices.ToString());
-        result.Add("brokerScore", BrokerScore.ToString());
-        result.Add("streetwiseScore", StreetwiseScore.ToString());
-        result.Add("weapons", WeaponsRestricted.ToString());
-        result.Add("drugs", DrugsRestricted.ToString());
-        result.Add("technology", TechnologyRestricted.ToString());
-        result.Add("information", InformationRestricted.ToString());
-        result.Add("psionics", PsionicsRestricted.ToString());
-
-        return result;
+        return new Dictionary<string, string?>
+        {
+            { "autoRoll", AutoRoll.ToString() },
+            { "discountPrices", DiscountPrices.ToString() },
+            { "brokerScore", BrokerScore.ToString() },
+            { "streetwiseScore", StreetwiseScore.ToString() },
+            { "weapons", WeaponsRestricted.ToString() },
+            { "drugs", DrugsRestricted.ToString() },
+            { "technology", TechnologyRestricted.ToString() },
+            { "information", InformationRestricted.ToString() },
+            { "psionics", PsionicsRestricted.ToString() }
+        };
     }
 }

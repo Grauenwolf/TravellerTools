@@ -20,13 +20,14 @@ public class Item
     public string? Mass { get; set; }
     public string? Mod { get; set; }
     public string? Name { get; set; }
-
     public bool NotAvailable { get; set; }
+    public string? Notes { get; set; }
     public string? Page { get; set; }
     public decimal Price { get; set; }
     public string? PriceModifier { get; set; }
     public int? SentencingDM { get; set; }
     public string? Skill { get; set; }
+    public string? Species { get; set; }
     public int TechLevel { get; set; }
 
     public override string ToString()

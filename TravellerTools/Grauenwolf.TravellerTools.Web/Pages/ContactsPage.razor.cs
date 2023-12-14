@@ -15,6 +15,9 @@ partial class ContactsPage
 
     protected void GenerateContacts()
     {
+        if (Model == null)
+            return; //this shouldn't happen.
+
         try
         {
             int seed = new Random().Next();
@@ -51,6 +54,9 @@ partial class ContactsPage
 
     protected string Permalink()
     {
+        if (Model == null)
+            return ""; //this shouldn't happen.
+
         var uri = $"/contacts/view";
 
         uri = QueryHelpers.AddQueryString(uri, Model.ToQueryString());

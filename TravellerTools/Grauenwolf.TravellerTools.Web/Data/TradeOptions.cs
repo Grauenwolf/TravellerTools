@@ -89,26 +89,16 @@ public class TradeOptions : ModelBase
 
     public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)
     {
-        if (keyValuePairs.TryGetValue("edition", out var editionCode))
-            SelectedEditionCode = editionCode;
-        if (keyValuePairs.TryGetValue("advancedMode", out var advancedMode))
-            AdvancedMode = bool.Parse(advancedMode);
-        if (keyValuePairs.TryGetValue("raffle", out var raffle))
-            Raffle = bool.Parse(raffle);
-        if (keyValuePairs.TryGetValue("illegalGoods", out var illegalGoods))
-            IllegalGoods = bool.Parse(illegalGoods);
-        if (keyValuePairs.TryGetValue("skipPriceRoll", out var skipPriceRoll))
-            SkipPriceRoll = bool.Parse(skipPriceRoll);
-        if (keyValuePairs.TryGetValue("brokerScore", out var brokerScore))
-            BrokerScore = int.Parse(brokerScore);
-        if (keyValuePairs.TryGetValue("counterpartyScore", out var counterpartyScore))
-            CounterpartyScore = int.Parse(counterpartyScore);
-        if (keyValuePairs.TryGetValue("streetwiseScore", out var streetwiseScore))
-            StreetwiseScore = int.Parse(streetwiseScore);
-        if (keyValuePairs.TryGetValue("destinationIndex", out var destinationIndex))
-            DestinationIndex = int.Parse(destinationIndex);
-        if (keyValuePairs.TryGetValue("ageWeeks", out var ageWeeks))
-            AgeWeeks = int.Parse(ageWeeks);
+        SelectedEditionCode = keyValuePairs.ParseString("edition");
+        AdvancedMode = keyValuePairs.ParseBool("advancedMode");
+        Raffle = keyValuePairs.ParseBool("raffle");
+        IllegalGoods = keyValuePairs.ParseBool("illegalGoods");
+        SkipPriceRoll = keyValuePairs.ParseBool("skipPriceRoll");
+        BrokerScore = keyValuePairs.ParseInt("brokerScore");
+        CounterpartyScore = keyValuePairs.ParseInt("counterpartyScore");
+        StreetwiseScore = keyValuePairs.ParseInt("streetwiseScore");
+        DestinationIndex = keyValuePairs.ParseInt("destinationIndex", -1);
+        AgeWeeks = keyValuePairs.ParseInt("AgeWeeks");
     }
 
     public Dictionary<string, string?> ToQueryString()

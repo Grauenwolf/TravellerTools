@@ -1,11 +1,7 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-abstract class FullCareer : CareerBase
+abstract class FullCareer(string name, string assignment, CharacterBuilder characterBuilder) : CareerBase(name, assignment, characterBuilder)
 {
-    protected FullCareer(string name, string assignment, CharacterBuilder characterBuilder) : base(name, assignment, characterBuilder)
-    {
-    }
-
     protected abstract int AdvancedEductionMin { get; }
     protected abstract string AdvancementAttribute { get; }
     protected abstract int AdvancementTarget { get; }

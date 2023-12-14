@@ -7,7 +7,7 @@ public class ImperiumDolphinCharacterBuilder(string dataPath, NameGenerator name
 {
     public override string Species => "Imperium Dolphin";
 
-    protected virtual int AgingRollMinAge => 20;
+    protected override int AgingRollMinAge => 20;
     protected override bool AllowPsionics => true;
 
     protected override string CharacterBuilderFilename => "CharacterBuilder.Dolphin.xml";

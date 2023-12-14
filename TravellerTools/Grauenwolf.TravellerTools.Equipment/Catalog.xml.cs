@@ -58,6 +58,10 @@ namespace Grauenwolf.TravellerTools.Equipment
 
         /// <remarks/>
         [XmlAttribute()]
+        public string Species { get; set; }
+
+        /// <remarks/>
+        [XmlAttribute()]
         public string Book { get; set; }
 
         /// <remarks/>
@@ -109,6 +113,8 @@ namespace Grauenwolf.TravellerTools.Equipment
         [XmlAttribute()] public string AmmoPrice { get; set; }
 
         [XmlAttribute()] public string Mass { get; set; }
+        [XmlAttribute()] public string Notes { get; set; }
+        [XmlAttribute()] public string Species { get; set; }
 
         /// <remarks/>
         [XmlAttribute()]

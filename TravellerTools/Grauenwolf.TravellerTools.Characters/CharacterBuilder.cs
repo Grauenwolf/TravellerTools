@@ -9,9 +9,9 @@ public abstract class CharacterBuilder
 {
     static readonly ImmutableList<string> s_BackgroundSkills = ImmutableList.Create("Admin", "Animals", "Art", "Athletics", "Carouse", "Drive", "Science", "Seafarer", "Streetwise", "Survival", "Vacc Suit", "Electronics", "Flyer", "Language", "Mechanic", "Medic", "Profession");
 
-    CharacterBuilderLocator m_CharacterBuilderLocator;
-    NameGenerator m_NameGenerator;
-    ImmutableArray<string> m_Personalities;
+    readonly CharacterBuilderLocator m_CharacterBuilderLocator;
+    readonly NameGenerator m_NameGenerator;
+    readonly ImmutableArray<string> m_Personalities;
 
     public CharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator)
     {
@@ -46,16 +46,18 @@ public abstract class CharacterBuilder
     {
         var seed = options.Seed ?? (new Random()).Next();
         var dice = new Dice(seed);
-        var character = new Character();
 
-        character.Seed = seed;
-        character.Species = Species;
-        character.FirstAssignment = options.FirstAssignment;
-        character.FirstCareer = options.FirstCareer;
-        character.Name = options.Name;
-        character.Gender = options.Gender;
-        character.MaxAge = options.MaxAge;
-        character.Year = options.Year;
+        var character = new Character
+        {
+            Seed = seed,
+            Species = Species,
+            FirstAssignment = options.FirstAssignment,
+            FirstCareer = options.FirstCareer,
+            Name = options.Name,
+            Gender = options.Gender,
+            MaxAge = options.MaxAge,
+            Year = options.Year
+        };
 
         InitialCharacterStats(dice, character);
 
@@ -129,7 +131,7 @@ public abstract class CharacterBuilder
         return character;
     }
 
-    public void Injury(Character character, Dice dice, CareerBase career, bool severe, int age)
+    public virtual void Injury(Character character, Dice dice, CareerBase career, bool severe, int age)
     {
         var medCovered = career.MedicalPaymentPercentage(character, dice);
         var medCostPerPoint = (1.0M - medCovered) * 5000;

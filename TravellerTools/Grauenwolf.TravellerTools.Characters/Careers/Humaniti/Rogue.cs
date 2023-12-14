@@ -1,11 +1,7 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-abstract class Rogue : NormalCareer
+abstract class Rogue(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Rogue", assignment, characterBuilder)
 {
-    protected Rogue(string assignment, CharacterBuilder characterBuilder) : base("Rogue", assignment, characterBuilder)
-    {
-    }
-
     protected override int AdvancedEductionMin => 10;
 
     protected override bool RankCarryover => false;

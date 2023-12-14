@@ -4,7 +4,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
 abstract class Agent : NormalCareer
 {
-    private ImmutableArray<NormalCareer> m_Careers;
+    readonly ImmutableArray<NormalCareer> m_Careers;
 
     public Agent(string assignment, CharacterBuilder characterBuilder) : base("Agent", assignment, characterBuilder)
     {

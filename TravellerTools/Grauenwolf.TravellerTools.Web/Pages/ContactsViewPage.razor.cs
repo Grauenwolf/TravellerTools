@@ -30,6 +30,9 @@ partial class ContactsViewPage
 
     protected string Permalink()
     {
+        if (Model == null)
+            return ""; //this shouldn't happen.
+
         var uri = $"/contacts/view";
 
         uri = QueryHelpers.AddQueryString(uri, Model.ToQueryString());
@@ -39,6 +42,9 @@ partial class ContactsViewPage
 
     private void GenerateContacts(int seed)
     {
+        if (Model == null)
+            return; //this shouldn't happen.
+
         try
         {
             var dice = new Dice(seed);

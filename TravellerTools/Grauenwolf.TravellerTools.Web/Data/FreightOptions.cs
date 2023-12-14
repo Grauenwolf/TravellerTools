@@ -1,6 +1,4 @@
 ﻿using Microsoft.Extensions.Primitives;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using Tortuga.Anchor.Modeling;
 
@@ -32,19 +30,16 @@ public class FreightOptions : ModelBase
 
     public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)
     {
-        if (keyValuePairs.TryGetValue("edition", out var editionCode))
-            SelectedEditionCode = editionCode;
-        if (keyValuePairs.TryGetValue("variableFees", out var variableFees))
-            VariableFees = bool.Parse(variableFees);
+        SelectedEditionCode = keyValuePairs.ParseString("edition");
+        VariableFees = keyValuePairs.ParseBool("variableFees");
     }
 
     public Dictionary<string, string?> ToQueryString()
     {
-        var result = new Dictionary<string, string?>();
-        result.Add("edition", SelectedEditionCode);
-        result.Add("variableFees", VariableFees.ToString());
-        //result.Add("advancedMode", AdvancedMode.ToString());
-
-        return result;
+        return new Dictionary<string, string?>
+        {
+            { "edition", SelectedEditionCode },
+            { "variableFees", VariableFees.ToString() }
+        };
     }
 }

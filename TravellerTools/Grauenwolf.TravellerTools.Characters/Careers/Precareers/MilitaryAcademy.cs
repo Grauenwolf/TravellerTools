@@ -47,8 +47,7 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
         if (character.SocialStanding >= 8)
             gradDM += 1;
 
-        character.EducationHistory = new EducationHistory();
-        character.EducationHistory.Name = Assignment;
+        character.EducationHistory = new() { Name = Assignment };
 
         PreCareerEvents(character, dice, this, skillChoices);
         FixupSkills(character, dice);

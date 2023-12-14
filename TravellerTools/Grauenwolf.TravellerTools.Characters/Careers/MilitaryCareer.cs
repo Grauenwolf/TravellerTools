@@ -2,12 +2,8 @@
 
 namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-abstract class MilitaryCareer : FullCareer
+abstract class MilitaryCareer(string name, string assignment, CharacterBuilder characterBuilder) : FullCareer(name, assignment, characterBuilder)
 {
-    protected MilitaryCareer(string name, string assignment, CharacterBuilder characterBuilder) : base(name, assignment, characterBuilder)
-    {
-    }
-
     protected virtual int CommssionTargetNumber => 8;
 
     internal override void Run(Character character, Dice dice)

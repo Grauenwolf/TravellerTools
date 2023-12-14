@@ -1,11 +1,7 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
 
-abstract class ShaperPriest : NormalCareer
+abstract class ShaperPriest(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Shaper Priest", assignment, characterBuilder)
 {
-    public ShaperPriest(string assignment, CharacterBuilder characterBuilder) : base("Shaper Priest", assignment, characterBuilder)
-    {
-    }
-
     protected override int AdvancedEductionMin => 8;
 
     protected override bool RankCarryover => false;

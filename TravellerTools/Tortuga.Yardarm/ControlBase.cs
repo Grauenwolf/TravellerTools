@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
-using System;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using Tortuga.Anchor.Modeling.Internals;
 
 namespace Tortuga.Yardarm;
@@ -108,7 +105,9 @@ public abstract class ControlBase : ComponentBase
     protected void LogError(Exception ex, string message)
     {
         LastError = ex;
+#pragma warning disable CA2254 // Template should be a static expression
         Logger.LogError(ex, message);
+#pragma warning restore CA2254 // Template should be a static expression
     }
 
     protected sealed override void OnAfterRender(bool firstRender)
