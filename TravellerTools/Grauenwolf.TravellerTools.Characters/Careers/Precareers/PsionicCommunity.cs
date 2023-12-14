@@ -32,7 +32,7 @@ class PsionicCommunity(CharacterBuilder characterBuilder) : CareerBase("Psionic 
         character.EducationHistory.Name = "Psionic Community";
 
         PreCareerEvents(character, dice, this, new SkillTemplateCollection());
-        FixupSkills(character);
+        FixupSkills(character, dice);
 
         var graduation = dice.D(2, 6) + character.PsiDM + character.CurrentTermBenefits.GraduationDM;
         if (character.Intellect >= 8)
@@ -40,7 +40,7 @@ class PsionicCommunity(CharacterBuilder characterBuilder) : CareerBase("Psionic 
 
         if (graduation < 6)
         {
-            character.Age += dice.D(4);
+            character.Age = Math.Max(character.Age + dice.D(4), character.History.Max(h => h.Age));
             character.AddHistory($"Dropped out of the psionic community.", character.Age);
             character.EducationHistory.Status = "Failed";
         }
@@ -49,7 +49,7 @@ class PsionicCommunity(CharacterBuilder characterBuilder) : CareerBase("Psionic 
             character.Psi += 1;
             character.Age += 4;
             character.Skills.Add("Science", "Psionicology");
-            FixupSkills(character);
+            FixupSkills(character, dice);
 
             //int bonus;
             if (graduation >= 12)
@@ -60,7 +60,7 @@ class PsionicCommunity(CharacterBuilder characterBuilder) : CareerBase("Psionic 
                 var skills = character.Skills.Where(x => x.IsPsionicTalent && x.Level == 1).ToList();
                 if (skills.Count > 0)
                     dice.Choose(skills).Level = 2;
-                FixupSkills(character);
+                FixupSkills(character, dice);
 
                 character.EducationHistory.Status = "Honors";
                 character.AddHistory($"Graduated with honors. Gain an enemy who is upset that you left the community.", character.Age);
@@ -71,7 +71,7 @@ class PsionicCommunity(CharacterBuilder characterBuilder) : CareerBase("Psionic 
                 var skills = character.Skills.Where(x => x.IsPsionicTalent && x.Level == 0).ToList();
                 if (skills.Count > 0)
                     dice.Choose(skills).Level = 1;
-                FixupSkills(character);
+                FixupSkills(character, dice);
 
                 character.EducationHistory.Status = "Graduated";
                 character.AddHistory($"Graduated. Gain an rival who is upset that you left the community.", character.Age);

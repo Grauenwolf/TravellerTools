@@ -57,9 +57,9 @@ public abstract class CareerBase
 
     internal abstract void Run(Character character, Dice dice);
 
-    protected void FixupSkills(Character character)
+    protected void FixupSkills(Character character, Dice dice)
     {
-        m_CharacterBuilder.FixupSkills(character);
+        m_CharacterBuilder.FixupSkills(character, dice);
     }
 
     protected void Injury(Character character, Dice dice, bool severe, int age) => m_CharacterBuilder.Injury(character, dice, this, severe, age);

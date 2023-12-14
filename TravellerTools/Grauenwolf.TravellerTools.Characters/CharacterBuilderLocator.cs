@@ -1,5 +1,6 @@
 using Grauenwolf.TravellerTools.Characters.Careers.Bwap;
 using Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
+using Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 using Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
 using Grauenwolf.TravellerTools.Names;
 using System.Collections.Immutable;
@@ -18,6 +19,7 @@ public class CharacterBuilderLocator
         Add(new HumanitiCharacterBuilder(dataPath, nameGenerator, this));
         Add(new BwapCharacterBuilder(dataPath, nameGenerator, this));
         Add(new TezcatCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new ImperiumDolphinCharacterBuilder(dataPath, nameGenerator, this));
 
         SpeciesList = m_CharacterBuilders.Keys.OrderBy(x => x).ToImmutableArray();
 
@@ -219,7 +221,7 @@ public class CharacterBuilderLocator
                         break;
 
                     case 33:
-                        result.History.Add($"{result.CharacterStub.Name} is particularly unusual, such as an artificial intelligence or very alien being. ");
+                        result.History.Add($"{result.CharacterStub.Name} is particularly unusual, such as an artificial intelligence or very alien being.");
                         break;
 
                     case 34:

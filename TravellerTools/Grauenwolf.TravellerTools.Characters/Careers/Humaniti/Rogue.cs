@@ -38,26 +38,28 @@ abstract class Rogue : NormalCareer
                 return;
 
             case 3:
-                var age = character.AddHistory("Arrested and charged.", dice);
-                switch (dice.D(2))
                 {
-                    case 1:
-                        if (dice.RollHigh(character.Skills.GetLevel("Advocate"), 8))
-                        {
-                            character.AddHistory("Successfully defended self.", age);
-                        }
-                        else
-                        {
-                            character.AddHistory("Failed to defend self. Gain an Enemy and go to prison.", age);
-                            character.AddEnemy();
-                            character.NextTermBenefits.MustEnroll = "Prisoner";
-                        }
-                        return;
+                    var age = character.AddHistory("Arrested and charged.", dice);
+                    switch (dice.D(2))
+                    {
+                        case 1:
+                            if (dice.RollHigh(character.Skills.GetLevel("Advocate"), 8))
+                            {
+                                character.AddHistory("Successfully defended self.", age);
+                            }
+                            else
+                            {
+                                character.AddHistory("Failed to defend self. Gain an Enemy and go to prison.", age);
+                                character.AddEnemy();
+                                character.NextTermBenefits.MustEnroll = "Prisoner";
+                            }
+                            return;
 
-                    case 2:
-                        character.AddHistory("Hired a lawyer to beat the charges.", age);
-                        character.BenefitRolls += -1;
-                        return;
+                        case 2:
+                            character.AddHistory("Hired a lawyer to beat the charges.", age);
+                            character.BenefitRolls += -1;
+                            return;
+                    }
                 }
                 return;
 
@@ -114,12 +116,14 @@ abstract class Rogue : NormalCareer
                 return;
 
             case 9:
-                character.AddHistory("Involved in a feud with a rival criminal organization.", dice);
-                if (dice.RollHigh(character.Skills.BestSkillLevel("Stealth", "Gun Combat"), 8))
-                    character.BenefitRolls += 1;
-                else
-                    InjuryRollAge(character, dice);
-                return;
+                {
+                    var age = character.AddHistory("Involved in a feud with a rival criminal organization.", dice);
+                    if (dice.RollHigh(character.Skills.BestSkillLevel("Stealth", "Gun Combat"), 8))
+                        character.BenefitRolls += 1;
+                    else
+                        Injury(character, dice, age);
+                    return;
+                }
 
             case 10:
                 character.AddHistory("Involved in a gambling ring.", dice);

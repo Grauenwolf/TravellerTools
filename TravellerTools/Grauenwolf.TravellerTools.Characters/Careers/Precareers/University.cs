@@ -49,26 +49,26 @@ class University(CharacterBuilder characterBuilder) : CareerBase("University", n
 
         var skillA = dice.Pick(skillChoices);
         character.Skills.Add(skillA, 1);
-        FixupSkills(character);
+        FixupSkills(character, dice);
 
         //Remove skills we already have at level 0
         skillChoices.RemoveOverlap(character.Skills, 0);
 
         var skillB = dice.Pick(skillChoices);
         character.Skills.Add(skillB);
-        FixupSkills(character);
+        FixupSkills(character, dice);
 
         character.Education += 1;
         character.EducationHistory = new EducationHistory();
         character.EducationHistory.Name = "University";
 
         PreCareerEvents(character, dice, this, new() { skillA, skillB });
-        FixupSkills(character);
+        FixupSkills(character, dice);
 
         var graduation = dice.D(2, 6) + character.IntellectDM + character.CurrentTermBenefits.GraduationDM;
         if (graduation < 5)
         {
-            character.Age += dice.D(4);
+            character.Age = Math.Max(character.Age + dice.D(4), character.History.Max(h => h.Age));
             character.AddHistory($"Dropped out of university.", character.Age);
             character.EducationHistory.Status = "Failed";
         }
@@ -93,7 +93,7 @@ class University(CharacterBuilder characterBuilder) : CareerBase("University", n
 
             character.Skills.Increase(skillA, 1);
             character.Skills.Increase(skillB, 1);
-            FixupSkills(character);
+            FixupSkills(character, dice);
 
             character.NextTermBenefits.FreeCommissionRoll = true;
             character.NextTermBenefits.CommissionDM = bonus;

@@ -173,7 +173,7 @@
                             <option value="" selected="@(string.IsNullOrEmpty(Model.SkillA))"></option>
                             @foreach (var item in Model.SkillList)
                                 {
-                                <option value="@(item.Specialty ?? item.Name)" selected="@( !string.IsNullOrEmpty(Model.SkillA) && (Model.SkillA == item.Name || Model.SkillA == item.Specialty) )"> @(item.ToString())</option>
+                                <option value="@(item.ShortName)" selected="@( !string.IsNullOrEmpty(Model.SkillA) && (Model.SkillA == item.ShortName) )"> @(item.ToString())</option>
                                 }
                         </InputSelect>
                         <br />
@@ -183,7 +183,7 @@
                             <option value="" selected="@(string.IsNullOrEmpty(Model.SkillB))"></option>
                             @foreach (var item in Model.SkillList)
                                 {
-                                <option value="@(item.Specialty ?? item.Name)" selected="@( !string.IsNullOrEmpty(Model.SkillB) && (Model.SkillB == item.Name || Model.SkillB == item.Specialty) )"> @(item.ToString())</option>
+                                <option value="@(item.ShortName)" selected="@( !string.IsNullOrEmpty(Model.SkillB) && (Model.SkillB == item.ShortName) )"> @(item.ToString())</option> 
                                 }
                         </InputSelect>
                         <br />
@@ -192,7 +192,7 @@
                             <option value="" selected="@(string.IsNullOrEmpty(Model.SkillC))"></option>
                             @foreach (var item in Model.SkillList)
                                 {
-                                <option value="@(item.Specialty ?? item.Name)" selected="@( !string.IsNullOrEmpty(Model.SkillC) && (Model.SkillC == item.Name || Model.SkillC == item.Specialty) )"> @(item.ToString())</option>
+                                <option value="@(item.ShortName)" selected="@( !string.IsNullOrEmpty(Model.SkillC) && (Model.SkillC == item.ShortName) )"> @(item.ToString())</option> 
                                 }
                         </InputSelect>
                         <br />
@@ -201,7 +201,7 @@
                             <option value="" selected="@(string.IsNullOrEmpty(Model.SkillD))"></option>
                             @foreach (var item in Model.SkillList)
                                 {
-                                <option value="@(item.Specialty ?? item.Name)" selected="@( !string.IsNullOrEmpty(Model.SkillD) && (Model.SkillD == item.Name || Model.SkillD == item.Specialty) )"> @(item.ToString())</option>
+                                <option value="@(item.ShortName)" selected="@( !string.IsNullOrEmpty(Model.SkillD) && (Model.SkillD == item.ShortName) )"> @(item.ToString())</option> 
                                 }
                         </InputSelect>
                     </td>

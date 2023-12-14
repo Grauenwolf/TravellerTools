@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters;
 
 public class Skill
 {
-    public Skill(string name, int level = 0)
+    public Skill(string name, int level)
         : this(name, null, level)
     {
     }

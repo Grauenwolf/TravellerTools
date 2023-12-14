@@ -4,7 +4,7 @@ namespace Grauenwolf.TravellerTools.Characters;
 
 public class Character
 {
-    public int Age { get; set; } = 18;
+    public int Age { get; set; }
     public int BenefitRolls { get; set; }
 
     /// <summary>
@@ -113,10 +113,10 @@ public class Character
             UnusedContacts.Enqueue(ContactType.Enemy);
     }
 
-    public void AddHistory(string text)
-    {
-        History.Add(new History(CurrentTerm, Age, text));
-    }
+    //public void AddHistory(string text)
+    //{
+    //    History.Add(new History(CurrentTerm, Age, text));
+    //}
 
     /// <summary>
     /// Adds the history.

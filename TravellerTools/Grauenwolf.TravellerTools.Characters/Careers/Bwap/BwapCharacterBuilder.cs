@@ -9,7 +9,7 @@ public class BwapCharacterBuilder(string dataPath, NameGenerator nameGenerator, 
 
     protected override bool AllowPsionics => true;
 
-    internal override void FixupSkills(Character character)
+    internal override void FixupSkills(Character character, Dice dice)
     {
         Fix("Admin");
         Fix("Advocate");

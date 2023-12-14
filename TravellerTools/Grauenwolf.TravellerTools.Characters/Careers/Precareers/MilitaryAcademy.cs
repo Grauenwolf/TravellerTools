@@ -39,7 +39,7 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
         //Add basic skills at level 0
         foreach (var skill in skillChoices.Select(x => x.Name).Distinct())
             character.Skills.Add(skill);
-        FixupSkills(character);
+        FixupSkills(character, dice);
 
         var gradDM = character.IntellectDM;
         if (character.Endurance >= 8)
@@ -51,12 +51,12 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
         character.EducationHistory.Name = Assignment;
 
         PreCareerEvents(character, dice, this, skillChoices);
-        FixupSkills(character);
+        FixupSkills(character, dice);
 
         var graduation = dice.D(2, 6);
         if (graduation == 2)
         {
-            character.Age += dice.D(4);
+            character.Age = Math.Max(character.Age + dice.D(4), character.History.Max(h => h.Age));
             character.AddHistory($"Kicked out of military academy.", character.Age);
             character.NextTermBenefits.EnlistmentDM[Branch] = -100;
         }
@@ -65,7 +65,7 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
             graduation += gradDM;
             if (graduation < 8)
             {
-                character.Age += dice.D(4);
+                character.Age = Math.Max(character.Age + dice.D(4), character.History.Max(h => h.Age));
                 character.AddHistory("Dropped out of military academy.", character.Age);
                 character.EducationHistory.Status = "Failed";
                 character.NextTermBenefits.EnlistmentDM[Branch] = 100;
@@ -91,7 +91,7 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
 
                 for (var i = 1; i <= 3; i++)
                     character.Skills.Increase(dice.Pick(skillChoices)); //Use pick so we don't get duplicates
-                FixupSkills(character);
+                FixupSkills(character, dice);
 
                 character.Education += 1;
 

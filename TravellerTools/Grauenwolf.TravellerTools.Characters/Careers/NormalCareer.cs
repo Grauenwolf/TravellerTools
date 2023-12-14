@@ -18,7 +18,7 @@ abstract class NormalCareer : FullCareer
             careerHistory = new CareerHistory(Career, Assignment, 0);
             ChangeCareer(character, dice, careerHistory);
             BasicTrainingSkills(character, dice, character.CareerHistory.Count == 0);
-            FixupSkills(character);
+            FixupSkills(character, dice);
             character.CareerHistory.Add(careerHistory);
         }
         else
@@ -33,7 +33,7 @@ abstract class NormalCareer : FullCareer
                 {
                     ChangeAssignment(character, dice, careerHistory);
                     BasicTrainingSkills(character, dice, false);
-                    FixupSkills(character);
+                    FixupSkills(character, dice);
                 }
             }
             else if (character.LastCareer?.Assignment == Assignment)
@@ -55,7 +55,7 @@ abstract class NormalCareer : FullCareer
                 skillTables.Add(AdvancedEducation);
 
             dice.Choose(skillTables)(character, dice);
-            FixupSkills(character);
+            FixupSkills(character, dice);
         }
         careerHistory.Terms += 1;
         character.LastCareer = careerHistory;
@@ -76,7 +76,7 @@ abstract class NormalCareer : FullCareer
             character.BenefitRolls += 1;
 
             Event(character, dice);
-            FixupSkills(character);
+            FixupSkills(character, dice);
 
             character.Age += 4;
 
@@ -91,7 +91,7 @@ abstract class NormalCareer : FullCareer
             if (advancementRoll >= AdvancementTarget)
             {
                 Promote(character, dice, careerHistory);
-                FixupSkills(character);
+                FixupSkills(character, dice);
 
                 //advancement skill
                 var skillTables = new List<SkillTable>
@@ -104,7 +104,7 @@ abstract class NormalCareer : FullCareer
                     skillTables.Add(AdvancedEducation);
 
                 dice.Choose(skillTables)(character, dice); //Choose a skill table and execute it.
-                FixupSkills(character);
+                FixupSkills(character, dice);
             }
 
             if (advancementRoll <= careerHistory.Terms)
@@ -119,7 +119,7 @@ abstract class NormalCareer : FullCareer
 
             character.NextTermBenefits.MusterOut = true;
             Mishap(character, dice, mishapAge);
-            FixupSkills(character);
+            FixupSkills(character, dice);
 
             if (character.NextTermBenefits.MusterOut)
                 character.Age = mishapAge;

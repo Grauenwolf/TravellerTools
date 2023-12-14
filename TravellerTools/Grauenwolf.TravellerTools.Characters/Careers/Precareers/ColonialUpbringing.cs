@@ -37,10 +37,10 @@ class ColonialUpbringing(CharacterBuilder characterBuilder) : CareerBase("Coloni
         foreach (var skill in skillChoices.Select(x => x.Name).Distinct())
             character.Skills.Add(skill);
         character.Skills.Add("Survival", 1);
-        FixupSkills(character);
+        FixupSkills(character, dice);
 
         PreCareerEvents(character, dice, this, skillChoices);
-        FixupSkills(character);
+        FixupSkills(character, dice);
 
         var graduation = dice.D(2, 6) + character.IntellectDM + character.CurrentTermBenefits.GraduationDM;
         if (character.Endurance >= 8)
@@ -99,6 +99,6 @@ class ColonialUpbringing(CharacterBuilder characterBuilder) : CareerBase("Coloni
         //Remove skills we already have at level 1
         skillChoices.RemoveOverlap(character.Skills, 1);
         character.Skills.Add(dice.Pick(skillChoices), 1);
-        FixupSkills(character);
+        FixupSkills(character, dice);
     }
 }

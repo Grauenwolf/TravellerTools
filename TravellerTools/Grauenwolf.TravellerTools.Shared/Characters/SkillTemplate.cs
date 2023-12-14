@@ -10,6 +10,7 @@ public class SkillTemplate(string name, string? specialty = null)
     public string? Group { get; }
     public string Name { get; } = name;
 
+    public string ShortName => Specialty ?? Name;
     public string? Specialty { get; } = specialty;
 
     public override string ToString()

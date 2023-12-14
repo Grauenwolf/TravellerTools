@@ -19,7 +19,7 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
         if (all || roll == 5)
             character.Skills.Add("Mechanic");
         if (all || roll == 6)
-            character.Skills.Add("Gun Combat ");
+            character.Skills.Add("Gun Combat");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -248,7 +248,7 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
 
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
-        var dm = character.Intellect;
+        var dm = character.IntellectDM;
         dm += -1 * character.CareerHistory.Count;
         if (character.Age >= 34)
             dm += -2;
@@ -284,7 +284,7 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat ")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
                 return;
         }
     }

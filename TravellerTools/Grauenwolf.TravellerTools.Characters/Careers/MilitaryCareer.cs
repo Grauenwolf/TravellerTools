@@ -18,7 +18,7 @@ abstract class MilitaryCareer : FullCareer
             careerHistory = new CareerHistory(Career, Assignment, 0);
             ChangeCareer(character, dice, careerHistory);
             BasicTraining(character, dice, character.CareerHistory.Count == 0);
-            FixupSkills(character);
+            FixupSkills(character, dice);
 
             character.CareerHistory.Add(careerHistory); //add this after basic training so the prior count isn't wrong.
         }
@@ -51,7 +51,7 @@ abstract class MilitaryCareer : FullCareer
                 skillTables.Add(OfficerTraining);
 
             dice.Choose(skillTables)(character, dice);
-            FixupSkills(character);
+            FixupSkills(character, dice);
         }
         careerHistory.Terms += 1;
         character.LastCareer = careerHistory;
@@ -70,7 +70,7 @@ abstract class MilitaryCareer : FullCareer
         if (survived)
         {
             Event(character, dice);
-            FixupSkills(character);
+            FixupSkills(character, dice);
 
             character.Age += 4;
             character.BenefitRolls += 1;
@@ -108,7 +108,7 @@ abstract class MilitaryCareer : FullCareer
                 if (careerHistory.CommissionRank > 0)
                     skillTables.Add(OfficerTraining);
                 dice.Choose(skillTables)(character, dice);
-                FixupSkills(character);
+                FixupSkills(character, dice);
             }
             if (advancementRoll <= careerHistory.Terms)
             {
@@ -122,7 +122,7 @@ abstract class MilitaryCareer : FullCareer
 
             character.NextTermBenefits.MusterOut = true;
             Mishap(character, dice, mishapAge);
-            FixupSkills(character);
+            FixupSkills(character, dice);
 
             if (character.NextTermBenefits.MusterOut)
                 character.Age = mishapAge;

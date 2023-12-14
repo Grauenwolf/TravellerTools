@@ -50,14 +50,14 @@ class MerchantAcademy(CharacterBuilder characterBuilder) : CareerBase("Merchant 
         //Add basic skills at level 0
         foreach (var skill in skillChoices.Select(x => x.Name).Distinct())
             character.Skills.Add(skill);
-        FixupSkills(character);
+        FixupSkills(character, dice);
 
         character.Education += 1;
         character.EducationHistory = new EducationHistory();
         character.EducationHistory.Name = "Merchant Academy";
 
         PreCareerEvents(character, dice, this, skillChoices);
-        FixupSkills(character);
+        FixupSkills(character, dice);
 
         var graduation = dice.D(2, 6) + character.IntellectDM + character.CurrentTermBenefits.GraduationDM;
         if (character.Education >= 8)
@@ -67,7 +67,7 @@ class MerchantAcademy(CharacterBuilder characterBuilder) : CareerBase("Merchant 
 
         if (graduation < 7)
         {
-            character.Age += dice.D(4);
+            character.Age = Math.Max(character.Age + dice.D(4), character.History.Max(h => h.Age));
             character.AddHistory($"Dropped out of the merchant academy.", character.Age);
             character.EducationHistory.Status = "Failed";
         }
@@ -92,7 +92,7 @@ class MerchantAcademy(CharacterBuilder characterBuilder) : CareerBase("Merchant 
             skillChoices.RemoveOverlap(character.Skills, 1);
             if (skillChoices.Count > 0)
                 character.Skills.Increase(dice.Choose(skillChoices));
-            FixupSkills(character);
+            FixupSkills(character, dice);
             character.Education += 1;
 
             if (schoolFlag)

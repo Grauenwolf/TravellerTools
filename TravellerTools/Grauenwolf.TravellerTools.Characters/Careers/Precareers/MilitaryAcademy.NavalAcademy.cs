@@ -15,7 +15,7 @@ class NavalAcademy(CharacterBuilder characterBuilder) : MilitaryAcademy("Naval A
         skillList.AddRange(SpecialtiesFor("Athletics"));
         skillList.AddRange(SpecialtiesFor("Gunner"));
         skillList.Add("Mechanic");
-        skillList.AddRange(SpecialtiesFor("Gun Combat "));
+        skillList.AddRange(SpecialtiesFor("Gun Combat"));
 
         return skillList;
     }

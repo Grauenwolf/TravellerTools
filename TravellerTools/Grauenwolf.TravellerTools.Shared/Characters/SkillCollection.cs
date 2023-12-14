@@ -52,6 +52,28 @@ public class SkillCollection : List<Skill>
     }
 
     /// <summary>
+    /// Gets the best the skill from the list. If there are ties, choose the first one. Jack-of-All-Trades is not allowed.
+    /// </summary>
+    /// <param name="skillNames">The skill names or specialities.</param>
+    public Skill? BestSkill(params string[] skillNames)
+    {
+        if (skillNames == null || skillNames.Length == 0)
+            throw new ArgumentException($"{nameof(skillNames)} is null or empty.", nameof(skillNames));
+
+        Skill? bestSkill = null;
+        var bestScore = -3; //unskilled penalty
+        foreach (var skill in this)
+            foreach (var name in skillNames)
+                if (((skill.Name == name) || (skill.Specialty == name)) && (skill.Level > bestScore))
+                {
+                    bestScore = skill.Level;
+                    bestSkill = skill;
+                }
+
+        return bestSkill;
+    }
+
+    /// <summary>
     /// Gets the best the skill level from the list.
     /// </summary>
     /// <param name="skillNames">The skill names or specialities.</param>
