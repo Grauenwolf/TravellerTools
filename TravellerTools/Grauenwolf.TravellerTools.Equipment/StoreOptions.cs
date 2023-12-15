@@ -10,6 +10,7 @@ public class StoreOptions
     public int BrokerScore { get; set; }
     public bool DiscountPrices { get; set; }
     public bool DrugsRestricted { get; set; }
+    public bool FullList { get; set; }
     public bool InformationRestricted { get; set; }
     public EHex LawLevel { get; set; }
     public EHex Population { get; set; }

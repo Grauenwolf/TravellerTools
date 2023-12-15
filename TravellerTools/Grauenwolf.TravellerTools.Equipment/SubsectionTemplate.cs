@@ -1,10 +1,9 @@
 ﻿namespace Grauenwolf.TravellerTools.Equipment;
 
-public class Subsection
+public class SubsectionTemplate(string name)
 {
-    public List<Item> Items { get; } = new();
-    public string? Name { get; set; }
-    public string? Species { get; set; }
+    public List<ItemTemplate> Items { get; } = [];
+    public string Name { get; } = name;
 
     public bool ContainsSpecies(string species)
     {

@@ -3,6 +3,14 @@
 public class Item
 {
     public decimal AmmoPrice { get; set; }
+
+    public string AmmoPriceFormatted => Price switch
+    {
+        0 => "",
+        < 1_000_000 => "Cr" + AmmoPrice.ToString(),
+        _ => "MCr" + (AmmoPrice / 1_000_000.0M).ToString(),
+    };
+
     public int Availability { get; set; }
 
     /// <summary>
@@ -24,6 +32,14 @@ public class Item
     public string? Notes { get; set; }
     public string? Page { get; set; }
     public decimal Price { get; set; }
+
+    public string PriceFormatted => Price switch
+    {
+        0 => "",
+        < 1_000_000 => "Cr" + Price.ToString(),
+        _ => "MCr" + (Price / 1_000_000.0M).ToString(),
+    };
+
     public string? PriceModifier { get; set; }
     public int? SentencingDM { get; set; }
     public string? Skill { get; set; }

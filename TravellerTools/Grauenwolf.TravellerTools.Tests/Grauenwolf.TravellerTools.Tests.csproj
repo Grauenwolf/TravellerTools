@@ -34,6 +34,12 @@
 			<SubType>Designer</SubType>
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
+
+		<Content Include="..\Grauenwolf.TravellerTools.Web\wwwroot\App_Data\Equipment.csv">
+			<Link>Equipment.csv</Link>
+			<SubType>Designer</SubType>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
