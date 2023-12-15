@@ -56,14 +56,15 @@ public class EquipmentBuilder
             var sections = new List<SectionTemplate>(items.Select(x => x.Section).Distinct().Select(x => new SectionTemplate(x)));
             foreach (var section in sections)
             {
-                section.Items.AddRange(items.Where(x => x.Section == section.Name && x.Subsection.IsNullOrWhiteSpace()));
+                section.Items.AddRange(items
+                    .Where(x => x.Section == section.Name && (x.Subsection == section.Name || x.Subsection.IsNullOrWhiteSpace())));
 
                 section.Subsections.AddRange(
                     items.Where(x => x.Section == section.Name && !x.Subsection.IsNullOrWhiteSpace())
                     .Select(x => x.Subsection).Distinct().Select(x => new SubsectionTemplate(x)));
 
                 foreach (var subSection in section.Subsections)
-                    subSection.Items.AddRange(items.Where(x => x.Section == section.Name && x.Subsection == subSection.Name));
+                    subSection.Items.AddRange(items.Where(x => x.Section == section.Name && x.Subsection == subSection.Name && x.Section != x.Subsection));
             }
 
             m_ItemCatalog = sections;

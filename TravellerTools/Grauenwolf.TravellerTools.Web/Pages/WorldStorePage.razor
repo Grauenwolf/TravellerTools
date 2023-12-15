@@ -204,7 +204,7 @@
                                 }
                                 @if (showLaw)
                                 {
-                                    <td>@(item.Law)</td>
+                                    <td>@(item.Law>0 ? item.Law : "")</td>
                                 }
                                 @if (showBM)
                                 {
@@ -230,6 +230,7 @@
                             }
                         }
                     </table>
+                    <div>&nbsp;</div>
                 }
 
                 foreach (var subsection in section.Subsections.OrderBy(s => s.Name))
@@ -322,7 +323,7 @@
                                     }
                                     @if (showLaw)
                                     {
-                                        <td>@(item.Law)</td>
+                                        <td>@(item.Law > 0 ? item.Law : "")</td>
                                     }
                                     @if (showBM)
                                     {

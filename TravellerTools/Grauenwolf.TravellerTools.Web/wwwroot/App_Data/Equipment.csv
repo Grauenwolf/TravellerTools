@@ -1,4 +1,272 @@
 ﻿Section,Subsection,Name,TL,Mass,Price,AmmoPrice,Species,Skill,Book,Page,Contraband,Category,Law,Notes,Mod
+Armour,Armour,Ablat,9,2,Cr75,0,,,CSC 2,16,Weapons,4,2,,
+Armour,Armour,Advanced Poly Carapace,13,2,Cr35000,0,,,CSC 2,13,Weapons,4,2,,
+Armour,Armour,Armoured Kaftan-10,10,4,Cr600,0,Bwap,,Aliens 3,256,Weapons,4,2,,
+Armour,Armour,Armoured Kaftan-12,12,1,Cr900,0,Bwap,,Aliens 3,256,Weapons,4,2,,
+Armour,Armour,Armoured Kaftan-7,7,8,Cr300,0,Bwap,,Aliens 3,256,Weapons,4,2,,
+Armour,Armour,Ballistic Vest,8,1,Cr500,0,,,CSC 2,11,Weapons,4,3,,
+Armour,Armour,Breastplate,1,5,Cr200,0,,,CSC 2,15,Weapons,3,8,,
+Armour,Armour,Ceramic Carapace,12,4,Cr12000,0,,,CSC 2,11,Weapons,4,2,,
+Armour,Armour,Cloth-10,10,5,Cr500,0,,,CSC 2,11,Weapons,3,4,,
+Armour,Armour,Cloth-12,12,2,Cr750,0,,,CSC 2,11,Weapons,3,4,,
+Armour,Armour,Cloth-7,7,10,Cr250,0,,,CSC 2,11,Weapons,3,4,,
+Armour,Armour,Conduit Bleed,14,8,Cr3500,0,,,CSC 2,17,Weapons,4,2,,
+Armour,Armour,Diplo Vest,10,,Cr250,0,,,CSC 2,12,Weapons,4,2,,
+Armour,Armour,Dispersion,12,3,Cr2000,0,,,CSC 2,17,Weapons,4,2,,
+Armour,Armour,Fireproof Suit,7,1,Cr50,0,,,CSC 2,17,Weapons,1,8,,
+Armour,Armour,Flak Jacket-7,7,8,Cr100,0,,,CSC 2,12,Weapons,3,3,,
+Armour,Armour,Flak jacket-8,8,6,Cr300,0,,,CSC 2,12,Weapons,3,3,,
+Armour,Armour,Flak Shell,9,8,Cr1000,0,,,CSC 2,12,Weapons,3,3,,
+Armour,Armour,Full Plate,2,20,Cr1000,0,,,CSC 2,15,Weapons,3,8,,
+Armour,Armour,Half-Plate,2,12,Cr800,0,,,CSC 2,15,Weapons,3,8,,
+Armour,Armour,Jack,1,1,Cr50,0,,,CSC 2,12,Weapons,3,8,,
+Armour,Armour,Lightweight Poly Carapace,11,2,Cr15000,0,,,CSC 2,13,Weapons,4,2,,
+Armour,Armour,Mail Hauberk,2,8,Cr500,0,,,CSC 2,16,Weapons,3,8,,
+Armour,Armour,Mesh,6,2,Cr150,0,,,CSC 2,13,Weapons,3,5,,
+Armour,Armour,Neural Sheath,17,2,Cr80000,0,,,CSC 2,18,Weapons,4,2,,
+Armour,Armour,Poly Carapace,10,2,Cr10000,0,,,CSC 2,13,Weapons,4,2,,
+Armour,Armour,Post-Apocalyptic,6,3,Cr150,0,,,CSC 2,13,Weapons,4,2,,
+Armour,Armour,Protect Suit,9,1,Cr500,0,,,CSC 2,14,Weapons,4,2,,
+Armour,Armour,Reflec,10,1,Cr1500,0,,,CSC 2,18,Weapons,3,8,,
+Armour,Armour,Tactical Riot Armour,7,6,Cr600,0,,,CSC 2,14,Weapons,4,3,,
+Armour,Armour Modifications,Additional Padding,1,5,Cr50,0,,,CSC 2,27,Weapons,1,0,,
+Armour,Armour Modifications,Armoured Fins,10,,Cr150,0,Bwap,,Aliens 3,255,Weapons,1,0,,
+Armour,Armour Modifications,Camouflage,3,,Cr25,0,,,CSC 2,27,Weapons,3,3,,
+Armour,Armour Modifications,"Chameleon, IR",12,,Cr5000,0,,,CSC 2,27,Weapons,3,3,,
+Armour,Armour Modifications,"Chameleon, Visilight",13,,Cr50000,0,,,CSC 2,27,Weapons,3,3,,
+Armour,Armour Modifications,Computer Weave-10,10,,Cr500,0,,,CSC 2,27,Weapons,1,0,,
+Armour,Armour Modifications,Computer Weave-11,11,,Cr1000,0,,,CSC 2,27,Weapons,1,0,,
+Armour,Armour Modifications,Computer Weave-13,13,,Cr5000,0,,,CSC 2,27,Weapons,1,0,,
+Armour,Armour Modifications,Coolant Rig,8,2,Cr100,0,,,CSC 2,27,Weapons,1,0,,
+Armour,Armour Modifications,Environment Reader,8,,Cr100,0,,,CSC 2,27,Weapons,1,0,,
+Armour,Armour Modifications,Extended Life Support,10,,Cr10000,0,,,CSC 2,27,Weapons,1,0,,
+Armour,Armour Modifications,Eye Protection,6,,Cr50,0,,,CSC 2,27,Weapons,1,0,,
+Armour,Armour Modifications,Friend or Foe HUD,11,,Cr4000,0,,,CSC 2,27,Weapons,1,0,,
+Armour,Armour Modifications,Gyro-Stabilizer Rig-12,12,1,Cr10000,0,,,CSC 2,27,Weapons,1,0,,
+Armour,Armour Modifications,Gyro-Stabilizer Rig-14,14,1,Cr50000,0,,,CSC 2,27,Weapons,1,0,,
+Armour,Armour Modifications,Magnetic Grapples,8,,Cr100,0,,,CSC 2,28,Weapons,3,3,,
+Armour,Armour Modifications,Medkit-10,10,,Cr5000,0,,,CSC 2,28,Weapons,1,0,,
+Armour,Armour Modifications,Medkit-11,11,,Cr10000,0,,,CSC 2,28,Weapons,1,0,,
+Armour,Armour Modifications,Minefield Boots,8,3,Cr250,0,,,CSC 2,28,Weapons,1,0,,
+Armour,Armour Modifications,Null Shield,17,,Cr150000,0,,,CSC 2,28,Weapons,1,0,,
+Armour,Armour Modifications,Personalized Image,2,,Cr10,0,,,CSC 2,28,Weapons,1,0,,
+Armour,Armour Modifications,Psionic Shield Helmet,12,2,Cr4000,0,,,CSC 2,28,Weapons,1,0,,
+Armour,Armour Modifications,Self-Sealing,11,,Cr2000,0,,,CSC 2,28,Weapons,1,0,,
+Armour,Armour Modifications,Smart Fabric,10,,Cr1000,0,,,CSC 2,28,Weapons,1,0,,
+Armour,Armour Modifications,Submarine Functionality,9,6,,0,,,CSC 2,28,Weapons,1,0,,
+Armour,Armour Modifications,Swimming Fins,8,,Cr100,0,Bwap,,Aliens 3,255,Weapons,1,0,,
+Armour,Armour Modifications,Tactical Video Suite,7,2,Cr75,0,,,CSC 2,28,Weapons,1,0,,
+Armour,Armour Modifications,Tail Mount-10,10,2,Cr50,0,Bwap,,Aliens 3,257,Weapons,1,0,,
+Armour,Armour Modifications,Tail Mount-14,14,2,Cr75,0,Bwap,,Aliens 3,257,Weapons,1,0,,
+Armour,Armour Modifications,Thruster Pack-12,12,,Cr14000,0,,,CSC 2,28,Weapons,1,0,,
+Armour,Armour Modifications,Thruster Pack-14,14,,Cr20000,0,,,CSC 2,28,Weapons,1,0,,
+Armour,Armour Modifications,Thruster Pack-9,9,,Cr2000,0,,,CSC 2,28,Weapons,1,0,,
+Armour,Armour Mods,Smart Fabric,10,0,Cr1000,,,,CSC2023,25,Weapons,,,,
+Armour,Armour Mods,"Submarine Functionality, Advanced",15,6,,,,,CSC2023,25,Weapons,,,x Cr500,
+Armour,Armour Mods,"Submarine Functionality, Basic",9,6,,,,,CSC2023,25,Weapons,,,x Cr200,
+Armour,Armour Mods,"Submarine Functionality, Improved",12,6,,,,,CSC2023,25,Weapons,,,x Cr300,
+Armour,Armour Mods,"Tactical Video Suite, Advanced",10,0,Cr500,,,,CSC2023,26,Weapons,,,,
+Armour,Armour Mods,"Tactical Video Suite, Basic",7,2,Cr100,,,,CSC2023,26,Weapons,,,,
+Armour,Armour Mods,"Tactical Video Suite, Improved",8,1,Cr200,,,,CSC2023,26,Weapons,,,,
+Armour,Armour Mods,"Thruster Pack, Advanced",14,2,Cr20000,,,,CSC2023,26,Weapons,,,,
+Armour,Armour Mods,"Thruster Pack, Basic",7,6,Cr2000,,,,CSC2023,26,Weapons,,,,
+Armour,Armour Mods,"Thruster Pack, Improved",12,6,Cr14000,,,,CSC2023,26,Weapons,,,,
+Armour,Armour Mods,"Vacc Suit Accessory Pack, Advanced",14,2,Cr8000,,,,CSC2023,26,Weapons,,,,
+Armour,Armour Mods,"Vacc Suit Accessory Pack, Basic",9,10,Cr6000,,,,CSC2023,26,Weapons,,,,
+Armour,Armour Mods,"Vacc Suit Accessory Pack, Improved",12,4,Cr6000,,,,CSC2023,26,Weapons,,,,
+Armour,Battle Dress,"Artillery Battle Dress, Advanced",15,180,Cr640000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Artillery Battle Dress, Basic",13,180,Cr275000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Artillery Battle Dress, Improved",14,180,Cr320000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,Artillery Battle Dress-13,13,180,Cr275000,0,,Vacc Suit 2,CSC 2,31,Weapons,5,1,,Military
+Armour,Battle Dress,Artillery Battle Dress-14,14,180,Cr320000,0,,Vacc Suit 1,CSC 2,31,Weapons,5,1,,Military
+Armour,Battle Dress,"Assault Battle Dress, Advanced",15,140,Cr660000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Assault Battle Dress, Basic",13,140,Cr300000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Assault Battle Dress, Improved",14,140,Cr330000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,Assault Battle Dress-13,13,140,Cr300000,0,,Vacc Suit 2,CSC 2,31,Weapons,5,1,,Military
+Armour,Battle Dress,Assault Battle Dress-14,14,140,Cr330000,0,,Vacc Suit 1,CSC 2,31,Weapons,5,1,,Military
+Armour,Battle Dress,"Battle Dress, Advanced",15,100,Cr440000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Battle Dress, Basic",13,100,Cr200000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Battle Dress, Improved",14,100,Cr220000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,Battle Dress-13,13,100,Cr200000,0,,Vacc Suit 2,CSC 2,32,Weapons,5,1,,Military
+Armour,Battle Dress,Battle Dress-14,14,100,Cr220000,0,,Vacc Suit 1,CSC 2,32,Weapons,5,1,,Military
+Armour,Battle Dress,"Ceramic Battle Dress, Advanced",15,100,Cr880000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Ceramic Battle Dress, Basic",13,100,Cr400000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Ceramic Battle Dress, Improved",14,100,Cr440000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,Ceramic Battle Dress-13,13,100,Cr400000,0,,Vacc Suit 2,CSC 2,32,Weapons,5,1,,Military
+Armour,Battle Dress,Ceramic Battle Dress-14,14,100,Cr440000,0,,Vacc Suit 1,CSC 2,32,Weapons,5,1,,Military
+Armour,Battle Dress,Combat Pioneer Battle Dress,13,120,Cr270000,0,,Vacc Suit 2,CSC 2,33,Weapons,5,1,,Military
+Armour,Battle Dress,"Combat Pioneer Battle Dress, Advanced",15,120,Cr600000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Combat Pioneer Battle Dress, Basic",13,120,Cr270000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Combat Pioneer Battle Dress, Improved",14,120,Cr300000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Command Battle Dress, Advanced",15,110,Cr700000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Command Battle Dress, Basic",13,110,Cr325000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Command Battle Dress, Improved",14,110,Cr350000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,Command Battle Dress-13,13,110,Cr325000,0,,Vacc Suit 2,CSC 2,33,Weapons,5,1,,Military
+Armour,Battle Dress,Command Battle Dress-14,14,110,Cr350000,0,,Vacc Suit 1,CSC 2,33,Weapons,5,1,,Military
+Armour,Battle Dress,Darrian Battle Dress,15,35,MCr5,,Darrian,Vacc Suit 2,Aliens 3,64,Weapons,4,2,,Military
+Armour,Battle Dress,Llyrnian Battle Dress-13,13,125,Cr300000,,Geonee,Vacc Suit 2,Aliens 3,126,Weapons,5,1,,Military
+Armour,Battle Dress,Llyrnian Battle Dress-14,14,120,Cr300000,,Geonee,Vacc Suit 1,Aliens 3,126,Weapons,5,1,,Military
+Armour,Battle Dress,"Logistics Battle Dress, Advanced",15,220,Cr640000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Logistics Battle Dress, Basic",13,220,Cr290000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Logistics Battle Dress, Improved",14,220,Cr320000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,Logistics Battle Dress-13,13,220,Cr290000,0,,Vacc Suit 2,CSC 2,34,Weapons,5,1,,Military
+Armour,Battle Dress,Logistics Battle Dress-14,14,220,Cr320000,0,,Vacc Suit 1,CSC 2,34,Weapons,5,1,,Military
+Armour,Battle Dress,Psi-Commando Battle Dress,15,110,MCr1.2,0,,Vacc Suit 1,CSC 2,34,Weapons,5,1,,Military
+Armour,Battle Dress,"Psi-Commando Battle Dress, Advanced",16,110,MCr2.4,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Psi-Commando Battle Dress, Basic",15,110,MCr1.2,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Psi-Enhanced Battle Dress, Advanced",15,100,MCr1.76,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Psi-Enhanced Battle Dress, Basic",13,100,Cr800000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Psi-Enhanced Battle Dress, Improved",14,100,Cr880000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,Psi-Enhanced Battle Dress-13,13,100,Cr800000,0,,Vacc Suit 1,CSC 2,35,Weapons,5,1,,Military
+Armour,Battle Dress,Psi-Enhanced Battle Dress-14,14,100,Cr880000,0,,Vacc Suit 1,CSC 2,35,Weapons,5,1,,Military
+Armour,Battle Dress,"Scout Battle Dress, Advanced",15,90,Cr600000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Scout Battle Dress, Basic",13,90,Cr270000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,"Scout Battle Dress, Improved",14,90,Cr300000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
+Armour,Battle Dress,Scout Battle Dress-13,13,90,Cr270000,0,,Vacc Suit 1,CSC 2,35,Weapons,5,1,,Military
+Armour,Battle Dress,Scout Battle Dress-14,14,90,Cr300000,0,,Vacc Suit 1,CSC 2,35,Weapons,5,1,,Military
+Armour,Battle Dress,Special Arm Battle Dress,16,30,,,Darrian,Vacc Suit 1,Aliens 3,64,Weapons,4,2,,Military
+Armour,Battle Dress,Type D Battle Dress,13,12,Cr280000,,Dolphin,Vacc Suit 2,Aliens 3,174,Weapons,,,,Military
+Armour,Battle Dress,Type D Battle Dress,15,12,Cr300000,,Dolphin,Vacc Suit 1,Aliens 3,174,Weapons,,,,Military
+Armour,Battle Dress,Type O Battle Dress-13,13,800,Cr840000,,Orca,,Aliens 3,224,,,,,
+Armour,Battle Dress,Type O Battle Dress-15,15,800,Cr900000,,Orca,,Aliens 3,224,,,,,
+Armour,Battle Dress,Type OH Battle Dress (heavy assault),14,850,MCr1.2 ,,Orca,,Aliens 3,224,,,,,
+Armour,Battle Dress Mods,Active Camouflage,15,0,Cr200000,,,,CSC2023,44,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Advanced Life Support,13,0,Cr20000,,,,CSC2023,44,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Air Suppression,15,15,,,Darrian,,Aliens 3,66,Weapons,4,2,,Military
+Armour,Battle Dress Mods,Anti-Armour Module,15,15,,,Darrian,,Aliens 3,66,Weapons,4,2,,Military
+Armour,Battle Dress Mods,"Anti-Missile System, Advanced Laser",15,0,Cr125000,,,,CSC2023,44,Weapons,4,1,,Military
+Armour,Battle Dress Mods,"Anti-Missile System, Laser",13,0,Cr75000,,,,CSC2023,44,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Anti-Personnel Module,15,15,,,Darrian,,Aliens 3,66,Weapons,4,2,,Military
+Armour,Battle Dress Mods,Command Module,15,15,,,Darrian,,Aliens 3,66,Weapons,4,2,,Military
+Armour,Battle Dress Mods,Electronics Warfare Module,15,15,,,Darrian,,Aliens 3,66,Weapons,4,2,,Military
+Armour,Battle Dress Mods,Enhanced Mobility,14,0,Cr35000,,,,CSC2023,45,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Enhanced Strength,14,0,Cr25000,,,,CSC2023,45,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Environment Protection (Corrosive),13,0,Cr40000,,,,CSC2023,45,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Environment Protection (Insidious),13,0,Cr150000,,,,CSC2023,45,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Flight Pack,10,0,Cr50000,,,,CSC2023,45,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Flight Pack,13,,Cr50000,,,0,CSC 2,36,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Fuel Cells,13,0,Cr1000,,,,CSC2023,45,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Fuel Cells,13,,Cr1000,,,0,CSC 2,36,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Grav Assist-12,12,,Cr110000,,,0,CSC 2,36,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Grav Assist-15,15,,Cr120000,,,0,CSC 2,36,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Heavy Mount,13,,Cr10000,,,0,CSC 2,36,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Heavy Plating,13,0,Cr4000,,,,CSC2023,45,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Heavy Plating,13,,Cr4000,,,0,CSC 2,36,Weapons,5,1,,Military
+Armour,Battle Dress Mods,High Velocity Targeting Array,15,0,Cr750000,,,,CSC2023,46,Weapons,4,1,,Military
+Armour,Battle Dress Mods,High Velocity Targeting Array,15,,Cr750000.00,,,0,CSC 2,36,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Integrated Toolkit,13,0,Cr3000,,,,CSC2023,46,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Integrated Toolkit,13,,Cr3000,,,0,CSC 2,36,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Integrated Weapon Mount (Close Combat),10,0,Cr1000,,,,CSC2023,46,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Integrated Weapon Mount (Close Combat),13,,Cr1000,,,0,CSC 2,36,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Integrated Weapon Mount (Heavy),10,0,Cr5000,,,,CSC2023,46,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Integrated Weapon Mount (Heavy),13,,Cr5000,,,0,CSC 2,36,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Integrated Weapon Mount (Pistol),10,0,Cr500,,,,CSC2023,46,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Integrated Weapon Mount (Pistol),13,,Cr500,,,0,CSC 2,36,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Integrated Weapon Mount (Rifle),10,0,Cr1000,,,,CSC2023,46,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Integrated Weapon Mount (Rifle),13,,Cr1000,,,0,CSC 2,36,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Integrated Weapon Mount (Vehicle),10,0,Cr10000,,,,CSC2023,46,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Ion Shield,14,0,Cr5000,,,,CSC2023,46,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Parachute,9,0,Cr2500,,,,CSC2023,47,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Parachute,13,,Cr2500,,,0,CSC 2,38,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Parachute (Thin Atmosphere),9,0,Cr5000,,,,CSC2023,47,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Prismatic Aerosol,9,0,Cr6000,,,,CSC2023,47,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Prismatic Aerosol,13,,Cr6000,,,0,CSC 2,38,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Sensor Suite (+1),13,,Cr20000,,,0,CSC 2,38,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Sensor Suite (+2),14,,Cr50000,,,0,CSC 2,38,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Sensor Suite (+3),15,,Cr65000,,,0,CSC 2,38,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Sensor Suite TL-13,13,0,Cr20000,,,,CSC2023,47,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Sensor Suite TL-14,14,0,Cr50000,,,,CSC2023,47,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Sensor Suite TL-15,15,0,Cr65000,,,,CSC2023,47,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Stealth (+1),13,,Cr50000,,,0,CSC 2,38,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Stealth (+2),14,,Cr100000,,,0,CSC 2,38,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Stealth (+3),15,,Cr125000,,,0,CSC 2,38,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Stealth TL-13,13,0,Cr50000,,,,CSC2023,47,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Stealth TL-14,14,0,Cr100000,,,,CSC2023,47,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Stealth TL-15,15,0,Cr125000,,,,CSC2023,47,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Vehicle Weapon  Mount,13,,Cr10000,,,0,CSC 2,38,Weapons,5,1,,Military
+Armour,Civilian Suits,Ceremonial Armour,3,8,Cr2500 ,,Geonee,,Aliens 3,126,Weapons,,,,
+Armour,Civilian Suits,Emergency Hostile Environment Suit,10,20,Cr9000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,Emergency Softsuit,10,10,Cr2000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,"Environment Suit, Basic",8,1,Cr500,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,"Environment Suit, Improved",10,2,Cr500,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,Explosive Ordnance Disposal Suit,8,35,Cr8000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,Gel Suit,10,3,Cr30000,,Darrian,,Aliens 3,64,,,,,
+Armour,Civilian Suits,"HEV Suit, Advanced",13,20,Cr40000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,"HEV Suit, Basic",9,40,Cr24000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,"HEV Suit, Enhanced",11,30,Cr22000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,"HEV Suit, Improved",10,30,Cr20000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,"HEV Suit, Superior",14,10,Cr60000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,Hostile Mining Vacc Suit-14,14,20,Cr75000,,Darrian,,Aliens 3,64,,,,,
+Armour,Civilian Suits,Hostile Mining Vacc Suit-9,9,25,Cr35000,,Darrian,,Aliens 3,64,,,,,
+Armour,Civilian Suits,Llyrnian Traditional Armour,2,15,Cr1750 ,,Geonee,,Aliens 3,126,Weapons,,,,
+Armour,Civilian Suits,Pressure Sleeve,10,—,Cr600,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,Rescue Suit,12,22,Cr25000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,"Shipsuit, Deluxe",14,4,Cr60000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,"Shipsuit, Standard",14,2,Cr30000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,Skinsuit,14,1,Cr100000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,Travel Suit,12,12,Cr125000,,Dolphin,Vacc Suit 1,Aliens 3,174,,,,,
+Armour,Civilian Suits,Travel Suit,15,7,Cr150000,,Dolphin,Vacc suit 0,Aliens 3,174,,,,,
+Armour,Civilian Suits,Travel Suit-12,12,,Cr350000,,Orca,,Aliens 3,224,,,,,
+Armour,Civilian Suits,Travel Suit-15,15,,Cr425000,,Orca,,Aliens 3,224,,,,,
+Armour,Civilian Suits,"Vacc Suit, Advanced",12,8,Cr20000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,"Vacc Suit, Basic",8,28,Cr12000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,"Vacc Suit, Improved",10,12,Cr10000,,,,CSC2023,28,,1,,,
+Armour,Civilian Suits,Walker Suit,9,35,Cr80000,,Dolphin,Vacc Suit 2,Aliens 3,174,,,,,
+Armour,Civilian Suits,Walker Suit,11,28,Cr120000,,Dolphin,Vacc Suit 1,Aliens 3,174,,,,,
+Armour,Civilian Suits,Walker Suit,14,20,Cr100000,,Dolphin,Vacc suit 0,Aliens 3,174,,,,,
+Armour,Military Suits,"Boarding Vacc Suit, Advanced",13,12,Cr48000,,,Vacc Suit 1,CSC2023,33,Weapons,4,2,,Military
+Armour,Military Suits,"Boarding Vacc Suit, Basic",11,25,Cr18000,,,Vacc Suit 1,CSC2023,33,Weapons,4,2,,Military
+Armour,Military Suits,"Boarding Vacc Suit, Improved",12,12,Cr24000,,,Vacc Suit 1,CSC2023,33,Weapons,4,2,,Military
+Armour,Military Suits,Ceramic Combat Armour,13,15,Cr90000,,,Vacc Suit 1,CSC2023,33,Weapons,4,2,,Military
+Armour,Military Suits,"Combat Armour, Advanced",14,12,Cr160000,,,Vacc Suit 0,CSC2023,33,Weapons,4,2,,Military
+Armour,Military Suits,"Combat Armour, Basic",10,20,Cr96000,,,Vacc Suit 1,CSC2023,33,Weapons,4,2,,Military
+Armour,Military Suits,"Combat Armour, Improved",12,16,Cr88000,,,Vacc Suit 0,CSC2023,33,Weapons,4,2,,Military
+Armour,Military Suits,Combat Environment Suit,10,4,Cr1000,,,,CSC2023,33,Weapons,4,2,,Military
+Armour,Military Suits,Guard Armour,14,6,Cr800000,,Darrian,Vacc Suit 0,Aliens 3,64,Weapons,4,2,,
+Armour,Military Suits,Llyrnian Combat Armour,12,20,Cr132000,,Geonee,Vacc Suit 0,Aliens 3,126,Weapons,4,2,,Military
+Armour,Military Suits,Llyrnian Combat Armour,15,16,Cr240000,,Geonee,Vacc Suit 0,Aliens 3,126,Weapons,4,2,,Military
+Armour,Military Suits,Militia Armour,12,2,Cr25000,,Darrian,,Aliens 3,64,Weapons,4,2,,Military
+Armour,Military Suits,Psi-Enhanced Combat Armour,16,10,Cr500000,,,,CSC2023,33,Weapons,4,2,,Military
+Armour,Military Suits,Sonar Stealth Suit,9,,Cr10000,,Dolphin,,Aliens 3,174,,,,,
+Armour,Non-Powered Suits,Boarding Vacc Suit-11,11,25,Cr18000,0,,Vacc Suit 1,CSC 2,19,Weapons,4,2,,
+Armour,Non-Powered Suits,Boarding Vacc Suit-12,12,12,Cr24000,0,,Vacc Suit 1,CSC 2,19,Weapons,4,2,,
+Armour,Non-Powered Suits,Ceramic Combat Armour,13,15,Cr300000,0,,Vacc Suit 1,CSC 2,20,Weapons,4,2,,Military
+Armour,Non-Powered Suits,Ceremonial Armour,2,1,Cr1750,0,Bwap,,Aliens 3,256,Weapons,4,2,,
+Armour,Non-Powered Suits,Combat Armour-10,10,20,Cr96000,0,,Vacc Suit 1,CSC 2,20,Weapons,4,2,,Military
+Armour,Non-Powered Suits,Combat Armour-12,12,16,Cr88000,0,,Vacc Suit 0,CSC 2,20,Weapons,4,2,,Military
+Armour,Non-Powered Suits,Combat Armour-14,14,12,Cr160000,0,,Vacc Suit 0,CSC 2,20,Weapons,4,2,,Military
+Armour,Non-Powered Suits,Combat Environment Suit,10,2,Cr1000,0,,,CSC 2,21,Weapons,4,2,,Military
+Armour,Non-Powered Suits,Emergency Hostile Environment Suit,10,20,Cr9000,0,,Vacc Suit 1,CSC 2,21,Weapons,1,9,,
+Armour,Non-Powered Suits,Emergency Softsuit,10,10,Cr2000,0,,Vacc Suit 0,CSC 2,21,Weapons,1,9,,
+Armour,Non-Powered Suits,Explosive Ordnance Disposal Suit,8,35,Cr8000,0,,,CSC 2,21,Weapons,3,3,,
+Armour,Non-Powered Suits,Hostile Environment Vacc Suit-10,10,13,Cr20000,0,,Vacc Suit 1,CSC 2,21,Weapons,1,9,,
+Armour,Non-Powered Suits,Hostile Environment Vacc Suit-11,11,13,Cr22000,0,,Vacc Suit 0,CSC 2,21,Weapons,1,9,,
+Armour,Non-Powered Suits,Hostile Environment Vacc Suit-13,13,10,Cr40000,0,,Vacc Suit 0,CSC 2,21,Weapons,1,9,,
+Armour,Non-Powered Suits,Hostile Environment Vacc Suit-14,14,9,Cr60000,0,,Vacc Suit 0,CSC 2,21,Weapons,1,9,,
+Armour,Non-Powered Suits,Hostile Environment Vacc Suit-9,9,22,Cr24000,0,,Vacc Suit 1,CSC 2,21,Weapons,1,9,,
+Armour,Non-Powered Suits,Pressure Sleeve,10,,Cr600,0,,,CSC 2,22,Weapons,1,9,,
+Armour,Non-Powered Suits,Psi-Enhanced Combat Armour,16,10,Cr500000,0,,,CSC 2,22,Weapons,6,1,,Military
+Armour,Non-Powered Suits,Rescue Suit,12,22,Cr25000,0,,Vacc Suit 1,CSC 2,23,Weapons,1,9,,
+Armour,Non-Powered Suits,Vacc Suit=8,8,17,Cr12000,0,,Vacc Suit 1,CSC 2,23,Weapons,1,9,,
+Armour,Non-Powered Suits,Vacc Suit-10,10,10,Cr11000,0,,Vacc Suit 0,CSC 2,23,Weapons,1,9,,
+Armour,Non-Powered Suits,Vacc Suit-12,12,8,Cr20000,0,,Vacc Suit 0,CSC 2,23,Weapons,1,9,,
+Armour,Powered Armour,Ceramic Powered Plate,13,35,Cr90000,0,,Vacc Suit 1,CSC 2,25,Weapons,4,2,,Military
+Armour,Powered Armour,Grav-Enhanced Powered Plate,15,32,Cr120000,0,,Vacc Suit 0,CSC 2,25,Weapons,4,2,,Military
+Armour,Powered Armour,Mechanical Carapace-12,12,25,Cr30000,0,,Vacc Suit 1,CSC 2,26,Weapons,4,2,,Military
+Armour,Powered Armour,Mechanical Carapace-9,9,30,Cr15000,0,,Vacc Suit 2,CSC 2,26,Weapons,4,2,,Military
+Armour,Powered Armour,Powered Plate-10,10,30,Cr62500,0,Bwap,Vacc Suit 1,Aliens 3,256,Weapons,4,2,,Military
+Armour,Powered Armour,Powered Plate-10,10,40,Cr50000,0,,Vacc Suit 1,CSC 2,26,Weapons,4,2,,Military
+Armour,Powered Armour,Powered Plate-14,14,20,Cr87150,0,Bwap,Vacc Suit 0,Aliens 3,256,Weapons,4,2,,Military
+Armour,Powered Armour,Powered Plate-14,14,30,Cr85000,0,,Vacc Suit 0,CSC 2,26,Weapons,4,2,,Military
+Armour,Powered Suits,Ceramic Powered Plate,13,35,Cr300000,,,Vacc Suit 1,CSC2023,35,Weapons,4,2,,
+Armour,Powered Suits,E3 Suit,14,30,Cr500000,,,Vacc Suit 3,CSC2023,35,Weapons,4,2,,
+Armour,Powered Suits,"Exoskeleton, Basic",9,16,Cr10000,,,Vacc Suit 0,CSC2023,35,Weapons,4,2,,
+Armour,Powered Suits,"Exoskeleton, Improved",12,10,Cr20000,,,,CSC2023,35,Weapons,4,2,,
+Armour,Powered Suits,Grav-Enhanced Powered Plate,15,32,Cr180000,,,Vacc Suit 0,CSC2023,35,Weapons,4,2,,
+Armour,Powered Suits,"Mechanical Carapace, Basic",9,30,Cr25000,,,Vacc Suit 2,CSC2023,35,Weapons,4,2,,
+Armour,Powered Suits,"Mechanical Carapace, Improved",12,25,Cr50000,,,Vacc Suit 1,CSC2023,35,Weapons,4,2,,
+Armour,Powered Suits,"Powered Plate, Basic",10,40,Cr80000,,,Vacc Suit 1,CSC2023,35,Weapons,4,2,,
+Armour,Powered Suits,"Powered Plate, Improved",14,30,Cr120000,,,Vacc Suit 0,CSC2023,35,Weapons,4,2,,
 Augmentation,Head,Assisted Ambulation-13,13,,Cr100000,0,,,CSC 2,90,,1,10,,
 Augmentation,Head,Assisted Ambulation-14,14,,Cr300000,0,,,CSC 2,90,,1,10,,
 Augmentation,Head,Assisted Ambulation-15,15,,Cr500000,0,,,CSC 2,90,,1,10,,
@@ -63,11 +331,23 @@ Augmentation,Torso,Physical Augmentation +2,12,,MCr1,0,,,CSC 2,89,,1,10,,
 Augmentation,Torso,Physical Augmentation +3,15,,MCr5,0,,,CSC 2,89,,1,10,,
 Augmentation,Torso,Smuggling Container,8,,Cr15000,0,,,CSC 2,89,,1,10,,
 Augmentation,Torso,Soldier's Organ Package,12,,MCr1.5,0,,,CSC 2,89,,1,10,,
-Augmentation,Torso,Subdermal Armor +1,10,,Cr50000,0,,,CSC 2,90,,1,10,,
-Augmentation,Torso,Subdermal Armor +3,11,,Cr100000,0,,,CSC 2,90,,1,10,,
-Augmentation,Torso,Subdermal Armor +4,12,,Cr250000,0,,,CSC 2,90,,1,10,,
-Augmentation,Torso,Subdermal Armor +5,14,,Cr500000,0,,,CSC 2,90,,1,10,,
+Augmentation,Torso,Subdermal Armour +1,10,,Cr50000,0,,,CSC 2,90,,1,10,,
+Augmentation,Torso,Subdermal Armour +3,11,,Cr100000,0,,,CSC 2,90,,1,10,,
+Augmentation,Torso,Subdermal Armour +4,12,,Cr250000,0,,,CSC 2,90,,1,10,,
+Augmentation,Torso,Subdermal Armour +5,14,,Cr500000,0,,,CSC 2,90,,1,10,,
 Augmentation,Torso,Terminal Stabilisation System,16,,MCr2.5,0,,,CSC 2,90,,1,10,,
+Augmentation ,Head,Sonar Enhancement,9,,Cr500,,Dolphin,,Aliens 3,179,,,,,
+Augmentation ,Limbs,Prosthetic Arms-12,12,, Cr300000,,Dolphin,,Aliens 3,179,,,,,
+Augmentation ,Limbs,Prosthetic Arms-13,13,, Cr285000,,Dolphin,,Aliens 3,179,,,,,
+Augmentation ,Limbs,Prosthetic Arms-15,15,, Cr270000,,Dolphin,,Aliens 3,179,,,,,
+Augmentation ,Limbs,Swift Fluke Augmentation-10,10,,Cr20000,,Dolphin,,Aliens 3,179,,,,,
+Augmentation ,Limbs,Swift Fluke Augmentation-12,12,,Cr35000,,Dolphin,,Aliens 3,179,,,,,
+Augmentation ,Limbs,Waldo-12,12,10,Cr250000,,Dolphin,,Aliens 3,180,,,,,
+Augmentation ,Limbs,Waldo-15,15,8,Cr350000,,Dolphin,,Aliens 3,180,,,,,
+Augmentation ,Limbs,Waldo-9,9,20,Cr150000,,Dolphin,,Aliens 3,180,,,,,
+Augmentation ,Torso,Deep Dive Augmentation,12,,Cr500000,,Dolphin,,Aliens 3,179,,,,,
+Augmentation ,Torso,Oxygen Reserve-10,10,,Cr10000,,Dolphin,,Aliens 3,179,,,,,
+Augmentation ,Torso,Oxygen Reserve-12,12,,Cr25000,,Dolphin,,Aliens 3,179,,,,,
 Discerning Weapons Specialist,Explosives,Breaching Charge,8,1,Cr250,0,,Explosives,CSC 2,136,Weapons,3,1,,Military
 Discerning Weapons Specialist,Explosives,Complex Chemical Charge,10,1,Cr500,0,,Explosives,CSC 2,136,Weapons,3,1,,Military
 Discerning Weapons Specialist,Explosives,Fusion Block,16,1,Cr10000,0,,Explosives,CSC 2,136,Weapons,6,1,,Military
@@ -95,6 +375,9 @@ Electronics,Communications,Holographic Projector-15,15,,Cr25000,0,,,CSC 2,62,,1,
 Electronics,Communications,Laser Transceiver - 500km,9,1.5,Cr2500,0,,,CSC 2,63,,1,0,,
 Electronics,Communications,Laser Transceiver (Computer/0) - 500km,11,0.5,Cr1500,0,,,CSC 2,63,,1,0,,
 Electronics,Communications,Laser Transceiver (Computer/1) - 500km,13,,Cr500,0,,,CSC 2,63,,1,0,,
+Electronics,Communications,Meson Transceivers-14,14,100,Cr100000,,Darrian,,Aliens 3,68,,,,,
+Electronics,Communications,Meson Transceivers-15,15,10,MCr1,,Darrian,,Aliens 3,68,,,,,
+Electronics,Communications,Meson Transceivers-16,16,1,,,Darrian,,Aliens 3,68,,,,,
 Electronics,Communications,"Mobile Comm-Audio and visual, Computer/0",8,,Cr150,0,,,CSC 2,62,,1,0,,
 Electronics,Communications,Mobile Comm-Audio only,6,,Cr50,0,,,CSC 2,62,,1,0,,
 Electronics,Communications,"Mobile Comm-Multiple forms of data, Computer/1",10,,Cr500,0,,,CSC 2,62,,1,0,,
@@ -109,6 +392,16 @@ Electronics,Communications,Radio Transceiver - 5km,8,,Cr75,0,,,CSC 2,63,,1,0,,
 Electronics,Communications,Radio Transceiver (Computer/0) - 5000km,9,,Cr5000,0,,,CSC 2,63,,1,0,,
 Electronics,Communications,Radio Transceiver (Computer/0) - 5000km,12,1,Cr1000,0,,,CSC 2,63,,1,0,,
 Electronics,Communications,Radio Transceiver (Computer/1) - 50km,13,,Cr250,0,,,CSC 2,63,,1,0,,
+Electronics,Computers,Computer/0 ,7,3,Cr2000,,Darrian,,Aliens 3,68,,,,,
+Electronics,Computers,Computer/1 ,8,2,Cr1000,,Darrian,,Aliens 3,68,,,,,
+Electronics,Computers,Computer/1 ,9,1,Cr400,,Darrian,,Aliens 3,68,,,,,
+Electronics,Computers,Computer/2 ,10,1,Cr1000,,Darrian,,Aliens 3,68,,,,,
+Electronics,Computers,Computer/2 ,11,0.5,Cr1200,,Darrian,,Aliens 3,68,,,,,
+Electronics,Computers,Computer/3 ,12,0.5,Cr4000,,Darrian,,Aliens 3,68,,,,,
+Electronics,Computers,Computer/4 ,13,0.5,Cr6000,,Darrian,,Aliens 3,68,,,,,
+Electronics,Computers,Computer/5 ,14,0.1,Cr10000,,Darrian,,Aliens 3,68,,,,,
+Electronics,Computers,Computer/6 ,15,0.1,Cr20000,,Darrian,,Aliens 3,68,,,,,
+Electronics,Computers,Computer/8 ,16,0.005,,,Darrian,,Aliens 3,68,,,,,
 Electronics,Computers,Data Display/Recorder,13,,Cr5000,0,,,Core 2,,,1,0,,
 Electronics,Computers,Data Wafer,10,,Cr5,0,,,Core 2,,,1,0,,
 Electronics,Computers,Mainframe (Computer/0),5,5 tons,MCr2,0,,,CSC 2,66,,1,0,,
@@ -162,19 +455,20 @@ Electronics,Computers,Portable Computer/5 Prototype 2,12,50 kg,Cr500000,0,,,Core
 Electronics,Computers,Portable Computer/5 Retrotech 1,15,,Cr2500,0,,,Core 2,,,1,0,,
 Electronics,Computers,Portable Computer/5 Retrotech 2,16,,Cr1250,0,,,Core 2,,,1,0,,
 Electronics,Computers,Portable Computer/5 Retrotech 3,17,,Cr625,0,,,Core 2,,,1,0,,
+Electronics,Gadgets and Essentials,Mouth Finger,2,,Cr10,,Dolphin,,Aliens 3,176,,,,,
 Electronics,Gadgets and Essentials,Ring Laser,16,,Cr1000,0,,,CSC 2,64,,1,0,,
 Electronics,Gadgets and Essentials,Wrist Watch,4,,Cr100,0,,,CSC 2,64,,1,0,,
 Electronics,Gadgets and Essentials,Wrist Watch,7,,Cr10,0,,,CSC 2,64,,1,0,,
 Electronics,Gadgets and Essentials,Wrist Watch,9,,Cr150,0,,,CSC 2,64,,1,0,,
 Electronics,Gadgets and Essentials,Wrist Watch,10,,Cr200,0,,,CSC 2,64,,1,0,,
-Electronics,Modifications,Waterproofing-6,6,,,0,Bwap,,Aliens 3,257,,1,0,"+200% of weight, +250% of cost",
 Electronics,Modifications,Waterproofing-6,6,,,0,Dolphin,,Aliens 3,176,,1,0,"+200% of weight, +250% of cost",
-Electronics,Modifications,Waterproofing-7,7,,,0,Bwap,,Aliens 3,257,,1,0,+100% of weight +100% of cost,
+Electronics,Modifications,Waterproofing-6,6,,,0,Bwap,,Aliens 3,257,,1,0,"+200% of weight, +250% of cost",
 Electronics,Modifications,Waterproofing-7,7,,,0,Dolphin,,Aliens 3,176,,1,0,+100% of weight +100% of cost,
-Electronics,Modifications,Waterproofing-8,8,,,0,Bwap,,Aliens 3,257,,1,0,+25% of weight +50% of cost,
+Electronics,Modifications,Waterproofing-7,7,,,0,Bwap,,Aliens 3,257,,1,0,+100% of weight +100% of cost,
 Electronics,Modifications,Waterproofing-8,8,,,0,Dolphin,,Aliens 3,176,,1,0,+25% of weight +50% of cost,
-Electronics,Modifications,Waterproofing-9,9,,,0,Bwap,,Aliens 3,257,,1,0,+10% of weight +25% of cost,
+Electronics,Modifications,Waterproofing-8,8,,,0,Bwap,,Aliens 3,257,,1,0,+25% of weight +50% of cost,
 Electronics,Modifications,Waterproofing-9,9,,,0,Dolphin,,Aliens 3,176,,1,0,+10% of weight +25% of cost,
+Electronics,Modifications,Waterproofing-9,9,,,0,Bwap,,Aliens 3,257,,1,0,+10% of weight +25% of cost,
 Electronics,Software Packages,Agent 0,11,,Cr500,0,,,CSC 2,67,Information,1,2,,
 Electronics,Software Packages,Agent 1,12,,Cr2000,0,,,CSC 2,67,Information,1,2,,
 Electronics,Software Packages,Agent 2,13,,Cr100000,0,,,CSC 2,67,Information,1,2,,
@@ -324,18 +618,28 @@ Electronics,Software Packages,Security 3,12,,Cr20000,0,,,CSC 2,69,Information,1,
 Electronics,Software Packages,Translator,9,,Cr50,0,,,CSC 2,69,Information,1,0,,
 Electronics,Software Packages,Translator,10,,Cr500,0,,,CSC 2,69,Information,1,0,,
 Electronics,Software Packages,Universal Translator,12,,Cr25000,0,,,CSC 2,69,Information,1,0,,
+Electronics,Vision and Detection,Advanced NBC Combination Analysis Unit,8,0.5,Cr2000,,Darrian,,Aliens 3,67,,,,,
+Electronics,Vision and Detection,Atmosphere Tester,7,,Cr300,,Darrian,,Aliens 3,67,,,,,
 Electronics,Vision and Detection,Bioscanner,15,3.5,Cr350000,0,,,Core 2,,,1,0,,
 Electronics,Vision and Detection,Chemi-view Goggles,13,,Cr5000,0,,,CSC 2,59,,1,0,,
 Electronics,Vision and Detection,Cold Light Lantern,6,0.25,Cr20,0,,,CSC 2,59,,1,0,,
 Electronics,Vision and Detection,Densitometer,14,5,Cr20000,0,,,Core 2,,,1,0,,
 Electronics,Vision and Detection,Electronic Binoculars,8,1,Cr750,0,,,CSC 2,60,,1,0,,
+Electronics,Vision and Detection,Field Surveillance Radar-11,11,6, Cr1000,,Darrian,,Aliens 3,67,,,,,
+Electronics,Vision and Detection,Field Surveillance Radar-13,13,1, Cr1250,,Darrian,,Aliens 3,67,,,,,
+Electronics,Vision and Detection,Field Surveillance Radar-9,9,10, Cr8000,,Darrian,,Aliens 3,67,,,,,
 Electronics,Vision and Detection,Geiger Counter,5,1,Cr250,0,,,CSC 2,60,,1,0,,
 Electronics,Vision and Detection,Geiger Counter,8,,Cr400,0,,,CSC 2,60,,1,0,,
+Electronics,Vision and Detection,Improved Neural Activity Detector,15,1,Cr85000,,Darrian,,Aliens 3,68,,,,,
 Electronics,Vision and Detection,Infrared Electric Torch,7,,Cr50,0,,,CSC 2,60,,1,0,,
 Electronics,Vision and Detection,Infrared Goggles,6,,Cr500,0,,,CSC 2,60,,1,0,,
 Electronics,Vision and Detection,Light Intensifier Goggles,7,1,Cr500,0,,,CSC 2,60,,1,0,,
 Electronics,Vision and Detection,Light Intensifier Goggles,9,-,Cr1250,0,,,CSC 2,60,,1,0,,
+Electronics,Vision and Detection,Motion Sensor-7,7,1, Cr1000,,Darrian,,Aliens 3,67,,,,,
+Electronics,Vision and Detection,Motion Sensor-9,9,1, Cr2000,,Darrian,,Aliens 3,67,,,,,
 Electronics,Vision and Detection,NAS,15,10,Cr35000,0,,,Core 2,,,1,0,,
+Electronics,Vision and Detection,NBC Combination Analysis Unit,7,1,Cr500,,Darrian,,Aliens 3,67,,,,,
+Electronics,Vision and Detection,Neural Activity Detector ,14,10,Cr55000,,Darrian,,Aliens 3,68,,,,,
 Electronics,Vision and Detection,Personal HUD,9,-,Cr1500,0,,,CSC 2,61,,1,0,,
 Electronics,Vision and Detection,PRIS Binoculars,12,1,Cr3500,0,,,CSC 2,61,,1,0,,
 Electronics,Vision and Detection,PRIS Goggles,12,,Cr4000,0,,,CSC 2,61,,1,0,,
@@ -361,6 +665,7 @@ Heavy Weapons,Man Portable Weaponry,Flamethrower-6,6,15,Cr1500,0,,Heavy Weapons 
 Heavy Weapons,Man Portable Weaponry,Flamethrower-8,8,10,Cr2000,0,,Heavy Weapons (Man Portable),CSC 2,124,Weapons,4,3,,Military
 Heavy Weapons,Man Portable Weaponry,Grenade Launcher,7,6,,0,,Heavy Weapons (Man Portable),CSC 2,124,Weapons,4,3,,Military
 Heavy Weapons,Man Portable Weaponry,Machinegun,6,12,Cr1500,0,,Heavy Weapons (Man Portable),CSC 2,124,Weapons,4,3,,Military
+Heavy Weapons,Man Portable Weaponry,Magrail Support Weapon,15,25,Cr250000,,Geonee,,Aliens 3,135,Weapons,,,,Military
 Heavy Weapons,Man Portable Weaponry,PGMP-12,12,10,Cr20000,0,,Heavy Weapons (Man Portable),CSC 2,125,Weapons,5,3,,Military
 Heavy Weapons,Man Portable Weaponry,PGMP-14,14,10,Cr65000,0,,Heavy Weapons (Man Portable),CSC 2,125,Weapons,5,3,,Military
 Heavy Weapons,Man Portable Weaponry,PGMP-16,16,10,Cr100000,0,,Heavy Weapons (Man Portable),CSC 2,125,Weapons,5,3,,Military
@@ -377,7 +682,7 @@ Heavy Weapons,Rockets and Missiles,Heavy Rocket Pod,6,0.5 tons,Cr12000,0,,Heavy 
 Heavy Weapons,Rockets and Missiles,Rocket Pod,6,0.25 tons,Cr8000,0,,Heavy Weapons (vehicle),CSC 2,133,Weapons,4,3,,Military
 Heavy Weapons,Rockets and Missiles,Tac Launcher (Anti-Aircraft),10,.025 tons,Cr16000,0,,Heavy Weapons (vehicle),CSC 2,133,Weapons,4,3,,Military
 Heavy Weapons,Rockets and Missiles,Tac Launcher (Anti-Personnel),10,.025 tons,Cr12000,0,,Heavy Weapons (vehicle),CSC 2,133,Weapons,4,3,,Military
-Heavy Weapons,Rockets and Missiles,Tac Launcher (Armor Piercing),10,.025 tons,Cr15000,0,,Heavy Weapons (vehicle),CSC 2,133,Weapons,4,3,,Military
+Heavy Weapons,Rockets and Missiles,Tac Launcher (Armour Piercing),10,.025 tons,Cr15000,0,,Heavy Weapons (vehicle),CSC 2,133,Weapons,4,3,,Military
 Heavy Weapons,Vehicle Weapons,Aerospace Defence Laser,12,12 tons,MCr4,0,,Heavy Weapons (vehicle),CSC 2,128,Weapons,4,3,,Military
 Heavy Weapons,Vehicle Weapons,Black Powder Cannon,3,0.5 tons,Cr3000,0,,Heavy Weapons (vehicle),CSC 2,128,Weapons,4,3,,Military
 Heavy Weapons,Vehicle Weapons,Cannon,8,2.5 tons,Cr400000,0,,Heavy Weapons (vehicle),CSC 2,129,Weapons,4,3,,Military
@@ -387,9 +692,11 @@ Heavy Weapons,Vehicle Weapons,Fusion Gun-Y,14,4 tons,MCr3,0,,Heavy Weapons (vehi
 Heavy Weapons,Vehicle Weapons,Fusion Gun-Z,15,4 tons,MCr8,0,,Heavy Weapons (vehicle),CSC 2,129,Weapons,5,3,,Military
 Heavy Weapons,Vehicle Weapons,Gatling Laser,8,7 tons,Cr125000,0,,Heavy Weapons (vehicle),CSC 2,129,Weapons,4,3,,Military
 Heavy Weapons,Vehicle Weapons,Gauss Cannon,12,1 ton,Cr100000,0,,Heavy Weapons (vehicle),CSC 2,129,Weapons,4,3,,Military
+Heavy Weapons,Vehicle Weapons,Gravitic Cannon,14,5000,Cr550000,Cr2000,Geonee,,Aliens 3,136,Weapons,,,,Military
 Heavy Weapons,Vehicle Weapons,Heavy Autocannon,6,1 ton,Cr45000,0,,Heavy Weapons (vehicle),CSC 2,130,Weapons,4,3,,Military
 Heavy Weapons,Vehicle Weapons,Heavy Cannon,8,4 tons,Cr600000,0,,Heavy Weapons (vehicle),CSC 2,130,Weapons,4,3,,Military
 Heavy Weapons,Vehicle Weapons,Heavy Gauss Cannon,12,2 tons,Cr225000,0,,Heavy Weapons (vehicle),CSC 2,130,Weapons,4,3,,Military
+Heavy Weapons,Vehicle Weapons,Heavy Gravitic Cannon,14,15000,MCr5,Cr6000,Geonee,,Aliens 3,136,Weapons,,,,Military
 Heavy Weapons,Vehicle Weapons,Heavy Laser Cannon,9,9 tons,Cr250000,0,,Heavy Weapons (vehicle),CSC 2,130,Weapons,4,3,,Military
 Heavy Weapons,Vehicle Weapons,Heavy Machinegun,6,0.1 tons,Cr4500,0,,Heavy Weapons (vehicle),CSC 2,130,Weapons,4,3,,Military
 Heavy Weapons,Vehicle Weapons,Hypervelocity Cannon,13,20 tons,MCr28,0,,Heavy Weapons (vehicle),CSC 2,130,Weapons,4,3,,Military
@@ -416,11 +723,11 @@ Home Comforts,Home Comforts,Autochef (gourmet model),10,5,Cr2500,0,,,CSC 2,94,,1
 Home Comforts,Home Comforts,Autolaundry,7,18,Cr250,0,,,CSC 2,94,,1,0,,
 Home Comforts,Home Comforts,Autolaundry,10,6,Cr500,0,,,CSC 2,94,,1,0,,
 Home Comforts,Home Comforts,Autolaundry,17,5,Cr1000,0,,,CSC 2,94,,1,0,,
-Home Comforts,Home Comforts,"Bed (anti-grav, king-size)",12,15,Cr7500,0,,,CSC 2,95,,1,0,,
 Home Comforts,Home Comforts,Bed (anti-grav),12,5,Cr1500,0,,,CSC 2,95,,1,0,,
+Home Comforts,Home Comforts,"Bed (anti-grav, king-size)",12,15,Cr7500,0,,,CSC 2,95,,1,0,,
 Home Comforts,Home Comforts,Bed (hammock),2,,Cr10,0,,,CSC 2,95,,1,0,,
-Home Comforts,Home Comforts,"Bed (mattress, king-size)",1,240,Cr1000,0,,,CSC 2,95,,1,0,,
 Home Comforts,Home Comforts,Bed (mattress),1,80,Cr200,0,,,CSC 2,95,,1,0,,
+Home Comforts,Home Comforts,"Bed (mattress, king-size)",1,240,Cr1000,0,,,CSC 2,95,,1,0,,
 Home Comforts,Home Comforts,Clothing Consultant,9,6,Cr800,0,,,CSC 2,94,,1,0,,
 Home Comforts,Home Comforts,Environment Replicator,8,12,Cr2000,0,,,CSC 2,95,,1,0,,
 Home Comforts,Home Comforts,Float Table (large),10,4,Cr600,0,,,CSC 2,95,,1,0,,
@@ -455,17 +762,22 @@ Medical Supplies,Drugs and Pharmaceuticals,Anagathics,15,,Cr20000,0,,,CSC 2,83,D
 Medical Supplies,Drugs and Pharmaceuticals,Anti-Rad,8,,Cr1000,0,,,CSC 2,83,Drugs,1,8,,
 Medical Supplies,Drugs and Pharmaceuticals,Combat Drug,10,,Cr1000,0,,,CSC 2,83,Drugs,1,3,,
 Medical Supplies,Drugs and Pharmaceuticals,Fast Drug,10,,Cr200,0,,,CSC 2,83,Drugs,1,6,,
+Medical Supplies,Drugs and Pharmaceuticals,Focus Drug,10,,Cr800,,Geonee,,Aliens 3,134,Drugs,,,,
+Medical Supplies,Drugs and Pharmaceuticals,Hydranoraquine,10,,Cr500,,Dolphin,,Aliens 3,176,Drugs,,,,
 Medical Supplies,Drugs and Pharmaceuticals,Hydronol 9,11,,Cr100,0,Bwap,,Aliens 3,258,Drugs,1,9,,
 Medical Supplies,Drugs and Pharmaceuticals,Inhibitor Drug,9,,Cr500,0,,,CSC 2,83,Drugs,1,9,,
-Medical Supplies,Drugs and Pharmaceuticals,Meta-Performance Enhancer,10,,Cr600,0,,,CSC 2,83,Drugs,1,3,,
+Medical Supplies,Drugs and Pharmaceuticals,Lizard Juice,16,,,,Darrian,,Aliens 3,69,,,,,
 Medical Supplies,Drugs and Pharmaceuticals,Metabolic Accelerator,10,,Cr500,0,,,CSC 2,84,Drugs,1,3,,
+Medical Supplies,Drugs and Pharmaceuticals,Meta-Performance Enhancer,10,,Cr600,0,,,CSC 2,83,Drugs,1,3,,
 Medical Supplies,Drugs and Pharmaceuticals,Nervous Response Dampener,9,,Cr100,0,,,CSC 2,84,Drugs,1,4,,
 Medical Supplies,Drugs and Pharmaceuticals,Null Drug,16,,Cr5000,0,,,CSC 2,84,Drugs,1,9,,
+Medical Supplies,Drugs and Pharmaceuticals,Oxyplex,10,,Cr550,,Dolphin,,Aliens 3,176,Drugs,,,,
 Medical Supplies,Drugs and Pharmaceuticals,Panacea,8,,Cr200,0,,,CSC 2,84,Drugs,1,8,,
 Medical Supplies,Drugs and Pharmaceuticals,Psi-Drug (double),8,,Cr4000,0,,,CSC 2,84,Psionics,1,6,,
 Medical Supplies,Drugs and Pharmaceuticals,Psi-Drug (special),8,,Cr10000,0,,,CSC 2,84,Psionics,1,6,,
 Medical Supplies,Drugs and Pharmaceuticals,Psi-Drug (standard),8,,Cr1000,0,,,CSC 2,84,Psionics,1,6,,
 Medical Supplies,Drugs and Pharmaceuticals,Radiation Emergency Applicator,10,,Cr250,0,,,CSC 2,84,Drugs,1,8,,
+Medical Supplies,Drugs and Pharmaceuticals,Recall Drug,11,,Cr500,,Geonee,,Aliens 3,134,Drugs,,,,
 Medical Supplies,Drugs and Pharmaceuticals,Recreational Drugs,1,,Cr10,0,,,CSC 2,84,Drugs,1,4,,
 Medical Supplies,Drugs and Pharmaceuticals,Regenerax,12,,Cr10000,0,Bwap,,Aliens 3,259,Drugs,1,8,,
 Medical Supplies,Drugs and Pharmaceuticals,Slow Drug,11,,Cr500,0,,,CSC 2,85,Drugs,1,6,,
@@ -485,148 +797,30 @@ Medical Supplies,Medical Equipment,Medkit-10,10,1,Cr1500,0,,,CSC 2,82,,1,0,,
 Medical Supplies,Medical Equipment,Medkit-12,12,1,Cr5000,0,,,CSC 2,82,,1,0,,
 Medical Supplies,Medical Equipment,Medkit-14,14,,Cr10000,0,,,CSC 2,82,,1,0,,
 Medical Supplies,Medical Equipment,Medkit-8,8,1,Cr1000,0,,,CSC 2,82,,1,0,,
+Medical Supplies,Medical Equipment,Minidoc-13,13,150,Cr75000,,Geonee,,Aliens 3,134,,,,,
+Medical Supplies,Medical Equipment,Minidoc-14,14,100,Cr100000,,Geonee,,Aliens 3,134,,,,,
 Medical Supplies,Medical Equipment,Personal Automedic,11,,Cr15000,0,,,CSC 2,82,,1,0,,
 Medical Supplies,Medical Equipment,Personal Mediscanner,12,,Cr1000,0,,,CSC 2,82,,1,0,,
 Medical Supplies,Medical Equipment,Portable mediscanner,12,1,Cr2000,0,,,CSC 2,82,,1,0,,
 Medical Supplies,Medical Equipment,Trauma Pack,8,2,Cr750,0,,,CSC 2,82,,1,0,,
-Personal Protection,Armor,Ablat,9,2,Cr75,0,,,CSC 2,16,Weapons,4,2,,
-Personal Protection,Armor,Advanced Poly Carapace,13,2,Cr35000,0,,,CSC 2,13,Weapons,4,2,,
-Personal Protection,Armor,Armoured Kaftan-10,10,4,Cr600,0,Bwap,,Aliens 3,256,Weapons,4,2,,
-Personal Protection,Armor,Armoured Kaftan-12,12,1,Cr900,0,Bwap,,Aliens 3,256,Weapons,4,2,,
-Personal Protection,Armor,Armoured Kaftan-7,7,8,Cr300,0,Bwap,,Aliens 3,256,Weapons,4,2,,
-Personal Protection,Armor,Ballistic Vest,8,1,Cr500,0,,,CSC 2,11,Weapons,4,3,,
-Personal Protection,Armor,Breastplate,1,5,Cr200,0,,,CSC 2,15,Weapons,3,8,,
-Personal Protection,Armor,Ceramic Carapace,12,4,Cr12000,0,,,CSC 2,11,Weapons,4,2,,
-Personal Protection,Armor,Cloth-10,10,5,Cr500,0,,,CSC 2,11,Weapons,3,4,,
-Personal Protection,Armor,Cloth-12,12,2,Cr750,0,,,CSC 2,11,Weapons,3,4,,
-Personal Protection,Armor,Cloth-7,7,10,Cr250,0,,,CSC 2,11,Weapons,3,4,,
-Personal Protection,Armor,Conduit Bleed,14,8,Cr3500,0,,,CSC 2,17,Weapons,4,2,,
-Personal Protection,Armor,Diplo Vest,10,,Cr250,0,,,CSC 2,12,Weapons,4,2,,
-Personal Protection,Armor,Dispersion,12,3,Cr2000,0,,,CSC 2,17,Weapons,4,2,,
-Personal Protection,Armor,Fireproof Suit,7,1,Cr50,0,,,CSC 2,17,Weapons,1,8,,
-Personal Protection,Armor,Flak Jacket-7,7,8,Cr100,0,,,CSC 2,12,Weapons,3,3,,
-Personal Protection,Armor,Flak jacket-8,8,6,Cr300,0,,,CSC 2,12,Weapons,3,3,,
-Personal Protection,Armor,Flak Shell,9,8,Cr1000,0,,,CSC 2,12,Weapons,3,3,,
-Personal Protection,Armor,Full Plate,2,20,Cr1000,0,,,CSC 2,15,Weapons,3,8,,
-Personal Protection,Armor,Half-Plate,2,12,Cr800,0,,,CSC 2,15,Weapons,3,8,,
-Personal Protection,Armor,Jack,1,1,Cr50,0,,,CSC 2,12,Weapons,3,8,,
-Personal Protection,Armor,Lightweight Poly Carapace,11,2,Cr15000,0,,,CSC 2,13,Weapons,4,2,,
-Personal Protection,Armor,Mail Hauberk,2,8,Cr500,0,,,CSC 2,16,Weapons,3,8,,
-Personal Protection,Armor,Mesh,6,2,Cr150,0,,,CSC 2,13,Weapons,3,5,,
-Personal Protection,Armor,Neural Sheath,17,2,Cr80000,0,,,CSC 2,18,Weapons,4,2,,
-Personal Protection,Armor,Poly Carapace,10,2,Cr10000,0,,,CSC 2,13,Weapons,4,2,,
-Personal Protection,Armor,Post-Apocalyptic,6,3,Cr150,0,,,CSC 2,13,Weapons,4,2,,
-Personal Protection,Armor,Protect Suit,9,1,Cr500,0,,,CSC 2,14,Weapons,4,2,,
-Personal Protection,Armor,Reflec,10,1,Cr1500,0,,,CSC 2,18,Weapons,3,8,,
-Personal Protection,Armor,Tactical Riot Armor,7,6,Cr600,0,,,CSC 2,14,Weapons,4,3,,
-Personal Protection,Armor Modifications,Additional Padding,1,5,Cr50,0,,,CSC 2,27,Weapons,1,0,,
-Personal Protection,Armor Modifications,Armoured Fins,10,,Cr150,0,Bwap,,Aliens 3,255,Weapons,1,0,,
-Personal Protection,Armor Modifications,Camouflage,3,,Cr25,0,,,CSC 2,27,Weapons,3,3,,
-Personal Protection,Armor Modifications,"Chameleon, IR",12,,Cr5000,0,,,CSC 2,27,Weapons,3,3,,
-Personal Protection,Armor Modifications,"Chameleon, Visilight",13,,Cr50000,0,,,CSC 2,27,Weapons,3,3,,
-Personal Protection,Armor Modifications,Computer Weave-10,10,,Cr500,0,,,CSC 2,27,Weapons,1,0,,
-Personal Protection,Armor Modifications,Computer Weave-11,11,,Cr1000,0,,,CSC 2,27,Weapons,1,0,,
-Personal Protection,Armor Modifications,Computer Weave-13,13,,Cr5000,0,,,CSC 2,27,Weapons,1,0,,
-Personal Protection,Armor Modifications,Coolant Rig,8,2,Cr100,0,,,CSC 2,27,Weapons,1,0,,
-Personal Protection,Armor Modifications,Environment Reader,8,,Cr100,0,,,CSC 2,27,Weapons,1,0,,
-Personal Protection,Armor Modifications,Extended Life Support,10,,Cr10000,0,,,CSC 2,27,Weapons,1,0,,
-Personal Protection,Armor Modifications,Eye Protection,6,,Cr50,0,,,CSC 2,27,Weapons,1,0,,
-Personal Protection,Armor Modifications,Friend or Foe HUD,11,,Cr4000,0,,,CSC 2,27,Weapons,1,0,,
-Personal Protection,Armor Modifications,Gyro-Stabilizer Rig-12,12,1,Cr10000,0,,,CSC 2,27,Weapons,1,0,,
-Personal Protection,Armor Modifications,Gyro-Stabilizer Rig-14,14,1,Cr50000,0,,,CSC 2,27,Weapons,1,0,,
-Personal Protection,Armor Modifications,Magnetic Grapples,8,,Cr100,0,,,CSC 2,28,Weapons,3,3,,
-Personal Protection,Armor Modifications,Medkit-10,10,,Cr5000,0,,,CSC 2,28,Weapons,1,0,,
-Personal Protection,Armor Modifications,Medkit-11,11,,Cr10000,0,,,CSC 2,28,Weapons,1,0,,
-Personal Protection,Armor Modifications,Minefield Boots,8,3,Cr250,0,,,CSC 2,28,Weapons,1,0,,
-Personal Protection,Armor Modifications,Null Shield,17,,Cr150000,0,,,CSC 2,28,Weapons,1,0,,
-Personal Protection,Armor Modifications,Personalized Image,2,,Cr10,0,,,CSC 2,28,Weapons,1,0,,
-Personal Protection,Armor Modifications,Psionic Shield Helmet,12,2,Cr4000,0,,,CSC 2,28,Weapons,1,0,,
-Personal Protection,Armor Modifications,Self-Sealing,11,,Cr2000,0,,,CSC 2,28,Weapons,1,0,,
-Personal Protection,Armor Modifications,Smart Fabric,10,,Cr1000,0,,,CSC 2,28,Weapons,1,0,,
-Personal Protection,Armor Modifications,Submarine Functionality,9,6,,0,,,CSC 2,28,Weapons,1,0,,
-Personal Protection,Armor Modifications,Swimming Fins,8,,Cr100,0,Bwap,,Aliens 3,255,Weapons,1,0,,
-Personal Protection,Armor Modifications,Tactical Video Suite,7,2,Cr75,0,,,CSC 2,28,Weapons,1,0,,
-Personal Protection,Armor Modifications,Tail Mount-10,10,2,Cr50,0,Bwap,,Aliens 3,257,Weapons,1,0,,
-Personal Protection,Armor Modifications,Tail Mount-14,14,2,Cr75,0,Bwap,,Aliens 3,257,Weapons,1,0,,
-Personal Protection,Armor Modifications,Thruster Pack-12,12,,Cr14000,0,,,CSC 2,28,Weapons,1,0,,
-Personal Protection,Armor Modifications,Thruster Pack-14,14,,Cr20000,0,,,CSC 2,28,Weapons,1,0,,
-Personal Protection,Armor Modifications,Thruster Pack-9,9,,Cr2000,0,,,CSC 2,28,Weapons,1,0,,
-Personal Protection,Battle Dress,Artillery Battle Dress-13,13,180,Cr275000,0,,Vacc Suit 2,CSC 2,31,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Artillery Battle Dress-14,14,180,Cr320000,0,,Vacc Suit 1,CSC 2,31,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Assault Battle Dress-13,13,140,Cr300000,0,,Vacc Suit 2,CSC 2,31,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Assault Battle Dress-14,14,140,Cr330000,0,,Vacc Suit 1,CSC 2,31,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Battle Dress-13,13,100,Cr200000,0,,Vacc Suit 2,CSC 2,32,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Battle Dress-14,14,100,Cr220000,0,,Vacc Suit 1,CSC 2,32,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Ceramic Battle Dress-13,13,100,Cr400000,0,,Vacc Suit 2,CSC 2,32,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Ceramic Battle Dress-14,14,100,Cr440000,0,,Vacc Suit 1,CSC 2,32,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Combat Pioneer Battle Dress,13,120,Cr270000,0,,Vacc Suit 2,CSC 2,33,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Command Battle Dress-13,13,110,Cr325000,0,,Vacc Suit 2,CSC 2,33,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Command Battle Dress-14,14,110,Cr350000,0,,Vacc Suit 1,CSC 2,33,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Logistics Battle Dress-13,13,220,Cr290000,0,,Vacc Suit 2,CSC 2,34,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Logistics Battle Dress-14,14,220,Cr320000,0,,Vacc Suit 1,CSC 2,34,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Psi-Commando Battle Dress,15,110,MCr1.2,0,,Vacc Suit 1,CSC 2,34,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Psi-Enhanced Battle Dress-13,13,100,Cr800000,0,,Vacc Suit 1,CSC 2,35,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Psi-Enhanced Battle Dress-14,14,100,Cr880000,0,,Vacc Suit 1,CSC 2,35,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Scout Battle Dress-13,13,90,Cr270000,0,,Vacc Suit 1,CSC 2,35,Weapons,5,1,,Military
-Personal Protection,Battle Dress,Scout Battle Dress-14,14,90,Cr300000,0,,Vacc Suit 1,CSC 2,35,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Flight Pack,13,,Cr50000,0,,,CSC 2,36,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Fuel Cells,13,,Cr1000,0,,,CSC 2,36,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Grav Assist-12,12,,Cr110000,0,,,CSC 2,36,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Grav Assist-15,15,,Cr120000,0,,,CSC 2,36,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Heavy Mount,13,,Cr10000,0,,,CSC 2,36,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Heavy Plating,13,,Cr4000,0,,,CSC 2,36,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,High Velocity Targeting Array,15,,Cr750000.00,0,,,CSC 2,36,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Integrated Toolkit,13,,Cr3000,0,,,CSC 2,36,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Integrated Weapon Mount (Close Combat),13,,Cr1000,0,,,CSC 2,36,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Integrated Weapon Mount (Heavy),13,,Cr5000,0,,,CSC 2,36,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Integrated Weapon Mount (Pistol),13,,Cr500,0,,,CSC 2,36,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Integrated Weapon Mount (Rifle),13,,Cr1000,0,,,CSC 2,36,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Parachute,13,,Cr2500,0,,,CSC 2,38,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Prismatic Aerosol,13,,Cr6000,0,,,CSC 2,38,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Sensor Suite (+1),13,,Cr20000,0,,,CSC 2,38,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Sensor Suite (+2),14,,Cr50000,0,,,CSC 2,38,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Sensor Suite (+3),15,,Cr65000,0,,,CSC 2,38,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Stealth (+1),13,,Cr50000,0,,,CSC 2,38,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Stealth (+2),14,,Cr100000,0,,,CSC 2,38,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Stealth (+3),15,,Cr125000,0,,,CSC 2,38,Weapons,5,1,,Military
-Personal Protection,Battle Dress Modifications,Vehicle Weapon  Mount,13,,Cr10000,0,,,CSC 2,38,Weapons,5,1,,Military
-Personal Protection,Non-Powered Suits,Boarding Vacc Suit-11,11,25,Cr18000,0,,Vacc Suit 1,CSC 2,19,Weapons,4,2,,
-Personal Protection,Non-Powered Suits,Boarding Vacc Suit-12,12,12,Cr24000,0,,Vacc Suit 1,CSC 2,19,Weapons,4,2,,
-Personal Protection,Non-Powered Suits,Ceramic Combat Armor,13,15,Cr300000,0,,Vacc Suit 1,CSC 2,20,Weapons,4,2,,Military
-Personal Protection,Non-Powered Suits,Ceremonial Armour,2,1,Cr1750,0,Bwap,,Aliens 3,256,Weapons,4,2,,
-Personal Protection,Non-Powered Suits,Combat Armor-10,10,20,Cr96000,0,,Vacc Suit 1,CSC 2,20,Weapons,4,2,,Military
-Personal Protection,Non-Powered Suits,Combat Armor-12,12,16,Cr88000,0,,Vacc Suit 0,CSC 2,20,Weapons,4,2,,Military
-Personal Protection,Non-Powered Suits,Combat Armor-14,14,12,Cr160000,0,,Vacc Suit 0,CSC 2,20,Weapons,4,2,,Military
-Personal Protection,Non-Powered Suits,Combat Environment Suit,10,2,Cr1000,0,,,CSC 2,21,Weapons,4,2,,Military
-Personal Protection,Non-Powered Suits,Emergency Hostile Environment Suit,10,20,Cr9000,0,,Vacc Suit 1,CSC 2,21,Weapons,1,9,,
-Personal Protection,Non-Powered Suits,Emergency Softsuit,10,10,Cr2000,0,,Vacc Suit 0,CSC 2,21,Weapons,1,9,,
-Personal Protection,Non-Powered Suits,Explosive Ordnance Disposal Suit,8,35,Cr8000,0,,,CSC 2,21,Weapons,3,3,,
-Personal Protection,Non-Powered Suits,Hostile Environment Vacc Suit-10,10,13,Cr20000,0,,Vacc Suit 1,CSC 2,21,Weapons,1,9,,
-Personal Protection,Non-Powered Suits,Hostile Environment Vacc Suit-11,11,13,Cr22000,0,,Vacc Suit 0,CSC 2,21,Weapons,1,9,,
-Personal Protection,Non-Powered Suits,Hostile Environment Vacc Suit-13,13,10,Cr40000,0,,Vacc Suit 0,CSC 2,21,Weapons,1,9,,
-Personal Protection,Non-Powered Suits,Hostile Environment Vacc Suit-14,14,9,Cr60000,0,,Vacc Suit 0,CSC 2,21,Weapons,1,9,,
-Personal Protection,Non-Powered Suits,Hostile Environment Vacc Suit-9,9,22,Cr24000,0,,Vacc Suit 1,CSC 2,21,Weapons,1,9,,
-Personal Protection,Non-Powered Suits,Pressure Sleeve,10,,Cr600,0,,,CSC 2,22,Weapons,1,9,,
-Personal Protection,Non-Powered Suits,Psi-Enhanced Combat Armor,16,10,Cr500000,0,,,CSC 2,22,Weapons,6,1,,Military
-Personal Protection,Non-Powered Suits,Rescue Suit,12,22,Cr25000,0,,Vacc Suit 1,CSC 2,23,Weapons,1,9,,
-Personal Protection,Non-Powered Suits,Vacc Suit-10,10,10,Cr11000,0,,Vacc Suit 0,CSC 2,23,Weapons,1,9,,
-Personal Protection,Non-Powered Suits,Vacc Suit-12,12,8,Cr20000,0,,Vacc Suit 0,CSC 2,23,Weapons,1,9,,
-Personal Protection,Non-Powered Suits,Vacc Suit=8,8,17,Cr12000,0,,Vacc Suit 1,CSC 2,23,Weapons,1,9,,
-Personal Protection,Powered Armor,Ceramic Powered Plate,13,35,Cr90000,0,,Vacc Suit 1,CSC 2,25,Weapons,4,2,,Military
-Personal Protection,Powered Armor,Grav-Enhanced Powered Plate,15,32,Cr120000,0,,Vacc Suit 0,CSC 2,25,Weapons,4,2,,Military
-Personal Protection,Powered Armor,Mechanical Carapace-12,12,25,Cr30000,0,,Vacc Suit 1,CSC 2,26,Weapons,4,2,,Military
-Personal Protection,Powered Armor,Mechanical Carapace-9,9,30,Cr15000,0,,Vacc Suit 2,CSC 2,26,Weapons,4,2,,Military
-Personal Protection,Powered Armor,Powered Plate-10,10,40,Cr50000,0,,Vacc Suit 1,CSC 2,26,Weapons,4,2,,Military
-Personal Protection,Powered Armor,Powered Plate-10,10,30,Cr62500,0,Bwap,Vacc Suit 1,Aliens 3,256,Weapons,4,2,,Military
-Personal Protection,Powered Armor,Powered Plate-14,14,30,Cr85000,0,,Vacc Suit 0,CSC 2,26,Weapons,4,2,,Military
-Personal Protection,Powered Armor,Powered Plate-14,14,20,Cr87150,0,Bwap,Vacc Suit 0,Aliens 3,256,Weapons,4,2,,Military
+Robots,Robots,Agrobot,12,,Cr220000,,Geonee,,Aliens 3,128,,,,,
+Robots,Robots,Animal Care Robot,12,,Cr90000,,Geonee,,Aliens 3,129,,,,,
 Robots,Robots,Astro-Mech Droid,14,,MCr6,0,,,CSC,72,,1,0,,
+Robots,Robots,Cargo Handler,12,,Cr360000,,Geonee,,Aliens 3,130,,,,,
 Robots,Robots,Centurion,12,,MCr10,0,,,CSC,72,,5,3,,Military
 Robots,Robots,Creeper Assassin,12,,Cr600000,0,,,CSC,73,,3,3,,
+Robots,Robots,Emergency Responder,12,,Cr3200000,,Geonee,,Aliens 3,131,,,,,
+Robots,Robots,Eye-Spy Drone,12,,Cr50000,,Geonee,,Aliens 3,132,,,,,
+Robots,Robots,Horticulture Bot,12,,Cr72000,,Geonee,,Aliens 3,132,,,,,
 Robots,Robots,Interaction Bot,14,,MCr2,0,Bwap,,Aliens 3,258,,1,0,,
+Robots,Robots,Luggage Bot,12,,Cr2000,,Geonee,,Aliens 3,133,,,,,
+Robots,Robots,Maintenance Bot,12,,Cr100000,,Geonee,,Aliens 3,133,,,,,
+Robots,Robots,Personal Services Bot,10,,Cr65000,,Dolphin,,Aliens 3,177,,,,,
 Robots,Robots,Protocol Droid,14,,MCr3,0,,,CSC,73,,1,0,,
 Robots,Robots,Sanitation Droid,11,,Cr350000,0,,,CSC,74,,1,0,,
+Robots,Robots,Sea Shepherd,10,,Cr670000,,Dolphin,,Aliens 3,178,,,,,
 Robots,Robots,Security Drone,10,,Cr850000,0,,,CSC,74,,1,6,,
+Robots,Robots,Sensor Drone,12,,Cr93000,,Darrian,,Aliens 3,68,,,,,
 Robots,Robots,Skinjob,16,,MCr18,0,,,CSC,75,,1,0,,
 Robots,Robots,Spider Bomb,12,,Cr60000,0,,,CSC,75,,5,1,,Military
 Robots,Robots,Urban Pacification Police Robot,12,,MCr12,0,,,CSC,76,,4,3,,Military
@@ -655,6 +849,9 @@ Survival Gear,Atmospheric Protection,Life-Support Mask,7,,Cr1000,0,,,CSC 2,41,,1
 Survival Gear,Atmospheric Protection,NBC Suit,8,2,Cr250,0,,,CSC 2,41,,1,0,,
 Survival Gear,Atmospheric Protection,Oxygen/Air Tanks,5,12,Cr500,0,,,CSC 2,41,,1,0,,
 Survival Gear,Atmospheric Protection,Polymer Gloves,6,1,Cr50,0,Bwap,,Aliens 3,257,,1,0,,
+Survival Gear,Atmospheric Protection,Pressure Respirator-11,11,,Cr800,,Darrian,,Aliens 3,67,,,,,
+Survival Gear,Atmospheric Protection,Pressure Respirator-8,8,10,Cr2000,,Darrian,,Aliens 3,67,,,,,
+Survival Gear,Atmospheric Protection,Pressure Respirator-9,9,5,Cr1500,,Darrian,,Aliens 3,67,,,,,
 Survival Gear,Atmospheric Protection,Protective Suit,6,6,Cr1000,0,,,CSC 2,41,,1,0,,
 Survival Gear,Atmospheric Protection,Radiation Suit,6,10,Cr5000,0,,,CSC 2,41,,1,0,,
 Survival Gear,Atmospheric Protection,Rebreather,6,10,Cr250,0,,,CSC 2,41,,1,0,,
@@ -668,6 +865,7 @@ Survival Gear,Desert and Arid Environments,Heatproof Suit,8,6,Cr100,0,,,CSC 2,44
 Survival Gear,Desert and Arid Environments,Hydro-Collector,11,8,Cr1000,0,,,CSC 2,44,,1,0,,
 Survival Gear,Desert and Arid Environments,Hydro-Reclamation Suit,11,6,Cr10000,0,,,CSC 2,44,,1,0,,
 Survival Gear,Desert and Arid Environments,Solar Vaporator,10,5,Cr1250,0,,,CSC 2,44,,1,0,,
+Survival Gear,Gadgets and Essentials,Utility Harness,7,25,Cr500,,Orca,,Aliens 3,226,,,,,
 Survival Gear,General Survival Gear,Advanced Purification Tablets (10 pack),13,,Cr50,0,,,CSC 2,54,,1,0,,
 Survival Gear,General Survival Gear,Antimatter Battery,18,5,MCr1,0,,,CSC 2,51,,6,0,,
 Survival Gear,General Survival Gear,Backpack,3,3,Cr45,0,,,CSC 2,51,,1,0,,
@@ -680,11 +878,15 @@ Survival Gear,General Survival Gear,Chemical Lightstick,6,,Cr1,0,,,CSC 2,51,,1,0
 Survival Gear,General Survival Gear,Distress Flare,6,,Cr15,0,,,CSC 2,51,,1,0,,
 Survival Gear,General Survival Gear,Duct Tape,6,,Cr5,0,,,CSC 2,51,,1,0,,
 Survival Gear,General Survival Gear,Electric Torch,5,,Cr10,0,,,CSC 2,51,,1,0,,
+Survival Gear,General Survival Gear,Exoskeleton,10,10,Cr10000,,Darrian,,Aliens 3,67,,,,,
 Survival Gear,General Survival Gear,Field Kit,3,,Cr100,0,,,CSC 2,52,,1,0,,
 Survival Gear,General Survival Gear,Fire Extinguisher,5,2,Cr50,0,,,CSC 2,52,,1,0,,
 Survival Gear,General Survival Gear,Flare Launcher,5,,Cr75,0,,,CSC 2,52,,1,0,,
 Survival Gear,General Survival Gear,Fusion Still,13,,Cr4500,0,,,CSC 2,52,,1,0,,
 Survival Gear,General Survival Gear,Gas/Oil Lamp,2,1,Cr10,0,,,CSC 2,52,,1,0,,
+Survival Gear,General Survival Gear,Grav Belt,12,10,Cr100000,,Dolphin,,Aliens 3,176,,,,,
+Survival Gear,General Survival Gear,Grav Couch,10,15,Cr50000,,Dolphin,,Aliens 3,176,,,,,
+Survival Gear,General Survival Gear,Humidity Sleeve,6,1,Cr250,,Dolphin,,Aliens 3,176,,,,,
 Survival Gear,General Survival Gear,Illuminating Flare,5,,Cr25,0,,,CSC 2,52,,1,0,,
 Survival Gear,General Survival Gear,Inertial Locator,9,,Cr1200,0,,,CSC 2,52,,1,0,,
 Survival Gear,General Survival Gear,Infinite Rope,16,1,Cr1000,0,,,CSC 2,54,,1,0,,
@@ -826,6 +1028,7 @@ Weapons,Energy Pistols,Personal Defence Laser,13,3,Cr6000,0,,Gun Combat (energy)
 Weapons,Energy Pistols,Stunner (TL10),10,0.5,Cr750,0,,Gun Combat (energy),CSC 2,116,Weapons,1,8,,
 Weapons,Energy Pistols,Stunner (TL12),12,0.5,Cr1000,0,,Gun Combat (energy),CSC 2,116,Weapons,1,8,,
 Weapons,Energy Pistols,Stunner (TL8),8,0.5,Cr500,0,,Gun Combat (energy),CSC 2,116,Weapons,1,8,,
+Weapons,Energy Rifles,Convergence Beam Rifle,14,5,Cr10000,Cr2500,Geonee,,Aliens 3,135,Weapons,,,,Military
 Weapons,Energy Rifles,Cryo Rifle,13,9,Cr6000,0,,,CSC 2,117,Weapons,3,2,,
 Weapons,Energy Rifles,Flame Rifle,9,8,Cr2500,0,,,CSC 2,117,Weapons,3,2,,
 Weapons,Energy Rifles,Heavy Laser Rifle,12,18,Cr14000,0,,,CSC 2,117,Weapons,3,2,,Military
@@ -839,6 +1042,10 @@ Weapons,Energy Rifles,Plasma Rifle,16,6,Cr100000,0,,,CSC 2,118,Weapons,5,2,,
 Weapons,Energy Rifles,Solar Beam Rifle,17,4,,0,,,CSC 2,118,Weapons,5,2,,
 Weapons,Energy Rifles,Stagger Laser Rifle (TL12),12,6,Cr10000,0,,,CSC 2,118,Weapons,3,2,,
 Weapons,Energy Rifles,Stagger Laser Rifle (TL14),14,5,Cr15000,0,,,CSC 2,118,Weapons,3,2,,
+Weapons,Energy Weapons,Neural Rifle,17,1.5,,,Darrian,,Aliens 3,69,,4,2,,
+Weapons,Energy Weapons,Sonic Amplifier,9,,Cr800,Cr150,Dolphin,,Aliens 3,181,,,,,
+Weapons,Energy Weapons,Sonic Booster,9,,Cr1200,Cr1000,Dolphin,,Aliens 3,181,,,,,
+Weapons,Energy Weapons,Sonic Screamer,9,25,Cr5700,Cr4000,Orca,,Aliens 3,226,Weapons,,,,
 Weapons,Grenade Weapons,Aerosol,9,0.5,Cr15,0,,Heavy Weapons(Man Portable),CSC 2,119,Weapons,4,1,,
 Weapons,Grenade Weapons,Baton,7,0.5,Cr10,0,,Heavy Weapons(Man Portable),CSC 2,119,Weapons,4,1,,
 Weapons,Grenade Weapons,Electromagnetic Pulse,9,0.5,Cr100,0,,Heavy Weapons(Man Portable),CSC 2,119,Weapons,4,1,,
@@ -850,9 +1057,10 @@ Weapons,Grenade Weapons,Smoke,6,0.5,Cr15,0,,Heavy Weapons(Man Portable),CSC 2,12
 Weapons,Grenade Weapons,Stun,7,0.5,Cr30,0,,Heavy Weapons(Man Portable),CSC 2,120,Weapons,4,1,,
 Weapons,Grenade Weapons,Thermal Smoke,7,0.5,Cr30,0,,Heavy Weapons(Man Portable),CSC 2,121,Weapons,4,1,,
 Weapons,Grenade Weapons,Tranq Gas,8,0.5,Cr75,0,,Heavy Weapons(Man Portable),CSC 2,121,Weapons,4,1,,
-Weapons,Melee Weapons,Anti-Armor Flail,8,3,Cr250,0,,Melee (bludgeon),CSC 2,98,Weapons,1,9,,
+Weapons,Melee Weapons,Anti-Armour Flail,8,3,Cr250,0,,Melee (bludgeon),CSC 2,98,Weapons,1,9,,
 Weapons,Melee Weapons,Arc-Field Weapon,14,4,Cr25000,0,,Melee (blade),CSC 2,100,Weapons,1,8,,
 Weapons,Melee Weapons,Assault Pike,5,8,Cr200,0,,Melee (blade),CSC 2,100,Weapons,1,8,,
+Weapons,Melee Weapons,Battering Ram,2,,Cr50,,Dolphin,,Aliens 3,181,,,,,
 Weapons,Melee Weapons,Battle Axe,2,4,Cr225,0,,Melee (blade),CSC 2,101,Weapons,1,8,,
 Weapons,Melee Weapons,Blade,2,2,Cr100,0,,Melee (blade),CSC 2,101,Weapons,1,8,,
 Weapons,Melee Weapons,Brass Knuckles,1,,Cr10,0,,Melee (unarmed),CSC 2,105,Weapons,1,9,,
@@ -874,6 +1082,7 @@ Weapons,Melee Weapons,Long Blade (TL2),2,4,Cr200,0,,Melee (blade),CSC 2,102,Weap
 Weapons,Melee Weapons,Long Blade (TL3),3,4,Cr300,0,,Melee (blade),CSC 2,102,Weapons,1,8,,
 Weapons,Melee Weapons,Mace,1,3,Cr20,0,,Melee (bludgeon),CSC 2,99,Weapons,1,9,,
 Weapons,Melee Weapons,Monoblade,12,2,Cr2500,0,,Melee (blade),CSC 2,103,Weapons,1,8,,
+Weapons,Melee Weapons,Moon Blade,2,1,Cr300,,Geonee,,Aliens 3,134,Weapons,,,,
 Weapons,Melee Weapons,Piston Fist,9,,Cr150,0,,Melee (unarmed),CSC 2,106,Weapons,1,9,,
 Weapons,Melee Weapons,Piston Spear,7,3,Cr400,0,,Melee (blade),CSC 2,103,Weapons,1,8,,
 Weapons,Melee Weapons,Psi Blade,16,2,Cr30000,0,,Melee (blade),CSC 2,103,Weapons,1,8,,
@@ -893,6 +1102,8 @@ Weapons,Melee Weapons,Stone Axe,0,3,Cr5,0,,Melee (blade),CSC 2,104,Weapons,1,8,,
 Weapons,Melee Weapons,Stunfist,8,,Cr250,0,,Melee (unarmed),CSC 2,106,Weapons,1,8,,
 Weapons,Melee Weapons,Stunstick,8,1,Cr300,0,,Melee (bludgeon),CSC 2,100,Weapons,1,8,,
 Weapons,Melee Weapons,War Axe,0,,,0,,Melee (blade),CSC 2,105,Weapons,1,8,,
+Weapons,Projectile Weapons,Magrail Carbine,14,2,Cr2000,Cr80,Geonee,,Aliens 3,135,Weapons,,,,Military
+Weapons,Projectile Weapons,VRF Gauss Rifle,14,7,Cr60000,Cr2000,Darrian,,Aliens 3,69,,4,3,,
 Weapons,Shields,Boarding Shield,9,7,Cr1500,0,,,CSC 2,106,Weapons,1,8,,
 Weapons,Shields,Buckler,2,2,Cr10,0,,,CSC 2,107,Weapons,1,8,,
 Weapons,Shields,Gravitic Shield,17,,Cr2500,0,,,CSC 2,107,Weapons,1,8,,
@@ -935,109 +1146,6 @@ Weapons,Slug Rifles,Shotgun,4,4,Cr200,0,,Gun Combat (slug),CSC 2,114,Weapons,2,7
 Weapons,Slug Rifles,Sniper Rifle,8,5,Cr700,0,,Gun Combat (slug),CSC 2,114,Weapons,2,6,,
 Weapons,Slug Rifles,Spear Gun,6,2,Cr50,0,,Gun Combat (slug),CSC 2,114,Weapons,2,6,,
 Weapons,Slug Rifles,Submachine Gun,6,3,Cr400,0,,Gun Combat (slug),CSC 2,115,Weapons,3,4,,
-Armour,Armour Mods,Smart Fabric,10,0,Cr1000,,,,CSC2023,25,Weapons,,,,
-Armour,Armour Mods,"Submarine Functionality, Advanced",15,6,,,,,CSC2023,25,Weapons,,,x Cr500,
-Armour,Armour Mods,"Submarine Functionality, Basic",9,6,,,,,CSC2023,25,Weapons,,,x Cr200,
-Armour,Armour Mods,"Submarine Functionality, Improved",12,6,,,,,CSC2023,25,Weapons,,,x Cr300,
-Armour,Armour Mods,"Tactical Video Suite, Advanced",10,0,Cr500,,,,CSC2023,26,Weapons,,,,
-Armour,Armour Mods,"Tactical Video Suite, Basic",7,2,Cr100,,,,CSC2023,26,Weapons,,,,
-Armour,Armour Mods,"Tactical Video Suite, Improved",8,1,Cr200,,,,CSC2023,26,Weapons,,,,
-Armour,Armour Mods,"Thruster Pack, Advanced",14,2,Cr20000,,,,CSC2023,26,Weapons,,,,
-Armour,Armour Mods,"Thruster Pack, Basic",7,6,Cr2000,,,,CSC2023,26,Weapons,,,,
-Armour,Armour Mods,"Thruster Pack, Improved",12,6,Cr14000,,,,CSC2023,26,Weapons,,,,
-Armour,Armour Mods,"Vacc Suit Accessory Pack, Advanced",14,2,Cr8000,,,,CSC2023,26,Weapons,,,,
-Armour,Armour Mods,"Vacc Suit Accessory Pack, Basic",9,10,Cr6000,,,,CSC2023,26,Weapons,,,,
-Armour,Armour Mods,"Vacc Suit Accessory Pack, Improved",12,4,Cr6000,,,,CSC2023,26,Weapons,,,,
-Armour,Battle Dress,"Artillery Battle Dress, Advanced",15,180,Cr640000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Artillery Battle Dress, Basic",13,180,Cr275000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Artillery Battle Dress, Improved",14,180,Cr320000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Assault Battle Dress, Advanced",15,140,Cr660000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Assault Battle Dress, Basic",13,140,Cr300000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Assault Battle Dress, Improved",14,140,Cr330000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Battle Dress, Advanced",15,100,Cr440000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Battle Dress, Basic",13,100,Cr200000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Battle Dress, Improved",14,100,Cr220000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Ceramic Battle Dress, Advanced",15,100,Cr880000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Ceramic Battle Dress, Basic",13,100,Cr400000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Ceramic Battle Dress, Improved",14,100,Cr440000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Combat Pioneer Battle Dress, Advanced",15,120,Cr600000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Combat Pioneer Battle Dress, Basic",13,120,Cr270000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Combat Pioneer Battle Dress, Improved",14,120,Cr300000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Command Battle Dress, Advanced",15,110,Cr700000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Command Battle Dress, Basic",13,110,Cr325000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Command Battle Dress, Improved",14,110,Cr350000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Logistics Battle Dress, Advanced",15,220,Cr640000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Logistics Battle Dress, Basic",13,220,Cr290000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Logistics Battle Dress, Improved",14,220,Cr320000,,,Vacc Suit 2,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Psi-Commando Battle Dress, Advanced",16,110,MCr2.4,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Psi-Commando Battle Dress, Basic",15,110,MCr1.2,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Psi-Enhanced Battle Dress, Advanced",15,100,MCr1.76,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Psi-Enhanced Battle Dress, Basic",13,100,Cr800000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Psi-Enhanced Battle Dress, Improved",14,100,Cr880000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Scout Battle Dress, Advanced",15,90,Cr600000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Scout Battle Dress, Basic",13,90,Cr270000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress,"Scout Battle Dress, Improved",14,90,Cr300000,,,Vacc Suit 1,CSC2023,39,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Active Camouflage,15,0,Cr200000,,,,CSC2023,44,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Advanced Life Support,13,0,Cr20000,,,,CSC2023,44,Weapons,4,1,,Military
-Armour,Battle Dress Mods,"Anti-Missile System, Advanced Laser",15,0,Cr125000,,,,CSC2023,44,Weapons,4,1,,Military
-Armour,Battle Dress Mods,"Anti-Missile System, Laser",13,0,Cr75000,,,,CSC2023,44,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Enhanced Mobility,14,0,Cr35000,,,,CSC2023,45,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Enhanced Strength,14,0,Cr25000,,,,CSC2023,45,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Environment Protection (Corrosive),13,0,Cr40000,,,,CSC2023,45,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Environment Protection (Insidious),13,0,Cr150000,,,,CSC2023,45,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Flight Pack,10,0,Cr50000,,,,CSC2023,45,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Fuel Cells,13,0,Cr1000,,,,CSC2023,45,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Heavy Plating,13,0,Cr4000,,,,CSC2023,45,Weapons,4,1,,Military
-Armour,Battle Dress Mods,High Velocity Targeting Array,15,0,Cr750000,,,,CSC2023,46,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Integrated Toolkit,13,0,Cr3000,,,,CSC2023,46,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Integrated Weapon Mount (Close Combat),10,0,Cr1000,,,,CSC2023,46,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Integrated Weapon Mount (Heavy),10,0,Cr5000,,,,CSC2023,46,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Integrated Weapon Mount (Pistol),10,0,Cr500,,,,CSC2023,46,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Integrated Weapon Mount (Rifle),10,0,Cr1000,,,,CSC2023,46,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Integrated Weapon Mount (Vehicle),10,0,Cr10000,,,,CSC2023,46,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Ion Shield,14,0,Cr5000,,,,CSC2023,46,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Parachute,9,0,Cr2500,,,,CSC2023,47,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Parachute (Thin Atmosphere),9,0,Cr5000,,,,CSC2023,47,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Prismatic Aerosol,9,0,Cr6000,,,,CSC2023,47,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Sensor Suite TL-13,13,0,Cr20000,,,,CSC2023,47,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Sensor Suite TL-14,14,0,Cr50000,,,,CSC2023,47,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Sensor Suite TL-15,15,0,Cr65000,,,,CSC2023,47,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Stealth TL-13,13,0,Cr50000,,,,CSC2023,47,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Stealth TL-14,14,0,Cr100000,,,,CSC2023,47,Weapons,4,1,,Military
-Armour,Battle Dress Mods,Stealth TL-15,15,0,Cr125000,,,,CSC2023,47,Weapons,4,1,,Military
-Armour,Civilian Suits,Emergency Hostile Environment Suit,10,20,Cr9000,,,Vacc Suit 1,CSC2023,28,,1,,,
-Armour,Civilian Suits,Emergency Softsuit,10,10,Cr2000,,,Vacc Suit 0,CSC2023,28,,1,,,
-Armour,Civilian Suits,"Environment Suit, Basic",8,1,Cr500,,,,CSC2023,28,,1,,,
-Armour,Civilian Suits,"Environment Suit, Improved",10,2,Cr500,,,,CSC2023,28,,1,,,
-Armour,Civilian Suits,Explosive Ordnance Disposal Suit,8,35,Cr8000,,,,CSC2023,28,,1,,,
-Armour,Civilian Suits,"HEV Suit, Advanced",13,20,Cr40000,,,Vacc Suit 0,CSC2023,28,,1,,,
-Armour,Civilian Suits,"HEV Suit, Basic",9,40,Cr24000,,,Vacc Suit 1,CSC2023,28,,1,,,
-Armour,Civilian Suits,"HEV Suit, Enhanced",11,30,Cr22000,,,Vacc Suit 0,CSC2023,28,,1,,,
-Armour,Civilian Suits,"HEV Suit, Improved",10,30,Cr20000,,,Vacc Suit 1,CSC2023,28,,1,,,
-Armour,Civilian Suits,"HEV Suit, Superior",14,10,Cr60000,,,Vacc Suit 0,CSC2023,28,,1,,,
-Armour,Civilian Suits,Pressure Sleeve,10,—,Cr600,,,,CSC2023,28,,1,,,
-Armour,Civilian Suits,Rescue Suit,12,22,Cr25000,,,Vacc Suit 1,CSC2023,28,,1,,,
-Armour,Civilian Suits,"Shipsuit, Deluxe",14,4,Cr60000,,,,CSC2023,28,,1,,,
-Armour,Civilian Suits,"Shipsuit, Standard",14,2,Cr30000,,,,CSC2023,28,,1,,,
-Armour,Civilian Suits,Skinsuit,14,1,Cr100000,,,,CSC2023,28,,1,,,
-Armour,Civilian Suits,"Vacc Suit, Advanced",12,8,Cr20000,,,Vacc Suit 0,CSC2023,28,,1,,,
-Armour,Civilian Suits,"Vacc Suit, Basic",8,28,Cr12000,,,Vacc Suit 1,CSC2023,28,,1,,,
-Armour,Civilian Suits,"Vacc Suit, Improved",10,12,Cr10000,,,Vacc Suit 0,CSC2023,28,,1,,,
-Armour,Military Suits,"Boarding Vacc Suit, Advanced",13,12,Cr48000,,,Vacc Suit 1,CSC2023,33,Weapons,4,2,,Military
-Armour,Military Suits,"Boarding Vacc Suit, Basic",11,25,Cr18000,,,Vacc Suit 1,CSC2023,33,Weapons,4,2,,Military
-Armour,Military Suits,"Boarding Vacc Suit, Improved",12,12,Cr24000,,,Vacc Suit 1,CSC2023,33,Weapons,4,2,,Military
-Armour,Military Suits,Ceramic Combat Armour,13,15,Cr90000,,,Vacc Suit 1,CSC2023,33,Weapons,4,2,,Military
-Armour,Military Suits,"Combat Armour, Advanced",14,12,Cr160000,,,Vacc Suit 0,CSC2023,33,Weapons,4,2,,Military
-Armour,Military Suits,"Combat Armour, Basic",10,20,Cr96000,,,Vacc Suit 1,CSC2023,33,Weapons,4,2,,Military
-Armour,Military Suits,"Combat Armour, Improved",12,16,Cr88000,,,Vacc Suit 0,CSC2023,33,Weapons,4,2,,Military
-Armour,Military Suits,Combat Environment Suit,10,4,Cr1000,,,,CSC2023,33,Weapons,4,2,,Military
-Armour,Military Suits,Psi-Enhanced Combat Armour,16,10,Cr500000,,,,CSC2023,33,Weapons,4,2,,Military
-Armour,Powered Suits,Ceramic Powered Plate,13,35,Cr300000,,,Vacc Suit 1,CSC2023,35,Weapons,4,2,,
-Armour,Powered Suits,E3 Suit,14,30,Cr500000,,,Vacc Suit 3,CSC2023,35,Weapons,4,2,,
-Armour,Powered Suits,"Exoskeleton, Basic",9,16,Cr10000,,,Vacc Suit 0,CSC2023,35,Weapons,4,2,,
-Armour,Powered Suits,"Exoskeleton, Improved",12,10,Cr20000,,,,CSC2023,35,Weapons,4,2,,
-Armour,Powered Suits,Grav-Enhanced Powered Plate,15,32,Cr180000,,,Vacc Suit 0,CSC2023,35,Weapons,4,2,,
-Armour,Powered Suits,"Mechanical Carapace, Basic",9,30,Cr25000,,,Vacc Suit 2,CSC2023,35,Weapons,4,2,,
-Armour,Powered Suits,"Mechanical Carapace, Improved",12,25,Cr50000,,,Vacc Suit 1,CSC2023,35,Weapons,4,2,,
-Armour,Powered Suits,"Powered Plate, Basic",10,40,Cr80000,,,Vacc Suit 1,CSC2023,35,Weapons,4,2,,
-Armour,Powered Suits,"Powered Plate, Improved",14,30,Cr120000,,,Vacc Suit 0,CSC2023,35,Weapons,4,2,,
+Weapons,Vehicle Weapons,Mini-torpedo Battery,10,2000,Cr35000,Cr10000,Orca,,Aliens 3,227,Weapons,,,,Military
+Weapons,Vehicle Weapons,Vehicle Weapon Harness,10,95,Cr2500,,Orca,,Aliens 3,227,Weapons,,,,Military
+Weapons,Weapon Mods,Weapon Harness,7,40,Cr1000,,Orca,,Aliens 3,226,Weapons,,,,
