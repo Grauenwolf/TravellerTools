@@ -53,8 +53,9 @@ partial class CharacterPage
             }
             //}
 
-            int? minAge = (Model.Terms.HasValue) ? 18 + (Model.Terms * 4) : null;
-            int? maxAge = (Model.Terms.HasValue) ? 18 + (Model.Terms * 4) + 3 : null;
+            //This is madness. Redo it.
+            int? minAge = (Model.Terms.HasValue) ? 12 + (Model.Terms * 4) : null;
+            int? maxAge = (Model.Terms.HasValue) ? 12 + (Model.Terms * 4) + 3 : null;
             if (minAge.HasValue && minAge == maxAge)
                 options.MaxAge = maxAge;
             else if (minAge.HasValue && maxAge.HasValue)

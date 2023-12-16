@@ -618,7 +618,7 @@ public abstract class CharacterBuilder
 
     protected virtual void InitialCharacterStats(Dice dice, Character character)
     {
-        character.Age = 18;
+        character.Age = 18 + dice.D(4) - dice.D(4);
         character.Strength = dice.D(2, 6);
         character.Dexterity = dice.D(2, 6);
         character.Endurance = dice.D(2, 6);

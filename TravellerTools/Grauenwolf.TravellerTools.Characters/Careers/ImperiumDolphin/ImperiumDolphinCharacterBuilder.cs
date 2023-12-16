@@ -99,7 +99,8 @@ public class ImperiumDolphinCharacterBuilder(string dataPath, NameGenerator name
     protected override void InitialCharacterStats(Dice dice, Character character)
     {
         base.InitialCharacterStats(dice, character);
-        character.Age = 12;
+
+        character.Age = 12 + dice.D(3) - dice.D(3);
         character.Strength += 4;
         character.Endurance += 2;
         character.SocialStanding -= 4;

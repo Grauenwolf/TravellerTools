@@ -9,8 +9,6 @@ public class CharacterOptions : ModelBase
     public CharacterOptions(CharacterBuilderLocator characterBuilderLocator)
     {
         CharacterBuilderLocator = characterBuilderLocator;
-        //CharacterBuilder = characterBuilderLocator.GetCharacterBuilder(null); //TODO: Make this user configurable
-        //CareerList = CharacterBuilder.Careers.Select(c => c.Career).Distinct().OrderBy(s => s).ToList();
         SkillList = CharacterBuilderLocator.AllSkills.AddRange(CharacterBuilderLocator.AllPsionicTalents).ToList();
 
         AgeList = new List<int>();

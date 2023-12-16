@@ -145,17 +145,17 @@ Armour,Battle Dress Mods,Environment Protection (Corrosive),13,0,Cr40000,,,,CSC2
 Armour,Battle Dress Mods,Environment Protection (Insidious),13,0,Cr150000,,,,CSC2023,45,Weapons,4,1,,Military
 Armour,Battle Dress Mods,Flight Pack,10,0,Cr50000,,,,CSC2023,45,Weapons,4,1,,Military
 Armour,Battle Dress Mods,Flight Pack,13,,Cr50000,,,0,CSC 2,36,Weapons,5,1,,Military
-Armour,Battle Dress Mods,Fuel Cells,13,0,Cr1000,,,,CSC2023,45,Weapons,4,1,,Military
 Armour,Battle Dress Mods,Fuel Cells,13,,Cr1000,,,0,CSC 2,36,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Fuel Cells,13,0,Cr1000,,,,CSC2023,45,Weapons,4,1,,Military
 Armour,Battle Dress Mods,Grav Assist-12,12,,Cr110000,,,0,CSC 2,36,Weapons,5,1,,Military
 Armour,Battle Dress Mods,Grav Assist-15,15,,Cr120000,,,0,CSC 2,36,Weapons,5,1,,Military
 Armour,Battle Dress Mods,Heavy Mount,13,,Cr10000,,,0,CSC 2,36,Weapons,5,1,,Military
-Armour,Battle Dress Mods,Heavy Plating,13,0,Cr4000,,,,CSC2023,45,Weapons,4,1,,Military
 Armour,Battle Dress Mods,Heavy Plating,13,,Cr4000,,,0,CSC 2,36,Weapons,5,1,,Military
-Armour,Battle Dress Mods,High Velocity Targeting Array,15,0,Cr750000,,,,CSC2023,46,Weapons,4,1,,Military
+Armour,Battle Dress Mods,Heavy Plating,13,0,Cr4000,,,,CSC2023,45,Weapons,4,1,,Military
 Armour,Battle Dress Mods,High Velocity Targeting Array,15,,Cr750000.00,,,0,CSC 2,36,Weapons,5,1,,Military
-Armour,Battle Dress Mods,Integrated Toolkit,13,0,Cr3000,,,,CSC2023,46,Weapons,4,1,,Military
+Armour,Battle Dress Mods,High Velocity Targeting Array,15,0,Cr750000,,,,CSC2023,46,Weapons,4,1,,Military
 Armour,Battle Dress Mods,Integrated Toolkit,13,,Cr3000,,,0,CSC 2,36,Weapons,5,1,,Military
+Armour,Battle Dress Mods,Integrated Toolkit,13,0,Cr3000,,,,CSC2023,46,Weapons,4,1,,Military
 Armour,Battle Dress Mods,Integrated Weapon Mount (Close Combat),10,0,Cr1000,,,,CSC2023,46,Weapons,4,1,,Military
 Armour,Battle Dress Mods,Integrated Weapon Mount (Close Combat),13,,Cr1000,,,0,CSC 2,36,Weapons,5,1,,Military
 Armour,Battle Dress Mods,Integrated Weapon Mount (Heavy),10,0,Cr5000,,,,CSC2023,46,Weapons,4,1,,Military
@@ -348,6 +348,92 @@ Augmentation ,Limbs,Waldo-9,9,20,Cr150000,,Dolphin,,Aliens 3,180,,,,,
 Augmentation ,Torso,Deep Dive Augmentation,12,,Cr500000,,Dolphin,,Aliens 3,179,,,,,
 Augmentation ,Torso,Oxygen Reserve-10,10,,Cr10000,,Dolphin,,Aliens 3,179,,,,,
 Augmentation ,Torso,Oxygen Reserve-12,12,,Cr25000,,Dolphin,,Aliens 3,179,,,,,
+Augments,Augment Options,Detachable,9,0,,,,,CSC2023,49,Technology,1,,"Plus Cr5000, +25% of augment",
+Augments,Augment Options,Grav-propelled detachable augment,13,0,,,,,CSC2023,49,Technology,1,,"Plus Cr10000, +200% of augment",
+Augments,Augment Options,Invisitech TL-12,12,0,,,,,CSC2023,49,Technology,3,,Plus 100% of augment,
+Augments,Augment Options,Invisitech TL-16,16,0,,,,,CSC2023,49,Technology,3,,Plus 200% of augment,
+Augments,Augment Options,Natural-looking TL-10,10,0,,,,,CSC2023,49,Technology,1,,Plus 25% of augment,
+Augments,Augment Options,Natural-looking TL-14,14,0,,,,,CSC2023,49,Technology,1,,Plus 75% of augment,
+Augments,Augment Options,Remotely-operated detachable augment,11,0,,,,,CSC2023,49,Technology,1,,Plus Cr10000,
+Augments,Augment Options,Ruggedised,8,0,,,,,CSC2023,49,Technology,1,,Plus 25% of augment,
+Augments,Augment Options,Self-repairing,14,0,,,,,CSC2023,49,Technology,1,,Plus 100% of augment,
+Augments,Head,"Assisted Ambulation, Advanced",15,0,Cr500000,,,,CSC2023,58,Technology,1,,,
+Augments,Head,"Assisted Ambulation, Basic",13,0,Cr100000,,,,CSC2023,58,Technology,1,,,
+Augments,Head,"Assisted Ambulation, Improved",14,0,Cr300000,,,,CSC2023,58,Technology,1,,,
+Augments,Head,Ballistic Tracking Lenses,11,0,Cr8000,,,,CSC2023,58,Technology,1,,,
+Augments,Head,Cockpit Sensory Suite,10,0,Cr500000,,,,CSC2023,58,Technology,1,,,
+Augments,Head,Cognitive Augmentation +1,12,0,Cr500000,,,,CSC2023,58,Technology,1,,,
+Augments,Head,Cognitive Augmentation +2,14,0,MCr1,,,,CSC2023,58,Technology,1,,,
+Augments,Head,Cognitive Augmentation +3,16,0,MCr5,,,,CSC2023,58,Technology,1,,,
+Augments,Head,Complex Cranial Processing Unit,14,0,Cr350000,,,,CSC2023,58,Technology,1,,,
+Augments,Head,"Enhanced Vision, Basic",13,0,Cr25000,,,,CSC2023,58,Technology,1,,,
+Augments,Head,"Enhanced Vision, Improved",14,0,Cr50000,,,,CSC2023,58,Technology,1,,,
+Augments,Head,Fabulous Augmentation Treatment,15,0,MCr3.5,,,,CSC2023,59,Technology,1,,,
+Augments,Head,Mechanostatic Scanner,13,0,Cr10000,,,,CSC2023,59,Technology,1,,,
+Augments,Head,Nerve-plug Response Rig,13,0,Cr225000,,,,CSC2023,60,Technology,1,,,
+Augments,Head,"Neural Comm, Advanced",15,0,Cr25000,,,,CSC2023,59,Technology,1,,,
+Augments,Head,"Neural Comm, Basic",10,0,Cr1000,,,,CSC2023,59,Technology,1,,,
+Augments,Head,"Neural Comm, Enhanced",14,0,Cr20000,,,,CSC2023,59,Technology,1,,,
+Augments,Head,"Neural Comm, Improved",12,0,Cr5000,,,,CSC2023,59,Technology,1,,,
+Augments,Head,Neural Jack,13,0,Cr50000,,,,CSC2023,60,Technology,1,,,
+Augments,Head,Neural Link,13,0,Cr30000,,,,CSC2023,60,Technology,1,,,
+Augments,Head,Null Skull,16,0,MCr1,,,,CSC2023,60,Technology,4,,,
+Augments,Head,Peripheral Vision Enhancement,10,0,Cr50000,,,,CSC2023,60,Technology,1,,,
+Augments,Head,Psi-taps,16,0,Cr750000,,,,CSC2023,60,Technology,1,,,
+Augments,Head,"Shriekerbox, Basic",10,0,Cr8000,,,,CSC2023,60,Technology,3,,,
+Augments,Head,"Shriekerbox, Improved",12,0,Cr16000,,,,CSC2023,60,Technology,3,,,
+Augments,Head,Skill Augmentation,12,0,Cr50000,,,,CSC2023,61,Technology,1,,,
+Augments,Head,Venom Glands,11,0,Cr10000,,,,CSC2023,61,Technology,3,,,
+Augments,Head,"Wafer Jack, Advanced",15,0,Cr30000,,,,CSC2023,61,Technology,1,,,
+Augments,Head,"Wafer Jack, Basic",12,0,Cr1000,,,,CSC2023,61,Technology,1,,,
+Augments,Head,"Wafer Jack, Improved",13,0,Cr15000,,,,CSC2023,61,Technology,1,,,
+Augments,Limbs,Aslan Cyber-claw,9,0,Cr10000,,,,CSC2023,55,Technology,2,9,,Specialised
+Augments,Limbs,Autonomous Locomotion Rig (ALR),9,0,Cr15000,,,,CSC2023,55,Technology,1,,,
+Augments,Limbs,"Combat Arm, Advanced",13,0,Cr75000,,,,CSC2023,55,Technology,3,,,Military
+Augments,Limbs,"Combat Arm, Basic",8,0,Cr25000,,,,CSC2023,55,Technology,2,,,
+Augments,Limbs,"Combat Arm, Improved",11,0,Cr50000,,,,CSC2023,55,Technology,2,,,
+Augments,Limbs,"Enhanced Mobility, Advanced",13,0,Cr25000,,,,CSC2023,56,Technology,1,,,
+Augments,Limbs,"Enhanced Mobility, Basic",8,0,Cr10000,,,,CSC2023,56,Technology,1,,,
+Augments,Limbs,"Enhanced Mobility, Improved",11,0,Cr15000,,,,CSC2023,56,Technology,1,,,
+Augments,Limbs,"Prosthetic Limb, Basic",7,0,Cr250,,,,CSC2023,57,Technology,1,,,
+Augments,Limbs,"Prosthetic Limb, Improved",9,0,Cr5000,,,,CSC2023,57,Technology,1,,,
+Augments,Limbs,"Prosthetic Limb, Primitive",2,0,Cr100,,,,CSC2023,57,Technology,1,,,
+Augments,Limbs,"Razor Claw, Advanced",15,0,Cr50000,,,,CSC2023,56,Technology,1,,,
+Augments,Limbs,"Razor Claw, Basic",11,0,Cr20000,,,,CSC2023,56,Technology,1,,,
+Augments,Limbs,"Razor Claw, Improved",13,0,Cr35000,,,,CSC2023,56,Technology,1,,,
+Augments,Limbs,Weapon Implant - Auto Pistol,10,0,Cr12000,,,,CSC2023,57,Technology,1,,,
+Augments,Limbs,Weapon Implant - Dagger,10,0,Cr5000,,,,CSC2023,57,Technology,1,,,
+Augments,Limbs,Weapon Implant - Laser Pistol,10,0,Cr2500,,,,CSC2023,57,Technology,1,,,
+Augments,Limbs,Weapon Implant - Stunstick,10,0,Cr10000,,,,CSC2023,57,Technology,1,,,
+Augments,Torso,"Additional Manipulator, Advanced",14,0,Cr25000,,,,CSC2023,50,Technology,1,,,
+Augments,Torso,"Additional Manipulator, Basic",10,0,Cr7500,,,,CSC2023,50,Technology,1,,,
+Augments,Torso,"Additional Manipulator, Improved",12,0,Cr15000,,,,CSC2023,50,Technology,1,,,
+Augments,Torso,All-Temperature Epidermal Symbiote,14,0,Cr2500,,,,CSC2023,50,Technology,1,,,
+Augments,Torso,"Altered Appearance, Advanced",12,0,Cr200000,,,,CSC2023,50,Technology,1,,,
+Augments,Torso,"Altered Appearance, Basic",6,0,Cr10000,,,,CSC2023,50,Technology,1,,,
+Augments,Torso,"Altered Appearance, Improved",9,0,Cr50000,,,,CSC2023,50,Technology,1,,,
+Augments,Torso,Bio-fusion Power Port,13,0,Cr10000,,,,CSC2023,51,Technology,1,,Price depends on explosive and TL,
+Augments,Torso,Biotech,16,0,,,,,CSC2023,50,Technology,1,,Plus 300% of Augment,Specialised
+Augments,Torso,Cardiotrigger Detonator,7,0,,,,,CSC2023,51,Technology,3,,,
+Augments,Torso,Genetic Aquamorph Adaption,12,0,Cr30000,,,,CSC2023,51,Technology,1,,,Specialised
+Augments,Torso,Genetic Environmental Adaption,12,0,Cr50000,,,,CSC2023,52,Technology,1,,,Specialised
+Augments,Torso,Genetic Microgravity Adaption,12,0,Cr30000,,,,CSC2023,52,Technology,1,,,Specialised
+Augments,Torso,Internal Auto-injector,10,0,Cr10000,,,,CSC2023,53,Technology,1,,,
+Augments,Torso,Metastatic Platelet Injection,12,0,Cr25000,,,,CSC2023,53,Technology,1,,,
+Augments,Torso,Muscular Bridging,13,0,Cr250000,,,,CSC2023,53,Technology,1,,,
+Augments,Torso,Physical Augmentation +1,11,0,Cr500000,,,,CSC2023,53,Technology,1,,,
+Augments,Torso,Physical Augmentation +2,12,0,MCr1,,,,CSC2023,53,Technology,1,,,
+Augments,Torso,Physical Augmentation +3,15,0,MCr5,,,,CSC2023,53,Technology,1,,,
+Augments,Torso,Smuggling Container,8,0,Cr15000,,,,CSC2023,54,Technology,1,,,
+Augments,Torso,Soldier’s Organ Package,12,0,MCr1.5,,,,CSC2023,53,Technology,4,,,Military
+Augments,Torso,Subdermal Armour +1,10,0,Cr50000,,,,CSC2023,54,Technology,1,,,
+Augments,Torso,Subdermal Armour +3,11,0,Cr100000,,,,CSC2023,54,Technology,1,,,
+Augments,Torso,Subdermal Armour +4,12,0,Cr250000,,,,CSC2023,54,Technology,1,,,
+Augments,Torso,Subdermal Armour +5,14,0,Cr500000,,,,CSC2023,54,Technology,1,,,
+Augments,Torso,Terminal Stabilisation System,16,0,MCr2.5,,,,CSC2023,54,Technology,1,,,
+Augments,Torso,Video Tattoo (full body),12,0,Cr120000,,,,CSC2023,54,Technology,1,,,
+Augments,Torso,Video Tattoo (limb),12,0,Cr20000,,,,CSC2023,54,Technology,1,,,
+Augments,Torso,Video Tattoo Controller,12,0,Cr20000,,,,CSC2023,54,Technology,1,,,
 Discerning Weapons Specialist,Explosives,Breaching Charge,8,1,Cr250,0,,Explosives,CSC 2,136,Weapons,3,1,,Military
 Discerning Weapons Specialist,Explosives,Complex Chemical Charge,10,1,Cr500,0,,Explosives,CSC 2,136,Weapons,3,1,,Military
 Discerning Weapons Specialist,Explosives,Fusion Block,16,1,Cr10000,0,,Explosives,CSC 2,136,Weapons,6,1,,Military
