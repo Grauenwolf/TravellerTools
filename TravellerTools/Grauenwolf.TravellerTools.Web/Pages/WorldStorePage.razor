@@ -128,7 +128,8 @@
                     var showMass = section.Items.Any(i => !string.IsNullOrEmpty(i.Mass));
                     var showSpecies = section.Items.Any(i => !string.IsNullOrEmpty(i.Species));
                     var showLaw = section.Items.Any(i => i.Law > 0);
-                    var showBM = section.Items.Any(i => i.BlackMarket || i.SentencingDM.HasValue);
+                    var showCategory = section.Items.Any(i => !string.IsNullOrEmpty(i.Contraband));
+                    var showBM = false; // section.Items.Any(i => i.BlackMarket || i.SentencingDM.HasValue);
                     var showSkill = section.Items.Any(i => !string.IsNullOrEmpty(i.Skill));
                     var showAmmoPrice = section.Items.Any(i => i.AmmoPrice > 0);
 
@@ -157,6 +158,10 @@
                             {
                                 <th>Law</th>
                             }
+                            @if (showCategory)
+                            {
+                                <th>Classification/Category</th>
+                            }               
                             @if (showBM)
                             {
                                 <th>Black Market</th>
@@ -204,7 +209,11 @@
                                 }
                                 @if (showLaw)
                                 {
-                                    <td>@(item.Law>0 ? item.Law : "")</td>
+                                    <td title="@LawTitle(item)">@(LawString(item))</td>
+                                }
+                                @if (showCategory)
+                                {
+                                    <td style="@(item.BlackMarket ? "background-color:palegoldenrod" : "")">@(ClassificationString(item))</td>
                                 }
                                 @if (showBM)
                                 {
@@ -246,7 +255,8 @@
                         var showSpecies = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Species));
                         var showMass = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Mass));
                         var showLaw = subsection.Items.Any(i => i.Law > 0);
-                        var showBM = subsection.Items.Any(i => i.BlackMarket || i.SentencingDM.HasValue);
+                        var showCategory = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Contraband)); 
+                        var showBM = false; //subsection.Items.Any(i => i.BlackMarket || i.SentencingDM.HasValue);
                         var showSkill = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Skill));
                         var showAmmoPrice = subsection.Items.Any(i => i.AmmoPrice > 0);
 
@@ -274,6 +284,10 @@
                                 @if (showLaw)
                                 {
                                     <th>Law</th>
+                                }
+                                @if (showCategory)
+                                {
+                                    <th>Classification/Category</th>
                                 }
                                 @if (showBM)
                                 {
@@ -323,7 +337,11 @@
                                     }
                                     @if (showLaw)
                                     {
-                                        <td>@(item.Law > 0 ? item.Law : "")</td>
+                                        <td title="@LawTitle(item)">@(LawString(item))</td>
+                                    }
+                                    @if (showCategory)
+                                    {
+                                        <td style="@(item.BlackMarket ? "background-color:palegoldenrod" : "")">@(ClassificationString(item))</td>
                                     }
                                     @if (showBM)
                                     {

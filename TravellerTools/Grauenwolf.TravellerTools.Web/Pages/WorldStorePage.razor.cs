@@ -5,6 +5,7 @@ using Grauenwolf.TravellerTools.Web.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.WebUtilities;
+using Tortuga.Anchor;
 
 namespace Grauenwolf.TravellerTools.Web.Pages;
 
@@ -38,6 +39,45 @@ partial class WorldStorePage
     protected Data.StoreOptions Options { get; } = new Data.StoreOptions();
     [Inject] EquipmentBuilder EquipmentBuilder { get; set; } = null!;
     [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
+
+    public string ClassificationString(Item item)
+    {
+        if (item.Contraband.IsNullOrEmpty())
+            return "";
+
+        if (item.Category > 1)
+            return $"{item.Contraband}/{item.Category} ({Tables.ItemCategory(item.Category)})";
+        else
+            return $"{item.Contraband}";
+    }
+
+    public string LawString(Item item)
+    {
+        if (item.Law == 0)
+            return "";
+
+        return item.Law.ToString();
+    }
+
+    public string LawTitle(Item item)
+    {
+        var result = "";
+        if (item.Law > 0)
+        {
+            result = item.Contraband switch
+            {
+                "Weapons" => Tables.LawLevelWeaponsRestricted(item.Law),
+                "Drugs" => Tables.LawLevelDrugsRestricted(item.Law),
+                "Information" => Tables.LawLevelInformationRestricted(item.Law),
+                "Psionics" => Tables.LawLevelPsionicsRestricted(item.Law),
+                _ => Tables.LawLevelDescription(item.Law)
+            };
+            //if (item.Category > 0 && !item.Contraband.IsNullOrEmpty())
+            //    result += $" {item.Contraband}/{Tables.ItemCategory(item.Category)}";
+        }
+
+        return result;
+    }
 
     protected override void Initialized()
     {

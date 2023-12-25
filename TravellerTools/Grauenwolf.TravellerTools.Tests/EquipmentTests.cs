@@ -43,6 +43,28 @@ namespace Grauenwolf.TravellerTools.Tests
                 foreach (var item in section.Items)
                     Debug.WriteLine($"{item.Name} TL: {item.TechLevel} CR{item.Price.ToString("N0")} Roll {item.Availability} {(item.BlackMarket ? " Black Market" : "")}");
         }
+
+        [TestMethod]
+        public void SectionExporter()
+        {
+            var eb = new EquipmentBuilder(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location));
+            var options = new StoreOptions() { TechLevel = 999 };
+            var store = eb.AvailabilityTable(options);
+
+            var output = new StringBuilder();
+            output.AppendLine("Section,Subsection,Item Count");
+
+            foreach (var section in store.Sections.OrderBy(s => s.Name))
+            {
+                if (section.Items.Count > 0)
+                    output.AppendLine($"{section.Name},,{section.Items.Count}");
+
+                foreach (var subsection in section.Subsections.OrderBy(s => s.Name))
+                    output.AppendLine($"{section.Name},{subsection.Name},{subsection.Items.Count}");
+            }
+
+            File.WriteAllText(@"C:\temp\sections.csv", output.ToString());
+        }
     }
 }
 

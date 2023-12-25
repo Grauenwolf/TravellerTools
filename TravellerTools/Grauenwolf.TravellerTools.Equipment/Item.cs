@@ -23,7 +23,9 @@ public class Item
     public string? BookAndPage => string.IsNullOrEmpty(Page) ? Book : $"{Book} ({Page})";
     public int Category { get; set; }
     public string? Contraband { get; set; }
+
     public int Law { get; set; }
+
     public string? LegalStatus { get; set; }
     public string? Mass { get; set; }
     public string? Mod { get; set; }

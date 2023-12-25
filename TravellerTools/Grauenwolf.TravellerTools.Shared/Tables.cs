@@ -595,6 +595,19 @@ public static class Tables
         };
     }
 
+    public static string ItemCategory(int category)
+    {
+        return category switch
+        {
+            1 => "Unrestricted",
+            2 => "Civillian",
+            3 => "Paramilitary",
+            4 => "Military",
+            5 => "Restricted Military",
+            _ => ""
+        };
+    }
+
     public static string Labor(EHex laborCode)
     {
         return laborCode.ToChar() switch
