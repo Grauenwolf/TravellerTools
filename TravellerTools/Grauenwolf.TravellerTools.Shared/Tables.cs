@@ -356,8 +356,8 @@ public static class Tables
     {
         return category switch
         {
-            1 => "Not allowed for felons.",
-            2 => "Allowed with a permit or demonstrated need.",
+            1 => "Allowed for anyone except possibly felons.",
+            2 => "Allowed with a permit or demonstrated need. Not allowed for felons.",
             3 => "Allowed for police and other similar paramilitaries.",
             4 => "Allowed for military and licensed mercenaries.",
             5 => "Allowed for military and licensed mercenaries under special permit.",
