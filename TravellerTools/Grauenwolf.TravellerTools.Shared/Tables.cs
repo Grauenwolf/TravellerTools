@@ -338,6 +338,34 @@ public static class Tables
         };
     }
 
+    public static string BlackMarketCategory(int category)
+    {
+        return category switch
+        {
+            1 => "Unrestricted",
+            2 => "Civillian",
+            3 => "Paramilitary",
+            4 => "Military",
+            5 => "Restricted Military",
+            6 => "Prohibited",
+            _ => ""
+        };
+    }
+
+    public static string BlackMarketCategoryDescription(int category)
+    {
+        return category switch
+        {
+            1 => "Not allowed for felons.",
+            2 => "Allowed with a permit or demonstrated need.",
+            3 => "Allowed for police and other similar paramilitaries.",
+            4 => "Allowed for military and licensed mercenaries.",
+            5 => "Allowed for military and licensed mercenaries under special permit.",
+            6 => "Not allowed for anyone.",
+            _ => ""
+        };
+    }
+
     public static string Efficiency(string? efficiencyCode)
     {
         return efficiencyCode switch
@@ -592,19 +620,6 @@ public static class Tables
             'G' => "Very comprehensive",
             'H' => "Very comprehensive",
             _ => "Unknown"
-        };
-    }
-
-    public static string ItemCategory(int category)
-    {
-        return category switch
-        {
-            1 => "Unrestricted",
-            2 => "Civillian",
-            3 => "Paramilitary",
-            4 => "Military",
-            5 => "Restricted Military",
-            _ => ""
         };
     }
 

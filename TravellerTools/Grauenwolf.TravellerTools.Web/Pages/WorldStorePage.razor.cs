@@ -46,7 +46,7 @@ partial class WorldStorePage
             return "";
 
         if (item.Category > 1)
-            return $"{item.Contraband}/{item.Category} ({Tables.ItemCategory(item.Category)})";
+            return $"{item.Contraband}/{item.Category} ({Tables.BlackMarketCategory(item.Category)})";
         else
             return $"{item.Contraband}";
     }

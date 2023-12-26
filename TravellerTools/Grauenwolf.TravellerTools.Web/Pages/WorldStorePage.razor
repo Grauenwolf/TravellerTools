@@ -108,6 +108,74 @@
 
     @if (Store != null)
     {
+        if (!Options.AutoRoll)
+        {
+            <div>&nbsp;</div>
+
+            <table class="gridtable">
+                <tr>
+                    <th>Tech Level</th>
+                    <th>Target Number</th>
+                </tr>
+                @foreach (var item in Store.TLBands)
+                {
+
+                    <tr>
+                        <td style="@( item.HighTech ? "background-color:palegoldenrod" : "")">
+                            @item.TechLevels
+                        </td>
+                        <td>
+                            @item.TargetNumber
+                        </td>
+                    </tr>
+                }
+
+                <tr>
+                    <th>Mods</th>
+                    <td>
+                        Double Price: DM+1
+                        <br />
+                        Triple Price: DM+2
+                        <br />
+                        Highly Specialized: DM-1
+                        <br />
+                        Military: DM-2
+                        <br />
+                    </td>
+                </tr>
+
+            </table>
+
+            <div>&nbsp;</div>
+
+            <table class="gridtable">
+                <tr>
+                    <th>Black Market Category</th>
+                    <th>DM</th>
+                    <th>Price</th>
+                    <th>Notes</th>
+                </tr>
+                @foreach (var item in Store.BlackMarketBands)
+                {
+                    <tr>
+                        <td>
+                            @item.CategoryCode @item.CategoryName
+                        </td>
+                        <td>
+                            @( item.DM>=0 ? "+" + item.DM : item.DM)
+                        </td>
+                        <td>
+                            @("x" + item.PriceModifier)
+                        </td>
+                        <td>@item.TitleText</td>
+                    </tr>
+                }
+
+            </table>
+
+        }
+
+
         <div>&nbsp;</div>
 
         @foreach (var section in Store.Sections.OrderBy(s => s.Name))
@@ -161,7 +229,7 @@
                             @if (showCategory)
                             {
                                 <th>Classification/Category</th>
-                            }               
+                            }
                             @if (showBM)
                             {
                                 <th>Black Market</th>
@@ -184,7 +252,7 @@
                                 {
                                     <td>@item.Species</td>
                                 }
-                                <td>@item.TechLevel</td>
+                                <td style="@( item.TechLevel > Model.World.TechCode.Value  ? "background-color:palegoldenrod" : "")">@item.TechLevel</td>
                                 @if (showMass)
                                 {
                                     <td>@item.Mass</td>
@@ -213,7 +281,7 @@
                                 }
                                 @if (showCategory)
                                 {
-                                    <td style="@(item.BlackMarket ? "background-color:palegoldenrod" : "")">@(ClassificationString(item))</td>
+                                    <td style="@(item.BlackMarket ? "background-color:palegoldenrod" : "")" title="@Tables.BlackMarketCategoryDescription(item.Category)">@(ClassificationString(item))</td>
                                 }
                                 @if (showBM)
                                 {
@@ -255,7 +323,7 @@
                         var showSpecies = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Species));
                         var showMass = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Mass));
                         var showLaw = subsection.Items.Any(i => i.Law > 0);
-                        var showCategory = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Contraband)); 
+                        var showCategory = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Contraband));
                         var showBM = false; //subsection.Items.Any(i => i.BlackMarket || i.SentencingDM.HasValue);
                         var showSkill = subsection.Items.Any(i => !string.IsNullOrEmpty(i.Skill));
                         var showAmmoPrice = subsection.Items.Any(i => i.AmmoPrice > 0);
@@ -311,7 +379,7 @@
                                     {
                                         <td>@item.Species</td>
                                     }
-                                    <td>@item.TechLevel</td>
+                                    <td style="@( item.TechLevel > Model.World.TechCode.Value  ? "background-color:palegoldenrod" : "")">@item.TechLevel</td>
                                     @if (showMass)
                                     {
                                         <td>@item.Mass</td>
@@ -341,7 +409,7 @@
                                     }
                                     @if (showCategory)
                                     {
-                                        <td style="@(item.BlackMarket ? "background-color:palegoldenrod" : "")">@(ClassificationString(item))</td>
+                                        <td style="@(item.BlackMarket ? "background-color:palegoldenrod" : "")" title="@Tables.BlackMarketCategoryDescription(item.Category)">@(ClassificationString(item))</td>
                                     }
                                     @if (showBM)
                                     {

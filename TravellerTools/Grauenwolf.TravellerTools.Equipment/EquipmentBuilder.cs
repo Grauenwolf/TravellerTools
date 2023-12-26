@@ -95,6 +95,9 @@ public class EquipmentBuilder
 
         var result = new Store();
 
+        result.TLBands.AddRange(BuildTechBands(options));
+        result.BlackMarketBands.AddRange(BuildBlackMarketBands(options));
+
         result.Books.AddRange(m_Book.Books);
         foreach (var sectionTemplate in m_ItemCatalog)
         {
@@ -123,6 +126,55 @@ public class EquipmentBuilder
 
     public List<string> GetSpeciesNames() => m_AllSpecies;
 
+    static List<TLBand> BuildTechBands(StoreOptions options)
+    {
+        var result = new List<TLBand>();
+
+        var availabilityDM = 0;
+
+        if (options.Starport == 'A' || options.Starport == 'B') availabilityDM += 1;
+        else if (options.Starport == 'X') availabilityDM += -4;
+
+        if (options.TradeCodes.Contains("Hi", OrdinalIgnoreCase) || options.TradeCodes.Contains("Ht", OrdinalIgnoreCase) || options.TradeCodes.Contains("In", OrdinalIgnoreCase) || options.TradeCodes.Contains("Ri", OrdinalIgnoreCase)) availabilityDM += 2;
+        if (options.TradeCodes.Contains("Lt", OrdinalIgnoreCase) || options.TradeCodes.Contains("Na", OrdinalIgnoreCase) || options.TradeCodes.Contains("NI", OrdinalIgnoreCase) || options.TradeCodes.Contains("Po", OrdinalIgnoreCase)) availabilityDM += -2;
+
+        if (options.Population == 0) availabilityDM += -4;
+        else if (1 <= options.Population && options.Population <= 2) availabilityDM += -2;
+        else if (3 <= options.Population && options.Population <= 5) availabilityDM += -1;
+        else if (9 <= options.Population && options.Population <= 11) availabilityDM += 1;
+        else if (12 <= options.Population) availabilityDM += 2;
+
+        var baseTarget = 8 - availabilityDM;
+
+        AddBand(-99, -10, -4);
+        AddBand(-5, -9, -2);
+        AddBand(-3, -4, -1);
+        AddBand(-2, 3, 0);
+        AddBand(3, 4, -1);
+        AddBand(5, 9, -2);
+        AddBand(10, 99, -4);
+
+        void AddBand(int tlMin, int tlMax, int dm)
+        {
+            var highTech = tlMin > 0; //TL is higher than planet allows
+
+            tlMin += options.TechLevel.Value;
+            tlMax += options.TechLevel.Value;
+
+            if (tlMax < 0) return;
+            if (tlMin < 0) tlMin = 1;
+
+            if (tlMin == tlMax)
+                result.Add(new TLBand($"{tlMax}", baseTarget - dm, highTech));
+            else if (tlMax > 50)
+                result.Add(new TLBand($">= {tlMin}", baseTarget - dm, highTech));
+            else
+                result.Add(new TLBand($"{tlMin} - {tlMax}", baseTarget - dm, highTech));
+        }
+
+        return result;
+    }
+
     static int ParseInt(string? arg1, string? arg2)
     {
         if (!string.IsNullOrWhiteSpace(arg1))
@@ -150,10 +202,10 @@ public class EquipmentBuilder
         if (string.Equals(item.Mod, "Military", OrdinalIgnoreCase))
             availabilityDM += -2;
 
-        var techDiff = options.TechLevel.Value - item.TechLevel;
+        var techDiff = Math.Abs(options.TechLevel.Value - item.TechLevel);
 
-        if (techDiff < 0 && !options.FullList) item.NotAvailable = true;  //item is not available.
-        else if (3 <= techDiff && techDiff <= 4) availabilityDM += -1;
+        //if (techDiff < 0 && !options.FullList) item.NotAvailable = true;  //item is not available.
+        if (3 <= techDiff && techDiff <= 4) availabilityDM += -1;
         else if (5 <= techDiff && techDiff <= 9) availabilityDM += -2;
         else if (10 <= techDiff) availabilityDM += -4;
 
@@ -297,5 +349,34 @@ public class EquipmentBuilder
         item.LegalStatus = item.LegalStatus?.Trim();
 
         return item;
+    }
+
+    List<BlackMarketBand> BuildBlackMarketBands(StoreOptions options)
+    {
+        var result = new List<BlackMarketBand>();
+
+        var availabilityDM = 0;
+
+        if (options.LawLevel == 0) availabilityDM += 2;
+        else if (1 <= options.LawLevel && options.LawLevel <= 3) availabilityDM += 1;
+        else if (4 <= options.LawLevel && options.LawLevel <= 6) availabilityDM += 0;
+        else if (7 <= options.LawLevel && options.LawLevel <= 9) availabilityDM += -1;
+        else if (10 <= options.LawLevel) availabilityDM += -2;
+
+        //var baseTarget = 8 - availabilityDM;
+
+        AddBand(1, 4, 2);
+        AddBand(2, 2, 3);
+        AddBand(3, 0, 5);
+        AddBand(4, -2, 10);
+        AddBand(5, -4, 20);
+        AddBand(6, -6, 20);
+
+        void AddBand(int category, int dm, int price)
+        {
+            result.Add(new BlackMarketBand(category, Tables.BlackMarketCategory(category), availabilityDM + dm, price, Tables.BlackMarketCategoryDescription(category)));
+        }
+
+        return result;
     }
 }
