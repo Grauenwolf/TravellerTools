@@ -14,13 +14,34 @@ public class Skill
         Level = level;
     }
 
+    public string FullName
+    {
+        get
+        {
+            if (!string.IsNullOrEmpty(Specialty))
+            {
+                if (!string.IsNullOrEmpty(Group))
+                    return $"{Name} ({Group}/{Specialty})";
+                else
+                    return $"{Name} ({Specialty})";
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(Group))
+                    return $"{Name} ({Group})";
+                else
+                    return Name;
+            }
+        }
+    }
+
     public string? Group { get; set; }
     public bool IsPsionicTalent { get; set; }
     public int Level { get; set; }
     public string Name { get; set; }
     public string? Specialty { get; set; }
 
-    public SkillTemplate ToSkillTemplate() => new(Name, Specialty);
+    public SkillTemplate ToSkillTemplate() => new(Name, Specialty, Group);
 
     public override string ToString()
     {

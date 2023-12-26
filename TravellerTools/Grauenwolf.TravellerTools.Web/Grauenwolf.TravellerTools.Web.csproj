@@ -20,6 +20,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Content Update="Pages\CrewPage.razor">
+		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		</Content>
 		<Content Update="Pages\ContactsPage.razor">
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 		</Content>

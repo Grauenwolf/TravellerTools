@@ -1,3 +1,4 @@
+using Grauenwolf.TravellerTools.Shared;
 using Microsoft.Extensions.Primitives;
 
 namespace Grauenwolf.TravellerTools.Characters;
@@ -21,8 +22,8 @@ public class CharacterBuilderOptions
         if (keyValuePairs.TryGetValue("year", out var year))
             Year = int.Parse(year!);
 
-        if (keyValuePairs.TryGetValue("seed", out var seed))
-            Seed = int.Parse(seed!);
+        Seed = keyValuePairs.ParseIntOrNull("seed");
+
         if (keyValuePairs.TryGetValue("name", out var name))
             Name = name;
         if (keyValuePairs.TryGetValue("maxAge", out var maxAge))

@@ -1,0 +1,84 @@
+﻿@page "/crew"
+@using Microsoft.AspNetCore.WebUtilities
+@inherits NullablePageBase<CrewOptions>
+@{
+    PageTitle = "Crew Generator";
+}
+
+@if (Model != null)
+{
+    <h3>Contact Generator</h3>
+    <div>
+        <EditForm Model="@Model">
+
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div>This creates a ships crew.</div>
+            <table class="gridtable">
+                <tr>
+                    <th>Species</th>
+                    <td colspan="3">
+                        <InputSelect @bind-Value="Model.Species">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.Species))">(Random)</option>
+                            @foreach (var item in Model.SpeciesList)
+                            {
+                                <option value="@(item)" selected="@(Model.Species == item)"> @(item)</option>
+                            }
+                        </InputSelect>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Pilots</th>
+                    <th>Astrogators</th>
+                    <th>Engineers</th>
+                    <th>Medics</th>
+                </tr>
+
+                <tr>
+                    <td>
+                        <InputNumber @bind-Value="Model.Pilots" style="width: 50px;" />
+                    </td>
+                    <td>
+                        <InputNumber @bind-Value="Model.Astrogators" style="width: 50px;" />
+                    </td>
+                    <td>
+                        <InputNumber @bind-Value="Model.Engineers" style="width: 50px;" />
+                    </td>
+                    <td>
+                        <InputNumber @bind-Value="Model.Medics" style="width: 50px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Gunners</th>
+                    <th>Stewards</th>
+                    <th colspan="2">Passengers</th>
+                </tr>
+                <tr>
+                    <td>
+                        <InputNumber @bind-Value="Model.Gunners" style="width: 50px;" />
+                    </td>
+                    <td>
+                        <InputNumber @bind-Value="Model.Stewards" style="width: 50px;" />
+                    </td>
+                    <td colspan="2">
+                        <InputNumber @bind-Value="Model.Passengers" style="width: 50px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" style="text-align:center">
+                        <button @onclick="GenerateCrew">Generate Crew</button>
+                    </td>
+                </tr>
+            </table>
+        </EditForm>
+    </div>
+}
+@if (CrewModel != null)
+{
+    <h3>
+        Ship's Crew and Passengers
+        <a href="@(Permalink())" target="_blank" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
+    </h3>
+    <CrewListViewer Crew="CrewModel.Crew" />
+}

@@ -1,0 +1,25 @@
+﻿@page "/crew/view"
+@using Microsoft.AspNetCore.WebUtilities
+@inherits NullablePageBase<CrewOptions>
+@{
+    PageTitle = "Crew";
+}
+
+
+
+@if (CrewModel != null)
+{
+    <h3>
+        Ship's Crew and Passengers
+        <a href="@(Permalink())" target="_blank" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
+    </h3>
+    <CrewListViewer Crew="CrewModel.Crew" />
+}
+else if (LoadFailed)
+{
+    <h1>Error loading page.</h1>
+}
+else
+{
+    <h1>Loading</h1>
+}

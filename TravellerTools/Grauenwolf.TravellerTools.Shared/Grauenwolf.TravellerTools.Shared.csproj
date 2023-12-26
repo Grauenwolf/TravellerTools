@@ -17,4 +17,10 @@
 		<PackageReference Include="Tortuga.Anchor" Version="4.1.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Reference Include="Microsoft.Extensions.Primitives">
+	    <HintPath>D:\NuGet\microsoft.extensions.primitives\8.0.0\lib\net6.0\Microsoft.Extensions.Primitives.dll</HintPath>
+	  </Reference>
+	</ItemGroup>
+
 </Project>

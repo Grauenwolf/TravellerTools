@@ -73,7 +73,7 @@ partial class WorldTradePage
         for (var i = 0; i < 500; i++)
         {
             var result = CharacterBuilderLocator.Build(options);
-            if (result.Skills["Broker"]?.Level == Options.CounterpartyScore && !result.IsDead)
+            if (result.Skills.EffectiveSkillLevel("Broker") == Options.CounterpartyScore && !result.IsDead)
             {
                 CounterpartyCharacter = result;
                 break;
@@ -101,7 +101,7 @@ partial class WorldTradePage
         for (var i = 0; i < 500; i++)
         {
             var result = CharacterBuilderLocator.Build(options);
-            if (result.Skills["Streetwise"]?.Level == Options.StreetwiseScore && !result.IsDead)
+            if (result.Skills.EffectiveSkillLevel("Streetwise") == Options.StreetwiseScore && !result.IsDead)
             {
                 LocalBrokerCharacter = result;
                 Options.BrokerScore = result.Skills.EffectiveSkillLevel("Broker");
@@ -117,7 +117,7 @@ partial class WorldTradePage
 
     protected void GenerateLocalBrokerCharacter()
     {
-        IsInformer = false;
+        IsInformer = false; //No risk when using a broker instead of a fence.
         var dice = new Dice();
         Options.BrokerScore = (int)Math.Floor(dice.D(2, 6) / 3.0);
 
@@ -129,12 +129,15 @@ partial class WorldTradePage
         options.MaxAge = 22 + dice.D(1, 60);
 
         LocalBrokerCharacter = null;
+        Options.StreetwiseScore = 0; //default
+
         for (var i = 0; i < 500; i++)
         {
             var result = CharacterBuilderLocator.Build(options);
-            if (result.Skills["Broker"]?.Level == Options.BrokerScore && !result.IsDead)
+            if (result.Skills.EffectiveSkillLevel("Broker") == Options.BrokerScore && !result.IsDead)
             {
                 LocalBrokerCharacter = result;
+                Options.StreetwiseScore = result.Skills.EffectiveSkillLevel("StreetwiseScore") - 2;
                 break;
             }
         }

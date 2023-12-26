@@ -67,11 +67,10 @@
                                 }
                             </InputSelect>
                         </label>
-                        @if (!Options.IllegalGoods)
-                        {
-                            <br />
-                            <button @onclick="GenerateLocalBrokerCharacter">Generate Local Broker</button>
-                        }
+
+                        <br />
+                        <button @onclick="GenerateLocalBrokerCharacter">Generate Local Broker</button>
+
                     </td>
                     @if (Options.IllegalGoods)
                     {
@@ -152,7 +151,7 @@
                                 {
                                     <option value="@(score)" selected="@(Options.AgeWeeks == score)"> @(score)</option>
                                 }
-                            </InputSelect>
+                            </InputSelect> Weeks
                         </label>
                     </td>
                 </tr>
@@ -176,8 +175,11 @@
             &nbsp;<a href="@(LocalBrokerPermalink())" target="_blank" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
         </h3>
         <div>
-
-            @(Options.IllegalGoods ? "Streetwise is -2 to reflect the 20% fee charged by the fence and the DM+2." : "The local broker's DM+2 and 10% fee are included in the final price.")
+            <span>The local broker's DM+2 and 10% fee are included in the final price.</span>
+            @if(Options.IllegalGoods) {
+                <br/>
+                <span>Streetwise is -2 to reflect the 20% fee charged by the fence and the DM+2.;</span>
+            }
             @if (IsInformer && Options.IllegalGoods)
             {
                 <br />

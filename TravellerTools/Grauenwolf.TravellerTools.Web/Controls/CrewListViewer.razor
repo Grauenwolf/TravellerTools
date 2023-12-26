@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.WebUtilities
+@inherits ControlBase
+
+@if (Crew != null)
+{
+    <table class="gridtable">
+        <tr>
+            <th>Name</th>
+            <th>Role</th>
+            <th>Skill</th>
+        </tr>
+        @foreach (var contact in Crew)
+        {
+            <tr>
+                <td>
+                    <a target="_blank" href="@QueryHelpers.AddQueryString("/character/view", contact.CharacterStub.ToQueryString())">@contact.CharacterStub.Name</a>
+                </td>
+                <td>@contact.CrewRole</td>
+                <td>@contact.SkillName @contact.SkillLevel</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div>Error - Contact list is missing</div>
+}

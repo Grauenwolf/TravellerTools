@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.Primitives;
 
-namespace Grauenwolf.TravellerTools.Web.Data;
+namespace Grauenwolf.TravellerTools.Shared;
 
-static class OptionsHelper
+public static class OptionsHelper
 {
     public static bool ParseBool(this Dictionary<string, StringValues> keyValuePairs, string key, bool defaultValue = false)
     {

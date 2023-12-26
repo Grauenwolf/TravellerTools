@@ -75,11 +75,12 @@ class SpacerCommunity(CharacterBuilder characterBuilder) : CareerBase("Spacer Co
             }
 
             skillChoices.RemoveOverlap(character.Skills, 0);
-            foreach (var skill in dice.Pick(skillChoices, 2)) //Remove the ones we used.
-            {
-                chosenSkills.Add(skill);
-                character.Skills.Add(skill);
-            }
+            if (skillChoices.Count > 0)
+                foreach (var skill in dice.Pick(skillChoices, Math.Min(skillChoices.Count, 2))) //Remove the ones we used.
+                {
+                    chosenSkills.Add(skill);
+                    character.Skills.Add(skill);
+                }
             FixupSkills(character, dice);
 
             character.Skills.Add(dice.Choose(chosenSkills), 1);

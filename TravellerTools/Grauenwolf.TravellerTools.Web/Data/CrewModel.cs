@@ -2,8 +2,8 @@
 
 namespace Grauenwolf.TravellerTools.Web.Data;
 
-public class ContactsModel
+public class CrewModel
 {
-    public List<Contact> Contacts { get; set; } = new();
+    public List<CrewMember> Crew { get; set; } = new();
     public int Seed { get; set; }
 }
