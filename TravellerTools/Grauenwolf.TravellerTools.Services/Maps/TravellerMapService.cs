@@ -22,6 +22,7 @@ public class TravellerMapService(bool filterUnpopulatedSectors, string milieu) /
     readonly ConcurrentDictionary<Tuple<int, int>, ImmutableArray<Subsector>> m_SubsectorsInSector = new();
     readonly ConcurrentDictionary<Tuple<int, int>, ImmutableArray<World>> m_WorldsInSector = new();
     readonly ConcurrentDictionary<Tuple<int, int, string>, ImmutableArray<World>> m_WorldsInSubsector = new();
+    readonly ConcurrentDictionary<WorldsNearKey, List<World>> m_WorldsNear = new();
     ImmutableArray<Sector> m_SectorList;
     ImmutableArray<SophontCode> m_SophontCodes;
 
@@ -280,7 +281,7 @@ public class TravellerMapService(bool filterUnpopulatedSectors, string milieu) /
             .OrderBy(w => w.Name)
             .ToImmutableArray();
 
-        m_WorldsInSubsector.TryAdd(cacheKey, result);
+        m_WorldsInSubsector[cacheKey] = result;
         return result;
     }
 
@@ -298,9 +299,15 @@ public class TravellerMapService(bool filterUnpopulatedSectors, string milieu) /
         return null;
     }
 
+    record WorldsNearKey(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance);
+
     public async Task<List<World>> WorldsNearAsync(int sectorX, int sectorY, int hexX, int hexY, int maxJumpDistance)
     {
         //https://travellermap.com/api/jumpworlds?sector=Spinward%20Marches&hex=1910&jump=4
+
+        var key = new WorldsNearKey(sectorX, sectorY, hexX, hexY, maxJumpDistance);
+        if (m_WorldsNear.TryGetValue(key, out var cachedResult))
+            return cachedResult;
 
         var result = new List<World>();
         for (var jumpDistance = 0; jumpDistance <= maxJumpDistance; jumpDistance++)
@@ -327,6 +334,8 @@ public class TravellerMapService(bool filterUnpopulatedSectors, string milieu) /
                 world.AddMissingRemarks();
             }
         }
+
+        m_WorldsNear[key] = result;
 
         return result;
     }
