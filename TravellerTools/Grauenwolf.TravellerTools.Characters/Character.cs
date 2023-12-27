@@ -70,6 +70,7 @@ public class Character
     public int SocialStanding { get; set; }
     public int SocialStandingDM => DMCalc(SocialStanding);
     public string? Species { get; set; }
+    public string? SpeciesUrl { get; set; }
     public int Strength { get; set; }
     public int StrengthDM => DMCalc(Strength);
     public string? Title { get; set; }

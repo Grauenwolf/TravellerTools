@@ -406,4 +406,9 @@ public class CharacterBuilderLocator
         else
             return GetRandomSpecies(dice);
     }
+
+    public string? GetSpeciesUrl(string? species)
+    {
+        return GetCharacterBuilder(species)?.SpeciesUrl;
+    }
 }

@@ -516,6 +516,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 TicketPrice = ticketPrice,
                 Species = m_CharacterBuilderLocator.GetRandomSpecies(dice)
             };
+            result.SpeciesUrl = m_CharacterBuilderLocator.GetSpeciesUrl(result.Species);
 
             if (variablePrice)
             {

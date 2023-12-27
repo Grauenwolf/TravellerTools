@@ -4,9 +4,6 @@ using Grauenwolf.TravellerTools.Web.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.WebUtilities;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Grauenwolf.TravellerTools.Web.Pages;
 
@@ -17,20 +14,15 @@ partial class WorldPassengerPage
         Options.PropertyChanged += (sender, e) => OnOptionsChanged();
     }
 
-    [Parameter]
-    public string? DestinationPlanetHex { get => Get<string?>(); set => Set(value, true); }
+    [Parameter] public string? DestinationPlanetHex { get => Get<string?>(); set => Set(value, true); }
 
-    [Parameter]
-    public string? DestinationSectorHex { get => Get<string?>(); set => Set(value, true); }
+    [Parameter] public string? DestinationSectorHex { get => Get<string?>(); set => Set(value, true); }
 
-    [Parameter]
-    public string? MilieuCode { get => Get<string?>(); set => Set(value, true); }
+    [Parameter] public string? MilieuCode { get => Get<string?>(); set => Set(value, true); }
 
-    [Parameter]
-    public string? PlanetHex { get => Get<string?>(); set => Set(value, true); }
+    [Parameter] public string? PlanetHex { get => Get<string?>(); set => Set(value, true); }
 
-    [Parameter]
-    public string? SectorHex { get => Get<string?>(); set => Set(value, true); }
+    [Parameter] public string? SectorHex { get => Get<string?>(); set => Set(value, true); }
 
     public int? Seed { get => Get<int?>(); set => Set(value, true); }
     protected PassengerOptions Options { get; } = new();

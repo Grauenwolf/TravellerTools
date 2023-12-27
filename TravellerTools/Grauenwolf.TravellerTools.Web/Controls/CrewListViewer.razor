@@ -8,15 +8,17 @@
             <th>Name</th>
             <th>Role</th>
             <th>Skill</th>
+            <th>Species</th>
         </tr>
-        @foreach (var contact in Crew)
+        @foreach (var crewMember in Crew)
         {
             <tr>
                 <td>
-                    <a target="_blank" href="@QueryHelpers.AddQueryString("/character/view", contact.CharacterStub.ToQueryString())">@contact.CharacterStub.Name</a>
+                    @crewMember.Title <a target="_blank" href="@QueryHelpers.AddQueryString("/character/view", crewMember.CharacterStub.ToQueryString())">@crewMember.CharacterStub.Name</a>
                 </td>
-                <td>@contact.CrewRole</td>
-                <td>@contact.SkillName @contact.SkillLevel</td>
+                <td>@crewMember.CrewRole</td>
+                <td>@crewMember.SkillName @crewMember.SkillLevel</td>
+                <td><a href="@(CharacterBuilderLocator.GetSpeciesUrl(crewMember.CharacterStub.Species))">@crewMember.CharacterStub.Species</a> (@crewMember.CharacterStub.Gender/@crewMember.CharacterStub.MaxAge)</td>
             </tr>
         }
     </table>

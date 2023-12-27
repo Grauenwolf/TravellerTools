@@ -36,6 +36,7 @@ public abstract class CharacterBuilder
     public ImmutableArray<CareerBase> DefaultCareers { get; }
     public ImmutableArray<CareerBase> DraftCareers { get; }
     public abstract string Species { get; }
+    public abstract string SpeciesUrl { get; }
 
     protected virtual int AgingRollMinAge => 34;
 
@@ -51,6 +52,7 @@ public abstract class CharacterBuilder
         {
             Seed = seed,
             Species = Species,
+            SpeciesUrl = SpeciesUrl,
             FirstAssignment = options.FirstAssignment,
             FirstCareer = options.FirstCareer,
             Name = options.Name,

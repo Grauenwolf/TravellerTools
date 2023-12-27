@@ -84,7 +84,7 @@ partial class CrewViewPage
                 if (!character.IsDead)
                 {
                     var skill = character.Skills.BestSkill();
-                    return new CrewMember(crewRole, character.GetCharacterBuilderOptions(), skill?.FullName, skill?.Level);
+                    return new CrewMember(crewRole, character.GetCharacterBuilderOptions(), skill?.FullName, skill?.Level, character.Title);
                 }
             }
         }
@@ -103,7 +103,7 @@ partial class CrewViewPage
                     if (currentSkill == targetSkillLevel)
                     {
                         var skill = character.Skills.BestSkill(targetSkillName);
-                        return new CrewMember(crewRole, character.GetCharacterBuilderOptions(), skill?.FullName, skill?.Level);
+                        return new CrewMember(crewRole, character.GetCharacterBuilderOptions(), skill?.FullName, skill?.Level, character.Title);
                     }
                     else if (currentSkill > lastBestSkillLevel)
                     {
@@ -114,7 +114,7 @@ partial class CrewViewPage
             }
 
             var lastBestSkill = lastBest?.Skills.BestSkill(targetSkillName);
-            return new CrewMember(crewRole, lastBest?.GetCharacterBuilderOptions() ?? options, lastBestSkill?.FullName, lastBestSkill?.Level);
+            return new CrewMember(crewRole, lastBest?.GetCharacterBuilderOptions() ?? options, lastBestSkill?.FullName, lastBestSkill?.Level, lastBest?.Title);
         }
     }
 

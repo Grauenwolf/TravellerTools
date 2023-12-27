@@ -11,6 +11,7 @@ public class Passenger : Person
     public int? Seed { get; set; }
     public string? Skills { get; set; }
     public string? Species { get; set; }
+    public string? SpeciesUrl { get; set; }
     public decimal TicketPrice { get; set; }
     public string? TravelType { get; set; }
 
