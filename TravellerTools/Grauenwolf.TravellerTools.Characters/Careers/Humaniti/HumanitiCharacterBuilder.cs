@@ -6,6 +6,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 public class HumanitiCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator) : CharacterBuilder(dataPath, nameGenerator, characterBuilderLocator)
 {
     public override string Species => "Humaniti";
+    public override string SpeciesUrl => "https://wiki.travellerrpg.com/Humaniti";
 
     protected override bool AllowPsionics => true;
 
@@ -16,92 +17,105 @@ public class HumanitiCharacterBuilder(string dataPath, NameGenerator nameGenerat
             //Duplicates are needed to make the odds match the book.
 
             //    Navy
-            new EngineerGunner(this),
-            new Flight(this),
-            new LineCrew(this),
+            new Navy_EngineerGunner(this),
+            new Navy_Flight(this),
+            new Navy_LineCrew(this),
 
             //    Army
-            new ArmySupport(this),
-            new Cavalry(this),
-            new Infantry(this),
+            new Army_Support(this),
+            new Army_Cavalry(this),
+            new Army_Infantry(this),
 
             //    Marine
-            new MarineSupport(this),
-            new GroundAssault(this),
-            new StarMarine(this),
+            new Marine_Support(this),
+            new Marine_GroundAssault(this),
+            new Marine_StarMarine(this),
 
             //    Merchant Marine
-            new MerchantMarine(this),
-            new MerchantMarine(this),
-            new MerchantMarine(this),
+            new Merchant_MerchantMarine(this),
+            new Merchant_MerchantMarine(this),
+            new Merchant_MerchantMarine(this),
 
             //    Scout
-            new Courier(this),
-            new Explorer(this),
-            new Surveyor(this),
+            new Scout_Courier(this),
+            new Scout_Explorer(this),
+            new Scout_Surveyor(this),
 
             //    Law Enforcement
-            new LawEnforcement(this),
-            new LawEnforcement(this),
-            new LawEnforcement(this),
+            new Agent_LawEnforcement(this),
+            new Agent_LawEnforcement(this),
+            new Agent_LawEnforcement(this),
         };
 
         var defaultCareers = new List<CareerBase>()
         {
-            new Wanderer(this),
-            new Scavenger(this),
-            new Barbarian(this)
+            new Drifter_Barbarian(this),
+            new Drifter_Scavenger(this),
+            new Drifter_Wanderer(this),
         };
 
         var careers = new List<CareerBase>
         {
            //Pre-Career Options
             new Precareers.ArmyAcademy(this),
-            new Precareers.MarineAcademy(this),
-            new Precareers.NavalAcademy(this),
-            new Precareers.University(this),
             new Precareers.ColonialUpbringing(this),
+            new Precareers.MarineAcademy(this),
             new Precareers.MerchantAcademy(this),
+            new Precareers.NavalAcademy(this),
             new Precareers.PsionicCommunity(this),
             new Precareers.SchoolOfHardKnocks(this),
             new Precareers.SpacerCommunity (this),
+            new Precareers.University(this),
 
             //Careers
-            new Adept(this),
-            new Administrator(this),
-            new Artist(this),
-            new Broker(this),
-            new Colonist(this),
-            new Corporate(this),
-            new CorporateAgent(this),
-            new Dilettante(this),
-            new Diplomat(this),
-            new Enforcer(this),
-            new FieldResearcher(this),
-            new Fixer(this),
-            new FreeTrader(this),
-            new Inmate(this),
-            new Intelligence(this),
-            new Journalist(this),
-            new Performer(this),
-            new Physician(this),
-            new Pirate(this),
-            new PsiWarrrior(this),
+            new Agent_CorporateAgent(this),
+            new Agent_Intelligence(this),
+            new Agent_LawEnforcement(this),
+            new Army_Cavalry(this),
+            new Army_Infantry(this),
+            new Army_Support(this),
+            new Believer_HolyWarrior(this),
+            new Believer_MainstreamBeliever(this),
+            new Believer_Missionary(this),
+            new Citizen_Colonist(this),
+            new Citizen_Corporate(this),
+            new Citizen_Worker(this),
+            new Drifter_Barbarian(this),
+            new Drifter_Scavenger(this),
+            new Drifter_Wanderer(this),
+            new Entertainer_Artist(this),
+            new Entertainer_Journalist(this),
+            new Entertainer_Performer(this),
+            new Marine_GroundAssault(this),
+            new Marine_StarMarine(this),
+            new Marine_Support(this),
+            new Merchant_Broker(this),
+            new Merchant_FreeTrader(this),
+            new Merchant_MerchantMarine(this),
+            new Navy_EngineerGunner(this),
+            new Navy_Flight(this),
+            new Navy_LineCrew(this),
+            new Noble_Administrator(this),
+            new Noble_Dilettante(this),
+            new Noble_Diplomat(this),
+            new Prisoner_Fixer(this),
+            new Prisoner_Inmate(this),
+            new Prisoner_Thug(this),
+            new Psion_Adept(this),
+            new Psion_PsiWarrrior(this),
+            new Psion_WildTalent(this),
             new Retired(this),
-            new Scientist(this),
-            new Thief(this),
-            new Thug(this),
-            new WildTalent(this),
-            new Worker(this),
-            new MainstreamBeliever(this),
-            new Missionary(this),
-            new HolyWarrior(this),
+            new Rogue_Enforcer(this),
+            new Rogue_Pirate(this),
+            new Rogue_Thief(this),
+            new Scholar_FieldResearcher(this),
+            new Scholar_Physician(this),
+            new Scholar_Scientist(this),
+            new Scout_Courier(this),
+            new Scout_Explorer(this),
+            new Scout_Surveyor(this),
             new Truther(this),
         };
-
-        //Need to remove duplicates that affect odds
-        careers.AddRange(defaultCareers.Distinct());
-        careers.AddRange(draftCareers.Distinct());
 
         return new(defaultCareers.ToImmutableArray(), draftCareers.ToImmutableArray(), careers.ToImmutableArray());
     }

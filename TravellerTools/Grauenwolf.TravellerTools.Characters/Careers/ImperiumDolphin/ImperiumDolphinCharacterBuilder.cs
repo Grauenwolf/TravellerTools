@@ -6,6 +6,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 public class ImperiumDolphinCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator) : CharacterBuilder(dataPath, nameGenerator, characterBuilderLocator)
 {
     public override string Species => "Imperium Dolphin";
+    public override string SpeciesUrl => "https://wiki.travellerrpg.com/Dolphin";
 
     protected override int AgingRollMinAge => 20;
     protected override bool AllowPsionics => true;
@@ -32,14 +33,14 @@ public class ImperiumDolphinCharacterBuilder(string dataPath, NameGenerator name
         var draftCareers = new List<CareerBase>()
         {
             // Dolphin Military
-            new SeaPatrol(this),
-            new UnderwaterCommando(this),
-            new Guardian(this),
+            new DolphinMilitary_Guardian(this),
+            new DolphinMilitary_UnderwaterCommando(this),
+            new DolphinMilitary_SeaPatrol(this),
         };
 
         var defaultCareers = new List<CareerBase>()
         {
-            new Nomad(this),
+            new DolphinCivilian_Nomad(this),
         };
 
         var careers = new List<CareerBase>
@@ -51,47 +52,41 @@ public class ImperiumDolphinCharacterBuilder(string dataPath, NameGenerator name
             new University(this),
             new DolphinMilitaryAcademy(this),
 
-            //new Precareers.ColonialUpbringing(this),
-            //new Precareers.MerchantAcademy(this),
-            //new Precareers.PsionicCommunity(this),
-            //new Precareers.SchoolOfHardKnocks(this),
-            //new Precareers.SpacerCommunity (this),
-
             //Careers
-            new Liaison(this),
-            new HistorianPoet(this),
-            new SeaPatrol(this),
-            new UnderwaterCommando(this),
-            new Guardian(this),
-            new Humaniti.Adept(this),
-            new Artist(this),
-            new Colonist(this),
-            new Corporate(this),
-            new CorporateAgent(this),
-            new Enforcer(this),
-            new FieldResearcher(this),
-            new Humaniti.Fixer(this),
-            new Humaniti.Inmate(this),
-            new Intelligence(this),
-            new Journalist(this),
-            new Performer(this),
-            new Physician(this),
-            new Pirate(this),
-            new Humaniti.PsiWarrrior(this),
+            new Agent_CorporateAgent(this),
+            new Agent_Intelligence(this),
+            new Believer_HolyWarrior(this),
+            new Believer_MainstreamBeliever(this),
+            new Believer_Missionary(this),
+            new Citizen_Colonist(this),
+            new Citizen_Corporate(this),
+            new Citizen_Worker(this),
+            new DolphinCivilian_HistorianPoet(this),
+            new DolphinCivilian_Liaison(this),
+            new DolphinCivilian_Nomad(this),
+            new DolphinMilitary_Guardian(this),
+            new DolphinMilitary_Guardian(this),
+            new DolphinMilitary_SeaPatrol(this),
+            new DolphinMilitary_SeaPatrol(this),
+            new DolphinMilitary_UnderwaterCommando(this),
+            new DolphinMilitary_UnderwaterCommando(this),
+            new Entertainer_Artist(this),
+            new Entertainer_Journalist(this),
+            new Entertainer_Performer(this),
+            new Humaniti.Prisoner_Fixer(this),
+            new Humaniti.Prisoner_Inmate(this),
+            new Humaniti.Prisoner_Thug(this),
+            new Humaniti.Psion_Adept(this),
+            new Humaniti.Psion_PsiWarrrior(this),
             new Retired(this),
-            new Scientist(this),
-            new Thief(this),
-            new Humaniti.Thug(this),
-            new Worker(this),
-            new MainstreamBeliever(this),
-            new Missionary(this),
-            new HolyWarrior(this),
+            new Rogue_Enforcer(this),
+            new Rogue_Pirate(this),
+            new Rogue_Thief(this),
+            new Scholar_FieldResearcher(this),
+            new Scholar_Physician(this),
+            new Scholar_Scientist(this),
             new Truther(this),
         };
-
-        //Need to remove duplicates that affect odds
-        careers.AddRange(defaultCareers.Distinct());
-        careers.AddRange(draftCareers.Distinct());
 
         return new(defaultCareers.ToImmutableArray(), draftCareers.ToImmutableArray(), careers.ToImmutableArray());
     }

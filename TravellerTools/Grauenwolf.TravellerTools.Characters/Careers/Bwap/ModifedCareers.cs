@@ -1,66 +1,66 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Bwap;
 
-class ArmySupport(CharacterBuilder characterBuilder) : Humaniti.ArmySupport(characterBuilder)
+class Army_Cavalry(CharacterBuilder characterBuilder) : Humaniti.Army_Cavalry(characterBuilder)
 {
     protected override int QualifyDM => -1;
 }
 
-class Cavalry(CharacterBuilder characterBuilder) : Humaniti.Cavalry(characterBuilder)
+class Army_Support(CharacterBuilder characterBuilder) : Humaniti.Army_Support(characterBuilder)
 {
     protected override int QualifyDM => -1;
 }
 
-class Corporate(CharacterBuilder characterBuilder) : Humaniti.Corporate(characterBuilder)
+class Citizen_Corporate(CharacterBuilder characterBuilder) : Humaniti.Citizen_Corporate(characterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck) => true;
 }
 
-class Courier(CharacterBuilder characterBuilder) : Humaniti.Courier(characterBuilder)
-{
-    protected override int QualifyDM => 2;
-}
-
-class Explorer(CharacterBuilder characterBuilder) : Humaniti.Explorer(characterBuilder)
-{
-    protected override int QualifyDM => 1;
-}
-
-class FreeTrader(CharacterBuilder characterBuilder) : Humaniti.FreeTrader(characterBuilder)
-{
-    protected override int QualifyDM => 2;
-}
-
-class GroundAssault(CharacterBuilder characterBuilder) : Humaniti.GroundAssault(characterBuilder)
-{
-    protected override int QualifyDM => -3;
-}
-
-class Infantry(CharacterBuilder characterBuilder) : Humaniti.Infantry(characterBuilder)
+class Infantry(CharacterBuilder characterBuilder) : Humaniti.Army_Infantry(characterBuilder)
 {
     protected override int QualifyDM => -1;
 }
 
-class MarineSupport(CharacterBuilder characterBuilder) : Humaniti.MarineSupport(characterBuilder)
+class Marine_GroundAssault(CharacterBuilder characterBuilder) : Humaniti.Marine_GroundAssault(characterBuilder)
 {
     protected override int QualifyDM => -3;
 }
 
-class MerchantMarine(CharacterBuilder characterBuilder) : Humaniti.MerchantMarine(characterBuilder)
+class Marine_StarMarine(CharacterBuilder characterBuilder) : Humaniti.Marine_StarMarine(characterBuilder)
+{
+    protected override int QualifyDM => -3;
+}
+
+class Marine_Support(CharacterBuilder characterBuilder) : Humaniti.Marine_Support(characterBuilder)
+{
+    protected override int QualifyDM => -3;
+}
+
+class Merchant_FreeTrader(CharacterBuilder characterBuilder) : Humaniti.Merchant_FreeTrader(characterBuilder)
 {
     protected override int QualifyDM => 2;
 }
 
-class StarMarine(CharacterBuilder characterBuilder) : Humaniti.StarMarine(characterBuilder)
+class Merchant_MerchantMarine(CharacterBuilder characterBuilder) : Humaniti.Merchant_MerchantMarine(characterBuilder)
 {
-    protected override int QualifyDM => -3;
+    protected override int QualifyDM => 2;
 }
 
-class Surveyor(CharacterBuilder characterBuilder) : Humaniti.Surveyor(characterBuilder)
+class Scout_Courier(CharacterBuilder characterBuilder) : Humaniti.Scout_Courier(characterBuilder)
+{
+    protected override int QualifyDM => 2;
+}
+
+class Scout_Explorer(CharacterBuilder characterBuilder) : Humaniti.Scout_Explorer(characterBuilder)
 {
     protected override int QualifyDM => 1;
 }
 
-class Broker(CharacterBuilder characterBuilder) : Humaniti.Broker(characterBuilder)
+class Scout_Surveyor(CharacterBuilder characterBuilder) : Humaniti.Scout_Surveyor(characterBuilder)
+{
+    protected override int QualifyDM => 1;
+}
+
+class Merchant_Broker(CharacterBuilder characterBuilder) : Humaniti.Merchant_Broker(characterBuilder)
 {
     protected override int QualifyDM => 1;
 }

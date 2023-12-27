@@ -10,12 +10,12 @@ abstract class Agent : NormalCareer
     {
         var careers = new List<NormalCareer>
         {
-            new Corporate(characterBuilder),
-            new Worker(characterBuilder),
-            new Colonist(characterBuilder),
-            new Thief(characterBuilder),
-            new Enforcer(characterBuilder),
-            new Pirate(characterBuilder)
+            new Citizen_Corporate(characterBuilder),
+            new Citizen_Worker(characterBuilder),
+            new Citizen_Colonist(characterBuilder),
+            new Rogue_Thief(characterBuilder),
+            new Rogue_Enforcer(characterBuilder),
+            new Rogue_Pirate(characterBuilder)
         };
         m_Careers = careers.ToImmutableArray();
     }

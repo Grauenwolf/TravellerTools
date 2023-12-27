@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 
-class ArmySupport(CharacterBuilder characterBuilder) : Humaniti.ArmySupport(characterBuilder)
+class Agent_CorporateAgent(CharacterBuilder characterBuilder) : Humaniti.Agent_CorporateAgent(characterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -10,7 +10,7 @@ class ArmySupport(CharacterBuilder characterBuilder) : Humaniti.ArmySupport(char
     }
 }
 
-class Artist(CharacterBuilder characterBuilder) : Humaniti.Artist(characterBuilder)
+class Agent_Intelligence(CharacterBuilder characterBuilder) : Humaniti.Agent_Intelligence(characterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -20,7 +20,7 @@ class Artist(CharacterBuilder characterBuilder) : Humaniti.Artist(characterBuild
     }
 }
 
-class Cavalry(CharacterBuilder characterBuilder) : Humaniti.Cavalry(characterBuilder)
+class Agent_LawEnforcement(CharacterBuilder characterBuilder) : Humaniti.Agent_LawEnforcement(characterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -30,7 +30,7 @@ class Cavalry(CharacterBuilder characterBuilder) : Humaniti.Cavalry(characterBui
     }
 }
 
-class Colonist(CharacterBuilder characterBuilder) : Humaniti.Colonist(characterBuilder)
+class Army_Cavalry(CharacterBuilder characterBuilder) : Humaniti.Army_Cavalry(characterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -40,7 +40,7 @@ class Colonist(CharacterBuilder characterBuilder) : Humaniti.Colonist(characterB
     }
 }
 
-class Corporate(CharacterBuilder characterBuilder) : Humaniti.Corporate(characterBuilder)
+class Army_Infantry(CharacterBuilder characterBuilder) : Humaniti.Army_Infantry(characterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -50,7 +50,7 @@ class Corporate(CharacterBuilder characterBuilder) : Humaniti.Corporate(characte
     }
 }
 
-class CorporateAgent(CharacterBuilder characterBuilder) : Humaniti.CorporateAgent(characterBuilder)
+class Army_Support(CharacterBuilder characterBuilder) : Humaniti.Army_Support(characterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -60,7 +60,187 @@ class CorporateAgent(CharacterBuilder characterBuilder) : Humaniti.CorporateAgen
     }
 }
 
-class Courier(CharacterBuilder characterBuilder) : Humaniti.Courier(characterBuilder)
+class Believer_HolyWarrior(CharacterBuilder characterBuilder) : Humaniti.Believer_HolyWarrior(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Believer_MainstreamBeliever(CharacterBuilder characterBuilder) : Humaniti.Believer_MainstreamBeliever(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Believer_Missionary(CharacterBuilder characterBuilder) : Humaniti.Believer_Missionary(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Citizen_Colonist(CharacterBuilder characterBuilder) : Humaniti.Citizen_Colonist(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Citizen_Corporate(CharacterBuilder characterBuilder) : Humaniti.Citizen_Corporate(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Citizen_Worker(CharacterBuilder characterBuilder) : Humaniti.Citizen_Worker(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Entertainer_Artist(CharacterBuilder characterBuilder) : Humaniti.Entertainer_Artist(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Entertainer_Journalist(CharacterBuilder characterBuilder) : Humaniti.Entertainer_Journalist(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Entertainer_Performer(CharacterBuilder characterBuilder) : Humaniti.Entertainer_Performer(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Marine_GroundAssault(CharacterBuilder characterBuilder) : Humaniti.Marine_GroundAssault(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Marine_StarMarine(CharacterBuilder characterBuilder) : Humaniti.Marine_StarMarine(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Marine_Support(CharacterBuilder characterBuilder) : Humaniti.Marine_Support(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Navy_EngineerGunner(CharacterBuilder characterBuilder) : Humaniti.Navy_EngineerGunner(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Navy_Flight(CharacterBuilder characterBuilder) : Humaniti.Navy_Flight(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Navy_LineCrew(CharacterBuilder characterBuilder) : Humaniti.Navy_LineCrew(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Rogue_Enforcer(CharacterBuilder characterBuilder) : Humaniti.Rogue_Enforcer(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Rogue_Pirate(CharacterBuilder characterBuilder) : Humaniti.Rogue_Pirate(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Rogue_Thief(CharacterBuilder characterBuilder) : Humaniti.Rogue_Thief(characterBuilder)
+{
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class Scholar_FieldResearcher(CharacterBuilder characterBuilder) : Humaniti.Scholar_FieldResearcher(characterBuilder)
 {
     protected override int QualifyDM => 1;
 
@@ -72,27 +252,7 @@ class Courier(CharacterBuilder characterBuilder) : Humaniti.Courier(characterBui
     }
 }
 
-class Enforcer(CharacterBuilder characterBuilder) : Humaniti.Enforcer(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class EngineerGunner(CharacterBuilder characterBuilder) : Humaniti.EngineerGunner(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class Explorer(CharacterBuilder characterBuilder) : Humaniti.Explorer(characterBuilder)
+class Scholar_Physician(CharacterBuilder characterBuilder) : Humaniti.Scholar_Physician(characterBuilder)
 {
     protected override int QualifyDM => 1;
 
@@ -104,7 +264,7 @@ class Explorer(CharacterBuilder characterBuilder) : Humaniti.Explorer(characterB
     }
 }
 
-class FieldResearcher(CharacterBuilder characterBuilder) : Humaniti.FieldResearcher(characterBuilder)
+class Scholar_Scientist(CharacterBuilder characterBuilder) : Humaniti.Scholar_Scientist(characterBuilder)
 {
     protected override int QualifyDM => 1;
 
@@ -116,127 +276,7 @@ class FieldResearcher(CharacterBuilder characterBuilder) : Humaniti.FieldResearc
     }
 }
 
-class Flight(CharacterBuilder characterBuilder) : Humaniti.Flight(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class GroundAssault(CharacterBuilder characterBuilder) : Humaniti.GroundAssault(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class HolyWarrior(CharacterBuilder characterBuilder) : Humaniti.HolyWarrior(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class Infantry(CharacterBuilder characterBuilder) : Humaniti.Infantry(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class Intelligence(CharacterBuilder characterBuilder) : Humaniti.Intelligence(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class Journalist(CharacterBuilder characterBuilder) : Humaniti.Journalist(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class LawEnforcement(CharacterBuilder characterBuilder) : Humaniti.LawEnforcement(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class LineCrew(CharacterBuilder characterBuilder) : Humaniti.LineCrew(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class MainstreamBeliever(CharacterBuilder characterBuilder) : Humaniti.MainstreamBeliever(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class MarineSupport(CharacterBuilder characterBuilder) : Humaniti.MarineSupport(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class Missionary(CharacterBuilder characterBuilder) : Humaniti.Missionary(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class Performer(CharacterBuilder characterBuilder) : Humaniti.Performer(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class Physician(CharacterBuilder characterBuilder) : Humaniti.Physician(characterBuilder)
+class Scout_Courier(CharacterBuilder characterBuilder) : Humaniti.Scout_Courier(characterBuilder)
 {
     protected override int QualifyDM => 1;
 
@@ -248,17 +288,7 @@ class Physician(CharacterBuilder characterBuilder) : Humaniti.Physician(characte
     }
 }
 
-class Pirate(CharacterBuilder characterBuilder) : Humaniti.Pirate(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class Scientist(CharacterBuilder characterBuilder) : Humaniti.Scientist(characterBuilder)
+class Scout_Explorer(CharacterBuilder characterBuilder) : Humaniti.Scout_Explorer(characterBuilder)
 {
     protected override int QualifyDM => 1;
 
@@ -270,30 +300,10 @@ class Scientist(CharacterBuilder characterBuilder) : Humaniti.Scientist(characte
     }
 }
 
-class StarMarine(CharacterBuilder characterBuilder) : Humaniti.StarMarine(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class Surveyor(CharacterBuilder characterBuilder) : Humaniti.Surveyor(characterBuilder)
+class Scout_Surveyor(CharacterBuilder characterBuilder) : Humaniti.Scout_Surveyor(characterBuilder)
 {
     protected override int QualifyDM => 1;
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class Thief(CharacterBuilder characterBuilder) : Humaniti.Thief(characterBuilder)
-{
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
         if (!character.Skills.Contains("Vacc Suit"))
@@ -305,16 +315,6 @@ class Thief(CharacterBuilder characterBuilder) : Humaniti.Thief(characterBuilder
 class University(CharacterBuilder characterBuilder) : Precareers.University(characterBuilder)
 {
     protected override int QualifyDM => -1;
-}
-
-class Worker(CharacterBuilder characterBuilder) : Humaniti.Worker(characterBuilder)
-{
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
 }
 
 class Truther(CharacterBuilder characterBuilder) : Humaniti.Truther(characterBuilder)

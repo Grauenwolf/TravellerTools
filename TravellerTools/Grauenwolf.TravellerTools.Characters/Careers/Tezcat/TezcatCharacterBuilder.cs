@@ -9,6 +9,7 @@ public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator
     static readonly ImmutableList<string> s_OptionalBackgroundSkills = ImmutableList.Create("Admin", "Animals", "Art", "Athletics", "Carouse", "Drive", "Science", "Seafarer", "Streetwise", "Survival", "Vacc Suit", "Electronics", "Flyer", "Language", "Mechanic", "Medic", "Profession");
     public override string Species => "Tezcat";
 
+    public override string SpeciesUrl => "https://wiki.travellerrpg.com/Tezcat";
     protected override bool AllowPsionics => false;
     protected override string CharacterBuilderFilename => "CharacterBuilder.Tezcat.xml";
 
@@ -37,9 +38,9 @@ public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator
     {
         var defaultCareers = new List<CareerBase>()
         {
-            new Humaniti.Wanderer(this),
-            new Humaniti.Scavenger(this),
-            new Humaniti.Barbarian(this),
+            new Humaniti.Drifter_Barbarian(this),
+            new Humaniti.Drifter_Scavenger(this),
+            new Humaniti.Drifter_Wanderer(this),
         };
 
         var draftCareers = new List<CareerBase>()
@@ -47,39 +48,39 @@ public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator
             //Duplicates are needed to make the odds match the book.
 
             //Soul Hunter
-            new Commando(this),
-            new Flight(this),
-            new Support(this),
+            new Soulhunter_Commando(this),
+            new Soulhunter_Flight(this),
+            new Soulhunter_Support(this),
 
             //    Navy
-            new Humaniti.EngineerGunner(this),
-            new Humaniti.Flight(this),
-            new Humaniti.LineCrew(this),
+            new Humaniti.Navy_EngineerGunner(this),
+            new Humaniti.Navy_Flight(this),
+            new Humaniti.Navy_LineCrew(this),
 
             //    Army
-            new Humaniti.ArmySupport(this),
-            new Humaniti.Cavalry(this),
-            new Humaniti.Infantry(this),
+            new Humaniti.Army_Support(this),
+            new Humaniti.Army_Cavalry(this),
+            new Humaniti.Army_Infantry(this),
 
             //    Marine
-            new Humaniti.MarineSupport(this),
-            new Humaniti.GroundAssault(this),
-            new Humaniti.StarMarine(this),
+            new Humaniti.Marine_Support(this),
+            new Humaniti.Marine_GroundAssault(this),
+            new Humaniti.Marine_StarMarine(this),
 
             //    Merchant Marine
-            new Humaniti.MerchantMarine(this),
-            new Humaniti.MerchantMarine(this),
-            new Humaniti.MerchantMarine(this),
+            new Humaniti.Merchant_MerchantMarine(this),
+            new Humaniti.Merchant_MerchantMarine(this),
+            new Humaniti.Merchant_MerchantMarine(this),
 
             //    Scout
-            new Humaniti.Courier(this),
-            new Humaniti.Explorer(this),
-            new Humaniti.Surveyor(this),
+            new Humaniti.Scout_Courier(this),
+            new Humaniti.Scout_Explorer(this),
+            new Humaniti.Scout_Surveyor(this),
 
             //    Law Enforcement
-            new Humaniti.LawEnforcement(this),
-            new Humaniti.LawEnforcement(this),
-            new Humaniti.LawEnforcement(this),
+            new Humaniti.Agent_LawEnforcement(this),
+            new Humaniti.Agent_LawEnforcement(this),
+            new Humaniti.Agent_LawEnforcement(this),
         };
 
         var careers = new List<CareerBase>
@@ -92,32 +93,52 @@ public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator
             new Precareers.MerchantAcademy(this),
 
             //Careers
-            new Humaniti.Artist(this),
-            new Humaniti.Broker(this),
-            new Humaniti.Colonist(this),
-            new Humaniti.Corporate(this),
-            new Humaniti.CorporateAgent(this),
-            new Humaniti.Enforcer(this),
-            new Humaniti.FieldResearcher(this),
-            new Humaniti.Fixer(this),
-            new Humaniti.FreeTrader(this),
-            new Humaniti.Inmate(this),
-            new Humaniti.Intelligence(this),
-            new Humaniti.Journalist(this),
-            new Humaniti.Performer(this),
-            new Humaniti.Physician(this),
-            new Humaniti.Pirate(this),
+            new Humaniti.Agent_CorporateAgent(this),
+            new Humaniti.Agent_Intelligence(this),
+            new Humaniti.Agent_LawEnforcement(this),
+            new Humaniti.Army_Cavalry(this),
+            new Humaniti.Army_Infantry(this),
+            new Humaniti.Army_Support(this),
+            new Humaniti.Citizen_Colonist(this),
+            new Humaniti.Citizen_Corporate(this),
+            new Humaniti.Citizen_Worker(this),
+            new Humaniti.Drifter_Barbarian(this),
+            new Humaniti.Drifter_Scavenger(this),
+            new Humaniti.Drifter_Wanderer(this),
+            new Humaniti.Entertainer_Artist(this),
+            new Humaniti.Entertainer_Journalist(this),
+            new Humaniti.Entertainer_Performer(this),
+            new Humaniti.Marine_GroundAssault(this),
+            new Humaniti.Marine_StarMarine(this),
+            new Humaniti.Marine_Support(this),
+            new Humaniti.Merchant_Broker(this),
+            new Humaniti.Merchant_FreeTrader(this),
+            new Humaniti.Merchant_MerchantMarine(this),
+            new Humaniti.Navy_EngineerGunner(this),
+            new Humaniti.Navy_Flight(this),
+            new Humaniti.Navy_LineCrew(this),
+            new Humaniti.Prisoner_Fixer(this),
+            new Humaniti.Prisoner_Inmate(this),
+            new Humaniti.Prisoner_Thug(this),
             new Retired(this),
-            new Humaniti.Scientist(this),
-            new Humaniti.Thief(this),
-            new Humaniti.Thug(this),
-            new Humaniti.Worker(this),
-            new Commando(this),
-            new Flight(this),
-            new Support(this),
-            new Academic(this),
-            new Ecclesiastic(this),
-            new Partisan(this),
+            new Humaniti.Rogue_Enforcer(this),
+            new Humaniti.Rogue_Pirate(this),
+            new Humaniti.Rogue_Thief(this),
+            new Humaniti.Scholar_FieldResearcher(this),
+            new Humaniti.Scholar_Physician(this),
+            new Humaniti.Scholar_Scientist(this),
+            new Humaniti.Scout_Courier(this),
+            new Humaniti.Scout_Explorer(this),
+            new Humaniti.Scout_Surveyor(this),
+            new ShaperPriest_Academic(this),
+            new ShaperPriest_Ecclesiastic(this),
+            new ShaperPriest_Partisan(this),
+            new Soulhunter_Commando(this),
+            new Soulhunter_Commando(this),
+            new Soulhunter_Flight(this),
+            new Soulhunter_Flight(this),
+            new Soulhunter_Support(this),
+            new Soulhunter_Support(this),
         };
 
         //Need to remove duplicates that affect odds
