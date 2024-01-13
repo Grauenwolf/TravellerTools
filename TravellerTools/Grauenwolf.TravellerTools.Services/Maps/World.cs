@@ -90,6 +90,7 @@ public class World
     public EHex GovernmentCode { get { return UWP?[5]; } }
 
     public string? GovernmentType => Tables.GovernmentDescriptionWithContraband(GovernmentCode);
+    public string Gravity => Tables.Gravity(SizeCode);
     public string Heterogeneity => Tables.Heterogeneity(HeterogeneityCode);
     public EHex HeterogeneityCode => Cx?.Length >= 2 ? new EHex(Cx[1]) : EHex.Unknown;
     public string? Hex { get; set; }
