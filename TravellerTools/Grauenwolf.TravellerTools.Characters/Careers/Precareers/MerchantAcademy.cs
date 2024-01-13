@@ -39,12 +39,12 @@ class MerchantAcademy(CharacterBuilder characterBuilder) : CareerBase("Merchant 
         }
         else
         {
-            skillChoices.AddRange(SpecialtiesFor("Pilot"));
+            skillChoices.AddRange(SpecialtiesFor(character, "Pilot"));
             skillChoices.Add("Vacc Suit");
-            skillChoices.AddRange(SpecialtiesFor("Athletics"));
+            skillChoices.AddRange(SpecialtiesFor(character, "Athletics"));
             skillChoices.Add("Mechanic");
-            skillChoices.AddRange(SpecialtiesFor("Engineer"));
-            skillChoices.AddRange(SpecialtiesFor("Electronics"));
+            skillChoices.AddRange(SpecialtiesFor(character, "Engineer"));
+            skillChoices.AddRange(SpecialtiesFor(character, "Electronics"));
         }
 
         //Add basic skills at level 0

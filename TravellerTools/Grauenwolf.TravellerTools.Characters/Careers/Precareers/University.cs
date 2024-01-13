@@ -34,15 +34,15 @@ class University(CharacterBuilder characterBuilder) : CareerBase("University", n
         skillChoices.Add("Advocate");
         skillChoices.Add("Animals", "Training");
         skillChoices.Add("Animals", "Veterinary");
-        skillChoices.AddRange(SpecialtiesFor("Art"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Art"));
         skillChoices.Add("Astrogation");
-        skillChoices.AddRange(SpecialtiesFor("Electronics"));
-        skillChoices.AddRange(SpecialtiesFor("Engineer"));
-        skillChoices.AddRange(SpecialtiesFor("Language"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Electronics"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Engineer"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Language"));
         skillChoices.Add("Medic");
         skillChoices.Add("Navigation");
-        skillChoices.AddRange(SpecialtiesFor("Profession"));
-        skillChoices.AddRange(SpecialtiesFor("Science"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Profession"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Science"));
 
         //Remove skills we already have at level 1
         skillChoices.RemoveOverlap(character.Skills, 1);

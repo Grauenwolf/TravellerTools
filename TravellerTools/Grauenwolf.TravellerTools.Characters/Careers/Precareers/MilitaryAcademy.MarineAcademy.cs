@@ -6,15 +6,15 @@ class MarineAcademy(CharacterBuilder characterBuilder) : MilitaryAcademy("Marine
     protected override string QualifyAttribute => "End";
     protected override int QualifyTarget => 8;
 
-    protected override SkillTemplateCollection GetBasicSkills()
+    protected override SkillTemplateCollection GetBasicSkills(Character character)
     {
         var skillList = new SkillTemplateCollection();
 
-        skillList.AddRange(SpecialtiesFor("Athletics"));
+        skillList.AddRange(SpecialtiesFor(character, "Athletics"));
         skillList.Add("Vacc Suit");
-        skillList.AddRange(SpecialtiesFor("Tactics"));
-        skillList.AddRange(SpecialtiesFor("Heavy Weapons"));
-        skillList.AddRange(SpecialtiesFor("Gun Combat"));
+        skillList.AddRange(SpecialtiesFor(character, "Tactics"));
+        skillList.AddRange(SpecialtiesFor(character, "Heavy Weapons"));
+        skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
         skillList.Add("Stealth");
 
         return skillList;

@@ -5,9 +5,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 
 public class ImperiumDolphinCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator) : CharacterBuilder(dataPath, nameGenerator, characterBuilderLocator)
 {
+    public override ImmutableArray<Gender> Genders { get; } = ImmutableArray.Create<Gender>(new("F", "Female", 1), new("M", "Male", 1));
     public override string Species => "Imperium Dolphin";
     public override string SpeciesUrl => "https://wiki.travellerrpg.com/Dolphin";
-
     protected override int AgingRollMinAge => 20;
     protected override bool AllowPsionics => true;
 
@@ -21,7 +21,7 @@ public class ImperiumDolphinCharacterBuilder(string dataPath, NameGenerator name
             {
                 character.Skills.Remove(skill);
 
-                var templates = new SkillTemplateCollection(Book.RandomSkills);
+                var templates = new SkillTemplateCollection(Book(character).RandomSkills);
                 templates.RemoveOverlap(character.Skills, skill.Level);
                 character.Skills.Add(dice.Choose(templates), skill.Level);
             }
@@ -73,9 +73,9 @@ public class ImperiumDolphinCharacterBuilder(string dataPath, NameGenerator name
             new Entertainer_Artist(this),
             new Entertainer_Journalist(this),
             new Entertainer_Performer(this),
-            new Humaniti.Prisoner_Fixer(this),
-            new Humaniti.Prisoner_Inmate(this),
-            new Humaniti.Prisoner_Thug(this),
+            new Prisoner_Fixer(this),
+            new Prisoner_Inmate(this),
+            new Prisoner_Thug(this),
             new Humaniti.Psion_Adept(this),
             new Humaniti.Psion_PsiWarrrior(this),
             new Retired(this),

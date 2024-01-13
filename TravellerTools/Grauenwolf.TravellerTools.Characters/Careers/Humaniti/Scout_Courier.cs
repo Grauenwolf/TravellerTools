@@ -15,11 +15,11 @@ class Scout_Courier(CharacterBuilder characterBuilder) : Scout("Courier", charac
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Flyer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
                 return;
 
             case 3:
@@ -27,11 +27,11 @@ class Scout_Courier(CharacterBuilder characterBuilder) : Scout("Courier", charac
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
 
             case 6:

@@ -79,7 +79,7 @@ abstract class NormalCareer(string name, string assignment, CharacterBuilder cha
             var advancementRoll = dice.D(2, 6);
             if (advancementRoll == 12)
             {
-                character.AddHistory("Forced to continue current assignment.", character.Age);
+                character.AddHistory($"Forced to continue current assignment.", character.Age);
                 character.NextTermBenefits.MustEnroll = Assignment;
             }
             advancementRoll += character.GetDM(AdvancementAttribute) + character.GetAdvancementBonus(Career, Assignment);
@@ -105,7 +105,7 @@ abstract class NormalCareer(string name, string assignment, CharacterBuilder cha
 
             if (advancementRoll <= careerHistory.Terms)
             {
-                character.AddHistory("Forced to muster out.", character.Age);
+                character.AddHistory($"Forced to muster out.", character.Age);
                 character.NextTermBenefits.MusterOut = true;
             }
         }

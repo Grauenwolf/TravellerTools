@@ -15,7 +15,7 @@ class Believer_MainstreamBeliever(CharacterBuilder characterBuilder) : Believer(
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Profession")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Profession")));
                 return;
 
             case 2:
@@ -27,7 +27,7 @@ class Believer_MainstreamBeliever(CharacterBuilder characterBuilder) : Believer(
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
                 return;
 
             case 5:

@@ -15,15 +15,15 @@ class DolphinMilitary_Guardian(CharacterBuilder characterBuilder) : DolphinMilit
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Heavy Weapons")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Heavy Weapons")));
                 return;
 
             case 4:
@@ -31,7 +31,7 @@ class DolphinMilitary_Guardian(CharacterBuilder characterBuilder) : DolphinMilit
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Tactics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Tactics")));
                 return;
 
             case 6:

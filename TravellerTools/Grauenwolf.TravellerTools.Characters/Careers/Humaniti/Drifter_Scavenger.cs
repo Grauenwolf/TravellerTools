@@ -31,12 +31,12 @@ class Drifter_Scavenger(CharacterBuilder characterBuilder) : Drifter("Scavenger"
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Profession")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Profession")));
 
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
         }
     }

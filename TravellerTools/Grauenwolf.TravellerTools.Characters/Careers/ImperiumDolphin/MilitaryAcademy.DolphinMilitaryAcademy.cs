@@ -8,14 +8,14 @@ class DolphinMilitaryAcademy(CharacterBuilder characterBuilder) : MilitaryAcadem
     protected override string QualifyAttribute => "Edu";
     protected override int QualifyTarget => 6;
 
-    protected override SkillTemplateCollection GetBasicSkills()
+    protected override SkillTemplateCollection GetBasicSkills(Character character)
     {
         var skillList = new SkillTemplateCollection();
 
-        skillList.AddRange(SpecialtiesFor("Athletics"));
+        skillList.AddRange(SpecialtiesFor(character, "Athletics"));
         skillList.Add("Vacc Suit");
-        skillList.AddRange(SpecialtiesFor("Electronics"));
-        skillList.AddRange(SpecialtiesFor("Gun Combat"));
+        skillList.AddRange(SpecialtiesFor(character, "Electronics"));
+        skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
         skillList.Add("Stealth");
 
         return skillList;

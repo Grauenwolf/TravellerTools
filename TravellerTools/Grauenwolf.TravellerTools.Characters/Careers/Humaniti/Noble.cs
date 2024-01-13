@@ -36,7 +36,7 @@ abstract class Noble(string assignment, CharacterBuilder characterBuilder) : Nor
             case 3:
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("Refused a challenge to a duel for your honour and standing.", dice);
+                    character.AddHistory($"Refused a challenge to a duel for {character.Name}'s honour and standing.", dice);
                     character.SocialStanding += -1;
                 }
                 else
@@ -54,18 +54,18 @@ abstract class Noble(string assignment, CharacterBuilder characterBuilder) : Nor
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Melee", "Blade)");
                     skillList.Add("Leadership");
-                    skillList.AddRange(SpecialtiesFor("Tactics"));
+                    skillList.AddRange(SpecialtiesFor(character, "Tactics"));
                     skillList.Add("Deception");
                     character.Skills.Increase(dice.Choose(skillList));
                 }
                 return;
 
             case 4:
-                character.AddHistory("time as a ruler or playboy gives you a wide range of experiences.", dice);
+                character.AddHistory($"time as a ruler or playboy gives {character.Name} a wide range of experiences.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Animals", "Handling");
-                    skillList.AddRange(SpecialtiesFor("Art"));
+                    skillList.AddRange(SpecialtiesFor(character, "Art"));
                     skillList.Add("Carouse");
                     skillList.Add("Streetwise");
                     skillList.RemoveOverlap(character.Skills, 1);
@@ -80,7 +80,7 @@ abstract class Noble(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 6:
-                character.AddHistory("Become deeply involved in politics on your world of residence, becoming a player in the political intrigues of government. Gain a Rival.", dice);
+                character.AddHistory($"Become deeply involved in politics on {character.Name}'s world of residence, becoming a player in the political intrigues of government. Gain a Rival.", dice);
                 character.AddRival();
                 {
                     var skillList = new SkillTemplateCollection();
@@ -103,36 +103,36 @@ abstract class Noble(string assignment, CharacterBuilder characterBuilder) : Nor
                     {
                         if (dice.RollHigh(character.Skills.BestSkillLevel("Deception", "Persuade"), 8))
                         {
-                            character.AddHistory("Join a successful conspiracy of nobles.", dice);
+                            character.AddHistory($"Join a successful conspiracy of nobles.", dice);
                             var skillList = new SkillTemplateCollection();
                             skillList.Add("Deception");
                             skillList.Add("Persuade");
-                            skillList.AddRange(SpecialtiesFor("Tactics"));
+                            skillList.AddRange(SpecialtiesFor(character, "Tactics"));
                             skillList.Add("Carouse");
                             character.Skills.Increase(dice.Choose(skillList));
                         }
                         else
                         {
-                            var age = character.AddHistory("Join a conspiracy of nobles that were caught.", dice);
+                            var age = character.AddHistory($"Join a conspiracy of nobles that were caught.", dice);
                             Mishap(character, dice, age);
                         }
                     }
                     else
                     {
-                        character.AddHistory("Refuse to join a conspiracy of nobles. Gain an Enemy.", dice);
+                        character.AddHistory($"Refuse to join a conspiracy of nobles. Gain an Enemy.", dice);
                         character.AddEnemy();
                     }
                 }
                 return;
 
             case 9:
-                character.AddHistory("Your reign is acclaimed by all as being fair and wise – or in the case of a dilettante, you sponge off your family’s wealth a while longer. Gain either a jealous relative or an unhappy subject as an Enemy.", dice);
+                character.AddHistory($"{character.Name} reign is acclaimed by all as being fair and wise – or in the case of a dilettante, {character.Name} sponge off {character.Name}'s family’s wealth a while longer. Gain either a jealous relative or an unhappy subject as an Enemy.", dice);
                 character.AddEnemy();
                 character.CurrentTermBenefits.AdvancementDM += 2;
                 return;
 
             case 10:
-                character.AddHistory("You manipulate and charm your way through high society. Gain a Rival and an Ally.", dice);
+                character.AddHistory($"{character.Name} manipulate and charm {character.Name}'s way through high society. Gain a Rival and an Ally.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Carouse");
@@ -146,7 +146,7 @@ abstract class Noble(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 11:
-                character.AddHistory("You make an alliance with a powerful and charismatic noble, who becomes an Ally.", dice);
+                character.AddHistory($"{character.Name} make an alliance with a powerful and charismatic noble, who becomes an Ally.", dice);
                 character.AddAlly();
                 switch (dice.D(2))
                 {
@@ -161,7 +161,7 @@ abstract class Noble(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 12:
-                character.AddHistory("Your efforts do not go unnoticed by the Imperium.", dice);
+                character.AddHistory($"{character.Name} efforts do not go unnoticed by the Imperium.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 100;
                 return;
         }
@@ -188,29 +188,29 @@ abstract class Noble(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 2:
-                character.AddHistory("A family scandal forces you out of your position.", age);
+                character.AddHistory($"A family scandal forces {character.Name} out of {character.Name}'s position.", age);
                 character.SocialStanding += -1;
                 return;
 
             case 3:
-                character.AddHistory("A disaster or war strikes.", age);
+                character.AddHistory($"A disaster or war strikes.", age);
                 if (!dice.RollHigh(character.Skills.BestSkillLevel("Stealth", "Deception"), 8))
                     Injury(character, dice, age);
                 return;
 
             case 4:
-                character.AddHistory("Political manoeuvrings usurp your position. Gain a Rival.", age);
+                character.AddHistory($"Political manoeuvrings usurp {character.Name}'s position. Gain a Rival.", age);
                 character.AddRival();
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Diplomat"));
-                    skillList.AddRange(SpecialtiesFor("Advocate"));
+                    skillList.AddRange(SpecialtiesFor(character, "Diplomat"));
+                    skillList.AddRange(SpecialtiesFor(character, "Advocate"));
                     character.Skills.Increase(dice.Choose(skillList));
                 }
                 return;
 
             case 5:
-                character.AddHistory("An assassin attempts to end your life.", age);
+                character.AddHistory($"An assassin attempts to end {character.Name}'s life.", age);
                 if (!dice.RollHigh(character.EnduranceDM, 8))
                     Injury(character, dice, age);
                 return;
@@ -248,7 +248,7 @@ abstract class Noble(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 4:
@@ -278,7 +278,7 @@ abstract class Noble(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Language")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Language")));
                 return;
 
             case 4:
@@ -290,7 +290,7 @@ abstract class Noble(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Art")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
                 return;
         }
     }
@@ -316,11 +316,11 @@ abstract class Noble(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
                 return;
         }
     }

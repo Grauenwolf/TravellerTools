@@ -43,12 +43,12 @@ abstract class DolphinCivilian(string assignment, CharacterBuilder characterBuil
 
                     if (dice.RollHigh(dm, 8))
                     {
-                        character.AddHistory("Rivalries between another race and Dolphins over your world’s ocean resources lead to conflict. Through diplomacy your faction was vindicated.", dice);
+                        character.AddHistory($"Rivalries between another race and Dolphins over {character.Name}'s world’s ocean resources lead to conflict. Through diplomacy {character.Name}'s faction was vindicated.", dice);
                         character.CurrentTermBenefits.AdvancementDM += 2;
                     }
                     else
                     {
-                        character.AddHistory("Rivalries between another race and Dolphins over your world’s ocean resources lead to conflict. You try diplomacy but it fails.", dice);
+                        character.AddHistory($"Rivalries between another race and Dolphins over {character.Name}'s world’s ocean resources lead to conflict. {character.Name} try diplomacy but it fails.", dice);
                         character.BenefitRolls -= 1;
                     }
                 }
@@ -59,11 +59,11 @@ abstract class DolphinCivilian(string assignment, CharacterBuilder characterBuil
                     var dm = character.Skills.BestSkillLevel(skills);
                     if (dice.RollHigh(dm, 8))
                     {
-                        character.AddHistory("Rivalries between another race and Dolphins over your world’s ocean resources lead to conflict. You succeed through violence.", dice);
+                        character.AddHistory($"Rivalries between another race and Dolphins over {character.Name}'s world’s ocean resources lead to conflict. {character.Name} succeed through violence.", dice);
                     }
                     else
                     {
-                        var age = character.AddHistory("Rivalries between another race and Dolphins over your world’s ocean resources lead to conflict. You try violence and are injured in the process.", dice);
+                        var age = character.AddHistory($"Rivalries between another race and Dolphins over {character.Name}'s world’s ocean resources lead to conflict. {character.Name} try violence and are injured in the process.", dice);
                         Injury(character, dice, age);
                         character.CurrentTermBenefits.AdvancementDM += -2;
                     }
@@ -77,16 +77,16 @@ abstract class DolphinCivilian(string assignment, CharacterBuilder characterBuil
                 return;
 
             case 4:
-                character.AddHistory("You volunteer for a research project to test new waldo equipment or cybernetics to improve the lives of \r\nother Dolphins. Gain a Contact in the research field.", dice);
+                character.AddHistory($"{character.Name} volunteer for a research project to test new waldo equipment or cybernetics to improve the lives of \r\nother Dolphins. Gain a Contact in the research field.", dice);
                 if (dice.RollHigh(character.EducationDM, 7))
                     character.Skills.Add("Science", "Cybernetics");
                 return;
 
             case 5:
-                character.AddHistory("You have a chance to travel offworld on business and spend a long time in space.", dice);
+                character.AddHistory($"{character.Name} have a chance to travel offworld on business and spend a long time in space.", dice);
                 {
                     var skills = new SkillTemplateCollection();
-                    skills.AddRange(SpecialtiesFor("Pilot"));
+                    skills.AddRange(SpecialtiesFor(character, "Pilot"));
                     skills.RemoveOverlap(character.Skills, 1); //Only level 1 is allowed for this skill.
                     skills.Add("Athletics", "Dexterity");
                     skills.Add("Electronics", "Comms");
@@ -100,12 +100,12 @@ abstract class DolphinCivilian(string assignment, CharacterBuilder characterBuil
             case 6:
                 if (dice.RollHigh(character.StrengthDM, 7))
                 {
-                    character.AddHistory("You rescue a high-status swimmer who was lost at sea. Gain an Ally with SOC 10+", dice);
+                    character.AddHistory($"{character.Name} rescue a high-status swimmer who was lost at sea. Gain an Ally with SOC 10+", dice);
                     character.AddAlly();
                 }
                 else
                 {
-                    character.AddHistory("You fail to rescue a high-status swimmer who was lost at sea.", dice);
+                    character.AddHistory($"{character.Name} fail to rescue a high-status swimmer who was lost at sea.", dice);
                 }
                 return;
 
@@ -114,7 +114,7 @@ abstract class DolphinCivilian(string assignment, CharacterBuilder characterBuil
                 return;
 
             case 8:
-                character.AddHistory("Spend an extensive period living out of water among humans.", dice);
+                character.AddHistory($"Spend an extensive period living out of water among humans.", dice);
                 {
                     var skills = new SkillTemplateCollection();
                     skills.Add("Vacc Suit");
@@ -126,7 +126,7 @@ abstract class DolphinCivilian(string assignment, CharacterBuilder characterBuil
             case 9:
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("Your companions are attacked by fierce sea creatures! You flee gain one of the survivors as an Enemy.", dice);
+                    character.AddHistory($"{character.Name}'s companions are attacked by fierce sea creatures! {character.Name} flee gain one of the survivors as an Enemy.", dice);
                     character.AddEnemy();
                 }
                 else
@@ -134,12 +134,12 @@ abstract class DolphinCivilian(string assignment, CharacterBuilder characterBuil
                     var dm = character.Skills.BestSkillLevel("Gun Combat", "Natural");
                     if (dice.RollHigh(dm, 7))
                     {
-                        character.AddHistory("Your companions are attacked by fierce sea creatures! You stay and fight, rescuing them. Gain an ally.", dice);
+                        character.AddHistory($"{character.Name}'s companions are attacked by fierce sea creatures! {character.Name} stay and fight, rescuing them. Gain an ally.", dice);
                         character.AddAlly();
                     }
                     else
                     {
-                        var age = character.AddHistory("Your companions are attacked by fierce sea creatures! You stay and fight, getting injured in the process.", dice);
+                        var age = character.AddHistory($"{character.Name}'s companions are attacked by fierce sea creatures! {character.Name} stay and fight, getting injured in the process.", dice);
                         Injury(character, dice, age);
                     }
                 }
@@ -148,22 +148,22 @@ abstract class DolphinCivilian(string assignment, CharacterBuilder characterBuil
             case 10:
                 if (dice.RollHigh(Math.Max(character.EnduranceDM, character.Skills.BestSkillLevel("Survival")), 8))
                 {
-                    character.AddHistory("You succeed at a dangerous mission to rescue people in a sinking vessel or underwater city.", dice);
+                    character.AddHistory($"{character.Name} succeed at a dangerous mission to rescue people in a sinking vessel or underwater city.", dice);
                 }
                 else
                 {
-                    character.AddHistory("You fail a dangerous mission to rescue people in a sinking vessel or underwater city.", dice);
+                    character.AddHistory($"{character.Name} fail a dangerous mission to rescue people in a sinking vessel or underwater city.", dice);
                 }
                 dice.Choose(character.Skills).Level += 1;
                 return;
 
             case 11:
-                character.AddHistory("You discover a sunken vessel that contains valuable salvage. ", dice);
+                character.AddHistory($"{character.Name} discover a sunken vessel that contains valuable salvage. ", dice);
                 character.BenefitRolls += 1;
                 return;
 
             case 12:
-                character.AddHistory("You rise to a position of responsibility.", dice);
+                character.AddHistory($"{character.Name} rise to a position of responsibility.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 100;
                 return;
         }
@@ -190,27 +190,27 @@ abstract class DolphinCivilian(string assignment, CharacterBuilder characterBuil
                 return;
 
             case 2:
-                character.AddHistory("One of your friends becomes involved with a revolutionary political faction advocating Dolphin \r\nrights. You are caught up in the investigation and lose your job.", age);
+                character.AddHistory($"One of {character.Name}'s friends becomes involved with a revolutionary political faction advocating Dolphin \r\nrights. {character.Name} is caught up in the investigation and lose {character.Name}'s job.", age);
                 return;
 
             case 3:
                 if (dice.RollHigh(character.Skills.BestSkillLevel("Melee", "Gun Combat"), 8))
                 {
-                    character.AddHistory("A war or insurgency erupts on your world. You are drafted into the military.", age);
+                    character.AddHistory($"A war or insurgency erupts on {character.Name}'s world. {character.Name} is drafted into the military.", age);
                     character.NextTermBenefits.MustEnroll = "Dolphin Military";
                 }
                 else
-                    character.AddHistory("To war or insurgency erupts on your world. Your business or home is destroyed, forcing you into exile.", age);
+                    character.AddHistory($"To war or insurgency erupts on {character.Name}'s world. {character.Name}'s business or home is destroyed, forcing {character.Name} into exile.", age);
 
                 return;
 
             case 4:
-                character.AddHistory("A purist political party comes to power on your world making trouble for uplifted Dolphins and costing you your job. Gain a purist political militant as an Enemy", age);
+                character.AddHistory($"A purist political party comes to power on {character.Name}'s world making trouble for uplifted Dolphins and costing {character.Name} {character.Name}'s job. Gain a purist political militant as an Enemy", age);
                 character.SocialStanding -= 1;
                 return;
 
             case 5:
-                character.AddHistory("An accident leaves you caught on land without a travel suit. You suffer serious dehydration and \r\nrequire lengthy hospitalisation.", age);
+                character.AddHistory($"An accident leaves {character.Name} caught on land without a travel suit. {character.Name} suffer serious dehydration and \r\nrequire lengthy hospitalisation.", age);
                 character.Endurance += -2;
                 return;
 
@@ -219,11 +219,11 @@ abstract class DolphinCivilian(string assignment, CharacterBuilder characterBuil
                 var dm = Math.Max(character.SocialStandingDM, character.Skills.BestSkillLevel("Advocate"));
                 if (dice.RollHigh(dm, 8))
                 {
-                    character.AddHistory("You are accidently trapped or shot by fishermen. You successfully sue.", age);
+                    character.AddHistory($"{character.Name} is accidently trapped or shot by fishermen. {character.Name} successfully sue.", age);
                     character.BenefitRolls += 2;
                 }
                 else
-                    character.AddHistory("You are accidently trapped or shot by fishermen.", age);
+                    character.AddHistory($"{character.Name} is accidently trapped or shot by fishermen.", age);
                 return;
         }
     }
@@ -233,11 +233,11 @@ abstract class DolphinCivilian(string assignment, CharacterBuilder characterBuil
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
 
             case 3:

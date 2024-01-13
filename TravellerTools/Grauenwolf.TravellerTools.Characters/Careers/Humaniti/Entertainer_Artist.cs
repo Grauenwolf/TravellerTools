@@ -15,7 +15,7 @@ class Entertainer_Artist(CharacterBuilder characterBuilder) : Entertainer("Artis
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Art")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
                 return;
 
             case 2:
@@ -35,7 +35,7 @@ class Entertainer_Artist(CharacterBuilder characterBuilder) : Entertainer("Artis
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Profession")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Profession")));
                 return;
         }
     }
@@ -50,7 +50,7 @@ class Entertainer_Artist(CharacterBuilder characterBuilder) : Entertainer("Artis
             case 1:
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Art"));
+                    skillList.AddRange(SpecialtiesFor(character, "Art"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);

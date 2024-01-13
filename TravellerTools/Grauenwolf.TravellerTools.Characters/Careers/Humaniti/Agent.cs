@@ -53,7 +53,7 @@ abstract class Agent : NormalCareer
 
             case 3:
                 {
-                    var age = character.AddHistory("An investigation takes on a dangerous turn.", dice);
+                    var age = character.AddHistory($"An investigation takes on a dangerous turn.", dice);
 
                     if (dice.RollHigh(character.Skills.BestSkillLevel("Investigate", "Streetwise"), 8))
                     {
@@ -71,7 +71,7 @@ abstract class Agent : NormalCareer
                     return;
                 }
             case 4:
-                character.AddHistory("Rewarded for a successful mission.", dice);
+                character.AddHistory($"Rewarded for a successful mission.", dice);
                 character.BenefitRollDMs.Add(1);
                 return;
 
@@ -82,7 +82,7 @@ abstract class Agent : NormalCareer
                 return;
 
             case 6:
-                character.AddHistory("Advanced training in a specialist field.", dice);
+                character.AddHistory($"Advanced training in a specialist field.", dice);
                 if (dice.RollHigh(character.EducationDM, 8))
                 {
                     dice.Choose(character.Skills).Level += 1;
@@ -95,7 +95,7 @@ abstract class Agent : NormalCareer
 
             case 8:
                 {
-                    var age = character.AddHistory("Go undercover to investigate an enemy.", dice);
+                    var age = character.AddHistory($"Go undercover to investigate an enemy.", dice);
                     character.AddEnemy();
 
                     var career = dice.Choose(m_Careers);
@@ -113,18 +113,18 @@ abstract class Agent : NormalCareer
                 return;
 
             case 9:
-                character.AddHistory("You go above and beyond the call of duty.", dice);
+                character.AddHistory($"{character.Name} went above and beyond the call of duty.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 2;
                 return;
 
             case 10:
-                character.AddHistory("Given specialist training in vehicles.", dice);
+                character.AddHistory($"Given specialist training in vehicles.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Drive"));
-                    skillList.AddRange(SpecialtiesFor("Flyer"));
-                    skillList.AddRange(SpecialtiesFor("Pilot"));
-                    skillList.AddRange(SpecialtiesFor("Gunner"));
+                    skillList.AddRange(SpecialtiesFor(character, "Drive"));
+                    skillList.AddRange(SpecialtiesFor(character, "Flyer"));
+                    skillList.AddRange(SpecialtiesFor(character, "Pilot"));
+                    skillList.AddRange(SpecialtiesFor(character, "Gunner"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);
@@ -132,7 +132,7 @@ abstract class Agent : NormalCareer
                 return;
 
             case 11:
-                character.AddHistory("Befriended by a senior agent.", dice);
+                character.AddHistory($"Befriended by a senior agent.", dice);
                 switch (dice.D(2))
                 {
                     case 1:
@@ -146,7 +146,7 @@ abstract class Agent : NormalCareer
                 return;
 
             case 12:
-                character.AddHistory("Uncover a major conspiracy against your employers.", dice);
+                character.AddHistory($"Uncover a major conspiracy against {character.Name}'s employers.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 100;
                 return;
         }
@@ -173,30 +173,30 @@ abstract class Agent : NormalCareer
                 return;
 
             case 2:
-                character.AddHistory("Life ruined by a criminal gang. Gain the gang as an Enemy", age);
+                character.AddHistory($"Life ruined by a criminal gang. Gain the gang as an Enemy", age);
                 character.AddEnemy();
                 return;
 
             case 3:
-                character.AddHistory("Hard times caused by a lack of interstellar trade costs you your job.", age);
+                character.AddHistory($"Hard times caused by a lack of interstellar trade costs {character.Name}'s job.", age);
                 character.SocialStanding += -1;
                 return;
 
             case 4:
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("Accepted a deal with criminal or other figure under investigation.", age);
+                    character.AddHistory($"Accepted a deal with criminal or other figure under investigation.", age);
                 }
                 else
                 {
-                    character.AddHistory("Refused a deal with criminal or other figure under investigation. Gain an Enemy", age);
-                    character.Skills.Increase(dice.Choose(RandomSkills));
+                    character.AddHistory($"Refused a deal with criminal or other figure under investigation. Gain an Enemy", age);
+                    character.Skills.Increase(dice.Choose(RandomSkills(character)));
                     character.AddEnemy();
                 }
                 return;
 
             case 5:
-                character.AddHistory("Your work ends up coming home with you, and someone gets hurt. Contact or ally takes the worst of 2 injury rolls.", age);
+                character.AddHistory($"{character.Name}'s work ends up coming home with {character.Name}, and someone gets hurt. Contact or ally takes the worst of 2 injury rolls.", age);
                 return;
 
             case 6:
@@ -225,7 +225,7 @@ abstract class Agent : NormalCareer
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
                 return;
 
             case 3:
@@ -233,7 +233,7 @@ abstract class Agent : NormalCareer
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Flyer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
                 return;
 
             case 5:
@@ -241,7 +241,7 @@ abstract class Agent : NormalCareer
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
         }
     }
@@ -255,7 +255,7 @@ abstract class Agent : NormalCareer
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Language")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Language")));
                 return;
 
             case 3:
@@ -271,7 +271,7 @@ abstract class Agent : NormalCareer
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
         }
     }
@@ -281,7 +281,7 @@ abstract class Agent : NormalCareer
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
 
             case 2:
@@ -293,7 +293,7 @@ abstract class Agent : NormalCareer
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
                 return;
 
             case 5:
@@ -301,7 +301,7 @@ abstract class Agent : NormalCareer
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
         }
     }

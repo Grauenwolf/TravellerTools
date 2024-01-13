@@ -74,7 +74,7 @@ abstract class MilitaryCareer(string name, string assignment, CharacterBuilder c
             var totalTermsInCareer = character.CareerHistory.Where(pc => pc.Career == Career).Sum(c => c.Terms);
 
             //Not all people will attempt a commission even when possible
-            var attemptCommission = (totalTermsInCareer == 1 || CommissionAttribute(character) >= 9) && dice.D(100) < Book.OddsOfSuccess(character, CommissionAttributeDM(character), CommssionTargetNumber - character.CurrentTermBenefits.CommissionDM);
+            var attemptCommission = (totalTermsInCareer == 1 || CommissionAttribute(character) >= 9) && dice.D(100) < Tables.OddsOfSuccess(CommissionAttributeDM(character), CommssionTargetNumber - character.CurrentTermBenefits.CommissionDM);
 
             var commissionEarned = false;
 
@@ -85,7 +85,7 @@ abstract class MilitaryCareer(string name, string assignment, CharacterBuilder c
             var advancementRoll = dice.D(2, 6);
             if (advancementRoll == 12)
             {
-                character.AddHistory("Forced to continue current assignment", character.Age);
+                character.AddHistory($"Forced to continue current assignment", character.Age);
                 character.NextTermBenefits.MustEnroll = Assignment;
             }
             advancementRoll += character.GetDM(AdvancementAttribute) + character.GetAdvancementBonus(Career, Assignment); ;
@@ -108,7 +108,7 @@ abstract class MilitaryCareer(string name, string assignment, CharacterBuilder c
             }
             if (advancementRoll <= careerHistory.Terms)
             {
-                character.AddHistory("Forced to muster out.", character.Age);
+                character.AddHistory($"Forced to muster out.", character.Age);
                 character.NextTermBenefits.MusterOut = true;
             }
         }

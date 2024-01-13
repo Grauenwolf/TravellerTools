@@ -15,7 +15,7 @@ class DolphinCivilian_Nomad(CharacterBuilder characterBuilder) : DolphinCivilian
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
 
             case 2:

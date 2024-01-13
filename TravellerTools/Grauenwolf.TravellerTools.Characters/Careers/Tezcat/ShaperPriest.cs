@@ -34,18 +34,18 @@ abstract class ShaperPriest(string assignment, CharacterBuilder characterBuilder
                 return;
 
             case 3:
-                character.AddHistory("You are involved in good works in the community gaining the respect of a large segment of society. Gain an alley", dice);
+                character.AddHistory($"{character.Name} is involved in good works in the community gaining the respect of a large segment of society. Gain an alley", dice);
                 character.SocialStanding += 1;
                 character.AddAlly();
                 return;
 
             case 4:
-                character.AddHistory("A notable academic consults with you about a publication or documentary they are working on. Gain a Contact in academia.", dice);
+                character.AddHistory($"A notable academic consults with {character.Name} about a publication or documentary they are working on. Gain a Contact in academia.", dice);
                 character.AddContact();
                 return;
 
             case 5:
-                character.AddHistory("You are sent to a new community or parish to preach Shaper doctrine among the poor.", dice);
+                character.AddHistory($"{character.Name} is sent to a new community or parish to preach Shaper doctrine among the poor.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Streetwise");
@@ -57,7 +57,7 @@ abstract class ShaperPriest(string assignment, CharacterBuilder characterBuilder
                 return;
 
             case 6:
-                character.AddHistory("You retreat from the mundane world for a time in the hope of a revelation, although this affects your work and relationships.", dice);
+                character.AddHistory($"{character.Name} retreat from the mundane world for a time in the hope of a revelation, although this affects {character.Name}'s work and relationships.", dice);
                 character.SocialStanding -= dice.D(3);
                 if (character.SocialStanding < 1)
                     character.SocialStanding = 1;
@@ -71,7 +71,7 @@ abstract class ShaperPriest(string assignment, CharacterBuilder characterBuilder
                 return;
 
             case 8:
-                character.AddHistory("You are chosen to represent the Shaper Church in a vid show or other highly public forum.", dice);
+                character.AddHistory($"{character.Name} is chosen to represent the Shaper Church in a vid show or other highly public forum.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Carouse");
@@ -85,14 +85,14 @@ abstract class ShaperPriest(string assignment, CharacterBuilder characterBuilder
                 if (dice.NextBoolean())
                 {
                     var enemies = dice.D(6);
-                    character.AddHistory($"You refuse an offer of inducements to betray the Shaper Church. Gain {enemies} enemies.", dice);
+                    character.AddHistory($"{character.Name} refuse an offer of inducements to betray the Shaper Church. Gain {enemies} enemies.", dice);
                     character.AddEnemy(enemies);
                 }
                 else
                 {
                     var cash = 10000 * dice.D(character.BenefitRolls * 2, 6);
                     character.BenefitRolls = 0;
-                    character.AddHistory($"You accept an offer of inducements to betray the Shaper Church. Gain {cash.ToString("N0")} in cash.", dice);
+                    character.AddHistory($"{character.Name} accept an offer of inducements to betray the Shaper Church. Gain {cash.ToString("N0")} in cash.", dice);
                     character.NextTermBenefits.MusterOut = true;
                 }
                 return;
@@ -101,24 +101,24 @@ abstract class ShaperPriest(string assignment, CharacterBuilder characterBuilder
                 {
                     if (dice.NextBoolean())
                     {
-                        character.AddHistory($"A leader or other important personage confides in you about their highly damaging indiscretions. Gain an ally", dice);
+                        character.AddHistory($"A leader or other important personage confides in {character.Name} about their highly damaging indiscretions. Gain an ally", dice);
                         character.AddAlly();
                     }
                     else
                     {
-                        character.AddHistory($"You betray a leader or other important personage who confided in you about their highly damaging indiscretions. Gain an enemy", dice);
+                        character.AddHistory($"{character.Name} betray a leader or other important personage who confided in {character.Name} about their highly damaging indiscretions. Gain an enemy", dice);
                         character.BenefitRolls += dice.D(3);
                         character.AddEnemy();
                     }
                     return;
                 }
             case 11:
-                character.AddHistory("Someone more charismatic but less devout than you has become your superior.", dice);
+                character.AddHistory($"Someone more charismatic but less devout than {character.Name} has become {character.Name}'s superior.", dice);
                 character.LongTermBenefits.AdvancementDM = -1;
                 return;
 
             case 12:
-                var age = character.AddHistory("Your faith enjoys an explosion of popularity largely thanks to your efforts.", dice);
+                var age = character.AddHistory($"{character.Name}'s faith enjoys an explosion of popularity largely thanks to {character.Name}'s efforts.", dice);
                 Promote(character, dice, character.LastCareer!, age);
                 character.LongTermBenefits.AdvancementDM = 1;
                 return;
@@ -130,24 +130,24 @@ abstract class ShaperPriest(string assignment, CharacterBuilder characterBuilder
         switch (dice.D(6))
         {
             case 1:
-                character.AddHistory("Opponents of your belief system ambush you.", age);
+                character.AddHistory($"Opponents of {character.Name}'s belief system ambush {character.Name}.", age);
                 Injury(character, dice, true, age);
                 return;
 
             case 2:
-                character.AddHistory("You aid a follower back to the True Path but this angers a friend or relative. Gain an Enemy.", age);
+                character.AddHistory($"{character.Name} aid a follower back to the True Path but this angers a friend or relative. Gain an Enemy.", age);
                 character.AddEnemy();
                 return;
 
             case 3:
-                character.AddHistory("You are caught in a scandal.", age);
+                character.AddHistory($"{character.Name} is caught in a scandal.", age);
                 Demote(character, dice, character.LastCareer!, age);
                 character.BenefitRolls -= 1;
                 character.NextTermBenefits.MusterOut = false;
                 return;
 
             case 4:
-                character.AddHistory("You have been following false teachings!", age);
+                character.AddHistory($"{character.Name} have been following false teachings!", age);
 
                 var skills = new List<Skill>();
                 var skillA = character.Skills["Profession", "Religion"];
@@ -162,14 +162,14 @@ abstract class ShaperPriest(string assignment, CharacterBuilder characterBuilder
                 return;
 
             case 5:
-                character.AddHistory("Your faith is shaken.", age);
+                character.AddHistory($"{character.Name}'s faith is shaken.", age);
                 character.BenefitRolls -= 1;
                 character.NextTermBenefits.MusterOut = false;
                 return;
 
             case 6:
                 var rivals = dice.D(3);
-                character.AddHistory($"You come into conflict with a splinter group of the Shaper Church which maintains your version is the wrong one. Gain {rivals} Rivals.", age);
+                character.AddHistory($"{character.Name} come into conflict with a splinter group of the Shaper Church which maintains {character.Name}'s version is the wrong one. Gain {rivals} Rivals.", age);
                 character.AddRival(3);
 
                 return;
@@ -231,7 +231,7 @@ abstract class ShaperPriest(string assignment, CharacterBuilder characterBuilder
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Science")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
                 return;
 
             case 3:

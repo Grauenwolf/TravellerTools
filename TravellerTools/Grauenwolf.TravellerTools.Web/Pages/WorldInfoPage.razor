@@ -73,15 +73,15 @@
 
         <tr>
             <th rowspan="4">Economics</th>
-            <th >Resources </th>
+            <th>Resources </th>
             <td colspan="4"><b>@current.ResourcesCode:</b> @current.Resources</td>
         </tr>
         <tr>
-            <th >Labor</th>
+            <th>Labor</th>
             <td colspan="4"><b>@current.LaborCode:</b> @current.Labor</td>
         </tr>
         <tr>
-            <th >Infrastructure</th>
+            <th>Infrastructure</th>
             <td colspan="4"><b>@current.InfrastructureCode:</b> @current.Infrastructure</td>
         </tr>
         <tr>
@@ -92,15 +92,15 @@
 
         <tr>
             <th rowspan="4">Culture</th>
-            <th >Heterogeneity </th>
+            <th>Heterogeneity </th>
             <td colspan="4"><b>@current.HeterogeneityCode:</b> @current.Heterogeneity</td>
         </tr>
         <tr>
-            <th >Acceptance</th>
+            <th>Acceptance</th>
             <td colspan="4"><b>@current.AcceptanceCode:</b> @current.Acceptance</td>
         </tr>
         <tr>
-            <th >Strangeness</th>
+            <th>Strangeness</th>
             <td colspan="4"><b>@current.StrangenessCode:</b> @current.Strangeness</td>
         </tr>
         <tr>
@@ -162,7 +162,7 @@
                     }
                 </tr>
                 <tr>
-                    <th rowspan="2">Berthing Cost</th>
+                    <th rowspan="3">Berthing Cost</th>
                     <th>To Dock</th>
                     @if (downport != null)
                     {
@@ -182,6 +182,17 @@
                     @if (highport != null)
                     {
                         <td>@(highport.BerthingCostPerDay.ToString("N0"))</td>
+                    }
+                </tr>
+                <tr>
+                    <th>Per week</th>
+                    @if (downport != null)
+                    {
+                        <td>@((downport.BerthingCostPerDay * 7).ToString("N0"))</td>
+                    }
+                    @if (highport != null)
+                    {
+                        <td>@((highport.BerthingCostPerDay * 7).ToString("N0"))</td>
                     }
                 </tr>
                 <tr>

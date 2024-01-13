@@ -15,7 +15,7 @@ class Marine_Support(CharacterBuilder characterBuilder) : Marine("Marine Support
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 2:
@@ -25,8 +25,8 @@ class Marine_Support(CharacterBuilder characterBuilder) : Marine("Marine Support
             case 3:
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Drive"));
-                    skillList.AddRange(SpecialtiesFor("Flyer"));
+                    skillList.AddRange(SpecialtiesFor(character, "Drive"));
+                    skillList.AddRange(SpecialtiesFor(character, "Flyer"));
                     character.Skills.Increase(dice.Choose(skillList));
                 }
                 return;
@@ -36,11 +36,11 @@ class Marine_Support(CharacterBuilder characterBuilder) : Marine("Marine Support
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Heavy Weapons")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Heavy Weapons")));
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
         }
     }

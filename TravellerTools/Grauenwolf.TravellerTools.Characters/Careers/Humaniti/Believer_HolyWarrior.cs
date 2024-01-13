@@ -15,11 +15,11 @@ class Believer_HolyWarrior(CharacterBuilder characterBuilder) : Believer("Holy W
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
                 return;
 
             case 3:
@@ -27,7 +27,7 @@ class Believer_HolyWarrior(CharacterBuilder characterBuilder) : Believer("Holy W
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Heavy Weapons")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Heavy Weapons")));
                 return;
 
             case 5:
@@ -35,7 +35,7 @@ class Believer_HolyWarrior(CharacterBuilder characterBuilder) : Believer("Holy W
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
         }
     }
@@ -51,7 +51,7 @@ class Believer_HolyWarrior(CharacterBuilder characterBuilder) : Believer("Holy W
             case 1:
                 careerHistory.Title = "Fighter";
                 if (allowBonus)
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
 
             case 2:

@@ -48,11 +48,11 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 3:
-                character.AddHistory("Assigned to a planet with a hostile or wild environment.", dice);
+                character.AddHistory($"Assigned to a planet with a hostile or wild environment.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Vacc Suit");
-                    skillList.AddRange(SpecialtiesFor("Engineer"));
+                    skillList.AddRange(SpecialtiesFor(character, "Engineer"));
                     skillList.Add("Animals", "Handling");
                     skillList.Add("Animals", "Training");
                     skillList.Add("Recon");
@@ -63,7 +63,7 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 4:
-                character.AddHistory("Assigned to an urbanised planet torn by war.", dice);
+                character.AddHistory($"Assigned to an urbanised planet torn by war.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Stealth");
@@ -78,16 +78,16 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 5:
-                character.AddHistory($"Given a special assignment or duty in your unit.", dice);
+                character.AddHistory($"Given a special assignment or duty in {character.Name}'s unit.", dice);
                 character.BenefitRollDMs.Add(1);
                 return;
 
             case 6:
-                var age = character.AddHistory("Thrown into a brutal ground war", dice);
+                var age = character.AddHistory($"Thrown into a brutal ground war", dice);
                 if (dice.RollHigh(character.EducationDM, 8))
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                    skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
                     skillList.Add("Leadership");
                     character.Skills.Increase(dice.Choose(skillList));
                 }
@@ -102,18 +102,18 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 8:
-                character.AddHistory("Advanced training in a specialist field", dice);
+                character.AddHistory($"Advanced training in a specialist field", dice);
                 if (dice.RollHigh(character.EducationDM, 8))
                     dice.Choose(character.Skills).Level += 1;
                 return;
 
             case 9:
-                character.AddHistory("Surrounded and outnumbered by the enemy, you hold out until relief arrives.", dice);
+                character.AddHistory($"Surrounded and outnumbered by the enemy, {character.Name} hold out until relief arrives.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 2;
                 return;
 
             case 10:
-                character.AddHistory("Assigned to a peacekeeping role.", dice);
+                character.AddHistory($"Assigned to a peacekeeping role.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Admin");
@@ -127,7 +127,7 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 11:
-                character.AddHistory("Commanding officer takes an interest in your career.", dice);
+                character.AddHistory($"Commanding officer takes an interest in {character.Name}'s career.", dice);
                 switch (dice.D(2))
                 {
                     case 1:
@@ -141,7 +141,7 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 12:
-                character.AddHistory("Display heroism in battle.", dice);
+                character.AddHistory($"Display heroism in battle.", dice);
 
                 character.CurrentTermBenefits.AdvancementDM += 100; //also applies to commission rolls
 
@@ -173,13 +173,13 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 2:
-                character.AddHistory("Unit is slaughtered in a disastrous battle, for which you blame your commander. Gain commander as Enemy.", age);
+                character.AddHistory($"Unit is slaughtered in a disastrous battle, for which {character.Name} blame {character.Name}'s commander. Gain commander as Enemy.", age);
                 character.AddEnemy();
                 return;
 
             case 3:
-                character.AddHistory("Sent to a very unpleasant region (jungle, swamp, desert, icecap, urban) to battle against guerrilla fighters and rebels. Discharged because of stress, injury or because the government wishes to bury the whole incident.", age);
-                character.AddHistory("Gain rebels as Enemy", age);
+                character.AddHistory($"Sent to a very unpleasant region (jungle, swamp, desert, icecap, urban) to battle against guerrilla fighters and rebels. Discharged because of stress, injury or because the government wishes to bury the whole incident.", age);
+                character.AddHistory($"Gain rebels as Enemy", age);
                 character.AddEnemy();
                 {
                     var skillList = new SkillTemplateCollection();
@@ -192,18 +192,18 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
             case 4:
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("Joined commanding officer is engaged in some illegal activity, such as weapon smuggling. Gain an Ally.", age);
+                    character.AddHistory($"Joined commanding officer is engaged in some illegal activity, such as weapon smuggling. Gain an Ally.", age);
                     character.AddAlly();
                 }
                 else
                 {
-                    character.AddHistory("Forced out after co-operating with military investigation in commanding officer's illegal activity.", age);
+                    character.AddHistory($"Forced out after co-operating with military investigation in commanding officer's illegal activity.", age);
                     character.BenefitRolls += 1;
                 }
                 return;
 
             case 5:
-                character.AddHistory("You are tormented by or quarrel with an officer or fellow soldier. Gain that officer as a Rival.", age);
+                character.AddHistory($"{character.Name} is tormented by or quarrel with an officer or fellow soldier. Gain that officer as a Rival.", age);
                 character.AddRival();
                 return;
 
@@ -233,18 +233,18 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
             case 1:
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Drive"));
+                    skillList.AddRange(SpecialtiesFor(character, "Drive"));
                     skillList.Add("Vacc Suit");
                     character.Skills.Increase(dice.Choose(skillList));
                 }
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
 
             case 4:
@@ -252,11 +252,11 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Heavy Weapons")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Heavy Weapons")));
                 return;
         }
     }
@@ -269,7 +269,7 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
             {
                 case 0:
                     careerHistory.Title = "Private";
-                    character.Skills.Add(dice.Choose(SpecialtiesFor("Gun Combat")), 1);
+                    character.Skills.Add(dice.Choose(SpecialtiesFor(character, "Gun Combat")), 1);
                     return;
 
                 case 1:
@@ -345,7 +345,7 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 3:
@@ -357,7 +357,7 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
                 return;
 
             case 6:
@@ -387,7 +387,7 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 6:
@@ -421,7 +421,7 @@ abstract class Army(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
                 return;
         }
     }

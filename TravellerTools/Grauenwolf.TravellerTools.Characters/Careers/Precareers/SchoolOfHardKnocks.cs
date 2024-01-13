@@ -20,11 +20,11 @@ class SchoolOfHardKnocks(CharacterBuilder characterBuilder) : CareerBase("School
         character.Skills.Add("Streetwise", 1);
 
         var skillChoices = new SkillTemplateCollection();
-        skillChoices.AddRange(SpecialtiesFor("Athletics"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Athletics"));
         skillChoices.Add("Deception");
-        skillChoices.AddRange(SpecialtiesFor("Drive"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Drive"));
         skillChoices.Add("Gambler");
-        skillChoices.AddRange(SpecialtiesFor("Melee"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Melee"));
         skillChoices.Add("Persuade");
         skillChoices.Add("Stealth");
 
@@ -60,7 +60,7 @@ class SchoolOfHardKnocks(CharacterBuilder characterBuilder) : CareerBase("School
         {
             character.SocialStanding -= 1;
 
-            var gunSkills = new SkillTemplateCollection(SpecialtiesFor("Gun Combat"));
+            var gunSkills = new SkillTemplateCollection(SpecialtiesFor(character, "Gun Combat"));
             gunSkills.RemoveOverlap(character.Skills, 0);
             if (gunSkills.Count > 0)
             {

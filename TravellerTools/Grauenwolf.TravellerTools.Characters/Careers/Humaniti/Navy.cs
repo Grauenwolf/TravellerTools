@@ -32,7 +32,7 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 3:
-                character.AddHistory("You join a gambling circle on board.", dice);
+                character.AddHistory($"{character.Name} join a gambling circle on board.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Gambler");
@@ -50,7 +50,7 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 4:
-                character.AddHistory("Special assignment or duty on board ship.", dice);
+                character.AddHistory($"Special assignment or duty on board ship.", dice);
                 character.BenefitRollDMs.Add(1);
                 return;
 
@@ -61,13 +61,13 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 6:
-                character.AddHistory("Vessel participates in a notable military engagement.", dice);
+                character.AddHistory($"Vessel participates in a notable military engagement.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Electronics"));
-                    skillList.AddRange(SpecialtiesFor("Engineer"));
-                    skillList.AddRange(SpecialtiesFor("Gunner"));
-                    skillList.AddRange(SpecialtiesFor("Pilot"));
+                    skillList.AddRange(SpecialtiesFor(character, "Electronics"));
+                    skillList.AddRange(SpecialtiesFor(character, "Engineer"));
+                    skillList.AddRange(SpecialtiesFor(character, "Gunner"));
+                    skillList.AddRange(SpecialtiesFor(character, "Pilot"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);
@@ -79,7 +79,7 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 8:
-                var age = character.AddHistory("Vessel participates in a diplomatic mission.", dice);
+                var age = character.AddHistory($"Vessel participates in a diplomatic mission.", dice);
                 if (dice.NextBoolean())
                 {
                     var skillList = new SkillTemplateCollection();
@@ -92,14 +92,14 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
                 }
                 else
                 {
-                    character.AddHistory("Gain a contact.", age);
+                    character.AddHistory($"Gain a contact.", age);
                     character.AddContact();
                 }
 
                 return;
 
             case 9:
-                character.AddHistory("You foil an attempted crime on board, such as mutiny, sabotage, smuggling or conspiracy. Gain an Enemy.", dice);
+                character.AddHistory($"{character.Name} foil an attempted crime on board, such as mutiny, sabotage, smuggling or conspiracy. Gain an Enemy.", dice);
                 character.AddEnemy();
                 character.CurrentTermBenefits.AdvancementDM += 2;
                 return;
@@ -107,18 +107,18 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
             case 10:
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("Abuse your position for profit.", dice);
+                    character.AddHistory($"Abuse {character.Name}'s position for profit.", dice);
                     character.BenefitRolls += 1;
                 }
                 else
                 {
-                    character.AddHistory("Refuse to abuse your position for profit.", dice);
+                    character.AddHistory($"Refuse to abuse {character.Name}'s position for profit.", dice);
                     character.CurrentTermBenefits.AdvancementDM += 2;
                 }
                 return;
 
             case 11:
-                character.AddHistory("Commanding officer takes an interest in your career.", dice);
+                character.AddHistory($"Commanding officer takes an interest in {character.Name}'s career.", dice);
                 switch (dice.D(2))
                 {
                     case 1:
@@ -132,7 +132,7 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 12:
-                character.AddHistory("Display heroism in battle, saving the whole ship.", dice);
+                character.AddHistory($"Display heroism in battle, saving the whole ship.", dice);
 
                 character.CurrentTermBenefits.AdvancementDM += 100; //also applies to commission rolls
 
@@ -164,7 +164,7 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 2:
-                character.AddHistory("Placed in the frozen watch (cryogenically stored on board ship) and revived improperly.", age);
+                character.AddHistory($"Placed in the frozen watch (cryogenically stored on board ship) and revived improperly.", age);
                 switch (dice.D(3))
                 {
                     case 1:
@@ -201,12 +201,12 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
                 }
                 if (checkPassed)
                 {
-                    character.AddHistory("During a battle, defeat or victory depends on your actions. You actions lead to an honorabe discharge.", age);
+                    character.AddHistory($"During a battle, defeat or victory depends on {character.Name}'s actions. {character.Name} actions lead to an honorabe discharge.", age);
                     character.BenefitRolls += 1;
                 }
                 else
                 {
-                    character.AddHistory("During a battle, defeat or victory depends on your actions. The ship suffers severe damage and you are blamed for the disaster. You are court - martialled and discharged.", age);
+                    character.AddHistory($"During a battle, defeat or victory depends on {character.Name}'s actions. The ship suffers severe damage and {character.Name} is blamed for the disaster. {character.Name} is court - martialled and discharged.", age);
                 }
 
                 return;
@@ -214,7 +214,7 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
             case 4:
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("You are blamed for an accident that causes the death of several crew members. Your guilt drives you to excel.", age);
+                    character.AddHistory($"{character.Name} is blamed for an accident that causes the death of several crew members. {character.Name}'s guilt drives {character.Name} to excel.", age);
 
                     var skillTables = new List<SkillTable>();
                     skillTables.Add(PersonalDevelopment);
@@ -229,14 +229,14 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
                 }
                 else
                 {
-                    character.AddHistory("You are falsely accused for an accident that causes the death of several crew members. Gain the officer who blamed you as an Enemy.", age);
+                    character.AddHistory($"{character.Name} is falsely accused for an accident that causes the death of several crew members. Gain the officer who blamed {character.Name} as an Enemy.", age);
                     character.AddEnemy();
                     character.BenefitRolls += 1;
                 }
                 return;
 
             case 5:
-                character.AddHistory("You are tormented by or quarrel with an officer or fellow crewman. Gain that character as a Rival.", age);
+                character.AddHistory($"{character.Name} is tormented by or quarrel with an officer or fellow crewman. Gain that character as a Rival.", age);
                 character.AddRival();
                 return;
 
@@ -264,7 +264,7 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Pilot")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
                 return;
 
             case 2:
@@ -272,11 +272,11 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gunner")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gunner")));
                 return;
 
             case 5:
@@ -284,7 +284,7 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
         }
     }
@@ -374,7 +374,7 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 2:
@@ -382,11 +382,11 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
                 return;
 
             case 5:
@@ -408,11 +408,11 @@ abstract class Navy(string assignment, CharacterBuilder characterBuilder) : Mili
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Pilot")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
                 return;
 
             case 4:

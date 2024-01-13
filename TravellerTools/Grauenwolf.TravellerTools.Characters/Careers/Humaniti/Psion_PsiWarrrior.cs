@@ -29,7 +29,7 @@ class Psion_PsiWarrrior(CharacterBuilder characterBuilder) : Psion("Psi-Warrrior
             case 4:
                 {
                     var skills = new SkillTemplateCollection();
-                    skills.AddRange(SpecialtiesFor("Gun Combat"));
+                    skills.AddRange(SpecialtiesFor(character, "Gun Combat"));
                     character.Skills.Increase(dice.Choose(skills));
                 }
                 return;
@@ -73,7 +73,7 @@ class Psion_PsiWarrrior(CharacterBuilder characterBuilder) : Psion("Psi-Warrrior
             case 1:
                 {
                     var skills = new SkillTemplateCollection();
-                    skills.AddRange(SpecialtiesFor("Gun Combat"));
+                    skills.AddRange(SpecialtiesFor(character, "Gun Combat"));
                     skills.RemoveOverlap(character.Skills, 1);
                     if (skills.Count > 0)
                         character.Skills.Add(dice.Choose(skills), 1);
@@ -95,7 +95,7 @@ class Psion_PsiWarrrior(CharacterBuilder characterBuilder) : Psion("Psi-Warrrior
                 careerHistory.Title = "Master of Wills";
                 {
                     var skills = new SkillTemplateCollection();
-                    skills.AddRange(SpecialtiesFor("Tactics"));
+                    skills.AddRange(SpecialtiesFor(character, "Tactics"));
                     skills.RemoveOverlap(character.Skills, 1);
                     if (skills.Count > 0)
                         character.Skills.Add(dice.Choose(skills), 1);

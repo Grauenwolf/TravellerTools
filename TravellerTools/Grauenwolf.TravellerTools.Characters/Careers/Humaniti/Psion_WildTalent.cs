@@ -37,8 +37,8 @@ class Psion_WildTalent(CharacterBuilder characterBuilder) : Psion("Wild Talent",
             case 6:
                 {
                     var skills = new SkillTemplateCollection();
-                    skills.AddRange(SpecialtiesFor("Gun Combat"));
-                    skills.AddRange(SpecialtiesFor("Melee"));
+                    skills.AddRange(SpecialtiesFor(character, "Gun Combat"));
+                    skills.AddRange(SpecialtiesFor(character, "Melee"));
                     character.Skills.Increase(dice.Choose(skills));
                 }
                 return;

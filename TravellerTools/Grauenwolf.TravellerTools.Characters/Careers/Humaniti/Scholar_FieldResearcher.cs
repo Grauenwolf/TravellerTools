@@ -15,7 +15,7 @@ class Scholar_FieldResearcher(CharacterBuilder characterBuilder) : Scholar("Fiel
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 2:
@@ -35,7 +35,7 @@ class Scholar_FieldResearcher(CharacterBuilder characterBuilder) : Scholar("Fiel
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Science")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
                 return;
         }
     }
@@ -49,7 +49,7 @@ class Scholar_FieldResearcher(CharacterBuilder characterBuilder) : Scholar("Fiel
 
             case 1:
                 {
-                    var skillList = new SkillTemplateCollection(SpecialtiesFor("Science"));
+                    var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Science"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);
@@ -69,7 +69,7 @@ class Scholar_FieldResearcher(CharacterBuilder characterBuilder) : Scholar("Fiel
 
             case 5:
                 {
-                    var skillList = new SkillTemplateCollection(SpecialtiesFor("Science"));
+                    var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Science"));
                     //look for a level 0 to increase
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
@@ -77,7 +77,7 @@ class Scholar_FieldResearcher(CharacterBuilder characterBuilder) : Scholar("Fiel
                     else
                     {
                         //look for a level 1 to increase
-                        skillList = new SkillTemplateCollection(SpecialtiesFor("Science"));
+                        skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Science"));
                         skillList.RemoveOverlap(character.Skills, 2);
                         if (skillList.Count > 0)
                             character.Skills.Add(dice.Choose(skillList), 2);

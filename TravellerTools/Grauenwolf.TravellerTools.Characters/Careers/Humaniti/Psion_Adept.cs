@@ -37,7 +37,7 @@ class Psion_Adept(CharacterBuilder characterBuilder) : Psion("Adept", characterB
             case 6:
                 {
                     var skills = new SkillTemplateCollection();
-                    skills.AddRange(SpecialtiesFor("Science"));
+                    skills.AddRange(SpecialtiesFor(character, "Science"));
                     character.Skills.Increase(dice.Choose(skills));
                 }
                 return;
@@ -83,7 +83,7 @@ class Psion_Adept(CharacterBuilder characterBuilder) : Psion("Adept", characterB
                 careerHistory.Title = "Acolyte";
                 {
                     var skills = new SkillTemplateCollection();
-                    skills.AddRange(Book.PsionicTalents);
+                    skills.AddRange(PsionicTalents(character));
                     skills.RemoveOverlap(character.Skills, 1);
                     if (skills.Count > 0)
                         character.Skills.Add(dice.Choose(skills), 1);
@@ -100,7 +100,7 @@ class Psion_Adept(CharacterBuilder characterBuilder) : Psion("Adept", characterB
                 careerHistory.Title = "Master";
                 {
                     var skills = new SkillTemplateCollection();
-                    skills.AddRange(Book.PsionicTalents);
+                    skills.AddRange(PsionicTalents(character));
                     skills.RemoveOverlap(character.Skills, 1);
                     if (skills.Count > 0)
                         character.Skills.Add(dice.Choose(skills), 1);

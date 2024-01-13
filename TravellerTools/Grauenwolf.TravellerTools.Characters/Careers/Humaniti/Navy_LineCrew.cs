@@ -15,7 +15,7 @@ class Navy_LineCrew(CharacterBuilder characterBuilder) : Navy("Line/Crew", chara
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 2:
@@ -23,15 +23,15 @@ class Navy_LineCrew(CharacterBuilder characterBuilder) : Navy("Line/Crew", chara
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Flyer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
                 return;
 
             case 6:

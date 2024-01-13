@@ -15,7 +15,7 @@ class Merchant_MerchantMarine(CharacterBuilder characterBuilder) : Merchant("Mer
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Pilot")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
 
                 return;
 
@@ -24,7 +24,7 @@ class Merchant_MerchantMarine(CharacterBuilder characterBuilder) : Merchant("Mer
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
 
             case 4:
@@ -32,11 +32,11 @@ class Merchant_MerchantMarine(CharacterBuilder characterBuilder) : Merchant("Mer
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
         }
     }
@@ -64,7 +64,7 @@ class Merchant_MerchantMarine(CharacterBuilder characterBuilder) : Merchant("Mer
 
             case 4:
                 careerHistory.Title = "2nd  Officer";
-                var skillList = new SkillTemplateCollection(SpecialtiesFor("Pilot"));
+                var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Pilot"));
                 skillList.RemoveOverlap(character.Skills, 1);
                 if (skillList.Count > 0)
                     character.Skills.Add(dice.Choose(skillList), 1);

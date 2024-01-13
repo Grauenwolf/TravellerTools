@@ -31,7 +31,7 @@ class Agent_LawEnforcement(CharacterBuilder characterBuilder) : Agent("Law Enfor
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
                 return;
 
             case 6:

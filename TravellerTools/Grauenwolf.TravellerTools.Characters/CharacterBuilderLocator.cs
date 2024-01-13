@@ -1,3 +1,4 @@
+using Grauenwolf.TravellerTools.Characters.Careers.AelYael;
 using Grauenwolf.TravellerTools.Characters.Careers.Bwap;
 using Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 using Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
@@ -9,30 +10,42 @@ namespace Grauenwolf.TravellerTools.Characters;
 
 public class CharacterBuilderLocator
 {
-    readonly Dictionary<string, CharacterBuilder> m_CharacterBuilders = new(StringComparer.OrdinalIgnoreCase);
+    readonly ImmutableDictionary<string, CharacterBuilder> m_CharacterBuilders;
+
     private readonly NameGenerator m_NameGenerator;
 
     public CharacterBuilderLocator(string dataPath, NameGenerator nameGenerator)
     {
-        void Add(CharacterBuilder builder) { m_CharacterBuilders[builder.Species] = builder; }
+        var builders = new Dictionary<string, CharacterBuilder>();
+
+        void Add(CharacterBuilder builder)
+        {
+            foreach (var gender in builder.Genders)
+                builders[builder.Species] = builder;
+        }
 
         Add(new HumanitiCharacterBuilder(dataPath, nameGenerator, this));
         Add(new BwapCharacterBuilder(dataPath, nameGenerator, this));
         Add(new TezcatCharacterBuilder(dataPath, nameGenerator, this));
         Add(new ImperiumDolphinCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new AelYaelCharacterBuilder(dataPath, nameGenerator, this));
+
+        m_CharacterBuilders = builders.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
 
         SpeciesList = m_CharacterBuilders.Keys.OrderBy(x => x).ToImmutableArray();
 
-        CareerNameList = m_CharacterBuilders.Values.SelectMany(x => x.Careers).Select(x => x.Career).Distinct().OrderBy(x => x).ToImmutableArray();
+        CareerNameList = m_CharacterBuilders.Values.SelectMany(x => x.Careers(null)).Select(x => x.Career).Distinct().OrderBy(x => x).ToImmutableArray();
 
         var skills = new SkillTemplateCollection();
         foreach (var builder in m_CharacterBuilders.Values)
-            skills.CopyFrom(builder.Book.AllSkills);
+            foreach (var book in builder.Books)
+                skills.CopyFrom(book.AllSkills);
         AllSkills = skills.OrderBy(x => x.ToString()).ToImmutableArray();
 
         var talents = new PsionicSkillTemplateCollection();
         foreach (var builder in m_CharacterBuilders.Values)
-            talents.CopyFrom(builder.Book.PsionicTalents);
+            foreach (var book in builder.Books)
+                talents.CopyFrom(book.PsionicTalents);
         AllPsionicTalents = talents.OrderBy(x => x.ToString()).ToImmutableArray();
 
         m_NameGenerator = nameGenerator;
@@ -380,9 +393,9 @@ public class CharacterBuilderLocator
     public List<string> GetAssignmentList(string? species, string career)
     {
         if (species == null)
-            return m_CharacterBuilders.Values.SelectMany(x => x.Careers).Where(x => x.Career == career && x.Assignment != null).Select(x => x.Assignment).Distinct().OrderBy(x => x).ToList()!;
+            return m_CharacterBuilders.Values.SelectMany(x => x.Careers(null)).Where(x => x.Career == career && x.Assignment != null).Select(x => x.Assignment).Distinct().OrderBy(x => x).ToList()!;
         else
-            return GetCharacterBuilder(species).Careers.Where(x => x.Career == career && x.Assignment != null).Select(x => x.Assignment).Distinct().OrderBy(x => x).ToList()!;
+            return GetCharacterBuilder(species).Careers(null).Where(x => x.Career == career && x.Assignment != null).Select(x => x.Assignment).Distinct().OrderBy(x => x).ToList()!;
     }
 
     public CharacterBuilder GetCharacterBuilder(string? species)
@@ -400,7 +413,7 @@ public class CharacterBuilderLocator
 
     public string GetRandomSpeciesForCareer(Dice dice, string career)
     {
-        var builders = m_CharacterBuilders.Values.Where(x => x.Careers.Any(c => c.Career == career)).ToList();
+        var builders = m_CharacterBuilders.Values.Where(x => x.Careers(null).Any(c => c.Career == career)).ToList();
         if (builders.Count > 0)
             return dice.Choose(builders).Species;
         else

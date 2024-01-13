@@ -32,7 +32,7 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
                 return;
 
             case 3:
-                character.AddHistory("Trapped behind enemy lines.", dice);
+                character.AddHistory($"Trapped behind enemy lines.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Survival");
@@ -46,7 +46,7 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
                 return;
 
             case 4:
-                character.AddHistory("Given a special assignment or duty on board your ship.", dice);
+                character.AddHistory($"Given a special assignment or duty on board {character.Name}'s ship.", dice);
                 character.BenefitRollDMs.Add(1);
                 return;
 
@@ -54,7 +54,7 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
                 character.AddHistory($"Given advanced training in a specialist field.", dice);
                 if (dice.RollHigh(character.EducationDM, 8))
                 {
-                    var skillList = new SkillTemplateCollection(Book.RandomSkills);
+                    var skillList = new SkillTemplateCollection(RandomSkills(character));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);
@@ -62,13 +62,13 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
                 return;
 
             case 6:
-                character.AddHistory("Your vessel participates in a notable engagement.", dice);
+                character.AddHistory($"{character.Name}'s vessel participates in a notable engagement.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Electronics"));
-                    skillList.AddRange(SpecialtiesFor("Engineer"));
-                    skillList.AddRange(SpecialtiesFor("Gunner"));
-                    skillList.AddRange(SpecialtiesFor("Pilot"));
+                    skillList.AddRange(SpecialtiesFor(character, "Electronics"));
+                    skillList.AddRange(SpecialtiesFor(character, "Engineer"));
+                    skillList.AddRange(SpecialtiesFor(character, "Gunner"));
+                    skillList.AddRange(SpecialtiesFor(character, "Pilot"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);
@@ -81,12 +81,12 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
                 return;
 
             case 8:
-                character.AddHistory("On the front line of an assault and occupation", dice);
+                character.AddHistory($"On the front line of an assault and occupation", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Recon");
                     skillList.Add("Leadership");
-                    skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                    skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
                     skillList.Add("Electronics", "Comms");
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
@@ -95,18 +95,18 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
                 return;
 
             case 9:
-                character.AddHistory("Foiled an attempted crime onboard your ship or in your unit, such as mutiny, sabotage, smuggling, or conspiracy. Gain an enemy", dice);
+                character.AddHistory($"Foiled an attempted crime onboard {character.Name}'s ship or in {character.Name}'s unit, such as mutiny, sabotage, smuggling, or conspiracy. Gain an enemy", dice);
                 character.AddEnemy();
                 character.CurrentTermBenefits.AdvancementDM += 2;
                 return;
 
             case 10:
-                character.AddHistory("Assigned a black ops mission.", dice);
+                character.AddHistory($"Assigned a black ops mission.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 2;
                 return;
 
             case 11:
-                character.AddHistory("Commanding officer takes an interest in your career.", dice);
+                character.AddHistory($"Commanding officer takes an interest in {character.Name}'s career.", dice);
                 switch (dice.D(2))
                 {
                     case 1:
@@ -120,7 +120,7 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
                 return;
 
             case 12:
-                character.AddHistory("Display heroism in battle.", dice);
+                character.AddHistory($"Display heroism in battle.", dice);
 
                 character.CurrentTermBenefits.AdvancementDM += 100; //also applies to commission rolls
 
@@ -152,7 +152,7 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
                 return;
 
             case 2:
-                character.AddHistory("A mission goes horribly wrong. You and several others are captured and mistreated by the enemy. Gain gaoler as Enemy.", age);
+                character.AddHistory($"A mission goes horribly wrong. {character.Name} and several others are captured and mistreated by the enemy. Gain gaoler as Enemy.", age);
                 character.Strength -= 1;
                 character.Dexterity -= 1;
                 character.AddEnemy();
@@ -177,11 +177,11 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
 
                 if (dice.D(2, 6) + bestSkill >= 8)
                 {
-                    character.AddHistory("During a battle, defeat or victory depends on your actions. The ship suffers severe damage and you are blamed for the disaster, court-martialled, and discharged.", age);
+                    character.AddHistory($"During a battle, defeat or victory depends on {character.Name}'s actions. The ship suffers severe damage and {character.Name} is blamed for the disaster, court-martialled, and discharged.", age);
                 }
                 else
                 {
-                    character.AddHistory("During a battle, defeat or victory depends on your actions. Your efforts ensure you are honourably discharged.", age);
+                    character.AddHistory($"During a battle, defeat or victory depends on {character.Name}'s actions. {character.Name}'s efforts ensure {character.Name} is honourably discharged.", age);
                     character.BenefitRolls += 1;
                 }
                 return;
@@ -189,19 +189,19 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
             case 4:
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("You are blamed for an accident which causes the death of several crew members. Guilt drives you to exile.", age);
+                    character.AddHistory($"{character.Name} is blamed for an accident which causes the death of several crew members. Guilt drives {character.Name} to exile.", age);
                     character.SocialStanding -= 1;
                 }
                 else
                 {
-                    character.AddHistory("You are falsely blamed for an accident which causes the death of several crew members. Gain you accusor as an enemy.", age);
+                    character.AddHistory($"{character.Name} is falsely blamed for an accident which causes the death of several crew members. Gain {character.Name} accusor as an enemy.", age);
                     character.AddEnemy();
                     character.BenefitRolls += 1;
                 }
                 return;
 
             case 5:
-                character.AddHistory("You are tormented by or quarrel with an officer or fellow soldier. Gain that officer as a Rival.", age);
+                character.AddHistory($"{character.Name} is tormented by or quarrel with an officer or fellow soldier. Gain that officer as a Rival.", age);
                 character.AddRival();
                 return;
 
@@ -229,7 +229,7 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Pilot")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
                 return;
 
             case 2:
@@ -237,19 +237,19 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gunner")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gunner")));
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Mechanic")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Mechanic")));
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
         }
     }
@@ -268,7 +268,7 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
                     careerHistory.Title = "Third Claw";
                     {
                         var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                        skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
                         skillList.Add("Mechanic");
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
@@ -322,7 +322,7 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
                     careerHistory.Title = "Shiltrhar";
                     {
                         var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor("Tactics"));
+                        skillList.AddRange(SpecialtiesFor(character, "Tactics"));
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
                             character.Skills.Add(dice.Choose(skillList), 1);
@@ -367,7 +367,7 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
                 return;
         }
     }
@@ -383,12 +383,12 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
 
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Pilot")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
                 return;
 
             case 4:
@@ -400,7 +400,7 @@ abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) 
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Tactics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Tactics")));
                 return;
         }
     }

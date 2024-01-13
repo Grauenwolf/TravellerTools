@@ -23,20 +23,20 @@ class Soulhunter_Commando(CharacterBuilder characterBuilder) : Soulhunter("Comma
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gunner")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gunner")));
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
 
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
         }
     }

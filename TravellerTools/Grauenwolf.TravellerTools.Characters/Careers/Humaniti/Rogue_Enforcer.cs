@@ -15,11 +15,11 @@ class Rogue_Enforcer(CharacterBuilder characterBuilder) : Rogue("Enforcer", char
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
                 return;
 
             case 3:
@@ -31,11 +31,11 @@ class Rogue_Enforcer(CharacterBuilder characterBuilder) : Rogue("Enforcer", char
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
                 return;
         }
     }
@@ -56,8 +56,8 @@ class Rogue_Enforcer(CharacterBuilder characterBuilder) : Rogue("Enforcer", char
 
             case 3:
                 var skillList = new SkillTemplateCollection();
-                skillList.AddRange(SpecialtiesFor("Gun Combat"));
-                skillList.AddRange(SpecialtiesFor("Melee"));
+                skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
+                skillList.AddRange(SpecialtiesFor(character, "Melee"));
                 skillList.RemoveOverlap(character.Skills, 1);
                 if (skillList.Count > 0)
                     character.Skills.Add(dice.Choose(skillList), 1);

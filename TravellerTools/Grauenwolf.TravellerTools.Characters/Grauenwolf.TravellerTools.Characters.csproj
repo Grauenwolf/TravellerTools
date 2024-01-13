@@ -10,8 +10,22 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Careers\Aslan\**" />
+	  <EmbeddedResource Remove="Careers\Aslan\**" />
+	  <None Remove="Careers\Aslan\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Remove="Careers\Bwap\Marine_GroundAssault.cs" />
 	  <Compile Remove="Careers\ImperiumDolphin\Citizen_Worker.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="Careers\Aslan\AslanCharacterBuilder.cs" />
+	  <Compile Include="Careers\Aslan\Ceremonial.cs" />
+	  <Compile Include="Careers\Aslan\Ceremonial_ClanAgent.cs" />
+	  <Compile Include="Careers\Aslan\Ceremonial_Poet.cs" />
+	  <Compile Include="Careers\Aslan\Ceremonial_Priest.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

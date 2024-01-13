@@ -19,7 +19,7 @@ class Scholar_Physician(CharacterBuilder characterBuilder) : Scholar("Physician"
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 3:
@@ -35,7 +35,7 @@ class Scholar_Physician(CharacterBuilder characterBuilder) : Scholar("Physician"
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Science")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
                 return;
         }
     }
@@ -56,7 +56,7 @@ class Scholar_Physician(CharacterBuilder characterBuilder) : Scholar("Physician"
 
             case 3:
                 {
-                    var skillList = new SkillTemplateCollection(SpecialtiesFor("Science"));
+                    var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Science"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);
@@ -68,7 +68,7 @@ class Scholar_Physician(CharacterBuilder characterBuilder) : Scholar("Physician"
 
             case 5:
                 {
-                    var skillList = new SkillTemplateCollection(SpecialtiesFor("Science"));
+                    var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Science"));
                     //look for a level 0 to increase
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
@@ -76,7 +76,7 @@ class Scholar_Physician(CharacterBuilder characterBuilder) : Scholar("Physician"
                     else
                     {
                         //look for a level 1 to increase
-                        skillList = new SkillTemplateCollection(SpecialtiesFor("Science"));
+                        skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Science"));
                         skillList.RemoveOverlap(character.Skills, 2);
                         if (skillList.Count > 0)
                             character.Skills.Add(dice.Choose(skillList), 2);

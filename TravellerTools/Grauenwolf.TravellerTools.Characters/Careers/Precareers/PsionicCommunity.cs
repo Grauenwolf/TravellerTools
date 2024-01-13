@@ -63,7 +63,7 @@ class PsionicCommunity(CharacterBuilder characterBuilder) : CareerBase("Psionic 
                 FixupSkills(character, dice);
 
                 character.EducationHistory.Status = "Honors";
-                character.AddHistory($"Graduated with honors. Gain an enemy who is upset that you left the community.", character.Age);
+                character.AddHistory($"Graduated with honors. Gain an enemy who is upset that {character.Name} left the community.", character.Age);
                 character.AddEnemy();
             }
             else
@@ -74,7 +74,7 @@ class PsionicCommunity(CharacterBuilder characterBuilder) : CareerBase("Psionic 
                 FixupSkills(character, dice);
 
                 character.EducationHistory.Status = "Graduated";
-                character.AddHistory($"Graduated. Gain an rival who is upset that you left the community.", character.Age);
+                character.AddHistory($"Graduated. Gain an rival who is upset that {character.Name} left the community.", character.Age);
                 character.AddRival();
             }
 

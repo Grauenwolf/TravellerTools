@@ -27,7 +27,7 @@ class DolphinCivilian_Liaison(CharacterBuilder characterBuilder) : DolphinCivili
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 5:

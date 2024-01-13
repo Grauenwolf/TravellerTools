@@ -15,15 +15,15 @@ class Navy_Flight(CharacterBuilder characterBuilder) : Navy("Flight", characterB
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Pilot")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Flyer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gunner")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gunner")));
                 return;
 
             case 4:
@@ -35,7 +35,7 @@ class Navy_Flight(CharacterBuilder characterBuilder) : Navy("Flight", characterB
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
         }
     }

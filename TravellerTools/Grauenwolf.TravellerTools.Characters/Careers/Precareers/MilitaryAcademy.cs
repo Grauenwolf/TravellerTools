@@ -35,7 +35,7 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
 
         character.AddHistory($"Entered {Career}({Assignment})", character.Age);
 
-        var skillChoices = GetBasicSkills();
+        var skillChoices = GetBasicSkills(character);
         //Add basic skills at level 0
         foreach (var skill in skillChoices.Select(x => x.Name).Distinct())
             character.Skills.Add(skill);
@@ -65,7 +65,7 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
             if (graduation < 8)
             {
                 character.Age = Math.Max(character.Age + dice.D(4), character.History.Max(h => h.Age));
-                character.AddHistory("Dropped out of military academy.", character.Age);
+                character.AddHistory($"Dropped out of military academy.", character.Age);
                 character.EducationHistory.Status = "Failed";
                 character.NextTermBenefits.EnlistmentDM[Branch] = 100;
                 character.NextTermBenefits.CommissionDM = -100;
@@ -102,5 +102,5 @@ abstract class MilitaryAcademy(string assignment, CharacterBuilder characterBuil
     /// <summary>
     /// Gets a list of skills you can choose from for pre-career events.
     /// </summary>
-    protected abstract SkillTemplateCollection GetBasicSkills();
+    protected abstract SkillTemplateCollection GetBasicSkills(Character character);
 }

@@ -34,17 +34,17 @@ abstract class Believer(string assignment, CharacterBuilder characterBuilder) : 
                 return;
 
             case 3:
-                character.AddHistory("You are involved in good works in the community, gaining the respect of a large segment of \r\nsociety. Gain SOC +1 and an Ally. ", dice);
+                character.AddHistory($"{character.Name} is involved in good works in the community, gaining the respect of a large segment of \r\nsociety. Gain SOC +1 and an Ally. ", dice);
                 character.AddAlly();
                 character.SocialStanding += 1;
                 return;
 
             case 4:
-                character.AddHistory("A notable academic consults with you about a publication or documentary he is working on. Gain a Contact in academia.", dice);
+                character.AddHistory($"A notable academic consults with {character.Name} about a publication or documentary he is working on. Gain a Contact in academia.", dice);
                 return;
 
             case 5:
-                character.AddHistory("You are sent to a new community or parish to preach The Word among the poor.", dice);
+                character.AddHistory($"{character.Name} is sent to a new community or parish to preach The Word among the poor.", dice);
                 if (dice.NextBoolean())
                     character.Skills.Increase("Streetwise");
                 else
@@ -52,7 +52,7 @@ abstract class Believer(string assignment, CharacterBuilder characterBuilder) : 
                 return;
 
             case 6:
-                character.AddHistory("You retreat from the mundane world for a time in the hope of a revelation, although this affects \r\nyour work and relationships.", dice);
+                character.AddHistory($"{character.Name} retreat from the mundane world for a time in the hope of a revelation, although this affects \r\nyour work and relationships.", dice);
                 character.SocialStanding -= dice.D(3);
                 character.BenefitRolls += dice.D(3);
                 character.BenefitRollsPermanentDM += 1;
@@ -63,7 +63,7 @@ abstract class Believer(string assignment, CharacterBuilder characterBuilder) : 
                 return;
 
             case 8:
-                character.AddHistory("You are chosen to represent your faith in a vid show or other highly public forum.", dice);
+                character.AddHistory($"{character.Name} is chosen to represent {character.Name}'s faith in a vid show or other highly public forum.", dice);
                 if (dice.NextBoolean())
                     character.Skills.Increase("Carouse");
                 else
@@ -75,14 +75,14 @@ abstract class Believer(string assignment, CharacterBuilder characterBuilder) : 
                 if (dice.NextBoolean())
                 {
                     var enemies = dice.D(6);
-                    character.AddHistory($"You refuse an offer of inducements to betray your faith. Gain {enemies} enemies.", dice);
+                    character.AddHistory($"{character.Name} refused an offer of inducements to betray {character.Name}'s faith. Gain {enemies} enemies.", dice);
                     character.AddEnemy(enemies);
                 }
                 else
                 {
                     var cash = 10000 * dice.D(character.BenefitRolls * 2, 6);
                     character.BenefitRolls = 0;
-                    character.AddHistory($"You accept an offer of inducements to betray your faith. Gain {cash.ToString("N0")} in cash.", dice);
+                    character.AddHistory($"{character.Name} accepted an offer of inducements to betray {character.Name}'s faith. Gain {cash.ToString("N0")} in cash.", dice);
                     character.NextTermBenefits.MusterOut = true;
                 }
                 return;
@@ -90,23 +90,23 @@ abstract class Believer(string assignment, CharacterBuilder characterBuilder) : 
             case 10:
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory($"You secretly provide religious rites for a dying leader or noble, although they do not share your faith. Gain an Ally in the family and a Rival who disagrees with your choice.", dice);
+                    character.AddHistory($"{character.Name} secretly provide religious rites for a dying leader or noble, although they do not share {character.Name}'s faith. Gain an Ally in the family and a Rival who disagrees with {character.Name}'s choice.", dice);
                     character.AddAlly();
                     character.AddRival();
                 }
                 else
                 {
-                    character.AddHistory($"You refuse to secretly provide religious rites for a dying leader or noble, because they do not share your faith.", dice);
+                    character.AddHistory($"{character.Name} refuse to secretly provide religious rites for a dying leader or noble, because they do not share {character.Name}'s faith.", dice);
                 }
                 return;
 
             case 11:
-                character.AddHistory("Someone more charismatic but less devout than you has become your superior.", dice);
+                character.AddHistory($"Someone more charismatic but less devout than {character.Name} has become {character.Name}'s superior.", dice);
                 character.LongTermBenefits.AdvancementDM = -1;
                 return;
 
             case 12:
-                var age = character.AddHistory("Your faith enjoys an explosion of popularity largely thanks to your efforts.", dice);
+                var age = character.AddHistory($"{character.Name} faith enjoys an explosion of popularity largely thanks to {character.Name}'s efforts.", dice);
                 Promote(character, dice, character.LastCareer!, age);
                 character.LongTermBenefits.AdvancementDM = 1;
                 return;
@@ -118,24 +118,24 @@ abstract class Believer(string assignment, CharacterBuilder characterBuilder) : 
         switch (dice.D(6))
         {
             case 1:
-                character.AddHistory("Opponents of your belief system ambush you.", age);
+                character.AddHistory($"Opponents of {character.Name}'s belief system ambush {character.Name}.", age);
                 Injury(character, dice, true, age);
                 return;
 
             case 2:
-                character.AddHistory("You aid a follower back to the True Path but this angers a friend or relative. Gain an Enemy.", age);
+                character.AddHistory($"{character.Name} aid a follower back to the True Path but this angers a friend or relative. Gain an Enemy.", age);
                 character.AddEnemy();
                 return;
 
             case 3:
-                character.AddHistory("You are caught in the periphery of a scandal.", age);
+                character.AddHistory($"{character.Name} is caught in the periphery of a scandal.", age);
                 Demote(character, dice, character.LastCareer!, age);
                 character.BenefitRolls -= 1;
                 character.NextTermBenefits.MusterOut = false;
                 return;
 
             case 4:
-                character.AddHistory("You have been following false teachings!", age);
+                character.AddHistory($"{character.Name} have been following false teachings!", age);
 
                 var skills = new List<Skill>();
                 var skillA = character.Skills["Profession", "Religion"];
@@ -150,14 +150,14 @@ abstract class Believer(string assignment, CharacterBuilder characterBuilder) : 
                 return;
 
             case 5:
-                character.AddHistory("Your faith is shaken.", age);
+                character.AddHistory($"{character.Name} faith is shaken.", age);
                 character.BenefitRolls = 0;
                 character.NextTermBenefits.MusterOut = false;
                 return;
 
             case 6:
                 var rivals = dice.D(3);
-                character.AddHistory($"You come into conflict with a splinter group your own religion which maintains your version is the wrong one. Gain {rivals} Rivals.", age);
+                character.AddHistory($"{character.Name} come into conflict with a splinter group {character.Name}'s own religion which maintains {character.Name}'s version is the wrong one. Gain {rivals} Rivals.", age);
                 character.AddRival(3);
 
                 return;
@@ -210,7 +210,7 @@ abstract class Believer(string assignment, CharacterBuilder characterBuilder) : 
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 3:

@@ -26,7 +26,7 @@ public class CharacterOptions : ModelBase
             if (Species.IsNullOrEmpty())
                 return CharacterBuilderLocator.CareerNameList;
             else
-                return CharacterBuilderLocator.GetCharacterBuilder(Species).Careers.Select(c => c.Career).Distinct().OrderBy(s => s).ToList();
+                return CharacterBuilderLocator.GetCharacterBuilder(Species).Careers(null).Select(c => c.Career).Distinct().OrderBy(s => s).ToList();
         }
     }
 

@@ -5,9 +5,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Bwap;
 
 public class BwapCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator) : CharacterBuilder(dataPath, nameGenerator, characterBuilderLocator)
 {
+    public override ImmutableArray<Gender> Genders { get; } = ImmutableArray.Create<Gender>(new("F", "Female", 1), new("M", "Male", 1));
     public override string Species => "Bwap";
     public override string SpeciesUrl => "https://wiki.travellerrpg.com/Bwap";
-
     protected override bool AllowPsionics => true;
 
     internal override void FixupSkills(Character character, Dice dice)
@@ -43,7 +43,7 @@ public class BwapCharacterBuilder(string dataPath, NameGenerator nameGenerator, 
             //    Army
             new Army_Support(this),
             new Army_Cavalry(this),
-            new Infantry(this),
+            new Army_Infantry(this),
 
             //    Marine
             new Marine_Support(this),
@@ -99,7 +99,7 @@ public class BwapCharacterBuilder(string dataPath, NameGenerator nameGenerator, 
             new Humaniti.Entertainer_Artist(this),
             new Humaniti.Entertainer_Journalist(this),
             new Humaniti.Entertainer_Performer(this),
-            new Infantry(this),
+            new Army_Infantry(this),
             new Marine_GroundAssault(this),
             new Marine_StarMarine(this),
             new Marine_Support(this),
@@ -112,9 +112,9 @@ public class BwapCharacterBuilder(string dataPath, NameGenerator nameGenerator, 
             new Humaniti.Noble_Administrator(this),
             new Humaniti.Noble_Dilettante(this),
             new Humaniti.Noble_Diplomat(this),
-            new Humaniti.Prisoner_Fixer(this),
-            new Humaniti.Prisoner_Inmate(this),
-            new Humaniti.Prisoner_Thug(this),
+            new Prisoner_Fixer(this),
+            new Prisoner_Inmate(this),
+            new Prisoner_Thug(this),
             new Humaniti.Psion_Adept(this),
             new Humaniti.Psion_PsiWarrrior(this),
             new Humaniti.Psion_WildTalent(this),

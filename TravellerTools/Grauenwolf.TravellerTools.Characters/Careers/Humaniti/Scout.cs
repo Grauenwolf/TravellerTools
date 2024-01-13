@@ -38,12 +38,12 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
                 {
                     if (dice.RollHigh(character.Skills.BestSkillLevel("Pilot"), 8))
                     {
-                        character.AddHistory("Your ship is ambushed by enemy vessels. You successfully ran to the jump point.", dice);
+                        character.AddHistory($"{character.Name}'s ship is ambushed by enemy vessels. {character.Name} successfully ran to the jump point.", dice);
                         character.Skills.Add("Electronics", "Sensors", 1);
                     }
                     else
                     {
-                        character.AddHistory("Your ship is ambushed by enemy vessels. Attempted to run but caught and ship is destroyed.", dice);
+                        character.AddHistory($"{character.Name}'s ship is ambushed by enemy vessels. Attempted to run but caught and ship is destroyed.", dice);
                         character.NextTermBenefits.MusterOut = true;
                     }
                 }
@@ -51,26 +51,26 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
                 {
                     if (dice.RollHigh(character.Skills.BestSkillLevel("Persuade"), 10))
                     {
-                        character.AddHistory("Your ship is ambushed by enemy vessels. You successfully bargain with them.", dice);
+                        character.AddHistory($"{character.Name}'s ship is ambushed by enemy vessels. {character.Name} successfully bargain with them.", dice);
                         character.Skills.Add("Electronics", "Sensors", 1);
                     }
                     else
                     {
-                        character.AddHistory("Your ship is ambushed by enemy vessels. Attempted to bargain with them but fail and the ship is destroyed.", dice);
+                        character.AddHistory($"{character.Name}'s ship is ambushed by enemy vessels. Attempted to bargain with them but fail and the ship is destroyed.", dice);
                         character.NextTermBenefits.MusterOut = true;
                     }
                 }
                 return;
 
             case 4:
-                character.AddHistory("You survey an alien world.", dice);
+                character.AddHistory($"{character.Name} survey an alien world.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Animals", "Handling");
                     skillList.Add("Animals", "Training");
                     skillList.Add("Survival");
                     skillList.Add("Recon");
-                    skillList.AddRange(SpecialtiesFor("Science"));
+                    skillList.AddRange(SpecialtiesFor(character, "Science"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);
@@ -78,16 +78,16 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 5:
-                character.AddHistory("Perform an exemplary service for the scouts.", dice);
+                character.AddHistory($"Perform an exemplary service for the scouts.", dice);
                 character.BenefitRollDMs.Add(1);
                 return;
 
             case 6:
-                character.AddHistory("Spend several years jumping from world to world in your scout ship.", dice);
+                character.AddHistory($"Spend several years jumping from world to world in {character.Name}'s scout ship.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Astrogation");
-                    skillList.AddRange(SpecialtiesFor("Electronics"));
+                    skillList.AddRange(SpecialtiesFor(character, "Electronics"));
                     skillList.Add("Navigation");
                     skillList.Add("Pilot", "Small craft");
                     skillList.Add("Mechanic");
@@ -105,13 +105,13 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
             case 8:
                 if (dice.RollHigh(character.Skills.BestSkillLevel("Electronics", "Deception"), 8))
                 {
-                    character.AddHistory("When dealing with an alien race, you have an opportunity to gather extra intelligence about them. Gain an Ally in the Imperium", dice);
+                    character.AddHistory($"When dealing with an alien race, {character.Name} have an opportunity to gather extra intelligence about them. Gain an Ally in the Imperium", dice);
                     character.AddAlly();
                     character.BenefitRollDMs.Add(2);
                 }
                 else
                 {
-                    var age = character.AddHistory("When dealing with an alien race, you botch an opportunity to gather extra intelligence about them.", dice);
+                    var age = character.AddHistory($"When dealing with an alien race, {character.Name} botch an opportunity to gather extra intelligence about them.", dice);
                     Mishap(character, dice, age);
                     character.NextTermBenefits.MusterOut = false;
                 }
@@ -120,13 +120,13 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
             case 9:
                 if (dice.RollHigh(character.Skills.BestSkillLevel("Medic", "Engineer"), 8))
                 {
-                    character.AddHistory("Your scout ship is one of the first on the scene to rescue the survivors of a disaster. Gain a Contact.", dice);
+                    character.AddHistory($"{character.Name}'s scout ship is one of the first on the scene to rescue the survivors of a disaster. Gain a Contact.", dice);
                     character.AddContact();
                     character.BenefitRollDMs.Add(2);
                 }
                 else
                 {
-                    var age = character.AddHistory("Your scout ship is one of the first on the scene to rescue the survivors of a disaster but you fail to help. Gain an Enemy.", dice);
+                    var age = character.AddHistory($"{character.Name}'s scout ship is one of the first on the scene to rescue the survivors of a disaster but {character.Name} fail to help. Gain an Enemy.", dice);
                     character.AddEnemy();
                     Mishap(character, dice, age);
                     character.NextTermBenefits.MusterOut = false;
@@ -135,10 +135,10 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
 
             case 10:
                 {
-                    var age = character.AddHistory("You spend a great deal of time on the fringes of Charted Space.", dice);
+                    var age = character.AddHistory($"{character.Name} spend a great deal of time on the fringes of Charted Space.", dice);
                     if (dice.RollHigh(character.Skills.BestSkillLevel("Survival", "Pilot"), 8))
                     {
-                        character.AddHistory("Gain a contact in an alien race.", age);
+                        character.AddHistory($"Gain a contact in an alien race.", age);
                         character.AddContact();
                         dice.Choose(character.Skills).Level += 1;
                     }
@@ -150,7 +150,7 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
                     return;
                 }
             case 11:
-                character.AddHistory("Serve as the courier for an important message from the Imperium.", dice);
+                character.AddHistory($"Serve as the courier for an important message from the Imperium.", dice);
                 switch (dice.D(2))
                 {
                     case 1:
@@ -164,7 +164,7 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 12:
-                character.AddHistory("You discover a world, item or information of worth to the Imperium.", dice);
+                character.AddHistory($"{character.Name} discover a world, item or information of worth to the Imperium.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 100;
                 return;
         }
@@ -191,7 +191,7 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 2:
-                character.AddHistory("Psychologically damaged by your time in the scouts.", age);
+                character.AddHistory($"Psychologically damaged by {character.Name}'s time in the scouts.", age);
                 if (dice.NextBoolean())
                     character.Intellect += -1;
                 else
@@ -199,7 +199,7 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 3:
-                character.AddHistory("Your ship is damaged, and you have to hitch-hike your way back across the stars to the nearest scout base.", age);
+                character.AddHistory($"{character.Name}'s ship is damaged, and {character.Name} have to hitch-hike {character.Name}'s way back across the stars to the nearest scout base.", age);
                 int countC = dice.D(6);
                 int countE = dice.D(3);
                 character.AddHistory($"Gain {countC} Contacts. Gain {countE} Enemies.", age);
@@ -208,13 +208,13 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 4:
-                character.AddHistory("You inadvertently cause a conflict between the Imperium and a minor world or race. Gain a Rival.", age);
+                character.AddHistory($"{character.Name} inadvertently cause a conflict between the Imperium and a minor world or race. Gain a Rival.", age);
                 character.AddRival();
                 character.Skills.Add("Diplomat", 1);
                 return;
 
             case 5:
-                character.AddHistory("You have no idea what happened to you – they found your ship drifting on the fringes of friendly space.", age);
+                character.AddHistory($"{character.Name} have no idea what happened to {character.Name} – they found {character.Name}'s ship drifting on the fringes of friendly space.", age);
                 return;
 
             case 6:
@@ -262,7 +262,7 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
         }
     }
@@ -284,7 +284,7 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
 
             case 3:
                 careerHistory.Title = "Senior Scout";
-                var skillList = new SkillTemplateCollection(SpecialtiesFor("Pilot"));
+                var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Pilot"));
                 skillList.RemoveOverlap(character.Skills, 1);
                 if (skillList.Count > 0)
                     character.Skills.Add(dice.Choose(skillList), 1);
@@ -314,7 +314,7 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Seafarer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Seafarer")));
                 return;
 
             case 4:
@@ -322,7 +322,7 @@ abstract class Scout(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Science")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
                 return;
 
             case 6:

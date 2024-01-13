@@ -15,7 +15,7 @@ abstract class Drifter(string assignment, CharacterBuilder characterBuilder) : N
                 return;
 
             case 3:
-                character.AddHistory("Offered job by a patron. Now owe him a favor.", dice);
+                character.AddHistory($"Offered job by a patron. Now owe him a favor.", dice);
                 character.NextTermBenefits.MusterOut = true;
                 character.NextTermBenefits.QualificationDM += 4;
                 return;
@@ -25,12 +25,12 @@ abstract class Drifter(string assignment, CharacterBuilder characterBuilder) : N
                 skills.Add("Jack-of-All-Trades");
                 skills.Add("Survival");
                 skills.Add("Streetwise");
-                skills.AddRange(SpecialtiesFor("Melee"));
+                skills.AddRange(SpecialtiesFor(character, "Melee"));
                 character.Skills.Increase(dice.Choose(skills));
                 return;
 
             case 5:
-                character.AddHistory("Find valuable salvage.", dice);
+                character.AddHistory($"Find valuable salvage.", dice);
                 character.BenefitRollDMs.Add(1);
                 return;
 
@@ -48,14 +48,14 @@ abstract class Drifter(string assignment, CharacterBuilder characterBuilder) : N
                     var bestSkill = character.Skills.BestSkillLevel("Melee", "Gun Combat", "Stealth");
                     if (dice.RollHigh(bestSkill, 8))
                     {
-                        age = character.AddHistory("Attacked by enemies that you easily defeat.", dice);
+                        age = character.AddHistory($"Attacked by enemies that {character.Name} easily defeat.", dice);
                     }
                     else
                     {
-                        age = character.AddHistory("Attacked by enemies and injured.", dice);
+                        age = character.AddHistory($"Attacked by enemies and injured.", dice);
                         Injury(character, dice, age);
                     }
-                    character.AddHistory("Gain Enemy if you don't already have one.", age);
+                    character.AddHistory($"Gain Enemy if {character.Name} don't already have one.", age);
                     return;
                 }
             case 9:
@@ -63,21 +63,21 @@ abstract class Drifter(string assignment, CharacterBuilder characterBuilder) : N
                     var roll = dice.D(6);
                     if (roll == 1)
                     {
-                        var age = character.AddHistory("Attempted a risky adventure and was injured.", dice);
+                        var age = character.AddHistory($"Attempted a risky adventure and was injured.", dice);
                         Injury(character, dice, age);
                     }
                     else if (roll == 2)
                     {
-                        character.AddHistory("Attempted a risky adventure and was sent to prison.", dice);
+                        character.AddHistory($"Attempted a risky adventure and was sent to prison.", dice);
                         character.NextTermBenefits.MustEnroll = "Prisoner";
                     }
                     else if (roll < 5)
                     {
-                        character.AddHistory("Survived a risky adventure but gained nothing.", dice);
+                        character.AddHistory($"Survived a risky adventure but gained nothing.", dice);
                     }
                     else
                     {
-                        character.AddHistory("Attempted a risky adventure and was wildly successful.", dice);
+                        character.AddHistory($"Attempted a risky adventure and was wildly successful.", dice);
                         character.BenefitRollDMs.Add(4);
                     }
                 }
@@ -89,8 +89,8 @@ abstract class Drifter(string assignment, CharacterBuilder characterBuilder) : N
 
             case 11:
                 character.NextTermBenefits.MusterOut = true;
-                character.NextTermBenefits.MustEnroll = RollDraft(dice).ShortName;
-                character.AddHistory("Drafted into " + character.NextTermBenefits.MustEnroll, dice);
+                character.NextTermBenefits.MustEnroll = RollDraft(character, dice).ShortName;
+                character.AddHistory($"Drafted into " + character.NextTermBenefits.MustEnroll, dice);
                 return;
 
             case 12:
@@ -124,22 +124,22 @@ abstract class Drifter(string assignment, CharacterBuilder characterBuilder) : N
                 return;
 
             case 3:
-                character.AddHistory("run afoul of a criminal gang, corrupt bureaucrat or other foe. Gain an Enemy.", age);
+                character.AddHistory($"{character.Name} run afoul of a criminal gang, corrupt bureaucrat or other foe. Gain an Enemy.", age);
                 return;
 
             case 4:
-                character.AddHistory("Suffer from a life-threatening illness.", age);
+                character.AddHistory($"Suffer from a life-threatening illness.", age);
                 character.Endurance -= 1;
                 return;
 
             case 5:
-                character.AddHistory("Betrayed by a friend. One of your Contacts or Allies betrays you, ending your career. That Contact or Ally becomes a Rival or Enemy.", age);
+                character.AddHistory($"Betrayed by a friend. One of {character.Name}'s Contacts or Allies betrays {character.Name}, ending {character.Name}'s career. That Contact or Ally becomes a Rival or Enemy.", age);
                 if (dice.D(2, 12) == 2)
                     character.NextTermBenefits.MustEnroll = "Prisoner";
                 return;
 
             case 6:
-                character.AddHistory("You do not know what happened to you. There is a gap in your memory.", age);
+                character.AddHistory($"{character.Name} do not know what happened to {character.Name}. There is a gap in {character.Name}'s memory.", age);
                 return;
         }
     }
@@ -154,7 +154,7 @@ abstract class Drifter(string assignment, CharacterBuilder characterBuilder) : N
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
 
             case 2:
@@ -201,11 +201,11 @@ abstract class Drifter(string assignment, CharacterBuilder characterBuilder) : N
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Language")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Language")));
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Profession")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Profession")));
                 return;
 
             case 6:

@@ -13,35 +13,46 @@ public abstract class CharacterBuilder
     readonly NameGenerator m_NameGenerator;
     readonly ImmutableArray<string> m_Personalities;
 
+    ImmutableArray<CareerBase> m_Careers;
+
+    ImmutableArray<CareerBase> m_DefaultCareers;
+
+    ImmutableArray<CareerBase> m_DraftCareers;
+
     public CharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator)
     {
         m_NameGenerator = nameGenerator;
         m_CharacterBuilderLocator = characterBuilderLocator;
-        var file = new FileInfo(Path.Combine(dataPath, CharacterBuilderFilename));
 
         var converter = new XmlSerializer(typeof(CharacterTemplates));
 
-        using (var stream = file.OpenRead())
-            Book = new Book((CharacterTemplates)converter.Deserialize(stream)!);
+        if (CharacterBuilderFilename != null)
+        {
+            var file = new FileInfo(Path.Combine(dataPath, CharacterBuilderFilename));
+            using (var stream = file.OpenRead())
+                Books = ImmutableArray.Create(new Book((CharacterTemplates)converter.Deserialize(stream)!));
+        }
 
-        (DefaultCareers, DraftCareers, Careers) = CreateCareerList();
+        (m_DefaultCareers, m_DraftCareers, m_Careers) = CreateCareerList();
 
         var personalityFile = new FileInfo(Path.Combine(dataPath, "personality.txt"));
         m_Personalities = File.ReadAllLines(personalityFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableArray();
     }
 
-    public Book Book { get; }
+    public virtual ImmutableArray<Book> Books { get; }
+    public abstract ImmutableArray<Gender> Genders { get; }
 
-    public ImmutableArray<CareerBase> Careers { get; }
-    public ImmutableArray<CareerBase> DefaultCareers { get; }
-    public ImmutableArray<CareerBase> DraftCareers { get; }
     public abstract string Species { get; }
+
     public abstract string SpeciesUrl { get; }
 
     protected virtual int AgingRollMinAge => 34;
 
     protected abstract bool AllowPsionics { get; }
-    protected virtual string CharacterBuilderFilename => "CharacterBuilder.xml";
+
+    protected virtual string? CharacterBuilderFilename => "CharacterBuilder.xml";
+
+    public virtual Book Book(Character character) => Books[0];
 
     public Character Build(CharacterBuilderOptions options)
     {
@@ -105,7 +116,7 @@ public abstract class CharacterBuilder
         //Add the skill groups [Art, Profession, Science]
         foreach (var skill in character.Skills.Where(s => s.Specialty != null))
         {
-            var template = Book.RandomSkills.FirstOrDefault(s => s.Name == skill.Name && s.Specialty == skill.Specialty && s.Group != null);
+            var template = Book(character).RandomSkills.FirstOrDefault(s => s.Name == skill.Name && s.Specialty == skill.Specialty && s.Group != null);
             if (template != null)
                 skill.Group = template.Group;
         }
@@ -115,7 +126,7 @@ public abstract class CharacterBuilder
         //Add specialties for remaining level 0 broad skills [Art, Profession, Science]
         foreach (var skill in character.Skills.Where(s => s.Level == 0 && s.Specialty is null))
         {
-            var groups = Book.RandomSkills.Where(s => s.Name == skill.Name && s.Group != null).Select(s => s.Group).Distinct().ToList();
+            var groups = Book(character).RandomSkills.Where(s => s.Name == skill.Name && s.Group != null).Select(s => s.Group).Distinct().ToList();
             if (groups.Count > 0)
                 skill.Group = dice.Choose(groups);
         }
@@ -131,6 +142,21 @@ public abstract class CharacterBuilder
         m_CharacterBuilderLocator.BuildContacts(dice, character, odds);
 
         return character;
+    }
+
+    public virtual ImmutableArray<CareerBase> Careers(Character? character)
+    {
+        return m_Careers;
+    }
+
+    public virtual ImmutableArray<CareerBase> DefaultCareers(Character? character)
+    {
+        return m_DefaultCareers;
+    }
+
+    public virtual ImmutableArray<CareerBase> DraftCareers(Character? character)
+    {
+        return m_DraftCareers;
     }
 
     public virtual void Injury(Character character, Dice dice, CareerBase career, bool severe, int age)
@@ -290,7 +316,7 @@ public abstract class CharacterBuilder
         character.AddHistory(logMessage, age);
     }
 
-    public void LifeEvent(Character character, Dice dice, CareerBase career)
+    public virtual void LifeEvent(Character character, Dice dice, CareerBase career)
     {
         switch (dice.D(2, 6))
         {
@@ -299,11 +325,11 @@ public abstract class CharacterBuilder
                 return;
 
             case 3:
-                character.AddHistory("Birth or Death involving a family member or close friend.", dice);
+                character.AddHistory($"Birth or Death involving a family member or close friend.", dice);
                 return;
 
             case 4:
-                character.AddHistory("A romantic relationship ends badly. Gain a Rival or Enemy.", dice);
+                character.AddHistory($"A romantic relationship ends badly. Gain a Rival or Enemy.", dice);
                 if (dice.NextBoolean())
                     character.AddRival();
                 else
@@ -311,31 +337,31 @@ public abstract class CharacterBuilder
                 return;
 
             case 5:
-                character.AddHistory("A romantic relationship deepens, possibly leading to marriage. Gain an Ally.", dice);
+                character.AddHistory($"A romantic relationship deepens, possibly leading to marriage. Gain an Ally.", dice);
                 character.AddAlly();
                 return;
 
             case 6:
-                character.AddHistory("A new romantic starts. Gain an Ally.", dice);
+                character.AddHistory($"A new romantic starts. Gain an Ally.", dice);
                 character.AddAlly();
                 return;
 
             case 7:
-                character.AddHistory("Gained a contact.", dice);
+                character.AddHistory($"Gained a contact.", dice);
                 return;
 
             case 8:
-                character.AddHistory("Betrayal. Convert an Ally into a Rival or Contact into an Enemy.", dice);
+                character.AddHistory($"Betrayal. Convert an Ally into a Rival or Contact into an Enemy.", dice);
                 character.DowngradeContact();
                 return;
 
             case 9:
-                character.AddHistory("Moved to a new world.", dice);
+                character.AddHistory($"Moved to a new world.", dice);
                 character.NextTermBenefits.QualificationDM += 1;
                 return;
 
             case 10:
-                character.AddHistory("Good fortune", dice);
+                character.AddHistory($"Good fortune", dice);
                 character.BenefitRollDMs.Add(2);
                 return;
 
@@ -343,11 +369,11 @@ public abstract class CharacterBuilder
                 if (dice.NextBoolean())
                 {
                     character.BenefitRolls -= 1;
-                    character.AddHistory("Victim of a crime", dice);
+                    character.AddHistory($"Victim of a crime", dice);
                 }
                 else
                 {
-                    character.AddHistory("Accused of a crime", dice);
+                    character.AddHistory($"Accused of a crime", dice);
                     character.NextTermBenefits.MustEnroll = "Prisoner";
                 }
                 return;
@@ -369,12 +395,12 @@ public abstract class CharacterBuilder
         switch (dice.D(2, 6))
         {
             case 2:
-                character.AddHistory("Contacted by an underground psionic group.", dice);
+                character.AddHistory($"Contacted by an underground psionic group.", dice);
                 character.LongTermBenefits.MayTestPsi = true;
                 return;
 
             case 3:
-                character.AddHistory("Suffered a deep tragedy.", dice);
+                character.AddHistory($"Suffered a deep tragedy.", dice);
                 character.CurrentTermBenefits.GraduationDM = -100;
                 return;
 
@@ -384,23 +410,23 @@ public abstract class CharacterBuilder
 
                 if (roll >= 8)
                 {
-                    character.AddHistory("A prank goes horribly wrong. Gain a Rival.", dice);
+                    character.AddHistory($"A prank goes horribly wrong. Gain a Rival.", dice);
                     character.AddRival();
                 }
                 else if (roll > 2)
                 {
-                    character.AddHistory("A prank goes horribly wrong. Gain an Enemy", dice);
+                    character.AddHistory($"A prank goes horribly wrong. Gain an Enemy", dice);
                     character.AddEnemy();
                 }
                 else
                 {
-                    character.AddHistory("A prank goes horribly wrong and you are sent to prison.", dice);
+                    character.AddHistory($"A prank goes horribly wrong and {character.Name} is sent to prison.", dice);
                     character.NextTermBenefits.MustEnroll = "Prisoner";
                 }
                 return;
 
             case 5:
-                character.AddHistory("Spent the college years partying.", dice);
+                character.AddHistory($"Spent the college years partying.", dice);
                 character.Skills.Add("Carouse", 1);
                 return;
 
@@ -417,18 +443,18 @@ public abstract class CharacterBuilder
             case 8:
                 if (dice.RollHigh(character.SocialStandingDM, 8))
                 {
-                    var age = character.AddHistory("Become leader in social movement.", dice);
-                    character.AddHistory("Gain an Ally and an Enemy.", age);
+                    var age = character.AddHistory($"Become leader in social movement.", dice);
+                    character.AddHistory($"Gain an Ally and an Enemy.", age);
                     character.AddAlly();
                     character.AddEnemy();
                 }
                 else
-                    character.AddHistory("Join a social movement.", dice);
+                    character.AddHistory($"Join a social movement.", dice);
                 return;
 
             case 9:
                 {
-                    var skillList = new SkillTemplateCollection(Book.RandomSkills);
+                    var skillList = new SkillTemplateCollection(Book(character).RandomSkills);
                     skillList.RemoveOverlap(character.Skills, 0);
 
                     if (skillList.Count > 0)
@@ -448,7 +474,7 @@ public abstract class CharacterBuilder
                     {
                         var skill = dice.Choose(skillSet);
                         character.Skills.Increase(skill);
-                        character.AddHistory($"Expand the field of {skill}, but gain a Rival in your former tutor.", dice);
+                        character.AddHistory($"Expand the field of {skill}, but gain a Rival in {character.Name}'s former tutor.", dice);
                         character.AddRival();
                     }
                 }
@@ -456,15 +482,15 @@ public abstract class CharacterBuilder
 
             case 11:
                 {
-                    var age = character.AddHistory("War breaks out, triggering a mandatory draft.", dice);
+                    var age = character.AddHistory($"War breaks out, triggering a mandatory draft.", dice);
                     if (dice.RollHigh(character.SocialStandingDM, 9))
-                        character.AddHistory("Used social standing to avoid the draft.", age);
+                        character.AddHistory($"Used social standing to avoid the draft.", age);
                     else
                     {
                         character.CurrentTermBenefits.GraduationDM -= 100;
                         if (dice.NextBoolean())
                         {
-                            character.AddHistory("Fled from the draft.", age);
+                            character.AddHistory($"Fled from the draft.", age);
                             character.NextTermBenefits.MustEnroll = "Drifter";
                         }
                         else
@@ -482,25 +508,15 @@ public abstract class CharacterBuilder
                 return;
 
             case 12:
-                character.AddHistory("Widely recognized.", dice);
+                character.AddHistory($"Widely recognized.", dice);
                 character.SocialStanding += 1;
                 return;
         }
     }
 
-    public CareerBase RollDraft(Dice dice)
+    public CareerBase RollDraft(Character character, Dice dice)
     {
-        return dice.Choose(DraftCareers);
-        //switch (dice.D(6))
-        //{
-        //    case 1: return "Navy";
-        //    case 2: return "Army";
-        //    case 3: return "Marine";
-        //    case 4: return "Merchant Marine";
-        //    case 5: return "Scout";
-        //    case 6: return "Law Enforcement";
-        //}
-        //return null!;
+        return dice.Choose(DraftCareers(character));
     }
 
     /// <summary>
@@ -518,7 +534,7 @@ public abstract class CharacterBuilder
             return false; //already tested
 
         character.LongTermBenefits.MayTestPsi = false;
-        character.AddHistory("Tested for psionic powers", age);
+        character.AddHistory($"Tested for psionic powers", age);
 
         character.Psi = RollForPsi(character, dice);
 
@@ -528,7 +544,7 @@ public abstract class CharacterBuilder
             return false;
         }
 
-        var availableSkills = new PsionicSkillTemplateCollection(Book.PsionicTalents);
+        var availableSkills = new PsionicSkillTemplateCollection(Book(character).PsionicTalents);
 
         character.PreviousPsiAttempts = 0;
 
@@ -560,34 +576,34 @@ public abstract class CharacterBuilder
         switch (dice.D(6))
         {
             case 1:
-                var age = character.AddHistory("Encounter a Psionic institute.", dice);
+                var age = character.AddHistory($"Encounter a Psionic institute.", dice);
                 if (AllowPsionics)
                     if (TestPsionic(character, dice, age))
                         character.NextTermBenefits.MustEnroll = "Psion";
                 return;
 
             case 2:
-                character.AddHistory("Spend time with an alien race. Gain a contact.", dice);
-                var skillList = new SkillTemplateCollection(Book.SpecialtiesFor("Science"));
+                character.AddHistory($"Spend time with an alien race. Gain a contact.", dice);
+                var skillList = new SkillTemplateCollection(Book(character).SpecialtiesFor("Science"));
                 skillList.RemoveOverlap(character.Skills, 1);
                 if (skillList.Count > 0)
                     character.Skills.Add(dice.Choose(skillList), 1);
                 return;
 
             case 3:
-                character.AddHistory("Find an Alien Artifact.", dice);
+                character.AddHistory($"Find an Alien Artifact.", dice);
                 return;
 
             case 4:
-                character.AddHistory("Amnesia.", dice);
+                character.AddHistory($"Amnesia.", dice);
                 return;
 
             case 5:
-                character.AddHistory("Contact with Government.", dice);
+                character.AddHistory($"Contact with Government.", dice);
                 return;
 
             case 6:
-                character.AddHistory("Find Ancient Technology.", dice);
+                character.AddHistory($"Find Ancient Technology.", dice);
                 return;
         }
     }
@@ -606,11 +622,12 @@ public abstract class CharacterBuilder
         }
     }
 
-    protected virtual int AgingRollDM(Character character)
-    {
-        return -1 * character.CurrentTerm;
-    }
+    protected virtual int AgingRollDM(Character character) => -1 * character.CurrentTerm;
 
+    /// <summary>
+    /// Creates the career list.
+    /// </summary>
+    /// <returns>If career lists needs special handling based on the character, return empty lists.</returns>
     protected abstract CareerLists CreateCareerList();
 
     /// <summary>
@@ -627,6 +644,90 @@ public abstract class CharacterBuilder
         character.Intellect = dice.D(2, 6);
         character.Education = dice.D(2, 6);
         character.SocialStanding = dice.D(2, 6);
+    }
+
+    protected virtual CareerBase PickNextCareer(Character character, Dice dice)
+    {
+        bool noRoll = false;
+        var careerOptions = new List<CareerBase>();
+
+        //Forced picks (e.g. Draft)
+        if (character.NextTermBenefits.MustEnroll != null)
+        {
+            foreach (var career in Careers(character))
+            {
+                noRoll = true; //Don't need to roll if forced to enroll
+                if (string.Equals(character.NextTermBenefits.MustEnroll, career.Career, StringComparison.OrdinalIgnoreCase) || string.Equals(character.NextTermBenefits.MustEnroll, career.Assignment, StringComparison.OrdinalIgnoreCase))
+                {
+                    careerOptions.Add(career);
+                }
+            }
+        }
+
+        //Normal career progression
+        if (!character.NextTermBenefits.MusterOut && careerOptions.Count == 0 && character.LastCareer != null)
+        {
+            if (dice.D(10) > 1) //continue career
+            {
+                foreach (var career in Careers(character))
+                {
+                    noRoll = true; //Don't need to roll if continuing a career
+                    if (character.LastCareer.ShortName == career.ShortName)
+                    {
+                        careerOptions.Add(career);
+                    }
+                }
+            }
+            else
+            {
+                character.NextTermBenefits.MusterOut = true;
+                character.AddHistory($"Voluntarily left " + character.LastCareer.ShortName, character.Age);
+            }
+        }
+
+        //Random picks
+        if (careerOptions.Count == 0)
+        {
+            foreach (var career in Careers(character))
+            {
+                if (character.NextTermBenefits.MusterOut && character.LastCareer!.Career == career.Career)
+                    continue; //No assignments from previous career allowed
+
+                if (career.Qualify(character, dice, true))
+                    careerOptions.Add(career);
+            }
+        }
+
+        //Random picks when not qualified for anything
+        if (careerOptions.Count == 0)
+        {
+            foreach (var career in Careers(character))
+            {
+                if (character.NextTermBenefits.MusterOut && character.LastCareer!.Career == career.Career)
+                    continue; //No assignments from previous career allowed
+
+                careerOptions.Add(career);
+            }
+        }
+
+        var result = dice.Choose(careerOptions);
+
+        if (result.Qualify(character, dice, false) || noRoll) //Force a Qualify roll so we can get special behavior for Psionic Community
+            return result;
+        else
+        {
+            character.AddHistory($"Failed to qualify for {result}.", character.Age);
+            if (character.PreviouslyDrafted || dice.NextBoolean())
+            {
+                return dice.Choose(DefaultCareers(character));
+            }
+            else
+            {
+                character.AddHistory($"Submitted to the draft.", character.Age);
+                character.PreviouslyDrafted = true;
+                return RollDraft(character, dice);
+            }
+        }
     }
 
     protected abstract int RollForPsi(Character character, Dice dice);
@@ -787,90 +888,6 @@ public abstract class CharacterBuilder
             if (character.SocialStanding < 1) character.SocialStanding = 1;
             character.LongTermBenefits.QualificationDM = -100;
             character.LongTermBenefits.Retired = true;
-        }
-    }
-
-    CareerBase PickNextCareer(Character character, Dice dice)
-    {
-        bool noRoll = false;
-        var careers = new List<CareerBase>();
-
-        //Forced picks (e.g. Draft)
-        if (character.NextTermBenefits.MustEnroll != null)
-        {
-            foreach (var career in Careers)
-            {
-                noRoll = true; //Don't need to roll if forced to enroll
-                if (string.Equals(character.NextTermBenefits.MustEnroll, career.Career, StringComparison.OrdinalIgnoreCase) || string.Equals(character.NextTermBenefits.MustEnroll, career.Assignment, StringComparison.OrdinalIgnoreCase))
-                {
-                    careers.Add(career);
-                }
-            }
-        }
-
-        //Normal career progression
-        if (!character.NextTermBenefits.MusterOut && careers.Count == 0 && character.LastCareer != null)
-        {
-            if (dice.D(10) > 1) //continue career
-            {
-                foreach (var career in Careers)
-                {
-                    noRoll = true; //Don't need to roll if continuing a career
-                    if (character.LastCareer.ShortName == career.ShortName)
-                    {
-                        careers.Add(career);
-                    }
-                }
-            }
-            else
-            {
-                character.NextTermBenefits.MusterOut = true;
-                character.AddHistory("Voluntarily left " + character.LastCareer.ShortName, character.Age);
-            }
-        }
-
-        //Random picks
-        if (careers.Count == 0)
-        {
-            foreach (var career in Careers)
-            {
-                if (character.NextTermBenefits.MusterOut && character.LastCareer!.Career == career.Career)
-                    continue; //No assignments from previous career allowed
-
-                if (career.Qualify(character, dice, true))
-                    careers.Add(career);
-            }
-        }
-
-        //Random picks when not qualified for anything
-        if (careers.Count == 0)
-        {
-            foreach (var career in Careers)
-            {
-                if (character.NextTermBenefits.MusterOut && character.LastCareer!.Career == career.Career)
-                    continue; //No assignments from previous career allowed
-
-                careers.Add(career);
-            }
-        }
-
-        var result = dice.Choose(careers);
-
-        if (result.Qualify(character, dice, false) || noRoll) //Force a Qualify roll so we can get special behavior for Psionic Community
-            return result;
-        else
-        {
-            character.AddHistory($"Failed to qualify for {result}.", character.Age);
-            if (character.PreviouslyDrafted || dice.NextBoolean())
-            {
-                return dice.Choose(DefaultCareers);
-            }
-            else
-            {
-                character.AddHistory($"Submitted to the draft.", character.Age);
-                character.PreviouslyDrafted = true;
-                return RollDraft(dice);
-            }
         }
     }
 }

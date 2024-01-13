@@ -37,12 +37,12 @@ abstract class Entertainer(string assignment, CharacterBuilder characterBuilder)
 
                 if (dice.RollHigh(character.Skills.BestSkillLevel("Investigate", "Art"), 8))
                 {
-                    character.AddHistory("Invited to take part in a controversial event or exhibition that improves your social standing.", dice);
+                    character.AddHistory($"Invited to take part in a controversial event or exhibition that improves {character.Name}'s social standing.", dice);
                     character.SocialStanding += 1;
                 }
                 else
                 {
-                    character.AddHistory("Invited to take part in a controversial event or exhibition that injures your social standing.", dice);
+                    character.AddHistory($"Invited to take part in a controversial event or exhibition that injures {character.Name}'s social standing.", dice);
                     character.SocialStanding += -1;
                 }
                 return;
@@ -50,7 +50,7 @@ abstract class Entertainer(string assignment, CharacterBuilder characterBuilder)
             case 4:
 
                 {
-                    var age = character.AddHistory("Join homeworld’s celebrity circles", dice);
+                    var age = character.AddHistory($"Join homeworld’s celebrity circles", dice);
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Carouse");
                     skillList.Add("Persuade");
@@ -60,7 +60,7 @@ abstract class Entertainer(string assignment, CharacterBuilder characterBuilder)
                         character.Skills.Add(dice.Choose(skillList), 1);
                     else
                     {
-                        character.AddHistory("Gain a contact", age);
+                        character.AddHistory($"Gain a contact", age);
                         character.AddContact();
                     }
                 }
@@ -68,7 +68,7 @@ abstract class Entertainer(string assignment, CharacterBuilder characterBuilder)
                 return;
 
             case 5:
-                character.AddHistory($"Works is especially well received and popular, making you a minor celebrity", dice);
+                character.AddHistory($"Works is especially well received and popular, making {character.Name} a minor celebrity", dice);
                 character.BenefitRollDMs.Add(1);
                 return;
 
@@ -86,11 +86,11 @@ abstract class Entertainer(string assignment, CharacterBuilder characterBuilder)
 
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("Refused to criticise a questionable political leader on your homeworld.", dice);
+                    character.AddHistory($"Refused to criticise a questionable political leader on {character.Name}'s homeworld.", dice);
                 }
                 else
                 {
-                    var age = character.AddHistory("Criticised a questionable political leader on your homeworld, causing his downfall. Gain an Enemy", dice);
+                    var age = character.AddHistory($"Criticised a questionable political leader on {character.Name}'s homeworld, causing his downfall. Gain an Enemy", dice);
                     character.AddEnemy();
                     dice.Choose(character.Skills).Level += 1;
                     if (!dice.RollHigh(character.Skills.BestSkillLevel("Art", "Persuade"), 8))
@@ -105,7 +105,7 @@ abstract class Entertainer(string assignment, CharacterBuilder characterBuilder)
                 return;
 
             case 10:
-                character.AddHistory("One of your pieces of art is stolen, and the investigation brings you into the criminal underworld.", dice);
+                character.AddHistory($"One of {character.Name}'s pieces of art is stolen, and the investigation brings {character.Name} into the criminal underworld.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Streetwise");
@@ -119,12 +119,11 @@ abstract class Entertainer(string assignment, CharacterBuilder characterBuilder)
                 return;
 
             case 11:
-                //character.AddHistory("As an artist, you lead a strange and charmed life.");
                 UnusualLifeEvent(character, dice);
                 return;
 
             case 12:
-                character.AddHistory("Win a prestigious prize.", dice);
+                character.AddHistory($"Win a prestigious prize.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 100;
                 return;
         }
@@ -151,23 +150,23 @@ abstract class Entertainer(string assignment, CharacterBuilder characterBuilder)
                 return;
 
             case 2:
-                character.AddHistory("Expose or are involved in a scandal of some sort.", age);
+                character.AddHistory($"Expose or are involved in a scandal of some sort.", age);
                 return;
 
             case 3:
-                character.AddHistory("Public opinion turns on you.", age);
+                character.AddHistory($"Public opinion turns on {character.Name}.", age);
                 character.SocialStanding += -1;
                 return;
 
             case 4:
-                character.AddHistory("You are betrayed by a peer. One Ally or Contact becomes a Rival or Enemy", age);
+                character.AddHistory($"{character.Name} is betrayed by a peer. One Ally or Contact becomes a Rival or Enemy", age);
                 return;
 
             case 5:
-                character.AddHistory("An investigation, tour, project or expedition goes wrong, stranding you far from home.", age);
+                character.AddHistory($"An investigation, tour, project or expedition goes wrong, stranding {character.Name} far from home.", age);
                 var skillList = new SkillTemplateCollection();
                 skillList.Add("Survival");
-                skillList.AddRange(SpecialtiesFor("Pilot"));
+                skillList.AddRange(SpecialtiesFor(character, "Pilot"));
                 skillList.Add("Persuade");
                 skillList.Add("Streetwise");
                 skillList.RemoveOverlap(character.Skills, 1);
@@ -177,7 +176,7 @@ abstract class Entertainer(string assignment, CharacterBuilder characterBuilder)
                 return;
 
             case 6:
-                character.AddHistory("You are forced out because of censorship or controversy. What truth did you get too close to?", age);
+                character.AddHistory($"{character.Name} is forced out because of censorship or controversy. What truth did {character.Name} get too close to?", age);
                 character.NextTermBenefits.QualificationDM += 2;
                 return;
         }
@@ -199,7 +198,7 @@ abstract class Entertainer(string assignment, CharacterBuilder characterBuilder)
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Art")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
                 return;
 
             case 2:
@@ -211,7 +210,7 @@ abstract class Entertainer(string assignment, CharacterBuilder characterBuilder)
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
                 return;
 
             case 5:
@@ -241,7 +240,7 @@ abstract class Entertainer(string assignment, CharacterBuilder characterBuilder)
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Science")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
                 return;
 
             case 5:
@@ -271,7 +270,7 @@ abstract class Entertainer(string assignment, CharacterBuilder characterBuilder)
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Language")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Language")));
                 return;
 
             case 5:

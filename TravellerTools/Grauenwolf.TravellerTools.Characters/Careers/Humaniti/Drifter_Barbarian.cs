@@ -15,7 +15,7 @@ class Drifter_Barbarian(CharacterBuilder characterBuilder) : Drifter("Barbarian"
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Animals")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Animals")));
                 return;
 
             case 2:

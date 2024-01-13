@@ -10,24 +10,14 @@ public abstract class CareerBase(string career, string? assignment, CharacterBui
 
     public string Career { get; } = career;
 
-    public string Key
-    {
-        get { return Assignment ?? Career; }
-    }
+    public string Key => Assignment ?? Career;
 
     /// <summary>
     /// Gets the assignment. If that is null, returns the career.
     /// </summary>
     public string ShortName => Assignment ?? Career;
 
-    internal Book Book => m_CharacterBuilder.Book;
-
     protected virtual int QualifyDM => 0;
-
-    protected ImmutableArray<SkillTemplate> RandomSkills
-    {
-        get { return Book.RandomSkills; }
-    }
 
     public override string ToString()
     {
@@ -37,10 +27,7 @@ public abstract class CareerBase(string career, string? assignment, CharacterBui
             return $"{Assignment} ({Career})";
     }
 
-    internal virtual decimal MedicalPaymentPercentage(Character character, Dice dice)
-    {
-        return 0;
-    }
+    internal virtual decimal MedicalPaymentPercentage(Character character, Dice dice) => 0;
 
     /// <summary>
     /// Qualifies the specified character.
@@ -50,10 +37,7 @@ public abstract class CareerBase(string career, string? assignment, CharacterBui
 
     internal abstract void Run(Character character, Dice dice);
 
-    protected void FixupSkills(Character character, Dice dice)
-    {
-        m_CharacterBuilder.FixupSkills(character, dice);
-    }
+    protected void FixupSkills(Character character, Dice dice) => m_CharacterBuilder.FixupSkills(character, dice);
 
     protected void Injury(Character character, Dice dice, bool severe, int age) => m_CharacterBuilder.Injury(character, dice, this, severe, age);
 
@@ -67,9 +51,16 @@ public abstract class CareerBase(string career, string? assignment, CharacterBui
 
     protected void PreCareerEvents(Character character, Dice dice, CareerBase career, SkillTemplateCollection skills) => m_CharacterBuilder.PreCareerEvents(character, dice, career, skills);
 
-    protected CareerBase RollDraft(Dice dice) => m_CharacterBuilder.RollDraft(dice);
+    protected ImmutableArray<PsionicSkillTemplate> PsionicTalents(Character character) => m_CharacterBuilder.Book(character).PsionicTalents;
 
-    protected List<SkillTemplate> SpecialtiesFor(string skillName) => Book.SpecialtiesFor(skillName);
+    /// <summary>
+    /// Gets the list of random skills. Skills needing specialization will be excluded. For example, "Art (Performer)" will be included but just "Art" will not.
+    /// </summary>
+    protected ImmutableArray<SkillTemplate> RandomSkills(Character character) => m_CharacterBuilder.Book(character).RandomSkills;
+
+    protected CareerBase RollDraft(Character character, Dice dice) => m_CharacterBuilder.RollDraft(character, dice);
+
+    protected List<SkillTemplate> SpecialtiesFor(Character character, string skillName) => m_CharacterBuilder.Book(character).SpecialtiesFor(skillName);
 
     protected void TestPsionic(Character character, Dice dice, int age) => m_CharacterBuilder.TestPsionic(character, dice, age);
 

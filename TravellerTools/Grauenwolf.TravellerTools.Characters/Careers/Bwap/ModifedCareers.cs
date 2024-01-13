@@ -5,6 +5,11 @@ class Army_Cavalry(CharacterBuilder characterBuilder) : Humaniti.Army_Cavalry(ch
     protected override int QualifyDM => -1;
 }
 
+class Army_Infantry(CharacterBuilder characterBuilder) : Humaniti.Army_Infantry(characterBuilder)
+{
+    protected override int QualifyDM => -1;
+}
+
 class Army_Support(CharacterBuilder characterBuilder) : Humaniti.Army_Support(characterBuilder)
 {
     protected override int QualifyDM => -1;
@@ -13,11 +18,6 @@ class Army_Support(CharacterBuilder characterBuilder) : Humaniti.Army_Support(ch
 class Citizen_Corporate(CharacterBuilder characterBuilder) : Humaniti.Citizen_Corporate(characterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck) => true;
-}
-
-class Infantry(CharacterBuilder characterBuilder) : Humaniti.Army_Infantry(characterBuilder)
-{
-    protected override int QualifyDM => -1;
 }
 
 class Marine_GroundAssault(CharacterBuilder characterBuilder) : Humaniti.Marine_GroundAssault(characterBuilder)

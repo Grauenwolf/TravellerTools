@@ -24,7 +24,7 @@ class Entertainer_Performer(CharacterBuilder characterBuilder) : Entertainer("Pe
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
 
             case 3:

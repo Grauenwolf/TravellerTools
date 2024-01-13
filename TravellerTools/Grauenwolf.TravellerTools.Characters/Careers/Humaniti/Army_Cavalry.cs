@@ -19,11 +19,11 @@ class Army_Cavalry(CharacterBuilder characterBuilder) : Army("Cavalry", characte
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Flyer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
                 return;
 
             case 4:

@@ -7,6 +7,7 @@ public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator
 {
     static readonly ImmutableList<string> s_MandatoryBackgroundSkills = ImmutableList.Create("Gun Combat", "Melee", "Stealth");
     static readonly ImmutableList<string> s_OptionalBackgroundSkills = ImmutableList.Create("Admin", "Animals", "Art", "Athletics", "Carouse", "Drive", "Science", "Seafarer", "Streetwise", "Survival", "Vacc Suit", "Electronics", "Flyer", "Language", "Mechanic", "Medic", "Profession");
+    public override ImmutableArray<Gender> Genders { get; } = ImmutableArray.Create<Gender>(new("F", "Female", 1), new("M", "Male", 1));
     public override string Species => "Tezcat";
 
     public override string SpeciesUrl => "https://wiki.travellerrpg.com/Tezcat";
@@ -117,9 +118,9 @@ public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator
             new Humaniti.Navy_EngineerGunner(this),
             new Humaniti.Navy_Flight(this),
             new Humaniti.Navy_LineCrew(this),
-            new Humaniti.Prisoner_Fixer(this),
-            new Humaniti.Prisoner_Inmate(this),
-            new Humaniti.Prisoner_Thug(this),
+            new Prisoner_Fixer(this),
+            new Prisoner_Inmate(this),
+            new Prisoner_Thug(this),
             new Retired(this),
             new Humaniti.Rogue_Enforcer(this),
             new Humaniti.Rogue_Pirate(this),
@@ -152,7 +153,7 @@ public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator
     {
         //Most will enter the draft when they become adults.
         if (dice.D(6) <= 4)
-            character.NextTermBenefits.MustEnroll = RollDraft(dice).ShortName;
+            character.NextTermBenefits.MustEnroll = RollDraft(character, dice).ShortName;
     }
 
     protected override void InitialCharacterStats(Dice dice, Character character)

@@ -48,6 +48,7 @@ public class Character
     public int Intellect { get; set; }
     public int IntellectDM => DMCalc(Intellect);
     public bool IsDead { get; set; }
+    public bool IsOutcast { get; set; }
     public CareerHistory? LastCareer { get; set; }
     public int? MaxAge { get; set; }
     public string? Name { get; set; }
@@ -60,6 +61,8 @@ public class Character
     public int PsiDM => Psi == null ? -100 : DMCalc(Psi.Value);
     public string? Race { get; set; }
 
+    public int RiteOfPassageDM { get; set; }
+
     /// <summary>
     /// Gets or sets the seed used to randomly create the character.
     /// </summary>
@@ -69,10 +72,13 @@ public class Character
     public SkillCollection Skills { get; } = new();
     public int SocialStanding { get; set; }
     public int SocialStandingDM => DMCalc(SocialStanding);
+
     public string? Species { get; set; }
     public string? SpeciesUrl { get; set; }
     public int Strength { get; set; }
     public int StrengthDM => DMCalc(Strength);
+    public int? Territory { get; set; }
+    public int TerritoryDM => DMCalc(Territory);
     public string? Title { get; set; }
     public List<string> Trace { get; } = new();
     public WeaponCollection Weapons { get; } = new();
@@ -91,6 +97,13 @@ public class Character
 
     //internal int UnusedAllies { get; private set; }
     internal Queue<ContactType> UnusedContacts { get; } = new();
+
+    public static int DMCalc(int? value)
+    {
+        if (value == null)
+            return 0;
+        return DMCalc(value.Value);
+    }
 
     public static int DMCalc(int value)
     {
@@ -204,56 +217,57 @@ public class Character
             "Education" or "Edu" => EducationDM,
             "SS" or "Soc" or "SocialStanding" => SocialStandingDM,
             "Fol" or "Following" => FollowingDM,
+            "TER" or "Territory" => TerritoryDM,
             _ => throw new ArgumentOutOfRangeException(nameof(attributeName), attributeName, "Unknown attribute " + attributeName),
         };
     }
 
-    public void Increase(string attributeName, int bonus)
-    {
-        switch (attributeName)
-        {
-            case "Strength":
-            case "Str":
-                Strength += bonus; return;
+    //public void Increase(string attributeName, int bonus)
+    //{
+    //    switch (attributeName)
+    //    {
+    //        case "Strength":
+    //        case "Str":
+    //            Strength += bonus; return;
 
-            case "Dexterity":
-            case "Dex":
-                Dexterity += bonus; return;
+    //        case "Dexterity":
+    //        case "Dex":
+    //            Dexterity += bonus; return;
 
-            case "Endurance":
-            case "End":
-                Endurance += bonus; return;
+    //        case "Endurance":
+    //        case "End":
+    //            Endurance += bonus; return;
 
-            case "Intellect":
-            case "Int":
-                Intellect += bonus; return;
+    //        case "Intellect":
+    //        case "Int":
+    //            Intellect += bonus; return;
 
-            case "Education":
-            case "Edu":
-                Education += bonus; return;
+    //        case "Education":
+    //        case "Edu":
+    //            Education += bonus; return;
 
-            case "SS":
-            case "SocialStanding":
-                SocialStanding += bonus; return;
+    //        case "SS":
+    //        case "SocialStanding":
+    //            SocialStanding += bonus; return;
 
-            //case "Armor": Armor += bonus; return;
+    //        //case "Armor": Armor += bonus; return;
 
-            //case "QuirkRolls":
-            //case "Quirks":
-            //    QuirkRolls += bonus; return;
+    //        //case "QuirkRolls":
+    //        //case "Quirks":
+    //        //    QuirkRolls += bonus; return;
 
-            //case "PhysicalSkills": PhysicalSkills += bonus; return;
-            //case "SocialSkills": SocialSkills += bonus; return;
+    //        //case "PhysicalSkills": PhysicalSkills += bonus; return;
+    //        //case "SocialSkills": SocialSkills += bonus; return;
 
-            //case "EvolutionSkills": EvolutionSkills += bonus; return;
-            //case "EvolutionDM": EvolutionDM += bonus; return;
-            //case "EvolutionRolls": EvolutionRolls += bonus; return;
-            //case "InitiativeDM": InitiativeDM += bonus; return;
+    //        //case "EvolutionSkills": EvolutionSkills += bonus; return;
+    //        //case "EvolutionDM": EvolutionDM += bonus; return;
+    //        //case "EvolutionRolls": EvolutionRolls += bonus; return;
+    //        //case "InitiativeDM": InitiativeDM += bonus; return;
 
-            default:
-                throw new ArgumentOutOfRangeException(nameof(attributeName), attributeName, "Unknown attribute " + attributeName);
-        }
-    }
+    //        default:
+    //            throw new ArgumentOutOfRangeException(nameof(attributeName), attributeName, "Unknown attribute " + attributeName);
+    //    }
+    //}
 
     internal int GetAdvancementBonus(string career, string? assignment)
     {

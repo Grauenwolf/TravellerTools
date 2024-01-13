@@ -6,16 +6,16 @@ class NavalAcademy(CharacterBuilder characterBuilder) : MilitaryAcademy("Naval A
     protected override string QualifyAttribute => "Int";
     protected override int QualifyTarget => 8;
 
-    protected override SkillTemplateCollection GetBasicSkills()
+    protected override SkillTemplateCollection GetBasicSkills(Character character)
     {
         var skillList = new SkillTemplateCollection();
 
-        skillList.AddRange(SpecialtiesFor("Pilot"));
+        skillList.AddRange(SpecialtiesFor(character, "Pilot"));
         skillList.Add("Vacc Suit");
-        skillList.AddRange(SpecialtiesFor("Athletics"));
-        skillList.AddRange(SpecialtiesFor("Gunner"));
+        skillList.AddRange(SpecialtiesFor(character, "Athletics"));
+        skillList.AddRange(SpecialtiesFor(character, "Gunner"));
         skillList.Add("Mechanic");
-        skillList.AddRange(SpecialtiesFor("Gun Combat"));
+        skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
 
         return skillList;
     }

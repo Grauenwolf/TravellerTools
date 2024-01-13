@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CharacterTemplates>
+	<Skills>
+		<Skill Name="Admin" />
+		<Skill Name="Advocate" />
+		<Skill Name="Animals">
+			<Specialty Name="Handling" />
+			<Specialty Name="Veterinary" />
+			<Specialty Name="Training" />
+		</Skill>
+		<Skill Name="Art">
+			<Specialty Name="Performer"  Group="Performing" />
+			<Specialty Name="Instrument" Group="Performing" />
+			<Specialty Name="Visual Media" Group="Creative" />
+			<Specialty Name="Exotic Media" Group="Creative" />
+			<Specialty Name="Holography" Group="Presentation" />
+			<Specialty Name="Write" Group="Presentation" />
+		</Skill>
+		<Skill Name="Athletics">
+			<Specialty Name="Dexterity" />
+			<Specialty Name="Endurance" />
+			<Specialty Name="Strength" />
+		</Skill>
+		<Skill Name="Astrogation" />
+		<Skill Name="Broker" />
+		<Skill Name="Carouse" />
+		<Skill Name="Deception" />
+		<Skill Name="Diplomat" />
+		<Skill Name="Drive">
+			<Specialty Name="Hovercraft" />
+			<Specialty Name="Mole" />
+			<Specialty Name="Track" />
+			<Specialty Name="Walker" />
+			<Specialty Name="Wheel" />
+		</Skill>
+		<Skill Name="Electronics">
+			<Specialty Name="Comms" />
+			<Specialty Name="Computers" />
+			<Specialty Name="Remote Ops" />" />
+			<Specialty Name="Sensors" />
+		</Skill>
+		<Skill Name="Engineer">
+			<Specialty Name="M-drive" />
+			<Specialty Name="J-drive" />
+			<Specialty Name="Life Support" />
+			<Specialty Name="Power" />
+		</Skill>
+		<Skill Name="Explosives" />
+		<Skill Name="Flyer">
+			<Specialty Name="Airship" />
+			<Specialty Name="Grav" />
+			<Specialty Name="Ornithopter" />
+			<Specialty Name="Rotor" />
+			<Specialty Name="Wing" />
+		</Skill>
+		<Skill Name="Gambler" />
+		<Skill Name="Gun Combat">
+			<Specialty Name="Archaic" />
+			<Specialty Name="Energy" />
+			<Specialty Name="Slug" />
+		</Skill>
+		<Skill Name="Investigate" />
+		<Skill Name="Jack-of-All-Trades" />
+		<Skill Name="Language">
+			<Specialty Name="Galanglic (3rd Imperium)" />
+			<Specialty Name="Vilani (1st Imperium)" />
+			<Specialty Name="Zdetl (Zhodani)" />
+			<Specialty Name="Oynprith (Droyne)" />
+			<Specialty Name="Trokh (Aslan)" />
+			<Specialty Name="Gvegh (Vargr)" />
+		</Skill>
+		<Skill Name="Mechanic" />
+		<Skill Name="Medic" />
+		<Skill Name="Melee">
+			<Specialty Name="Unarmed" />
+			<Specialty Name="Blade" />
+			<Specialty Name="Bludgeon" />
+			<Specialty Name="Grapple" />
+			<Specialty Name="Striking" />
+			<Specialty Name="Fencing" />
+			<Specialty Name="Natural" />
+		</Skill>
+		<Skill Name="Navigation" />
+		<Skill Name="Persuade" />
+		<Skill Name="Pilot">
+			<Specialty Name="Small Craft" />
+			<Specialty Name="Spacecraft" />
+			<Specialty Name="Capital Ships" />
+		</Skill>
+		<Skill Name="Profession">
+			<Specialty Name="Armourer" Group="Worker" />
+			<Specialty Name="Biologicals" Group="Worker" />
+			<Specialty Name="Civil Engineering" Group="Worker" />
+			<Specialty Name="Construction" Group="Worker" />
+			<Specialty Name="Hydroponics" Group="Worker" />
+			<Specialty Name="Metalworking" Group="Worker" />
+			<Specialty Name="Polymers" Group="Worker" />
+			<Specialty Name="Religion" Group="Worker" />
+
+			<Specialty Name="Farming"  Group="Colonist" />
+			<Specialty Name="Ranching" Group="Colonist" />
+
+			<Specialty Name="Scrounging" Group="Freeloader" />
+			<Specialty Name="Security" Group="Freeloader" />
+
+			<Specialty Name="Contaminent"  Group="Hostile Environment" />
+			<Specialty Name="Low-G"  Group="Hostile Environment" />
+			<Specialty Name="High-G"  Group="Hostile Environment" />
+			<Specialty Name="Underwater"  Group="Hostile Environment" />
+
+			<Specialty Name="Belter" Group="Spacer" />
+			<Specialty Name="Crewmember"  Group="Spacer" />
+
+			<Specialty Name="Atmosphere Surfing"  Group="Sports" />
+			<Specialty Name="Golf"  Group="Sports" />
+			<Specialty Name="Motorsports"  Group="Sports" />
+			<Specialty Name="Racquet Sports"  Group="Sports" />
+			<Specialty Name="Team Ball Sports"  Group="Sports" />
+			<Specialty Name="Track &amp; Field"  Group="Sports" />
+		</Skill>
+		<Skill Name="Recon" />
+		<Skill Name="Science">
+			<Specialty Name="Biology" Group="Life Sciences" />
+			<Specialty Name="Genetics" Group="Life Sciences" />
+			<Specialty Name="Psionicology" Group="Life Sciences" />
+			<Specialty Name="Xenology" Group="Life Sciences" />
+
+			<Specialty Name="Chemistry" Group="Physical Sciences" />
+			<Specialty Name="Physics" Group="Physical Sciences" />
+			<Specialty Name="Jump Space Physics" Group="Physical Sciences" />
+
+			<Specialty Name="Cybernetics" Group="Robotic Sciences" />
+			<Specialty Name="Robotics" Group="Robotic Sciences" />
+
+			<Specialty Name="Archaeology" Group="Social Sciences" />
+			<Specialty Name="Economics" Group="Social Sciences" />
+			<Specialty Name="History" Group="Social Sciences" />
+			<Specialty Name="Linguistics" Group="Social Sciences" />
+			<Specialty Name="Philosophy" Group="Social Sciences" />
+			<Specialty Name="Psychology" Group="Social Sciences" />
+			<Specialty Name="Sophontology" Group="Social Sciences" />
+			<Specialty Name="Belief" Group="Social Sciences" />
+
+			<Specialty Name="Astronomy"   Group="Spaces Sciences" />
+			<Specialty Name="Cosmology"   Group="Spaces Sciences" />
+			<Specialty Name="Planetology" Group="Spaces Sciences" />
+		</Skill>
+		<Skill Name="Seafarer">
+			<Specialty Name="Ocean Ships" />
+			<Specialty Name="Personal" />
+			<Specialty Name="Sail" />
+			<Specialty Name="Submarine" />
+		</Skill>
+		<Skill Name="Stealth" />
+		<Skill Name="Steward" />
+		<Skill Name="Streetwise" />
+		<Skill Name="Survival" />
+		<Skill Name="Tolerance" />
+		<Skill Name="Vacc Suit" />
+	</Skills>
+</CharacterTemplates>

@@ -15,11 +15,11 @@ class DolphinMilitary_UnderwaterCommando(CharacterBuilder characterBuilder) : Do
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Heavy Weapon")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Heavy Weapon")));
                 return;
 
             case 3:
@@ -35,7 +35,7 @@ class DolphinMilitary_UnderwaterCommando(CharacterBuilder characterBuilder) : Do
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
         }
     }

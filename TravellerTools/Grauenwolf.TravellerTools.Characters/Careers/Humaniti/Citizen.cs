@@ -16,7 +16,7 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
                 return;
 
             case 3:
-                character.AddHistory("Political upheaval strikes your homeworld, and you are caught up in the revolution.", dice);
+                character.AddHistory($"Political upheaval strikes {character.Name}'s homeworld, and {character.Name} is caught up in the revolution.", dice);
 
                 {
                     var skillList = new SkillTemplateCollection();
@@ -36,26 +36,26 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
                 return;
 
             case 4:
-                character.AddHistory("Spent time maintaining and using heavy vehicles.", dice);
+                character.AddHistory($"Spent time maintaining and using heavy vehicles.", dice);
                 var skills = new SkillTemplateCollection();
                 skills.Add("Mechanic");
-                skills.AddRange(SpecialtiesFor("Drive"));
-                skills.AddRange(SpecialtiesFor("Electronics"));
-                skills.AddRange(SpecialtiesFor("Flyer"));
-                skills.AddRange(SpecialtiesFor("Engineer"));
+                skills.AddRange(SpecialtiesFor(character, "Drive"));
+                skills.AddRange(SpecialtiesFor(character, "Electronics"));
+                skills.AddRange(SpecialtiesFor(character, "Flyer"));
+                skills.AddRange(SpecialtiesFor(character, "Engineer"));
                 character.Skills.Increase(dice.Choose(skills));
                 return;
 
             case 5:
-                character.AddHistory("Your business expands, your corporation grows, or the colony thrives.", dice);
+                character.AddHistory($"{character.Name}'s business expands, {character.Name}'s corporation grows, or the colony thrives.", dice);
                 character.BenefitRollDMs.Add(1);
                 return;
 
             case 6:
-                character.AddHistory("Advanced training in a specialist field.", dice);
+                character.AddHistory($"Advanced training in a specialist field.", dice);
                 if (dice.RollHigh(character.EducationDM, 10))
                 {
-                    var skillList = new SkillTemplateCollection(RandomSkills);
+                    var skillList = new SkillTemplateCollection(RandomSkills(character));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);
@@ -67,7 +67,7 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
                 return;
 
             case 8:
-                var age = character.AddHistory("You learn something you should not have – a corporate secret, a political scandal – which you can profit from illegally.", dice);
+                var age = character.AddHistory($"{character.Name} learn something {character.Name} should not have – a corporate secret, a political scandal – which {character.Name} can profit from illegally.", dice);
                 character.BenefitRollDMs.Add(1);
                 switch (dice.D(3))
                 {
@@ -80,30 +80,30 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
                         return;
 
                     case 3:
-                        character.AddHistory("Gain a criminal contact.", age);
+                        character.AddHistory($"Gain a criminal contact.", age);
                         character.AddContact();
                         return;
                 }
                 return;
 
             case 9:
-                character.AddHistory("You are rewarded for your diligence or cunning.", dice);
+                character.AddHistory($"{character.Name} is rewarded for {character.Name}'s diligence or cunning.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 2;
                 return;
 
             case 10:
-                character.AddHistory("You gain experience in a technical field as a computer operator or surveyor.", dice);
+                character.AddHistory($"{character.Name} gain experience in a technical field as a computer operator or surveyor.", dice);
 
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Electronics"));
-                    skillList.AddRange(SpecialtiesFor("Engineer"));
+                    skillList.AddRange(SpecialtiesFor(character, "Electronics"));
+                    skillList.AddRange(SpecialtiesFor(character, "Engineer"));
                     character.Skills.Increase(dice.Choose(skillList));
                 }
                 return;
 
             case 11:
-                character.AddHistory("You befriend a superior in the corporation or the colony.", dice);
+                character.AddHistory($"{character.Name} befriend a superior in the corporation or the colony.", dice);
                 switch (dice.D(2))
                 {
                     case 1:
@@ -117,7 +117,7 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
                 return;
 
             case 12:
-                character.AddHistory("You rise to a position of power in your colony or corporation.", dice);
+                character.AddHistory($"{character.Name} rise to a position of power in {character.Name}'s colony or corporation.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 100;
                 return;
         }
@@ -144,28 +144,28 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
                 return;
 
             case 2:
-                character.AddHistory("Life ruined by a criminal gang. Gain the gang as an Enemy", age);
+                character.AddHistory($"Life ruined by a criminal gang. Gain the gang as an Enemy", age);
                 return;
 
             case 3:
-                character.AddHistory("Hard times caused by a lack of interstellar trade costs you your job.", age);
+                character.AddHistory($"Hard times caused by a lack of interstellar trade costs {character.Name} {character.Name}'s job.", age);
                 character.SocialStanding += -1;
                 return;
 
             case 4:
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("Co-operate with investigation by the planetary authorities. The business or colony is shut down.", age);
+                    character.AddHistory($"Co-operate with investigation by the planetary authorities. The business or colony is shut down.", age);
                     character.NextTermBenefits.QualificationDM += 2;
                 }
                 else
                 {
-                    character.AddHistory("Refused to co-operate with investigation by the planetary authorities. Gain an Ally", age);
+                    character.AddHistory($"Refused to co-operate with investigation by the planetary authorities. Gain an Ally", age);
                 }
                 return;
 
             case 5:
-                character.AddHistory("A revolution, attack or other unusual event throws your life into chaos, forcing you to leave the planet.", age);
+                character.AddHistory($"A revolution, attack or other unusual event throws {character.Name}'s life into chaos, forcing {character.Name} to leave the planet.", age);
                 if (dice.RollHigh(character.Skills.BestSkillLevel("Streetwise"), 8))
                     dice.Choose(character.Skills).Level += 1;
                 return;
@@ -192,11 +192,11 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Flyer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
                 return;
 
             case 3:
@@ -204,7 +204,7 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
                 return;
 
             case 5:
@@ -212,7 +212,7 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Profession")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Profession")));
                 return;
         }
     }
@@ -222,7 +222,7 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Art")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
                 return;
 
             case 2:
@@ -234,7 +234,7 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Language")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Language")));
                 return;
 
             case 5:
@@ -268,7 +268,7 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
                 return;
 
             case 6:

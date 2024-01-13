@@ -23,11 +23,11 @@ class ShaperPriest_Academic(CharacterBuilder characterBuilder) : ShaperPriest("A
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Science")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Science")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
                 return;
 
             case 5:
@@ -35,7 +35,7 @@ class ShaperPriest_Academic(CharacterBuilder characterBuilder) : ShaperPriest("A
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Science")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
                 return;
         }
     }

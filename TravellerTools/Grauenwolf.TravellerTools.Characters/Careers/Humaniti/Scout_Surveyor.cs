@@ -15,7 +15,7 @@ class Scout_Surveyor(CharacterBuilder characterBuilder) : Scout("Surveyor", char
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 2:
@@ -23,7 +23,7 @@ class Scout_Surveyor(CharacterBuilder characterBuilder) : Scout("Surveyor", char
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Flyer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
                 return;
 
             case 4:

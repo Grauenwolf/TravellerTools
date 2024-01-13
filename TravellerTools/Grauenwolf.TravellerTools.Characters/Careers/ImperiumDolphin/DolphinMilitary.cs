@@ -34,7 +34,7 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
                 return;
 
             case 3:
-                character.AddHistory("You perform well during a black ops commando mission. Gain a Contact in an elite military unit.", dice);
+                character.AddHistory($"{character.Name} perform well during a black ops commando mission. Gain a Contact in an elite military unit.", dice);
                 character.AddContact();
                 character.CurrentTermBenefits.AdvancementDM += 2;
                 return;
@@ -42,12 +42,12 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
             case 4:
                 if (dice.RollHigh(character.Skills.BestSkillLevel("Vacc Suit"), 4))
                 {
-                    character.AddHistory("Receive special training in underwater mine disposal.", dice);
+                    character.AddHistory($"Receive special training in underwater mine disposal.", dice);
                     character.Skills.Increase("Explosives");
                 }
                 else
                 {
-                    var age = character.AddHistory("Injured while training in underwater mine disposal.", dice);
+                    var age = character.AddHistory($"Injured while training in underwater mine disposal.", dice);
                     Injury(character, dice, age);
                 }
                 return;
@@ -67,11 +67,11 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
                 return;
 
             case 6:
-                character.AddHistory("A brutal amphibious warfare campaign forces you to spend as much time fighting out of water as in.", dice);
+                character.AddHistory($"A brutal amphibious warfare campaign forces {character.Name} to spend as much time fighting out of water as in.", dice);
                 if (dice.RollHigh(character.Skills.BestSkillLevel("Vacc Suit"), 7))
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                    skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
                     skillList.Add("Leadership");
                     skillList.Add("Tactics", "Military");
                     character.Skills.Increase(dice.Choose(skillList), 1);
@@ -84,18 +84,18 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
 
             case 8:
                 {
-                    var age = character.AddHistory("Participate in a major sea battle", dice);
+                    var age = character.AddHistory($"Participate in a major sea battle", dice);
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Vacc Suit");
-                    skillList.AddRange(SpecialtiesFor("Melee"));
-                    skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                    skillList.AddRange(SpecialtiesFor(character, "Melee"));
+                    skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
                     skillList.Add("Tactics", "Military");
                     character.Skills.Increase(dice.Choose(skillList), 1);
                 }
                 return;
 
             case 9:
-                character.AddHistory("You are assigned to a joint mission with an intelligence agency to catch spies or insurgents operating near underwater base facilities. Gain an intelligence agent as a Contact.", dice);
+                character.AddHistory($"{character.Name} is assigned to a joint mission with an intelligence agency to catch spies or insurgents operating near underwater base facilities. Gain an intelligence agent as a Contact.", dice);
                 character.AddContact();
                 {
                     var skillList = new SkillTemplateCollection();
@@ -108,7 +108,7 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
             case 10:
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("A mission goes badly wrong when a human leader disregards your advice because you are ‘just \r\na Dolphin’ and then blames you for their mistake. You quitely accept it.", dice);
+                    character.AddHistory($"A mission goes badly wrong when a human leader disregards {character.Name}'s advice because {character.Name} is ‘just \r\na Dolphin’ and then blames {character.Name} for their mistake. {character.Name} quitely accept it.", dice);
                     character.CurrentTermBenefits.AdvancementDM += -1;
                 }
                 else
@@ -116,7 +116,7 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
                     var dm = Math.Max(character.SocialStandingDM, character.Skills.BestSkillLevel("Advocate"));
                     if (dice.RollHigh(dm, 8))
                     {
-                        character.AddHistory("A mission goes badly wrong when a human leader disregards your advice because you are ‘just a Dolphin’ and then blames you for their mistake. You prove your innocence and they are dismissed.", dice);
+                        character.AddHistory($"A mission goes badly wrong when a human leader disregards {character.Name}'s advice because {character.Name} is ‘just a Dolphin’ and then blames {character.Name} for their mistake. {character.Name} prove {character.Name}'s innocence and they are dismissed.", dice);
 
                         var skillList = new SkillTemplateCollection();
                         skillList.Add("Leadership");
@@ -126,14 +126,14 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
                     }
                     else
                     {
-                        character.AddHistory("A mission goes badly wrong when a human leader disregards your advice because you are ‘just a Dolphin’ and then blames you for their mistake. You try and fail to prove your innocence.", dice);
+                        character.AddHistory($"A mission goes badly wrong when a human leader disregards {character.Name}'s advice because {character.Name} is ‘just a Dolphin’ and then blames {character.Name} for their mistake. {character.Name} try and fail to prove {character.Name}'s innocence.", dice);
                         character.CurrentTermBenefits.AdvancementDM += -2;
                     }
                 }
                 return;
 
             case 11:
-                character.AddHistory("Commanding officer takes an interest in your career.", dice);
+                character.AddHistory($"Commanding officer takes an interest in {character.Name}'s career.", dice);
                 switch (dice.D(2))
                 {
                     case 1:
@@ -154,7 +154,7 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
                 return;
 
             case 12:
-                character.AddHistory("Display heroism in battle.", dice);
+                character.AddHistory($"Display heroism in battle.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 100; //also applies to commission rolls
 
                 return;
@@ -182,23 +182,23 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
                 return;
 
             case 2:
-                character.AddHistory("You encounter anti-Dolphin prejudice from the force you are working with. You resign in disgust.", age);
+                character.AddHistory($"{character.Name} encounter anti-Dolphin prejudice from the force {character.Name} is working with. {character.Name} resign in disgust.", age);
                 return;
 
             case 3:
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("Your unit is involved in a savage campaign against primitive indigenous aquatic aliens that troubles your conscience. If you refuse to participate you are ejected from this career.", age);
+                    character.AddHistory($"{character.Name}'s unit is involved in a savage campaign against primitive indigenous aquatic aliens that troubles {character.Name}'s conscience. If {character.Name} refuse to participate {character.Name} is ejected from this career.", age);
                 }
                 else
                 {
-                    character.AddHistory("Your unit is involved in a savage campaign against primitive indigenous aquatic aliens that troubles \r\nyour conscience. If you refuse to participate you are ejected from this career. You participate in the massacre and gain an Enemy.", age);
+                    character.AddHistory($"{character.Name}'s unit is involved in a savage campaign against primitive indigenous aquatic aliens that troubles \r\nyour conscience. If {character.Name} refuse to participate {character.Name} is ejected from this career. {character.Name} participate in the massacre and gain an Enemy.", age);
                     character.NextTermBenefits.MusterOut = false;
                 }
                 return;
 
             case 4:
-                character.AddHistory("An ambitious planetary operation goes badly wrong leaving you beached ashore without functional protective gear. Dehydration and skin damage requires lengthy recovery.", age);
+                character.AddHistory($"An ambitious planetary operation goes badly wrong leaving {character.Name} beached ashore without functional protective gear. Dehydration and skin damage requires lengthy recovery.", age);
                 character.Endurance -= 2;
 
                 return;
@@ -206,11 +206,11 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
             case 5:
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("An investigation uncovers links between your unit’s commander and a radical faction.", age);
+                    character.AddHistory($"An investigation uncovers links between {character.Name}'s unit’s commander and a radical faction.", age);
                 }
                 else
                 {
-                    character.AddHistory("An investigation uncovers links between your unit’s commander and a radical faction. You denounce your commander. Gain one of his allies as an Enemy.", age);
+                    character.AddHistory($"An investigation uncovers links between {character.Name}'s unit’s commander and a radical faction. {character.Name} denounce {character.Name}'s commander. Gain one of his allies as an Enemy.", age);
                     character.NextTermBenefits.MusterOut = false;
                     character.AddEnemy();
                 }
@@ -238,7 +238,7 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
 
             case 2:
@@ -254,7 +254,7 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
 
             case 6:
@@ -278,7 +278,7 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
                     careerHistory.Title = "Lance Corporal";
                     {
                         var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                        skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
                             character.Skills.Add(dice.Choose(skillList), 1);
@@ -329,7 +329,7 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
                     careerHistory.Title = "Lt. Colonel";
                     {
                         var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor("Tactics"));
+                        skillList.AddRange(SpecialtiesFor(character, "Tactics"));
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
                             character.Skills.Add(dice.Choose(skillList), 1);
@@ -368,7 +368,7 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
                 return;
 
             case 5:
@@ -376,7 +376,7 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Pilot")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
                 return;
         }
     }
@@ -392,11 +392,11 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Pilot")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
                 return;
 
             case 4:
@@ -404,7 +404,7 @@ abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuil
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Tactics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Tactics")));
                 return;
 
             case 6:

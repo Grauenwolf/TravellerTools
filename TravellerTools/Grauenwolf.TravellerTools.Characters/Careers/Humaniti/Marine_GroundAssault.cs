@@ -19,7 +19,7 @@ class Marine_GroundAssault(CharacterBuilder characterBuilder) : Marine("Ground A
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Heavy Weapons")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Heavy Weapons")));
                 return;
 
             case 3:
@@ -35,7 +35,7 @@ class Marine_GroundAssault(CharacterBuilder characterBuilder) : Marine("Ground A
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
         }
     }

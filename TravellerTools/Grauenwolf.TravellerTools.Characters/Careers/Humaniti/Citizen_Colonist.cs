@@ -15,11 +15,11 @@ class Citizen_Colonist(CharacterBuilder characterBuilder) : Citizen("Colonist", 
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Animals")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Animals")));
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
 
             case 3:
@@ -27,7 +27,7 @@ class Citizen_Colonist(CharacterBuilder characterBuilder) : Citizen("Colonist", 
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
                 return;
 
             case 5:
@@ -83,7 +83,7 @@ class Citizen_Colonist(CharacterBuilder characterBuilder) : Citizen("Colonist", 
 
             case 6:
                 {
-                    var skillList = new SkillTemplateCollection(SpecialtiesFor("Gun Combat"));
+                    var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Gun Combat"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);

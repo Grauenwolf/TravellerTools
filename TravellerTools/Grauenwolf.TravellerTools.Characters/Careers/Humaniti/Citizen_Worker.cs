@@ -15,7 +15,7 @@ class Citizen_Worker(CharacterBuilder characterBuilder) : Citizen("Worker", char
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
                 return;
 
             case 2:
@@ -23,19 +23,19 @@ class Citizen_Worker(CharacterBuilder characterBuilder) : Citizen("Worker", char
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Profession")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Profession")));
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Science")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
                 return;
         }
     }
@@ -68,7 +68,7 @@ class Citizen_Worker(CharacterBuilder characterBuilder) : Citizen("Worker", char
             case 2:
                 careerHistory.Title = "Technician";
                 {
-                    var skillList = new SkillTemplateCollection(SpecialtiesFor("Profession"));
+                    var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Profession"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);
@@ -89,7 +89,7 @@ class Citizen_Worker(CharacterBuilder characterBuilder) : Citizen("Worker", char
             case 6:
                 careerHistory.Title = "Master Technician";
                 {
-                    var skillList = new SkillTemplateCollection(SpecialtiesFor("Engineer"));
+                    var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Engineer"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);

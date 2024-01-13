@@ -1,6 +1,4 @@
-﻿using Grauenwolf.TravellerTools;
-
-namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
 abstract class Psion(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Psion", assignment, characterBuilder)
 {
@@ -18,18 +16,18 @@ abstract class Psion(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 3:
-                character.AddHistory("Psionic abilities make you uncomfortable to be around. One contact or ally becomes a rival.", dice);
+                character.AddHistory($"Psionic abilities make {character.Name} uncomfortable to be around. One contact or ally becomes a rival.", dice);
                 //TODO: Change contact type
                 return;
 
             case 4:
-                character.AddHistory("Spent time mastering mind and body.", dice);
+                character.AddHistory($"Spent time mastering mind and body.", dice);
                 {
                     var skills = new SkillTemplateCollection();
                     skills.Add("Stealth");
                     skills.Add("Survival");
-                    skills.AddRange(SpecialtiesFor("Athletics"));
-                    skills.AddRange(SpecialtiesFor("Art"));
+                    skills.AddRange(SpecialtiesFor(character, "Athletics"));
+                    skills.AddRange(SpecialtiesFor(character, "Art"));
                     skills.RemoveOverlap(character.Skills, 1);
                     if (skills.Count > 0)
                         character.Skills.Add(dice.Choose(skills), 1);
@@ -39,14 +37,14 @@ abstract class Psion(string assignment, CharacterBuilder characterBuilder) : Nor
             case 5:
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("Refuse to misuse powers for personal gain.", dice);
+                    character.AddHistory($"Refuse to misuse powers for personal gain.", dice);
                     return;
                 }
                 else
                 {
                     if (dice.RollHigh(character.PsiDM, 8))
                     {
-                        character.AddHistory("Use powers for personal gain.", dice);
+                        character.AddHistory($"Use powers for personal gain.", dice);
                         if (dice.NextBoolean())
                             character.BenefitRolls += 1;
                         else
@@ -54,14 +52,14 @@ abstract class Psion(string assignment, CharacterBuilder characterBuilder) : Nor
                     }
                     else
                     {
-                        character.AddHistory("Attempt to use powers for personal gain, but it backfires.", dice);
+                        character.AddHistory($"Attempt to use powers for personal gain, but it backfires.", dice);
                         character.SocialStanding -= 1;
                     }
                     return;
                 }
 
             case 6:
-                character.AddHistory("Gain a contact outside of normal circles.", dice);
+                character.AddHistory($"Gain a contact outside of normal circles.", dice);
                 character.AddContact();
                 return;
 
@@ -70,15 +68,15 @@ abstract class Psion(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 8:
-                character.AddHistory("Psionic strength increases.", dice);
+                character.AddHistory($"Psionic strength increases.", dice);
                 character.Psi += 1;
                 return;
 
             case 9:
-                character.AddHistory("Advanced training in a specialist field.", dice);
+                character.AddHistory($"Advanced training in a specialist field.", dice);
                 if (dice.RollHigh(character.EducationDM, 8))
                 {
-                    var skills = new SkillTemplateCollection(Book.RandomSkills);
+                    var skills = new SkillTemplateCollection(RandomSkills(character));
                     skills.RemoveOverlap(character.Skills, 1);
                     if (skills.Count > 0)
                         character.Skills.Add(dice.Choose(skills), 1);
@@ -86,17 +84,17 @@ abstract class Psion(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 10:
-                character.AddHistory("Pick up potentially useful information using your psychic powers/", dice);
+                character.AddHistory($"Pick up potentially useful information using {character.Name}'s psychic powers/", dice);
                 character.BenefitRollDMs.Add(1);
                 return;
 
             case 11:
-                character.AddHistory("Gain a mentor/", dice);
+                character.AddHistory($"Gain a mentor/", dice);
                 character.CurrentTermBenefits.AdvancementDM += 4;
                 return;
 
             case 12:
-                character.AddHistory("Achieve a new level of discipline in your powers/", dice);
+                character.AddHistory($"Achieve a new level of discipline in {character.Name}'s powers/", dice);
                 character.CurrentTermBenefits.AdvancementDM += 100;
                 return;
         }
@@ -111,12 +109,12 @@ abstract class Psion(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 2:
-                character.AddHistory("Telepathically contact something dangerous. Suffer from persistent and terrifying nightmares.", age);
+                character.AddHistory($"Telepathically contact something dangerous. Suffer from persistent and terrifying nightmares.", age);
                 character.Psi -= 1;
                 return;
 
             case 3:
-                character.AddHistory("An anti-psi cult or gang attempts to expose or attack you.", age);
+                character.AddHistory($"An anti-psi cult or gang attempts to expose or attack {character.Name}.", age);
                 switch (dice.D(3))
                 {
                     case 1:
@@ -137,22 +135,22 @@ abstract class Psion(string assignment, CharacterBuilder characterBuilder) : Nor
 
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("Use your psionic powers in an unethical fashion. Gain an enemy.", age);
+                    character.AddHistory($"Use {character.Name}'s psionic powers in an unethical fashion. Gain an enemy.", age);
                     character.AddEnemy();
                     character.NextTermBenefits.MusterOut = false;
                 }
                 else
                 {
-                    character.AddHistory("Refused to use your psionic powers in an unethical fashion.", age);
+                    character.AddHistory($"Refused to use {character.Name}'s psionic powers in an unethical fashion.", age);
                 }
                 return;
 
             case 5:
-                character.AddHistory("Experimented on by a corporation, government, or other organisation", age);
+                character.AddHistory($"Experimented on by a corporation, government, or other organisation", age);
                 return;
 
             case 6:
-                character.AddHistory("Gift causes a former ally to turn on you and betray you. One Ally or Contact becomes an Enemy.", age);
+                character.AddHistory($"Gift causes a former ally to turn on {character.Name} and betray {character.Name}. One Ally or Contact becomes an Enemy.", age);
                 //TODO: Change contact type
                 return;
         }
@@ -207,11 +205,11 @@ abstract class Psion(string assignment, CharacterBuilder characterBuilder) : Nor
 
             case 6:
                 {
-                    var skills = new SkillTemplateCollection(Book.PsionicTalents.Where(st => character.Skills.Contains(st.Name)));
+                    var skills = new SkillTemplateCollection(PsionicTalents(character).Where(st => character.Skills.Contains(st.Name)));
                     if (skills.Count > 0)
                         character.Skills.Increase(dice.Choose(skills));
                     else //no psionic talents? that is very unlikely
-                        IncreaseTalent(character, dice, dice.Choose(Book.PsionicTalents).Name);
+                        IncreaseTalent(character, dice, dice.Choose(PsionicTalents(character)).Name);
                 }
                 return;
         }
@@ -222,15 +220,15 @@ abstract class Psion(string assignment, CharacterBuilder characterBuilder) : Nor
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Language")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Language")));
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Art")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 4:
@@ -238,7 +236,7 @@ abstract class Psion(string assignment, CharacterBuilder characterBuilder) : Nor
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Science")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
                 return;
 
             case 6:
@@ -252,10 +250,10 @@ abstract class Psion(string assignment, CharacterBuilder characterBuilder) : Nor
         if (character.Skills.Contains(name))
             return;
 
-        var nextSkill = Book.PsionicTalents.Single(s => s.Name == name);
+        var nextSkill = PsionicTalents(character).Single(s => s.Name == name);
         if (dice.D(2, 6) + nextSkill.LearningDM + character.PsiDM - character.PreviousPsiAttempts >= 8)
         {
-            character.AddHistory("Learned " + name, character.Age);
+            character.AddHistory($"Learned " + name, character.Age);
             character.Skills.Add(nextSkill);
         }
         character.PreviousPsiAttempts += 1;

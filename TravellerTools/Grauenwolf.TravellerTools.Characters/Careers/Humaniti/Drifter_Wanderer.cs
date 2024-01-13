@@ -15,7 +15,7 @@ class Drifter_Wanderer(CharacterBuilder characterBuilder) : Drifter("Wanderer", 
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Drive")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
                 return;
 
             case 2:

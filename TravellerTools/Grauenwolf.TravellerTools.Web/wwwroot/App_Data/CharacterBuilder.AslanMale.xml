@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CharacterTemplates>
+	<Skills>
+		<Skill Name="Admin" />
+		<Skill Name="Advocate" />
+		<Skill Name="Animals">
+			<Specialty Name="Handling" />
+			<Specialty Name="Veterinary" />
+			<Specialty Name="Training" />
+		</Skill>
+		<Skill Name="Art">
+			<Specialty Name="Epic Poetry"  Group="Performing" />
+		</Skill>
+		<Skill Name="Athletics">
+			<Specialty Name="Dexterity" />
+			<Specialty Name="Endurance" />
+			<Specialty Name="Strength" />
+		</Skill>
+		<Skill Name="Carouse" />
+		<Skill Name="Deception" />
+		<Skill Name="Diplomat" />
+		<Skill Name="Drive">
+			<Specialty Name="Hovercraft" />
+			<Specialty Name="Mole" />
+			<Specialty Name="Track" />
+			<Specialty Name="Walker" />
+			<Specialty Name="Wheel" />
+		</Skill>
+		<Skill Name="Electronics">
+			<Specialty Name="Sensors" />
+		</Skill>
+		<Skill Name="Explosives" />
+		<Skill Name="Flyer">
+			<Specialty Name="Airship" />
+			<Specialty Name="Grav" />
+			<Specialty Name="Ornithopter" />
+			<Specialty Name="Rotor" />
+			<Specialty Name="Wing" />
+		</Skill>
+		<Skill Name="Gambler" />
+		<Skill Name="Gunner">
+			<Specialty Name="Turret" />
+			<Specialty Name="Ortillery" />
+			<Specialty Name="Screen" />
+			<Specialty Name="Capital" />
+		</Skill>
+		<Skill Name="Gun Combat">
+			<Specialty Name="Archaic" />
+			<Specialty Name="Energy" />
+			<Specialty Name="Slug" />
+		</Skill>
+		<Skill Name="Heavy Weapons">
+			<Specialty Name="Artillery" />
+			<Specialty Name="Man Portable" />
+			<Specialty Name="Vehicle" />
+		</Skill>
+		<Skill Name="Independence" />
+		<Skill Name="Investigate" />
+		<Skill Name="Jack-of-All-Trades" />
+		<Skill Name="Language">
+			<Specialty Name="Galanglic (3rd Imperium)" />
+			<Specialty Name="Vilani (1st Imperium)" />
+			<Specialty Name="Zdetl (Zhodani)" />
+			<Specialty Name="Oynprith (Droyne)" />
+			<Specialty Name="Trokh (Aslan)" />
+			<Specialty Name="Gvegh (Vargr)" />
+		</Skill>
+		<Skill Name="Leadership" />
+		<Skill Name="Medic" />
+		<Skill Name="Melee">
+			<Specialty Name="Unarmed" />
+			<Specialty Name="Blade" />
+			<Specialty Name="Bludgeon" />
+			<Specialty Name="Grapple" />
+			<Specialty Name="Striking" />
+			<Specialty Name="Fencing" />
+			<Specialty Name="Natural" />
+		</Skill>
+		<Skill Name="Navigation" />
+		<Skill Name="Persuade" />
+		<Skill Name="Pilot">
+			<Specialty Name="Small Craft" />
+			<Specialty Name="Spacecraft" />
+			<Specialty Name="Capital Ships" />
+		</Skill>
+		<Skill Name="Recon" />
+		<Skill Name="Seafarer">
+			<Specialty Name="Ocean Ships" />
+			<Specialty Name="Personal" />
+			<Specialty Name="Sail" />
+			<Specialty Name="Submarine" />
+		</Skill>
+		<Skill Name="Stealth" />
+		<Skill Name="Steward" />
+		<Skill Name="Streetwise" />
+		<Skill Name="Survival" />
+		<Skill Name="Tactics">
+			<Specialty Name="Military" />
+			<Specialty Name="Naval" />
+		</Skill>
+		<Skill Name="Tolerance" />
+		<Skill Name="Vacc Suit" />
+	</Skills>
+</CharacterTemplates>

@@ -15,7 +15,7 @@ class Navy_EngineerGunner(CharacterBuilder characterBuilder) : Navy("Engineer/Gu
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
                 return;
 
             case 2:
@@ -23,19 +23,19 @@ class Navy_EngineerGunner(CharacterBuilder characterBuilder) : Navy("Engineer/Gu
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gunner")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gunner")));
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Flyer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
                 return;
         }
     }

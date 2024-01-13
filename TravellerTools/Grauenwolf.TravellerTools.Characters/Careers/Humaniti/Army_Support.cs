@@ -22,14 +22,14 @@ class Army_Support(CharacterBuilder characterBuilder) : Army("Army Support", cha
             case 2:
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Drive"));
-                    skillList.AddRange(SpecialtiesFor("Flyer"));
+                    skillList.AddRange(SpecialtiesFor(character, "Drive"));
+                    skillList.AddRange(SpecialtiesFor(character, "Flyer"));
                     character.Skills.Increase(dice.Choose(skillList));
                 }
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Profession")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Profession")));
                 return;
 
             case 4:

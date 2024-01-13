@@ -23,7 +23,7 @@ class Noble_Dilettante(CharacterBuilder characterBuilder) : Noble("Dilettante", 
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Flyer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
                 return;
 
             case 4:

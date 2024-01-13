@@ -15,7 +15,7 @@ class Rogue_Pirate(CharacterBuilder characterBuilder) : Rogue("Pirate", characte
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Pilot")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
                 return;
 
             case 2:
@@ -23,11 +23,11 @@ class Rogue_Pirate(CharacterBuilder characterBuilder) : Rogue("Pirate", characte
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gunner")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gunner")));
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
                 return;
 
             case 5:
@@ -35,7 +35,7 @@ class Rogue_Pirate(CharacterBuilder characterBuilder) : Rogue("Pirate", characte
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
                 return;
         }
     }
@@ -52,8 +52,8 @@ class Rogue_Pirate(CharacterBuilder characterBuilder) : Rogue("Pirate", characte
                 careerHistory.Title = "Henchman";
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Pilot"));
-                    skillList.AddRange(SpecialtiesFor("Gunner"));
+                    skillList.AddRange(SpecialtiesFor(character, "Pilot"));
+                    skillList.AddRange(SpecialtiesFor(character, "Gunner"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);
@@ -68,8 +68,8 @@ class Rogue_Pirate(CharacterBuilder characterBuilder) : Rogue("Pirate", characte
                 careerHistory.Title = "Sergeant";
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Gun Combat"));
-                    skillList.AddRange(SpecialtiesFor("Melee"));
+                    skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
+                    skillList.AddRange(SpecialtiesFor(character, "Melee"));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);
@@ -85,7 +85,7 @@ class Rogue_Pirate(CharacterBuilder characterBuilder) : Rogue("Pirate", characte
                 careerHistory.Title = "Leader";
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor("Engineer"));
+                    skillList.AddRange(SpecialtiesFor(character, "Engineer"));
                     skillList.Add("Navigation");
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)

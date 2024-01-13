@@ -19,7 +19,7 @@ class Rogue_Thief(CharacterBuilder characterBuilder) : Rogue("Thief", characterB
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 3:
@@ -35,7 +35,7 @@ class Rogue_Thief(CharacterBuilder characterBuilder) : Rogue("Thief", characterB
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
         }
     }

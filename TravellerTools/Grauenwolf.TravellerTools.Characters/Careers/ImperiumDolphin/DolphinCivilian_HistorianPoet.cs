@@ -19,11 +19,11 @@ class DolphinCivilian_HistorianPoet(CharacterBuilder characterBuilder) : Dolphin
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Art")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Art")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
                 return;
 
             case 4:

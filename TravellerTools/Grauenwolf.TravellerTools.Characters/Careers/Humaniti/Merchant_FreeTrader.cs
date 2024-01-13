@@ -36,7 +36,7 @@ class Merchant_FreeTrader(CharacterBuilder characterBuilder) : Merchant("Free Tr
                 return;
 
             case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gunner")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gunner")));
                 return;
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 class Prisoner_Thug(CharacterBuilder characterBuilder) : Prisoner("Thug", characterBuilder)
 {

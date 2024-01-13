@@ -21,16 +21,16 @@ class ColonialUpbringing(CharacterBuilder characterBuilder) : CareerBase("Coloni
         character.LongTermBenefits.EnlistmentDM.Add("Scout", 3); //This is a net +1 after QualificationDM
 
         var skillChoices = new SkillTemplateCollection();
-        skillChoices.AddRange(SpecialtiesFor("Animals"));
-        skillChoices.AddRange(SpecialtiesFor("Athletics"));
-        skillChoices.AddRange(SpecialtiesFor("Drive"));
-        skillChoices.AddRange(SpecialtiesFor("Gun Combat"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Animals"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Athletics"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Drive"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Gun Combat"));
         skillChoices.Add("Mechanic");
         skillChoices.Add("Medic");
         skillChoices.Add("Navigation");
         skillChoices.Add("Recon");
-        skillChoices.AddRange(SpecialtiesFor("Profession"));
-        skillChoices.AddRange(SpecialtiesFor("Seafarer"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Profession"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Seafarer"));
         skillChoices.Add("Survival");
 
         //Add basic skills at level 0
@@ -94,7 +94,7 @@ class ColonialUpbringing(CharacterBuilder characterBuilder) : CareerBase("Coloni
     {
         var skillChoices = new SkillTemplateCollection();
         foreach (var skill in character.Skills.Where(s => s.Level == 0))
-            skillChoices.AddRange(SpecialtiesFor(skill.Name));
+            skillChoices.AddRange(SpecialtiesFor(character, skill.Name));
 
         //Remove skills we already have at level 1
         skillChoices.RemoveOverlap(character.Skills, 1);

@@ -32,7 +32,7 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
                 return;
 
             case 3:
-                character.AddHistory("Trapped behind enemy lines.", dice);
+                character.AddHistory($"Trapped behind enemy lines.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Survival");
@@ -46,7 +46,7 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
                 return;
 
             case 4:
-                character.AddHistory("Assigned to the security staff of a space station.", dice);
+                character.AddHistory($"Assigned to the security staff of a space station.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Vacc Suit");
@@ -61,7 +61,7 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
                 if (dice.RollHigh(character.EducationDM, 8))
                 {
                     var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(RandomSkills);
+                    skillList.AddRange(RandomSkills(character));
                     skillList.RemoveOverlap(character.Skills, 1);
                     if (skillList.Count > 0)
                         character.Skills.Add(dice.Choose(skillList), 1);
@@ -69,7 +69,7 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
                 return;
 
             case 6:
-                character.AddHistory("Assigned to an assault on an enemy fortress.", dice);
+                character.AddHistory($"Assigned to an assault on an enemy fortress.", dice);
                 if (dice.RollHigh(character.Skills.BestSkillLevel("Gun Combat", "Melee"), 8))
                 {
                     var skillList = new SkillTemplateCollection();
@@ -79,7 +79,7 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
                 }
                 else
                 {
-                    character.AddHistory("Injured", dice);
+                    character.AddHistory($"Injured", dice);
                     switch (dice.D(3))
                     {
                         case 1:
@@ -102,11 +102,11 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
                 return;
 
             case 8:
-                character.AddHistory("On the front lines of a planetary assault and occupation.", dice);
+                character.AddHistory($"On the front lines of a planetary assault and occupation.", dice);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Recon");
-                    skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                    skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
                     skillList.Add("Leadership");
                     skillList.Add("Electronics", "Comms");
                     skillList.RemoveOverlap(character.Skills, 1);
@@ -116,26 +116,26 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
                 return;
 
             case 9:
-                var age = character.AddHistory("A mission goes disastrously wrong due to your commander’s error or incompetence, but you survive.", dice);
+                var age = character.AddHistory($"A mission goes disastrously wrong due to {character.Name}'s commander’s error or incompetence, but {character.Name} survive.", dice);
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("Report commander and gain an Enemy.", age);
+                    character.AddHistory($"Report commander and gain an Enemy.", age);
                     character.CurrentTermBenefits.AdvancementDM += 2;
                 }
                 else
                 {
-                    character.AddHistory("Cover for the commander and gain an Ally.", age);
+                    character.AddHistory($"Cover for the commander and gain an Ally.", age);
                 }
                 return;
 
             case 10:
-                character.AddHistory("Assigned to a black ops mission.", dice);
+                character.AddHistory($"Assigned to a black ops mission.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 2;
 
                 return;
 
             case 11:
-                character.AddHistory("Commanding officer takes an interest in your career.", dice);
+                character.AddHistory($"Commanding officer takes an interest in {character.Name}'s career.", dice);
                 switch (dice.D(2))
                 {
                     case 1:
@@ -149,7 +149,7 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
                 return;
 
             case 12:
-                character.AddHistory("Display heroism in battle.", dice);
+                character.AddHistory($"Display heroism in battle.", dice);
 
                 character.CurrentTermBenefits.AdvancementDM += 100; //also applies to commission rolls
 
@@ -181,14 +181,14 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
                 return;
 
             case 2:
-                character.AddHistory("A mission goes wrong; you and several others are captured and mistreated by the enemy. Gain your jailer as an Enemy.", age);
+                character.AddHistory($"A mission goes wrong; {character.Name} and several others are captured and mistreated by the enemy. Gain {character.Name}'s jailer as an Enemy.", age);
                 character.AddEnemy();
                 character.Strength += -1;
                 character.Dexterity += -1;
                 return;
 
             case 3:
-                character.AddHistory("A mission goes wrong and you are stranded behind enemy lines. Ejected from the service.", age);
+                character.AddHistory($"A mission goes wrong and {character.Name} is stranded behind enemy lines. Ejected from the service.", age);
                 {
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Stealth");
@@ -200,18 +200,18 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
             case 4:
                 if (dice.NextBoolean())
                 {
-                    character.AddHistory("Refused to take part in a black ops mission that goes against the conscience and ejected from the service.", age);
+                    character.AddHistory($"Refused to take part in a black ops mission that goes against the conscience and ejected from the service.", age);
                 }
                 else
                 {
-                    character.AddHistory("You are ordered to take part in a black ops mission that goes against your conscience. Gain the lone survivor as an Enemy.", age);
+                    character.AddHistory($"{character.Name} is ordered to take part in a black ops mission that goes against {character.Name}'s conscience. Gain the lone survivor as an Enemy.", age);
                     character.AddEnemy();
                     character.CurrentTermBenefits.MusterOut = false;
                 }
                 return;
 
             case 5:
-                character.AddHistory("You are tormented by or quarrel with an officer or fellow soldier. Gain that officer as a Rival.", age);
+                character.AddHistory($"{character.Name} is tormented by or quarrel with an officer or fellow soldier. Gain that officer as a Rival.", age);
                 return;
 
             case 6:
@@ -238,7 +238,7 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Athletics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
                 return;
 
             case 2:
@@ -246,15 +246,15 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Tactics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Tactics")));
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Heavy Weapons")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Heavy Weapons")));
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
 
             case 6:
@@ -273,7 +273,7 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
                     careerHistory.Title = "Marine";
                     {
                         var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                        skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
                         skillList.Add("Melee", "Blade");
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
@@ -285,7 +285,7 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
                     careerHistory.Title = "Lance Corporal";
                     {
                         var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor("Gun Combat"));
+                        skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
                             character.Skills.Add(dice.Choose(skillList), 1);
@@ -332,7 +332,7 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
                     careerHistory.Title = "Force Commander";
                     {
                         var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor("Tactics"));
+                        skillList.AddRange(SpecialtiesFor(character, "Tactics"));
                         skillList.RemoveOverlap(character.Skills, 1);
                         if (skillList.Count > 0)
                             character.Skills.Add(dice.Choose(skillList), 1);
@@ -375,11 +375,11 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
                 return;
 
             case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
                 return;
 
             case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Pilot")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
                 return;
 
             case 6:
@@ -393,11 +393,11 @@ abstract class Marine(string assignment, CharacterBuilder characterBuilder) : Mi
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Tactics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Tactics")));
                 return;
 
             case 3:

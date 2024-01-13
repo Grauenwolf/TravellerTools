@@ -14,6 +14,8 @@ namespace Grauenwolf.TravellerTools.Maps;
 /// <param name="milieu">The milieu. The "default" is "M1105".</param>
 public class TravellerMapService(bool filterUnpopulatedSectors, string milieu) //: MapService
 {
+    const string TravellerMapRoot = "https://travellermap.com";
+    const string TravellerMapRoot2 = "https://travellermapbackup.azurewebsites.net";
     readonly static HttpClient s_Client = new();
 
     readonly bool m_FilterUnpopulatedSectors = filterUnpopulatedSectors;
@@ -44,7 +46,15 @@ public class TravellerMapService(bool filterUnpopulatedSectors, string milieu) /
         if (m_SectorMetadata.TryGetValue(cacheKey, out var result))
             return result;
 
-        var rawList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/metadata?sx={sectorX}&sy={sectorY}&milieu={Milieu}")).ConfigureAwait(false);
+        string rawList;
+        try
+        {
+            rawList = await s_Client.GetStringAsync(new Uri($"{TravellerMapRoot}/api/metadata?sx={sectorX}&sy={sectorY}&milieu={Milieu}")).ConfigureAwait(false);
+        }
+        catch
+        {
+            rawList = await s_Client.GetStringAsync(new Uri($"{TravellerMapRoot2}/api/metadata?sx={sectorX}&sy={sectorY}&milieu={Milieu}")).ConfigureAwait(false);
+        }
         result = JsonConvert.DeserializeObject<SectorMetadata>(rawList)!;
 
         if (result.Subsectors?.Length == 0)
@@ -79,9 +89,15 @@ public class TravellerMapService(bool filterUnpopulatedSectors, string milieu) /
         if (m_SophontCodes != null)
             return m_SophontCodes;
 
-        //https://travellermap.com/t5ss/sophonts
-
-        var rawList = await s_Client.GetStringAsync(new Uri("https://travellermap.com/t5ss/sophonts")).ConfigureAwait(false);
+        string rawList;
+        try
+        {
+            rawList = await s_Client.GetStringAsync(new Uri($"{TravellerMapRoot}/t5ss/sophonts")).ConfigureAwait(false);
+        }
+        catch
+        {
+            rawList = await s_Client.GetStringAsync(new Uri($"{TravellerMapRoot2}/t5ss/sophonts")).ConfigureAwait(false);
+        }
 
         var set = JsonConvert.DeserializeObject<List<SophontCode>>(rawList)!;
         RemarkDictionary.AddSophontCodes(set);
@@ -146,7 +162,15 @@ public class TravellerMapService(bool filterUnpopulatedSectors, string milieu) /
 
         ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
 
-        var rawSectorList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/universe?milieu={Milieu}")).ConfigureAwait(false);
+        string rawSectorList;
+        try
+        {
+            rawSectorList = await s_Client.GetStringAsync(new Uri($"{TravellerMapRoot}/api/universe?milieu={Milieu}")).ConfigureAwait(false);
+        }
+        catch
+        {
+            rawSectorList = await s_Client.GetStringAsync(new Uri($"{TravellerMapRoot2}/api/universe?milieu={Milieu}")).ConfigureAwait(false);
+        }
 
         var sectors = JsonConvert.DeserializeObject<Universe>(rawSectorList)!.Sectors.Where(s => s.Names?.First().Text != "Legend").ToList();
 
@@ -207,8 +231,15 @@ public class TravellerMapService(bool filterUnpopulatedSectors, string milieu) /
         if (m_WorldsInSector.TryGetValue(cacheKey, out var result))
             return result;
 
-        var baseUri = new Uri($"https://travellermap.com/api/sec?sx={sectorX}&sy={sectorY}&type=TabDelimited&milieu={Milieu}");
-        var rawFile = await s_Client.GetStringAsync(baseUri).ConfigureAwait(false);
+        string rawFile;
+        try
+        {
+            rawFile = await s_Client.GetStringAsync(new Uri($"{TravellerMapRoot}/api/sec?sx={sectorX}&sy={sectorY}&type=TabDelimited&milieu={Milieu}")).ConfigureAwait(false);
+        }
+        catch
+        {
+            rawFile = await s_Client.GetStringAsync(new Uri($"{TravellerMapRoot2}/api/sec?sx={sectorX}&sy={sectorY}&type=TabDelimited&milieu={Milieu}")).ConfigureAwait(false);
+        }
         if (rawFile.Length == 0)
             return ImmutableArray.Create<World>();
 
@@ -312,7 +343,15 @@ public class TravellerMapService(bool filterUnpopulatedSectors, string milieu) /
         var result = new List<World>();
         for (var jumpDistance = 0; jumpDistance <= maxJumpDistance; jumpDistance++)
         {
-            var rawList = await s_Client.GetStringAsync(new Uri($"https://travellermap.com/api/jumpworlds?sx={sectorX}&sy={sectorY}&hx={hexX:00}&hy={hexY:00}&jump={jumpDistance}&milieu={Milieu}")).ConfigureAwait(false);
+            string rawList;
+            try
+            {
+                rawList = await s_Client.GetStringAsync(new Uri($"{TravellerMapRoot}/api/jumpworlds?sx={sectorX}&sy={sectorY}&hx={hexX:00}&hy={hexY:00}&jump={jumpDistance}&milieu={Milieu}")).ConfigureAwait(false);
+            }
+            catch
+            {
+                rawList = await s_Client.GetStringAsync(new Uri($"{TravellerMapRoot2}/api/jumpworlds?sx={sectorX}&sy={sectorY}&hx={hexX:00}&hy={hexY:00}&jump={jumpDistance}&milieu={Milieu}")).ConfigureAwait(false);
+            }
 
             var set = JsonConvert.DeserializeObject<WorldList>(rawList)!.Worlds;
             if (set != null)

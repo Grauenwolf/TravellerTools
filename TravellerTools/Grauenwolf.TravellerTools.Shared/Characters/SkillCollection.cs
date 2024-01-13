@@ -92,7 +92,7 @@ public class SkillCollection : List<Skill>
     }
 
     /// <summary>
-    /// Gets the best the skill level from the list.
+    /// Gets the best the skill level from the list. Jack-of-All-Trades may be used.
     /// </summary>
     /// <param name="skillNames">The skill names or specialities.</param>
     public int BestSkillLevel(params string[] skillNames)

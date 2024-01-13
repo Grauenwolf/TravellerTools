@@ -15,7 +15,7 @@ class Soulhunter_Support(CharacterBuilder characterBuilder) : Soulhunter("Soulhu
         switch (dice.D(6))
         {
             case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Electronics")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
                 return;
 
             case 2:
@@ -23,7 +23,7 @@ class Soulhunter_Support(CharacterBuilder characterBuilder) : Soulhunter("Soulhu
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Engineer")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
                 return;
 
             case 4:

@@ -28,9 +28,9 @@ class SpacerCommunity(CharacterBuilder characterBuilder) : CareerBase("Spacer Co
 
         var skillChoices = new SkillTemplateCollection();
         skillChoices.Add("Astrogation");
-        skillChoices.AddRange(SpecialtiesFor("Electronics"));
-        skillChoices.AddRange(SpecialtiesFor("Engineer"));
-        skillChoices.AddRange(SpecialtiesFor("Profession"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Electronics"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Engineer"));
+        skillChoices.AddRange(SpecialtiesFor(character, "Profession"));
 
         var chosenSkills = new SkillTemplateCollection() { "Streetwise" };
 
@@ -65,7 +65,7 @@ class SpacerCommunity(CharacterBuilder characterBuilder) : CareerBase("Spacer Co
 
             character.SocialStanding -= 1;
 
-            var pilotSkills = new SkillTemplateCollection(SpecialtiesFor("Pilot"));
+            var pilotSkills = new SkillTemplateCollection(SpecialtiesFor(character, "Pilot"));
             pilotSkills.RemoveOverlap(character.Skills, 0);
             if (pilotSkills.Count > 0)
             {

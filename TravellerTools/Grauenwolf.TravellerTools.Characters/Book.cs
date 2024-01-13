@@ -52,36 +52,7 @@ public class Book
     /// <summary>
     /// Gets the list of random skills. Skills needing specialization will be excluded. For example, "Art (Performer)" will be included but just "Art" will not.
     /// </summary>
-    /// <value>The random skills.</value>
     public ImmutableArray<SkillTemplate> RandomSkills { get; }
-
-    public static int OddsOfSuccess(Character character, int dm, int target)
-    {
-        return OddsOfSuccess(target - dm);
-    }
-
-    //public static int OddsOfSuccess(Character character, string attributeName, int target)
-
-    //{
-    //    var dm = character.GetDM(attributeName);
-    //    return OddsOfSuccess(target - dm);
-    //}
-
-    public static int OddsOfSuccess(int target)
-    {
-        if (target <= 2) return 100;
-        if (target == 3) return 97;
-        if (target == 4) return 92;
-        if (target == 5) return 83;
-        if (target == 6) return 72;
-        if (target == 7) return 58;
-        if (target == 8) return 42;
-        if (target == 9) return 28;
-        if (target == 10) return 17;
-        if (target == 11) return 8;
-        if (target == 12) return 3;
-        return 0;
-    }
 
     internal List<SkillTemplate> SpecialtiesFor(string skillName)
     {

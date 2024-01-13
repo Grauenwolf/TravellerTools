@@ -19,11 +19,11 @@ class ShaperPriest_Partisan(CharacterBuilder characterBuilder) : ShaperPriest("P
                 return;
 
             case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
 
             case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor("Melee")));
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
                 return;
 
             case 4:
@@ -51,7 +51,7 @@ class ShaperPriest_Partisan(CharacterBuilder characterBuilder) : ShaperPriest("P
             case 1:
                 careerHistory.Title = "Third Claw";
                 if (allowBonus)
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor("Gun Combat")));
+                    character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
                 return;
 
             case 2:
