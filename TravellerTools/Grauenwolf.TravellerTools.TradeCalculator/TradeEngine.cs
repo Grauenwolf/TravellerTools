@@ -37,18 +37,30 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         protected virtual bool UseCounterpartyScore => false;
 
-        public static StarportDetails? CalculateStarportDetails(World origin, Dice dice, bool highPort)
+        /// <summary>
+        /// Calculates the starport details.
+        /// </summary>
+        /// <param name="origin">The origin.</param>
+        /// <param name="dice">The dice.</param>
+        /// <param name="isHighPort">if set to true, this is a high port. Otherwise it is a low port..</param>
+        /// <param name="isStarport">if set to true, use the Imperium law level. If false, use the planet's law level and roll for security.</param>
+        /// <returns>System.Nullable&lt;StarportDetails&gt;.</returns>
+        public static StarportDetails? CalculateStarportDetails(World origin, Dice dice, bool isHighPort, EHex? spaceportType = null)
         {
             var result = new StarportDetails();
-            switch (origin.StarportCode.ToString())
+
+            result.StarportCode = spaceportType ?? origin.StarportCode;
+
+            switch (result.StarportCode.ToString())
             {
                 case "A":
                     result.BerthingCost = dice.D(1, 6) * 1000;
                     result.BerthingCostPerDay = 500;
                     result.RefinedFuelCost = 500;
                     result.UnrefinedFuelCost = 100;
+                    result.CargoStorageCost = 500;
 
-                    if (highPort)
+                    if (isHighPort)
                     {
                         result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
                         result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
@@ -66,15 +78,17 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                         result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
                         result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
                     }
-                    return result;
+                    break;
 
                 case "B":
+                case "F":
                     result.BerthingCost = dice.D(1, 6) * 500;
                     result.BerthingCostPerDay = 200;
                     result.RefinedFuelCost = 500;
                     result.UnrefinedFuelCost = 100;
+                    result.CargoStorageCost = 400;
 
-                    if (highPort)
+                    if (isHighPort)
                     {
                         result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
                         result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
@@ -92,15 +106,17 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                         result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
                         result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
                     }
-                    return result;
+                    break;
 
                 case "C":
+                case "G":
                     result.BerthingCost = dice.D(1, 6) * 100;
                     result.BerthingCostPerDay = 100;
                     result.RefinedFuelCost = 500;
                     result.UnrefinedFuelCost = 100;
+                    result.CargoStorageCost = 300;
 
-                    if (highPort)
+                    if (isHighPort)
                     {
                         result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
                         result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
@@ -118,35 +134,86 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                         result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
                         result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
                     }
-                    return result;
+                    break;
 
                 case "D":
-                    if (highPort) return null;
+                case "H":
+                    if (isHighPort) return null;
 
                     result.BerthingCost = dice.D(1, 6) * 10;
                     result.BerthingCostPerDay = 10;
                     result.UnrefinedFuelCost = 100;
+                    result.CargoStorageCost = 200;
 
                     result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
                     result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
 
                     result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-1"));
                     result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6"));
-                    return result;
+                    break;
 
                 case "E":
-                    if (highPort) return null;
+                    if (isHighPort) return null;
 
                     result.BerthingCost = 0;
                     result.BerthingCostPerDay = 0;
+                    result.CargoStorageCost = 100;
 
                     result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-2"));
                     result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-1"));
 
-                    return result;
+                    break;
 
                 default: return null;
             }
+
+            //TODO-132: Instead of hard-coding the law level, use the local law level when not in Imperium territory.
+            switch (result.StarportCode.ToString())
+            {
+                case "A":
+                    result.LawCode = 5;
+                    result.PortEnforcementCode = 7 + 6;
+                    break;
+
+                case "B":
+                    result.LawCode = 5;
+                    result.PortEnforcementCode = 7 + 3;
+                    break;
+
+                case "C":
+                    result.LawCode = 5;
+                    result.PortEnforcementCode = 7 + 0;
+                    break;
+
+                case "D":
+                    result.LawCode = 4;
+                    result.PortEnforcementCode = 7 - 3;
+                    break;
+
+                case "E":
+                    result.LawCode = 3;
+                    result.PortEnforcementCode = 7 - 6;
+
+                    break;
+
+                case "F":
+                    result.LawCode = origin.LawCode - dice.D(2, 6) + 5;
+                    result.PortEnforcementCode = dice.D(2, 6) + 3;
+                    break;
+
+                case "G":
+                    result.LawCode = origin.LawCode - dice.D(2, 6) + 3;
+                    result.PortEnforcementCode = dice.D(2, 6);
+                    break;
+
+                case "H":
+                    result.LawCode = origin.LawCode - dice.D(2, 6) + 1;
+                    result.PortEnforcementCode = dice.D(2, 6) - 3;
+
+                    break;
+            }
+
+            return result;
         }
 
         public void AgeTradeBids(List<TradeBid> Bids, Dice dice, int ageWeeks)

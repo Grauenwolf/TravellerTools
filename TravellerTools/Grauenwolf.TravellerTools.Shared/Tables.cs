@@ -993,6 +993,38 @@ public static class Tables
 
     public static double PopulationExponent(EHex populationCode) => Math.Pow(10, populationCode.Value);
 
+    public static string PortEnforcement(int level)
+    {
+        return (level) switch
+        {
+            <= 0 => "Lawless and violent",
+            <= 2 => "Lawless and harmonious",
+            <= 4 => "Minimal security force",
+            <= 6 => "Small security force",
+            <= 8 => "Average security force",
+            <= 10 => "Well-equipped security force",
+            <= 12 => "Paramilitary security service",
+            <= 14 => "Military security service",
+            _ => "Private army",
+        };
+    }
+
+    public static string PortEnforcementDetails(int level)
+    {
+        return (level) switch
+        {
+            <= 0 => "Essentially a violent anarchy, with gangs, private guards, or security selfishly protecting influential individuals’ property.",
+            <= 2 => "No formal law enforcement but armed individuals cooperate against threats on a common-interest basis.",
+            <= 4 => "A sheriff and deputies, armed with civilian firearms, possibly part-time.",
+            <= 6 => "Small professional security force with civilian weapons.",
+            <= 8 => "Adequate security force with paramilitary equipment including automatic weapons.",
+            <= 10 => "Adequate security force with paramilitary equipment including support weapons.",
+            <= 12 => "Large professional security force. Some personnel have access to heavy military weapons.",
+            <= 14 => "Large professional security service organised along military lines, with heavy weapons. Possibly a mercenary formation.",
+            _ => "Excessive military-style security service with armed vehicles and support platforms",
+        };
+    }
+
     public static string Resources(EHex resourcesCode)
     {
         return resourcesCode.ToChar() switch
@@ -1124,19 +1156,32 @@ public static class Tables
         };
     }
 
+    public static string StarportCargoStorageSecurity(EHex starportCode)
+    {
+        return starportCode.ToChar() switch
+        {
+            'A' => "Biometric scanner, drone, and permanent guard.",
+            'B' or 'F' => "Biometric scanner, patrols every 15 minutes, CCTV.",
+            'C' or 'G' => "Electric keypad, patrols every half-hour, CCTV.",
+            'D' or 'H' => "Electric keypad, hourly patrols.",
+            'E' => "Padlock, possibly a guard dog.",
+            _ => "",
+        };
+    }
+
     public static string StarportDescription(EHex starportCode)
     {
         return starportCode.ToChar() switch
         {
-            'A' => "Excellent Quality. Refined fuel available. Annual maintenance overhaul available. Shipyard capable of constructing starships and non-starships present. Nava base and/or scout base may be present",
-            'B' => "Good Quality. Refined fuel available. Annual maintenance overhaul available. Shipyard capable of constructing non-starships present. Naval base and/or scout base may be present",
-            'C' => "Routine Quality. Only unrefined fuel available. Reasonable repair facilities present. Scout base may be present",
-            'D' => "Poor Quality. Only unrefined fuel available. No repair facilities present. Scout base may be present",
-            'E' => "Frontier Installation. Essentially a marked spot of bedrock with no fuel, facilities, or bases present",
+            'A' => "Excellent Quality Starport. Refined fuel available. Annual maintenance overhaul available. Shipyard capable of constructing starships and non-starships present.",
+            'B' => "Good Quality Starport. Refined fuel available. Annual maintenance overhaul available. Shipyard capable of constructing non-starships present.",
+            'C' => "Routine Quality Starport. Only unrefined fuel available. Reasonable repair facilities present.",
+            'D' => "Poor Quality Starport. Only unrefined fuel available. No repair facilities present.",
+            'E' => "Frontier Installation. Essentially a marked spot of bedrock with no fuel or facilities present.",
             'X' => "No Starport. No provision is made for any ship landings",
-            'F' => "Good Quality. Minor damage repairable. Unrefined fuel available",
-            'G' => "Poor Quality. Superficial repairs possible. Unrefined fuel available",
-            'H' => "Primitive Quality. No repairs or fuel available",
+            'F' => "Good Quality Spaceport. Minor damage repairable. Unrefined fuel available",
+            'G' => "Poor Quality Spaceport. Superficial repairs possible. Unrefined fuel available",
+            'H' => "Primitive Quality Spaceport. No repairs or fuel available",
             'Y' => "None",
             _ => "",
         };

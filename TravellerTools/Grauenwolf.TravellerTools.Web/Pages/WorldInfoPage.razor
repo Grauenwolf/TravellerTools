@@ -142,6 +142,7 @@
     {
         var highport = Model.HighportDetails;
         var downport = Model.DownportDetails;
+        var port = highport ?? downport!; //use for law level
 
         <h3>
             Starport Info
@@ -150,8 +151,11 @@
         </h3>
         <div style="display: inline-block; vertical-align: top">
             <table class="gridtable">
+                <tr><th>Starport</th><td>@current.StarportCode</td><td colspan="2" width="500">@current.StarportDescription</td></tr>
+                <tr><th>Law</th><td>@port.LawCode</td><td colspan="2">@port.LawLevel</td></tr>
+                <tr><th>Enforcement</th><td>@port.PortEnforcement</td><td colspan="2">@port.PortEnforcementDetails</td></tr>
                 <tr>
-                    <th colspan="2">&nbsp;</th>
+                    <th colspan="2">Fees</th>
                     @if (downport != null)
                     {
                         <th>Downport</th>
@@ -285,6 +289,21 @@
                     {
                         <td>@(highport.FuelWaitTimeCapital)</td>
                     }
+                </tr>
+                <tr>
+                    <th colspan="2">Cargo Storage per ton-week</th>
+                    @if (downport != null)
+                    {
+                        <td>@(downport.CargoStorageCost)</td>
+                    }
+                    @if (highport != null)
+                    {
+                        <td>@(highport.CargoStorageCost)</td>
+                    }
+                </tr>
+                <tr>
+                    <th colspan="2">Cargo Storage Security</th>
+                    <td colspan="2">@(port.CargoStorageSecurity)</td>
                 </tr>
             </table>
         </div>
