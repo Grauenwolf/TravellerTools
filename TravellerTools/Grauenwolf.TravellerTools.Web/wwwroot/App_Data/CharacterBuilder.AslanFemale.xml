@@ -141,9 +141,9 @@
 			<Specialty Name="Sophontology" Group="Social Sciences" />
 			<Specialty Name="Belief" Group="Social Sciences" />
 
-			<Specialty Name="Astronomy"   Group="Spaces Sciences" />
-			<Specialty Name="Cosmology"   Group="Spaces Sciences" />
-			<Specialty Name="Planetology" Group="Spaces Sciences" />
+			<Specialty Name="Astronomy"   Group="Space Sciences" />
+			<Specialty Name="Cosmology"   Group="Space Sciences" />
+			<Specialty Name="Planetology" Group="Space Sciences" />
 		</Skill>
 		<Skill Name="Seafarer">
 			<Specialty Name="Ocean Ships" />
