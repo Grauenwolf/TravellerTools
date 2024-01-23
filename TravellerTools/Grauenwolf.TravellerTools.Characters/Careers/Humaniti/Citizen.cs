@@ -145,6 +145,7 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
 
             case 2:
                 character.AddHistory($"Life ruined by a criminal gang. Gain the gang as an Enemy", age);
+                character.AddEnemy();
                 return;
 
             case 3:
