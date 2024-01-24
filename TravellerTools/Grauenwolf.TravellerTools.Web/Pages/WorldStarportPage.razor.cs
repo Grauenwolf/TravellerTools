@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace Grauenwolf.TravellerTools.Web.Pages;
 
-partial class WorldInfoPage
+partial class WorldStarportPage
 {
     [Parameter]
     public string? MilieuCode { get => Get<string?>(); set => Set(value, true); }
@@ -20,6 +20,9 @@ partial class WorldInfoPage
 
     public int? Seed { get => Get<int?>(); set => Set(value, true); }
 
+    [Parameter]
+    public string? Spaceport { get => Get<string?>(); set => Set(value, true); }
+
     public string? TasZone { get => Get<string?>(); set => Set(value, true); }
 
     [Parameter]
@@ -29,10 +32,20 @@ partial class WorldInfoPage
     {
         get
         {
-            if (Uwp != null)
-                return $"/uwp/{Uwp}/info?tasZone={TasZone}&seed={Seed}";
+            if (Spaceport != null)
+            {
+                if (Uwp != null)
+                    return $"/uwp/{Uwp}/starport/{Spaceport}?tasZone={TasZone}&seed={Seed}";
+                else
+                    return $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/starport/{Spaceport}?seed={Seed}";
+            }
             else
-                return $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/info?seed={Seed}";
+            {
+                if (Uwp != null)
+                    return $"/uwp/{Uwp}/starport/{Spaceport}?tasZone={TasZone}&seed={Seed}";
+                else
+                    return $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/starport?seed={Seed}";
+            }
         }
     }
 
@@ -56,10 +69,8 @@ partial class WorldInfoPage
 
     protected void OnReroll(MouseEventArgs _)
     {
-        if (Uwp != null)
-            Navigation.NavigateTo($"/uwp/{Uwp}/info?tasZone={TasZone}", false);
-        else
-            Navigation.NavigateTo($"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/info", false);
+        Seed = (new Random()).Next();
+        Navigation.NavigateTo(Permalink, false);
     }
 
     protected override async Task ParametersSetAsync()
@@ -88,16 +99,46 @@ partial class WorldInfoPage
             Model = new WorldModel(milieu, world);
         }
 
-        PageTitle = Model.World.Name ?? Uwp + " Info";
+        PageTitle = Model.World.Name ?? Uwp + " Starport";
 
         if (Seed != null)
         {
             var dice = new Dice(Seed.Value);
-            Model.StarportFacilities = TradeEngine.CalculateStarportFacilities(Model.World, dice);
+
+            var spaceport = Spaceport != null ? new EHex(Spaceport) : (EHex?)null;
+            Model.StarportFacilities = TradeEngine.CalculateStarportFacilities(Model.World, dice, spaceport);
         }
         return;
 
     ReturnToIndex:
         base.Navigation.NavigateTo("/"); //bounce back to home.
+    }
+
+    private void GenerateStarportF(MouseEventArgs e)
+    {
+        Spaceport = "F";
+        Seed = (new Random()).Next();
+        Navigation.NavigateTo(Permalink, true);
+    }
+
+    private void GenerateStarportG(MouseEventArgs e)
+    {
+        Spaceport = "G";
+        Seed = (new Random()).Next();
+        Navigation.NavigateTo(Permalink, true);
+    }
+
+    private void GenerateStarportH(MouseEventArgs e)
+    {
+        Spaceport = "H";
+        Seed = (new Random()).Next();
+        Navigation.NavigateTo(Permalink, true);
+    }
+
+    private void GenerateStarportJ(MouseEventArgs e)
+    {
+        Spaceport = "J";
+        Seed = (new Random()).Next();
+        Navigation.NavigateTo(Permalink, true);
     }
 }

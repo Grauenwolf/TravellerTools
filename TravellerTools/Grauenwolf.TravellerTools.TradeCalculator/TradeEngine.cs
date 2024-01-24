@@ -40,25 +40,22 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
         /// <summary>
         /// Calculates the starport details.
         /// </summary>
-        /// <param name="origin">The origin.</param>
+        /// <param name="world">The origin.</param>
         /// <param name="dice">The dice.</param>
         /// <param name="isHighPort">if set to true, this is a high port. Otherwise it is a low port..</param>
         /// <param name="isStarport">if set to true, use the Imperium law level. If false, use the planet's law level and roll for security.</param>
         /// <returns>System.Nullable&lt;StarportDetails&gt;.</returns>
-        public static StarportDetails? CalculateStarportDetails(World origin, Dice dice, bool isHighPort, EHex? spaceportType = null)
+        public static StarportDetails? CalculateStarportDetails(Dice dice, bool isHighPort, EHex? spaceportType)
         {
             var result = new StarportDetails();
 
-            result.StarportCode = spaceportType ?? origin.StarportCode;
-
-            switch (result.StarportCode.ToString())
+            switch (spaceportType.ToString())
             {
                 case "A":
                     result.BerthingCost = dice.D(1, 6) * 1000;
                     result.BerthingCostPerDay = 500;
                     result.RefinedFuelCost = 500;
                     result.UnrefinedFuelCost = 100;
-                    result.CargoStorageCost = 500;
 
                     if (isHighPort)
                     {
@@ -69,6 +66,14 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                         result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
                         result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
                         result.FuelWaitTimeCapital = WaitTime(dice, dice.D("1D6-3"));
+
+                        result.WarehousingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.WarehousingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+                        result.WarehousingWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
+
+                        result.RepairWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.RepairWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+                        result.RepairWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
                     }
                     else
                     {
@@ -77,6 +82,12 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
                         result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-5"));
                         result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-4"));
+
+                        result.WarehousingWaitTimeSmall = WaitTime(dice, dice.D("1D6-4"));
+                        result.WarehousingWaitTimeStar = WaitTime(dice, dice.D("1D6-3"));
+
+                        result.RepairWaitTimeSmall = WaitTime(dice, dice.D("1D6-4"));
+                        result.RepairWaitTimeStar = WaitTime(dice, dice.D("1D6-3"));
                     }
                     break;
 
@@ -86,7 +97,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     result.BerthingCostPerDay = 200;
                     result.RefinedFuelCost = 500;
                     result.UnrefinedFuelCost = 100;
-                    result.CargoStorageCost = 400;
 
                     if (isHighPort)
                     {
@@ -97,6 +107,14 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                         result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
                         result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
                         result.FuelWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
+
+                        result.WarehousingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.WarehousingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+                        result.WarehousingWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
+
+                        result.RepairWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.RepairWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+                        result.RepairWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
                     }
                     else
                     {
@@ -105,6 +123,12 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
                         result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
                         result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+
+                        result.WarehousingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.WarehousingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+
+                        result.RepairWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
+                        result.RepairWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
                     }
                     break;
 
@@ -114,7 +138,6 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     result.BerthingCostPerDay = 100;
                     result.RefinedFuelCost = 500;
                     result.UnrefinedFuelCost = 100;
-                    result.CargoStorageCost = 300;
 
                     if (isHighPort)
                     {
@@ -125,6 +148,14 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                         result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
                         result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
                         result.FuelWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
+
+                        result.WarehousingWaitTimeSmall = WaitTime(dice, dice.D("1D6-2"));
+                        result.WarehousingWaitTimeStar = WaitTime(dice, dice.D("1D6-1"));
+                        result.WarehousingWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
+
+                        result.RepairWaitTimeSmall = WaitTime(dice, dice.D("1D6-2"));
+                        result.RepairWaitTimeStar = WaitTime(dice, dice.D("1D6-1"));
+                        result.RepairWaitTimeCapital = WaitTime(dice, dice.D("1D6-1"));
                     }
                     else
                     {
@@ -133,6 +164,12 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
                         result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
                         result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
+
+                        result.WarehousingWaitTimeSmall = WaitTime(dice, dice.D("1D6-2"));
+                        result.WarehousingWaitTimeStar = WaitTime(dice, dice.D("1D6-1"));
+
+                        result.RepairWaitTimeSmall = WaitTime(dice, dice.D("1D6-1"));
+                        result.RepairWaitTimeStar = WaitTime(dice, dice.D("1D6-1"));
                     }
                     break;
 
@@ -143,29 +180,88 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     result.BerthingCost = dice.D(1, 6) * 10;
                     result.BerthingCostPerDay = 10;
                     result.UnrefinedFuelCost = 100;
-                    result.CargoStorageCost = 200;
 
                     result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-3"));
                     result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-2"));
 
                     result.FuelWaitTimeSmall = WaitTime(dice, dice.D("1D6-1"));
-                    result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6"));
+                    result.FuelWaitTimeStar = WaitTime(dice, dice.D("1D6-1"));
+
+                    result.WarehousingWaitTimeSmall = WaitTime(dice, dice.D("1D6-1"));
+                    result.WarehousingWaitTimeStar = WaitTime(dice, dice.D("1D6-1"));
+
+                    result.RepairWaitTimeSmall = WaitTime(dice, dice.D("1D6-1"));
+                    result.RepairWaitTimeStar = WaitTime(dice, dice.D("1D6-1"));
+
                     break;
 
                 case "E":
+                case "J":
                     if (isHighPort) return null;
 
                     result.BerthingCost = 0;
                     result.BerthingCostPerDay = 0;
-                    result.CargoStorageCost = 100;
 
                     result.BerthingWaitTimeSmall = WaitTime(dice, dice.D("1D6-2"));
                     result.BerthingWaitTimeStar = WaitTime(dice, dice.D("1D6-1"));
+
+                    result.WarehousingWaitTimeSmall = WaitTime(dice, dice.D("1D6-1"));
+                    result.WarehousingWaitTimeStar = WaitTime(dice, dice.D("1D6-1"));
 
                     break;
 
                 default: return null;
             }
+
+            return result;
+        }
+
+        public static StarportFacilities? CalculateStarportFacilities(World world, Dice dice, EHex? spaceportType = null)
+        {
+            var result = new StarportFacilities();
+            var hotelClass = 0;
+            result.StarportCode = spaceportType ?? world.StarportCode;
+
+            switch (result.StarportCode.ToString())
+            {
+                case "A":
+                    result.CargoStorageCost = 500;
+                    hotelClass = 4;
+                    break;
+
+                case "B":
+                case "F":
+                    result.CargoStorageCost = 400;
+                    hotelClass = 2 + dice.D(2);
+                    break;
+
+                case "C":
+                case "G":
+                    result.CargoStorageCost = 300;
+                    hotelClass = 1 + dice.D(2);
+                    break;
+
+                case "D":
+                case "H":
+                    result.CargoStorageCost = 200;
+                    hotelClass = dice.D(2);
+                    break;
+
+                case "E":
+                case "J":
+                    result.CargoStorageCost = 100;
+                    break;
+            }
+
+            result.Accomodations = new();
+            if (hotelClass >= 1)
+                result.Accomodations.Add(new("Economy", 10));
+            if (hotelClass >= 2)
+                result.Accomodations.Add(new("Standard", 50));
+            if (hotelClass >= 3)
+                result.Accomodations.Add(new("Luxury", 250));
+            if (hotelClass >= 4)
+                result.Accomodations.Add(new("Opulent", 1000));
 
             //TODO-132: Instead of hard-coding the law level, use the local law level when not in Imperium territory.
             switch (result.StarportCode.ToString())
@@ -197,22 +293,31 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     break;
 
                 case "F":
-                    result.LawCode = origin.LawCode - dice.D(2, 6) + 5;
+                    result.LawCode = world.LawCode - dice.D(2, 6) + 5;
                     result.PortEnforcementCode = dice.D(2, 6) + 3;
                     break;
 
                 case "G":
-                    result.LawCode = origin.LawCode - dice.D(2, 6) + 3;
+                    result.LawCode = world.LawCode - dice.D(2, 6) + 3;
                     result.PortEnforcementCode = dice.D(2, 6);
                     break;
 
                 case "H":
-                    result.LawCode = origin.LawCode - dice.D(2, 6) + 1;
+                    result.LawCode = world.LawCode - dice.D(2, 6) + 1;
                     result.PortEnforcementCode = dice.D(2, 6) - 3;
+                    break;
 
+                case "J":
+                    result.LawCode = world.LawCode - dice.D(2, 6) + 0;
+                    result.PortEnforcementCode = dice.D(2, 6) - 6;
                     break;
             }
 
+            if (result.LawCode.Value < 0)
+                result.LawCode = 0;
+
+            result.HighportDetails = CalculateStarportDetails(dice, true, result.StarportCode);
+            result.DownportDetails = CalculateStarportDetails(dice, false, result.StarportCode);
             return result;
         }
 

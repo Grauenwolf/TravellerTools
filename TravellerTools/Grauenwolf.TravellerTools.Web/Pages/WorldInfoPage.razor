@@ -138,11 +138,11 @@
     }
     <div>&nbsp;</div>
 
-    if (Model.HighportDetails != null || Model.DownportDetails != null)
+    if (Model.StarportFacilities?.HighportDetails != null || Model.StarportFacilities?.DownportDetails != null)
     {
-        var highport = Model.HighportDetails;
-        var downport = Model.DownportDetails;
-        var port = highport ?? downport!; //use for law level
+        var port = Model.StarportFacilities;
+        var highport = Model.StarportFacilities.HighportDetails;
+        var downport = Model.StarportFacilities.DownportDetails;
 
         <h3>
             Starport Info
@@ -289,21 +289,6 @@
                     {
                         <td>@(highport.FuelWaitTimeCapital)</td>
                     }
-                </tr>
-                <tr>
-                    <th colspan="2">Cargo Storage per ton-week</th>
-                    @if (downport != null)
-                    {
-                        <td>@(downport.CargoStorageCost)</td>
-                    }
-                    @if (highport != null)
-                    {
-                        <td>@(highport.CargoStorageCost)</td>
-                    }
-                </tr>
-                <tr>
-                    <th colspan="2">Cargo Storage Security</th>
-                    <td colspan="2">@(port.CargoStorageSecurity)</td>
                 </tr>
             </table>
         </div>

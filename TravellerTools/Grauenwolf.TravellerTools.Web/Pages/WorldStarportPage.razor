@@ -1,0 +1,338 @@
+﻿@page "/world/{milieuCode}/{sectorHex}/{planetHex}/starport"
+@page "/world/{milieuCode}/{sectorHex}/{planetHex}/starport/{spaceport}"
+@page "/uwp/{uwp}/starport"
+@page "/uwp/{uwp}/starport/starport/{spaceport}"
+
+@inherits NullablePageBase<WorldModel>
+
+@if (Model != null)
+{
+    var current = Model.World;
+
+    <h2>@current.Name</h2>
+    <WorldNavigation CurrentPage="starport" World="@Model.World" MilieuCode="@MilieuCode" />
+    <div>&nbsp;</div>
+
+    <div class="do-not-print">
+        <table class="gridtable">
+            <tr>
+                <th>Independent Spaceport Generator</th>
+                <td><button @onclick="GenerateStarportF">Class F (Good)</button></td>
+                <td><button @onclick="GenerateStarportG">Class G (Poor)</button></td>
+                <td><button @onclick="GenerateStarportH">Class H (Primitive)</button></td>
+                <td><button @onclick="GenerateStarportJ">Class J (Frontier)</button></td>
+                <!-- TODO: Once we have permalinks for characters, add option to generate NPCs -->
+            </tr>
+        </table>
+        <div>&nbsp;</div>
+    </div>
+
+    if (Model.StarportFacilities?.HighportDetails != null || Model.StarportFacilities?.DownportDetails != null)
+    {
+        var port = Model.StarportFacilities;
+        var highport = Model.StarportFacilities.HighportDetails;
+        var downport = Model.StarportFacilities.DownportDetails;
+
+        <h3>
+            @if (Spaceport == null || Spaceport[0] <= 'E') //TODO: Make this a property
+            {
+                <span>Starport Info</span>
+            }
+            else
+            {
+                <span>Independent Spaceport Info</span>
+            }
+            <a @onclick="OnReroll" href="#" title="Reroll"><span class="oi oi-random" /></a>
+            <a @onclick="OnPermalink" href="@(Permalink)" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
+        </h3>
+
+        <table class="gridtable">
+            <tr><th>Starport</th><td>@port.StarportCode</td><td colspan="2" width="500">@port.StarportDescription</td></tr>
+            <tr><th>Law</th><td>@port.LawCode</td><td colspan="2">@port.LawLevel</td></tr>
+            <tr><th>Enforcement</th><td>@port.PortEnforcement</td><td colspan="2">@port.PortEnforcementDetails</td></tr>
+
+        </table>
+
+        <div>&nbsp;</div>
+        <h3>
+            Fees and Wait Times
+        </h3>
+        <table class="gridtable">
+
+
+            <tr>
+                <th colspan="2">Service</th>
+                @if (downport != null)
+                {
+                    <th>Downport</th>
+                }
+                @if (highport != null)
+                {
+                    <th>Highport</th>
+                }
+            </tr>
+            <tr>
+                <th rowspan="3">Berthing Cost</th>
+                <th>To Dock</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.BerthingCost.ToString("N0"))</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.BerthingCost.ToString("N0"))</td>
+                }
+            </tr>
+            <tr>
+                <th>Per day</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.BerthingCostPerDay.ToString("N0"))</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.BerthingCostPerDay.ToString("N0"))</td>
+                }
+            </tr>
+            <tr>
+                <th>Per week</th>
+                @if (downport != null)
+                {
+                    <td>@((downport.BerthingCostPerDay * 7).ToString("N0"))</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@((highport.BerthingCostPerDay * 7).ToString("N0"))</td>
+                }
+            </tr>
+            <tr>
+                <th rowspan="3">Berthing Wait Time</th>
+                <th>Small Craft</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.BerthingWaitTimeSmall)</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.BerthingWaitTimeSmall)</td>
+                }
+            </tr>
+            <tr>
+                <th>Starcraft</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.BerthingWaitTimeStar)</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.BerthingWaitTimeStar)</td>
+                }
+            </tr>
+            <tr>
+                <th>Capital</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.BerthingWaitTimeCapital)</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.BerthingWaitTimeCapital)</td>
+                }
+            </tr>
+
+            <tr>
+                <th colspan="2">Refined Fuel Cost</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.RefinedFuelCost)</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.RefinedFuelCost)</td>
+                }
+            </tr>
+            <tr>
+                <th colspan="2">Unrefined Fuel Cost</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.UnrefinedFuelCost)</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.UnrefinedFuelCost)</td>
+                }
+            </tr>
+            <tr>
+                <th rowspan="3">Fuel Wait Time</th>
+                <th>Small Craft</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.FuelWaitTimeSmall)</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.FuelWaitTimeSmall)</td>
+                }
+            </tr>
+            <tr>
+                <th>Starcraft</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.FuelWaitTimeStar)</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.FuelWaitTimeStar)</td>
+                }
+            </tr>
+            <tr>
+                <th>Capital</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.FuelWaitTimeCapital)</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.FuelWaitTimeCapital)</td>
+                }
+            </tr>
+
+
+            <tr>
+                <th rowspan="3">Cargo Loading/Unloading Wait Time</th>
+                <th>Small Craft</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.WarehousingWaitTimeSmall)</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.WarehousingWaitTimeSmall)</td>
+                }
+            </tr>
+            <tr>
+                <th>Starcraft</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.WarehousingWaitTimeStar)</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.WarehousingWaitTimeStar)</td>
+                }
+            </tr>
+            <tr>
+                <th>Capital</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.WarehousingWaitTimeCapital)</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.WarehousingWaitTimeCapital)</td>
+                }
+            </tr>
+
+            <tr>
+                <th rowspan="3">Repair Wait Time</th>
+                <th>Small Craft</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.RepairWaitTimeSmall)</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.RepairWaitTimeSmall)</td>
+                }
+            </tr>
+            <tr>
+                <th>Starcraft</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.RepairWaitTimeStar)</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.RepairWaitTimeStar)</td>
+                }
+            </tr>
+            <tr>
+                <th>Capital</th>
+                @if (downport != null)
+                {
+                    <td>@(downport.RepairWaitTimeCapital)</td>
+                }
+                @if (highport != null)
+                {
+                    <td>@(highport.RepairWaitTimeCapital)</td>
+                }
+            </tr>
+
+        </table>
+
+        <p>Docking and berthing fees based on Starports, 2011. For the Mongoose 2022 edition, charge the "To Dock" fee weekly and ignore the berthing fee. </p>
+
+        <div>&nbsp;</div>
+        <h3>Hospitality</h3>
+        @if (port.Accomodations?.Count > 0)
+        {
+            <div>
+                <table class="gridtable">
+                    <tr>
+                        <th>Type</th>
+                        <th>Per Day</th>
+                        <th>Per Week</th>
+                    </tr>
+                    @foreach (var hotel in port.Accomodations)
+                    {
+                        <tr>
+                            <td>@hotel.Type</td>
+                            <td>@hotel.CostPerDay.ToString("N0")</td>
+                            <td>@((hotel.CostPerDay * 7).ToString("N0"))</td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        }
+        else
+        {
+            <p>No hotels are available.</p>
+        }
+        @if (port.CargoStorageCost > 0)
+        {
+            <div>&nbsp;</div>
+            <h3>Warehousing</h3>
+            <div>
+                <table class="gridtable">
+                    <tr>
+                        <th rowspan="2">Cargo Storage</th>
+                        <th>Per day</th>
+                        <td>@(Math.Ceiling(port.CargoStorageCost / 7.0))</td>
+                    </tr>
+                    <tr>
+                        <th>Per week</th>
+                        <td>@(port.CargoStorageCost)</td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Cargo Storage Security</th>
+                        <td>@(port.CargoStorageSecurity)</td>
+                    </tr>
+                </table>
+
+            </div>
+        }
+    }
+    else
+    {
+        <p>This system does not contain a starport.</p>
+    }
+
+}
+else if (LoadFailed)
+{
+    <h1>Error loading page.</h1>
+}
+else
+{
+    <h1>Loading</h1>
+}

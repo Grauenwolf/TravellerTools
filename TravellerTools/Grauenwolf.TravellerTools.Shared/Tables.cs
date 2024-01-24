@@ -1182,6 +1182,7 @@ public static class Tables
             'F' => "Good Quality Spaceport. Minor damage repairable. Unrefined fuel available",
             'G' => "Poor Quality Spaceport. Superficial repairs possible. Unrefined fuel available",
             'H' => "Primitive Quality Spaceport. No repairs or fuel available",
+            'J' => "Independent Frontier Installation. Essentially a marked spot of bedrock with no fuel or facilities present.",
             'Y' => "None",
             _ => "",
         };
