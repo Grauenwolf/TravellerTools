@@ -1,4 +1,5 @@
 using Grauenwolf.TravellerTools.Characters.Careers.AelYael;
+using Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 using Grauenwolf.TravellerTools.Characters.Careers.Bwap;
 using Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 using Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
@@ -30,7 +31,7 @@ public class CharacterBuilder
         Add(new TezcatCharacterBuilder(dataPath, nameGenerator, this));
         Add(new ImperiumDolphinCharacterBuilder(dataPath, nameGenerator, this));
         Add(new AelYaelCharacterBuilder(dataPath, nameGenerator, this));
-        //Add(new AslanCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new AslanCharacterBuilder(dataPath, nameGenerator, this));
 
         m_CharacterBuilders = builders.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
 

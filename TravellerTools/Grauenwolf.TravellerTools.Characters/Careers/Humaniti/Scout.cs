@@ -2,9 +2,8 @@
 
 abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Scout", assignment, speciesCharacterBuilder)
 {
-    protected override int AdvancedEductionMin => 8;
-
     internal override bool RankCarryover => true;
+    protected override int AdvancedEductionMin => 8;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
@@ -64,17 +63,7 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
 
             case 4:
                 character.AddHistory($"{character.Name} survey an alien world.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Animals", "Handling");
-                    skillList.Add("Animals", "Training");
-                    skillList.Add("Survival");
-                    skillList.Add("Recon");
-                    skillList.AddRange(SpecialtiesFor(character, "Science"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Animals|Handling", "Animals|Training", "Survival", "Recon");
                 return;
 
             case 5:
@@ -84,18 +73,7 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
 
             case 6:
                 character.AddHistory($"Spend several years jumping from world to world in {character.Name}'s scout ship.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Astrogation");
-                    skillList.AddRange(SpecialtiesFor(character, "Electronics"));
-                    skillList.Add("Navigation");
-                    skillList.Add("Pilot", "Small craft");
-                    skillList.Add("Mechanic");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
-
+                AddOneSkill(character, dice, "Astrogation", "Electronics", "Navigation", "Pilot|Small craft", "Mechanic");
                 return;
 
             case 7:
@@ -284,10 +262,7 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
 
             case 3:
                 careerHistory.Title = "Senior Scout";
-                var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Pilot"));
-                skillList.RemoveOverlap(character.Skills, 1);
-                if (skillList.Count > 0)
-                    character.Skills.Add(dice.Choose(skillList), 1);
+                AddOneSkill(character, dice, "Pilot");
                 return;
 
             case 4:

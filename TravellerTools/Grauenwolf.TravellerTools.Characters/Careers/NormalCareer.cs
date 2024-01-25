@@ -4,9 +4,11 @@ abstract class NormalCareer(string name, string assignment, SpeciesCharacterBuil
 {
     internal override bool RankCarryover { get; } = false;
 
+    protected abstract int AdvancedEductionMin { get; }
+
     internal override void Run(Character character, Dice dice)
     {
-        var careerHistory = NextTermSetup(character, dice);
+        var careerHistory = SetupAndSkills(character, dice);
         careerHistory.Terms += 1;
         character.LastCareer = careerHistory;
 
@@ -37,17 +39,7 @@ abstract class NormalCareer(string name, string assignment, SpeciesCharacterBuil
                 Promote(character, dice, careerHistory);
                 FixupSkills(character, dice);
 
-                //advancement skill
-                var skillTables = new List<SkillTable>
-                {
-                    PersonalDevelopment,
-                    ServiceSkill,
-                    AssignmentSkills
-                };
-                if (character.Education >= AdvancedEductionMin)
-                    skillTables.Add(AdvancedEducation);
-
-                dice.Choose(skillTables)(character, dice); //Choose a skill table and execute it.
+                CareerSkill(character, dice);
                 FixupSkills(character, dice);
             }
 
@@ -70,5 +62,21 @@ abstract class NormalCareer(string name, string assignment, SpeciesCharacterBuil
             else
                 character.Age += +4; //Complete the term dispite the mishap.
         }
+    }
+
+    protected abstract void AdvancedEducation(Character character, Dice dice);
+
+    protected override void CareerSkill(Character character, Dice dice)
+    {
+        var skillTables = new List<SkillTable>
+                {
+                    PersonalDevelopment,
+                    ServiceSkill,
+                    AssignmentSkills
+                };
+        if (character.Education >= AdvancedEductionMin)
+            skillTables.Add(AdvancedEducation);
+
+        dice.Choose(skillTables)(character, dice); //Choose a skill table and execute it.
     }
 }

@@ -71,12 +71,7 @@ class Drifter_Scavenger(SpeciesCharacterBuilder speciesCharacterBuilder) : Drift
                 return;
 
             case 3:
-                var skillList = new SkillTemplateCollection();
-                skillList.Add("Profession", "Belter");
-                skillList.Add("Mechanic");
-                skillList.RemoveOverlap(character.Skills, 1);
-                if (skillList.Count > 0)
-                    character.Skills.Add(dice.Choose(skillList), 1);
+                AddOneSkill(character, dice, "Profession|Belter", "Mechanic");
                 return;
 
             case 4:

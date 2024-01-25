@@ -45,16 +45,7 @@ abstract class Ceremonial(string assignment, SpeciesCharacterBuilder speciesChar
 
             case 4:
                 character.AddHistory($"{character.Name} witnessed one of the great duellists in action.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Melee", "Natural");
-                    skillList.Add("Athletics", "Strength");
-                    skillList.Add("Carouse");
-                    skillList.Add("Medic");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Melee|Natural", "Athletics|Strength", "Carouse", "Medic");
                 return;
 
             case 5:
@@ -99,17 +90,7 @@ abstract class Ceremonial(string assignment, SpeciesCharacterBuilder speciesChar
 
             case 8:
                 character.AddHistory($"{character.Name}'s clan prospers and so do {character.Name}.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Carouse");
-                    skillList.Add("Survival");
-                    skillList.Add("Admin");
-                    if (character.Gender == "M")
-                        skillList.Add("Independence");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Carouse", "Survival", "Admin", "Independence");
                 return;
 
             case 9:
@@ -172,17 +153,7 @@ abstract class Ceremonial(string assignment, SpeciesCharacterBuilder speciesChar
 
             case 3:
                 character.AddHistory($"{character.Name} is exiled because of some political scandal.", age);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Survival");
-                    skillList.Add("Pilot");
-                    skillList.Add("Streetwise");
-                    if (character.Gender == "M")
-                        skillList.Add("Independence");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Survival", "Pilot", "Streetwise", "Independence");
                 return;
 
             case 4:

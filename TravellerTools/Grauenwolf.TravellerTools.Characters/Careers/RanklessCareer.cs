@@ -10,7 +10,7 @@ abstract class RanklessCareer(string name, string? assignment, SpeciesCharacterB
 
     internal override void Run(Character character, Dice dice)
     {
-        var careerHistory = NextTermSetup(character, dice);
+        var careerHistory = SetupAndSkills(character, dice);
 
         careerHistory.Terms += 1;
         character.LastCareer = careerHistory;
@@ -42,5 +42,14 @@ abstract class RanklessCareer(string name, string? assignment, SpeciesCharacterB
 
     internal override sealed void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
     {
+    }
+
+    protected override void CareerSkill(Character character, Dice dice)
+    {
+        var skillTables = new List<SkillTable>();
+        skillTables.Add(PersonalDevelopment);
+        skillTables.Add(ServiceSkill);
+        skillTables.Add(AssignmentSkills);
+        dice.Choose(skillTables)(character, dice);
     }
 }

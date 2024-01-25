@@ -49,31 +49,12 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
 
             case 3:
                 character.AddHistory($"Assigned to a planet with a hostile or wild environment.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Vacc Suit");
-                    skillList.AddRange(SpecialtiesFor(character, "Engineer"));
-                    skillList.Add("Animals", "Handling");
-                    skillList.Add("Animals", "Training");
-                    skillList.Add("Recon");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Vacc Suit", "Engineer", "Animals|Handling", "Animals|Training", "Recon");
                 return;
 
             case 4:
                 character.AddHistory($"Assigned to an urbanised planet torn by war.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Stealth");
-                    skillList.Add("Streetwise");
-                    skillList.Add("Persuade");
-                    skillList.Add("Recon");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Stealth", "Streetwise", "Persuade", "Recon");
 
                 return;
 
@@ -85,16 +66,9 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
             case 6:
                 var age = character.AddHistory($"Thrown into a brutal ground war", dice);
                 if (dice.RollHigh(character.EducationDM, 8))
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
-                    skillList.Add("Leadership");
-                    character.Skills.Increase(dice.Choose(skillList));
-                }
+                    IncreaseOneSkill(character, dice, "Gun Combat", "Leadership");
                 else
-                {
                     Injury(character, dice, age);
-                }
                 return;
 
             case 7:
@@ -114,16 +88,7 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
 
             case 10:
                 character.AddHistory($"Assigned to a peacekeeping role.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Admin");
-                    skillList.Add("Admin");
-                    skillList.Add("Deception");
-                    skillList.Add("Recon");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Admin", "Admin", "Deception", "Recon");
                 return;
 
             case 11:
@@ -181,12 +146,7 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
                 character.AddHistory($"Sent to a very unpleasant region (jungle, swamp, desert, icecap, urban) to battle against guerrilla fighters and rebels. Discharged because of stress, injury or because the government wishes to bury the whole incident.", age);
                 character.AddHistory($"Gain rebels as Enemy", age);
                 character.AddEnemy();
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Recon");
-                    skillList.Add("Survival");
-                    character.Skills.Increase(dice.Choose(skillList));
-                }
+                IncreaseOneSkill(character, dice, "Recon", "Survival");
                 return;
 
             case 4:

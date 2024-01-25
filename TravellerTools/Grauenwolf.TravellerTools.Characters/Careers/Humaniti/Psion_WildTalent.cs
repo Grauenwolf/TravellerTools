@@ -74,12 +74,7 @@ class Psion_WildTalent(SpeciesCharacterBuilder speciesCharacterBuilder) : Psion(
         {
             case 1:
                 careerHistory.Title = "Survivor";
-                {
-                    var skillList = new SkillTemplateCollection("Survival", "Streetwise");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Survival", "Streetwise");
                 return;
 
             case 2:

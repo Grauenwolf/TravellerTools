@@ -59,10 +59,15 @@ public class Book
         return RandomSkills.Any(s => s.Name == name && s.Specialty != null);
     }
 
+    /// <summary>
+    /// Returns all the specialities for a skill. If it has no specialities, then just return the skill.
+    /// </summary>
     internal List<SkillTemplate> SpecialtiesFor(string skillName)
     {
         var skill = m_Templates.Skills.FirstOrDefault(s => s.Name == skillName);
-        if (skill != null && skill.Specialty != null)
+        if (skill == null)
+            return new List<SkillTemplate>(); //not a valid skill
+        else if (skill.Specialty != null)
             return skill.Specialty.Select(s => new SkillTemplate(skillName, s.Name)).ToList();
         else
             return new List<SkillTemplate>() { new SkillTemplate(skillName) };

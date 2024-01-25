@@ -55,15 +55,7 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
             case 5:
                 character.AddHistory($"Spend a lengthy period serving as an auxiliary aboard a spacecraft operating underwater, such \r\nas a system defence boat.", dice);
                 if (dice.RollHigh(character.EducationDM, 7))
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Pilot", "Small Craft");
-                    skillList.Add("Pilot", "Spacecraft");
-                    skillList.Add("Electronics", "Sensors");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                    AddOneSkill(character, dice, "Pilot|Small Craft", "Pilot|Spacecraft", "Electronics|Sensors");
                 return;
 
             case 6:
@@ -137,14 +129,7 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
                 switch (dice.D(2))
                 {
                     case 1:
-                        {
-                            var skillList = new SkillTemplateCollection();
-                            skillList.Add("Admin");
-                            skillList.Add("Tactics", "Military");
-                            skillList.RemoveOverlap(character.Skills, 1);
-                            if (skillList.Count > 0)
-                                character.Skills.Add(dice.Choose(skillList), 1);
-                        }
+                        AddOneSkill(character, dice, "Admin", "Tactics|Military");
                         return;
 
                     case 2:
@@ -276,13 +261,7 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
 
                 case 1:
                     careerHistory.Title = "Lance Corporal";
-                    {
-                        var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
-                        skillList.RemoveOverlap(character.Skills, 1);
-                        if (skillList.Count > 0)
-                            character.Skills.Add(dice.Choose(skillList), 1);
-                    }
+                    AddOneSkill(character, dice, "Gun Combat");
                     return;
 
                 case 2:
@@ -327,13 +306,7 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
 
                 case 4:
                     careerHistory.Title = "Lt. Colonel";
-                    {
-                        var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor(character, "Tactics"));
-                        skillList.RemoveOverlap(character.Skills, 1);
-                        if (skillList.Count > 0)
-                            character.Skills.Add(dice.Choose(skillList), 1);
-                    }
+                    AddOneSkill(character, dice, "Tactics");
                     return;
 
                 case 5:

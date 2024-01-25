@@ -2,8 +2,6 @@
 
 internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : RanklessCareer("Truther", null, speciesCharacterBuilder)
 {
-    protected override int AdvancedEductionMin => int.MaxValue;
-
     protected override string SurvivalAttribute => "Fol";
 
     protected override int SurvivalTarget => 4;
@@ -274,8 +272,6 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
                 return;
         }
     }
-
-    protected override void AdvancedEducation(Character character, Dice dice) => throw new NotImplementedException();
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {

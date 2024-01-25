@@ -62,11 +62,7 @@ class Agent_CorporateAgent(SpeciesCharacterBuilder speciesCharacterBuilder) : Ag
 
             case 4:
                 careerHistory.Title = "Special Agent";
-                var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Gun Combat"));
-                skillList.RemoveOverlap(character.Skills, 1);
-                if (skillList.Count > 0)
-                    character.Skills.Add(dice.Choose(skillList), 1);
-
+                AddOneSkill(character, dice, "Gun Combat");
                 return;
 
             case 5:

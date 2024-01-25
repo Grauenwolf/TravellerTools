@@ -3,11 +3,12 @@
 abstract class MilitaryCareer(string name, string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : FullCareer(name, assignment, speciesCharacterBuilder)
 {
     internal override bool RankCarryover { get; } = true;
+    protected abstract int AdvancedEductionMin { get; }
     protected virtual int CommssionTargetNumber => 8;
 
     internal override void Run(Character character, Dice dice)
     {
-        var careerHistory = NextTermSetup(character, dice);
+        var careerHistory = SetupAndSkills(character, dice);
         careerHistory.Terms += 1;
         character.LastCareer = careerHistory;
 
@@ -48,17 +49,7 @@ abstract class MilitaryCareer(string name, string assignment, SpeciesCharacterBu
             if (advancementRoll >= AdvancementTarget)
             {
                 Promote(character, dice, careerHistory);
-
-                //advancement skill
-                var skillTables = new List<SkillTable>();
-                skillTables.Add(PersonalDevelopment);
-                skillTables.Add(ServiceSkill);
-                skillTables.Add(AssignmentSkills);
-                if (character.Education >= AdvancedEductionMin)
-                    skillTables.Add(AdvancedEducation);
-                if (careerHistory.CommissionRank > 0)
-                    skillTables.Add(OfficerTraining);
-                dice.Choose(skillTables)(character, dice);
+                CareerSkill(character, dice);
                 FixupSkills(character, dice);
             }
             if (advancementRoll <= careerHistory.Terms)
@@ -80,6 +71,21 @@ abstract class MilitaryCareer(string name, string assignment, SpeciesCharacterBu
             else
                 character.Age += +4; //Complete the term dispite the mishap.
         }
+    }
+
+    protected abstract void AdvancedEducation(Character character, Dice dice);
+
+    protected override void CareerSkill(Character character, Dice dice)
+    {
+        var skillTables = new List<SkillTable>();
+        skillTables.Add(PersonalDevelopment);
+        skillTables.Add(ServiceSkill);
+        skillTables.Add(AssignmentSkills);
+        if (character.Education >= AdvancedEductionMin)
+            skillTables.Add(AdvancedEducation);
+        if (character.LastCareer!.CommissionRank > 0)
+            skillTables.Add(OfficerTraining);
+        dice.Choose(skillTables)(character, dice);
     }
 
     /// <summary>

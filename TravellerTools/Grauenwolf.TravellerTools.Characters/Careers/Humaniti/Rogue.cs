@@ -2,9 +2,8 @@
 
 abstract class Rogue(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Rogue", assignment, speciesCharacterBuilder)
 {
-    protected override int AdvancedEductionMin => 10;
-
     internal override bool RankCarryover => true;
+    protected override int AdvancedEductionMin => 10;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
@@ -61,15 +60,7 @@ abstract class Rogue(string assignment, SpeciesCharacterBuilder speciesCharacter
 
             case 4:
                 character.AddHistory($"Involved in the planning of an impressive heist.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Electronics"));
-                    skillList.Add("Mechanic");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
-
+                AddOneSkill(character, dice, "Electronics", "Mechanic");
                 return;
 
             case 5:
@@ -99,16 +90,7 @@ abstract class Rogue(string assignment, SpeciesCharacterBuilder speciesCharacter
 
             case 8:
                 character.AddHistory($"{character.Name} spend months in the dangerous criminal underworld.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Streetwise");
-                    skillList.Add("Stealth");
-                    skillList.AddRange(SpecialtiesFor(character, "Melee"));
-                    skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Streetwise", "Stealth", "Melee", "Gun Combat");
                 return;
 
             case 9:
@@ -189,18 +171,7 @@ abstract class Rogue(string assignment, SpeciesCharacterBuilder speciesCharacter
 
             case 4:
                 character.AddHistory($"A job goes wrong, forcing {character.Name} to flee off-planet.", age);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Deception");
-                    skillList.Add("Pilot", "Small Craft");
-                    skillList.Add("Pilot", "Spacecraft");
-                    skillList.Add("Athletics", "Dexterity");
-                    skillList.AddRange(SpecialtiesFor(character, "Gunner"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
-
+                AddOneSkill(character, dice, "Deception", "Pilot|Small Craft", "Pilot|Spacecraft", "Athletics|Dexterity", "Gunner");
                 return;
 
             case 5:

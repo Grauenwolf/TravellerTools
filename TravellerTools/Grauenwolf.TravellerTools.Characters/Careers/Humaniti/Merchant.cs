@@ -4,8 +4,6 @@ abstract class Merchant(string assignment, SpeciesCharacterBuilder speciesCharac
 {
     protected override int AdvancedEductionMin => 8;
 
-    
-
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
         var roll = dice.D(6);
@@ -51,18 +49,7 @@ abstract class Merchant(string assignment, SpeciesCharacterBuilder speciesCharac
                 return;
 
             case 4:
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Profession"));
-                    skillList.AddRange(SpecialtiesFor(character, "Electronics"));
-                    skillList.AddRange(SpecialtiesFor(character, "Engineer"));
-                    skillList.AddRange(SpecialtiesFor(character, "Animals"));
-                    skillList.AddRange(SpecialtiesFor(character, "Science"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
-
+                AddOneSkill(character, dice, "Profession", "Electronics", "Engineer", "Animals", "Science");
                 return;
 
             case 5:
@@ -72,15 +59,9 @@ abstract class Merchant(string assignment, SpeciesCharacterBuilder speciesCharac
                     character.BenefitRolls *= 2;
                 }
                 else
-                {
                     character.BenefitRolls = 0;
-                }
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Broker");
-                    skillList.Add("Gambler");
-                    character.Skills.Increase(dice.Choose(skillList));
-                }
+
+                IncreaseOneSkill(character, dice, "Broker", "Gambler");
                 return;
 
             case 6:
@@ -171,14 +152,7 @@ abstract class Merchant(string assignment, SpeciesCharacterBuilder speciesCharac
                 character.AddHistory($"A sudden war destroys {character.Name}'s trade routes and contacts, forcing {character.Name} to flee that region of space.", age);
                 character.AddHistory($"Gain rebels as Enemy", age);
                 character.AddEnemy();
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
-                    skillList.AddRange(SpecialtiesFor(character, "Pilot"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Gun Combat", "Pilot");
                 return;
 
             case 4:

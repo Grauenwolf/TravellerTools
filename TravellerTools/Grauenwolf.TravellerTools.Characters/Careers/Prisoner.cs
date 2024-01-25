@@ -3,7 +3,6 @@
 abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : FullCareer("Prisoner", assignment, speciesCharacterBuilder)
 {
     internal override bool RankCarryover { get; } = true;
-    protected override int AdvancedEductionMin { get; } = int.MaxValue;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
@@ -254,7 +253,7 @@ abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharac
 
     internal override void Run(Character character, Dice dice)
     {
-        var careerHistory = NextTermSetup(character, dice);
+        var careerHistory = SetupAndSkills(character, dice);
 
         careerHistory.Terms += 1;
         character.LastCareer = careerHistory;
@@ -279,11 +278,8 @@ abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharac
                 FixupSkills(character, dice);
 
                 //advancement skill
-                var skillTables = new List<SkillTable>();
-                skillTables.Add(PersonalDevelopment);
-                skillTables.Add(ServiceSkill);
-                skillTables.Add(AssignmentSkills);
-                dice.Choose(skillTables)(character, dice);
+                CareerSkill(character, dice);
+                FixupSkills(character, dice);
             }
 
             if (character.NextTermBenefits.MusterOut)
@@ -350,11 +346,7 @@ abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharac
                 return;
 
             case 2:
-                var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Athletics"));
-                skillList.RemoveOverlap(character.Skills, 1);
-                if (skillList.Count > 0)
-                    character.Skills.Add(dice.Choose(skillList), 1);
-
+                AddOneSkill(character, dice, "Athletics");
                 return;
 
             case 3:
@@ -373,7 +365,14 @@ abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharac
         }
     }
 
-    protected override void AdvancedEducation(Character character, Dice dice) => throw new NotImplementedException();
+    protected override void CareerSkill(Character character, Dice dice)
+    {
+        var skillTables = new List<SkillTable>();
+        skillTables.Add(PersonalDevelopment);
+        skillTables.Add(ServiceSkill);
+        skillTables.Add(AssignmentSkills);
+        dice.Choose(skillTables)(character, dice);
+    }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {

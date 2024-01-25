@@ -29,7 +29,6 @@
 	  <Compile Include="Careers\Aslan\Management_ClanAide.cs" />
 	  <Compile Include="Careers\Aslan\Management_Corporate.cs" />
 	  <Compile Include="Careers\Aslan\Management_Governess.cs" />
-	  <Compile Include="Careers\Aslan\Military.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

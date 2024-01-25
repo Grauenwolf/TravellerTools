@@ -67,12 +67,7 @@ class Citizen_Worker(SpeciesCharacterBuilder speciesCharacterBuilder) : Citizen(
 
             case 2:
                 careerHistory.Title = "Technician";
-                {
-                    var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Profession"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Profession");
                 return;
 
             case 3:
@@ -88,12 +83,7 @@ class Citizen_Worker(SpeciesCharacterBuilder speciesCharacterBuilder) : Citizen(
 
             case 6:
                 careerHistory.Title = "Master Technician";
-                {
-                    var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Engineer"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Engineer");
                 return;
         }
     }

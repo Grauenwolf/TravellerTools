@@ -33,16 +33,7 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
 
             case 3:
                 character.AddHistory($"Trapped behind enemy lines.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Survival");
-                    skillList.Add("Stealth");
-                    skillList.Add("Deception");
-                    skillList.Add("Streetwise");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Survival", "Stealth", "Deception", "Streetwise");
                 return;
 
             case 4:
@@ -53,27 +44,12 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
             case 5:
                 character.AddHistory($"Given advanced training in a specialist field.", dice);
                 if (dice.RollHigh(character.EducationDM, 8))
-                {
-                    var skillList = new SkillTemplateCollection(RandomSkills(character));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                    AddOneRandomSkill(character, dice);
                 return;
 
             case 6:
                 character.AddHistory($"{character.Name}'s vessel participates in a notable engagement.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Electronics"));
-                    skillList.AddRange(SpecialtiesFor(character, "Engineer"));
-                    skillList.AddRange(SpecialtiesFor(character, "Gunner"));
-                    skillList.AddRange(SpecialtiesFor(character, "Pilot"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
-
+                AddOneSkill(character, dice, "Electronics", "Engineer", "Gunner", "Pilot");
                 return;
 
             case 7:
@@ -82,16 +58,7 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
 
             case 8:
                 character.AddHistory($"On the front line of an assault and occupation", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Recon");
-                    skillList.Add("Leadership");
-                    skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
-                    skillList.Add("Electronics", "Comms");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Recon", "Leadership", "Gun Combat", "Electronics|Comms");
                 return;
 
             case 9:
@@ -266,14 +233,7 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
 
                 case 1:
                     careerHistory.Title = "Third Claw";
-                    {
-                        var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
-                        skillList.Add("Mechanic");
-                        skillList.RemoveOverlap(character.Skills, 1);
-                        if (skillList.Count > 0)
-                            character.Skills.Add(dice.Choose(skillList), 1);
-                    }
+                    AddOneSkill(character, dice, "Gun Combat", "Mechanic");
 
                     return;
 
@@ -320,13 +280,7 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
 
                 case 4:
                     careerHistory.Title = "Shiltrhar";
-                    {
-                        var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor(character, "Tactics"));
-                        skillList.RemoveOverlap(character.Skills, 1);
-                        if (skillList.Count > 0)
-                            character.Skills.Add(dice.Choose(skillList), 1);
-                    }
+                    AddOneSkill(character, dice, "Tactics");
                     return;
 
                 case 5:

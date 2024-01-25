@@ -2,8 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 abstract class Management(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Management", assignment, speciesCharacterBuilder)
 {
+    internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 8;
-    
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
@@ -49,16 +49,7 @@ abstract class Management(string assignment, SpeciesCharacterBuilder speciesChar
 
             case 4:
                 character.AddHistory($"Pick up some useful skills.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Pilot"));
-                    skillList.Add("Mechanic");
-                    skillList.AddRange(SpecialtiesFor(character, "Electronics"));
-                    skillList.AddRange(SpecialtiesFor(character, "Drive"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Pilot", "Mechanic", "Electronics", "Drive");
                 return;
 
             case 5:
@@ -206,17 +197,7 @@ abstract class Management(string assignment, SpeciesCharacterBuilder speciesChar
 
             case 5:
                 character.AddHistory($"Sent to a border world, where career stagnates.", age);
-
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Survival");
-                    skillList.Add("Flyer");
-                    skillList.Add("Profession");
-                    skillList.Add("Navigation");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Survival", "Flyer", "Profession", "Navigation");
                 return;
 
             case 6:

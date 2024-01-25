@@ -2,6 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 abstract class Envoy(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Envoy", assignment, speciesCharacterBuilder)
 {
+    internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 8;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
@@ -54,16 +55,7 @@ abstract class Envoy(string assignment, SpeciesCharacterBuilder speciesCharacter
 
             case 4:
                 character.AddHistory($"Develop a taste for hunting.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Animals", "Training");
-                    skillList.Add("Survival");
-                    skillList.Add("Stealth");
-                    skillList.Add("Athletics", "Dexterity");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Animals|Training", "Survival", "Stealth", "Athletics|Dexterity");
                 return;
 
             case 5:
@@ -209,17 +201,7 @@ abstract class Envoy(string assignment, SpeciesCharacterBuilder speciesCharacter
 
             case 5:
                 character.AddHistory($"{character.Name} is dispatched to a distant world for a long period; by the time {character.Name} returns, {character.Name}'s position has been taken by someone younger and more ambitious.", age);
-
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Survival");
-                    skillList.Add("Pilot");
-                    skillList.Add("Carouse");
-                    skillList.Add("Independence");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Survival", "Pilot", "Carouse", "Independence");
                 return;
 
             case 6:

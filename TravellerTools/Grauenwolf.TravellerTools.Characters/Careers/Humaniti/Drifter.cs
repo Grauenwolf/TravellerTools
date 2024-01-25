@@ -3,7 +3,6 @@
 abstract class Drifter(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Drifter", assignment, speciesCharacterBuilder)
 {
     protected override int AdvancedEductionMin => int.MaxValue;
-    
 
     internal override void Event(Character character, Dice dice)
     {
@@ -21,12 +20,7 @@ abstract class Drifter(string assignment, SpeciesCharacterBuilder speciesCharact
                 return;
 
             case 4:
-                var skills = new SkillTemplateCollection();
-                skills.Add("Jack-of-All-Trades");
-                skills.Add("Survival");
-                skills.Add("Streetwise");
-                skills.AddRange(SpecialtiesFor(character, "Melee"));
-                character.Skills.Increase(dice.Choose(skills));
+                IncreaseOneSkill(character, dice, "Jack-of-All-Trades", "Survival", "Streetwise");
                 return;
 
             case 5:

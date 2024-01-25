@@ -55,12 +55,7 @@ class Scholar_Physician(SpeciesCharacterBuilder speciesCharacterBuilder) : Schol
                 return;
 
             case 3:
-                {
-                    var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Science"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Science");
                 return;
 
             case 4:

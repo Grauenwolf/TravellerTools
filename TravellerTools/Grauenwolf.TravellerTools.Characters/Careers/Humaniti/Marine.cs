@@ -33,16 +33,7 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
 
             case 3:
                 character.AddHistory($"Trapped behind enemy lines.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Survival");
-                    skillList.Add("Stealth");
-                    skillList.Add("Deception");
-                    skillList.Add("Streetwise");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Survival", "Stealth", "Deception", "Streetwise");
                 return;
 
             case 4:
@@ -59,13 +50,7 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
             case 5:
                 character.AddHistory($"Advanced training in a specialist field", dice);
                 if (dice.RollHigh(character.EducationDM, 8))
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(RandomSkills(character));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                    AddOneRandomSkill(character, dice);
                 return;
 
             case 6:
@@ -103,16 +88,7 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
 
             case 8:
                 character.AddHistory($"On the front lines of a planetary assault and occupation.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Recon");
-                    skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
-                    skillList.Add("Leadership");
-                    skillList.Add("Electronics", "Comms");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Recon", "Gun Combat", "Leadership", "Electronics|Comms");
                 return;
 
             case 9:
@@ -271,25 +247,12 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
             {
                 case 0:
                     careerHistory.Title = "Marine";
-                    {
-                        var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
-                        skillList.Add("Melee", "Blade");
-                        skillList.RemoveOverlap(character.Skills, 1);
-                        if (skillList.Count > 0)
-                            character.Skills.Add(dice.Choose(skillList), 1);
-                    }
+                    AddOneSkill(character, dice, "Gun Combat", "Melee|Blade");
                     return;
 
                 case 1:
                     careerHistory.Title = "Lance Corporal";
-                    {
-                        var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
-                        skillList.RemoveOverlap(character.Skills, 1);
-                        if (skillList.Count > 0)
-                            character.Skills.Add(dice.Choose(skillList), 1);
-                    }
+                    AddOneSkill(character, dice, "Gun Combat");
                     return;
 
                 case 2:
@@ -330,13 +293,7 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
 
                 case 3:
                     careerHistory.Title = "Force Commander";
-                    {
-                        var skillList = new SkillTemplateCollection();
-                        skillList.AddRange(SpecialtiesFor(character, "Tactics"));
-                        skillList.RemoveOverlap(character.Skills, 1);
-                        if (skillList.Count > 0)
-                            character.Skills.Add(dice.Choose(skillList), 1);
-                    }
+                    AddOneSkill(character, dice, "Tactics");
                     return;
 
                 case 4:

@@ -33,19 +33,12 @@ abstract class Navy(string assignment, SpeciesCharacterBuilder speciesCharacterB
 
             case 3:
                 character.AddHistory($"{character.Name} join a gambling circle on board.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Gambler");
-                    skillList.Add("Deception");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
+                AddOneSkill(character, dice, "Gambler", "Deception");
 
-                    if (dice.RollHigh(character.Skills.GetLevel("Gambler"), 8))
-                        character.BenefitRolls += 1;
-                    else
-                        character.BenefitRolls += -1;
-                }
+                if (dice.RollHigh(character.Skills.EffectiveSkillLevel("Gambler"), 8))
+                    character.BenefitRolls += 1;
+                else
+                    character.BenefitRolls += -1;
 
                 return;
 
@@ -62,16 +55,7 @@ abstract class Navy(string assignment, SpeciesCharacterBuilder speciesCharacterB
 
             case 6:
                 character.AddHistory($"Vessel participates in a notable military engagement.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Electronics"));
-                    skillList.AddRange(SpecialtiesFor(character, "Engineer"));
-                    skillList.AddRange(SpecialtiesFor(character, "Gunner"));
-                    skillList.AddRange(SpecialtiesFor(character, "Pilot"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Electronics", "Engineer", "Gunner", "Pilot");
                 return;
 
             case 7:

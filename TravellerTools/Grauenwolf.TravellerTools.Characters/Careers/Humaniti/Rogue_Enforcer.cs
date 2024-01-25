@@ -55,12 +55,7 @@ class Rogue_Enforcer(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("E
                 return;
 
             case 3:
-                var skillList = new SkillTemplateCollection();
-                skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
-                skillList.AddRange(SpecialtiesFor(character, "Melee"));
-                skillList.RemoveOverlap(character.Skills, 1);
-                if (skillList.Count > 0)
-                    character.Skills.Add(dice.Choose(skillList), 1);
+                AddOneSkill(character, dice, "Gun Combat", "Melee");
                 return;
 
             case 4:

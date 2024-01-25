@@ -48,13 +48,7 @@ class Entertainer_Artist(SpeciesCharacterBuilder speciesCharacterBuilder) : Ente
                 return;
 
             case 1:
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Art"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Art");
                 return;
 
             case 2:

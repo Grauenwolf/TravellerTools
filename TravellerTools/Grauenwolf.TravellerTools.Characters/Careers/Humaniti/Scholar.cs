@@ -52,17 +52,7 @@ abstract class Scholar(string assignment, SpeciesCharacterBuilder speciesCharact
 
             case 4:
                 character.AddHistory($"Assigned to work on a secret project for a patron or organisation.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Medic");
-                    skillList.AddRange(SpecialtiesFor(character, "Science"));
-                    skillList.AddRange(SpecialtiesFor(character, "Engineer"));
-                    skillList.AddRange(SpecialtiesFor(character, "Electronics"));
-                    skillList.Add("Investigate");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Medic", "Science", "Engineer", "Electronics", "Investigate");
                 return;
 
             case 5:
@@ -73,13 +63,7 @@ abstract class Scholar(string assignment, SpeciesCharacterBuilder speciesCharact
             case 6:
                 character.AddHistory($"Advanced training in a specialist field.", dice);
                 if (dice.RollHigh(character.EducationDM, 8))
-                {
-                    var skillList = new SkillTemplateCollection(RandomSkills(character));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
-
+                    AddOneRandomSkill(character, dice);
                 return;
 
             case 7:
@@ -119,16 +103,7 @@ abstract class Scholar(string assignment, SpeciesCharacterBuilder speciesCharact
 
             case 10:
                 character.AddHistory($"Entangled in a bureaucratic or legal morass that distracts {character.Name} from {character.Name}'s work.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Admin");
-                    skillList.Add("Advocate");
-                    skillList.Add("Persuade");
-                    skillList.Add("Diplomat");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Admin", "Advocate", "Persuade", "Diplomat");
                 return;
 
             case 11:
@@ -199,15 +174,7 @@ abstract class Scholar(string assignment, SpeciesCharacterBuilder speciesCharact
 
             case 4:
                 character.AddHistory($"An expedition or voyage goes wrong, leaving {character.Name} stranded in the wilderness.", age);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Survival");
-                    skillList.Add("Athletics", "Dexterity");
-                    skillList.Add("Athletics", "Endurance");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Survival", "Athletics|Dexterity", "Athletics|Endurance");
                 return;
 
             case 5:

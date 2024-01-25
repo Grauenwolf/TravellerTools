@@ -50,14 +50,7 @@ class Rogue_Pirate(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("Pir
 
             case 1:
                 careerHistory.Title = "Henchman";
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Pilot"));
-                    skillList.AddRange(SpecialtiesFor(character, "Gunner"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Pilot", "Gunner");
                 return;
 
             case 2:
@@ -66,15 +59,7 @@ class Rogue_Pirate(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("Pir
 
             case 3:
                 careerHistory.Title = "Sergeant";
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
-                    skillList.AddRange(SpecialtiesFor(character, "Melee"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
-
+                AddOneSkill(character, dice, "Gun Combat", "Melee");
                 return;
 
             case 4:
@@ -83,14 +68,7 @@ class Rogue_Pirate(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("Pir
 
             case 5:
                 careerHistory.Title = "Leader";
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Engineer"));
-                    skillList.Add("Navigation");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Engineer", "Navigation");
                 return;
 
             case 6:

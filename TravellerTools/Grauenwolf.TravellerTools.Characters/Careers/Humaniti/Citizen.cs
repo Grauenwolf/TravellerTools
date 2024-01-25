@@ -4,8 +4,6 @@ abstract class Citizen(string assignment, SpeciesCharacterBuilder speciesCharact
 {
     protected override int AdvancedEductionMin => 10;
 
-    
-
     internal override void Event(Character character, Dice dice)
     {
         switch (dice.D(2, 6))
@@ -17,17 +15,7 @@ abstract class Citizen(string assignment, SpeciesCharacterBuilder speciesCharact
 
             case 3:
                 character.AddHistory($"Political upheaval strikes {character.Name}'s homeworld, and {character.Name} is caught up in the revolution.", dice);
-
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Advocate");
-                    skillList.Add("Persuade");
-                    skillList.Add("Explosives");
-                    skillList.Add("Streetwise");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Advocate", "Persuade", "Explosives", "Streetwise");
 
                 if (dice.RollHigh(8))
                     character.CurrentTermBenefits.AdvancementDM += 2;
@@ -37,13 +25,7 @@ abstract class Citizen(string assignment, SpeciesCharacterBuilder speciesCharact
 
             case 4:
                 character.AddHistory($"Spent time maintaining and using heavy vehicles.", dice);
-                var skills = new SkillTemplateCollection();
-                skills.Add("Mechanic");
-                skills.AddRange(SpecialtiesFor(character, "Drive"));
-                skills.AddRange(SpecialtiesFor(character, "Electronics"));
-                skills.AddRange(SpecialtiesFor(character, "Flyer"));
-                skills.AddRange(SpecialtiesFor(character, "Engineer"));
-                character.Skills.Increase(dice.Choose(skills));
+                IncreaseOneSkill(character, dice, "Drive", "Electronics", "Flyer", "Engineer");
                 return;
 
             case 5:
@@ -53,13 +35,10 @@ abstract class Citizen(string assignment, SpeciesCharacterBuilder speciesCharact
 
             case 6:
                 character.AddHistory($"Advanced training in a specialist field.", dice);
+                AddOneSkill(character, dice, "Gun Combat");
+
                 if (dice.RollHigh(character.EducationDM, 10))
-                {
-                    var skillList = new SkillTemplateCollection(RandomSkills(character));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                    AddOneRandomSkill(character, dice);
                 return;
 
             case 7:
@@ -93,13 +72,7 @@ abstract class Citizen(string assignment, SpeciesCharacterBuilder speciesCharact
 
             case 10:
                 character.AddHistory($"{character.Name} gain experience in a technical field as a computer operator or surveyor.", dice);
-
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Electronics"));
-                    skillList.AddRange(SpecialtiesFor(character, "Engineer"));
-                    character.Skills.Increase(dice.Choose(skillList));
-                }
+                IncreaseOneSkill(character, dice, "Electronics", "Engineer");
                 return;
 
             case 11:

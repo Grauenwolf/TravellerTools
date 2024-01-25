@@ -2,7 +2,6 @@
 
 abstract class FullCareer(string name, string? assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase(name, assignment, speciesCharacterBuilder)
 {
-    protected abstract int AdvancedEductionMin { get; }
     protected abstract string AdvancementAttribute { get; }
     protected abstract int AdvancementTarget { get; }
     protected abstract string SurvivalAttribute { get; }
@@ -25,7 +24,7 @@ abstract class FullCareer(string name, string? assignment, SpeciesCharacterBuild
 
     internal abstract void TitleTable(Character character, CareerHistory careerHistory, Dice dice);
 
-    protected abstract void AdvancedEducation(Character character, Dice dice);
+    protected abstract void CareerSkill(Character character, Dice dice);
 
     protected void ChangeAssignment(Character character, Dice dice, CareerHistory careerHistory, bool rankCarryover)
     {
@@ -82,7 +81,35 @@ abstract class FullCareer(string name, string? assignment, SpeciesCharacterBuild
         character.AddHistory(historyMessage, character.Age);
     }
 
-    protected CareerHistory NextTermSetup(Character character, Dice dice)
+    protected abstract void PersonalDevelopment(Character character, Dice dice);
+
+    protected void Promote(Character character, Dice dice, CareerHistory careerHistory, int? age = null)
+    {
+        string historyMessage;
+        if (careerHistory.CommissionRank > 0)
+        {
+            careerHistory.CommissionRank += 1;
+            historyMessage = $"Promoted to {careerHistory.LongName} officer rank {careerHistory.CommissionRank}";
+        }
+        else
+        {
+            careerHistory.Rank += 1;
+            historyMessage = $"Promoted to {careerHistory.LongName} rank {careerHistory.Rank}";
+        }
+
+        var oldTitle = character.Title;
+        TitleTable(character, careerHistory, dice);
+        var newTitle = careerHistory.Title;
+        if (oldTitle != newTitle && newTitle != null)
+        {
+            historyMessage += $" with the new title {newTitle}";
+            character.Title = newTitle;
+        }
+        historyMessage += ".";
+        character.AddHistory(historyMessage, age ?? character.Age);
+    }
+
+    protected CareerHistory SetupAndSkills(Character character, Dice dice)
     {
         CareerHistory careerHistory;
         if (!character.CareerHistory.Any(pc => pc.Career == Career))
@@ -134,47 +161,12 @@ abstract class FullCareer(string name, string? assignment, SpeciesCharacterBuild
 
             if (!basicTraining)
             {
-                var skillTables = new List<SkillTable>();
-                skillTables.Add(PersonalDevelopment);
-                skillTables.Add(ServiceSkill);
-                skillTables.Add(AssignmentSkills);
-                if (character.Education >= AdvancedEductionMin)
-                    skillTables.Add(AdvancedEducation);
-
-                dice.Choose(skillTables)(character, dice);
+                CareerSkill(character, dice);
                 FixupSkills(character, dice);
             }
         }
 
         return careerHistory;
-    }
-
-    protected abstract void PersonalDevelopment(Character character, Dice dice);
-
-    protected void Promote(Character character, Dice dice, CareerHistory careerHistory, int? age = null)
-    {
-        string historyMessage;
-        if (careerHistory.CommissionRank > 0)
-        {
-            careerHistory.CommissionRank += 1;
-            historyMessage = $"Promoted to {careerHistory.LongName} officer rank {careerHistory.CommissionRank}";
-        }
-        else
-        {
-            careerHistory.Rank += 1;
-            historyMessage = $"Promoted to {careerHistory.LongName} rank {careerHistory.Rank}";
-        }
-
-        var oldTitle = character.Title;
-        TitleTable(character, careerHistory, dice);
-        var newTitle = careerHistory.Title;
-        if (oldTitle != newTitle && newTitle != null)
-        {
-            historyMessage += $" with the new title {newTitle}";
-            character.Title = newTitle;
-        }
-        historyMessage += ".";
-        character.AddHistory(historyMessage, age ?? character.Age);
     }
 
     protected void UpdateTitle(Character character, Dice dice, CareerHistory careerHistory)

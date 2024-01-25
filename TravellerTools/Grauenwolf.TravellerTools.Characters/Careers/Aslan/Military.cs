@@ -2,6 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 abstract class Military(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Military", assignment, speciesCharacterBuilder)
 {
+    internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 8;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
@@ -9,17 +10,17 @@ abstract class Military(string assignment, SpeciesCharacterBuilder speciesCharac
         var roll = dice.D(5);
 
         if (all || roll == 1)
-            character.Skills.Add("Advocate");
-        if (all || roll == 2)
-            character.Skills.Add("Broker");
-        if (all || roll == 3)
-            character.Skills.Add("Admin");
-        if (all || roll == 4)
             character.Skills.Add("Gun Combat");
+        if (all || roll == 2)
+            character.Skills.Add("Drive");
+        if (all || roll == 3)
+            character.Skills.Add("Survival");
+        if (all || roll == 4)
+            character.Skills.Add("Melee");
         if (all || roll == 5)
-            character.Skills.Add("Tolerance");
+            character.Skills.Add("Athletics");
         if (all || roll == 5)
-            character.Skills.Add("Admin");
+            character.Skills.Add("Recon");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -33,20 +34,21 @@ abstract class Military(string assignment, SpeciesCharacterBuilder speciesCharac
 
             case 3:
                 {
-                    if (dice.RollHigh(8, character.Skills.BestSkillLevel("Natural", "Stealth", "Gun Combat")))
+                    if (dice.RollHigh(8, character.Skills.BestSkillLevel("Recon", "Gun Combat")))
                     {
-                        character.AddHistory($"A rival clan attacks and your place of work is targeted by an assault force.", dice);
-                        character.Skills.Increase(dice.Choose(RandomSkills(character)));
+                        character.AddHistory($"Sent into the maw of hell.", dice);
+                        AddOneSkill(character, dice, "Stealth", "Medic", "Heavy Weapons", "Leadership");
                     }
                     else
                     {
-                        var age = character.AddHistory($"A rival clan attacks and your place of work is targeted by an assault force. Suffer an injury.", dice);
+                        var age = character.AddHistory($"Sent into the maw of hell and injured.", dice);
                         Injury(character, dice, age);
                     }
                 }
                 return;
 
             case 4:
+                0 / 0;
                 character.AddHistory($"Pick up some useful skills.", dice);
                 {
                     var skillList = new SkillTemplateCollection();

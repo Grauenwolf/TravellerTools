@@ -2,9 +2,8 @@
 
 abstract class Noble(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Noble", assignment, speciesCharacterBuilder)
 {
-    protected override int AdvancedEductionMin => 8;
-
     internal override bool RankCarryover => true;
+    protected override int AdvancedEductionMin => 8;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
@@ -62,16 +61,7 @@ abstract class Noble(string assignment, SpeciesCharacterBuilder speciesCharacter
 
             case 4:
                 character.AddHistory($"time as a ruler or playboy gives {character.Name} a wide range of experiences.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Animals", "Handling");
-                    skillList.AddRange(SpecialtiesFor(character, "Art"));
-                    skillList.Add("Carouse");
-                    skillList.Add("Streetwise");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Animals|Handling", "Art", "Carouse", "Streetwise");
                 return;
 
             case 5:
@@ -82,14 +72,7 @@ abstract class Noble(string assignment, SpeciesCharacterBuilder speciesCharacter
             case 6:
                 character.AddHistory($"Become deeply involved in politics on {character.Name}'s world of residence, becoming a player in the political intrigues of government. Gain a Rival.", dice);
                 character.AddRival();
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Advocate");
-                    skillList.Add("Admin");
-                    skillList.Add("Diplomacy");
-                    skillList.Add("Persuade");
-                    character.Skills.Increase(dice.Choose(skillList));
-                }
+                IncreaseOneSkill(character, dice, "Advocate", "Admin", "Diplomacy", "Persuade");
 
                 return;
 

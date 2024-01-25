@@ -4,8 +4,6 @@ abstract class Entertainer(string assignment, SpeciesCharacterBuilder speciesCha
 {
     protected override int AdvancedEductionMin => 10;
 
-    
-
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
         var roll = dice.D(6);
@@ -51,18 +49,19 @@ abstract class Entertainer(string assignment, SpeciesCharacterBuilder speciesCha
 
                 {
                     var age = character.AddHistory($"Join homeworld’s celebrity circles", dice);
+
                     var skillList = new SkillTemplateCollection();
                     skillList.Add("Carouse");
                     skillList.Add("Persuade");
                     skillList.Add("Steward");
                     skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                    else
+                    if (skillList.Count == 0 || dice.NextBoolean())
                     {
                         character.AddHistory($"Gain a contact", age);
                         character.AddContact();
                     }
+                    else
+                        character.Skills.Add(dice.Choose(skillList), 1);
                 }
 
                 return;
@@ -106,16 +105,7 @@ abstract class Entertainer(string assignment, SpeciesCharacterBuilder speciesCha
 
             case 10:
                 character.AddHistory($"One of {character.Name}'s pieces of art is stolen, and the investigation brings {character.Name} into the criminal underworld.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Streetwise");
-                    skillList.Add("Investigate");
-                    skillList.Add("Recon");
-                    skillList.Add("Stealth");
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Streetwise", "Investigate", "Recon", "Stealth");
                 return;
 
             case 11:
@@ -164,15 +154,7 @@ abstract class Entertainer(string assignment, SpeciesCharacterBuilder speciesCha
 
             case 5:
                 character.AddHistory($"An investigation, tour, project or expedition goes wrong, stranding {character.Name} far from home.", age);
-                var skillList = new SkillTemplateCollection();
-                skillList.Add("Survival");
-                skillList.AddRange(SpecialtiesFor(character, "Pilot"));
-                skillList.Add("Persuade");
-                skillList.Add("Streetwise");
-                skillList.RemoveOverlap(character.Skills, 1);
-                if (skillList.Count > 0)
-                    character.Skills.Add(dice.Choose(skillList), 1);
-
+                AddOneSkill(character, dice, "Survival", "Pilot", "Persuade", "Streetwise");
                 return;
 
             case 6:

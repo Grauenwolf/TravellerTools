@@ -22,8 +22,6 @@ abstract class Agent : NormalCareer
 
     protected override int AdvancedEductionMin => 8;
 
-    
-
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
         var roll = dice.D(6);
@@ -56,18 +54,9 @@ abstract class Agent : NormalCareer
                     var age = character.AddHistory($"An investigation takes on a dangerous turn.", dice);
 
                     if (dice.RollHigh(character.Skills.BestSkillLevel("Investigate", "Streetwise"), 8))
-                    {
-                        var skillList = new SkillTemplateCollection();
-                        skillList.Add("Deception");
-                        skillList.Add("Jack-of-All-Trades");
-                        skillList.Add("Persuade");
-                        skillList.Add("Tactics");
-                        character.Skills.Increase(dice.Choose(skillList));
-                    }
+                        IncreaseOneSkill(character, dice, "Deception", "Jack-of-All-Trades", "Persuade", "Tactics");
                     else
-                    {
                         Mishap(character, dice, age);
-                    }
                     return;
                 }
             case 4:
@@ -119,16 +108,7 @@ abstract class Agent : NormalCareer
 
             case 10:
                 character.AddHistory($"Given specialist training in vehicles.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Drive"));
-                    skillList.AddRange(SpecialtiesFor(character, "Flyer"));
-                    skillList.AddRange(SpecialtiesFor(character, "Pilot"));
-                    skillList.AddRange(SpecialtiesFor(character, "Gunner"));
-                    skillList.RemoveOverlap(character.Skills, 1);
-                    if (skillList.Count > 0)
-                        character.Skills.Add(dice.Choose(skillList), 1);
-                }
+                AddOneSkill(character, dice, "Drive", "Flyer", "Pilot", "Gunner");
                 return;
 
             case 11:
