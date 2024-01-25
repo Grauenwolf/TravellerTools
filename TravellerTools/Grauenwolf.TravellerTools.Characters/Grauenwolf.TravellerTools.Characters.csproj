@@ -26,6 +26,10 @@
 	  <Compile Include="Careers\Aslan\Envoy_Negotiator.cs" />
 	  <Compile Include="Careers\Aslan\Envoy_Spy.cs" />
 	  <Compile Include="Careers\Aslan\Management.cs" />
+	  <Compile Include="Careers\Aslan\Management_ClanAide.cs" />
+	  <Compile Include="Careers\Aslan\Management_Corporate.cs" />
+	  <Compile Include="Careers\Aslan\Management_Governess.cs" />
+	  <Compile Include="Careers\Aslan\Military.cs" />
 	</ItemGroup>
 
 	<ItemGroup>

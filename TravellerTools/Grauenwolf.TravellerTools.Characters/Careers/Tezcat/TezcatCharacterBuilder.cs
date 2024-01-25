@@ -135,16 +135,9 @@ public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator
             new ShaperPriest_Ecclesiastic(this),
             new ShaperPriest_Partisan(this),
             new Soulhunter_Commando(this),
-            new Soulhunter_Commando(this),
             new Soulhunter_Flight(this),
-            new Soulhunter_Flight(this),
-            new Soulhunter_Support(this),
             new Soulhunter_Support(this),
         };
-
-        //Need to remove duplicates that affect odds
-        careers.AddRange(defaultCareers.Distinct());
-        careers.AddRange(draftCareers.Distinct());
 
         return new(defaultCareers.ToImmutableArray(), draftCareers.ToImmutableArray(), careers.ToImmutableArray());
     }

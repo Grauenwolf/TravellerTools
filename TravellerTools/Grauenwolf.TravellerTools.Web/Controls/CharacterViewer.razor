@@ -34,6 +34,10 @@
             {
                 <th width="50" style="text-align:center;">Fol</th>
             }
+            @if (Character.Territory.HasValue)
+            {
+                <th width="50" style="text-align:center;">Ter</th>
+            }
         </tr>
         <tr>
             <td><a href="@Character.SpeciesUrl" target="_blank">@(Character.Species)</a></td>
@@ -59,6 +63,10 @@
             @if (Character.Following.HasValue)
             {
                 <td>@(Character.Following) (@Character.FollowingDM)</td>
+            }
+            @if (Character.Territory.HasValue)
+            {
+                <td>@(Character.Territory) (@Character.TerritoryDM)</td>
             }
         </tr>
         <tr><td colspan="11">@(Character.PersonalityList)</td></tr>

@@ -113,14 +113,7 @@ public abstract class CharacterBuilder
         if (options.MaxAge.HasValue && !character.IsDead)
             character.Age = options.MaxAge.Value;
 
-        if (character.LongTermBenefits.Retired)
-        {
-            var title = character.CareerHistory.Where(c => c.Title != null).OrderByDescending(c => c.LastTermAge + (100 * c.Rank) + (1000 * c.CommissionRank)).Select(c => c.Title).FirstOrDefault();
-            if (title != null)
-                character.Title = "Retired " + title;
-        }
-        else
-            character.Title = character.LastCareer?.Title;
+        SetFinalTitle(character);
 
         //Fix skills that should have had specialities. This shouldn't happen, but there are bugs elsewhere that cause it.
         var needsSpecials = character.Skills.Where(s => s.Level > 0 && s.Specialty == null && Book(character).RequiresSpeciality(s.Name)).ToList();
@@ -665,6 +658,10 @@ public abstract class CharacterBuilder
 
     protected virtual CareerBase PickNextCareer(Character character, Dice dice)
     {
+        CareerBase? previousAssignment = null;
+        if (character.LastCareer != null)
+            previousAssignment = Careers(character).SingleOrDefault(c => character.LastCareer.ShortName == c.ShortName);
+
         bool noRoll = false;
         var careerOptions = new List<CareerBase>();
 
@@ -684,21 +681,28 @@ public abstract class CharacterBuilder
         //Normal career progression
         if (!character.NextTermBenefits.MusterOut && careerOptions.Count == 0 && character.LastCareer != null)
         {
-            if (dice.D(10) > 1) //continue career
-            {
-                foreach (var career in Careers(character))
-                {
-                    noRoll = true; //Don't need to roll if continuing a career
-                    if (character.LastCareer.ShortName == career.ShortName)
-                    {
-                        careerOptions.Add(career);
-                    }
-                }
-            }
-            else
+            //1: New career.
+            //2-3: New assignment in same career, if RankCarryover.
+            //4+: Same assignment.
+
+            var continueRoll = dice.D(10);
+
+            if (continueRoll == 1)
             {
                 character.NextTermBenefits.MusterOut = true;
                 character.AddHistory($"Voluntarily left " + character.LastCareer.ShortName, character.Age);
+            }
+            else if (continueRoll <= 3 && previousAssignment!.RankCarryover)
+            {
+                character.AddHistory($"Attempted to change assignments.", character.Age);
+                foreach (var career in Careers(character))
+                    if (previousAssignment != career && previousAssignment.Career == career.Career)
+                        careerOptions.Add(career);
+            }
+            else
+            {
+                noRoll = true; //Don't need to roll if continuing a career
+                careerOptions.Add(previousAssignment!);
             }
         }
 
@@ -734,7 +738,12 @@ public abstract class CharacterBuilder
         else
         {
             character.AddHistory($"Failed to qualify for {result}.", character.Age);
-            if (character.PreviouslyDrafted || dice.NextBoolean())
+
+            if (previousAssignment?.Career == result.Career && previousAssignment.RankCarryover)
+            {
+                return previousAssignment;
+            }
+            else if (character.PreviouslyDrafted || dice.NextBoolean())
             {
                 return dice.Choose(DefaultCareers(character));
             }
@@ -748,6 +757,18 @@ public abstract class CharacterBuilder
     }
 
     protected abstract int RollForPsi(Character character, Dice dice);
+
+    protected virtual void SetFinalTitle(Character character)
+    {
+        if (character.LongTermBenefits.Retired)
+        {
+            var title = character.CareerHistory.Where(c => c.Title != null).OrderByDescending(c => c.LastTermAge + (100 * c.Rank) + (1000 * c.CommissionRank)).Select(c => c.Title).FirstOrDefault();
+            if (title != null)
+                character.Title = "Retired " + title;
+        }
+        else
+            character.Title = character.LastCareer?.Title;
+    }
 
     static bool IsDone(CharacterBuilderOptions options, Character character)
     {

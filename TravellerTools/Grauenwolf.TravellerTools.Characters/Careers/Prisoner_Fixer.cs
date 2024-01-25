@@ -10,7 +10,7 @@ class Prisoner_Fixer(CharacterBuilder characterBuilder) : Prisoner("Fixer", char
 
     protected override int SurvivalTarget => 9;
 
-    protected override void AssignmentSkills(Character character, Dice dice)
+    internal override void AssignmentSkills(Character character, Dice dice)
     {
         switch (dice.D(6))
         {

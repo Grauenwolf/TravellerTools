@@ -4,7 +4,7 @@ abstract class Rogue(string assignment, CharacterBuilder characterBuilder) : Nor
 {
     protected override int AdvancedEductionMin => 10;
 
-    protected override bool RankCarryover => false;
+    internal override bool RankCarryover => true;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {

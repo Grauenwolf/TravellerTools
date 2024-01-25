@@ -3,7 +3,7 @@
 abstract class DolphinCivilian(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Dolphin Civilian", assignment, characterBuilder)
 {
     protected override int AdvancedEductionMin => 8;
-    protected override bool RankCarryover => false;
+    
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {

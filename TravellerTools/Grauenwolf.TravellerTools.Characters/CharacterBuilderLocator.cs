@@ -29,6 +29,7 @@ public class CharacterBuilderLocator
         Add(new TezcatCharacterBuilder(dataPath, nameGenerator, this));
         Add(new ImperiumDolphinCharacterBuilder(dataPath, nameGenerator, this));
         Add(new AelYaelCharacterBuilder(dataPath, nameGenerator, this));
+        //Add(new AslanCharacterBuilder(dataPath, nameGenerator, this));
 
         m_CharacterBuilders = builders.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
 

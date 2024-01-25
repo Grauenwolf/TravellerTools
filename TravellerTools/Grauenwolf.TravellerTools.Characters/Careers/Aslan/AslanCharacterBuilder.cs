@@ -15,12 +15,12 @@ public class AslanCharacterBuilder : CharacterBuilder
         {
             new Ceremonial_ClanAgent(this),
             new Ceremonial_Priest(this),
-            //new Envoy_Negotiator(this),
-            //new Envoy_Spy(this),
-            //new Envoy_Duellist(this),
-            //new Management_Corporate(this),
-            //new Management_ClanAide(this),
-            //new Management_Governess(this),
+            new Envoy_Negotiator(this),
+            new Envoy_Spy(this),
+            new Envoy_Duellist(this),
+            new Management_Corporate(this),
+            new Management_ClanAide(this),
+            new Management_Governess(this),
             //new Military_Support(this),
             //new MilitaryOfficer_ExecutiveOfficer(this),
             //new Scientist_Healer(this),
@@ -43,9 +43,9 @@ public class AslanCharacterBuilder : CharacterBuilder
             new Ceremonial_Poet(this),
             new Ceremonial_ClanAgent(this),
             new Ceremonial_Priest(this),
-            //new Envoy_Negotiator(this),
-            //new Envoy_Spy(this),
-            //new Envoy_Duellist(this),
+            new Envoy_Negotiator(this),
+            new Envoy_Spy(this),
+            new Envoy_Duellist(this),
             //new Military_Warrior(this),
             //new Military_Cavalry(this),
             //new Military_Flyer(this),
@@ -264,7 +264,7 @@ public class AslanCharacterBuilder : CharacterBuilder
         character.Endurance = dice.D(2, 6);
         character.Intellect = dice.D(2, 6);
         character.Education = dice.D(2, 6);
-        character.SocialStanding = Math.Max(ancestralTerritory, 0);
+        character.SocialStanding = ancestralTerritory + 5; //Rule change to make the range 1 to 14 instead of -4 to 9.
         character.Territory = 0;
 
         if (ancestralTerritory >= 10 && character.Gender == "M")
@@ -272,66 +272,75 @@ public class AslanCharacterBuilder : CharacterBuilder
 
         character.Age = 14;
 
-        //rite of passage
-        var rollA = dice.D(6);
-        var rollB = dice.D(6);
-        var riteOfPassageRoll = rollA + rollB;
-
-        if (character.Gender == "M")
+        if (character.SocialStanding < 2)
         {
-            if (character.Strength > riteOfPassageRoll)
-                character.RiteOfPassageDM += 1;
-            if (character.Dexterity > riteOfPassageRoll)
-                character.RiteOfPassageDM += 1;
-            if (character.Endurance > riteOfPassageRoll)
-                character.RiteOfPassageDM += 1;
-            if (character.Intellect > riteOfPassageRoll)
-                character.RiteOfPassageDM += 1;
-            if (character.Education > riteOfPassageRoll)
-                character.RiteOfPassageDM += 1;
-            if (character.SocialStanding > riteOfPassageRoll)
-                character.RiteOfPassageDM += 1;
+            character.AddHistory($"Fled Aslan space in lieu of taking the rite of passage.", character.Age);
+            character.RiteOfPassageDM = 0;
+            character.IsOutcast = true;
         }
         else
         {
-            if (character.Intellect > riteOfPassageRoll)
-                character.RiteOfPassageDM += 2;
-            if (character.Education > riteOfPassageRoll)
-                character.RiteOfPassageDM += 2;
-            if (character.SocialStanding > riteOfPassageRoll)
-                character.RiteOfPassageDM += 2;
+            //rite of passage
+            var rollA = dice.D(6);
+            var rollB = dice.D(6);
+            var riteOfPassageRoll = rollA + rollB;
+
+            if (character.Gender == "M")
+            {
+                if (character.Strength > riteOfPassageRoll)
+                    character.RiteOfPassageDM += 1;
+                if (character.Dexterity > riteOfPassageRoll)
+                    character.RiteOfPassageDM += 1;
+                if (character.Endurance > riteOfPassageRoll)
+                    character.RiteOfPassageDM += 1;
+                if (character.Intellect > riteOfPassageRoll)
+                    character.RiteOfPassageDM += 1;
+                if (character.Education > riteOfPassageRoll)
+                    character.RiteOfPassageDM += 1;
+                if (character.SocialStanding > riteOfPassageRoll)
+                    character.RiteOfPassageDM += 1;
+            }
+            else
+            {
+                if (character.Intellect > riteOfPassageRoll)
+                    character.RiteOfPassageDM += 2;
+                if (character.Education > riteOfPassageRoll)
+                    character.RiteOfPassageDM += 2;
+                if (character.SocialStanding > riteOfPassageRoll)
+                    character.RiteOfPassageDM += 2;
+            }
+
+            switch ((rollA, rollB))
+            {
+                case (1, 1):
+                    character.AddHistory($"{character.Name} has a great destiny. Gain {dice.D(3)} clan shares.", character.Age);
+                    break;
+
+                case (2, 2):
+                    character.AddHistory($"Impressive Performance. Earn Cr5000 as a reward", character.Age);
+                    break;
+
+                case (3, 3):
+                    character.AddHistory($"Befriended one of the other young Aslan undergoing the rite that day. Gain a Contact.", character.Age);
+                    character.AddContact();
+                    break;
+
+                case (4, 4):
+                    character.AddHistory($"One of the other Aslan undergoing the rite tries to outdo {character.Name}. Gain a Rival.", character.Age);
+                    character.AddRival();
+                    break;
+
+                case (5, 5):
+                    character.AddHistory($"{character.Name} is wounded in one of the tests, leaving a distinctive scar across {character.Name}'s fur.", character.Age);
+                    break;
+
+                case (6, 6):
+                    character.AddHistory($"{character.Name}'s rite tests {character.Name} to the limit, but {character.Name} is determined not to give in..", character.Age);
+                    break;
+            }
+
+            character.AddHistory($"Rite of passage completed with a {character.RiteOfPassageDM}.", character.Age);
         }
-
-        switch ((rollA, rollB))
-        {
-            case (1, 1):
-                character.AddHistory($"{character.Name} has a great destiny. Gain {dice.D(3)} clan shares.", character.Age);
-                break;
-
-            case (2, 2):
-                character.AddHistory($"Impressive Performance. Earn Cr5000 as a reward", character.Age);
-                break;
-
-            case (3, 3):
-                character.AddHistory($"Befriended one of the other young Aslan undergoing the rite that day. Gain a Contact.", character.Age);
-                character.AddContact();
-                break;
-
-            case (4, 4):
-                character.AddHistory($"One of the other Aslan undergoing the rite tries to outdo {character.Name}. Gain a Rival.", character.Age);
-                character.AddRival();
-                break;
-
-            case (5, 5):
-                character.AddHistory($"{character.Name} is wounded in one of the tests, leaving a distinctive scar across {character.Name}'s fur.", character.Age);
-                break;
-
-            case (6, 6):
-                character.AddHistory($"{character.Name}'s rite tests {character.Name} to the limit, but {character.Name} is determined not to give in..", character.Age);
-                break;
-        }
-
-        character.AddHistory($"Rite of passage completed with a {character.RiteOfPassageDM}.", character.Age);
     }
 
     protected override CareerBase PickNextCareer(Character character, Dice dice)
@@ -422,4 +431,22 @@ public class AslanCharacterBuilder : CharacterBuilder
     }
 
     protected override int RollForPsi(Character character, Dice dice) => 0;
+
+    protected override void SetFinalTitle(Character character)
+    {
+        if (character.LongTermBenefits.Retired && !character.IsOutcast)
+        {
+            var title = character.CareerHistory.Where(c => c.Title != null).OrderByDescending(c => c.LastTermAge + (100 * c.Rank) + (1000 * c.CommissionRank)).Select(c => c.Title).FirstOrDefault();
+            if (title != null)
+                character.Title = "Retired " + title;
+        }
+        else
+            character.Title = character.LastCareer?.Title;
+
+        if (character.IsOutcast)
+            if (character.Title == null)
+                character.Title = "Outcast";
+            else
+                character.Title = "Outcast " + character.Title;
+    }
 }

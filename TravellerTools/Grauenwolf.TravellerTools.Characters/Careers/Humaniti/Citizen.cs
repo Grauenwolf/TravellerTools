@@ -4,7 +4,7 @@ abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : N
 {
     protected override int AdvancedEductionMin => 10;
 
-    protected override bool RankCarryover => false;
+    
 
     internal override void Event(Character character, Dice dice)
     {

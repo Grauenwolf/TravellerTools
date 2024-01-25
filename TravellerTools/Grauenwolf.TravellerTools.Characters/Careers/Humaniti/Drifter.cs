@@ -3,7 +3,7 @@
 abstract class Drifter(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Drifter", assignment, characterBuilder)
 {
     protected override int AdvancedEductionMin => int.MaxValue;
-    protected override bool RankCarryover => false;
+    
 
     internal override void Event(Character character, Dice dice)
     {

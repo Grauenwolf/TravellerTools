@@ -1,68 +1,14 @@
-﻿using Grauenwolf.TravellerTools;
-
-namespace Grauenwolf.TravellerTools.Characters.Careers;
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 abstract class NormalCareer(string name, string assignment, CharacterBuilder characterBuilder) : FullCareer(name, assignment, characterBuilder)
 {
-    protected abstract bool RankCarryover { get; }
+    internal override bool RankCarryover { get; } = false;
 
     internal override void Run(Character character, Dice dice)
     {
-        CareerHistory careerHistory;
-        if (!character.CareerHistory.Any(pc => pc.Career == Career))
-        {
-            careerHistory = new CareerHistory(character.Age, Career, Assignment, 0);
-            ChangeCareer(character, dice, careerHistory);
-            BasicTrainingSkills(character, dice, character.CareerHistory.Count == 0);
-            FixupSkills(character, dice);
-            character.CareerHistory.Add(careerHistory);
-        }
-        else
-        {
-            if (!character.CareerHistory.Any(pc => pc.Assignment == Assignment))
-            {
-                careerHistory = new CareerHistory(character.Age, Career, Assignment, 0);
-                character.AddHistory($"Switched to {careerHistory.LongName}.", character.Age);
-                character.CareerHistory.Add(careerHistory);
-
-                if (!RankCarryover) //then this is a new career path
-                {
-                    ChangeAssignment(character, dice, careerHistory);
-                    BasicTrainingSkills(character, dice, false);
-                    FixupSkills(character, dice);
-                }
-            }
-            else if (character.LastCareer?.Assignment == Assignment)
-            {
-                careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
-                character.AddHistory($"Continued as {careerHistory.LongName}.", character.Age);
-                careerHistory.LastTermAge = character.Age;
-            }
-            else
-            {
-                careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
-                character.AddHistory($"Returned to {careerHistory.LongName}.", character.Age);
-                careerHistory.LastTermAge = character.Age;
-            }
-
-            var skillTables = new List<SkillTable>();
-            skillTables.Add(PersonalDevelopment);
-            skillTables.Add(ServiceSkill);
-            skillTables.Add(AssignmentSkills);
-            if (character.Education >= AdvancedEductionMin)
-                skillTables.Add(AdvancedEducation);
-
-            dice.Choose(skillTables)(character, dice);
-            FixupSkills(character, dice);
-        }
+        var careerHistory = NextTermSetup(character, dice);
         careerHistory.Terms += 1;
         character.LastCareer = careerHistory;
-
-        if (RankCarryover)
-        {
-            careerHistory.Rank = character.CareerHistory.Where(c => c.Career == Career).Max(c => c.Rank);
-            careerHistory.CommissionRank = character.CareerHistory.Where(c => c.Career == Career).Max(c => c.CommissionRank);
-        }
 
         if (character.CurrentTermBenefits.MinRank.HasValue)
             while (careerHistory.Rank < character.CurrentTermBenefits.MinRank)

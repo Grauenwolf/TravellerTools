@@ -1,62 +1,15 @@
-﻿using Grauenwolf.TravellerTools;
-
-namespace Grauenwolf.TravellerTools.Characters.Careers;
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 abstract class MilitaryCareer(string name, string assignment, CharacterBuilder characterBuilder) : FullCareer(name, assignment, characterBuilder)
 {
+    internal override bool RankCarryover { get; } = true;
     protected virtual int CommssionTargetNumber => 8;
 
     internal override void Run(Character character, Dice dice)
     {
-        CareerHistory careerHistory;
-        if (!character.CareerHistory.Any(pc => pc.Career == Career))
-        {
-            careerHistory = new CareerHistory(character.Age, Career, Assignment, 0);
-            ChangeCareer(character, dice, careerHistory);
-            BasicTraining(character, dice, character.CareerHistory.Count == 0);
-            FixupSkills(character, dice);
-
-            character.CareerHistory.Add(careerHistory); //add this after basic training so the prior count isn't wrong.
-        }
-        else
-        {
-            if (!character.CareerHistory.Any(pc => pc.Assignment == Assignment))
-            {
-                careerHistory = new CareerHistory(character.Age, Career, Assignment, 0);
-                ChangeAssignment(character, dice, careerHistory);
-                character.CareerHistory.Add(careerHistory);
-            }
-            else if (character.LastCareer?.Assignment == Assignment)
-            {
-                careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
-                character.AddHistory($"Continued as {careerHistory.LongName}.", character.Age);
-                careerHistory.LastTermAge = character.Age;
-            }
-            else
-            {
-                careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
-                character.AddHistory($"Returned to {careerHistory.LongName}.", character.Age);
-                careerHistory.LastTermAge = character.Age;
-            }
-
-            var skillTables = new List<SkillTable>();
-            skillTables.Add(PersonalDevelopment);
-            skillTables.Add(ServiceSkill);
-            skillTables.Add(AssignmentSkills);
-            if (character.Education >= AdvancedEductionMin)
-                skillTables.Add(AdvancedEducation);
-            if (careerHistory.CommissionRank > 0)
-                skillTables.Add(OfficerTraining);
-
-            dice.Choose(skillTables)(character, dice);
-            FixupSkills(character, dice);
-        }
+        var careerHistory = NextTermSetup(character, dice);
         careerHistory.Terms += 1;
         character.LastCareer = careerHistory;
-
-        //rank carry-over
-        careerHistory.Rank = character.CareerHistory.Where(c => c.Career == Career).Max(c => c.Rank);
-        careerHistory.CommissionRank = character.CareerHistory.Where(c => c.Career == Career).Max(c => c.CommissionRank);
 
         //Early commission, possibly from military academy.
         if (careerHistory.CommissionRank == 0 && character.CurrentTermBenefits.FreeCommissionRoll)
@@ -127,15 +80,6 @@ abstract class MilitaryCareer(string name, string assignment, CharacterBuilder c
             else
                 character.Age += +4; //Complete the term dispite the mishap.
         }
-    }
-
-    protected virtual void BasicTraining(Character character, Dice dice, bool firstCareer)
-    {
-        if (firstCareer)
-            for (var i = 1; i < 7; i++)
-                ServiceSkill(character, dice);
-        else
-            ServiceSkill(character, dice);
     }
 
     /// <summary>

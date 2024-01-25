@@ -4,7 +4,7 @@ abstract class Psion(string assignment, CharacterBuilder characterBuilder) : Nor
 {
     protected override int AdvancedEductionMin => 8;
 
-    protected override bool RankCarryover => false;
+    
 
     internal override void Event(Character character, Dice dice)
     {

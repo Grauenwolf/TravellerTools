@@ -10,7 +10,7 @@ class Prisoner_Inmate(CharacterBuilder characterBuilder) : Prisoner("Inmate", ch
 
     protected override int SurvivalTarget => 7;
 
-    protected override void AssignmentSkills(Character character, Dice dice)
+    internal override void AssignmentSkills(Character character, Dice dice)
     {
         switch (dice.D(6))
         {

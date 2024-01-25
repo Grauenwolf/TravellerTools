@@ -1,15 +1,11 @@
-﻿using Grauenwolf.TravellerTools;
+﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-namespace Grauenwolf.TravellerTools.Characters.Careers;
-
-abstract class Prisoner(string assignment, CharacterBuilder characterBuilder) : CareerBase("Prisoner", assignment, characterBuilder)
+abstract class Prisoner(string assignment, CharacterBuilder characterBuilder) : FullCareer("Prisoner", assignment, characterBuilder)
 {
-    protected abstract string AdvancementAttribute { get; }
-    protected abstract int AdvancementTarget { get; }
-    protected abstract string SurvivalAttribute { get; }
-    protected abstract int SurvivalTarget { get; }
+    internal override bool RankCarryover { get; } = true;
+    protected override int AdvancedEductionMin { get; } = int.MaxValue;
 
-    internal virtual void BasicTrainingSkills(Character character, Dice dice, bool all)
+    internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
         //Rank 0 skill
         character.Skills.Add("Melee", "Unarmed", 1);
@@ -30,7 +26,7 @@ abstract class Prisoner(string assignment, CharacterBuilder characterBuilder) : 
             character.Skills.Add("Persuade");
     }
 
-    internal void Event(Character character, Dice dice)
+    internal override void Event(Character character, Dice dice)
     {
         switch (dice.D(2, 6))
         {
@@ -203,7 +199,7 @@ abstract class Prisoner(string assignment, CharacterBuilder characterBuilder) : 
         }
     }
 
-    internal void Mishap(Character character, Dice dice, int age)
+    internal override void Mishap(Character character, Dice dice, int age)
     {
         switch (dice.D(6))
         {
@@ -258,44 +254,10 @@ abstract class Prisoner(string assignment, CharacterBuilder characterBuilder) : 
 
     internal override void Run(Character character, Dice dice)
     {
-        CareerHistory careerHistory;
-        if (!character.CareerHistory.Any(pc => pc.Career == Career))
-        {
-            careerHistory = new CareerHistory(character.Age, Career, Assignment, 0);
-            character.AddHistory($"Became a {careerHistory.LongName}.", character.Age);
-            BasicTrainingSkills(character, dice, character.CareerHistory.Count == 0);
+        var careerHistory = NextTermSetup(character, dice);
 
-            character.CareerHistory.Add(careerHistory);
-        }
-        else
-        {
-            if (!character.CareerHistory.Any(pc => pc.Assignment == Assignment))
-            {
-                careerHistory = new CareerHistory(character.Age, Career, Assignment, 0); //TODO: Carry-over rank?
-                character.AddHistory($"Switched to {careerHistory.LongName}.", character.Age);
-                character.CareerHistory.Add(careerHistory);
-            }
-            else if (character.LastCareer?.Assignment == Assignment)
-            {
-                careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
-                character.AddHistory($"Continued as {careerHistory.LongName}.", character.Age);
-                careerHistory.LastTermAge = character.Age;
-            }
-            else
-            {
-                careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
-                character.AddHistory($"Returned to {careerHistory.LongName}.", character.Age);
-                careerHistory.LastTermAge = character.Age;
-            }
-
-            var skillTables = new List<SkillTable>();
-            skillTables.Add(PersonalDevelopment);
-            skillTables.Add(ServiceSkill);
-            skillTables.Add(AssignmentSkills);
-
-            dice.Choose(skillTables)(character, dice);
-        }
         careerHistory.Terms += 1;
+        character.LastCareer = careerHistory;
 
         character.Parole ??= dice.D(6) + 4;
 
@@ -313,10 +275,8 @@ abstract class Prisoner(string assignment, CharacterBuilder characterBuilder) : 
 
             if (advancementRoll >= AdvancementTarget)
             {
-                careerHistory.Rank += 1;
-                character.AddHistory($"Promoted to {careerHistory.LongName} rank {careerHistory.Rank}", character.Age);
-
-                UpdateTitle(character, careerHistory, dice);
+                Promote(character, dice, careerHistory);
+                FixupSkills(character, dice);
 
                 //advancement skill
                 var skillTables = new List<SkillTable>();
@@ -350,11 +310,39 @@ abstract class Prisoner(string assignment, CharacterBuilder characterBuilder) : 
             else
                 character.Age += +4; //Complete the term dispite the mishap.
         }
-
-        character.LastCareer = careerHistory;
     }
 
-    internal void UpdateTitle(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void ServiceSkill(Character character, Dice dice)
+    {
+        switch (dice.D(6))
+        {
+            case 1:
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
+                return;
+
+            case 2:
+                character.Skills.Increase("Deception");
+                return;
+
+            case 3:
+                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Profession")));
+                return;
+
+            case 4:
+                character.Skills.Increase("Streetwise");
+                return;
+
+            case 5:
+                character.Skills.Increase("Melee", "Unarmed");
+                return;
+
+            case 6:
+                character.Skills.Increase("Persuade");
+                return;
+        }
+    }
+
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
     {
         switch (careerHistory.Rank)
         {
@@ -385,9 +373,9 @@ abstract class Prisoner(string assignment, CharacterBuilder characterBuilder) : 
         }
     }
 
-    protected abstract void AssignmentSkills(Character character, Dice dice);
+    protected override void AdvancedEducation(Character character, Dice dice) => throw new NotImplementedException();
 
-    protected void PersonalDevelopment(Character character, Dice dice)
+    protected override void PersonalDevelopment(Character character, Dice dice)
     {
         switch (dice.D(6))
         {
@@ -413,36 +401,6 @@ abstract class Prisoner(string assignment, CharacterBuilder characterBuilder) : 
 
             case 6:
                 character.Skills.Increase("Gambler");
-                return;
-        }
-    }
-
-    protected void ServiceSkill(Character character, Dice dice)
-    {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Deception");
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Profession")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Streetwise");
-                return;
-
-            case 5:
-                character.Skills.Increase("Melee", "Unarmed");
-                return;
-
-            case 6:
-                character.Skills.Increase("Persuade");
                 return;
         }
     }

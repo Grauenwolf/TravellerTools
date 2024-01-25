@@ -2,9 +2,8 @@
 
 abstract class Scholar(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Scholar", assignment, characterBuilder)
 {
+    internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 10;
-
-    protected override bool RankCarryover => false;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {

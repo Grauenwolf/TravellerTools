@@ -26,7 +26,7 @@ public class BwapCharacterBuilder(string dataPath, NameGenerator nameGenerator, 
 
     protected override int AgingRollDM(Character character)
     {
-        return -1 * character.CurrentTerm - 1;
+        return (-1 * character.CurrentTerm) - 1;
     }
 
     protected override CareerLists CreateCareerList()

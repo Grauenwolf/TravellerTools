@@ -5,11 +5,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers;
 public abstract class CareerBase(string career, string? assignment, CharacterBuilder characterBuilder)
 {
     readonly CharacterBuilder m_CharacterBuilder = characterBuilder;
-
     public string? Assignment { get; } = assignment;
-
     public string Career { get; } = career;
-
     public string Key => Assignment ?? Career;
 
     /// <summary>
@@ -17,6 +14,7 @@ public abstract class CareerBase(string career, string? assignment, CharacterBui
     /// </summary>
     public string ShortName => Assignment ?? Career;
 
+    internal virtual bool RankCarryover { get; } = false;
     protected virtual int QualifyDM => 0;
 
     public override string ToString()

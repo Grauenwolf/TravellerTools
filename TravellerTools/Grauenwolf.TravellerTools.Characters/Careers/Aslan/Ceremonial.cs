@@ -3,7 +3,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 abstract class Ceremonial(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Ceremonial", assignment, characterBuilder)
 {
     protected override int AdvancedEductionMin => 8;
-    protected override bool RankCarryover => false;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {

@@ -10,7 +10,7 @@ class Prisoner_Thug(CharacterBuilder characterBuilder) : Prisoner("Thug", charac
 
     protected override int SurvivalTarget => 8;
 
-    protected override void AssignmentSkills(Character character, Dice dice)
+    internal override void AssignmentSkills(Character character, Dice dice)
     {
         switch (dice.D(6))
         {
