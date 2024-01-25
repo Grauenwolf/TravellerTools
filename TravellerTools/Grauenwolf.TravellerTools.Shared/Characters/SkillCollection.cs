@@ -72,7 +72,7 @@ public class SkillCollection : List<Skill>
     /// <summary>
     /// Gets the best the skill from the list. If there are ties, choose the first one. Jack-of-All-Trades is not allowed.
     /// </summary>
-    /// <param name="skillNames">The skill names or specialities.</param>
+    /// <param name="skillNames">The name, specialty, or group of each skill to consider.</param>
     public Skill? BestSkill(params string[] skillNames)
     {
         if (skillNames == null || skillNames.Length == 0)
@@ -82,13 +82,18 @@ public class SkillCollection : List<Skill>
         var bestScore = -3; //unskilled penalty
         foreach (var skill in this)
             foreach (var name in skillNames)
-                if (((skill.Name == name) || (skill.Specialty == name)) && (skill.Level > bestScore))
+                if (((skill.Name == name) || (skill.Specialty == name) || (skill.Group == name)) && (skill.Level > bestScore))
                 {
                     bestScore = skill.Level;
                     bestSkill = skill;
                 }
 
         return bestSkill;
+    }
+
+    public int BestSkillLevel()
+    {
+        return BestSkill()?.Level ?? 0;
     }
 
     /// <summary>
@@ -127,9 +132,33 @@ public class SkillCollection : List<Skill>
 
     public int EffectiveSkillLevel(string name, string? specialty = null)
     {
-        var skill = this[name, specialty];
-        if (skill != null)
-            return skill.Level;
+        if (specialty != null)
+        {
+            {
+                Skill? bestSkill = null;
+                var bestScore = -3; //unskilled penalty
+                foreach (var skill in this.Where(s => s.Name == name))
+                    if (((skill.Specialty == name) || (skill.Group == name)) && (skill.Level > bestScore))
+                    {
+                        bestScore = skill.Level;
+                        bestSkill = skill;
+                    }
+                    else if (bestScore < 0) //Same speciality, so use the 0 level
+                    {
+                        bestScore = 0;
+                        bestSkill = skill;
+                    }
+
+                if (bestSkill != null)
+                    return bestSkill.Level;
+            }
+        }
+        else
+        {
+            var skill = BestSkill(name); //Use any speciality with that name
+            if (skill != null)
+                return skill.Level;
+        }
 
         var joat = this["Jack-of-All-Trades"];
         if (joat != null)

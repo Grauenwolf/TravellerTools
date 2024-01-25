@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Grauenwolf.TravellerTools.Encounters;
 
 namespace Grauenwolf.TravellerTools.Web.Data;
 
 public class EncounterOptions
 {
-    public List<NameDescriptionPair> Encounters { get; } = new List<NameDescriptionPair>();
+    public List<Encounter> Encounters { get; } = new();
 }

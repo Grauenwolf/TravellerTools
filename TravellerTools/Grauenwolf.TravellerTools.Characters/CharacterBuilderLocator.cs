@@ -63,7 +63,7 @@ public class CharacterBuilderLocator
         return builder.Build(options);
     }
 
-    public void BuildContacts(Dice dice, Character character, OddsTable<string> odds)
+    public void BuildContacts(Dice dice, IContactGroup character, OddsTable<string> odds)
     {
         while (character.UnusedContacts.Count > 0)
         {
@@ -75,7 +75,139 @@ public class CharacterBuilderLocator
         }
     }
 
-    public Contact CreateContact(Dice dice, ContactType contactType, Character? character, string? species)
+    public Character CreateCharacter(Dice dice, string? species = null)
+    {
+        var options = new CharacterBuilderOptions();
+
+        while (true)
+        {
+            //TODO Species specific name generators
+            var temp = m_NameGenerator.CreateRandomPerson(dice);
+            options.Name = temp.FullName;
+            options.Gender = temp.Gender;
+            options.Species = species ?? GetRandomSpecies(dice);
+            //TODO: Move the random age into the species's specific character generator.
+            options.MaxAge = 22 + dice.D(1, 60);
+
+            options.Seed = dice.Next();
+            var character = Build(options);
+            if (!character.IsDead)
+            {
+                var skill = character.Skills.BestSkill();
+                return character;
+            }
+        }
+    }
+
+    public CharacterBuilderOptions CreateCharacterStub(Dice dice, string? species = null)
+    {
+        var options = new CharacterBuilderOptions();
+        //TODO Species specific name generators
+        var temp = m_NameGenerator.CreateRandomPerson(dice);
+        //careerOrAssignment can match on either career or assignment
+        options.Name = temp.FullName;
+        options.Gender = temp.Gender;
+        options.Species = species ?? GetRandomSpecies(dice);
+        //TODO: Move the random age into the species's specific character generator.
+        options.MaxAge = 22 + dice.D(1, 60);
+
+        options.Seed = dice.Next();
+        return options;
+    }
+
+    //public CharacterBuilderOptions CreateCharacterStubWithSkill(Dice dice, string targetSkillName, string targetSkillSpeciality, int? targetSkillLevel = null, string? species = null)
+    //{
+    //    return CreateCharacterWithSkill(dice, targetSkillName, targetSkillSpeciality, targetSkillLevel, species).GetCharacterBuilderOptions();
+    //}
+
+    /// <summary>
+    /// Creates the character with a desired final career.
+    /// </summary>
+    /// <param name="careerList">The list of desired careers and/or assignments.</param>
+    public Character CreateCharacterWithCareer(Dice dice, string career, string? species = null)
+    {
+        return CreateCharacterWithCareer(dice, new[] { career }, species);
+    }
+
+    /// <summary>
+    /// Creates the character with a desired final career.
+    /// </summary>
+    /// <param name="careerList">The list of desired careers and/or assignments.</param>
+    public Character CreateCharacterWithCareer(Dice dice, IReadOnlyList<string> careerList, string? species = null)
+    {
+        var characters = new List<Character>();
+
+        for (int i = 0; i < 500; i++)
+        {
+            var character = Build(CreateCharacterStub(dice, species));
+            if (character.IsDead && !character.LongTermBenefits.Retired)
+                continue;
+
+            if (careerList.Contains(character.LastCareer?.Career))
+                return character;
+
+            if (careerList.Contains(character.LastCareer?.Assignment))
+                return character;
+
+            characters.Add(character);
+        }
+
+        double Suitability(Character item, bool includeCareers)
+        {
+            var baseValue = 0.00;
+
+            if (includeCareers)
+            {
+                baseValue += (item.CareerHistory.Where(ch => careerList.Contains(ch.Career)).Sum(ch => ch.Terms));
+                baseValue += (item.CareerHistory.Where(ch => careerList.Contains(ch.Assignment)).Sum(ch => ch.Terms));
+            }
+
+            return baseValue;
+        }
+
+        {
+            //No character's last career was the requested one. Choose the one who spend the most time in the desired career.
+            var sortedList = characters.Select(c => new
+            {
+                Character = c,
+                Suitability = Suitability(c, true)
+            }).OrderByDescending(x => x.Suitability).ToList();
+
+            return sortedList.First().Character;
+        }
+    }
+
+    public Character CreateCharacterWithSkill(Dice dice, string targetSkillName, string? targetSkillSpeciality, int? targetSkillLevel = null, string? species = null)
+    {
+        targetSkillLevel ??= (int)Math.Floor(dice.D(2, 6) / 3.0);
+
+        Character? lastBest = null;
+        int lastBestSkillLevel = -3;
+
+        for (var i = 0; i < 500 || lastBest == null; i++)
+        {
+            var character = Build(CreateCharacterStub(dice, species));
+            if (!character.IsDead && !character.LongTermBenefits.Retired)
+            {
+                int currentSkill = character.Skills.EffectiveSkillLevel(targetSkillName, targetSkillSpeciality);
+                if (currentSkill == targetSkillLevel)
+                {
+                    return character;
+                }
+                else if (currentSkill > lastBestSkillLevel || lastBest == null)
+                {
+                    lastBest = character;
+                    lastBestSkillLevel = currentSkill;
+                }
+            }
+        }
+
+        if (lastBestSkillLevel < 0)
+            lastBest.Skills.Add(targetSkillName, targetSkillSpeciality, 0);
+        return lastBest!;
+    }
+
+    public Contact CreateContact(Dice dice, ContactType contactType, IContactGroup? character, string? species)
     {
         int PITable(int roll)
         {
@@ -105,11 +237,7 @@ public class CharacterBuilderLocator
             };
         }
 
-        var user = m_NameGenerator.CreateRandomPerson(dice);
-
-        var options = new CharacterBuilderOptions() { MaxAge = 22 + dice.D(1, 50), Gender = user.Gender, Name = $"{user.FirstName} {user.LastName}", Seed = dice.Next(), Species = species ?? GetRandomSpecies(dice) };
-
-        var result = new Contact(contactType, options);
+        var result = new Contact(contactType, CreateCharacterStub(dice, species));
         RollAffinityEnmity(dice, result);
         result.Power = PITable(dice.D(2, 6));
         result.Influence = PITable(dice.D(2, 6));

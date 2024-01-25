@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<WarningsAsErrors>true</WarningsAsErrors>
+		<AnalysisLevel>preview</AnalysisLevel>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Grauenwolf.TravellerTools.Characters\Grauenwolf.TravellerTools.Characters.csproj" />
+  </ItemGroup>
+
+</Project>

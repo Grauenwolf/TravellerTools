@@ -11,7 +11,7 @@ abstract class MilitaryCareer(string name, string assignment, CharacterBuilder c
         CareerHistory careerHistory;
         if (!character.CareerHistory.Any(pc => pc.Career == Career))
         {
-            careerHistory = new CareerHistory(Career, Assignment, 0);
+            careerHistory = new CareerHistory(character.Age, Career, Assignment, 0);
             ChangeCareer(character, dice, careerHistory);
             BasicTraining(character, dice, character.CareerHistory.Count == 0);
             FixupSkills(character, dice);
@@ -22,7 +22,7 @@ abstract class MilitaryCareer(string name, string assignment, CharacterBuilder c
         {
             if (!character.CareerHistory.Any(pc => pc.Assignment == Assignment))
             {
-                careerHistory = new CareerHistory(Career, Assignment, 0);
+                careerHistory = new CareerHistory(character.Age, Career, Assignment, 0);
                 ChangeAssignment(character, dice, careerHistory);
                 character.CareerHistory.Add(careerHistory);
             }
@@ -30,11 +30,13 @@ abstract class MilitaryCareer(string name, string assignment, CharacterBuilder c
             {
                 careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
                 character.AddHistory($"Continued as {careerHistory.LongName}.", character.Age);
+                careerHistory.LastTermAge = character.Age;
             }
             else
             {
                 careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
                 character.AddHistory($"Returned to {careerHistory.LongName}.", character.Age);
+                careerHistory.LastTermAge = character.Age;
             }
 
             var skillTables = new List<SkillTable>();

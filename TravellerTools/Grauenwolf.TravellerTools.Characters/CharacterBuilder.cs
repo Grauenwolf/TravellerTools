@@ -56,6 +56,8 @@ public abstract class CharacterBuilder
 
     public Character Build(CharacterBuilderOptions options)
     {
+        //Copy the values out of `options`, but don't capture it. The `options` object may be reused with different values.
+
         var seed = options.Seed ?? (new Random()).Next();
         var dice = new Dice(seed);
 
@@ -111,7 +113,22 @@ public abstract class CharacterBuilder
         if (options.MaxAge.HasValue && !character.IsDead)
             character.Age = options.MaxAge.Value;
 
-        character.Title = character.CareerHistory.Where(c => c.Title != null).OrderByDescending(c => c.Rank + c.CommissionRank).Select(c => c.Title).FirstOrDefault();
+        if (character.LongTermBenefits.Retired)
+        {
+            var title = character.CareerHistory.Where(c => c.Title != null).OrderByDescending(c => c.LastTermAge + (100 * c.Rank) + (1000 * c.CommissionRank)).Select(c => c.Title).FirstOrDefault();
+            if (title != null)
+                character.Title = "Retired " + title;
+        }
+        else
+            character.Title = character.LastCareer?.Title;
+
+        //Fix skills that should have had specialities. This shouldn't happen, but there are bugs elsewhere that cause it.
+        var needsSpecials = character.Skills.Where(s => s.Level > 0 && s.Specialty == null && Book(character).RequiresSpeciality(s.Name)).ToList();
+        foreach (var skill in needsSpecials)
+        {
+            character.Skills.Increase(dice.Choose(Book(character).SpecialtiesFor(skill.Name)), skill.Level);
+            character.Skills.Remove(skill);
+        }
 
         //Add the skill groups [Art, Profession, Science]
         foreach (var skill in character.Skills.Where(s => s.Specialty != null))
@@ -887,7 +904,12 @@ public abstract class CharacterBuilder
             if (character.Education < 1) character.Education = 1;
             if (character.SocialStanding < 1) character.SocialStanding = 1;
             character.LongTermBenefits.QualificationDM = -100;
-            character.LongTermBenefits.Retired = true;
+
+            if (!character.LongTermBenefits.Retired)
+            {
+                character.LongTermBenefits.Retired = true;
+                character.AddHistory($"Retired at age {character.Age}.", character.Age);
+            }
         }
     }
 }

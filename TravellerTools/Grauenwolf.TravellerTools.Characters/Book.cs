@@ -54,6 +54,11 @@ public class Book
     /// </summary>
     public ImmutableArray<SkillTemplate> RandomSkills { get; }
 
+    public bool RequiresSpeciality(string name)
+    {
+        return RandomSkills.Any(s => s.Name == name && s.Specialty != null);
+    }
+
     internal List<SkillTemplate> SpecialtiesFor(string skillName)
     {
         var skill = m_Templates.Skills.FirstOrDefault(s => s.Name == skillName);

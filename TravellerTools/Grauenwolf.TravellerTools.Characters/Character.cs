@@ -2,7 +2,55 @@
 
 namespace Grauenwolf.TravellerTools.Characters;
 
-public class Character
+public interface IContactGroup
+{
+    List<Contact> Contacts { get; }
+
+    Queue<ContactType> UnusedContacts { get; }
+
+    void AddAlly(int count = 1);
+
+    void AddContact(int count = 1);
+
+    void AddEnemy(int count = 1);
+
+    void AddRival(int count = 1);
+}
+
+public class ContactGroup : IContactGroup
+{
+    public List<Contact> Contacts { get; } = new();
+
+    Queue<ContactType> IContactGroup.UnusedContacts => UnusedContacts;
+    internal Queue<ContactType> UnusedContacts { get; } = new();
+
+    public void AddAlly(int count = 1)
+    {
+        for (var i = 0; i < count; i++)
+            UnusedContacts.Enqueue(ContactType.Ally);
+    }
+
+    public void AddContact(int count = 1)
+    {
+        for (var i = 0; i < count; i++)
+            UnusedContacts.Enqueue(ContactType.Contact);
+    }
+
+    public void AddEnemy(int count = 1)
+    {
+        for (var i = 0; i < count; i++)
+            UnusedContacts.Enqueue(ContactType.Enemy);
+    }
+
+    public void AddRival(int count = 1)
+    {
+        for (var i = 0; i < count; i++)
+            UnusedContacts.Enqueue(ContactType.Rival);
+    }
+}
+
+public class Character : IContactGroup
+
 {
     public int Age { get; set; }
     public int BenefitRolls { get; set; }
@@ -60,7 +108,6 @@ public class Character
     public int? Psi { get; set; }
     public int PsiDM => Psi == null ? -100 : DMCalc(Psi.Value);
     public string? Race { get; set; }
-
     public int RiteOfPassageDM { get; set; }
 
     /// <summary>
@@ -72,7 +119,6 @@ public class Character
     public SkillCollection Skills { get; } = new();
     public int SocialStanding { get; set; }
     public int SocialStandingDM => DMCalc(SocialStanding);
-
     public string? Species { get; set; }
     public string? SpeciesUrl { get; set; }
     public int Strength { get; set; }
@@ -81,6 +127,7 @@ public class Character
     public int TerritoryDM => DMCalc(Territory);
     public string? Title { get; set; }
     public List<string> Trace { get; } = new();
+    Queue<ContactType> IContactGroup.UnusedContacts => UnusedContacts;
     public WeaponCollection Weapons { get; } = new();
     public int? Year { get; set; }
 

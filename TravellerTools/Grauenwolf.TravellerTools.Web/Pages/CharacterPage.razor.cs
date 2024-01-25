@@ -154,7 +154,8 @@ partial class CharacterPage
                     if (includeCareers)
                     {
                         baseValue += (item.CareerHistory.Where(ch => string.Equals(ch.Assignment, Model.FinalAssignment, StringComparison.InvariantCultureIgnoreCase)).Sum(ch => ch.Terms * 50.0) / item.CurrentTerm);
-                        baseValue += (item.CareerHistory.SingleOrDefault(ch => string.Equals(ch.Career, Model.FinalCareer, StringComparison.InvariantCultureIgnoreCase))?.Terms * 10.0 ?? 0.00) / item.CurrentTerm;
+
+                        baseValue += (item.CareerHistory.Where(ch => string.Equals(ch.Career, Model.FinalCareer, StringComparison.InvariantCultureIgnoreCase)).Sum(ch => ch.Terms * 20.0) / item.CurrentTerm);
                     }
 
                     return baseValue;

@@ -18,7 +18,7 @@
                 </td>
                 <td>@crewMember.CrewRole</td>
                 <td>@crewMember.SkillName @crewMember.SkillLevel</td>
-                <td><a href="@(CharacterBuilderLocator.GetSpeciesUrl(crewMember.CharacterStub.Species))">@crewMember.CharacterStub.Species</a> (@crewMember.CharacterStub.Gender/@crewMember.CharacterStub.MaxAge)</td>
+                <td><a target="_blank" href="@(CharacterBuilderLocator.GetSpeciesUrl(crewMember.CharacterStub.Species))">@crewMember.CharacterStub.Species</a> (@crewMember.CharacterStub.Gender/@crewMember.CharacterStub.MaxAge)</td>
             </tr>
         }
     </table>

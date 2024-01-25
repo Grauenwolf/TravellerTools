@@ -1,4 +1,5 @@
 using Grauenwolf.TravellerTools.Characters;
+using Grauenwolf.TravellerTools.Encounters;
 using Grauenwolf.TravellerTools.Equipment;
 using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Names;
@@ -59,5 +60,6 @@ public class Startup
         services.AddSingleton(new EquipmentBuilder(AppDataPath));
         services.AddSingleton(nameGenerator);
         services.AddSingleton(characterBuilderLocator);
+        services.AddSingleton(new EncounterGenerator(characterBuilderLocator));
     }
 }

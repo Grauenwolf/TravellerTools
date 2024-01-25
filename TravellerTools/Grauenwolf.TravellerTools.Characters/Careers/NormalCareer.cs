@@ -11,7 +11,7 @@ abstract class NormalCareer(string name, string assignment, CharacterBuilder cha
         CareerHistory careerHistory;
         if (!character.CareerHistory.Any(pc => pc.Career == Career))
         {
-            careerHistory = new CareerHistory(Career, Assignment, 0);
+            careerHistory = new CareerHistory(character.Age, Career, Assignment, 0);
             ChangeCareer(character, dice, careerHistory);
             BasicTrainingSkills(character, dice, character.CareerHistory.Count == 0);
             FixupSkills(character, dice);
@@ -21,7 +21,7 @@ abstract class NormalCareer(string name, string assignment, CharacterBuilder cha
         {
             if (!character.CareerHistory.Any(pc => pc.Assignment == Assignment))
             {
-                careerHistory = new CareerHistory(Career, Assignment, 0);
+                careerHistory = new CareerHistory(character.Age, Career, Assignment, 0);
                 character.AddHistory($"Switched to {careerHistory.LongName}.", character.Age);
                 character.CareerHistory.Add(careerHistory);
 
@@ -36,11 +36,13 @@ abstract class NormalCareer(string name, string assignment, CharacterBuilder cha
             {
                 careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
                 character.AddHistory($"Continued as {careerHistory.LongName}.", character.Age);
+                careerHistory.LastTermAge = character.Age;
             }
             else
             {
                 careerHistory = character.CareerHistory.Single(pc => pc.Assignment == Assignment);
                 character.AddHistory($"Returned to {careerHistory.LongName}.", character.Age);
+                careerHistory.LastTermAge = character.Age;
             }
 
             var skillTables = new List<SkillTable>();

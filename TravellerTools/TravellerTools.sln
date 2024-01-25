@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30309.148
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6957FC98-D904-4BCB-A569-D0FAFD9FB915}"
 	ProjectSection(SolutionItems) = preProject
@@ -27,6 +27,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grauenwolf.TravellerTools.Web", "Grauenwolf.TravellerTools.Web\Grauenwolf.TravellerTools.Web.csproj", "{CE44F345-35F3-4777-AE2C-DC77F07AA8C6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tortuga.Yardarm", "Tortuga.Yardarm\Tortuga.Yardarm.csproj", "{C9749626-2FCB-4E5C-9642-F8805A2FF0F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grauenwolf.TravellerTools.Encounters", "Grauenwolf.TravellerTools.Encounters\Grauenwolf.TravellerTools.Encounters.csproj", "{C9E24C24-D91F-4C0A-A073-A6645DFB877E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +72,10 @@ Global
 		{C9749626-2FCB-4E5C-9642-F8805A2FF0F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9749626-2FCB-4E5C-9642-F8805A2FF0F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9749626-2FCB-4E5C-9642-F8805A2FF0F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9E24C24-D91F-4C0A-A073-A6645DFB877E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9E24C24-D91F-4C0A-A073-A6645DFB877E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9E24C24-D91F-4C0A-A073-A6645DFB877E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9E24C24-D91F-4C0A-A073-A6645DFB877E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -78,12 +78,13 @@ class Retired(CharacterBuilder characterBuilder) : CareerBase("Retired", null, c
         if (!character.CareerHistory.Any(pc => pc.Career == "Retired"))
         {
             character.AddHistory($"Retired.", character.Age);
-            careerHistory = new CareerHistory("Retired", null, 0);
+            careerHistory = new CareerHistory(character.Age, "Retired", null, 0);
             character.CareerHistory.Add(careerHistory);
         }
         else
         {
             careerHistory = character.CareerHistory.Single(pc => pc.Career == "Retired");
+            careerHistory.LastTermAge = character.Age;
         }
         careerHistory.Terms += 1;
 

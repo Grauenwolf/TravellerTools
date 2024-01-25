@@ -24,8 +24,7 @@ partial class ContactsPage
             var dice = new Dice(seed);
             var result = new ContactsModel();
 
-            //TODO: Create a stub class with matching interface just for making contacts.
-            var character = new Character();
+            var character = new ContactGroup();
             character.AddAlly(Model.Allies);
             character.AddContact(Model.Contacts);
             character.AddRival(Model.Rivals);

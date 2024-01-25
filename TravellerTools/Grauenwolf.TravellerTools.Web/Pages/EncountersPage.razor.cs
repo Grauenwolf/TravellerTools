@@ -1,5 +1,5 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
-using Grauenwolf.TravellerTools.Web.Data;
+using Grauenwolf.TravellerTools.Encounters;
 using Microsoft.AspNetCore.Components;
 
 namespace Grauenwolf.TravellerTools.Web.Pages;
@@ -7,24 +7,30 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 partial class EncountersPage
 {
     [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
+    [Inject] EncounterGenerator EncounterGenerator { get; set; } = null!;
+
+    protected void BackwaterStarportGeneralEncounter()
+    {
+        Model.Encounters.Insert(0, EncounterGenerator.BackwaterStarportGeneralEncounter(new Dice()));
+    }
+
+    protected void BackwaterStarportSignificantEncounter()
+    {
+        Model.Encounters.Insert(0, EncounterGenerator.BackwaterStarportSignificantEncounter(new Dice()));
+    }
 
     protected void GenerateAlliesAndEnemies()
     {
-        //TODO: Add name generator
-        var dice = new Dice();
-        Model.Encounters.Add(new NameDescriptionPair("Allies and Enemies", PatronBuilder.PickAlliesAndEnemies(dice)));
+        Model.Encounters.Insert(0, EncounterGenerator.PickAlliesAndEnemies(new Dice()));
     }
 
     protected void GenerateMission()
     {
-        var dice = new Dice();
-        Model.Encounters.Add(new NameDescriptionPair("Mission", PatronBuilder.PickMission(dice)));
+        Model.Encounters.Insert(0, EncounterGenerator.PickMission(new Dice()));
     }
 
     protected void GeneratePatron()
     {
-        //TODO: Add name generator
-        var dice = new Dice();
-        Model.Encounters.Add(new NameDescriptionPair("Patron", PatronBuilder.PickPatron(dice)));
+        Model.Encounters.Insert(0, EncounterGenerator.PickPatron(new Dice()));
     }
 }
