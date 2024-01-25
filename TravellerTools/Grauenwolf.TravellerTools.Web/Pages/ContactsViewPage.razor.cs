@@ -11,7 +11,7 @@ partial class ContactsViewPage
 {
     public int? Seed { get => Get<int?>(); set => Set(value); }
     protected ContactsModel? ContactsModel { get; set; }
-    [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
+    [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
     [Inject] NameGenerator NameGenerator { get; set; } = null!;
 
     protected override void Initialized()
@@ -19,7 +19,7 @@ partial class ContactsViewPage
         if (Navigation.TryGetQueryString("seed", out int seed))
             Seed = seed;
 
-        Model = new ContactOptions(CharacterBuilderLocator);
+        Model = new ContactOptions(CharacterBuilder);
         Model.FromQueryString(Navigation.ParsedQueryString());
 
         if (Seed != null)
@@ -61,7 +61,7 @@ partial class ContactsViewPage
             if (!Model.Species.IsNullOrEmpty())
                 odds.Add(Model.Species, 100);
 
-            CharacterBuilderLocator.BuildContacts(dice, character, odds);
+            CharacterBuilder.BuildContacts(dice, character, odds);
             result.Contacts = character.Contacts;
             result.Seed = seed;
 

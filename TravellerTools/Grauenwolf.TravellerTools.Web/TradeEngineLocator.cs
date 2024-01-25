@@ -6,11 +6,11 @@ using System.Collections.Concurrent;
 
 namespace Grauenwolf.TravellerTools.Web;
 
-public class TradeEngineLocator(TravellerMapServiceLocator mapService, string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator)
+public class TradeEngineLocator(TravellerMapServiceLocator mapService, string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder)
 {
     readonly ConcurrentDictionary<(string, int), TradeEngine> TradeEngines = new ConcurrentDictionary<(string, int), TradeEngine>();
 
-    public CharacterBuilderLocator CharacterBuilderLocator { get; } = characterBuilderLocator;
+    public CharacterBuilder CharacterBuilder { get; } = characterBuilder;
     public string DataPath { get; } = dataPath;
 
     public TravellerMapServiceLocator MapService { get; } = mapService;
@@ -25,15 +25,15 @@ public class TradeEngineLocator(TravellerMapServiceLocator mapService, string da
         switch (edition)
         {
             case Edition.Mongoose:
-                engine = new TradeEngineMgt(MapService.GetMapService(milieu), DataPath, NameGenerator, CharacterBuilderLocator);
+                engine = new TradeEngineMgt(MapService.GetMapService(milieu), DataPath, NameGenerator, CharacterBuilder);
                 break;
 
             case Edition.Mongoose2:
-                engine = new TradeEngineMgt2(MapService.GetMapService(milieu), DataPath, NameGenerator, CharacterBuilderLocator);
+                engine = new TradeEngineMgt2(MapService.GetMapService(milieu), DataPath, NameGenerator, CharacterBuilder);
                 break;
 
             case Edition.Mongoose2022:
-                engine = new TradeEngineMgt2022(MapService.GetMapService(milieu), DataPath, NameGenerator, CharacterBuilderLocator);
+                engine = new TradeEngineMgt2022(MapService.GetMapService(milieu), DataPath, NameGenerator, CharacterBuilder);
                 break;
 
             default:

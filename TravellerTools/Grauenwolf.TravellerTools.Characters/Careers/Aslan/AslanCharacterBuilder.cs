@@ -3,13 +3,13 @@ using System.Collections.Immutable;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-public class AslanCharacterBuilder : CharacterBuilder
+public class AslanCharacterBuilder : SpeciesCharacterBuilder
 {
     CareerLists FemaleCareers;
 
     CareerLists MaleCareers;
 
-    public AslanCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator) : base(dataPath, nameGenerator, characterBuilderLocator)
+    public AslanCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder) : base(dataPath, nameGenerator, characterBuilder)
     {
         var femaleCareers = new List<CareerBase>()
         {
@@ -100,6 +100,7 @@ public class AslanCharacterBuilder : CharacterBuilder
     public override ImmutableArray<Gender> Genders { get; } = ImmutableArray.Create<Gender>(new("F", "Female", 26), new("M", "Male", 10));
     public override string Species => "Aslan";
     public override string SpeciesUrl => "https://wiki.travellerrpg.com/Aslan";
+    public override int StartingAge => 14;
     protected override int AgingRollMinAge => 40;
     protected override bool AllowPsionics => false;
 
@@ -142,7 +143,7 @@ public class AslanCharacterBuilder : CharacterBuilder
             return FemaleCareers.DraftCareers;
     }
 
-    protected override int AgingRollDM(Character character) => -2 * character.CurrentTerm;
+    protected override int AgingRollDM(int currentTerm) => -2 * currentTerm;
 
     protected override CareerLists CreateCareerList() => CareerLists.Empty;
 
@@ -270,7 +271,7 @@ public class AslanCharacterBuilder : CharacterBuilder
         if (ancestralTerritory >= 10 && character.Gender == "M")
             character.Skills.Add("Leadership", 1);
 
-        character.Age = 14;
+        character.Age = StartingAge;
 
         if (character.SocialStanding < 2)
         {

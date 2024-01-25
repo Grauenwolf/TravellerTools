@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-abstract class Drifter(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Drifter", assignment, characterBuilder)
+abstract class Drifter(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Drifter", assignment, speciesCharacterBuilder)
 {
     protected override int AdvancedEductionMin => int.MaxValue;
     

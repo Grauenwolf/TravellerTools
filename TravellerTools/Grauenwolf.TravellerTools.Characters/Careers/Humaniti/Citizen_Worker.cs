@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Citizen_Worker(CharacterBuilder characterBuilder) : Citizen("Worker", characterBuilder)
+class Citizen_Worker(SpeciesCharacterBuilder speciesCharacterBuilder) : Citizen("Worker", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

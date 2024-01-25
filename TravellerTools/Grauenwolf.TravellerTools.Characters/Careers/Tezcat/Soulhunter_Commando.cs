@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
 
-class Soulhunter_Commando(CharacterBuilder characterBuilder) : Soulhunter("Commando", characterBuilder)
+class Soulhunter_Commando(SpeciesCharacterBuilder speciesCharacterBuilder) : Soulhunter("Commando", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

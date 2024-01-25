@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-abstract class Believer(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Believer", assignment, characterBuilder)
+abstract class Believer(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Believer", assignment, speciesCharacterBuilder)
 {
     protected override int AdvancedEductionMin => 8;
 

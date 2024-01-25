@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-internal class Truther(CharacterBuilder characterBuilder) : RanklessCareer("Truther", null, characterBuilder)
+internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : RanklessCareer("Truther", null, speciesCharacterBuilder)
 {
     protected override int AdvancedEductionMin => int.MaxValue;
 

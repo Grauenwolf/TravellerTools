@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Rogue_Pirate(CharacterBuilder characterBuilder) : Rogue("Pirate", characterBuilder)
+class Rogue_Pirate(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("Pirate", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

@@ -55,11 +55,11 @@ public class Startup
 
         services.AddSingleton(mapService); //make this configurable!
         var nameGenerator = new NameGenerator(AppDataPath);
-        var characterBuilderLocator = new CharacterBuilderLocator(AppDataPath, nameGenerator);
-        services.AddSingleton(new TradeEngineLocator(mapService, AppDataPath, nameGenerator, characterBuilderLocator));
+        var characterBuilder = new CharacterBuilder(AppDataPath, nameGenerator);
+        services.AddSingleton(new TradeEngineLocator(mapService, AppDataPath, nameGenerator, characterBuilder));
         services.AddSingleton(new EquipmentBuilder(AppDataPath));
         services.AddSingleton(nameGenerator);
-        services.AddSingleton(characterBuilderLocator);
-        services.AddSingleton(new EncounterGenerator(characterBuilderLocator));
+        services.AddSingleton(characterBuilder);
+        services.AddSingleton(new EncounterGenerator(characterBuilder));
     }
 }

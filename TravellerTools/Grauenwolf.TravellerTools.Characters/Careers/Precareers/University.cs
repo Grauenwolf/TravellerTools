@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
-class University(CharacterBuilder characterBuilder) : CareerBase("University", null, characterBuilder)
+class University(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("University", null, speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {

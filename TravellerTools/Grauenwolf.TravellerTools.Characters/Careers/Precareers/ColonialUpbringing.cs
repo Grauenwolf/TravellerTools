@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
-class ColonialUpbringing(CharacterBuilder characterBuilder) : CareerBase("Colonial Upbringing", null, characterBuilder)
+class ColonialUpbringing(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Colonial Upbringing", null, speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {

@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
-class SpacerCommunity(CharacterBuilder characterBuilder) : CareerBase("Spacer Community", null, characterBuilder)
+class SpacerCommunity(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Spacer Community", null, speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {

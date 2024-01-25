@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
 
-class ShaperPriest_Academic(CharacterBuilder characterBuilder) : ShaperPriest("Academic", characterBuilder)
+class ShaperPriest_Academic(SpeciesCharacterBuilder speciesCharacterBuilder) : ShaperPriest("Academic", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

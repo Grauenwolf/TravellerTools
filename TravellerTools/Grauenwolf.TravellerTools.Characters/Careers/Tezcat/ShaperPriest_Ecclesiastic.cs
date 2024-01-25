@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
 
-class ShaperPriest_Ecclesiastic(CharacterBuilder characterBuilder) : ShaperPriest("Ecclesiastic", characterBuilder)
+class ShaperPriest_Ecclesiastic(SpeciesCharacterBuilder speciesCharacterBuilder) : ShaperPriest("Ecclesiastic", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Soc";
 

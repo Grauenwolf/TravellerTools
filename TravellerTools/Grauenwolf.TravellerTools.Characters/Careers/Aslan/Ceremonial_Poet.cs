@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Ceremonial_Poet(CharacterBuilder characterBuilder) : Ceremonial("Poet", characterBuilder)
+class Ceremonial_Poet(SpeciesCharacterBuilder speciesCharacterBuilder) : Ceremonial("Poet", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

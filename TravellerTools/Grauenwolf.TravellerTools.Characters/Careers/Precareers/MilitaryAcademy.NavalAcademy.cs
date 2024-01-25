@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
-class NavalAcademy(CharacterBuilder characterBuilder) : MilitaryAcademy("Naval Academy", characterBuilder)
+class NavalAcademy(SpeciesCharacterBuilder speciesCharacterBuilder) : MilitaryAcademy("Naval Academy", speciesCharacterBuilder)
 {
     protected override string Branch => "Navy";
     protected override string QualifyAttribute => "Int";

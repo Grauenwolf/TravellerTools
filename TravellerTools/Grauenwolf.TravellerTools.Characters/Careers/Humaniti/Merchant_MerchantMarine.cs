@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Merchant_MerchantMarine(CharacterBuilder characterBuilder) : Merchant("Merchant Marine", characterBuilder)
+class Merchant_MerchantMarine(SpeciesCharacterBuilder speciesCharacterBuilder) : Merchant("Merchant Marine", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

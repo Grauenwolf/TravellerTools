@@ -2,7 +2,7 @@
 
 namespace Grauenwolf.TravellerTools.Encounters;
 
-public class EncounterGenerator(CharacterBuilderLocator characterBuilderLocator)
+public class EncounterGenerator(CharacterBuilder characterBuilder)
 {
     readonly string[] AllScienceCareers = ["Explorer", "Surveyor", "Scholar", "Scientist"];
     readonly string[] FieldScienceCareers = ["Explorer", "Surveyor", "Field Researcher"];
@@ -12,7 +12,7 @@ public class EncounterGenerator(CharacterBuilderLocator characterBuilderLocator)
     readonly string[] StarportCareers = ["Corporate", "Worker", "Law Enforcement", "Administrator", "Clan Agent", "Management"];
 
     //readonly string[] OffworldHunterCareers = ["Wanderer", "Dilettante", ];
-    public CharacterBuilderLocator CharacterBuilder { get; } = characterBuilderLocator;
+    public CharacterBuilder CharacterBuilder { get; } = characterBuilder;
 
     public static Encounter PickAlliesAndEnemies(Dice dice, Encounter? encounter = null)
     {
@@ -268,7 +268,7 @@ public class EncounterGenerator(CharacterBuilderLocator characterBuilderLocator)
                 break;
 
             case 8:
-                result.Add("Starport chief is drunk and giving misleading flight instructions.", "Starport cheif", CharacterBuilder.CreateCharacter(dice));
+                result.Add("Starport chief is drunk and giving misleading flight instructions.", "Starport chief", CharacterBuilder.CreateCharacter(dice));
                 break;
 
             case 9:

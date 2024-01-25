@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Noble_Diplomat(CharacterBuilder characterBuilder) : Noble("Diplomat", characterBuilder)
+class Noble_Diplomat(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble("Diplomat", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Soc";
 

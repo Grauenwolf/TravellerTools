@@ -57,13 +57,21 @@
                                     <td>
                                         @character.Character.Title <a target="_blank" href="@QueryHelpers.AddQueryString("/character/view", character.CharacterStub.ToQueryString())">@character.CharacterStub.Name</a>
                                     </td>
-                                    <td><a target="_blank" href="@(CharacterBuilderLocator.GetSpeciesUrl(character.CharacterStub.Species))">@character.CharacterStub.Species</a> (@character.CharacterStub.Gender/@character.CharacterStub.MaxAge)</td>
+                                    <td><a target="_blank" href="@(CharacterBuilder.GetSpeciesUrl(character.CharacterStub.Species))">@character.CharacterStub.Species</a> (@character.CharacterStub.Gender/@character.CharacterStub.MaxAge)</td>
                                 </tr>
                                 <tr>
                                     <td colspan="3">
-                                        @character.BestSkills
+                                        @character.Character.Characteristics
                                     </td>
                                 </tr>
+                                if (!string.IsNullOrEmpty(character.Skills))
+                                {
+                                    <tr>
+                                        <td colspan="3">
+                                            @character.Skills
+                                        </td>
+                                    </tr>
+                                }
                             }
                         }
                     </table>

@@ -7,11 +7,11 @@ namespace Grauenwolf.TravellerTools.Web.Data;
 
 public class ContactOptions : ModelBase
 {
-    private CharacterBuilderLocator m_CharacterBuilderLocator;
+    private CharacterBuilder m_CharacterBuilderLocator;
 
-    public ContactOptions(CharacterBuilderLocator characterBuilderLocator)
+    public ContactOptions(CharacterBuilder characterBuilder)
     {
-        m_CharacterBuilderLocator = characterBuilderLocator;
+        m_CharacterBuilderLocator = characterBuilder;
     }
 
     public int Allies

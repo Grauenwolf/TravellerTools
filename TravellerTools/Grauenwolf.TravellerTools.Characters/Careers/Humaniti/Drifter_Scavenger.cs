@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Drifter_Scavenger(CharacterBuilder characterBuilder) : Drifter("Scavenger", characterBuilder)
+class Drifter_Scavenger(SpeciesCharacterBuilder speciesCharacterBuilder) : Drifter("Scavenger", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Str";
 

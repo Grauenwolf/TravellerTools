@@ -366,6 +366,32 @@ public static class Tables
         };
     }
 
+    public static int DMCalc(int? value) => value == null ? 0 : DMCalc(value.Value);
+
+    public static int DMCalc(int value)
+    {
+        return value switch
+        {
+            <= 0 => -3,
+            <= 2 => -2,
+            <= 5 => -1,
+            <= 8 => 0,
+            <= 11 => 1,
+            <= 14 => 2,
+            <= 17 => 3,
+            <= 20 => 4,
+            <= 23 => 5,
+            <= 26 => 6,
+            <= 29 => 7,
+            <= 32 => 8,
+            <= 35 => 9,
+            <= 38 => 10,
+            _ => 11,
+        };
+    }
+
+    public static int DMCalc(EHex characteristic) => DMCalc(characteristic.Value);
+
     public static string Efficiency(string? efficiencyCode)
     {
         return efficiencyCode switch

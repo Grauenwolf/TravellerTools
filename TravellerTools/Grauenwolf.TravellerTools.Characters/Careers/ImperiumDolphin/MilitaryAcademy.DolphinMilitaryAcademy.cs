@@ -2,7 +2,7 @@ using Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 
-class DolphinMilitaryAcademy(CharacterBuilder characterBuilder) : MilitaryAcademy("Dolphin Military Academy", characterBuilder)
+class DolphinMilitaryAcademy(SpeciesCharacterBuilder speciesCharacterBuilder) : MilitaryAcademy("Dolphin Military Academy", speciesCharacterBuilder)
 {
     protected override string Branch => "Dolphin Military";
     protected override string QualifyAttribute => "Edu";

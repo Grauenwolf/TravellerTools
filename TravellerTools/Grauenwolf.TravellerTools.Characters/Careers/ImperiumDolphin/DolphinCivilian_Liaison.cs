@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 
-class DolphinCivilian_Liaison(CharacterBuilder characterBuilder) : DolphinCivilian("Liaison", characterBuilder)
+class DolphinCivilian_Liaison(SpeciesCharacterBuilder speciesCharacterBuilder) : DolphinCivilian("Liaison", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Soc";
 

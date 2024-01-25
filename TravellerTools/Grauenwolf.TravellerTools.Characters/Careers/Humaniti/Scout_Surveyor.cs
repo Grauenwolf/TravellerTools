@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Scout_Surveyor(CharacterBuilder characterBuilder) : Scout("Surveyor", characterBuilder)
+class Scout_Surveyor(SpeciesCharacterBuilder speciesCharacterBuilder) : Scout("Surveyor", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

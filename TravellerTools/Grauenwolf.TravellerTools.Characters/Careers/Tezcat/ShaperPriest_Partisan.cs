@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
 
-class ShaperPriest_Partisan(CharacterBuilder characterBuilder) : ShaperPriest("Partisan", characterBuilder)
+class ShaperPriest_Partisan(SpeciesCharacterBuilder speciesCharacterBuilder) : ShaperPriest("Partisan", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

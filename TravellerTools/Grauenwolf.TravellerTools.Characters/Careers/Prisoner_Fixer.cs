@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Prisoner_Fixer(CharacterBuilder characterBuilder) : Prisoner("Fixer", characterBuilder)
+class Prisoner_Fixer(SpeciesCharacterBuilder speciesCharacterBuilder) : Prisoner("Fixer", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "End";
 

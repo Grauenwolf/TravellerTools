@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Management_Corporate(CharacterBuilder characterBuilder) : Management("Corporate", characterBuilder)
+class Management_Corporate(SpeciesCharacterBuilder speciesCharacterBuilder) : Management("Corporate", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

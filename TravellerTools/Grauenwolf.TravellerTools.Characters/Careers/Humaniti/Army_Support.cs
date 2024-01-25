@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Army_Support(CharacterBuilder characterBuilder) : Army("Army Support", characterBuilder)
+class Army_Support(SpeciesCharacterBuilder speciesCharacterBuilder) : Army("Army Support", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

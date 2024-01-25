@@ -8,7 +8,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 
 partial class CharacterPage
 {
-    [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
+    [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
     List<Character> Characters { get; set; } = new List<Character>();
     [Inject] NameGenerator NameGenerator { get; set; } = null!;
     //public int? Seed { get => Get<int?>(); set => Set(value); }
@@ -20,7 +20,6 @@ partial class CharacterPage
         try
         {
             var dice = new Dice();
-            var options = new CharacterBuilderOptions();
 
             var desiredSkills = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
             if (!string.IsNullOrEmpty(Model.SkillA))
@@ -32,58 +31,9 @@ partial class CharacterPage
             if (!string.IsNullOrEmpty(Model.SkillD))
                 desiredSkills.Add(Model.SkillD);
 
-            //if (!string.IsNullOrEmpty(name))
-            //{
-            //    options.Name = name;
-            //    options.Gender = gender;
-            //}
-            //else
-            //{
-            if (Model.Gender.IsNullOrEmpty())
-            {
-                var temp = NameGenerator.CreateRandomPerson(dice);
-                options.Name = temp.FullName;
-                options.Gender = temp.Gender;
-            }
-            else
-            {
-                var temp = NameGenerator.CreateRandomPerson(dice, Model.Gender == "M");
-                options.Name = temp.FullName;
-                options.Gender = temp.Gender;
-            }
-            //}
-
-            //This is madness. Redo it.
-            int? minAge = (Model.Terms.HasValue) ? 12 + (Model.Terms * 4) : null;
-            int? maxAge = (Model.Terms.HasValue) ? 12 + (Model.Terms * 4) + 3 : null;
-            if (minAge.HasValue && minAge == maxAge)
-                options.MaxAge = maxAge;
-            else if (minAge.HasValue && maxAge.HasValue)
-                options.MaxAge = minAge.Value + dice.D(1, maxAge.Value - minAge.Value);
-            else if (maxAge.HasValue)
-                options.MaxAge = 12 + dice.D(1, maxAge.Value - 12);
-            else
-                options.MaxAge = 12 + dice.D(1, 60);
-
-            options.Year = Model.Year;
-
-            options.FirstCareer = Model.FirstCareer;
-            options.FirstAssignment = Model.FirstAssignment;
-            if (Model.Species.IsNullOrEmpty())
-            {
-                if (Model.FirstCareer.IsNullOrEmpty())
-                    options.Species = CharacterBuilderLocator.GetRandomSpecies(dice);
-                else
-                    options.Species = CharacterBuilderLocator.GetRandomSpeciesForCareer(dice, Model.FirstCareer);
-            }
-            else
-                options.Species = Model.Species;
-
             bool hasDesiredStats =
                 !Model.Str.IsNullOrEmpty() || !Model.Dex.IsNullOrEmpty() || !Model.End.IsNullOrEmpty() ||
                 !Model.Int.IsNullOrEmpty() || !Model.Edu.IsNullOrEmpty() || !Model.Soc.IsNullOrEmpty();
-
-            //options.Seed = seed;
 
             if ((!string.IsNullOrEmpty(Model.FinalCareer) || !string.IsNullOrEmpty(Model.FinalAssignment) || desiredSkills.Count > 0) || hasDesiredStats)
             {
@@ -94,7 +44,9 @@ partial class CharacterPage
 
                 for (int i = 0; i < 500; i++)
                 {
-                    var candidateCharacter = CharacterBuilderLocator.Build(options);
+                    var options = CreateOptions(dice);
+
+                    var candidateCharacter = CharacterBuilder.Build(options);
                     if (!candidateCharacter.IsDead)
                     {
                         if (!string.IsNullOrEmpty(Model.FinalAssignment))
@@ -185,7 +137,10 @@ partial class CharacterPage
                 }
             }
             else
-                Characters.Insert(0, CharacterBuilderLocator.Build(options));
+            {
+                var options = CreateOptions(dice);
+                Characters.Insert(0, CharacterBuilder.Build(options));
+            }
         }
         catch (Exception ex)
         {
@@ -195,6 +150,40 @@ partial class CharacterPage
 
     protected override void Initialized()
     {
-        Model = new CharacterOptions(CharacterBuilderLocator);
+        Model = new CharacterOptions(CharacterBuilder);
+    }
+
+    private CharacterBuilderOptions CreateOptions(Dice dice)
+    {
+        var species = Model!.Species;
+        var noChildren = false;
+        if (species.IsNullOrEmpty())
+        {
+            if (Model.FirstCareer.IsNullOrEmpty() && Model.FinalCareer.IsNullOrEmpty())
+                species = CharacterBuilder.GetRandomSpecies(dice);
+            else
+            {
+                species = CharacterBuilder.GetRandomSpeciesForCareer(dice, Model.FirstCareer, Model.FinalCareer);
+                noChildren = true;
+            }
+        }
+
+        //This gives us a name and starting age
+        var options = CharacterBuilder.CreateCharacterStub(dice, species, Model.Gender, noChildren);
+
+        var builder = CharacterBuilder.GetCharacterBuilder(options.Species);
+
+        //This is less madness, but still needs to be redone.
+        if (Model.Terms.HasValue)
+        {
+            int minAge = builder.StartingAge + (Model.Terms.Value * 4);
+            int maxAge = builder.StartingAge + (Model.Terms.Value * 4) + 3;
+            options.MaxAge = minAge + dice.D(1, maxAge - minAge);
+        }
+
+        options.Year = Model.Year;
+        options.FirstCareer = Model.FirstCareer;
+        options.FirstAssignment = Model.FirstAssignment;
+        return options;
     }
 }

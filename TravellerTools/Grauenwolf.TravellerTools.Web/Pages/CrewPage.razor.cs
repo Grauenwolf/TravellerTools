@@ -9,7 +9,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 partial class CrewPage
 {
     protected CrewModel? CrewModel { get; set; }
-    [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
+    [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
     [Inject] NameGenerator NameGenerator { get; set; } = null!;
 
     protected void GenerateCrew()
@@ -42,7 +42,7 @@ partial class CrewPage
 
     protected override void Initialized()
     {
-        Model = new CrewOptions(CharacterBuilderLocator);
+        Model = new CrewOptions(CharacterBuilder);
     }
 
     protected string Permalink()
@@ -63,7 +63,7 @@ partial class CrewPage
         {
             while (true)
             {
-                var character = CharacterBuilderLocator.CreateCharacter(dice, species);
+                var character = CharacterBuilder.CreateCharacter(dice, species);
                 if (!character.IsDead)
                 {
                     var skill = character.Skills.BestSkill();
@@ -73,7 +73,7 @@ partial class CrewPage
         }
         else
         {
-            var character = CharacterBuilderLocator.CreateCharacterWithSkill(dice, targetSkillName, null, targetSkillLevel, species);
+            var character = CharacterBuilder.CreateCharacterWithSkill(dice, targetSkillName, null, targetSkillLevel, species);
 
             var lastBestSkill = character.Skills.BestSkill(targetSkillName);
             return new CrewMember(crewRole, character.GetCharacterBuilderOptions(), lastBestSkill?.FullName, lastBestSkill?.Level, character.Title);

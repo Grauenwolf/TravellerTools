@@ -6,7 +6,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 
 partial class EncountersPage
 {
-    [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
+    [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
     [Inject] EncounterGenerator EncounterGenerator { get; set; } = null!;
 
     protected void BackwaterStarportGeneralEncounter()

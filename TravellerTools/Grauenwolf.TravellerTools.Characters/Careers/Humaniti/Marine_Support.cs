@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Marine_Support(CharacterBuilder characterBuilder) : Marine("Marine Support", characterBuilder)
+class Marine_Support(SpeciesCharacterBuilder speciesCharacterBuilder) : Marine("Marine Support", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

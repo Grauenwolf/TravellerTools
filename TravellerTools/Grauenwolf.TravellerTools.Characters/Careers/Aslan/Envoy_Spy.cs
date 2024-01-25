@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Envoy_Spy(CharacterBuilder characterBuilder) : Envoy("Spy", characterBuilder)
+class Envoy_Spy(SpeciesCharacterBuilder speciesCharacterBuilder) : Envoy("Spy", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

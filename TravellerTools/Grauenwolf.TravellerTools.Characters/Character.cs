@@ -1,4 +1,5 @@
 ﻿using Grauenwolf.TravellerTools.Characters.Careers;
+using System.Text;
 
 namespace Grauenwolf.TravellerTools.Characters;
 
@@ -61,16 +62,40 @@ public class Character : IContactGroup
     public int BenefitRollsPermanentDM { get; set; }
 
     public List<CareerHistory> CareerHistory { get; } = new();
+
+    public string Characteristics
+    {
+        get
+        {
+            var result = new StringBuilder();
+            result.Append($"STR {Strength} ({StrengthDM}) ");
+            result.Append($"DEX {Dexterity} ({DexterityDM}) ");
+            result.Append($"END {Endurance} ({EnduranceDM}) ");
+            result.Append($"INT {Intellect} ({IntellectDM}) ");
+            result.Append($"EDU {Education} ({EducationDM}) ");
+            result.Append($"SOC {SocialStanding} ({SocialStandingDM}) ");
+
+            if (Psi.HasValue)
+                result.Append($"PSI {Psi} ({PsiDM}) ");
+            if (Following.HasValue)
+                result.Append($"FOL {Following} ({FollowingDM}) ");
+            if (Territory.HasValue)
+                result.Append($"TER {Territory} ({TerritoryDM}) ");
+
+            return result.ToString().Trim();
+        }
+    }
+
     public List<Contact> Contacts { get; } = new();
     public int CurrentTerm { get; set; }
     public int Debt { get; set; }
     public int Dexterity { get; set; }
-    public int DexterityDM => DMCalc(Dexterity);
+    public int DexterityDM => Tables.DMCalc(Dexterity);
     public int Education { get; set; }
-    public int EducationDM => DMCalc(Education);
+    public int EducationDM => Tables.DMCalc(Education);
     public EducationHistory? EducationHistory { get; set; }
     public int Endurance { get; set; }
-    public int EnduranceDM => DMCalc(Endurance);
+    public int EnduranceDM => Tables.DMCalc(Endurance);
     public string? FirstAssignment { get; set; }
     public string? FirstCareer { get; set; }
     public int? Following { get; set; }
@@ -92,22 +117,39 @@ public class Character : IContactGroup
     }
 
     public string? Gender { get; set; }
+
     public HistoryCollection History { get; } = new();
+
     public int Intellect { get; set; }
-    public int IntellectDM => DMCalc(Intellect);
+
+    public int IntellectDM => Tables.DMCalc(Intellect);
+
     public bool IsDead { get; set; }
+
     public bool IsOutcast { get; set; }
+
     public CareerHistory? LastCareer { get; set; }
+
     public int? MaxAge { get; set; }
+
     public string? Name { get; set; }
+
     public int? Parole { get; set; }
+
     public List<string> Personality { get; } = new();
+
     public string PersonalityList => string.Join(", ", Personality);
+
     public bool PreviouslyDrafted { get; set; }
+
     public int PreviousPsiAttempts { get; set; }
+
     public int? Psi { get; set; }
-    public int PsiDM => Psi == null ? -100 : DMCalc(Psi.Value);
+
+    public int PsiDM => Psi == null ? -100 : Tables.DMCalc(Psi.Value);
+
     public string? Race { get; set; }
+
     public int RiteOfPassageDM { get; set; }
 
     /// <summary>
@@ -117,17 +159,34 @@ public class Character : IContactGroup
     public int Seed { get; set; }
 
     public SkillCollection Skills { get; } = new();
+
     public int SocialStanding { get; set; }
-    public int SocialStandingDM => DMCalc(SocialStanding);
+
+    public int SocialStandingDM => Tables.DMCalc(SocialStanding);
+
     public string? Species { get; set; }
+
     public string? SpeciesUrl { get; set; }
+
     public int Strength { get; set; }
-    public int StrengthDM => DMCalc(Strength);
+
+    public int StrengthDM => Tables.DMCalc(Strength);
+
     public int? Territory { get; set; }
-    public int TerritoryDM => DMCalc(Territory);
+
+    public int TerritoryDM => Tables.DMCalc(Territory);
+
     public string? Title { get; set; }
+
     public List<string> Trace { get; } = new();
+
     Queue<ContactType> IContactGroup.UnusedContacts => UnusedContacts;
+
+    public string Upp
+    {
+        get { return new EHex(Strength).ToString() + new EHex(Dexterity).ToString() + new EHex(Endurance).ToString() + new EHex(Intellect).ToString() + new EHex(Education).ToString() + new EHex(SocialStanding).ToString(); }
+    }
+
     public WeaponCollection Weapons { get; } = new();
     public int? Year { get; set; }
 
@@ -144,35 +203,6 @@ public class Character : IContactGroup
 
     //internal int UnusedAllies { get; private set; }
     internal Queue<ContactType> UnusedContacts { get; } = new();
-
-    public static int DMCalc(int? value)
-    {
-        if (value == null)
-            return 0;
-        return DMCalc(value.Value);
-    }
-
-    public static int DMCalc(int value)
-    {
-        return value switch
-        {
-            <= 0 => -3,
-            <= 2 => -2,
-            <= 5 => -1,
-            <= 8 => 0,
-            <= 11 => 1,
-            <= 14 => 2,
-            <= 17 => 3,
-            <= 20 => 4,
-            <= 23 => 5,
-            <= 26 => 6,
-            <= 29 => 7,
-            <= 32 => 8,
-            <= 35 => 9,
-            <= 38 => 10,
-            _ => 11,
-        };
-    }
 
     public void AddAlly(int count = 1)
     {

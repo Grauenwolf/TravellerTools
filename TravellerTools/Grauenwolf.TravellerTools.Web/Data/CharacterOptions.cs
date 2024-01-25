@@ -6,10 +6,10 @@ namespace Grauenwolf.TravellerTools.Web.Data;
 
 public class CharacterOptions : ModelBase
 {
-    public CharacterOptions(CharacterBuilderLocator characterBuilderLocator)
+    public CharacterOptions(CharacterBuilder characterBuilder)
     {
-        CharacterBuilderLocator = characterBuilderLocator;
-        SkillList = CharacterBuilderLocator.AllSkills.AddRange(CharacterBuilderLocator.AllPsionicTalents).ToList();
+        CharacterBuilder = characterBuilder;
+        SkillList = CharacterBuilder.AllSkills.AddRange(CharacterBuilder.AllPsionicTalents).ToList();
 
         AgeList = new List<int>();
         for (var terms = 0; terms <= 15; terms++)
@@ -24,13 +24,13 @@ public class CharacterOptions : ModelBase
         get
         {
             if (Species.IsNullOrEmpty())
-                return CharacterBuilderLocator.CareerNameList;
+                return CharacterBuilder.CareerNameList;
             else
-                return CharacterBuilderLocator.GetCharacterBuilder(Species).Careers(null).Select(c => c.Career).Distinct().OrderBy(s => s).ToList();
+                return CharacterBuilder.GetCharacterBuilder(Species).Careers(null).Select(c => c.Career).Distinct().OrderBy(s => s).ToList();
         }
     }
 
-    public CharacterBuilderLocator CharacterBuilderLocator { get; }
+    public CharacterBuilder CharacterBuilder { get; }
 
     /// <summary>
     /// Valid values are High, Low, and empty.
@@ -58,7 +58,7 @@ public class CharacterOptions : ModelBase
             if (FinalCareer.IsNullOrEmpty())
                 return new List<string>();
             else
-                return CharacterBuilderLocator.GetAssignmentList(Species, FinalCareer);
+                return CharacterBuilder.GetAssignmentList(Species, FinalCareer);
         }
     }
 
@@ -81,7 +81,7 @@ public class CharacterOptions : ModelBase
             if (FirstCareer.IsNullOrEmpty())
                 return new List<string>();
             else
-                return CharacterBuilderLocator.GetAssignmentList(Species, FirstCareer);
+                return CharacterBuilder.GetAssignmentList(Species, FirstCareer);
         }
     }
 
@@ -124,7 +124,7 @@ public class CharacterOptions : ModelBase
         }
     }
 
-    public IReadOnlyList<string> SpeciesList => CharacterBuilderLocator.SpeciesList;
+    public IReadOnlyList<string> SpeciesList => CharacterBuilder.SpeciesList;
 
     /// <summary>
     /// Valid values are High, Low, and empty.

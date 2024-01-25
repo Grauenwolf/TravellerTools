@@ -24,7 +24,7 @@
                 <td>@(contact.Enmity == 0 ? "0": 1*contact.Enmity)</td>
                 <td>@contact.Power</td>
                 <td>@contact.Influence</td>
-                <td><a href="@(CharacterBuilderLocator.GetSpeciesUrl(contact.CharacterStub.Species))">@contact.CharacterStub.Species</a> (@contact.CharacterStub.Gender/@contact.CharacterStub.MaxAge)</td>
+                <td><a href="@(CharacterBuilder.GetSpeciesUrl(contact.CharacterStub.Species))">@contact.CharacterStub.Species</a> (@contact.CharacterStub.Gender/@contact.CharacterStub.MaxAge)</td>
             </tr>
             @foreach (var line in contact.History)
             {

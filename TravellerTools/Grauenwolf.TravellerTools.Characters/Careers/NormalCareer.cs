@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-abstract class NormalCareer(string name, string assignment, CharacterBuilder characterBuilder) : FullCareer(name, assignment, characterBuilder)
+abstract class NormalCareer(string name, string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : FullCareer(name, assignment, speciesCharacterBuilder)
 {
     internal override bool RankCarryover { get; } = false;
 

@@ -6,16 +6,16 @@ abstract class Agent : NormalCareer
 {
     readonly ImmutableArray<NormalCareer> m_Careers;
 
-    public Agent(string assignment, CharacterBuilder characterBuilder) : base("Agent", assignment, characterBuilder)
+    public Agent(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : base("Agent", assignment, speciesCharacterBuilder)
     {
         var careers = new List<NormalCareer>
         {
-            new Citizen_Corporate(characterBuilder),
-            new Citizen_Worker(characterBuilder),
-            new Citizen_Colonist(characterBuilder),
-            new Rogue_Thief(characterBuilder),
-            new Rogue_Enforcer(characterBuilder),
-            new Rogue_Pirate(characterBuilder)
+            new Citizen_Corporate(speciesCharacterBuilder),
+            new Citizen_Worker(speciesCharacterBuilder),
+            new Citizen_Colonist(speciesCharacterBuilder),
+            new Rogue_Thief(speciesCharacterBuilder),
+            new Rogue_Enforcer(speciesCharacterBuilder),
+            new Rogue_Pirate(speciesCharacterBuilder)
         };
         m_Careers = careers.ToImmutableArray();
     }

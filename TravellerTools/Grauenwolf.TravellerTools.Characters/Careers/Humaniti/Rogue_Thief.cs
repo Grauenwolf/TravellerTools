@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Rogue_Thief(CharacterBuilder characterBuilder) : Rogue("Thief", characterBuilder)
+class Rogue_Thief(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("Thief", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Dex";
 

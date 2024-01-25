@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Drifter_Wanderer(CharacterBuilder characterBuilder) : Drifter("Wanderer", characterBuilder)
+class Drifter_Wanderer(SpeciesCharacterBuilder speciesCharacterBuilder) : Drifter("Wanderer", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Str";
 

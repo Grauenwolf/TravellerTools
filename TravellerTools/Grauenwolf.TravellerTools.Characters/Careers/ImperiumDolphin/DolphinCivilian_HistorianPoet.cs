@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 
-class DolphinCivilian_HistorianPoet(CharacterBuilder characterBuilder) : DolphinCivilian("Historian Poet", characterBuilder)
+class DolphinCivilian_HistorianPoet(SpeciesCharacterBuilder speciesCharacterBuilder) : DolphinCivilian("Historian Poet", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-abstract class Citizen(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Citizen", assignment, characterBuilder)
+abstract class Citizen(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Citizen", assignment, speciesCharacterBuilder)
 {
     protected override int AdvancedEductionMin => 10;
 

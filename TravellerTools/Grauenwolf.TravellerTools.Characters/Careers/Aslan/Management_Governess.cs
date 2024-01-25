@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Management_Governess(CharacterBuilder characterBuilder) : Management("Governess", characterBuilder) {
+class Management_Governess(SpeciesCharacterBuilder speciesCharacterBuilder) : Management("Governess", speciesCharacterBuilder) {
 
 
 

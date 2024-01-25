@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Believer_HolyWarrior(CharacterBuilder characterBuilder) : Believer("Holy Warrior", characterBuilder)
+class Believer_HolyWarrior(SpeciesCharacterBuilder speciesCharacterBuilder) : Believer("Holy Warrior", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

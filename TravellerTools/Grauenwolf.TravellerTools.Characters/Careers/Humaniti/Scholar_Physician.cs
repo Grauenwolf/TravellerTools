@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Scholar_Physician(CharacterBuilder characterBuilder) : Scholar("Physician", characterBuilder)
+class Scholar_Physician(SpeciesCharacterBuilder speciesCharacterBuilder) : Scholar("Physician", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

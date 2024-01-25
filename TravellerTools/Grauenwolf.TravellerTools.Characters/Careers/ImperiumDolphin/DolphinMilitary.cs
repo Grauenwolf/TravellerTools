@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 
-abstract class DolphinMilitary(string assignment, CharacterBuilder characterBuilder) : MilitaryCareer("Dolphin Military", assignment, characterBuilder)
+abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : MilitaryCareer("Dolphin Military", assignment, speciesCharacterBuilder)
 {
     protected override int AdvancedEductionMin => 8;
 

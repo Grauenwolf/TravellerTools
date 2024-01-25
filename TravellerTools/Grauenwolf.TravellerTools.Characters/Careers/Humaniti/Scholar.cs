@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-abstract class Scholar(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Scholar", assignment, characterBuilder)
+abstract class Scholar(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Scholar", assignment, speciesCharacterBuilder)
 {
     internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 10;

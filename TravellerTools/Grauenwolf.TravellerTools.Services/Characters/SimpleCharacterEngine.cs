@@ -11,7 +11,7 @@ public static class SimpleCharacterEngine
         person.Endurance = random.D(2, 6);
         person.Intellect = random.D(2, 6);
         person.Education = random.D(2, 6);
-        person.Social = random.D(2, 6);
+        person.SocialStanding = random.D(2, 6);
 
         var termsServed = (int)Math.Floor((person.ApparentAge - 18) / 4.0);
         for (var i = 0; i < termsServed; i++)
@@ -21,7 +21,7 @@ public static class SimpleCharacterEngine
             person.Endurance += Bump();
             person.Intellect += Bump();
             person.Education += Bump();
-            person.Social += Bump();
+            person.SocialStanding += Bump();
 
             if (i >= 4)
                 ApplyAgePenalty(person, random, i);
@@ -132,7 +132,7 @@ public static class SimpleCharacterEngine
         if (person.Endurance.Value > 15) { person.Endurance = 15; }
         if (person.Intellect.Value > 15) { person.Intellect = 15; }
         if (person.Education.Value > 15) { person.Education = 15; }
-        if (person.Social.Value > 15) { person.Social = 15; }
+        if (person.SocialStanding.Value > 15) { person.SocialStanding = 15; }
     }
 
     static void AlterRandomMental(Person person, Dice random, int amount)
@@ -141,7 +141,7 @@ public static class SimpleCharacterEngine
         {
             case 1: person.Intellect += amount; return;
             case 2: person.Education += amount; return;
-            case 3: person.Social += amount; return;
+            case 3: person.SocialStanding += amount; return;
         }
     }
 

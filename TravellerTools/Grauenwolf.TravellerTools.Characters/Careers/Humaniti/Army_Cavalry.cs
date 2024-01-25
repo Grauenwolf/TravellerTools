@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Army_Cavalry(CharacterBuilder characterBuilder) : Army("Cavalry", characterBuilder)
+class Army_Cavalry(SpeciesCharacterBuilder speciesCharacterBuilder) : Army("Cavalry", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

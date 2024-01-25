@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 
-class DolphinMilitary_Guardian(CharacterBuilder characterBuilder) : DolphinMilitary("Guardian", characterBuilder)
+class DolphinMilitary_Guardian(SpeciesCharacterBuilder speciesCharacterBuilder) : DolphinMilitary("Guardian", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Str";
 

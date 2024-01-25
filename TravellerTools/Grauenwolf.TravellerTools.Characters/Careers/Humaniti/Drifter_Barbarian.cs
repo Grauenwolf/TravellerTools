@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Drifter_Barbarian(CharacterBuilder characterBuilder) : Drifter("Barbarian", characterBuilder)
+class Drifter_Barbarian(SpeciesCharacterBuilder speciesCharacterBuilder) : Drifter("Barbarian", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Str";
 

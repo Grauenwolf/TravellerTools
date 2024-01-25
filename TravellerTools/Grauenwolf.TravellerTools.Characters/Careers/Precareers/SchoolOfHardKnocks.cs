@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
-class SchoolOfHardKnocks(CharacterBuilder characterBuilder) : CareerBase("School of Hard Knocks", null, characterBuilder)
+class SchoolOfHardKnocks(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("School of Hard Knocks", null, speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {

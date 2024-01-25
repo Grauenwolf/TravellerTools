@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-abstract class MilitaryCareer(string name, string assignment, CharacterBuilder characterBuilder) : FullCareer(name, assignment, characterBuilder)
+abstract class MilitaryCareer(string name, string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : FullCareer(name, assignment, speciesCharacterBuilder)
 {
     internal override bool RankCarryover { get; } = true;
     protected virtual int CommssionTargetNumber => 8;
@@ -116,5 +116,5 @@ abstract class MilitaryCareer(string name, string assignment, CharacterBuilder c
     /// <summary>
     /// This is the DM used for the actual commission roll.
     /// </summary>
-    int CommissionAttributeDM(Character character) => Character.DMCalc(CommissionAttribute(character));
+    int CommissionAttributeDM(Character character) => Tables.DMCalc(CommissionAttribute(character));
 }

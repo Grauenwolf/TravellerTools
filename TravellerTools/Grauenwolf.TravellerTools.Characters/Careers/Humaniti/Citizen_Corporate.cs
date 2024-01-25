@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Citizen_Corporate(CharacterBuilder characterBuilder) : Citizen("Corporate", characterBuilder)
+class Citizen_Corporate(SpeciesCharacterBuilder speciesCharacterBuilder) : Citizen("Corporate", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

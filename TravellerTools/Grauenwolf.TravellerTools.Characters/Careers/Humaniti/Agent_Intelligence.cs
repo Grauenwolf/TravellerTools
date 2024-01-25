@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Agent_Intelligence(CharacterBuilder characterBuilder) : Agent("Intelligence", characterBuilder)
+class Agent_Intelligence(SpeciesCharacterBuilder speciesCharacterBuilder) : Agent("Intelligence", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

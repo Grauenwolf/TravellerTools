@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Psion_WildTalent(CharacterBuilder characterBuilder) : Psion("Wild Talent", characterBuilder)
+class Psion_WildTalent(SpeciesCharacterBuilder speciesCharacterBuilder) : Psion("Wild Talent", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

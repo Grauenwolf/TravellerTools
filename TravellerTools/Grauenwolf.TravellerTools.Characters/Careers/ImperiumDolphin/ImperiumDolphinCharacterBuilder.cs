@@ -3,11 +3,12 @@ using System.Collections.Immutable;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 
-public class ImperiumDolphinCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator) : CharacterBuilder(dataPath, nameGenerator, characterBuilderLocator)
+public class ImperiumDolphinCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder) : SpeciesCharacterBuilder(dataPath, nameGenerator, characterBuilder)
 {
     public override ImmutableArray<Gender> Genders { get; } = ImmutableArray.Create<Gender>(new("F", "Female", 1), new("M", "Male", 1));
     public override string Species => "Imperium Dolphin";
     public override string SpeciesUrl => "https://wiki.travellerrpg.com/Dolphin";
+    public override int StartingAge => 12;
     protected override int AgingRollMinAge => 20;
     protected override bool AllowPsionics => true;
 
@@ -92,7 +93,7 @@ public class ImperiumDolphinCharacterBuilder(string dataPath, NameGenerator name
     {
         base.InitialCharacterStats(dice, character);
 
-        character.Age = 12 + dice.D(3) - dice.D(3);
+        character.Age = StartingAge;
         character.Strength += 4;
         character.Endurance += 2;
         character.SocialStanding -= 4;

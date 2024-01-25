@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Ceremonial_ClanAgent(CharacterBuilder characterBuilder) : Ceremonial("Clan Agent", characterBuilder)
+class Ceremonial_ClanAgent(SpeciesCharacterBuilder speciesCharacterBuilder) : Ceremonial("Clan Agent", speciesCharacterBuilder)
 
 {
     protected override string AdvancementAttribute => "Int";

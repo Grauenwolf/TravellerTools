@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Navy_Flight(CharacterBuilder characterBuilder) : Navy("Flight", characterBuilder)
+class Navy_Flight(SpeciesCharacterBuilder speciesCharacterBuilder) : Navy("Flight", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

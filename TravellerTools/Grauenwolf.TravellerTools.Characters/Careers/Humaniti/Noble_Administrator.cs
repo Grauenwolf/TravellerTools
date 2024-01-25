@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Noble_Administrator(CharacterBuilder characterBuilder) : Noble("Administrator", characterBuilder)
+class Noble_Administrator(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble("Administrator", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

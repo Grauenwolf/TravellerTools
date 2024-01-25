@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Envoy_Negotiator(CharacterBuilder characterBuilder) : Envoy("Negotiator", characterBuilder)
+class Envoy_Negotiator(SpeciesCharacterBuilder speciesCharacterBuilder) : Envoy("Negotiator", speciesCharacterBuilder)
 {
 
     protected override string AdvancementAttribute => "Int";

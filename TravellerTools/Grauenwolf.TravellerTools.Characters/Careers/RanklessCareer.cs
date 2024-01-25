@@ -3,7 +3,7 @@
 /// <summary>
 /// This type of career doesn't have ranks.
 /// </summary>
-abstract class RanklessCareer(string name, string? assignment, CharacterBuilder characterBuilder) : FullCareer(name, assignment, characterBuilder)
+abstract class RanklessCareer(string name, string? assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : FullCareer(name, assignment, speciesCharacterBuilder)
 {
     protected sealed override string AdvancementAttribute => throw new NotImplementedException();
     protected sealed override int AdvancementTarget => throw new NotImplementedException();

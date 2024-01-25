@@ -6,5 +6,5 @@ namespace Grauenwolf.TravellerTools.Web.Controls;
 partial class ContactListViewer
 {
     [Parameter] public List<Contact>? Contacts { get; set; }
-    [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
+    [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
 }

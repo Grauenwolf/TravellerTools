@@ -1,61 +1,61 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.AelYael;
 
-class Army_Cavalry(CharacterBuilder characterBuilder) : Humaniti.Army_Cavalry(characterBuilder)
+class Army_Cavalry(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Army_Cavalry(speciesCharacterBuilder)
 {
     protected override int QualifyDM => -1;
 }
 
-class Army_Infantry(CharacterBuilder characterBuilder) : Humaniti.Army_Infantry(characterBuilder)
+class Army_Infantry(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Army_Infantry(speciesCharacterBuilder)
 {
     protected override int QualifyDM => -1;
 }
 
-class Army_Support(CharacterBuilder characterBuilder) : Humaniti.Army_Support(characterBuilder)
+class Army_Support(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Army_Support(speciesCharacterBuilder)
 {
     protected override int QualifyDM => -1;
 }
 
-class Marine_GroundAssault(CharacterBuilder characterBuilder) : Humaniti.Marine_GroundAssault(characterBuilder)
+class Marine_GroundAssault(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Marine_GroundAssault(speciesCharacterBuilder)
 {
     protected override int QualifyDM => -1;
 }
 
-class Marine_StarMarine(CharacterBuilder characterBuilder) : Humaniti.Marine_StarMarine(characterBuilder)
+class Marine_StarMarine(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Marine_StarMarine(speciesCharacterBuilder)
 {
     protected override int QualifyDM => -1;
 }
 
-class Marine_Support(CharacterBuilder characterBuilder) : Humaniti.Marine_Support(characterBuilder)
+class Marine_Support(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Marine_Support(speciesCharacterBuilder)
 {
     protected override int QualifyDM => -1;
 }
 
-class Navy_EngineerGunner(CharacterBuilder characterBuilder) : Humaniti.Navy_EngineerGunner(characterBuilder)
+class Navy_EngineerGunner(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Navy_EngineerGunner(speciesCharacterBuilder)
 {
     protected override int QualifyDM => -1;
 }
 
-class Navy_Flight(CharacterBuilder characterBuilder) : Humaniti.Navy_Flight(characterBuilder)
+class Navy_Flight(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Navy_Flight(speciesCharacterBuilder)
 {
     protected override int QualifyDM => -1;
 }
 
-class Navy_LineCrew(CharacterBuilder characterBuilder) : Humaniti.Navy_LineCrew(characterBuilder)
+class Navy_LineCrew(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Navy_LineCrew(speciesCharacterBuilder)
 {
     protected override int QualifyDM => -1;
 }
 
-class Scout_Courier(CharacterBuilder characterBuilder) : Humaniti.Scout_Courier(characterBuilder)
+class Scout_Courier(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Scout_Courier(speciesCharacterBuilder)
 {
     protected override int QualifyDM => 2;
 }
 
-class Scout_Explorer(CharacterBuilder characterBuilder) : Humaniti.Scout_Explorer(characterBuilder)
+class Scout_Explorer(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Scout_Explorer(speciesCharacterBuilder)
 {
     protected override int QualifyDM => 2;
 }
 
-class Scout_Surveyor(CharacterBuilder characterBuilder) : Humaniti.Scout_Surveyor(characterBuilder)
+class Scout_Surveyor(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Scout_Surveyor(speciesCharacterBuilder)
 {
     protected override int QualifyDM => 2;
 }

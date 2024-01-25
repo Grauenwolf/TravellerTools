@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
-class MerchantAcademy(CharacterBuilder characterBuilder) : CareerBase("Merchant Academy", null, characterBuilder)
+class MerchantAcademy(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Merchant Academy", null, speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {

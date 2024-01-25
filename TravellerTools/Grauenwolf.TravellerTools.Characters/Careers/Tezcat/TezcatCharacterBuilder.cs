@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
 
-public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator) : CharacterBuilder(dataPath, nameGenerator, characterBuilderLocator)
+public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder) : SpeciesCharacterBuilder(dataPath, nameGenerator, characterBuilder)
 {
     static readonly ImmutableList<string> s_MandatoryBackgroundSkills = ImmutableList.Create("Gun Combat", "Melee", "Stealth");
     static readonly ImmutableList<string> s_OptionalBackgroundSkills = ImmutableList.Create("Admin", "Animals", "Art", "Athletics", "Carouse", "Drive", "Science", "Seafarer", "Streetwise", "Survival", "Vacc Suit", "Electronics", "Flyer", "Language", "Mechanic", "Medic", "Profession");
@@ -30,10 +30,7 @@ public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator
         }
     }
 
-    protected override int AgingRollDM(Character character)
-    {
-        return -1 * character.CurrentTerm - 1;
-    }
+    protected override int AgingRollDM(int currentTerm) => -1 * currentTerm - 1;
 
     protected override CareerLists CreateCareerList()
     {

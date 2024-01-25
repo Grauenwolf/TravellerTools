@@ -6,5 +6,5 @@ namespace Grauenwolf.TravellerTools.Web.Controls;
 partial class CrewListViewer
 {
     [Parameter] public List<CrewMember>? Crew { get; set; }
-    [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
+    [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
 }

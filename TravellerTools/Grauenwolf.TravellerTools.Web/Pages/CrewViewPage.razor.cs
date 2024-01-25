@@ -10,7 +10,7 @@ partial class CrewViewPage
 {
     public int? Seed { get => Get<int?>(); set => Set(value); }
     protected CrewModel? CrewModel { get; set; }
-    [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
+    [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
     [Inject] NameGenerator NameGenerator { get; set; } = null!;
 
     protected void GenerateCrew(int seed)
@@ -45,7 +45,7 @@ partial class CrewViewPage
         if (Navigation.TryGetQueryString("seed", out int seed))
             Seed = seed;
 
-        Model = new CrewOptions(CharacterBuilderLocator);
+        Model = new CrewOptions(CharacterBuilder);
         Model.FromQueryString(Navigation.ParsedQueryString());
 
         if (Seed != null)
@@ -72,7 +72,7 @@ partial class CrewViewPage
         var temp = NameGenerator.CreateRandomPerson(dice);
         options.Name = temp.FullName;
         options.Gender = temp.Gender;
-        options.Species = species ?? CharacterBuilderLocator.GetRandomSpecies(dice);
+        options.Species = species ?? CharacterBuilder.GetRandomSpecies(dice);
         options.MaxAge = 22 + dice.D(1, 60);
 
         if (targetSkillName == null)
@@ -80,7 +80,7 @@ partial class CrewViewPage
             while (true)
             {
                 options.Seed = dice.Next();
-                var character = CharacterBuilderLocator.Build(options);
+                var character = CharacterBuilder.Build(options);
                 if (!character.IsDead)
                 {
                     var skill = character.Skills.BestSkill();
@@ -96,7 +96,7 @@ partial class CrewViewPage
             for (var i = 0; i < 500; i++)
             {
                 options.Seed = dice.Next();
-                var character = CharacterBuilderLocator.Build(options);
+                var character = CharacterBuilder.Build(options);
                 if (!character.IsDead)
                 {
                     int currentSkill = character.Skills.EffectiveSkillLevel(targetSkillName);

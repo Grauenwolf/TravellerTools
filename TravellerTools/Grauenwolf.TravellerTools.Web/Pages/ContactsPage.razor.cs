@@ -10,7 +10,7 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 partial class ContactsPage
 {
     protected ContactsModel? ContactsModel { get; set; }
-    [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
+    [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
     [Inject] NameGenerator NameGenerator { get; set; } = null!;
 
     protected void GenerateContacts()
@@ -34,7 +34,7 @@ partial class ContactsPage
             if (!Model.Species.IsNullOrEmpty())
                 odds.Add(Model.Species, 100); //TODO - Add the option for 50% of the contacts to be of the selected race
 
-            CharacterBuilderLocator.BuildContacts(dice, character, odds);
+            CharacterBuilder.BuildContacts(dice, character, odds);
             result.Contacts = character.Contacts;
             result.Seed = seed;
 
@@ -48,7 +48,7 @@ partial class ContactsPage
 
     protected override void Initialized()
     {
-        Model = new ContactOptions(CharacterBuilderLocator);
+        Model = new ContactOptions(CharacterBuilder);
     }
 
     protected string Permalink()

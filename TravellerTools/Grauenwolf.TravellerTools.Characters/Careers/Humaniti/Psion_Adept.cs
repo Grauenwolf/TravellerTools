@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Psion_Adept(CharacterBuilder characterBuilder) : Psion("Adept", characterBuilder)
+class Psion_Adept(SpeciesCharacterBuilder speciesCharacterBuilder) : Psion("Adept", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

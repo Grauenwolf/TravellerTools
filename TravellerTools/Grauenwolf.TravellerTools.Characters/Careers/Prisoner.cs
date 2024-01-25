@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-abstract class Prisoner(string assignment, CharacterBuilder characterBuilder) : FullCareer("Prisoner", assignment, characterBuilder)
+abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : FullCareer("Prisoner", assignment, speciesCharacterBuilder)
 {
     internal override bool RankCarryover { get; } = true;
     protected override int AdvancedEductionMin { get; } = int.MaxValue;

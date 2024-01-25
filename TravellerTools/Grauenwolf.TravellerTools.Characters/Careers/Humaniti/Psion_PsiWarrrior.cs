@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Psion_PsiWarrrior(CharacterBuilder characterBuilder) : Psion("Psi-Warrrior", characterBuilder)
+class Psion_PsiWarrrior(SpeciesCharacterBuilder speciesCharacterBuilder) : Psion("Psi-Warrrior", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "End";
 

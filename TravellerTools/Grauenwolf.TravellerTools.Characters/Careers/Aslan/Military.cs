@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-abstract class Military(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Military", assignment, characterBuilder)
+abstract class Military(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Military", assignment, speciesCharacterBuilder)
 {
     protected override int AdvancedEductionMin => 8;
 

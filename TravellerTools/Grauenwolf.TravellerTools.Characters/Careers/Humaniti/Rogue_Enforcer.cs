@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Rogue_Enforcer(CharacterBuilder characterBuilder) : Rogue("Enforcer", characterBuilder)
+class Rogue_Enforcer(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("Enforcer", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Str";
 

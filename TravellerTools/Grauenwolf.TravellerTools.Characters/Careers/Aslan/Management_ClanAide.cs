@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Management_ClanAide(CharacterBuilder characterBuilder) : Management("Clan Aide", characterBuilder)
+class Management_ClanAide(SpeciesCharacterBuilder speciesCharacterBuilder) : Management("Clan Aide", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Soc";
 

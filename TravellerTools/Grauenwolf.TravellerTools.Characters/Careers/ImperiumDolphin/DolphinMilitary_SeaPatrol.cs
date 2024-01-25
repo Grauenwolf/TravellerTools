@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 
-class DolphinMilitary_SeaPatrol(CharacterBuilder characterBuilder) : DolphinMilitary("Sea Patrol", characterBuilder)
+class DolphinMilitary_SeaPatrol(SpeciesCharacterBuilder speciesCharacterBuilder) : DolphinMilitary("Sea Patrol", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

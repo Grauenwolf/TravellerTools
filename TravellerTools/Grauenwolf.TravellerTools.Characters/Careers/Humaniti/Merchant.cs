@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-abstract class Merchant(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Merchant", assignment, characterBuilder)
+abstract class Merchant(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Merchant", assignment, speciesCharacterBuilder)
 {
     protected override int AdvancedEductionMin => 8;
 

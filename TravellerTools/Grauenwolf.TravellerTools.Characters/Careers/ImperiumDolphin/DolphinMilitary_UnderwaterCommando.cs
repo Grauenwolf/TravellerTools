@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 
-class DolphinMilitary_UnderwaterCommando(CharacterBuilder characterBuilder) : DolphinMilitary("Underwater Commando", characterBuilder)
+class DolphinMilitary_UnderwaterCommando(SpeciesCharacterBuilder speciesCharacterBuilder) : DolphinMilitary("Underwater Commando", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

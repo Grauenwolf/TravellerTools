@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-class Prisoner_Inmate(CharacterBuilder characterBuilder) : Prisoner("Inmate", characterBuilder)
+class Prisoner_Inmate(SpeciesCharacterBuilder speciesCharacterBuilder) : Prisoner("Inmate", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Str";
 

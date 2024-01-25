@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-abstract class Noble(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Noble", assignment, characterBuilder)
+abstract class Noble(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Noble", assignment, speciesCharacterBuilder)
 {
     protected override int AdvancedEductionMin => 8;
 

@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Believer_Missionary(CharacterBuilder characterBuilder) : Believer("Missionary/Humanitarian", characterBuilder)
+class Believer_Missionary(SpeciesCharacterBuilder speciesCharacterBuilder) : Believer("Missionary/Humanitarian", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Soc";
 

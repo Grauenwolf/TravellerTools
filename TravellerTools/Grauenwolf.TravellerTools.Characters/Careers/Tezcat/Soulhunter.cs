@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
 
-abstract class Soulhunter(string assignment, CharacterBuilder characterBuilder) : MilitaryCareer("Soulhunter", assignment, characterBuilder)
+abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : MilitaryCareer("Soulhunter", assignment, speciesCharacterBuilder)
 {
     protected override int AdvancedEductionMin => 8;
 

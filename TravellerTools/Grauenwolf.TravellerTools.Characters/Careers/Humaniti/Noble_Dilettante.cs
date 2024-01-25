@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Noble_Dilettante(CharacterBuilder characterBuilder) : Noble("Dilettante", characterBuilder)
+class Noble_Dilettante(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble("Dilettante", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

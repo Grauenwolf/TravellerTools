@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Citizen_Colonist(CharacterBuilder characterBuilder) : Citizen("Colonist", characterBuilder)
+class Citizen_Colonist(SpeciesCharacterBuilder speciesCharacterBuilder) : Citizen("Colonist", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "End";
 

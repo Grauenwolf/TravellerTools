@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-abstract class Psion(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Psion", assignment, characterBuilder)
+abstract class Psion(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Psion", assignment, speciesCharacterBuilder)
 {
     protected override int AdvancedEductionMin => 8;
 

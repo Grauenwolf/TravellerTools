@@ -7,11 +7,11 @@ namespace Grauenwolf.TravellerTools.Web.Data;
 
 public class CrewOptions : ModelBase
 {
-    private CharacterBuilderLocator m_CharacterBuilderLocator;
+    private CharacterBuilder m_CharacterBuilderLocator;
 
-    public CrewOptions(CharacterBuilderLocator characterBuilderLocator)
+    public CrewOptions(CharacterBuilder characterBuilder)
     {
-        m_CharacterBuilderLocator = characterBuilderLocator;
+        m_CharacterBuilderLocator = characterBuilder;
     }
 
     public int Astrogators

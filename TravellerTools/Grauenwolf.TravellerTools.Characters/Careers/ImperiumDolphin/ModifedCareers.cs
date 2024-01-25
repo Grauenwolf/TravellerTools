@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 
-class Agent_CorporateAgent(CharacterBuilder characterBuilder) : Humaniti.Agent_CorporateAgent(characterBuilder)
+class Agent_CorporateAgent(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Agent_CorporateAgent(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -10,7 +10,7 @@ class Agent_CorporateAgent(CharacterBuilder characterBuilder) : Humaniti.Agent_C
     }
 }
 
-class Agent_Intelligence(CharacterBuilder characterBuilder) : Humaniti.Agent_Intelligence(characterBuilder)
+class Agent_Intelligence(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Agent_Intelligence(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -20,7 +20,7 @@ class Agent_Intelligence(CharacterBuilder characterBuilder) : Humaniti.Agent_Int
     }
 }
 
-class Agent_LawEnforcement(CharacterBuilder characterBuilder) : Humaniti.Agent_LawEnforcement(characterBuilder)
+class Agent_LawEnforcement(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Agent_LawEnforcement(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -30,7 +30,7 @@ class Agent_LawEnforcement(CharacterBuilder characterBuilder) : Humaniti.Agent_L
     }
 }
 
-class Army_Cavalry(CharacterBuilder characterBuilder) : Humaniti.Army_Cavalry(characterBuilder)
+class Army_Cavalry(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Army_Cavalry(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -40,7 +40,7 @@ class Army_Cavalry(CharacterBuilder characterBuilder) : Humaniti.Army_Cavalry(ch
     }
 }
 
-class Army_Infantry(CharacterBuilder characterBuilder) : Humaniti.Army_Infantry(characterBuilder)
+class Army_Infantry(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Army_Infantry(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -50,7 +50,7 @@ class Army_Infantry(CharacterBuilder characterBuilder) : Humaniti.Army_Infantry(
     }
 }
 
-class Army_Support(CharacterBuilder characterBuilder) : Humaniti.Army_Support(characterBuilder)
+class Army_Support(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Army_Support(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -60,7 +60,7 @@ class Army_Support(CharacterBuilder characterBuilder) : Humaniti.Army_Support(ch
     }
 }
 
-class Believer_HolyWarrior(CharacterBuilder characterBuilder) : Humaniti.Believer_HolyWarrior(characterBuilder)
+class Believer_HolyWarrior(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Believer_HolyWarrior(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -70,7 +70,7 @@ class Believer_HolyWarrior(CharacterBuilder characterBuilder) : Humaniti.Believe
     }
 }
 
-class Believer_MainstreamBeliever(CharacterBuilder characterBuilder) : Humaniti.Believer_MainstreamBeliever(characterBuilder)
+class Believer_MainstreamBeliever(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Believer_MainstreamBeliever(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -80,7 +80,7 @@ class Believer_MainstreamBeliever(CharacterBuilder characterBuilder) : Humaniti.
     }
 }
 
-class Believer_Missionary(CharacterBuilder characterBuilder) : Humaniti.Believer_Missionary(characterBuilder)
+class Believer_Missionary(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Believer_Missionary(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -90,7 +90,7 @@ class Believer_Missionary(CharacterBuilder characterBuilder) : Humaniti.Believer
     }
 }
 
-class Citizen_Colonist(CharacterBuilder characterBuilder) : Humaniti.Citizen_Colonist(characterBuilder)
+class Citizen_Colonist(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Citizen_Colonist(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -100,7 +100,7 @@ class Citizen_Colonist(CharacterBuilder characterBuilder) : Humaniti.Citizen_Col
     }
 }
 
-class Citizen_Corporate(CharacterBuilder characterBuilder) : Humaniti.Citizen_Corporate(characterBuilder)
+class Citizen_Corporate(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Citizen_Corporate(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -110,7 +110,7 @@ class Citizen_Corporate(CharacterBuilder characterBuilder) : Humaniti.Citizen_Co
     }
 }
 
-class Citizen_Worker(CharacterBuilder characterBuilder) : Humaniti.Citizen_Worker(characterBuilder)
+class Citizen_Worker(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Citizen_Worker(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -120,7 +120,7 @@ class Citizen_Worker(CharacterBuilder characterBuilder) : Humaniti.Citizen_Worke
     }
 }
 
-class Entertainer_Artist(CharacterBuilder characterBuilder) : Humaniti.Entertainer_Artist(characterBuilder)
+class Entertainer_Artist(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Entertainer_Artist(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -130,7 +130,7 @@ class Entertainer_Artist(CharacterBuilder characterBuilder) : Humaniti.Entertain
     }
 }
 
-class Entertainer_Journalist(CharacterBuilder characterBuilder) : Humaniti.Entertainer_Journalist(characterBuilder)
+class Entertainer_Journalist(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Entertainer_Journalist(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -140,7 +140,7 @@ class Entertainer_Journalist(CharacterBuilder characterBuilder) : Humaniti.Enter
     }
 }
 
-class Entertainer_Performer(CharacterBuilder characterBuilder) : Humaniti.Entertainer_Performer(characterBuilder)
+class Entertainer_Performer(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Entertainer_Performer(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -150,7 +150,7 @@ class Entertainer_Performer(CharacterBuilder characterBuilder) : Humaniti.Entert
     }
 }
 
-class Marine_GroundAssault(CharacterBuilder characterBuilder) : Humaniti.Marine_GroundAssault(characterBuilder)
+class Marine_GroundAssault(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Marine_GroundAssault(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -160,7 +160,7 @@ class Marine_GroundAssault(CharacterBuilder characterBuilder) : Humaniti.Marine_
     }
 }
 
-class Marine_StarMarine(CharacterBuilder characterBuilder) : Humaniti.Marine_StarMarine(characterBuilder)
+class Marine_StarMarine(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Marine_StarMarine(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -170,7 +170,7 @@ class Marine_StarMarine(CharacterBuilder characterBuilder) : Humaniti.Marine_Sta
     }
 }
 
-class Marine_Support(CharacterBuilder characterBuilder) : Humaniti.Marine_Support(characterBuilder)
+class Marine_Support(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Marine_Support(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -180,7 +180,7 @@ class Marine_Support(CharacterBuilder characterBuilder) : Humaniti.Marine_Suppor
     }
 }
 
-class Navy_EngineerGunner(CharacterBuilder characterBuilder) : Humaniti.Navy_EngineerGunner(characterBuilder)
+class Navy_EngineerGunner(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Navy_EngineerGunner(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -190,7 +190,7 @@ class Navy_EngineerGunner(CharacterBuilder characterBuilder) : Humaniti.Navy_Eng
     }
 }
 
-class Navy_Flight(CharacterBuilder characterBuilder) : Humaniti.Navy_Flight(characterBuilder)
+class Navy_Flight(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Navy_Flight(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -200,7 +200,7 @@ class Navy_Flight(CharacterBuilder characterBuilder) : Humaniti.Navy_Flight(char
     }
 }
 
-class Navy_LineCrew(CharacterBuilder characterBuilder) : Humaniti.Navy_LineCrew(characterBuilder)
+class Navy_LineCrew(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Navy_LineCrew(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -210,7 +210,7 @@ class Navy_LineCrew(CharacterBuilder characterBuilder) : Humaniti.Navy_LineCrew(
     }
 }
 
-class Rogue_Enforcer(CharacterBuilder characterBuilder) : Humaniti.Rogue_Enforcer(characterBuilder)
+class Rogue_Enforcer(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Rogue_Enforcer(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -220,7 +220,7 @@ class Rogue_Enforcer(CharacterBuilder characterBuilder) : Humaniti.Rogue_Enforce
     }
 }
 
-class Rogue_Pirate(CharacterBuilder characterBuilder) : Humaniti.Rogue_Pirate(characterBuilder)
+class Rogue_Pirate(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Rogue_Pirate(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -230,7 +230,7 @@ class Rogue_Pirate(CharacterBuilder characterBuilder) : Humaniti.Rogue_Pirate(ch
     }
 }
 
-class Rogue_Thief(CharacterBuilder characterBuilder) : Humaniti.Rogue_Thief(characterBuilder)
+class Rogue_Thief(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Rogue_Thief(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {
@@ -240,19 +240,7 @@ class Rogue_Thief(CharacterBuilder characterBuilder) : Humaniti.Rogue_Thief(char
     }
 }
 
-class Scholar_FieldResearcher(CharacterBuilder characterBuilder) : Humaniti.Scholar_FieldResearcher(characterBuilder)
-{
-    protected override int QualifyDM => 1;
-
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.Skills.Contains("Vacc Suit"))
-            return false;
-        return base.Qualify(character, dice, isPrecheck);
-    }
-}
-
-class Scholar_Physician(CharacterBuilder characterBuilder) : Humaniti.Scholar_Physician(characterBuilder)
+class Scholar_FieldResearcher(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Scholar_FieldResearcher(speciesCharacterBuilder)
 {
     protected override int QualifyDM => 1;
 
@@ -264,7 +252,7 @@ class Scholar_Physician(CharacterBuilder characterBuilder) : Humaniti.Scholar_Ph
     }
 }
 
-class Scholar_Scientist(CharacterBuilder characterBuilder) : Humaniti.Scholar_Scientist(characterBuilder)
+class Scholar_Physician(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Scholar_Physician(speciesCharacterBuilder)
 {
     protected override int QualifyDM => 1;
 
@@ -276,7 +264,7 @@ class Scholar_Scientist(CharacterBuilder characterBuilder) : Humaniti.Scholar_Sc
     }
 }
 
-class Scout_Courier(CharacterBuilder characterBuilder) : Humaniti.Scout_Courier(characterBuilder)
+class Scholar_Scientist(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Scholar_Scientist(speciesCharacterBuilder)
 {
     protected override int QualifyDM => 1;
 
@@ -288,7 +276,7 @@ class Scout_Courier(CharacterBuilder characterBuilder) : Humaniti.Scout_Courier(
     }
 }
 
-class Scout_Explorer(CharacterBuilder characterBuilder) : Humaniti.Scout_Explorer(characterBuilder)
+class Scout_Courier(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Scout_Courier(speciesCharacterBuilder)
 {
     protected override int QualifyDM => 1;
 
@@ -300,7 +288,7 @@ class Scout_Explorer(CharacterBuilder characterBuilder) : Humaniti.Scout_Explore
     }
 }
 
-class Scout_Surveyor(CharacterBuilder characterBuilder) : Humaniti.Scout_Surveyor(characterBuilder)
+class Scout_Explorer(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Scout_Explorer(speciesCharacterBuilder)
 {
     protected override int QualifyDM => 1;
 
@@ -312,12 +300,24 @@ class Scout_Surveyor(CharacterBuilder characterBuilder) : Humaniti.Scout_Surveyo
     }
 }
 
-class University(CharacterBuilder characterBuilder) : Precareers.University(characterBuilder)
+class Scout_Surveyor(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Scout_Surveyor(speciesCharacterBuilder)
+{
+    protected override int QualifyDM => 1;
+
+    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.Skills.Contains("Vacc Suit"))
+            return false;
+        return base.Qualify(character, dice, isPrecheck);
+    }
+}
+
+class University(SpeciesCharacterBuilder speciesCharacterBuilder) : Precareers.University(speciesCharacterBuilder)
 {
     protected override int QualifyDM => -1;
 }
 
-class Truther(CharacterBuilder characterBuilder) : Humaniti.Truther(characterBuilder)
+class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Humaniti.Truther(speciesCharacterBuilder)
 {
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
     {

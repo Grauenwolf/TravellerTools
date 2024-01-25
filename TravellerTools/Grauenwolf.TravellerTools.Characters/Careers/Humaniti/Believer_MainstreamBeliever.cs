@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Believer_MainstreamBeliever(CharacterBuilder characterBuilder) : Believer("Mainstream Believer", characterBuilder)
+class Believer_MainstreamBeliever(SpeciesCharacterBuilder speciesCharacterBuilder) : Believer("Mainstream Believer", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Soc";
 

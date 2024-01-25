@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Agent_LawEnforcement(CharacterBuilder characterBuilder) : Agent("Law Enforcement", characterBuilder)
+class Agent_LawEnforcement(SpeciesCharacterBuilder speciesCharacterBuilder) : Agent("Law Enforcement", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

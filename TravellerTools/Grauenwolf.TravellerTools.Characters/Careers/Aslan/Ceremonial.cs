@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-abstract class Ceremonial(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Ceremonial", assignment, characterBuilder)
+abstract class Ceremonial(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Ceremonial", assignment, speciesCharacterBuilder)
 {
     protected override int AdvancedEductionMin => 8;
 

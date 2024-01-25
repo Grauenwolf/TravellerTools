@@ -6,12 +6,12 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 partial class CharacterViewPage
 {
     protected CharacterBuilderOptions Options { get; } = new CharacterBuilderOptions();
-    [Inject] CharacterBuilderLocator CharacterBuilderLocator { get; set; } = null!;
+    [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
 
     protected override void ParametersSet()
     {
         Options.FromQueryString(Navigation.ParsedQueryString());
 
-        Model = CharacterBuilderLocator.Build(Options);
+        Model = CharacterBuilder.Build(Options);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Scout_Courier(CharacterBuilder characterBuilder) : Scout("Courier", characterBuilder)
+class Scout_Courier(SpeciesCharacterBuilder speciesCharacterBuilder) : Scout("Courier", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

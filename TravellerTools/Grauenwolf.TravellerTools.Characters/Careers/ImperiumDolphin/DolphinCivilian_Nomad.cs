@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 
-class DolphinCivilian_Nomad(CharacterBuilder characterBuilder) : DolphinCivilian("Nomad", characterBuilder)
+class DolphinCivilian_Nomad(SpeciesCharacterBuilder speciesCharacterBuilder) : DolphinCivilian("Nomad", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Str";
 

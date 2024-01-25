@@ -3,7 +3,7 @@ using System.Collections.Immutable;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers.Bwap;
 
-public class BwapCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator) : CharacterBuilder(dataPath, nameGenerator, characterBuilderLocator)
+public class BwapCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder) : SpeciesCharacterBuilder(dataPath, nameGenerator, characterBuilder)
 {
     public override ImmutableArray<Gender> Genders { get; } = ImmutableArray.Create<Gender>(new("F", "Female", 1), new("M", "Male", 1));
     public override string Species => "Bwap";
@@ -24,10 +24,7 @@ public class BwapCharacterBuilder(string dataPath, NameGenerator nameGenerator, 
         }
     }
 
-    protected override int AgingRollDM(Character character)
-    {
-        return (-1 * character.CurrentTerm) - 1;
-    }
+    protected override int AgingRollDM(int currentTerm) => (-1 * currentTerm) - 1;
 
     protected override CareerLists CreateCareerList()
     {

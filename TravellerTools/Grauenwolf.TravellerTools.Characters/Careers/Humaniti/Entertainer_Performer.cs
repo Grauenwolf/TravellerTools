@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Entertainer_Performer(CharacterBuilder characterBuilder) : Entertainer("Performer", characterBuilder)
+class Entertainer_Performer(SpeciesCharacterBuilder speciesCharacterBuilder) : Entertainer("Performer", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Dex";
 

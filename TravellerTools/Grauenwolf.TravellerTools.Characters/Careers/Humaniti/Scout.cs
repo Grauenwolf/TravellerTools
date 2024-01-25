@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-abstract class Scout(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Scout", assignment, characterBuilder)
+abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Scout", assignment, speciesCharacterBuilder)
 {
     protected override int AdvancedEductionMin => 8;
 

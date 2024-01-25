@@ -1,936 +1,561 @@
-using Grauenwolf.TravellerTools.Characters.Careers;
+using Grauenwolf.TravellerTools.Characters.Careers.AelYael;
+using Grauenwolf.TravellerTools.Characters.Careers.Bwap;
+using Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
+using Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
+using Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
 using Grauenwolf.TravellerTools.Names;
 using System.Collections.Immutable;
-using System.Xml.Serialization;
+using Tortuga.Anchor;
 
 namespace Grauenwolf.TravellerTools.Characters;
 
-public abstract class CharacterBuilder
+public class CharacterBuilder
 {
-    static readonly ImmutableList<string> s_BackgroundSkills = ImmutableList.Create("Admin", "Animals", "Art", "Athletics", "Carouse", "Drive", "Science", "Seafarer", "Streetwise", "Survival", "Vacc Suit", "Electronics", "Flyer", "Language", "Mechanic", "Medic", "Profession");
+    readonly ImmutableDictionary<string, SpeciesCharacterBuilder> m_CharacterBuilders;
 
-    readonly CharacterBuilderLocator m_CharacterBuilderLocator;
-    readonly NameGenerator m_NameGenerator;
-    readonly ImmutableArray<string> m_Personalities;
+    private readonly NameGenerator m_NameGenerator;
 
-    ImmutableArray<CareerBase> m_Careers;
-
-    ImmutableArray<CareerBase> m_DefaultCareers;
-
-    ImmutableArray<CareerBase> m_DraftCareers;
-
-    public CharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator)
+    public CharacterBuilder(string dataPath, NameGenerator nameGenerator)
     {
-        m_NameGenerator = nameGenerator;
-        m_CharacterBuilderLocator = characterBuilderLocator;
+        var builders = new Dictionary<string, SpeciesCharacterBuilder>();
 
-        var converter = new XmlSerializer(typeof(CharacterTemplates));
-
-        if (CharacterBuilderFilename != null)
+        void Add(SpeciesCharacterBuilder builder)
         {
-            var file = new FileInfo(Path.Combine(dataPath, CharacterBuilderFilename));
-            using (var stream = file.OpenRead())
-                Books = ImmutableArray.Create(new Book((CharacterTemplates)converter.Deserialize(stream)!));
+            foreach (var gender in builder.Genders)
+                builders[builder.Species] = builder;
         }
 
-        (m_DefaultCareers, m_DraftCareers, m_Careers) = CreateCareerList();
+        Add(new HumanitiCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new BwapCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new TezcatCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new ImperiumDolphinCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new AelYaelCharacterBuilder(dataPath, nameGenerator, this));
+        //Add(new AslanCharacterBuilder(dataPath, nameGenerator, this));
 
-        var personalityFile = new FileInfo(Path.Combine(dataPath, "personality.txt"));
-        m_Personalities = File.ReadAllLines(personalityFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableArray();
+        m_CharacterBuilders = builders.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
+
+        SpeciesList = m_CharacterBuilders.Keys.OrderBy(x => x).ToImmutableArray();
+
+        CareerNameList = m_CharacterBuilders.Values.SelectMany(x => x.Careers(null)).Select(x => x.Career).Distinct().OrderBy(x => x).ToImmutableArray();
+
+        var skills = new SkillTemplateCollection();
+        foreach (var builder in m_CharacterBuilders.Values)
+            foreach (var book in builder.Books)
+                skills.CopyFrom(book.AllSkills);
+        AllSkills = skills.OrderBy(x => x.ToString()).ToImmutableArray();
+
+        var talents = new PsionicSkillTemplateCollection();
+        foreach (var builder in m_CharacterBuilders.Values)
+            foreach (var book in builder.Books)
+                talents.CopyFrom(book.PsionicTalents);
+        AllPsionicTalents = talents.OrderBy(x => x.ToString()).ToImmutableArray();
+
+        m_NameGenerator = nameGenerator;
     }
 
-    public virtual ImmutableArray<Book> Books { get; }
-    public abstract ImmutableArray<Gender> Genders { get; }
+    public ImmutableArray<PsionicSkillTemplate> AllPsionicTalents { get; }
+    public ImmutableArray<SkillTemplate> AllSkills { get; }
+    public ImmutableArray<string> CareerNameList { get; }
 
-    public abstract string Species { get; }
-
-    public abstract string SpeciesUrl { get; }
-
-    protected virtual int AgingRollMinAge => 34;
-
-    protected abstract bool AllowPsionics { get; }
-
-    protected virtual string? CharacterBuilderFilename => "CharacterBuilder.xml";
-
-    public virtual Book Book(Character character) => Books[0];
+    public ImmutableArray<string> SpeciesList { get; }
 
     public Character Build(CharacterBuilderOptions options)
     {
-        //Copy the values out of `options`, but don't capture it. The `options` object may be reused with different values.
-
-        var seed = options.Seed ?? (new Random()).Next();
-        var dice = new Dice(seed);
-
-        var character = new Character
-        {
-            Seed = seed,
-            Species = Species,
-            SpeciesUrl = SpeciesUrl,
-            FirstAssignment = options.FirstAssignment,
-            FirstCareer = options.FirstCareer,
-            Name = options.Name,
-            Gender = options.Gender,
-            MaxAge = options.MaxAge,
-            Year = options.Year
-        };
-
-        InitialCharacterStats(dice, character);
-
-        AddBackgroundSkills(dice, character);
-        FixupSkills(character, dice);
-
-        character.CurrentTerm = 1;
-
-        if (!string.IsNullOrEmpty(options.FirstAssignment))
-            character.NextTermBenefits.MustEnroll = options.FirstAssignment;
-        else if (!string.IsNullOrEmpty(options.FirstCareer))
-            character.NextTermBenefits.MustEnroll = options.FirstCareer;
-        else
-            ForceFirstTerm(character, dice);
-
-        while (!IsDone(options, character))
-        {
-            var nextCareer = PickNextCareer(character, dice);
-            character.CurrentTermBenefits = character.NextTermBenefits;
-            character.NextTermBenefits = new NextTermBenefits();
-            nextCareer.Run(character, dice);
-
-            if (character.LongTermBenefits.MayTestPsi && dice.RollHigh(10))
-                TestPsionic(character, dice, character.Age);
-
-            character.CurrentTerm += 1;
-
-            if (character.Age >= AgingRollMinAge)
-                AgingRoll(character, dice);
-        }
-
-        //Add personality
-        int personalityTraits = dice.D(3);
-        for (var i = 0; i < personalityTraits; i++)
-            character.Personality.Add(dice.Choose(m_Personalities));
-
-        //Fixups
-        if (options.MaxAge.HasValue && !character.IsDead)
-            character.Age = options.MaxAge.Value;
-
-        SetFinalTitle(character);
-
-        //Fix skills that should have had specialities. This shouldn't happen, but there are bugs elsewhere that cause it.
-        var needsSpecials = character.Skills.Where(s => s.Level > 0 && s.Specialty == null && Book(character).RequiresSpeciality(s.Name)).ToList();
-        foreach (var skill in needsSpecials)
-        {
-            character.Skills.Increase(dice.Choose(Book(character).SpecialtiesFor(skill.Name)), skill.Level);
-            character.Skills.Remove(skill);
-        }
-
-        //Add the skill groups [Art, Profession, Science]
-        foreach (var skill in character.Skills.Where(s => s.Specialty != null))
-        {
-            var template = Book(character).RandomSkills.FirstOrDefault(s => s.Name == skill.Name && s.Specialty == skill.Specialty && s.Group != null);
-            if (template != null)
-                skill.Group = template.Group;
-        }
-        //Remove redundant level 0 skills
-        character.Skills.Collapse();
-
-        //Add specialties for remaining level 0 broad skills [Art, Profession, Science]
-        foreach (var skill in character.Skills.Where(s => s.Level == 0 && s.Specialty is null))
-        {
-            var groups = Book(character).RandomSkills.Where(s => s.Name == skill.Name && s.Group != null).Select(s => s.Group).Distinct().ToList();
-            if (groups.Count > 0)
-                skill.Group = dice.Choose(groups);
-        }
-
-        //Half of all contacts should be the same species.
-        var odds = new OddsTable<string>();
-        foreach (var species in m_CharacterBuilderLocator.SpeciesList)
-            if (species == character.Species)
-                odds.Add(species, m_CharacterBuilderLocator.SpeciesList.Length - 1);
-            else
-                odds.Add(species, 1);
-
-        m_CharacterBuilderLocator.BuildContacts(dice, character, odds);
-
-        return character;
+        var builder = GetCharacterBuilder(options.Species);
+        return builder.Build(options);
     }
 
-    public virtual ImmutableArray<CareerBase> Careers(Character? character)
+    public void BuildContacts(Dice dice, IContactGroup character, OddsTable<string> odds)
     {
-        return m_Careers;
-    }
-
-    public virtual ImmutableArray<CareerBase> DefaultCareers(Character? character)
-    {
-        return m_DefaultCareers;
-    }
-
-    public virtual ImmutableArray<CareerBase> DraftCareers(Character? character)
-    {
-        return m_DraftCareers;
-    }
-
-    public virtual void Injury(Character character, Dice dice, CareerBase career, bool severe, int age)
-    {
-        var medCovered = career.MedicalPaymentPercentage(character, dice);
-        var medCostPerPoint = (1.0M - medCovered) * 5000;
-
-        var roll = dice.D(6);
-        if (severe)
-            roll = Math.Min(roll, dice.D(6));
-
-        int strengthPoints = 0;
-        int dexterityPoints = 0;
-        int endurancePoints = 0;
-        int strengthPointsLost = 0;
-        int dexterityPointsLost = 0;
-        int endurancePointsLost = 0;
-        string logMessage = "";
-
-        switch (roll)
+        while (character.UnusedContacts.Count > 0)
         {
-            case 1:
-                logMessage = "Nearly killed.";
-                switch (dice.D(3))
-                {
-                    case 1:
-                        strengthPoints = dice.D(6);
-                        dexterityPoints = 2;
-                        endurancePoints = 2;
-                        break;
+            string? species = null;
+            if (odds.Count > 0)
+                species = odds.Choose(dice);
 
-                    case 2:
-                        strengthPoints = 2;
-                        dexterityPoints = dice.D(6);
-                        endurancePoints = 2;
-                        break;
-
-                    case 3:
-                        strengthPoints = 2;
-                        dexterityPoints = 2;
-                        endurancePoints = dice.D(6);
-                        break;
-                }
-                break;
-
-            case 2:
-                logMessage = "Severely injured.";
-                switch (dice.D(3))
-                {
-                    case 1:
-                        strengthPoints = dice.D(6);
-                        break;
-
-                    case 2:
-                        dexterityPoints = dice.D(6);
-                        break;
-
-                    case 3:
-                        endurancePoints = dice.D(6);
-                        break;
-                }
-                break;
-
-            case 3:
-                logMessage = "Lost eye or limb.";
-                switch (dice.D(2))
-                {
-                    case 1:
-                        strengthPoints = 2;
-                        break;
-
-                    case 2:
-                        dexterityPoints = 2;
-                        break;
-                }
-                break;
-
-            case 4:
-                logMessage = "Scarred.";
-                switch (dice.D(3))
-                {
-                    case 1:
-                        strengthPoints = 2;
-                        break;
-
-                    case 2:
-                        dexterityPoints = 2;
-                        break;
-
-                    case 3:
-                        endurancePoints = 2;
-                        break;
-                }
-                break;
-
-            case 5:
-                logMessage = "Injured.";
-                switch (dice.D(3))
-                {
-                    case 1:
-                        strengthPoints = 1;
-                        break;
-
-                    case 2:
-                        dexterityPoints = 1;
-                        break;
-
-                    case 3:
-                        endurancePoints = 1;
-                        break;
-                }
-                break;
-
-            case 6:
-                logMessage = "Lightly injured, no permanent damage.";
-                break;
+            character.Contacts.Add(CreateContact(dice, character.UnusedContacts.Dequeue(), character, species));
         }
+    }
 
-        var medicalBills = 0M;
-        for (int i = 0; i < strengthPoints; i++)
+    public Character CreateCharacter(Dice dice, string? species = null)
+    {
+        while (true)
         {
-            if (dice.D(10) > 1) //90% chance of healing
-                medicalBills += medCostPerPoint;
-            else
+            var options = CreateCharacterStub(dice, species);
+
+            var character = Build(options);
+            if (!character.IsDead)
             {
-                character.Strength -= 1;
-                strengthPointsLost += 1;
+                var skill = character.Skills.BestSkill();
+                return character;
             }
         }
-        for (int i = 0; i < dexterityPoints; i++)
-        {
-            if (dice.D(10) > 1) //90% chance of healing
-                medicalBills += medCostPerPoint;
-            else
-            {
-                character.Dexterity -= 1;
-                dexterityPointsLost += 1;
-            }
-        }
-        for (int i = 0; i < endurancePoints; i++)
-        {
-            if (dice.D(10) > 1) //90% chance of healing
-                medicalBills += medCostPerPoint;
-            else
-            {
-                character.Endurance -= 1;
-                endurancePointsLost += 1;
-            }
-        }
-
-        if (strengthPointsLost == 0 && dexterityPointsLost == 0 && endurancePointsLost == 0)
-            logMessage += " Fully recovered.";
-
-        if (medicalBills > 0)
-            logMessage += $" Owe {medicalBills.ToString("N0")} for medical bills.";
-
-        character.AddHistory(logMessage, age);
     }
 
-    public virtual void LifeEvent(Character character, Dice dice, CareerBase career)
+    public CharacterBuilderOptions CreateCharacterStub(Dice dice, string? species = null, string? genderCode = null, bool noChildren = false)
     {
-        switch (dice.D(2, 6))
-        {
-            case 2:
-                Injury(character, dice, career, false, character.Age + dice.D(4));
-                return;
+        var options = new CharacterBuilderOptions();
+        options.Species = species ?? GetRandomSpecies(dice);
+        var builder = GetCharacterBuilder(options.Species);
 
-            case 3:
-                character.AddHistory($"Birth or Death involving a family member or close friend.", dice);
-                return;
+        options.Gender = genderCode ?? dice.Choose(builder.Genders).GenderCode;
 
-            case 4:
-                character.AddHistory($"A romantic relationship ends badly. Gain a Rival or Enemy.", dice);
-                if (dice.NextBoolean())
-                    character.AddRival();
-                else
-                    character.AddEnemy();
-                return;
+        //TODO Species specific name generators
+        var temp = m_NameGenerator.CreateRandomPerson(dice, options.Gender == "M");
+        options.Name = temp.FullName;
 
-            case 5:
-                character.AddHistory($"A romantic relationship deepens, possibly leading to marriage. Gain an Ally.", dice);
-                character.AddAlly();
-                return;
+        options.MaxAge = builder.RandomAge(dice, noChildren);
 
-            case 6:
-                character.AddHistory($"A new romantic starts. Gain an Ally.", dice);
-                character.AddAlly();
-                return;
-
-            case 7:
-                character.AddHistory($"Gained a contact.", dice);
-                return;
-
-            case 8:
-                character.AddHistory($"Betrayal. Convert an Ally into a Rival or Contact into an Enemy.", dice);
-                character.DowngradeContact();
-                return;
-
-            case 9:
-                character.AddHistory($"Moved to a new world.", dice);
-                character.NextTermBenefits.QualificationDM += 1;
-                return;
-
-            case 10:
-                character.AddHistory($"Good fortune", dice);
-                character.BenefitRollDMs.Add(2);
-                return;
-
-            case 11:
-                if (dice.NextBoolean())
-                {
-                    character.BenefitRolls -= 1;
-                    character.AddHistory($"Victim of a crime", dice);
-                }
-                else
-                {
-                    character.AddHistory($"Accused of a crime", dice);
-                    character.NextTermBenefits.MustEnroll = "Prisoner";
-                }
-                return;
-
-            case 12:
-                UnusualLifeEvent(character, dice);
-                return;
-        }
+        options.Seed = dice.Next();
+        return options;
     }
 
-    public void PreCareerEvents(Character character, Dice dice, CareerBase career, SkillTemplateCollection skills)
+    //public CharacterBuilderOptions CreateCharacterStubWithSkill(Dice dice, string targetSkillName, string targetSkillSpeciality, int? targetSkillLevel = null, string? species = null)
+    //{
+    //    return CreateCharacterWithSkill(dice, targetSkillName, targetSkillSpeciality, targetSkillLevel, species).GetCharacterBuilderOptions();
+    //}
+
+    /// <summary>
+    /// Creates the character with a desired final career.
+    /// </summary>
+    /// <param name="careerList">The list of desired careers and/or assignments.</param>
+    public Character CreateCharacterWithCareer(Dice dice, string career, string? species = null)
     {
-        var skillSet = skills switch
-        {
-            [] => [.. character.Skills.Select(s => s.ToSkillTemplate())],
-            _ => skills
-        };
-
-        switch (dice.D(2, 6))
-        {
-            case 2:
-                character.AddHistory($"Contacted by an underground psionic group.", dice);
-                character.LongTermBenefits.MayTestPsi = true;
-                return;
-
-            case 3:
-                character.AddHistory($"Suffered a deep tragedy.", dice);
-                character.CurrentTermBenefits.GraduationDM = -100;
-                return;
-
-            case 4:
-
-                var roll = dice.D(2, 6) + character.SocialStandingDM;
-
-                if (roll >= 8)
-                {
-                    character.AddHistory($"A prank goes horribly wrong. Gain a Rival.", dice);
-                    character.AddRival();
-                }
-                else if (roll > 2)
-                {
-                    character.AddHistory($"A prank goes horribly wrong. Gain an Enemy", dice);
-                    character.AddEnemy();
-                }
-                else
-                {
-                    character.AddHistory($"A prank goes horribly wrong and {character.Name} is sent to prison.", dice);
-                    character.NextTermBenefits.MustEnroll = "Prisoner";
-                }
-                return;
-
-            case 5:
-                character.AddHistory($"Spent the college years partying.", dice);
-                character.Skills.Add("Carouse", 1);
-                return;
-
-            case 6:
-                int count = dice.D(3);
-                character.AddHistory($"Made lifelong friends. Gain {count} Allies.", dice);
-                character.AddAlly(count);
-                return;
-
-            case 7:
-                LifeEvent(character, dice, career);
-                return;
-
-            case 8:
-                if (dice.RollHigh(character.SocialStandingDM, 8))
-                {
-                    var age = character.AddHistory($"Become leader in social movement.", dice);
-                    character.AddHistory($"Gain an Ally and an Enemy.", age);
-                    character.AddAlly();
-                    character.AddEnemy();
-                }
-                else
-                    character.AddHistory($"Join a social movement.", dice);
-                return;
-
-            case 9:
-                {
-                    var skillList = new SkillTemplateCollection(Book(character).RandomSkills);
-                    skillList.RemoveOverlap(character.Skills, 0);
-
-                    if (skillList.Count > 0)
-                    {
-                        var skill = dice.Choose(skillList);
-                        character.Skills.Add(skill);
-                        character.AddHistory($"Study {skill} as a hobby.", dice);
-                    }
-                }
-                return;
-
-            case 10:
-
-                if (dice.RollHigh(9))
-                {
-                    if (skillSet.Count > 0)
-                    {
-                        var skill = dice.Choose(skillSet);
-                        character.Skills.Increase(skill);
-                        character.AddHistory($"Expand the field of {skill}, but gain a Rival in {character.Name}'s former tutor.", dice);
-                        character.AddRival();
-                    }
-                }
-                return;
-
-            case 11:
-                {
-                    var age = character.AddHistory($"War breaks out, triggering a mandatory draft.", dice);
-                    if (dice.RollHigh(character.SocialStandingDM, 9))
-                        character.AddHistory($"Used social standing to avoid the draft.", age);
-                    else
-                    {
-                        character.CurrentTermBenefits.GraduationDM -= 100;
-                        if (dice.NextBoolean())
-                        {
-                            character.AddHistory($"Fled from the draft.", age);
-                            character.NextTermBenefits.MustEnroll = "Drifter";
-                        }
-                        else
-                        {
-                            var roll2 = dice.D(6);
-                            if (roll2 <= 3)
-                                character.NextTermBenefits.MustEnroll = "Army";
-                            else if (roll2 <= 5)
-                                character.NextTermBenefits.MustEnroll = "Marine";
-                            else
-                                character.NextTermBenefits.MustEnroll = "Navy";
-                        }
-                    }
-                }
-                return;
-
-            case 12:
-                character.AddHistory($"Widely recognized.", dice);
-                character.SocialStanding += 1;
-                return;
-        }
-    }
-
-    public CareerBase RollDraft(Character character, Dice dice)
-    {
-        return dice.Choose(DraftCareers(character));
+        return CreateCharacterWithCareer(dice, new[] { career }, species);
     }
 
     /// <summary>
-    /// Tests for psionic talents.
+    /// Creates the character with a desired final career.
     /// </summary>
-    /// <param name="character">The character.</param>
-    /// <param name="dice">The dice.</param>
-    /// <param name="age">The age.</param>
-    /// <returns>Returns true is at least one psionic skill was gained.</returns>
-    public bool TestPsionic(Character character, Dice dice, int age)
+    /// <param name="careerList">The list of desired careers and/or assignments.</param>
+    public Character CreateCharacterWithCareer(Dice dice, IReadOnlyList<string> careerList, string? species = null)
     {
-        if (!AllowPsionics)
-            return false;  //not allowed
-        if (character.Psi.HasValue)
-            return false; //already tested
+        var characters = new List<Character>();
 
-        character.LongTermBenefits.MayTestPsi = false;
-        character.AddHistory($"Tested for psionic powers", age);
-
-        character.Psi = RollForPsi(character, dice);
-
-        if (character.Psi <= 0)
+        for (int i = 0; i < 500; i++)
         {
-            character.Psi = 0;
-            return false;
+            var character = Build(CreateCharacterStub(dice, species, noChildren: true));
+            if (character.IsDead && !character.LongTermBenefits.Retired)
+                continue;
+
+            if (careerList.Contains(character.LastCareer?.Career))
+                return character;
+
+            if (careerList.Contains(character.LastCareer?.Assignment))
+                return character;
+
+            characters.Add(character);
         }
 
-        var availableSkills = new PsionicSkillTemplateCollection(Book(character).PsionicTalents);
-
-        character.PreviousPsiAttempts = 0;
-
-        bool result = false;
-        //roll for every skill
-        while (availableSkills.Count > 0)
+        double Suitability(Character item, bool includeCareers)
         {
-            var nextSkill = dice.Pick(availableSkills);
-            if (nextSkill.Name == "Telepathy" && character.PreviousPsiAttempts == 0)
+            var baseValue = 0.00;
+
+            if (includeCareers)
             {
-                character.Skills.Add(nextSkill);
+                baseValue += (item.CareerHistory.Where(ch => careerList.Contains(ch.Career)).Sum(ch => ch.Terms));
+                baseValue += (item.CareerHistory.Where(ch => careerList.Contains(ch.Assignment)).Sum(ch => ch.Terms));
             }
-            else
+
+            return baseValue;
+        }
+
+        {
+            //No character's last career was the requested one. Choose the one who spend the most time in the desired career.
+            var sortedList = characters.Select(c => new
             {
-                if ((dice.D(2, 6) + nextSkill.LearningDM + character.PsiDM - character.PreviousPsiAttempts) >= 8)
+                Character = c,
+                Suitability = Suitability(c, true)
+            }).OrderByDescending(x => x.Suitability).ToList();
+
+            return sortedList.First().Character;
+        }
+    }
+
+    public Character CreateCharacterWithSkill(Dice dice, string targetSkillName, string? targetSkillSpeciality, int? targetSkillLevel = null, string? species = null)
+    {
+        targetSkillLevel ??= (int)Math.Floor(dice.D(2, 6) / 3.0);
+
+        Character? lastBest = null;
+        int lastBestSkillLevel = -3;
+
+        for (var i = 0; i < 500 || lastBest == null; i++)
+        {
+            var character = Build(CreateCharacterStub(dice, species));
+            if (!character.IsDead && !character.LongTermBenefits.Retired)
+            {
+                int currentSkill = character.Skills.EffectiveSkillLevel(targetSkillName, targetSkillSpeciality);
+                if (currentSkill == targetSkillLevel)
                 {
-                    character.Skills.Add(nextSkill);
-                    result = true;
+                    return character;
+                }
+                else if (currentSkill > lastBestSkillLevel || lastBest == null)
+                {
+                    lastBest = character;
+                    lastBestSkillLevel = currentSkill;
                 }
             }
-
-            character.PreviousPsiAttempts += 1;
         }
+
+        if (lastBestSkillLevel < 0)
+            lastBest.Skills.Add(targetSkillName, targetSkillSpeciality, 0);
+        return lastBest!;
+    }
+
+    public Contact CreateContact(Dice dice, ContactType contactType, IContactGroup? character, string? species)
+    {
+        int PITable(int roll)
+        {
+            return roll switch
+            {
+                <= 5 => 0,
+                <= 7 => 1,
+                8 => 2,
+                9 => 3,
+                10 => 4,
+                11 => 5,
+                _ => 6,
+            };
+        }
+
+        int AffinityTable(int roll)
+        {
+            return roll switch
+            {
+                2 => 0,
+                <= 4 => 1,
+                <= 6 => 2,
+                <= 8 => 3,
+                <= 10 => 4,
+                <= 11 => 5,
+                _ => 6,
+            };
+        }
+
+        var result = new Contact(contactType, CreateCharacterStub(dice, species));
+        RollAffinityEnmity(dice, result);
+        result.Power = PITable(dice.D(2, 6));
+        result.Influence = PITable(dice.D(2, 6));
+
+        if (dice.D(2, 6) >= 8) //special!
+        {
+            var specialCount = 1;
+
+            while (specialCount > 0)
+            {
+                specialCount -= 1;
+
+                switch (dice.D66())
+                {
+                    case 11:
+                        result.History.Add("Forgiveness.");
+                        result.Affinity += 1;
+                        break;
+
+                    case 12:
+                        result.History.Add("Relationship soured.");
+                        result.Affinity -= 1;
+                        result.Enmity += 1;
+                        break;
+
+                    case 13:
+                        result.History.Add("Relationship altered.");
+                        result.Affinity += 1;
+                        result.Enmity -= 1;
+                        break;
+
+                    case 14:
+                        result.History.Add("An incident occured.");
+                        result.Enmity += 1;
+                        break;
+
+                    case 15:
+                        switch (result.ContactType)
+                        {
+                            case ContactType.Enemy:
+                                result.History.Add("Relationship becomes more moderate. Enemy becomes a rival.");
+                                result.ContactType = ContactType.Rival;
+                                break;
+
+                            case ContactType.Ally:
+                                result.History.Add("Relationship becomes more moderate. Ally becomes a contact.");
+                                result.ContactType = ContactType.Contact;
+                                break;
+
+                            default:
+                                result.History.Add("Relationship becomes more moderate.");
+                                result.Enmity -= 1;
+                                result.Affinity += 1;
+                                break;
+                        }
+                        break;
+
+                    case 16:
+                        switch (result.ContactType)
+                        {
+                            case ContactType.Rival:
+                                result.History.Add("Relationship becomes more moderate. Rival becomes an enemy.");
+                                result.ContactType = ContactType.Enemy;
+                                RollAffinityEnmity(dice, result);
+                                break;
+
+                            case ContactType.Contact:
+                                result.History.Add("Relationship becomes more moderate. Contact becomes an ally.");
+                                result.ContactType = ContactType.Ally;
+                                RollAffinityEnmity(dice, result);
+                                break;
+
+                            case ContactType.Enemy:
+                                result.History.Add("Relationship becomes more intense.");
+                                result.Enmity += 1;
+                                break;
+
+                            case ContactType.Ally:
+                                result.History.Add("Relationship becomes more intense.");
+                                result.Affinity += 1;
+                                break;
+                        }
+                        break;
+
+                    case 21:
+                        result.History.Add($"{result.CharacterStub.Name} gains in power.");
+                        result.Power += 1;
+                        break;
+
+                    case 22:
+                        result.History.Add($"{result.CharacterStub.Name} loses some of their power base.");
+                        result.Power -= 1;
+                        break;
+
+                    case 23:
+                        result.History.Add($"{result.CharacterStub.Name} gains in influence.");
+                        result.Influence += 1;
+                        break;
+
+                    case 24:
+                        result.History.Add($"{result.CharacterStub.Name}'s influence is diminished.");
+                        result.Influence -= 1;
+                        break;
+
+                    case 25:
+                        result.History.Add($"{result.CharacterStub.Name} gains in power and influence.");
+                        result.Power += 1;
+                        result.Influence += 1;
+                        break;
+
+                    case 26:
+                        result.History.Add($"{result.CharacterStub.Name} is diminished in both power and influence.");
+                        result.Power -= 1;
+                        result.Influence -= 1; break;
+
+                    case 31:
+                        result.History.Add($"{result.CharacterStub.Name} belongs to an unusual cultural or religious group.");
+                        break;
+
+                    case 32:
+                        result.History.Add($"{result.CharacterStub.Name} belongs to an uncommon alien species.");
+                        break;
+
+                    case 33:
+                        result.History.Add($"{result.CharacterStub.Name} is particularly unusual, such as an artificial intelligence or very alien being.");
+                        break;
+
+                    case 34:
+                        result.History.Add($"{result.CharacterStub.Name} is actually an organisation such as a political movement or modest sized business.");
+                        break;
+
+                    case 35:
+                        result.History.Add($"{result.CharacterStub.Name} is a member of an organisation which holds a generally opposite view of the Traveller.");
+                        break;
+
+                    case 36:
+                        result.History.Add($"{result.CharacterStub.Name} is a questionable figure such as a criminal, pirate or disgraced noble.");
+                        break;
+
+                    case 41:
+                        result.History.Add("Very bad falling out.");
+                        result.Enmity = Math.Max(result.Enmity, dice.D(2, 6));
+                        break;
+
+                    case 42:
+                        result.History.Add("reconciliation.");
+                        result.Affinity = Math.Max(result.Affinity, dice.D(2, 6));
+                        break;
+
+                    case 43:
+                        result.History.Add($"{result.CharacterStub.Name} fell on hard times.");
+                        result.Power -= 1;
+                        break;
+
+                    case 44:
+                        result.History.Add($"{result.CharacterStub.Name} was ruined by misfortune caused by the character.");
+                        result.Power = 0;
+                        result.Enmity += 1;
+                        break;
+
+                    case 45:
+                        result.History.Add($"{result.CharacterStub.Name} gained influence with the character’s assistance.");
+                        result.Influence += 1;
+                        result.Affinity += 1;
+                        break;
+
+                    case 46:
+                        result.History.Add($"{result.CharacterStub.Name} gained power at the expense of a third party who now blames the character.");
+                        result.Power += 1;
+                        character?.AddEnemy();
+                        break;
+
+                    case 51:
+                        result.History.Add($"{result.CharacterStub.Name} is missing under suspicious circumstances.");
+                        break;
+
+                    case 52:
+                        result.History.Add($"{result.CharacterStub.Name} is out of contact doing something interesting but not suspicious.");
+                        break;
+
+                    case 53:
+                        result.History.Add($"{result.CharacterStub.Name} is in desperate trouble and could use the character’s help.");
+                        break;
+
+                    case 54:
+                        result.History.Add($"{result.CharacterStub.Name} has had an unexpected run of good fortune lately.");
+                        break;
+
+                    case 55:
+                        result.History.Add($"{result.CharacterStub.Name} is in prison or otherwise trapped somewhere.");
+                        break;
+
+                    case 56:
+                        result.History.Add($"{result.CharacterStub.Name} is found or reported dead.");
+                        break;
+
+                    case 61:
+                        result.History.Add($"{result.CharacterStub.Name} has life-changing event that creates new responsibilities.");
+                        break;
+
+                    case 62:
+                        result.History.Add($"{result.CharacterStub.Name} has negatively life-changing event.");
+                        break;
+
+                    case 63:
+                        result.History.Add($"{result.CharacterStub.Name}’s relationships have begun to affect the character.");
+                        if (result.Affinity > result.Enmity)
+                            character?.AddContact();
+                        else if (result.Affinity < result.Enmity)
+                            character?.AddRival();
+                        break;
+
+                    case 64:
+
+                        var temp = result.Affinity;
+                        result.Affinity = result.Enmity;
+                        result.Enmity = temp;
+
+                        switch (result.ContactType)
+                        {
+                            case ContactType.Rival:
+                                result.History.Add("Relationship redefined. Rival becomes a contact.");
+                                result.ContactType = ContactType.Contact;
+                                break;
+
+                            case ContactType.Contact:
+                                result.History.Add("Relationship redefined. Contact becomes an rival.");
+                                result.ContactType = ContactType.Rival;
+                                break;
+
+                            case ContactType.Enemy:
+                                result.History.Add("Relationship redefined. Enemy becomes an ally.");
+                                result.ContactType = ContactType.Ally;
+                                break;
+
+                            case ContactType.Ally:
+                                result.History.Add("Relationship redefined. Ally becomes an enemy.");
+                                result.ContactType = ContactType.Enemy;
+                                break;
+                        }
+                        break;
+
+                    case 65:
+                        specialCount += 2;
+                        break;
+
+                    case 66:
+                        specialCount += 3;
+                        break;
+                }
+            }
+        }
+
         return result;
-    }
 
-    public void UnusualLifeEvent(Character character, Dice dice)
-    {
-        switch (dice.D(6))
+        void RollAffinityEnmity(Dice dice, Contact result)
         {
-            case 1:
-                var age = character.AddHistory($"Encounter a Psionic institute.", dice);
-                if (AllowPsionics)
-                    if (TestPsionic(character, dice, age))
-                        character.NextTermBenefits.MustEnroll = "Psion";
-                return;
+            switch (result.ContactType)
+            {
+                case ContactType.Ally:
+                    result.Affinity = AffinityTable(dice.D(2, 6));
+                    break;
 
-            case 2:
-                character.AddHistory($"Spend time with an alien race. Gain a contact.", dice);
-                var skillList = new SkillTemplateCollection(Book(character).SpecialtiesFor("Science"));
-                skillList.RemoveOverlap(character.Skills, 1);
-                if (skillList.Count > 0)
-                    character.Skills.Add(dice.Choose(skillList), 1);
-                return;
+                case ContactType.Enemy:
+                    result.Enmity = AffinityTable(dice.D(2, 6));
+                    break;
 
-            case 3:
-                character.AddHistory($"Find an Alien Artifact.", dice);
-                return;
+                case ContactType.Rival:
+                    result.Affinity = AffinityTable(dice.D(1, 6) - 1);
+                    result.Enmity = AffinityTable(dice.D(1, 6) + 1);
+                    break;
 
-            case 4:
-                character.AddHistory($"Amnesia.", dice);
-                return;
-
-            case 5:
-                character.AddHistory($"Contact with Government.", dice);
-                return;
-
-            case 6:
-                character.AddHistory($"Find Ancient Technology.", dice);
-                return;
+                case ContactType.Contact:
+                    result.Affinity = AffinityTable(dice.D(1, 6) + 1);
+                    result.Enmity = AffinityTable(dice.D(1, 6) - 1);
+                    break;
+            }
         }
     }
 
-    internal virtual void FixupSkills(Character character, Dice dice)
+    public List<string> GetAssignmentList(string? species, string career)
     {
+        if (species == null)
+            return m_CharacterBuilders.Values.SelectMany(x => x.Careers(null)).Where(x => x.Career == career && x.Assignment != null).Select(x => x.Assignment).Distinct().OrderBy(x => x).ToList()!;
+        else
+            return GetCharacterBuilder(species).Careers(null).Where(x => x.Career == career && x.Assignment != null).Select(x => x.Assignment).Distinct().OrderBy(x => x).ToList()!;
     }
 
-    protected virtual void AddBackgroundSkills(Dice dice, Character character)
+    public SpeciesCharacterBuilder GetCharacterBuilder(string? species)
     {
-        if (character.EducationDM + 3 > 0)
-        {
-            var backgroundSKills = dice.Choose(s_BackgroundSkills, character.EducationDM + 3, allowDuplicates: false);
-            foreach (var skill in backgroundSKills)
-                character.Skills.Add(skill); //all skills added at level 0
-        }
-    }
-
-    protected virtual int AgingRollDM(Character character) => -1 * character.CurrentTerm;
-
-    /// <summary>
-    /// Creates the career list.
-    /// </summary>
-    /// <returns>If career lists needs special handling based on the character, return empty lists.</returns>
-    protected abstract CareerLists CreateCareerList();
-
-    /// <summary>
-    /// Forces the first term for some species.
-    /// </summary>
-    protected virtual void ForceFirstTerm(Character character, Dice dice) { }
-
-    protected virtual void InitialCharacterStats(Dice dice, Character character)
-    {
-        character.Age = 18 + dice.D(4) - dice.D(4);
-        character.Strength = dice.D(2, 6);
-        character.Dexterity = dice.D(2, 6);
-        character.Endurance = dice.D(2, 6);
-        character.Intellect = dice.D(2, 6);
-        character.Education = dice.D(2, 6);
-        character.SocialStanding = dice.D(2, 6);
-    }
-
-    protected virtual CareerBase PickNextCareer(Character character, Dice dice)
-    {
-        CareerBase? previousAssignment = null;
-        if (character.LastCareer != null)
-            previousAssignment = Careers(character).SingleOrDefault(c => character.LastCareer.ShortName == c.ShortName);
-
-        bool noRoll = false;
-        var careerOptions = new List<CareerBase>();
-
-        //Forced picks (e.g. Draft)
-        if (character.NextTermBenefits.MustEnroll != null)
-        {
-            foreach (var career in Careers(character))
-            {
-                noRoll = true; //Don't need to roll if forced to enroll
-                if (string.Equals(character.NextTermBenefits.MustEnroll, career.Career, StringComparison.OrdinalIgnoreCase) || string.Equals(character.NextTermBenefits.MustEnroll, career.Assignment, StringComparison.OrdinalIgnoreCase))
-                {
-                    careerOptions.Add(career);
-                }
-            }
-        }
-
-        //Normal career progression
-        if (!character.NextTermBenefits.MusterOut && careerOptions.Count == 0 && character.LastCareer != null)
-        {
-            //1: New career.
-            //2-3: New assignment in same career, if RankCarryover.
-            //4+: Same assignment.
-
-            var continueRoll = dice.D(10);
-
-            if (continueRoll == 1)
-            {
-                character.NextTermBenefits.MusterOut = true;
-                character.AddHistory($"Voluntarily left " + character.LastCareer.ShortName, character.Age);
-            }
-            else if (continueRoll <= 3 && previousAssignment!.RankCarryover)
-            {
-                character.AddHistory($"Attempted to change assignments.", character.Age);
-                foreach (var career in Careers(character))
-                    if (previousAssignment != career && previousAssignment.Career == career.Career)
-                        careerOptions.Add(career);
-            }
-            else
-            {
-                noRoll = true; //Don't need to roll if continuing a career
-                careerOptions.Add(previousAssignment!);
-            }
-        }
-
-        //Random picks
-        if (careerOptions.Count == 0)
-        {
-            foreach (var career in Careers(character))
-            {
-                if (character.NextTermBenefits.MusterOut && character.LastCareer!.Career == career.Career)
-                    continue; //No assignments from previous career allowed
-
-                if (career.Qualify(character, dice, true))
-                    careerOptions.Add(career);
-            }
-        }
-
-        //Random picks when not qualified for anything
-        if (careerOptions.Count == 0)
-        {
-            foreach (var career in Careers(character))
-            {
-                if (character.NextTermBenefits.MusterOut && character.LastCareer!.Career == career.Career)
-                    continue; //No assignments from previous career allowed
-
-                careerOptions.Add(career);
-            }
-        }
-
-        var result = dice.Choose(careerOptions);
-
-        if (result.Qualify(character, dice, false) || noRoll) //Force a Qualify roll so we can get special behavior for Psionic Community
+        if (species != null && m_CharacterBuilders.TryGetValue(species, out var result))
             return result;
         else
-        {
-            character.AddHistory($"Failed to qualify for {result}.", character.Age);
-
-            if (previousAssignment?.Career == result.Career && previousAssignment.RankCarryover)
-            {
-                return previousAssignment;
-            }
-            else if (character.PreviouslyDrafted || dice.NextBoolean())
-            {
-                return dice.Choose(DefaultCareers(character));
-            }
-            else
-            {
-                character.AddHistory($"Submitted to the draft.", character.Age);
-                character.PreviouslyDrafted = true;
-                return RollDraft(character, dice);
-            }
-        }
+            return m_CharacterBuilders["Humaniti"];
     }
 
-    protected abstract int RollForPsi(Character character, Dice dice);
-
-    protected virtual void SetFinalTitle(Character character)
+    public string GetRandomSpecies(Dice dice)
     {
-        if (character.LongTermBenefits.Retired)
+        return dice.Choose(SpeciesList);
+    }
+
+    public string GetRandomSpeciesForCareer(Dice dice, string? career = null, string? career2 = null)
+    {
+        var builders = new List<SpeciesCharacterBuilder>();
+        foreach (var builder in m_CharacterBuilders.Values)
         {
-            var title = character.CareerHistory.Where(c => c.Title != null).OrderByDescending(c => c.LastTermAge + (100 * c.Rank) + (1000 * c.CommissionRank)).Select(c => c.Title).FirstOrDefault();
-            if (title != null)
-                character.Title = "Retired " + title;
+            var valid = true;
+            if (!career.IsNullOrEmpty() && !builder.Careers(null).Any(c => c.Career == career))
+                valid = false;
+            if (!career2.IsNullOrEmpty() && !builder.Careers(null).Any(c => c.Career == career2))
+                valid = false;
+            if (valid)
+                builders.Add(builder);
         }
+
+        if (builders.Count > 0)
+            return dice.Choose(builders).Species;
         else
-            character.Title = character.LastCareer?.Title;
+            return GetRandomSpecies(dice); //this shouldn't happen
     }
 
-    static bool IsDone(CharacterBuilderOptions options, Character character)
+    public string? GetSpeciesUrl(string? species)
     {
-        if (character.Strength <= 0 ||
-            character.Dexterity <= 0 ||
-            character.Endurance <= 0 ||
-            character.Intellect <= 0 ||
-            character.Education <= 0 ||
-            character.SocialStanding <= 0)
-        {
-            character.AddHistory($"Died at age {character.Age}", character.Age);
-            character.IsDead = true;
-            return true;
-        }
-
-        if ((character.Age + 3) >= options.MaxAge) //+3 because terms are 4 years long
-            return true;
-
-        return false;
-    }
-
-    void AgingRoll(Character character, Dice dice)
-    {
-        //TODO: Anagathics page 47
-
-        var roll = dice.D(2, 6) + AgingRollDM(character);
-        if (roll <= -6)
-        {
-            character.Strength += -2;
-            character.Dexterity += -2;
-            character.Endurance += -2;
-            switch (dice.D(3))
-            {
-                case 1: character.Intellect += -1; break;
-                case 2: character.Education += -1; break;
-                case 3: character.SocialStanding += -1; break;
-            }
-        }
-        else if (roll == -5)
-        {
-            character.Strength += -2;
-            character.Dexterity += -2;
-            character.Endurance += -2;
-        }
-        else if (roll == -4)
-        {
-            switch (dice.D(3))
-            {
-                case 1:
-                    character.Strength += -2;
-                    character.Dexterity += -2;
-                    character.Endurance += -1;
-                    break;
-
-                case 2:
-                    character.Strength += -1;
-                    character.Dexterity += -2;
-                    character.Endurance += -2;
-                    break;
-
-                case 3:
-                    character.Strength += -2;
-                    character.Dexterity += -1;
-                    character.Endurance += -2;
-                    break;
-            }
-        }
-        else if (roll == -3)
-        {
-            switch (dice.D(3))
-            {
-                case 1:
-                    character.Strength += -2;
-                    character.Dexterity += -1;
-                    character.Endurance += -1;
-                    break;
-
-                case 2:
-                    character.Strength += -1;
-                    character.Dexterity += -2;
-                    character.Endurance += -1;
-                    break;
-
-                case 3:
-                    character.Strength += -1;
-                    character.Dexterity += -1;
-                    character.Endurance += -2;
-                    break;
-            }
-        }
-        else if (roll == -2)
-        {
-            character.Strength += -1;
-            character.Dexterity += -1;
-            character.Endurance += -1;
-        }
-        else if (roll == -1)
-        {
-            switch (dice.D(3))
-            {
-                case 1:
-                    character.Strength += -1;
-                    character.Dexterity += -1;
-                    break;
-
-                case 2:
-                    character.Strength += -1;
-                    character.Endurance += -1;
-                    break;
-
-                case 3:
-                    character.Dexterity += -1;
-                    character.Endurance += -1;
-                    break;
-            }
-        }
-        else if (roll == 0)
-        {
-            switch (dice.D(3))
-            {
-                case 1:
-                    character.Strength += -1;
-                    break;
-
-                case 2:
-                    character.Dexterity += -1;
-                    break;
-
-                case 3:
-                    character.Endurance += -1;
-                    break;
-            }
-        }
-        else
-        {
-            return; //no again crisis possible.
-        }
-
-        if (character.Strength <= 0 ||
-                character.Dexterity <= 0 ||
-                character.Endurance <= 0 ||
-                character.Intellect <= 0 ||
-                character.Education <= 0 ||
-                character.SocialStanding <= 0)
-        {
-            var bills = dice.D(6) * 10000;
-            character.Debt += bills;
-            character.AddHistory($"Aging Crisis. Owe {bills:N0} for medical bills.", character.Age);
-
-            if (character.Strength < 1) character.Strength = 1;
-            if (character.Dexterity < 1) character.Dexterity = 1;
-            if (character.Endurance < 1) character.Endurance = 1;
-            if (character.Intellect < 1) character.Intellect = 1;
-            if (character.Education < 1) character.Education = 1;
-            if (character.SocialStanding < 1) character.SocialStanding = 1;
-            character.LongTermBenefits.QualificationDM = -100;
-
-            if (!character.LongTermBenefits.Retired)
-            {
-                character.LongTermBenefits.Retired = true;
-                character.AddHistory($"Retired at age {character.Age}.", character.Age);
-            }
-        }
+        return GetCharacterBuilder(species)?.SpeciesUrl;
     }
 }

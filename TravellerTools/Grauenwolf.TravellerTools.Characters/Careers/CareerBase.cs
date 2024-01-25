@@ -2,9 +2,9 @@ using System.Collections.Immutable;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-public abstract class CareerBase(string career, string? assignment, CharacterBuilder characterBuilder)
+public abstract class CareerBase(string career, string? assignment, SpeciesCharacterBuilder speciesCharacterBuilder)
 {
-    readonly CharacterBuilder m_CharacterBuilder = characterBuilder;
+    readonly SpeciesCharacterBuilder m_SpeciesCharacterBuilder = speciesCharacterBuilder;
     public string? Assignment { get; } = assignment;
     public string Career { get; } = career;
     public string Key => Assignment ?? Career;
@@ -35,32 +35,32 @@ public abstract class CareerBase(string career, string? assignment, CharacterBui
 
     internal abstract void Run(Character character, Dice dice);
 
-    protected void FixupSkills(Character character, Dice dice) => m_CharacterBuilder.FixupSkills(character, dice);
+    protected void FixupSkills(Character character, Dice dice) => m_SpeciesCharacterBuilder.FixupSkills(character, dice);
 
-    protected void Injury(Character character, Dice dice, bool severe, int age) => m_CharacterBuilder.Injury(character, dice, this, severe, age);
+    protected void Injury(Character character, Dice dice, bool severe, int age) => m_SpeciesCharacterBuilder.Injury(character, dice, this, severe, age);
 
-    protected void Injury(Character character, Dice dice, int age) => m_CharacterBuilder.Injury(character, dice, this, false, age);
+    protected void Injury(Character character, Dice dice, int age) => m_SpeciesCharacterBuilder.Injury(character, dice, this, false, age);
 
-    protected void InjuryRollAge(Character character, Dice dice, bool severe) => m_CharacterBuilder.Injury(character, dice, this, severe, character.Age + dice.D(4));
+    protected void InjuryRollAge(Character character, Dice dice, bool severe) => m_SpeciesCharacterBuilder.Injury(character, dice, this, severe, character.Age + dice.D(4));
 
-    protected void InjuryRollAge(Character character, Dice dice) => m_CharacterBuilder.Injury(character, dice, this, false, character.Age + dice.D(4));
+    protected void InjuryRollAge(Character character, Dice dice) => m_SpeciesCharacterBuilder.Injury(character, dice, this, false, character.Age + dice.D(4));
 
-    protected void LifeEvent(Character character, Dice dice) => m_CharacterBuilder.LifeEvent(character, dice, this);
+    protected void LifeEvent(Character character, Dice dice) => m_SpeciesCharacterBuilder.LifeEvent(character, dice, this);
 
-    protected void PreCareerEvents(Character character, Dice dice, CareerBase career, SkillTemplateCollection skills) => m_CharacterBuilder.PreCareerEvents(character, dice, career, skills);
+    protected void PreCareerEvents(Character character, Dice dice, CareerBase career, SkillTemplateCollection skills) => m_SpeciesCharacterBuilder.PreCareerEvents(character, dice, career, skills);
 
-    protected ImmutableArray<PsionicSkillTemplate> PsionicTalents(Character character) => m_CharacterBuilder.Book(character).PsionicTalents;
+    protected ImmutableArray<PsionicSkillTemplate> PsionicTalents(Character character) => m_SpeciesCharacterBuilder.Book(character).PsionicTalents;
 
     /// <summary>
     /// Gets the list of random skills. Skills needing specialization will be excluded. For example, "Art (Performer)" will be included but just "Art" will not.
     /// </summary>
-    protected ImmutableArray<SkillTemplate> RandomSkills(Character character) => m_CharacterBuilder.Book(character).RandomSkills;
+    protected ImmutableArray<SkillTemplate> RandomSkills(Character character) => m_SpeciesCharacterBuilder.Book(character).RandomSkills;
 
-    protected CareerBase RollDraft(Character character, Dice dice) => m_CharacterBuilder.RollDraft(character, dice);
+    protected CareerBase RollDraft(Character character, Dice dice) => m_SpeciesCharacterBuilder.RollDraft(character, dice);
 
-    protected List<SkillTemplate> SpecialtiesFor(Character character, string skillName) => m_CharacterBuilder.Book(character).SpecialtiesFor(skillName);
+    protected List<SkillTemplate> SpecialtiesFor(Character character, string skillName) => m_SpeciesCharacterBuilder.Book(character).SpecialtiesFor(skillName);
 
-    protected void TestPsionic(Character character, Dice dice, int age) => m_CharacterBuilder.TestPsionic(character, dice, age);
+    protected void TestPsionic(Character character, Dice dice, int age) => m_SpeciesCharacterBuilder.TestPsionic(character, dice, age);
 
-    protected void UnusualLifeEvent(Character character, Dice dice) => m_CharacterBuilder.UnusualLifeEvent(character, dice);
+    protected void UnusualLifeEvent(Character character, Dice dice) => m_SpeciesCharacterBuilder.UnusualLifeEvent(character, dice);
 }

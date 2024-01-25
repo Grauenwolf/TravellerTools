@@ -9,12 +9,12 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 {
     public abstract class TradeEngine
     {
-        readonly CharacterBuilderLocator m_CharacterBuilderLocator;
+        readonly CharacterBuilder m_CharacterBuilderLocator;
         readonly NameGenerator m_NameGenerator;
         ImmutableArray<string> m_Personalities;
 
         [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        protected TradeEngine(TravellerMapService mapService, string dataPath, NameGenerator nameGenerator, CharacterBuilderLocator characterBuilderLocator)
+        protected TradeEngine(TravellerMapService mapService, string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder)
         {
             MapService = mapService;
             m_NameGenerator = nameGenerator;
@@ -24,7 +24,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 TradeGoods = ((TradeGoods)converter.Deserialize(stream)!).TradeGood.ToImmutableList();
 
             LegalTradeGoods = TradeGoods.Where(g => g.Legal).ToImmutableList();
-            m_CharacterBuilderLocator = characterBuilderLocator;
+            m_CharacterBuilderLocator = characterBuilder;
 
             var personalityFile = new FileInfo(Path.Combine(dataPath, "personality.txt"));
             m_Personalities = File.ReadAllLines(personalityFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableArray();
@@ -734,7 +734,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             result.Endurance += character.Endurance;
             result.Intellect += character.Intellect;
             result.Education += character.Education;
-            result.Social += character.SocialStanding;
+            result.SocialStanding += character.SocialStanding;
 
             result.Skills = string.Join(", ", character.Skills.Where(s => s.Level > 0).Select(s => s.ToString()).OrderBy(s => s));
 

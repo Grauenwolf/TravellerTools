@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Marine_StarMarine(CharacterBuilder characterBuilder) : Marine("Star Marine", characterBuilder)
+class Marine_StarMarine(SpeciesCharacterBuilder speciesCharacterBuilder) : Marine("Star Marine", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

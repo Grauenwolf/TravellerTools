@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 
-class Marine_GroundAssault(CharacterBuilder characterBuilder) : Marine("Ground Assault", characterBuilder)
+class Marine_GroundAssault(SpeciesCharacterBuilder speciesCharacterBuilder) : Marine("Ground Assault", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 

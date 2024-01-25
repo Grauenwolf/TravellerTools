@@ -1,6 +1,6 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
 
-class Soulhunter_Support(CharacterBuilder characterBuilder) : Soulhunter("Soulhunter Support", characterBuilder)
+class Soulhunter_Support(SpeciesCharacterBuilder speciesCharacterBuilder) : Soulhunter("Soulhunter Support", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Edu";
 
