@@ -12,7 +12,7 @@ public class CharacterOptions : ModelBase
         SkillList = CharacterBuilder.AllSkills.AddRange(CharacterBuilder.AllPsionicTalents).ToList();
 
         AgeList = new List<int>();
-        for (var terms = 0; terms <= 15; terms++)
+        for (var terms = -1; terms <= 15; terms++)
             AgeList.Add(terms);
     }
 
@@ -37,7 +37,6 @@ public class CharacterOptions : ModelBase
     /// </summary>
     public string? Dex { get => Get<string?>(); set => Set(value); }
 
-    //TODO: Make this user configurable
     /// <summary>
     /// Valid values are High, Low, and empty.
     /// </summary>
@@ -101,6 +100,7 @@ public class CharacterOptions : ModelBase
     /// </summary>
     public string? Int { get => Get<string?>(); set => Set(value); }
 
+    public bool PreferYounger { get => Get<bool>(); set => Set(value); }
     public string? SkillA { get => Get<string?>(); set => Set(value); }
     public string? SkillB { get => Get<string?>(); set => Set(value); }
     public string? SkillC { get => Get<string?>(); set => Set(value); }

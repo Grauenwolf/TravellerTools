@@ -6,6 +6,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 public class AslanCharacterBuilder : SpeciesCharacterBuilder
 {
+    static readonly ImmutableList<string> s_FemaleBackgroundSkills = ImmutableList.Create("Admin", "Animals", "Art", "Athletics", "Carouse", "Drive", "Science", "Seafarer", "Streetwise", "Survival", "Vacc Suit", "Electronics", "Flyer", "Language", "Mechanic", "Medic", "Profession", "Tolerance");
+    static readonly ImmutableList<string> s_MaleBackgroundSkills = ImmutableList.Create("Admin", "Animals", "Art", "Athletics", "Carouse", "Drive", "Science", "Seafarer", "Streetwise", "Survival", "Vacc Suit", "Electronics", "Flyer", "Language", "Medic", "Independence", "Tolerance");
     CareerLists FemaleCareers;
 
     CareerLists MaleCareers;
@@ -169,6 +171,21 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
             return MaleCareers.DraftCareers;
         else
             return FemaleCareers.DraftCareers;
+    }
+
+    protected override void AddBackgroundSkills(Dice dice, Character character)
+    {
+        var skillPicks = character.EducationDM + 3;
+        if (character.MaxAge < StartingAge)
+            skillPicks = (int)Math.Ceiling(skillPicks / 2.0);
+
+        if (skillPicks > 0)
+        {
+            var list = character.Gender == "M" ? s_MaleBackgroundSkills : s_FemaleBackgroundSkills;
+            var backgroundSKills = dice.Choose(list, skillPicks, allowDuplicates: false);
+            foreach (var skill in backgroundSKills)
+                character.Skills.Add(skill); //all skills added at level 0
+        }
     }
 
     protected override int AgingRollDM(int currentTerm) => -2 * currentTerm;

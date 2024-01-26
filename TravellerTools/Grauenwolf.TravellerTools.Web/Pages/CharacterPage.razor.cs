@@ -91,10 +91,14 @@ partial class CharacterPage
                         baseValue -= 1000.0;
 
                     //Add a large boost for the existence of the skill
-                    baseValue += item.Skills.Where(s => desiredSkills!.Contains(s.Name) || desiredSkills.Contains(s.Specialty!)).Select(s => s.Level).Count() * 10;
+                    baseValue += item.Skills.Where(s => desiredSkills!.Contains(s.Name) || desiredSkills.Contains(s.Specialty!)).Where(s => s.Level > 0).Count() * 10;
 
                     //Add a small boost for the value of the skills
-                    baseValue += item.Skills.Where(s => desiredSkills!.Contains(s.Name) || desiredSkills.Contains(s.Specialty!)).Select(s => s.Level).Sum();
+                    baseValue += item.Skills.Where(s => desiredSkills!.Contains(s.Name) || desiredSkills.Contains(s.Specialty!)).Select(s => s.Level).Sum() * 2;
+
+                    //Prefer younger characters
+                    if (Model.PreferYounger)
+                        baseValue += -1 * item.CurrentTerm;
 
                     baseValue += AttributeSuitability(Model.Str, item.StrengthDM);
                     baseValue += AttributeSuitability(Model.Dex, item.DexterityDM);
@@ -105,9 +109,11 @@ partial class CharacterPage
 
                     if (includeCareers)
                     {
-                        baseValue += (item.CareerHistory.Where(ch => string.Equals(ch.Assignment, Model.FinalAssignment, StringComparison.InvariantCultureIgnoreCase)).Sum(ch => ch.Terms * 50.0) / item.CurrentTerm);
+                        if (!Model.FinalAssignment.IsNullOrEmpty())
+                            baseValue += (item.CareerHistory.Where(ch => string.Equals(ch.Assignment, Model.FinalAssignment, StringComparison.InvariantCultureIgnoreCase)).Sum(ch => ch.Terms * 50.0) / item.CurrentTerm);
 
-                        baseValue += (item.CareerHistory.Where(ch => string.Equals(ch.Career, Model.FinalCareer, StringComparison.InvariantCultureIgnoreCase)).Sum(ch => ch.Terms * 20.0) / item.CurrentTerm);
+                        if (!Model.FinalCareer.IsNullOrEmpty())
+                            baseValue += (item.CareerHistory.Where(ch => string.Equals(ch.Career, Model.FinalCareer, StringComparison.InvariantCultureIgnoreCase)).Sum(ch => ch.Terms * 20.0) / item.CurrentTerm);
                     }
 
                     return baseValue;

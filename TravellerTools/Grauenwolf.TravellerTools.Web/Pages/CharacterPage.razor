@@ -71,13 +71,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Age</th>
+                    <th>Terms</th>
                     <td>
-                        <InputSelect @bind-Value="Model.Terms">
+                        Terms <InputSelect @bind-Value="Model.Terms">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.TermsCode))">(Random)</option>
                             @foreach (var item in Model.AgeList)
                                 {
-                                <option value="@(item.ToString())" selected="@( item == Model.Terms )"> @(string.Format("{0} - {1}", 12 + (item * 4), 12 + (item * 4) + 3))</option>
+                                <option value="@(item.ToString())" selected="@( item == Model.Terms )">@item</option>
                                 }
                         </InputSelect>
                     </td>
@@ -89,6 +89,16 @@
                             <option value="F" selected="@(Model.Gender == "F")">F</option>
                         </InputSelect>
                     </td>
+                </tr>
+                <tr>
+                    <th>Age</th>
+                    <td>
+                        <label title="When checked and two characters are viable, use the younger one.">
+                            <InputCheckbox @bind-Value="Model.PreferYounger" />
+                            Prefer Younger
+                        </label>
+                    </td>
+                    <td colspan="2"/>
                 </tr>
                 <tr>
                     <th title="Prefer a character with positive or negative DMs to the following stats.">Desired Stats</th>
@@ -216,6 +226,7 @@
                         <button @onclick="GenerateCharacter">Generate Character</button>
                     </td>
                 </tr>
+                <tr><td colspan="4">When using a "desired" option, 500 characters will be created and then the best match selected.</td></tr>
             </table>
         </EditForm>
     </div>

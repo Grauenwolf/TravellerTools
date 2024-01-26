@@ -17,6 +17,9 @@ public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator
     protected override void AddBackgroundSkills(Dice dice, Character character)
     {
         var skillPicks = character.EducationDM + 3;
+        if (character.MaxAge < StartingAge)
+            skillPicks = (int)Math.Ceiling(skillPicks / 2.0);
+
         var requiredPicks = dice.Choose(s_MandatoryBackgroundSkills, Math.Min(3, skillPicks), allowDuplicates: false);
         foreach (var skill in requiredPicks)
             character.Skills.Add(skill); //all skills added at level 0

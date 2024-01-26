@@ -668,9 +668,13 @@ public abstract class SpeciesCharacterBuilder
 
     protected virtual void AddBackgroundSkills(Dice dice, Character character)
     {
-        if (character.EducationDM + 3 > 0)
+        var skillPicks = character.EducationDM + 3;
+        if (character.MaxAge < StartingAge)
+            skillPicks = (int)Math.Ceiling(skillPicks / 2.0);
+
+        if (skillPicks > 0)
         {
-            var backgroundSKills = dice.Choose(s_BackgroundSkills, character.EducationDM + 3, allowDuplicates: false);
+            var backgroundSKills = dice.Choose(s_BackgroundSkills, skillPicks, allowDuplicates: false);
             foreach (var skill in backgroundSKills)
                 character.Skills.Add(skill); //all skills added at level 0
         }
