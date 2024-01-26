@@ -45,7 +45,7 @@ class Entertainer_Performer(SpeciesCharacterBuilder speciesCharacterBuilder) : E
         }
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -53,14 +53,16 @@ class Entertainer_Performer(SpeciesCharacterBuilder speciesCharacterBuilder) : E
                 return;
 
             case 1:
-                character.Dexterity += 1;
+                if (allowBonus)
+                    character.Dexterity += 1;
                 return;
 
             case 2:
                 return;
 
             case 3:
-                character.Strength += 1;
+                if (allowBonus)
+                    character.Strength += 1;
                 return;
 
             case 4:
@@ -68,7 +70,8 @@ class Entertainer_Performer(SpeciesCharacterBuilder speciesCharacterBuilder) : E
 
             case 5:
                 careerHistory.Title = "Famous Performer";
-                character.SocialStanding += 1;
+                if (allowBonus)
+                    character.SocialStanding += 1;
                 return;
 
             case 6:

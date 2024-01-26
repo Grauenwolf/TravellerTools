@@ -12,36 +12,10 @@ class Merchant_MerchantMarine(SpeciesCharacterBuilder speciesCharacterBuilder) :
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
-
-                return;
-
-            case 2:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Mechanic");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-        }
+        Increase(character, dice, "Pilot", "Vacc Suit", "Athletics", "Mechanic", "Engineer", "Electronics");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -51,7 +25,8 @@ class Merchant_MerchantMarine(SpeciesCharacterBuilder speciesCharacterBuilder) :
 
             case 1:
                 careerHistory.Title = "Senior Crewman";
-                character.Skills.Add("Mechanic", 1);
+                if (allowBonus)
+                    character.Skills.Add("Mechanic", 1);
                 return;
 
             case 2:
@@ -64,13 +39,15 @@ class Merchant_MerchantMarine(SpeciesCharacterBuilder speciesCharacterBuilder) :
 
             case 4:
                 careerHistory.Title = "2nd  Officer";
-                AddOneSkill(character, dice, "Pilot");
+                if (allowBonus)
+                    AddOneSkill(character, dice, "Pilot");
 
                 return;
 
             case 5:
                 careerHistory.Title = "1st  Officer";
-                character.SocialStanding += 1;
+                if (allowBonus)
+                    character.SocialStanding += 1;
                 return;
 
             case 6:

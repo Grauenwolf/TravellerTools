@@ -12,31 +12,6 @@ class ShaperPriest_Academic(SpeciesCharacterBuilder speciesCharacterBuilder) : S
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 2:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
-                return;
-
-            case 5:
-                character.Skills.Increase("Electronics", "Computer");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
-                return;
-        }
+        Increase(character, dice, "Admin", "Advocate", "Science", "Science", "Electronics|Computer", "Science");
     }
 }

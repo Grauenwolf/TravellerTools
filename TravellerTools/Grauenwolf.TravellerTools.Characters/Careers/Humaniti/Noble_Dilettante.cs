@@ -12,35 +12,10 @@ class Noble_Dilettante(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble(
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Carouse");
-                return;
-
-            case 2:
-                character.Skills.Increase("Deception");
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Streetwise");
-                return;
-
-            case 5:
-                character.Skills.Increase("Gambler");
-                return;
-
-            case 6:
-                character.Skills.Increase("Jack-of-all-Trades");
-                return;
-        }
+        Increase(character, dice, "Carouse", "Deception", "Flyer", "Streetwise", "Gambler", "Jack-of-All-Trades");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -53,7 +28,8 @@ class Noble_Dilettante(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble(
 
             case 2:
                 careerHistory.Title = "Ingrate";
-                character.Skills.Add("Carouse", 1);
+                if (allowBonus)
+                    character.Skills.Add("Carouse", 1);
                 return;
 
             case 3:
@@ -61,7 +37,8 @@ class Noble_Dilettante(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble(
 
             case 4:
                 careerHistory.Title = "Black Sheep";
-                character.Skills.Add("Persuade", 1);
+                if (allowBonus)
+                    character.Skills.Add("Persuade", 1);
                 return;
 
             case 5:
@@ -69,7 +46,8 @@ class Noble_Dilettante(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble(
 
             case 6:
                 careerHistory.Title = "Scoundrel";
-                character.Skills.Add("Jack-of-all-Trades", 1);
+                if (allowBonus)
+                    character.Skills.Add("Jack-of-All-Trades", 1);
                 return;
         }
     }

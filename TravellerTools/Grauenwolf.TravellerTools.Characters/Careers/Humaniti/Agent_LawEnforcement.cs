@@ -12,35 +12,10 @@ class Agent_LawEnforcement(SpeciesCharacterBuilder speciesCharacterBuilder) : Ag
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Investigate");
-                return;
-
-            case 2:
-                character.Skills.Increase("Recon");
-                return;
-
-            case 3:
-                character.Skills.Increase("Streetwise");
-                return;
-
-            case 4:
-                character.Skills.Increase("Stealth");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
-                return;
-
-            case 6:
-                character.Skills.Increase("Advocate");
-                return;
-        }
+        Increase(character, dice, "Investigate", "Recon", "Streetwise", "Stealth", "Melee", "Advocate");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -51,7 +26,8 @@ class Agent_LawEnforcement(SpeciesCharacterBuilder speciesCharacterBuilder) : Ag
 
             case 1:
                 careerHistory.Title = "Corporal";
-                character.Skills.Add("Streetwise", 1);
+                if (allowBonus)
+                    character.Skills.Add("Streetwise", 1);
                 return;
 
             case 2:
@@ -64,17 +40,20 @@ class Agent_LawEnforcement(SpeciesCharacterBuilder speciesCharacterBuilder) : Ag
 
             case 4:
                 careerHistory.Title = "Lieutenant";
-                character.Skills.Add("Investigate", 1);
+                if (allowBonus)
+                    character.Skills.Add("Investigate", 1);
                 return;
 
             case 5:
                 careerHistory.Title = "Chief";
-                character.Skills.Add("Admin", 1);
+                if (allowBonus)
+                    character.Skills.Add("Admin", 1);
                 return;
 
             case 6:
                 careerHistory.Title = "Commissioner";
-                character.SocialStanding += 1;
+                if (allowBonus)
+                    character.SocialStanding += 1;
                 return;
         }
     }

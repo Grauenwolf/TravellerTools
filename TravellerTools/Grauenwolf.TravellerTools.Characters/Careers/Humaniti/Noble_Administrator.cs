@@ -12,35 +12,10 @@ class Noble_Administrator(SpeciesCharacterBuilder speciesCharacterBuilder) : Nob
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 2:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 3:
-                character.Skills.Increase("Broker");
-                return;
-
-            case 4:
-                character.Skills.Increase("Diplomat");
-                return;
-
-            case 5:
-                character.Skills.Increase("Leadership");
-                return;
-
-            case 6:
-                character.Skills.Increase("Persuade");
-                return;
-        }
+        Increase(character, dice, "Admin", "Advocate", "Broker", "Diplomat", "Leadership", "Persuade");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -50,7 +25,8 @@ class Noble_Administrator(SpeciesCharacterBuilder speciesCharacterBuilder) : Nob
 
             case 1:
                 careerHistory.Title = "Clerk";
-                character.Skills.Add("Admin", 1);
+                if (allowBonus)
+                    character.Skills.Add("Admin", 1);
                 return;
 
             case 2:
@@ -59,7 +35,8 @@ class Noble_Administrator(SpeciesCharacterBuilder speciesCharacterBuilder) : Nob
 
             case 3:
                 careerHistory.Title = "Manager";
-                character.Skills.Add("Advocate", 1);
+                if (allowBonus)
+                    character.Skills.Add("Advocate", 1);
                 return;
 
             case 4:
@@ -68,7 +45,8 @@ class Noble_Administrator(SpeciesCharacterBuilder speciesCharacterBuilder) : Nob
 
             case 5:
                 careerHistory.Title = "Director";
-                character.Skills.Add("Leadership", 1);
+                if (allowBonus)
+                    character.Skills.Add("Leadership", 1);
                 return;
 
             case 6:

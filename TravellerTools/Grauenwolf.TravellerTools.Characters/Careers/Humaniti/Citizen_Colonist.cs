@@ -12,53 +12,15 @@ class Citizen_Colonist(SpeciesCharacterBuilder speciesCharacterBuilder) : Citize
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Animals")));
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Jack-of-all-Trades");
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
-                return;
-
-            case 5:
-                character.Skills.Increase("Survival");
-                return;
-
-            case 6:
-                character.Skills.Increase("Recon");
-                return;
-        }
+        Increase(character, dice, "Animals", "Athletics", "Jack-of-All-Trades", "Drive", "Survival", "Recon");
     }
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Animals");
-        if (all || roll == 2)
-            character.Skills.Add("Athletics");
-        //if (all || roll == 3)
-        //character.Skills.Add("Jack-of-all-Trades"); Getting this as level 0 has no effect.
-        if (all || roll == 4)
-            character.Skills.Add("Drive");
-        if (all || roll == 5)
-            character.Skills.Add("Survival");
-        if (all || roll == 6)
-            character.Skills.Add("Recon");
+        AddBasicSkills(character, dice, all, "Animals", "Athletics", "Drive", "Survival", "Recon", null);
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -67,7 +29,8 @@ class Citizen_Colonist(SpeciesCharacterBuilder speciesCharacterBuilder) : Citize
 
             case 2:
                 careerHistory.Title = "Settler";
-                character.Skills.Add("Survival", 1);
+                if (allowBonus)
+                    character.Skills.Add("Survival", 1);
                 return;
 
             case 3:
@@ -75,14 +38,16 @@ class Citizen_Colonist(SpeciesCharacterBuilder speciesCharacterBuilder) : Citize
 
             case 4:
                 careerHistory.Title = "Explorer";
-                character.Skills.Add("Navigation", 1);
+                if (allowBonus)
+                    character.Skills.Add("Navigation", 1);
                 return;
 
             case 5:
                 return;
 
             case 6:
-                AddOneSkill(character, dice, "Gun Combat");
+                if (allowBonus)
+                    AddOneSkill(character, dice, "Gun Combat");
                 return;
         }
     }

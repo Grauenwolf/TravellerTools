@@ -6,20 +6,7 @@ abstract class Ceremonial(string assignment, SpeciesCharacterBuilder speciesChar
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Diplomat");
-        if (all || roll == 2)
-            character.Skills.Add("Investigate");
-        if (all || roll == 3)
-            character.Skills.Add("Advocate");
-        if (all || roll == 4)
-            character.Skills.Add("Melee", "Natural");
-        if (all || roll == 5)
-            character.Skills.Add("Science");
-        if (all || roll == 6)
-            character.Skills.Add("Persuade");
+        AddBasicSkills(character, dice, all, "Diplomat", "Investigate", "Advocate", "Melee|Natural", "Science", "Persuade");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -65,7 +52,7 @@ abstract class Ceremonial(string assignment, SpeciesCharacterBuilder speciesChar
                 }
                 else
                 {
-                    if (dice.RollHigh(character.Skills.EffectiveSkillLevel("Art"), 8)) //this will be -3 without Jack-of-all-trades
+                    if (dice.RollHigh(character.Skills.EffectiveSkillLevel("Art"), 8)) //this will be -3 without Jack-of-All-Trades
                     {
                         character.AddHistory($"{character.Name} was assigned a challenging task using and succeeded.", dice);
                         character.CurrentTermBenefits.AdvancementDM += 2;
@@ -81,7 +68,7 @@ abstract class Ceremonial(string assignment, SpeciesCharacterBuilder speciesChar
             case 6:
                 character.AddHistory($"{character.Name} is given advanced training in a specialist field.", dice);
                 if (dice.RollHigh(character.EducationDM, 8))
-                    character.Skills.Increase(dice.Choose(RandomSkills(character)));
+                    IncreaseOneRandomSkill(character, dice);
                 return;
 
             case 7:
@@ -96,7 +83,7 @@ abstract class Ceremonial(string assignment, SpeciesCharacterBuilder speciesChar
             case 9:
                 character.AddHistory($"{character.Name} rise in influence in {character.Name}'s clan.", dice);
                 character.Territory += 1;
-                character.Skills.Increase(dice.Choose(RandomSkills(character)));
+                IncreaseOneRandomSkill(character, dice);
                 return;
 
             case 10:
@@ -196,91 +183,19 @@ abstract class Ceremonial(string assignment, SpeciesCharacterBuilder speciesChar
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Diplomat");
-                return;
-
-            case 2:
-                character.Skills.Increase("Investigate");
-                return;
-
-            case 3:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 4:
-                character.Skills.Increase("Melee", "Natural");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
-                return;
-
-            case 6:
-                character.Skills.Increase("Persuade");
-                return;
-        }
+        Increase(character, dice, "Diplomat", "Investigate", "Advocate", "Melee|Natural", "Science", "Persuade");
     }
 
     protected override void AdvancedEducation(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Language")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Tolerance");
-                return;
-
-            case 5:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
-                return;
-        }
+        Increase(character, dice, "Art", "Electronics", "Language", "Tolerance", "Admin", "Science");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (character.Gender == "M" ? dice.D(6) : dice.D(5))
-        {
-            case 1:
-                character.Strength += 1;
-                return;
-
-            case 2:
-                character.Dexterity += 1;
-                return;
-
-            case 3:
-                character.Intellect += 1;
-                return;
-
-            case 4:
-                character.Education += 1;
-                return;
-
-            case 5:
-                character.SocialStanding += 1;
-                return;
-
-            case 6:
-                character.Skills.Increase("Independence");
-                return;
-        }
+        if (character.Gender == "M")
+            Increase(character, dice, "Strength", "Dexterity", "Intellect", "Education", "SocialStanding", "Independence");
+        else
+            Increase(character, dice, "Strength", "Dexterity", "Intellect", "Education", "SocialStanding", null);
     }
 }

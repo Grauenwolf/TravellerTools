@@ -12,35 +12,10 @@ class Ceremonial_Priest(SpeciesCharacterBuilder speciesCharacterBuilder) : Cerem
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 2:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 3:
-                character.Skills.Increase("Diplomat");
-                return;
-
-            case 4:
-                character.Skills.Increase("Persuade");
-                return;
-
-            case 5:
-                character.Skills.Increase("Tolerance");
-                return;
-
-            case 6:
-                character.Skills.Increase("Melee", "Natural");
-                return;
-        }
+        Increase(character, dice, "Admin", "Advocate", "Diplomat", "Persuade", "Tolerance", "Melee|Natural");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -54,7 +29,8 @@ class Ceremonial_Priest(SpeciesCharacterBuilder speciesCharacterBuilder) : Cerem
 
             case 2:
                 careerHistory.Title = "Initiate";
-                character.SocialStanding += 1;
+                if (allowBonus)
+                    character.SocialStanding += 1;
                 return;
 
             case 3:
@@ -63,7 +39,8 @@ class Ceremonial_Priest(SpeciesCharacterBuilder speciesCharacterBuilder) : Cerem
 
             case 4:
                 careerHistory.Title = "Practitioner";
-                character.SocialStanding += 1;
+                if (allowBonus)
+                    character.SocialStanding += 1;
                 return;
 
             case 5:
@@ -72,7 +49,8 @@ class Ceremonial_Priest(SpeciesCharacterBuilder speciesCharacterBuilder) : Cerem
 
             case 6:
                 careerHistory.Title = "Grand Master";
-                character.Education += 1;
+                if (allowBonus)
+                    character.Education += 1;
                 return;
         }
     }

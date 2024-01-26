@@ -12,65 +12,29 @@ class Drifter_Wanderer(SpeciesCharacterBuilder speciesCharacterBuilder) : Drifte
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Deception");
-                return;
-
-            case 3:
-                character.Skills.Increase("Recon");
-                return;
-
-            case 4:
-                character.Skills.Increase("Stealth");
-                return;
-
-            case 5:
-                character.Skills.Increase("Streetwise");
-                return;
-
-            case 6:
-                character.Skills.Increase("Survival");
-                return;
-        }
+        Increase(character, dice, "Drive", "Deception", "Recon", "Stealth", "Streetwise", "Survival");
     }
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Drive");
-        if (all || roll == 2)
-            character.Skills.Add("Deception");
-        if (all || roll == 3)
-            character.Skills.Add("Recon");
-        if (all || roll == 4)
-            character.Skills.Add("Stealth");
-        if (all || roll == 5)
-            character.Skills.Add("Streetwise");
-        if (all || roll == 6)
-            character.Skills.Add("Survival");
+        AddBasicSkills(character, dice, all, "Drive", "Deception", "Recon", "Stealth", "Streetwise", "Survival");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
             case 1:
-                character.Skills.Add("Streetwise", 1);
+                if (allowBonus)
+                    character.Skills.Add("Streetwise", 1);
                 return;
 
             case 2:
                 return;
 
             case 3:
-                character.Skills.Add("Deception", 1);
+                if (allowBonus)
+                    character.Skills.Add("Deception", 1);
                 return;
 
             case 4:

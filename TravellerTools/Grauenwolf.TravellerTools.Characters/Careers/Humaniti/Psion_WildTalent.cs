@@ -68,13 +68,14 @@ class Psion_WildTalent(SpeciesCharacterBuilder speciesCharacterBuilder) : Psion(
         }
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
             case 1:
                 careerHistory.Title = "Survivor";
-                AddOneSkill(character, dice, "Survival", "Streetwise");
+                if (allowBonus)
+                    AddOneSkill(character, dice, "Survival", "Streetwise");
                 return;
 
             case 2:
@@ -82,7 +83,8 @@ class Psion_WildTalent(SpeciesCharacterBuilder speciesCharacterBuilder) : Psion(
 
             case 3:
                 careerHistory.Title = "Witch";
-                character.Skills.Add("Deception", 1);
+                if (allowBonus)
+                    character.Skills.Add("Deception", 1);
                 return;
 
             case 4:

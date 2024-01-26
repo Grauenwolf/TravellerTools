@@ -12,56 +12,34 @@ class DolphinMilitary_Guardian(SpeciesCharacterBuilder speciesCharacterBuilder) 
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Heavy Weapons")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Tactics")));
-                return;
-
-            case 6:
-                character.Skills.Increase("Medic");
-                return;
-        }
+        Increase(character, dice, "Melee", "Gun Combat", "Heavy Weapons", "Vacc Suit", "Tactics", "Medic");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         if (careerHistory.CommissionRank == 0)
         {
             switch (careerHistory.Rank)
             {
                 case 0:
-                    character.Skills.Add("Melee", "Natural", 1);
+                    if (allowBonus)
+                        character.Skills.Add("Melee", "Natural", 1);
                     return;
 
                 case 1:
                     return;
 
                 case 2:
-                    character.Endurance += 1;
+                    if (allowBonus)
+                        character.Endurance += 1;
                     return;
 
                 case 3:
                     return;
 
                 case 4:
-                    character.Strength += 1;
+                    if (allowBonus)
+                        character.Strength += 1;
                     return;
 
                 case 5:
@@ -72,6 +50,6 @@ class DolphinMilitary_Guardian(SpeciesCharacterBuilder speciesCharacterBuilder) 
             }
         }
         else
-            base.TitleTable(character, careerHistory, dice);
+            base.TitleTable(character, careerHistory, dice, allowBonus);
     }
 }

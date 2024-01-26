@@ -12,31 +12,6 @@ class Navy_Flight(SpeciesCharacterBuilder speciesCharacterBuilder) : Navy("Fligh
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gunner")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Pilot", "Small craft");
-                return;
-
-            case 5:
-                character.Skills.Increase("Astrogation");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-        }
+        Increase(character, dice, "Pilot", "Flyer", "Gunner", "Pilot|Small Craft", "Astrogation", "Electronics");
     }
 }

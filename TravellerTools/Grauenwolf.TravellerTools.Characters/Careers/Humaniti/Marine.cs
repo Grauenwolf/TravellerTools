@@ -6,20 +6,7 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Athletics");
-        if (all || roll == 2)
-            character.Skills.Add("Vacc Suit");
-        if (all || roll == 3)
-            character.Skills.Add("Tactics");
-        if (all || roll == 4)
-            character.Skills.Add("Heavy Weapons");
-        if (all || roll == 5)
-            character.Skills.Add("Gun Combat");
-        if (all || roll == 6)
-            character.Skills.Add("Stealth");
+        AddBasicSkills(character, dice, all, "Athletics", "Vacc Suit", "Tactics", "Heavy Weapons", "Gun Combat", "Stealth");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -38,12 +25,7 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
 
             case 4:
                 character.AddHistory($"Assigned to the security staff of a space station.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Vacc Suit");
-                    skillList.Add("Athletics", "Dexterity");
-                    character.Skills.Increase(dice.Choose(skillList));
-                }
+                IncreaseOneSkill(character, dice, "Vacc Suit", "Athletics|Dexterity");
 
                 return;
 
@@ -57,10 +39,7 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
                 character.AddHistory($"Assigned to an assault on an enemy fortress.", dice);
                 if (dice.RollHigh(character.Skills.BestSkillLevel("Gun Combat", "Melee"), 8))
                 {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Tactics", "Military");
-                    skillList.Add("Leadership");
-                    character.Skills.Increase(dice.Choose(skillList));
+                    IncreaseOneSkill(character, dice, "Tactics|Military", "Leadership");
                 }
                 else
                 {
@@ -165,12 +144,8 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
 
             case 3:
                 character.AddHistory($"A mission goes wrong and {character.Name} is stranded behind enemy lines. Ejected from the service.", age);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Stealth");
-                    skillList.Add("Survival");
-                    character.Skills.Increase(dice.Choose(skillList));
-                }
+
+                IncreaseOneSkill(character, dice, "Stealth", "Survival");
                 return;
 
             case 4:
@@ -211,35 +186,10 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Tactics")));
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Heavy Weapons")));
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-
-            case 6:
-                character.Skills.Increase("Stealth");
-                return;
-        }
+        Increase(character, dice, "Athletics", "Vacc Suit", "Tactics", "Heavy Weapons", "Gun Combat", "Stealth");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         if (careerHistory.CommissionRank == 0)
         {
@@ -247,12 +197,14 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
             {
                 case 0:
                     careerHistory.Title = "Marine";
-                    AddOneSkill(character, dice, "Gun Combat", "Melee|Blade");
+                    if (allowBonus)
+                        AddOneSkill(character, dice, "Gun Combat", "Melee|Blade");
                     return;
 
                 case 1:
                     careerHistory.Title = "Lance Corporal";
-                    AddOneSkill(character, dice, "Gun Combat");
+                    if (allowBonus)
+                        AddOneSkill(character, dice, "Gun Combat");
                     return;
 
                 case 2:
@@ -261,7 +213,8 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
 
                 case 3:
                     careerHistory.Title = "Lance Sergeant";
-                    character.Skills.Add("Leadership", 1);
+                    if (allowBonus)
+                        character.Skills.Add("Leadership", 1);
                     return;
 
                 case 4:
@@ -270,7 +223,8 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
 
                 case 5:
                     careerHistory.Title = "Gunnery Sergeant";
-                    character.Endurance += 1;
+                    if (allowBonus)
+                        character.Endurance += 1;
                     return;
 
                 case 6:
@@ -284,7 +238,8 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
             {
                 case 1:
                     careerHistory.Title = "Lieutenant";
-                    character.Skills.Add("Leadership", 1);
+                    if (allowBonus)
+                        character.Skills.Add("Leadership", 1);
                     return;
 
                 case 2:
@@ -293,7 +248,8 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
 
                 case 3:
                     careerHistory.Title = "Force Commander";
-                    AddOneSkill(character, dice, "Tactics");
+                    if (allowBonus)
+                        AddOneSkill(character, dice, "Tactics");
                     return;
 
                 case 4:
@@ -302,10 +258,13 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
 
                 case 5:
                     careerHistory.Title = "Colonel";
-                    if (character.SocialStanding < 10)
-                        character.SocialStanding = 10;
-                    else
-                        character.SocialStanding += 1;
+                    if (allowBonus)
+                    {
+                        if (character.SocialStanding < 10)
+                            character.SocialStanding = 10;
+                        else
+                            character.SocialStanding += 1;
+                    }
                     return;
 
                 case 6:
@@ -317,91 +276,16 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
 
     protected override void AdvancedEducation(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Medic");
-                return;
-
-            case 2:
-                character.Skills.Increase("Survival");
-                return;
-
-            case 3:
-                character.Skills.Increase("Explosives");
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
-                return;
-
-            case 6:
-                character.Skills.Increase("Navigation");
-                return;
-        }
+        Increase(character, dice, "Medic", "Survival", "Explosives", "Engineer", "Pilot", "Navigation");
     }
 
     protected override void OfficerTraining(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Tactics")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 4:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 5:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 6:
-                character.Skills.Increase("Leadership");
-                return;
-        }
+        Increase(character, dice, "Electronics", "Tactics", "Admin", "Advocate", "Vacc Suit", "Leadership");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Strength += 1;
-                return;
-
-            case 2:
-                character.Dexterity += 1;
-                return;
-
-            case 3:
-                character.Endurance += 1;
-                return;
-
-            case 4:
-                character.Skills.Increase("Gambler");
-                return;
-
-            case 5:
-                character.Skills.Increase("Melee", "Unarmed");
-                return;
-
-            case 6:
-                character.Skills.Increase("Melee", "Unarmed");
-                return;
-        }
+        Increase(character, dice, "Strength", "Dexterity", "Endurance", "Gambler", "Melee|Unarmed", "Melee|Unarmed");
     }
 }

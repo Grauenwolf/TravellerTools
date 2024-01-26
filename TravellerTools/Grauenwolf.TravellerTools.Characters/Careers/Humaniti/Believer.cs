@@ -4,24 +4,9 @@ abstract class Believer(string assignment, SpeciesCharacterBuilder speciesCharac
 {
     protected override int AdvancedEductionMin => 8;
 
-    
-
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Profession", "Religion");
-        if (all || roll == 2)
-            character.Skills.Add("Science", "Belief");
-        if (all || roll == 3)
-            character.Skills.Add("Admin");
-        if (all || roll == 4)
-            character.Skills.Add("Electronics", "Computers");
-        if (all || roll == 5)
-            character.Skills.Add("Diplomat");
-        if (all || roll == 6)
-            character.Skills.Add("Persuade");
+        AddBasicSkills(character, dice, all, "Profession|Religion", "Science|Belief", "Admin", "Electronics|Computers", "Diplomat", "Persuade");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -196,39 +181,9 @@ abstract class Believer(string assignment, SpeciesCharacterBuilder speciesCharac
         }
     }
 
-    internal sealed override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
-    {
-        TitleTable(character, careerHistory, dice, true);
-    }
-
     protected override void AdvancedEducation(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Profession", "Religion");
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Medic");
-                return;
-
-            case 4:
-                character.Skills.Increase("Investigate");
-                return;
-
-            case 5:
-                character.Skills.Increase("Electronics", "Computers");
-                return;
-
-            case 6:
-                character.Skills.Increase("Advocate");
-                return;
-        }
+        Increase(character, dice, "Profession|Religion", "Electronics", "Medic", "Investigate", "Electronics|Computers", "Advocate");
     }
 
     protected void Demote(Character character, Dice dice, CareerHistory careerHistory, int? age)
@@ -286,6 +241,4 @@ abstract class Believer(string assignment, SpeciesCharacterBuilder speciesCharac
                 return;
         }
     }
-
-    protected abstract void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus);
 }

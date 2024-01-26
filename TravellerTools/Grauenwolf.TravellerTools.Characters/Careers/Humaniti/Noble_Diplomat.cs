@@ -12,35 +12,10 @@ class Noble_Diplomat(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble("D
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 2:
-                character.Skills.Increase("Carouse");
-                return;
-
-            case 3:
-                character.Skills.Increase("Electronics");
-                return;
-
-            case 4:
-                character.Skills.Increase("Steward");
-                return;
-
-            case 5:
-                character.Skills.Increase("Diplomat");
-                return;
-
-            case 6:
-                character.Skills.Increase("Deception");
-                return;
-        }
+        Increase(character, dice, "Advocate", "Carouse", "Electronics", "Steward", "Diplomat", "Deception");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -50,7 +25,8 @@ class Noble_Diplomat(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble("D
 
             case 1:
                 careerHistory.Title = "3rd  Secretary";
-                character.Skills.Add("Admin", 1);
+                if (allowBonus)
+                    character.Skills.Add("Admin", 1);
                 return;
 
             case 2:
@@ -59,7 +35,8 @@ class Noble_Diplomat(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble("D
 
             case 3:
                 careerHistory.Title = "1st  Secretary";
-                character.Skills.Add("Advocate", 1);
+                if (allowBonus)
+                    character.Skills.Add("Advocate", 1);
                 return;
 
             case 4:
@@ -68,7 +45,8 @@ class Noble_Diplomat(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble("D
 
             case 5:
                 careerHistory.Title = "Minister";
-                character.Skills.Add("Diplomat", 1);
+                if (allowBonus)
+                    character.Skills.Add("Diplomat", 1);
                 return;
 
             case 6:

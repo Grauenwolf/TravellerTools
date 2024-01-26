@@ -12,35 +12,10 @@ class Rogue_Thief(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("Thie
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Stealth");
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Recon");
-                return;
-
-            case 4:
-                character.Skills.Increase("Streetwise");
-                return;
-
-            case 5:
-                character.Skills.Increase("Deception");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-        }
+        Increase(character, dice, "Stealth", "Electronics", "Recon", "Streetwise", "Deception", "Athletics");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -48,21 +23,24 @@ class Rogue_Thief(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("Thie
                 return;
 
             case 1:
-                character.Skills.Add("Stealth", 1);
+                if (allowBonus)
+                    character.Skills.Add("Stealth", 1);
                 return;
 
             case 2:
                 return;
 
             case 3:
-                character.Skills.Add("Streetwise", 1);
+                if (allowBonus)
+                    character.Skills.Add("Streetwise", 1);
                 return;
 
             case 4:
                 return;
 
             case 5:
-                character.Skills.Add("Recon", 1);
+                if (allowBonus)
+                    character.Skills.Add("Recon", 1);
                 return;
 
             case 6:

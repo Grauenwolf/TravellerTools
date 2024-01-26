@@ -68,7 +68,7 @@ public abstract class SpeciesCharacterBuilder
         m_AgeTable = ages;
     }
 
-    public virtual ImmutableArray<Book> Books { get; }
+    public virtual ImmutableArray<Book> Books { get; protected set; }
 
     public abstract ImmutableArray<Gender> Genders { get; }
 

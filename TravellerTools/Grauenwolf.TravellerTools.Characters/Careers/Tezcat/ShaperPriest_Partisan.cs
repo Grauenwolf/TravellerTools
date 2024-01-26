@@ -12,35 +12,10 @@ class ShaperPriest_Partisan(SpeciesCharacterBuilder speciesCharacterBuilder) : S
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Academic");
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Tactics", "Military");
-                return;
-
-            case 5:
-                character.Skills.Increase("Recon");
-                return;
-
-            case 6:
-                character.Skills.Increase("Stealth");
-                return;
-        }
+        Increase(character, dice, "Academic", "Gun Combat", "Melee", "Tactics|Military", "Recon", "Stealth");
     }
 
-    protected override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {

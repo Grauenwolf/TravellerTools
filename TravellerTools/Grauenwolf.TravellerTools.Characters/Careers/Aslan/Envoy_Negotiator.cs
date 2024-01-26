@@ -2,7 +2,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 class Envoy_Negotiator(SpeciesCharacterBuilder speciesCharacterBuilder) : Envoy("Negotiator", speciesCharacterBuilder)
 {
-
     protected override string AdvancementAttribute => "Int";
 
     protected override int AdvancementTarget => 7;
@@ -13,33 +12,6 @@ class Envoy_Negotiator(SpeciesCharacterBuilder speciesCharacterBuilder) : Envoy(
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Persuade");
-                return;
-
-            case 2:
-                character.Skills.Increase("Tolerance");
-                return;
-
-            case 3:
-                character.Skills.Increase("Diplomat");
-                return;
-
-            case 4:
-                character.Skills.Increase("Deception");
-                return;
-
-            case 5:
-                character.Skills.Increase("Diplomat");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
-                return;
-        }
+        Increase(character, dice, "Persuade", "Tolerance", "Diplomat", "Deception", "Diplomat", "Art");
     }
-
-
 }

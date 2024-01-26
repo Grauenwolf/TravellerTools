@@ -40,7 +40,7 @@ abstract class RanklessCareer(string name, string? assignment, SpeciesCharacterB
         }
     }
 
-    internal override sealed void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override sealed void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
     }
 

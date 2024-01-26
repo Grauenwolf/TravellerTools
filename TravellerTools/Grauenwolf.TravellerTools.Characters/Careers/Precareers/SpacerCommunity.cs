@@ -97,7 +97,7 @@ class SpacerCommunity(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerB
                 character.EducationHistory.Status = "Honors";
                 character.AddHistory($"Graduated with honors.", character.Age);
 
-                character.Skills.Add("Jack-of-all-Trades", 1);
+                character.Skills.Add("Jack-of-All-Trades", 1);
                 FixupSkills(character, dice);
             }
             else

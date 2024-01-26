@@ -12,35 +12,10 @@ class Entertainer_Artist(SpeciesCharacterBuilder speciesCharacterBuilder) : Ente
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Carouse");
-                return;
-
-            case 3:
-                character.Skills.Increase("Electronics", "Comms");
-                return;
-
-            case 4:
-                character.Skills.Increase("Gambler");
-                return;
-
-            case 5:
-                character.Skills.Increase("Persuade");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Profession")));
-                return;
-        }
+        Increase(character, dice, "Art", "Carouse", "Electronics|Comms", "Gambler", "Persuade", "Profession");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -48,14 +23,16 @@ class Entertainer_Artist(SpeciesCharacterBuilder speciesCharacterBuilder) : Ente
                 return;
 
             case 1:
-                AddOneSkill(character, dice, "Art");
+                if (allowBonus)
+                    AddOneSkill(character, dice, "Art");
                 return;
 
             case 2:
                 return;
 
             case 3:
-                character.Skills.Add("Investigate", 1);
+                if (allowBonus)
+                    character.Skills.Add("Investigate", 1);
                 return;
 
             case 4:
@@ -63,7 +40,8 @@ class Entertainer_Artist(SpeciesCharacterBuilder speciesCharacterBuilder) : Ente
 
             case 5:
                 careerHistory.Title = "Famous Artist";
-                character.SocialStanding += 1;
+                if (allowBonus)
+                    character.SocialStanding += 1;
                 return;
 
             case 6:

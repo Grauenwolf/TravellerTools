@@ -12,35 +12,10 @@ class Rogue_Pirate(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("Pir
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Astrogation");
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gunner")));
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
-                return;
-
-            case 5:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
-                return;
-        }
+        Increase(character, dice, "Pilot", "Astrogation", "Gunner", "Engineer", "Vacc Suit", "Melee");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -50,7 +25,8 @@ class Rogue_Pirate(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("Pir
 
             case 1:
                 careerHistory.Title = "Henchman";
-                AddOneSkill(character, dice, "Pilot", "Gunner");
+                if (allowBonus)
+                    AddOneSkill(character, dice, "Pilot", "Gunner");
                 return;
 
             case 2:
@@ -59,7 +35,8 @@ class Rogue_Pirate(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("Pir
 
             case 3:
                 careerHistory.Title = "Sergeant";
-                AddOneSkill(character, dice, "Gun Combat", "Melee");
+                if (allowBonus)
+                    AddOneSkill(character, dice, "Gun Combat", "Melee");
                 return;
 
             case 4:
@@ -68,7 +45,8 @@ class Rogue_Pirate(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("Pir
 
             case 5:
                 careerHistory.Title = "Leader";
-                AddOneSkill(character, dice, "Engineer", "Navigation");
+                if (allowBonus)
+                    AddOneSkill(character, dice, "Engineer", "Navigation");
                 return;
 
             case 6:

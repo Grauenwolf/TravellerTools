@@ -12,35 +12,10 @@ class Believer_HolyWarrior(SpeciesCharacterBuilder speciesCharacterBuilder) : Be
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Explosives");
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Heavy Weapons")));
-                return;
-
-            case 5:
-                character.Skills.Increase("Tactics", "Military");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-        }
+        Increase(character, dice, "Gun Combat", "Melee", "Explosives", "Heavy Weapons", "Tactics|Military", "Athletics");
     }
 
-    protected override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {

@@ -51,6 +51,11 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
         return true;
     }
 
+    public void IncreaseOneRandomSkill(Character character, Dice dice)
+    {
+        character.Skills.Increase(dice.Choose(RandomSkills(character)));
+    }
+
     /*
     /// <summary>
     /// Adds a benefit or a one skill at level 1.
@@ -81,7 +86,7 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
     /// <summary>
     /// Increases one skill by 1 level.
     /// </summary>
-    public void IncreaseOneSkill(Character character, Dice dice, params string[] skills)
+    public bool IncreaseOneSkill(Character character, Dice dice, params string[] skills)
     {
         var skillList = new SkillTemplateCollection();
         foreach (var skill in skills)
@@ -94,8 +99,11 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
             else
                 skillList.AddRange(SpecialtiesFor(character, skill));
         }
+        if (skillList.Count == 0)
+            return false;
 
         character.Skills.Increase(dice.Choose(skillList), 1);
+        return true;
     }
 
     public override string ToString()
@@ -116,7 +124,115 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
 
     internal abstract void Run(Character character, Dice dice);
 
+    protected void AddBasicSkills(Character character, Dice dice, bool all, string item1, string item2, string item3, string item4, string item5, string? item6)
+    {
+        var roll = dice.D(item6 == null ? 5 : 6);
+
+        if (all || roll == 1)
+            Add(item1);
+        if (all || roll == 2)
+            Add(item2);
+        if (all || roll == 3)
+            Add(item3);
+        if (all || roll == 4)
+            Add(item4);
+        if (all || roll == 5)
+            Add(item5);
+        if ((all || roll == 6) && item6 != null)
+            Add(item6);
+
+        void Add(string item)
+        {
+            switch (item)
+            {
+                case "Strength":
+                case "Str":
+                    character.Strength += 1; return;
+
+                case "Dexterity":
+                case "Dex":
+                    character.Dexterity += 1; return;
+
+                case "Endurance":
+                case "End":
+                    character.Endurance += 1; return;
+
+                case "Intellect":
+                case "Int":
+                    character.Intellect += 1; return;
+
+                case "Education":
+                case "Edu":
+                    character.Education += 1; return;
+
+                case "SS":
+                case "Soc":
+                case "SocialStanding":
+                    character.SocialStanding += 1; return;
+
+                default:
+                    //TODO: Check for illegal skills
+                    if (item.Contains("|"))
+                    {
+                        var parts = item.Split('|');
+                        character.Skills.Add(parts[0]);
+                    }
+                    else
+                        character.Skills.Add(item);
+
+                    return;
+            }
+        }
+    }
+
     protected void FixupSkills(Character character, Dice dice) => m_SpeciesCharacterBuilder.FixupSkills(character, dice);
+
+    protected void Increase(Character character, Dice dice, string item1, string item2, string item3, string item4, string item5, string? item6)
+    {
+    top:
+        var roll = dice.D(item6 == null ? 5 : 6);
+        var item = roll switch
+        {
+            1 => item1,
+            2 => item2,
+            3 => item3,
+            4 => item4,
+            5 => item5,
+            _ => item6!
+        };
+
+        switch (item)
+        {
+            case "Strength":
+            case "Str":
+                character.Strength += 1; return;
+
+            case "Dexterity":
+            case "Dex":
+                character.Dexterity += 1; return;
+
+            case "Endurance":
+            case "End":
+                character.Endurance += 1; return;
+
+            case "Intellect":
+            case "Int":
+                character.Intellect += 1; return;
+
+            case "Education":
+            case "Edu":
+                character.Education += 1; return;
+
+            case "SS":
+            case "Soc":
+            case "SocialStanding":
+                character.SocialStanding += 1; return;
+            default:
+                if (!IncreaseOneSkill(character, dice, item.Split(',')))
+                    goto top; //Try again because your race can't have that skill
+                return;
+        }
+    }
 
     protected void Injury(Character character, Dice dice, bool severe, int age) => m_SpeciesCharacterBuilder.Injury(character, dice, this, severe, age);
 

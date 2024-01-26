@@ -12,31 +12,6 @@ class ShaperPriest_Ecclesiastic(SpeciesCharacterBuilder speciesCharacterBuilder)
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Profession", "Religion");
-                return;
-
-            case 2:
-                character.Skills.Increase("Science", "Shaper Church");
-                return;
-
-            case 3:
-                character.Skills.Increase("Persuade");
-                return;
-
-            case 4:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 5:
-                character.Skills.Increase("Leadership");
-                return;
-
-            case 6:
-                character.Skills.Increase("Deception");
-                return;
-        }
+        Increase(character, dice, "Profession|Religion", "Science|Shaper Church", "Persuade", "Admin", "Leadership", "Deception");
     }
 }

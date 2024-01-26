@@ -6,20 +6,7 @@ abstract class Entertainer(string assignment, SpeciesCharacterBuilder speciesCha
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Art");
-        if (all || roll == 2)
-            character.Skills.Add("Carouse");
-        if (all || roll == 3)
-            character.Skills.Add("Drive");
-        if (all || roll == 4)
-            character.Skills.Add("Deception");
-        if (all || roll == 5)
-            character.Skills.Add("Persuade");
-        if (all || roll == 6)
-            character.Skills.Add("Steward");
+        AddBasicSkills(character, dice, all, "Art", "Carouse", "Drive", "Deception", "Persuade", "Steward");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -177,91 +164,16 @@ abstract class Entertainer(string assignment, SpeciesCharacterBuilder speciesCha
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Carouse");
-                return;
-
-            case 3:
-                character.Skills.Increase("Deception");
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
-                return;
-
-            case 5:
-                character.Skills.Increase("Persuade");
-                return;
-
-            case 6:
-                character.Skills.Increase("Steward");
-                return;
-        }
+        Increase(character, dice, "Art", "Carouse", "Deception", "Drive", "Persuade", "Steward");
     }
 
     protected override void AdvancedEducation(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 2:
-                character.Skills.Increase("Broker");
-                return;
-
-            case 3:
-                character.Skills.Increase("Deception");
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
-                return;
-
-            case 5:
-                character.Skills.Increase("Streetwise");
-                return;
-
-            case 6:
-                character.Skills.Increase("Diplomat");
-                return;
-        }
+        Increase(character, dice, "Advocate", "Broker", "Deception", "Science", "Streetwise", "Diplomat");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Dexterity += 1;
-                return;
-
-            case 2:
-                character.Intellect += 1;
-                return;
-
-            case 3:
-                character.SocialStanding += 1;
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Language")));
-                return;
-
-            case 5:
-                character.Skills.Increase("Carouse");
-                return;
-
-            case 6:
-                character.Skills.Increase("Jack-of-all-Trades");
-                return;
-        }
+        Increase(character, dice, "Dexterity", "Intellect", "SocialStanding", "Language", "Carouse", "Jack-of-All-Trades");
     }
 }

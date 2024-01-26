@@ -8,20 +8,7 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Athletics");
-        if (all || roll == 2)
-            character.Skills.Add("Vacc Suit");
-        if (all || roll == 3)
-            character.Skills.Add("Electronics");
-        if (all || roll == 4)
-            character.Skills.Add("Electronics");
-        if (all || roll == 5)
-            character.Skills.Add("Gun Combat");
-        if (all || roll == 6)
-            character.Skills.Add("Stealth");
+        AddBasicSkills(character, dice, all, "Athletics", "Vacc Suit", "Electronics", "Electronics", "Gun Combat", "Stealth");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -220,35 +207,10 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 3:
-                character.Skills.Increase("Electronics", "Comms");
-                return;
-
-            case 4:
-                character.Skills.Increase("Electronics", "Sensors");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-
-            case 6:
-                character.Skills.Increase("Stealth");
-                return;
-        }
+        Increase(character, dice, "Athletics", "Vacc Suit", "Electronics|Comms", "Electronics|Sensors", "Gun Combat", "Stealth");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         if (careerHistory.CommissionRank == 0)
         {
@@ -256,12 +218,14 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
             {
                 case 0:
                     careerHistory.Title = "Private";
-                    character.Skills.Add("Vacc Suit", 1);
+                    if (allowBonus)
+                        character.Skills.Add("Vacc Suit", 1);
                     return;
 
                 case 1:
                     careerHistory.Title = "Lance Corporal";
-                    AddOneSkill(character, dice, "Gun Combat");
+                    if (allowBonus)
+                        AddOneSkill(character, dice, "Gun Combat");
                     return;
 
                 case 2:
@@ -270,7 +234,8 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
 
                 case 3:
                     careerHistory.Title = "Lance Sergeant";
-                    character.Skills.Add("Electronics", "Computers");
+                    if (allowBonus)
+                        character.Skills.Add("Electronics", "Computers");
                     return;
 
                 case 4:
@@ -292,12 +257,14 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
             {
                 case 1:
                     careerHistory.Title = "Lieutenant";
-                    character.Skills.Add("Leadership", 1);
+                    if (allowBonus)
+                        character.Skills.Add("Leadership", 1);
                     return;
 
                 case 2:
                     careerHistory.Title = "Captain";
-                    character.Skills.Add("Melee", "Blade", 1);
+                    if (allowBonus)
+                        character.Skills.Add("Melee", "Blade", 1);
                     return;
 
                 case 3:
@@ -306,7 +273,8 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
 
                 case 4:
                     careerHistory.Title = "Lt. Colonel";
-                    AddOneSkill(character, dice, "Tactics");
+                    if (allowBonus)
+                        AddOneSkill(character, dice, "Tactics");
                     return;
 
                 case 5:
@@ -315,10 +283,13 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
 
                 case 6:
                     careerHistory.Title = "General";
-                    if (character.SocialStanding < 10)
-                        character.SocialStanding = 10;
-                    else
-                        character.SocialStanding += 1;
+                    if (allowBonus)
+                    {
+                        if (character.SocialStanding < 10)
+                            character.SocialStanding = 10;
+                        else
+                            character.SocialStanding += 1;
+                    }
                     return;
             }
         }
@@ -326,93 +297,18 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
 
     protected override void AdvancedEducation(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Medic");
-                return;
-
-            case 2:
-                character.Skills.Increase("Survival");
-                return;
-
-            case 3:
-                character.Skills.Increase("Explosives");
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
-                return;
-
-            case 5:
-                character.Skills.Increase("Mechanic");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
-                return;
-        }
+        Increase(character, dice, "Medic", "Survival", "Explosives", "Engineer", "Mechanic", "Pilot");
     }
 
     protected override int CommissionAttribute(Character character) => character.SocialStanding;
 
     protected override void OfficerTraining(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Leadership");
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Tactics")));
-                return;
-
-            case 6:
-                character.Skills.Increase("Diplomat");
-                return;
-        }
+        Increase(character, dice, "Leadership", "Electronics", "Pilot", "Admin", "Tactics", "Diplomat");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Carouse");
-                return;
-
-            case 2:
-                character.Dexterity += 1;
-                return;
-
-            case 3:
-                character.Endurance += 1;
-                return;
-
-            case 4:
-                character.Strength += 1;
-                return;
-
-            case 5:
-                character.Skills.Increase("Survival");
-                return;
-
-            case 6:
-                character.Skills.Increase("Carouse");
-                return;
-        }
+        Increase(character, dice, "Carouse", "Dexterity", "Endurance", "Strength", "Survival", "Carouse");
     }
 }

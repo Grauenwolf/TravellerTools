@@ -12,38 +12,12 @@ class DolphinCivilian_Liaison(SpeciesCharacterBuilder speciesCharacterBuilder) :
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 2:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 3:
-                character.Skills.Increase("Carouse");
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 5:
-                character.Skills.Increase("Diplomat");
-
-                return;
-
-            case 6:
-                character.Skills.Increase("Persuade");
-                return;
-        }
+        Increase(character, dice, "Vacc Suit", "Vacc Suit", "Carouse", "Electronics", "Diplomat", "Persuade");
     }
 
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck) => true;
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -52,20 +26,24 @@ class DolphinCivilian_Liaison(SpeciesCharacterBuilder speciesCharacterBuilder) :
 
             case 2:
                 careerHistory.Title = "Representative";
-                character.Skills.Add("Diplomat", 1);
+                if (allowBonus)
+                    character.Skills.Add("Diplomat", 1);
                 return;
 
             case 3:
-                character.SocialStanding += 1;
+                if (allowBonus)
+                    character.SocialStanding += 1;
                 return;
 
             case 4:
                 careerHistory.Title = "Ambassador";
-                character.Skills.Add("Vacc Suit", 1);
+                if (allowBonus)
+                    character.Skills.Add("Vacc Suit", 1);
                 return;
 
             case 5:
-                character.SocialStanding += 1;
+                if (allowBonus)
+                    character.SocialStanding += 1;
                 return;
 
             case 6:

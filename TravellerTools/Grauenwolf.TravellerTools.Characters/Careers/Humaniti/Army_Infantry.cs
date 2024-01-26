@@ -12,32 +12,6 @@ class Army_Infantry(SpeciesCharacterBuilder speciesCharacterBuilder) : Army("Inf
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Heavy Weapons")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Stealth");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-
-                return;
-
-            case 6:
-                character.Skills.Increase("Recon");
-                return;
-        }
+        Increase(character, dice, "Gun Combat", "Melee", "Heavy Weapons", "Stealth", "Athletics", "Recon");
     }
 }

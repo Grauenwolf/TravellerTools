@@ -24,20 +24,7 @@ abstract class Agent : NormalCareer
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Streetwise");
-        if (all || roll == 2)
-            character.Skills.Add("Drive");
-        if (all || roll == 3)
-            character.Skills.Add("Investigate");
-        if (all || roll == 4)
-            character.Skills.Add("Flyer");
-        if (all || roll == 5)
-            character.Skills.Add("Recon");
-        if (all || roll == 6)
-            character.Skills.Add("Gun Combat");
+        AddBasicSkills(character, dice, all, "Streetwise", "Drive", "Investigate", "Flyer", "Recon", "Gun Combat");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -170,7 +157,7 @@ abstract class Agent : NormalCareer
                 else
                 {
                     character.AddHistory($"Refused a deal with criminal or other figure under investigation. Gain an Enemy", age);
-                    character.Skills.Increase(dice.Choose(RandomSkills(character)));
+                    IncreaseOneRandomSkill(character, dice);
                     character.AddEnemy();
                 }
                 return;
@@ -198,91 +185,16 @@ abstract class Agent : NormalCareer
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Streetwise");
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Investigate");
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
-                return;
-
-            case 5:
-                character.Skills.Increase("Recon");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-        }
+        Increase(character, dice, "Streetwise", "Drive", "Investigate", "Flyer", "Recon", "Gun Combat");
     }
 
     protected override void AdvancedEducation(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Language")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Explosives");
-                return;
-
-            case 4:
-                character.Skills.Increase("Medic");
-                return;
-
-            case 5:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-        }
+        Increase(character, dice, "Advocate", "Language", "Explosives", "Medic", "Vacc Suit", "Electronics");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-
-            case 2:
-                character.Dexterity += 1;
-                return;
-
-            case 3:
-                character.Endurance += 1;
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
-                return;
-
-            case 5:
-                character.Intellect += 1;
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-        }
+        Increase(character, dice, "Gun Combat", "Dexterity", "Endurance", "Melee", "Intellect", "Athletics");
     }
 }

@@ -12,31 +12,6 @@ class Marine_GroundAssault(SpeciesCharacterBuilder speciesCharacterBuilder) : Ma
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Heavy Weapons")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Recon");
-                return;
-
-            case 4:
-                character.Skills.Increase("Melee", "Blade");
-                return;
-
-            case 5:
-                character.Skills.Increase("Tactics", "Military");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-        }
+        Increase(character, dice, "Vacc Suit", "Heavy Weapons", "Recon", "Melee|Blade", "Tactics|Military", "Gun Combat");
     }
 }

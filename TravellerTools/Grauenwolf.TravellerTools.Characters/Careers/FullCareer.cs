@@ -22,7 +22,7 @@ abstract class FullCareer(string name, string? assignment, SpeciesCharacterBuild
 
     internal abstract void ServiceSkill(Character character, Dice dice);
 
-    internal abstract void TitleTable(Character character, CareerHistory careerHistory, Dice dice);
+    internal abstract void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus);
 
     protected abstract void CareerSkill(Character character, Dice dice);
 
@@ -31,7 +31,7 @@ abstract class FullCareer(string name, string? assignment, SpeciesCharacterBuild
         var historyMessage = $"Switched to {careerHistory.LongName}";
 
         var oldTitle = character.Title;
-        TitleTable(character, careerHistory, dice);
+        TitleTable(character, careerHistory, dice, !rankCarryover);
         var newTitle = careerHistory.Title;
         if (oldTitle != newTitle && newTitle != null)
         {
@@ -53,7 +53,7 @@ abstract class FullCareer(string name, string? assignment, SpeciesCharacterBuild
         var historyMessage = $"Became a {careerHistory.LongName}";
 
         var oldTitle = character.Title;
-        TitleTable(character, careerHistory, dice);
+        TitleTable(character, careerHistory, dice, true);
         var newTitle = careerHistory.Title;
         if (oldTitle != newTitle && newTitle != null)
         {
@@ -70,7 +70,7 @@ abstract class FullCareer(string name, string? assignment, SpeciesCharacterBuild
         var historyMessage = $"Commissioned in {careerHistory.LongName}";
 
         var oldTitle = character.Title;
-        TitleTable(character, careerHistory, dice);
+        TitleTable(character, careerHistory, dice, true);
         var newTitle = careerHistory.Title;
         if (oldTitle != newTitle && newTitle != null)
         {
@@ -98,7 +98,7 @@ abstract class FullCareer(string name, string? assignment, SpeciesCharacterBuild
         }
 
         var oldTitle = character.Title;
-        TitleTable(character, careerHistory, dice);
+        TitleTable(character, careerHistory, dice, true);
         var newTitle = careerHistory.Title;
         if (oldTitle != newTitle && newTitle != null)
         {
@@ -169,15 +169,15 @@ abstract class FullCareer(string name, string? assignment, SpeciesCharacterBuild
         return careerHistory;
     }
 
-    protected void UpdateTitle(Character character, Dice dice, CareerHistory careerHistory)
-    {
-        var oldTitle = character.Title;
-        TitleTable(character, careerHistory, dice);
-        var newTitle = careerHistory.Title;
-        if (oldTitle != newTitle && newTitle != null)
-        {
-            character.AddHistory($"Is now a {newTitle}.", character.Age);
-            character.Title = newTitle;
-        }
-    }
+    //protected void UpdateTitle(Character character, Dice dice, CareerHistory careerHistory)
+    //{
+    //    var oldTitle = character.Title;
+    //    TitleTable(character, careerHistory, dice);
+    //    var newTitle = careerHistory.Title;
+    //    if (oldTitle != newTitle && newTitle != null)
+    //    {
+    //        character.AddHistory($"Is now a {newTitle}.", character.Age);
+    //        character.Title = newTitle;
+    //    }
+    //}
 }

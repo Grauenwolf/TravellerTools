@@ -12,31 +12,6 @@ class DolphinMilitary_UnderwaterCommando(SpeciesCharacterBuilder speciesCharacte
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Heavy Weapon")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Explosives");
-                return;
-
-            case 4:
-                character.Skills.Increase("Recon");
-                return;
-
-            case 5:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-        }
+        Increase(character, dice, "Gun Combat", "Heavy Weapon", "Explosives", "Recon", "Vacc Suit", "Athletics");
     }
 }

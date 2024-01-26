@@ -12,50 +12,7 @@ class DolphinCivilian_HistorianPoet(SpeciesCharacterBuilder speciesCharacterBuil
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Science", "History");
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 5:
-                character.Skills.Increase("Persuade");
-                return;
-
-            case 6:
-                character.Skills.Increase("Diplomat");
-                return;
-        }
-    }
-
-    internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
-    {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Drive");
-        if (all || roll == 2)
-            character.Skills.Add("Deception");
-        if (all || roll == 3)
-            character.Skills.Add("Recon");
-        if (all || roll == 4)
-            character.Skills.Add("Stealth");
-        if (all || roll == 5)
-            character.Skills.Add("Streetwise");
-        if (all || roll == 6)
-            character.Skills.Add("Survival");
+        Increase(character, dice, "Science|History", "Art", "Art", "Advocate", "Persuade", "Diplomat");
     }
 
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
@@ -69,25 +26,30 @@ class DolphinCivilian_HistorianPoet(SpeciesCharacterBuilder speciesCharacterBuil
         return dice.RollHigh(dm, 8, isPrecheck);
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
             case 0:
                 careerHistory.Title = "Candidate";
-                character.Skills.Add("Art", "Performer", 1);
+                if (allowBonus)
+                    character.Skills.Add("Art", "Performer", 1);
                 return;
 
             case 1:
                 careerHistory.Title = "Apprentice";
-                character.Skills.Add("Science", "History", 1);
+                if (allowBonus)
+                    character.Skills.Add("Science", "History", 1);
                 return;
 
             case 2:
-                if (character.SocialStanding < 6)
-                    character.SocialStanding = 6;
-                else
-                    character.SocialStanding += 1;
+                if (allowBonus)
+                {
+                    if (character.SocialStanding < 6)
+                        character.SocialStanding = 6;
+                    else
+                        character.SocialStanding += 1;
+                }
                 return;
 
             case 3:
@@ -95,10 +57,13 @@ class DolphinCivilian_HistorianPoet(SpeciesCharacterBuilder speciesCharacterBuil
                 return;
 
             case 4:
-                if (character.SocialStanding < 8)
-                    character.SocialStanding = 8;
-                else
-                    character.SocialStanding += 1;
+                if (allowBonus)
+                {
+                    if (character.SocialStanding < 8)
+                        character.SocialStanding = 8;
+                    else
+                        character.SocialStanding += 1;
+                }
                 return;
 
             case 5:
@@ -106,10 +71,13 @@ class DolphinCivilian_HistorianPoet(SpeciesCharacterBuilder speciesCharacterBuil
 
             case 6:
                 careerHistory.Title = "Master";
-                if (character.SocialStanding < 10)
-                    character.SocialStanding = 10;
-                else
-                    character.SocialStanding += 1;
+                if (allowBonus)
+                {
+                    if (character.SocialStanding < 10)
+                        character.SocialStanding = 10;
+                    else
+                        character.SocialStanding += 1;
+                }
                 return;
         }
     }

@@ -145,32 +145,7 @@ abstract class Drifter(string assignment, SpeciesCharacterBuilder speciesCharact
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Melee", "Unarmed");
-                return;
-
-            case 3:
-                character.Skills.Increase("Recon");
-                return;
-
-            case 4:
-                character.Skills.Increase("Streetwise");
-                return;
-
-            case 5:
-                character.Skills.Increase("Stealth");
-                return;
-
-            case 6:
-                character.Skills.Increase("Survival");
-                return;
-        }
+        Increase(character, dice, "Athletics", "Melee|Unarmed", "Recon", "Streetwise", "Stealth", "Survival");
     }
 
     protected override void AdvancedEducation(Character character, Dice dice)
@@ -180,31 +155,6 @@ abstract class Drifter(string assignment, SpeciesCharacterBuilder speciesCharact
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Strength += 1;
-                return;
-
-            case 2:
-                character.Endurance += 1;
-                return;
-
-            case 3:
-                character.Dexterity += 1;
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Language")));
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Profession")));
-                return;
-
-            case 6:
-                character.Skills.Increase("Jack-of-All-Trades");
-                return;
-        }
+        Increase(character, dice, "Strength", "Endurance", "Dexterity", "Language", "Profession", "Jack-of-All-Trades");
     }
 }

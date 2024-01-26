@@ -12,36 +12,10 @@ class Merchant_FreeTrader(SpeciesCharacterBuilder speciesCharacterBuilder) : Mer
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Pilot", "Spacecraft");
-
-                return;
-
-            case 2:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 3:
-                character.Skills.Increase("Deception");
-                return;
-
-            case 4:
-                character.Skills.Increase("Mechanic");
-                return;
-
-            case 5:
-                character.Skills.Increase("Streetwise");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gunner")));
-                return;
-        }
+        Increase(character, dice, "Pilot|Spacecraft", "Vacc Suit", "Deception", "Mechanic", "Streetwise", "Gunner");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -49,7 +23,8 @@ class Merchant_FreeTrader(SpeciesCharacterBuilder speciesCharacterBuilder) : Mer
                 return;
 
             case 1:
-                character.Skills.Add("Persuade", 1);
+                if (allowBonus)
+                    character.Skills.Add("Persuade", 1);
                 return;
 
             case 2:
@@ -57,7 +32,8 @@ class Merchant_FreeTrader(SpeciesCharacterBuilder speciesCharacterBuilder) : Mer
 
             case 3:
                 careerHistory.Title = "Experienced Trader";
-                character.Skills.Add("Jack-of-all-Trades", 1);
+                if (allowBonus)
+                    character.Skills.Add("Jack-of-All-Trades", 1);
                 return;
 
             case 4:

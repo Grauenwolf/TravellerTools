@@ -7,20 +7,7 @@ abstract class Noble(string assignment, SpeciesCharacterBuilder speciesCharacter
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Admin");
-        if (all || roll == 2)
-            character.Skills.Add("Advocate");
-        if (all || roll == 3)
-            character.Skills.Add("Electronics");
-        if (all || roll == 4)
-            character.Skills.Add("Diplomat");
-        if (all || roll == 5)
-            character.Skills.Add("Investigate");
-        if (all || roll == 6)
-            character.Skills.Add("Persuade");
+        AddBasicSkills(character, dice, all, "Admin", "Advocate", "Electronics", "Diplomat", "Investigate", "Persuade");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -50,12 +37,7 @@ abstract class Noble(string assignment, SpeciesCharacterBuilder speciesCharacter
                         InjuryRollAge(character, dice);
                     }
 
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Melee", "Blade)");
-                    skillList.Add("Leadership");
-                    skillList.AddRange(SpecialtiesFor(character, "Tactics"));
-                    skillList.Add("Deception");
-                    character.Skills.Increase(dice.Choose(skillList));
+                    IncreaseOneSkill(character, dice, "Melee|Blade)", "Leadership", "Tactics", "Deception");
                 }
                 return;
 
@@ -87,12 +69,7 @@ abstract class Noble(string assignment, SpeciesCharacterBuilder speciesCharacter
                         if (dice.RollHigh(character.Skills.BestSkillLevel("Deception", "Persuade"), 8))
                         {
                             character.AddHistory($"Join a successful conspiracy of nobles.", dice);
-                            var skillList = new SkillTemplateCollection();
-                            skillList.Add("Deception");
-                            skillList.Add("Persuade");
-                            skillList.AddRange(SpecialtiesFor(character, "Tactics"));
-                            skillList.Add("Carouse");
-                            character.Skills.Increase(dice.Choose(skillList));
+                            IncreaseOneSkill(character, dice, "Deception", "Persuade", "Tactics", "Carouse");
                         }
                         else
                         {
@@ -184,12 +161,7 @@ abstract class Noble(string assignment, SpeciesCharacterBuilder speciesCharacter
             case 4:
                 character.AddHistory($"Political manoeuvrings usurp {character.Name}'s position. Gain a Rival.", age);
                 character.AddRival();
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Diplomat"));
-                    skillList.AddRange(SpecialtiesFor(character, "Advocate"));
-                    character.Skills.Increase(dice.Choose(skillList));
-                }
+                IncreaseOneSkill(character, dice, "Diplomat", "Advocate");
                 return;
 
             case 5:
@@ -220,91 +192,16 @@ abstract class Noble(string assignment, SpeciesCharacterBuilder speciesCharacter
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 2:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Diplomat");
-                return;
-
-            case 5:
-                character.Skills.Increase("Investigate");
-                return;
-
-            case 6:
-                character.Skills.Increase("Persuade");
-                return;
-        }
+        Increase(character, dice, "Admin", "Advocate", "Electronics", "Diplomat", "Investigate", "Persuade");
     }
 
     protected override void AdvancedEducation(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 2:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Language")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Leadership");
-                return;
-
-            case 5:
-                character.Skills.Increase("Diplomat");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
-                return;
-        }
+        Increase(character, dice, "Admin", "Advocate", "Language", "Leadership", "Diplomat", "Art");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Strength += 1;
-                return;
-
-            case 2:
-                character.Dexterity += 1;
-                return;
-
-            case 3:
-                character.Endurance += 1;
-                return;
-
-            case 4:
-                character.Skills.Increase("Gambler");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
-                return;
-        }
+        Increase(character, dice, "Strength", "Dexterity", "Endurance", "Gambler", "Gun Combat", "Melee");
     }
 }

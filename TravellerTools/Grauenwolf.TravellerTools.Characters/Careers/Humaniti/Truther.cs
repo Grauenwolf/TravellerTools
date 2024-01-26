@@ -41,20 +41,7 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Investigate");
-        if (all || roll == 2)
-            character.Skills.Add("Art");
-        if (all || roll == 3)
-            character.Skills.Add("Language");
-        if (all || roll == 4)
-            character.Skills.Add("Electronics");
-        if (all || roll == 5)
-            character.Skills.Add("Diplomat");
-        if (all || roll == 6)
-            character.Skills.Add("Persuade");
+        AddBasicSkills(character, dice, all, "Investigate", "Art", "Language", "Electronics", "Diplomat", "Persuade");
     }
 
     internal override void Event(Character character, Dice dice)

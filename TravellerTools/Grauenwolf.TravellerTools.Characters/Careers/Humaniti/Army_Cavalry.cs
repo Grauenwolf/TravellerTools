@@ -12,32 +12,6 @@ class Army_Cavalry(SpeciesCharacterBuilder speciesCharacterBuilder) : Army("Cava
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Mechanic");
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Recon");
-                return;
-
-            case 5:
-                character.Skills.Increase("Heavy Weapons", "Vehicle");
-
-                return;
-
-            case 6:
-                character.Skills.Increase("Electronics", "Sensors");
-                return;
-        }
+        Increase(character, dice, "Mechanic", "Drive", "Flyer", "Recon", "Heavy Weapons|Vehicle", "Electronics|Sensors");
     }
 }

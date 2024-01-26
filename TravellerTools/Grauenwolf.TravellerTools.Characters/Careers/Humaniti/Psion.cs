@@ -4,8 +4,6 @@ abstract class Psion(string assignment, SpeciesCharacterBuilder speciesCharacter
 {
     protected override int AdvancedEductionMin => 8;
 
-    
-
     internal override void Event(Character character, Dice dice)
     {
         switch (dice.D(2, 6))
@@ -217,32 +215,7 @@ abstract class Psion(string assignment, SpeciesCharacterBuilder speciesCharacter
 
     protected override void AdvancedEducation(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Language")));
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Medic");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
-                return;
-
-            case 6:
-                character.Skills.Increase("Mechanic");
-                return;
-        }
+        Increase(character, dice, "Language", "Art", "Electronics", "Medic", "Science", "Mechanic");
     }
 
     protected void AttemptTalent(Character character, Dice dice, string name)

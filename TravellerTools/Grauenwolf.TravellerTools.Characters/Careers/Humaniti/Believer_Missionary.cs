@@ -12,35 +12,10 @@ class Believer_Missionary(SpeciesCharacterBuilder speciesCharacterBuilder) : Bel
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Jack-of-all-Trades");
-                return;
-
-            case 2:
-                character.Skills.Increase("Medic");
-                return;
-
-            case 3:
-                character.Skills.Increase("Persuade");
-                return;
-
-            case 4:
-                character.Skills.Increase("Diplomacy");
-                return;
-
-            case 5:
-                character.Skills.Increase("Carouse");
-                return;
-
-            case 6:
-                character.Skills.Increase("Leadership");
-                return;
-        }
+        Increase(character, dice, "Jack-of-All-Trades", "Medic", "Persuade", "Diplomacy", "Carouse", "Leadership");
     }
 
-    protected override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -51,7 +26,7 @@ class Believer_Missionary(SpeciesCharacterBuilder speciesCharacterBuilder) : Bel
             case 1:
                 careerHistory.Title = "Project Worker";
                 if (allowBonus)
-                    character.Skills.Increase("Jack-of-all-Trades");
+                    character.Skills.Increase("Jack-of-All-Trades");
                 return;
 
             case 2:

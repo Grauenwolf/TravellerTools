@@ -7,20 +7,7 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Pilot");
-        if (all || roll == 2)
-            character.Skills.Add("Survival");
-        if (all || roll == 3)
-            character.Skills.Add("Mechanic");
-        if (all || roll == 4)
-            character.Skills.Add("Astrogation");
-        if (all || roll == 5)
-            character.Skills.Add("Vacc Suit");
-        if (all || roll == 6)
-            character.Skills.Add("Gun Combat");
+        AddBasicSkills(character, dice, all, "Pilot", "Survival", "Mechanic", "Astrogation", "Vacc Suit", "Gun Combat");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -73,7 +60,7 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
 
             case 6:
                 character.AddHistory($"Spend several years jumping from world to world in {character.Name}'s scout ship.", dice);
-                AddOneSkill(character, dice, "Astrogation", "Electronics", "Navigation", "Pilot|Small craft", "Mechanic");
+                AddOneSkill(character, dice, "Astrogation", "Electronics", "Navigation", "Pilot|Small Craft", "Mechanic");
                 return;
 
             case 7:
@@ -218,7 +205,7 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
         {
             case 1:
                 if (dice.NextBoolean())
-                    character.Skills.Increase("Pilot", "Small craft");
+                    character.Skills.Increase("Pilot", "Small Craft");
                 else
                     character.Skills.Increase("Pilot", "Spacecraft");
                 return;
@@ -245,7 +232,7 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
         }
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -254,7 +241,8 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
 
             case 1:
                 careerHistory.Title = "Scout";
-                character.Skills.Add("Vacc Suit", 1);
+                if (allowBonus)
+                    character.Skills.Add("Vacc Suit", 1);
                 return;
 
             case 2:
@@ -262,7 +250,8 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
 
             case 3:
                 careerHistory.Title = "Senior Scout";
-                AddOneSkill(character, dice, "Pilot");
+                if (allowBonus)
+                    AddOneSkill(character, dice, "Pilot");
                 return;
 
             case 4:
@@ -301,7 +290,7 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
                 return;
 
             case 6:
-                character.Skills.Increase("Jack-of-all-Trades");
+                character.Skills.Increase("Jack-of-All-Trades");
                 return;
         }
     }
@@ -331,7 +320,7 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
                 return;
 
             case 6:
-                character.Skills.Increase("Jack-of-all-Trades");
+                character.Skills.Increase("Jack-of-All-Trades");
                 return;
         }
     }

@@ -12,31 +12,6 @@ class Scout_Surveyor(SpeciesCharacterBuilder speciesCharacterBuilder) : Scout("S
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Persuade");
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Navigation");
-                return;
-
-            case 5:
-                character.Skills.Increase("Diplomat");
-                return;
-
-            case 6:
-                character.Skills.Increase("Streetwise");
-                return;
-        }
+        Increase(character, dice, "Electronics", "Persuade", "Flyer", "Navigation", "Diplomat", "Streetwise");
     }
 }

@@ -12,37 +12,12 @@ class DolphinCivilian_Nomad(SpeciesCharacterBuilder speciesCharacterBuilder) : D
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Melee", "Natural");
-                return;
-
-            case 3:
-                character.Skills.Increase("Leadership");
-                return;
-
-            case 4:
-                character.Skills.Increase("Recon");
-                return;
-
-            case 5:
-                character.Skills.Increase("Stealth");
-                return;
-
-            case 6:
-                character.Skills.Increase("Survival");
-                return;
-        }
+        Increase(character, dice, "Athletics", "Melee|Natural", "Leadership", "Recon", "Stealth", "Survival");
     }
 
     internal override bool Qualify(Character character, Dice dice, bool isPrecheck) => true;
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -51,15 +26,18 @@ class DolphinCivilian_Nomad(SpeciesCharacterBuilder speciesCharacterBuilder) : D
 
             case 2:
                 careerHistory.Title = "Pod Leader";
-                character.Skills.Add("Leadership", 1);
+                if (allowBonus)
+                    character.Skills.Add("Leadership", 1);
                 return;
 
             case 3:
-                if (character.SocialStanding < 6)
-                    character.SocialStanding = 6;
-                else
-                    character.SocialStanding += 1;
-
+                if (allowBonus)
+                {
+                    if (character.SocialStanding < 6)
+                        character.SocialStanding = 6;
+                    else
+                        character.SocialStanding += 1;
+                }
                 return;
 
             case 4:
@@ -67,10 +45,13 @@ class DolphinCivilian_Nomad(SpeciesCharacterBuilder speciesCharacterBuilder) : D
 
             case 5:
                 careerHistory.Title = "Superpod Leader";
-                if (character.SocialStanding < 8)
-                    character.SocialStanding = 8;
-                else
-                    character.SocialStanding += 1;
+                if (allowBonus)
+                {
+                    if (character.SocialStanding < 8)
+                        character.SocialStanding = 8;
+                    else
+                        character.SocialStanding += 1;
+                }
                 return;
 
             case 6:

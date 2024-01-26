@@ -9,6 +9,9 @@ public class Skill
 
     public Skill(string name, string? specialty = null, int level = 0)
     {
+        if (string.IsNullOrEmpty(name))
+            throw new ArgumentException($"{nameof(name)} is null or empty.", nameof(name));
+
         Specialty = specialty;
         Name = name;
         Level = level;

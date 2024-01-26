@@ -12,31 +12,6 @@ class Management_ClanAide(SpeciesCharacterBuilder speciesCharacterBuilder) : Man
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 2:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 3:
-                character.Skills.Increase("Melee", "Natural");
-                return;
-
-            case 4:
-                character.Skills.Increase("Medic");
-                return;
-
-            case 5:
-                character.Skills.Increase("Steward");
-                return;
-
-            case 6:
-                character.Skills.Increase("Tolerance");
-                return;
-        }
+        Increase(character, dice, "Admin", "Advocate", "Melee|Natural", "Medic", "Steward", "Tolerance");
     }
 }

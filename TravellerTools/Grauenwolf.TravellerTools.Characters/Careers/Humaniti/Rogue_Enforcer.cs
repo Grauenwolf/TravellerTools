@@ -12,35 +12,10 @@ class Rogue_Enforcer(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("E
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Streetwise");
-                return;
-
-            case 4:
-                character.Skills.Increase("Persuade");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
-                return;
-        }
+        Increase(character, dice, "Gun Combat", "Melee", "Streetwise", "Persuade", "Athletics", "Drive");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -48,21 +23,24 @@ class Rogue_Enforcer(SpeciesCharacterBuilder speciesCharacterBuilder) : Rogue("E
                 return;
 
             case 1:
-                character.Skills.Add("Persuade", 1);
+                if (allowBonus)
+                    character.Skills.Add("Persuade", 1);
                 return;
 
             case 2:
                 return;
 
             case 3:
-                AddOneSkill(character, dice, "Gun Combat", "Melee");
+                if (allowBonus)
+                    AddOneSkill(character, dice, "Gun Combat", "Melee");
                 return;
 
             case 4:
                 return;
 
             case 5:
-                character.Skills.Add("Streetwise", 1);
+                if (allowBonus)
+                    character.Skills.Add("Streetwise", 1);
                 return;
 
             case 6:

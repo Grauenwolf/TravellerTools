@@ -4,24 +4,9 @@ abstract class ShaperPriest(string assignment, SpeciesCharacterBuilder speciesCh
 {
     protected override int AdvancedEductionMin => 8;
 
-    
-
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Profession", "Religion");
-        if (all || roll == 2)
-            character.Skills.Add("Science", "Shaper Church");
-        if (all || roll == 3)
-            character.Skills.Add("Admin");
-        if (all || roll == 4)
-            character.Skills.Add("Diplomat");
-        if (all || roll == 5)
-            character.Skills.Add("Persuade");
-        if (all || roll == 6)
-            character.Skills.Add("Electronics", "Computer");
+        AddBasicSkills(character, dice, all, "Profession|Religion", "Science|Shaper Church", "Admin", "Diplomat", "Persuade", "Electronics|Computer");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -217,9 +202,46 @@ abstract class ShaperPriest(string assignment, SpeciesCharacterBuilder speciesCh
         }
     }
 
-    internal sealed override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
-        TitleTable(character, careerHistory, dice, true);
+        switch (careerHistory.Rank)
+        {
+            case 0:
+                careerHistory.Title = "Novice";
+                return;
+
+            case 1:
+                careerHistory.Title = "Initiate";
+                if (allowBonus)
+                    character.Skills.Increase("Science", "Shaper Church");
+                return;
+
+            case 2:
+                careerHistory.Title = "Acolyte";
+                if (allowBonus)
+                    character.Skills.Increase("Persuade");
+                return;
+
+            case 3:
+                careerHistory.Title = "Priest";
+                return;
+
+            case 4:
+                careerHistory.Title = "High Priest";
+                if (allowBonus)
+                    character.SocialStanding += 1;
+                return;
+
+            case 5:
+                careerHistory.Title = "Prelate";
+                return;
+
+            case 6:
+                careerHistory.Title = "Primate";
+                if (allowBonus)
+                    character.SocialStanding += 1;
+                return;
+        }
     }
 
     protected override void AdvancedEducation(Character character, Dice dice)
@@ -304,48 +326,6 @@ abstract class ShaperPriest(string assignment, SpeciesCharacterBuilder speciesCh
 
             case 6:
                 character.Skills.Increase("Persuade");
-                return;
-        }
-    }
-
-    protected virtual void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
-    {
-        switch (careerHistory.Rank)
-        {
-            case 0:
-                careerHistory.Title = "Novice";
-                return;
-
-            case 1:
-                careerHistory.Title = "Initiate";
-                if (allowBonus)
-                    character.Skills.Increase("Science", "Shaper Church");
-                return;
-
-            case 2:
-                careerHistory.Title = "Acolyte";
-                if (allowBonus)
-                    character.Skills.Increase("Persuade");
-                return;
-
-            case 3:
-                careerHistory.Title = "Priest";
-                return;
-
-            case 4:
-                careerHistory.Title = "High Priest";
-                if (allowBonus)
-                    character.SocialStanding += 1;
-                return;
-
-            case 5:
-                careerHistory.Title = "Prelate";
-                return;
-
-            case 6:
-                careerHistory.Title = "Primate";
-                if (allowBonus)
-                    character.SocialStanding += 1;
                 return;
         }
     }

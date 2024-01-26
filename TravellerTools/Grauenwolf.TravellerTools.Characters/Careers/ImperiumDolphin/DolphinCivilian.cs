@@ -3,24 +3,10 @@
 abstract class DolphinCivilian(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Dolphin Civilian", assignment, speciesCharacterBuilder)
 {
     protected override int AdvancedEductionMin => 8;
-    
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Athletics");
-        if (all || roll == 2)
-            character.Skills.Add("Athletics");
-        if (all || roll == 3)
-            character.Skills.Add("Melee", "Natural");
-        if (all || roll == 4)
-            character.Skills.Add("Melee", "Natural");
-        if (all || roll == 5)
-            character.Skills.Add("Carouse");
-        if (all || roll == 6)
-            character.Skills.Add("Recon");
+        AddBasicSkills(character, dice, all, "Athletics", "Athletics", "Melee|Natural", "Melee|Natural", "Carouse", "Recon");
     }
 
     internal override void Event(Character character, Dice dice)

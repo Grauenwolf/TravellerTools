@@ -12,35 +12,10 @@ class Scholar_FieldResearcher(SpeciesCharacterBuilder speciesCharacterBuilder) :
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 3:
-                character.Skills.Increase("Navigation");
-                return;
-
-            case 4:
-                character.Skills.Increase("Survival");
-                return;
-
-            case 5:
-                character.Skills.Increase("Investigate");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
-                return;
-        }
+        Increase(character, dice, "Electronics", "Vacc Suit", "Navigation", "Survival", "Investigate", "Science");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -48,21 +23,25 @@ class Scholar_FieldResearcher(SpeciesCharacterBuilder speciesCharacterBuilder) :
                 return;
 
             case 1:
-                AddOneSkill(character, dice, "Science");
+                if (allowBonus)
+                    AddOneSkill(character, dice, "Science");
                 return;
 
             case 2:
-                character.Skills.Add("Electronics", "Computers", 1);
+                if (allowBonus)
+                    character.Skills.Add("Electronics", "Computers", 1);
                 return;
 
             case 3:
-                character.Skills.Add("Investigate", 1);
+                if (allowBonus)
+                    character.Skills.Add("Investigate", 1);
                 return;
 
             case 4:
                 return;
 
             case 5:
+                if (allowBonus)
                 {
                     var skillList = new SkillTemplateCollection(SpecialtiesFor(character, "Science"));
                     //look for a level 0 to increase

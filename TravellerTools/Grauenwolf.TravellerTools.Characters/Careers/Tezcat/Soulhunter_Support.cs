@@ -12,31 +12,6 @@ class Soulhunter_Support(SpeciesCharacterBuilder speciesCharacterBuilder) : Soul
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Mechanic");
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Medic");
-                return;
-
-            case 5:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 6:
-                character.Skills.Increase("Explosives");
-                return;
-        }
+        Increase(character, dice, "Electronics", "Mechanic", "Engineer", "Medic", "Vacc Suit", "Explosives");
     }
 }

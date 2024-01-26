@@ -51,7 +51,7 @@ class Entertainer_Journalist(SpeciesCharacterBuilder speciesCharacterBuilder) : 
     /// <param name="character">The character.</param>
     /// <param name="careerHistory">The career history.</param>
     /// <param name="dice">The dice.</param>
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -60,12 +60,14 @@ class Entertainer_Journalist(SpeciesCharacterBuilder speciesCharacterBuilder) : 
 
             case 1:
                 careerHistory.Title = "Freelancer";
-                character.Skills.Add("Electronics", "Comms", 1);
+                if (allowBonus)
+                    character.Skills.Add("Electronics", "Comms", 1);
                 return;
 
             case 2:
                 careerHistory.Title = "Staff Writer";
-                character.Skills.Add("Investigate", 1);
+                if (allowBonus)
+                    character.Skills.Add("Investigate", 1);
                 return;
 
             case 3:
@@ -73,7 +75,8 @@ class Entertainer_Journalist(SpeciesCharacterBuilder speciesCharacterBuilder) : 
 
             case 4:
                 careerHistory.Title = "Correspondent";
-                character.Skills.Add("Persuade", 1);
+                if (allowBonus)
+                    character.Skills.Add("Persuade", 1);
                 return;
 
             case 5:
@@ -81,7 +84,8 @@ class Entertainer_Journalist(SpeciesCharacterBuilder speciesCharacterBuilder) : 
 
             case 6:
                 careerHistory.Title = "Senior Correspondent";
-                character.SocialStanding += 1;
+                if (allowBonus)
+                    character.SocialStanding += 1;
                 return;
         }
     }

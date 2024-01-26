@@ -1,5 +1,6 @@
 using Grauenwolf.TravellerTools.Names;
 using System.Collections.Immutable;
+using System.Xml.Serialization;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
@@ -11,6 +12,18 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
 
     public AslanCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder) : base(dataPath, nameGenerator, characterBuilder)
     {
+        var converter = new XmlSerializer(typeof(CharacterTemplates));
+
+        var file1 = new FileInfo(Path.Combine(dataPath, "CharacterBuilder.AslanFemale.xml"));
+        using var stream1 = file1.OpenRead();
+        var book1 = new Book((CharacterTemplates)converter.Deserialize(stream1)!);
+
+        var file2 = new FileInfo(Path.Combine(dataPath, "CharacterBuilder.AslanMale.xml"));
+        using var stream2 = file2.OpenRead();
+        var book2 = new Book((CharacterTemplates)converter.Deserialize(stream2)!);
+
+        Books = ImmutableArray.Create(book1, book2);
+
         var femaleCareers = new List<CareerBase>()
         {
             new Ceremonial_ClanAgent(this),
@@ -98,11 +111,26 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
     }
 
     public override ImmutableArray<Gender> Genders { get; } = ImmutableArray.Create<Gender>(new("F", "Female", 26), new("M", "Male", 10));
+
     public override string Species => "Aslan";
+
     public override string SpeciesUrl => "https://wiki.travellerrpg.com/Aslan";
+
     public override int StartingAge => 14;
+
     protected override int AgingRollMinAge => 40;
+
     protected override bool AllowPsionics => false;
+
+    protected override string? CharacterBuilderFilename => null;
+
+    public override Book Book(Character character)
+    {
+        if (character.Gender == "M")
+            return Books[1];
+        else
+            return Books[0];
+    }
 
     public override ImmutableArray<CareerBase> Careers(Character? character)
     {

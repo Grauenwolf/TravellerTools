@@ -12,57 +12,15 @@ class Psion_PsiWarrrior(SpeciesCharacterBuilder speciesCharacterBuilder) : Psion
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                IncreaseTalent(character, dice, "Telepathy");
-                return;
-
-            case 2:
-                IncreaseTalent(character, dice, "Awareness");
-                return;
-
-            case 3:
-                IncreaseTalent(character, dice, "Teleportation");
-                return;
-
-            case 4:
-                {
-                    var skills = new SkillTemplateCollection();
-                    skills.AddRange(SpecialtiesFor(character, "Gun Combat"));
-                    character.Skills.Increase(dice.Choose(skills));
-                }
-                return;
-
-            case 5:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 6:
-                character.Skills.Increase("Recon");
-                return;
-        }
+        Increase(character, dice, "Telepathy", "Awareness", "Teleportation", "Gun Combat", "Vacc Suit", "Recon");
     }
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            AttemptTalent(character, dice, "Telepathy");
-        if (all || roll == 2)
-            AttemptTalent(character, dice, "Telekinesis");
-        if (all || roll == 3)
-            AttemptTalent(character, dice, "Teleportation");
-        if (all || roll == 4)
-            character.Skills.Add("Gun Combat");
-        if (all || roll == 5)
-            character.Skills.Add("Vacc Suit");
-        if (all || roll == 6)
-            character.Skills.Add("Recon");
+        AddBasicSkills(character, dice, all, "Telepathy", "Telekinesis", "Teleportation", "Gun Combat", "Vacc Suit", "Recon");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -71,6 +29,7 @@ class Psion_PsiWarrrior(SpeciesCharacterBuilder speciesCharacterBuilder) : Psion
                 return;
 
             case 1:
+                if (allowBonus)
                 {
                     var skills = new SkillTemplateCollection();
                     skills.AddRange(SpecialtiesFor(character, "Gun Combat"));
@@ -82,7 +41,8 @@ class Psion_PsiWarrrior(SpeciesCharacterBuilder speciesCharacterBuilder) : Psion
 
             case 2:
                 careerHistory.Title = "Knight";
-                character.Skills.Add("Leadership", 1);
+                if (allowBonus)
+                    character.Skills.Add("Leadership", 1);
                 return;
 
             case 3:
@@ -93,6 +53,7 @@ class Psion_PsiWarrrior(SpeciesCharacterBuilder speciesCharacterBuilder) : Psion
 
             case 5:
                 careerHistory.Title = "Master of Wills";
+                if (allowBonus)
                 {
                     var skills = new SkillTemplateCollection();
                     skills.AddRange(SpecialtiesFor(character, "Tactics"));

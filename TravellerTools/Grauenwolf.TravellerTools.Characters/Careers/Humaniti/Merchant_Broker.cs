@@ -12,35 +12,10 @@ class Merchant_Broker(SpeciesCharacterBuilder speciesCharacterBuilder) : Merchan
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 2:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 3:
-                character.Skills.Increase("Broker");
-                return;
-
-            case 4:
-                character.Skills.Increase("Streetwise");
-                return;
-
-            case 5:
-                character.Skills.Increase("Deception");
-                return;
-
-            case 6:
-                character.Skills.Increase("Persuade");
-                return;
-        }
+        Increase(character, dice, "Admin", "Advocate", "Broker", "Streetwise", "Deception", "Persuade");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -48,7 +23,8 @@ class Merchant_Broker(SpeciesCharacterBuilder speciesCharacterBuilder) : Merchan
                 return;
 
             case 1:
-                character.Skills.Add("Broker", 1);
+                if (allowBonus)
+                    character.Skills.Add("Broker", 1);
                 return;
 
             case 2:
@@ -56,7 +32,8 @@ class Merchant_Broker(SpeciesCharacterBuilder speciesCharacterBuilder) : Merchan
 
             case 3:
                 careerHistory.Title = "Experienced Broker";
-                character.Skills.Add("Streetwise", 1);
+                if (allowBonus)
+                    character.Skills.Add("Streetwise", 1);
                 return;
 
             case 4:

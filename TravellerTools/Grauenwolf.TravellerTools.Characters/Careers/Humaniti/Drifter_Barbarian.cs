@@ -45,33 +45,22 @@ class Drifter_Barbarian(SpeciesCharacterBuilder speciesCharacterBuilder) : Drift
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Animals");
-        if (all || roll == 2)
-            character.Skills.Add("Carouse");
-        if (all || roll == 3)
-            character.Skills.Add("Melee");
-        if (all || roll == 4)
-            character.Skills.Add("Stealth");
-        if (all || roll == 5)
-            character.Skills.Add("Seafarer");
-        if (all || roll == 6)
-            character.Skills.Add("Survival");
+        AddBasicSkills(character, dice, all, "Animals", "Carouse", "Melee", "Stealth", "Seafarer", "Survival");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
             case 1:
-                character.Skills.Add("Survival", 1);
+                if (allowBonus)
+                    character.Skills.Add("Survival", 1);
                 return;
 
             case 2:
                 careerHistory.Title = "Warrior";
-                character.Skills.Add("Melee", "Blade", 1);
+                if (allowBonus)
+                    character.Skills.Add("Melee", "Blade", 1);
                 return;
 
             case 3:
@@ -79,7 +68,8 @@ class Drifter_Barbarian(SpeciesCharacterBuilder speciesCharacterBuilder) : Drift
 
             case 4:
                 careerHistory.Title = "Chieftain";
-                character.Skills.Add("Leadership", 1);
+                if (allowBonus)
+                    character.Skills.Add("Leadership", 1);
                 return;
 
             case 5:

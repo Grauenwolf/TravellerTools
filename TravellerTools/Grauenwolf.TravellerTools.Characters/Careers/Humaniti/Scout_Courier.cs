@@ -12,31 +12,6 @@ class Scout_Courier(SpeciesCharacterBuilder speciesCharacterBuilder) : Scout("Co
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Flyer")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Pilot", "Spacecraft");
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 6:
-                character.Skills.Increase("Astrogation");
-                return;
-        }
+        Increase(character, dice, "Electronics", "Flyer", "Pilot|Spacecraft", "Engineer", "Athletics", "Astrogation");
     }
 }

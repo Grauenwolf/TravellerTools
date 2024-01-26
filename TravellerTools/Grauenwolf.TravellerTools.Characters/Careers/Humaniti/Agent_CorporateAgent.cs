@@ -12,35 +12,10 @@ class Agent_CorporateAgent(SpeciesCharacterBuilder speciesCharacterBuilder) : Ag
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Investigate");
-                return;
-
-            case 2:
-                character.Skills.Increase("Electronics", "Computers");
-                return;
-
-            case 3:
-                character.Skills.Increase("Stealth");
-                return;
-
-            case 4:
-                character.Skills.Increase("Carouse");
-                return;
-
-            case 5:
-                character.Skills.Increase("Deception");
-                return;
-
-            case 6:
-                character.Skills.Increase("Streetwise");
-                return;
-        }
+        Increase(character, dice, "Investigate", "Electronics|Computers", "Stealth", "Carouse", "Deception", "Streetwise");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -49,12 +24,14 @@ class Agent_CorporateAgent(SpeciesCharacterBuilder speciesCharacterBuilder) : Ag
 
             case 1:
                 careerHistory.Title = "Agent";
-                character.Skills.Add("Deception", 1);
+                if (allowBonus)
+                    character.Skills.Add("Deception", 1);
                 return;
 
             case 2:
                 careerHistory.Title = "Field Agent";
-                character.Skills.Add("Investigate", 1);
+                if (allowBonus)
+                    character.Skills.Add("Investigate", 1);
                 return;
 
             case 3:
@@ -62,7 +39,8 @@ class Agent_CorporateAgent(SpeciesCharacterBuilder speciesCharacterBuilder) : Ag
 
             case 4:
                 careerHistory.Title = "Special Agent";
-                AddOneSkill(character, dice, "Gun Combat");
+                if (allowBonus)
+                    AddOneSkill(character, dice, "Gun Combat");
                 return;
 
             case 5:

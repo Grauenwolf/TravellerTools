@@ -12,31 +12,6 @@ class Marine_StarMarine(SpeciesCharacterBuilder speciesCharacterBuilder) : Marin
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gunner")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Melee", "Blade");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-        }
+        Increase(character, dice, "Vacc Suit", "Athletics", "Gunner", "Melee|Blade", "Electronics", "Gun Combat");
     }
 }

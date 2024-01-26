@@ -12,35 +12,10 @@ class Ceremonial_Poet(SpeciesCharacterBuilder speciesCharacterBuilder) : Ceremon
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Art")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Persuade");
-                return;
-
-            case 4:
-                character.Skills.Increase("Carouse");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 6:
-                character.Skills.Increase("Deception");
-                return;
-        }
+        Increase(character, dice, "Art", "Art", "Persuade", "Carouse", "Electronics", "Deception");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -54,7 +29,8 @@ class Ceremonial_Poet(SpeciesCharacterBuilder speciesCharacterBuilder) : Ceremon
 
             case 2:
                 careerHistory.Title = "Initiate";
-                character.SocialStanding += 1;
+                if (allowBonus)
+                    character.SocialStanding += 1;
                 return;
 
             case 3:
@@ -63,7 +39,8 @@ class Ceremonial_Poet(SpeciesCharacterBuilder speciesCharacterBuilder) : Ceremon
 
             case 4:
                 careerHistory.Title = "Practitioner";
-                character.SocialStanding += 1;
+                if (allowBonus)
+                    character.SocialStanding += 1;
                 return;
 
             case 5:
@@ -72,7 +49,8 @@ class Ceremonial_Poet(SpeciesCharacterBuilder speciesCharacterBuilder) : Ceremon
 
             case 6:
                 careerHistory.Title = "Grand Master";
-                character.Education += 1;
+                if (allowBonus)
+                    character.Education += 1;
                 return;
         }
     }

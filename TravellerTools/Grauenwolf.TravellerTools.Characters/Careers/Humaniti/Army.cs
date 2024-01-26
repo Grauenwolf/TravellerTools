@@ -188,40 +188,10 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Drive"));
-                    skillList.Add("Vacc Suit");
-                    character.Skills.Increase(dice.Choose(skillList));
-                }
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Recon");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Heavy Weapons")));
-                return;
-        }
+        Increase(character, dice, "Drive,Vacc Suit", "Athletics", "Gun Combat", "Recon", "Melee", "Heavy Weapons");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         if (careerHistory.CommissionRank == 0)
         {
@@ -229,12 +199,14 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
             {
                 case 0:
                     careerHistory.Title = "Private";
-                    character.Skills.Add(dice.Choose(SpecialtiesFor(character, "Gun Combat")), 1);
+                    if (allowBonus)
+                        character.Skills.Add(dice.Choose(SpecialtiesFor(character, "Gun Combat")), 1);
                     return;
 
                 case 1:
                     careerHistory.Title = "Lance Corporal";
-                    character.Skills.Add("Recon", 1);
+                    if (allowBonus)
+                        character.Skills.Add("Recon", 1);
                     return;
 
                 case 2:
@@ -243,7 +215,8 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
 
                 case 3:
                     careerHistory.Title = "Lance Sergeant";
-                    character.Skills.Add("Leadership", 1);
+                    if (allowBonus)
+                        character.Skills.Add("Leadership", 1);
                     return;
 
                 case 4:
@@ -265,7 +238,8 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
             {
                 case 1:
                     careerHistory.Title = "Lieutenant";
-                    character.Skills.Add("Leadership", 1);
+                    if (allowBonus)
+                        character.Skills.Add("Leadership", 1);
                     return;
 
                 case 2:
@@ -274,7 +248,8 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
 
                 case 3:
                     careerHistory.Title = "Major";
-                    character.Skills.Add("Tactics", "Military", 1);
+                    if (allowBonus)
+                        character.Skills.Add("Tactics", "Military", 1);
                     return;
 
                 case 4:
@@ -287,10 +262,13 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
 
                 case 6:
                     careerHistory.Title = "General";
-                    if (character.SocialStanding < 10)
-                        character.SocialStanding = 10;
-                    else
-                        character.SocialStanding += 1;
+                    if (allowBonus)
+                    {
+                        if (character.SocialStanding < 10)
+                            character.SocialStanding = 10;
+                        else
+                            character.SocialStanding += 1;
+                    }
                     return;
             }
         }
@@ -298,91 +276,16 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
 
     protected override void AdvancedEducation(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Tactics", "Military");
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Navigation");
-                return;
-
-            case 4:
-                character.Skills.Increase("Explosives");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
-                return;
-
-            case 6:
-                character.Skills.Increase("Survival");
-                return;
-        }
+        Increase(character, dice, "Tactics|Military", "Electronics", "Navigation", "Explosives", "Engineer", "Survival");
     }
 
     protected override void OfficerTraining(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Tactics", "Military");
-                return;
-
-            case 2:
-                character.Skills.Increase("Leadership");
-                return;
-
-            case 3:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 4:
-                character.Skills.Increase("Diplomat");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 6:
-                character.Skills.Increase("Admin");
-                return;
-        }
+        Increase(character, dice, "Tactics|Military", "Leadership", "Advocate", "Diplomat", "Electronics", "Admin");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Strength += 1;
-                return;
-
-            case 2:
-                character.Dexterity += 1;
-                return;
-
-            case 3:
-                character.Endurance += 1;
-                return;
-
-            case 4:
-                character.Skills.Increase("Gambler");
-                return;
-
-            case 5:
-                character.Skills.Increase("Medic");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Melee")));
-                return;
-        }
+        Increase(character, dice, "Strength", "Dexterity", "Endurance", "Gambler", "Medic", "Melee");
     }
 }

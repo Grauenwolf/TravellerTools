@@ -12,36 +12,7 @@ class Psion_Adept(SpeciesCharacterBuilder speciesCharacterBuilder) : Psion("Adep
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                IncreaseTalent(character, dice, "Telepathy");
-                return;
-
-            case 2:
-                IncreaseTalent(character, dice, "Clairvoyance");
-                return;
-
-            case 3:
-                IncreaseTalent(character, dice, "Awareness");
-                return;
-
-            case 4:
-                character.Skills.Increase("Medic");
-                return;
-
-            case 5:
-                character.Skills.Increase("Persuade");
-                return;
-
-            case 6:
-                {
-                    var skills = new SkillTemplateCollection();
-                    skills.AddRange(SpecialtiesFor(character, "Science"));
-                    character.Skills.Increase(dice.Choose(skills));
-                }
-                return;
-        }
+        Increase(character, dice, "Telepathy", "Clairvoyance", "Awareness", "Medic", "Persuade", "Science");
     }
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
@@ -67,13 +38,14 @@ class Psion_Adept(SpeciesCharacterBuilder speciesCharacterBuilder) : Psion("Adep
         }
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
             case 1:
                 careerHistory.Title = "Initiate";
-                character.Skills.Add("Science", "Psionicology");
+                if (allowBonus)
+                    character.Skills.Add("Science", "Psionicology");
                 return;
 
             case 2:
@@ -81,6 +53,7 @@ class Psion_Adept(SpeciesCharacterBuilder speciesCharacterBuilder) : Psion("Adep
 
             case 3:
                 careerHistory.Title = "Acolyte";
+                if (allowBonus)
                 {
                     var skills = new SkillTemplateCollection();
                     skills.AddRange(PsionicTalents(character));
@@ -98,6 +71,7 @@ class Psion_Adept(SpeciesCharacterBuilder speciesCharacterBuilder) : Psion("Adep
 
             case 6:
                 careerHistory.Title = "Master";
+                if (allowBonus)
                 {
                     var skills = new SkillTemplateCollection();
                     skills.AddRange(PsionicTalents(character));

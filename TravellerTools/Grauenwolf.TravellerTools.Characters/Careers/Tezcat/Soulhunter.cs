@@ -6,20 +6,7 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Pilot");
-        if (all || roll == 2)
-            character.Skills.Add("Vacc Suit");
-        if (all || roll == 3)
-            character.Skills.Add("Athletics");
-        if (all || roll == 4)
-            character.Skills.Add("Gunner");
-        if (all || roll == 5)
-            character.Skills.Add("Mechanic");
-        if (all || roll == 6)
-            character.Skills.Add("Gun Combat");
+        AddBasicSkills(character, dice, all, "Pilot", "Vacc Suit", "Athletics", "Gunner", "Mechanic", "Gun Combat");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -193,35 +180,10 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 4:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gunner")));
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Mechanic")));
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-        }
+        Increase(character, dice, "Pilot", "Vacc Suit", "Athletics", "Gunner", "Mechanic", "Gun Combat");
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         if (careerHistory.CommissionRank == 0)
         {
@@ -233,7 +195,8 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
 
                 case 1:
                     careerHistory.Title = "Third Claw";
-                    AddOneSkill(character, dice, "Gun Combat", "Mechanic");
+                    if (allowBonus)
+                        AddOneSkill(character, dice, "Gun Combat", "Mechanic");
 
                     return;
 
@@ -243,7 +206,8 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
 
                 case 3:
                     careerHistory.Title = "First Claw";
-                    character.Skills.Add("Leadership", 1);
+                    if (allowBonus)
+                        character.Skills.Add("Leadership", 1);
                     return;
 
                 case 4:
@@ -252,7 +216,8 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
 
                 case 5:
                     careerHistory.Title = "Second Fang";
-                    character.Endurance += 1;
+                    if (allowBonus)
+                        character.Endurance += 1;
                     return;
 
                 case 6:
@@ -266,12 +231,14 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
             {
                 case 1:
                     careerHistory.Title = "Kaltrhar";
-                    character.Skills.Add("Melee", "Natural", 1);
+                    if (allowBonus)
+                        character.Skills.Add("Melee", "Natural", 1);
                     return;
 
                 case 2:
                     careerHistory.Title = "Shin Kaltrhar";
-                    character.Skills.Add("Leadership", 1);
+                    if (allowBonus)
+                        character.Skills.Add("Leadership", 1);
                     return;
 
                 case 3:
@@ -280,17 +247,20 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
 
                 case 4:
                     careerHistory.Title = "Shiltrhar";
-                    AddOneSkill(character, dice, "Tactics");
+                    if (allowBonus)
+                        AddOneSkill(character, dice, "Tactics");
                     return;
 
                 case 5:
                     careerHistory.Title = "Shil Shintrah";
-                    character.Skills.Add("Admin", 1);
+                    if (allowBonus)
+                        character.Skills.Add("Admin", 1);
                     return;
 
                 case 6:
                     careerHistory.Title = "Shinalrhar";
-                    character.SocialStanding += 1;
+                    if (allowBonus)
+                        character.SocialStanding += 1;
                     return;
             }
         }
@@ -298,94 +268,18 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
 
     protected override void AdvancedEducation(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Medic");
-                return;
-
-            case 2:
-                character.Skills.Increase("Survival");
-                return;
-
-            case 3:
-                character.Skills.Increase("Explosives");
-                return;
-
-            case 4:
-                character.Skills.Increase("Navigation");
-                return;
-
-            case 5:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Engineer")));
-                return;
-        }
+        Increase(character, dice, "Medic", "Survival", "Explosives", "Navigation", "Admin", "Engineer");
     }
 
     protected override int CommissionAttribute(Character character) => character.Intellect;
 
     protected override void OfficerTraining(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Leadership");
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Pilot")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Melee", "Natural");
-                return;
-
-            case 5:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Tactics")));
-                return;
-        }
+        Increase(character, dice, "Leadership", "Electronics", "Pilot", "Melee|Natural", "Admin", "Tactics");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Strength += 1;
-                return;
-
-            case 2:
-                character.Dexterity += 1;
-                return;
-
-            case 3:
-                character.Endurance += 1;
-                return;
-
-            case 4:
-                character.Intellect += 1;
-                return;
-
-            case 5:
-                character.Education += 1;
-                return;
-
-            case 6:
-                character.SocialStanding += 1;
-                return;
-        }
+        Increase(character, dice, "Strength", "Dexterity", "Endurance", "Intellect", "Education", "SocialStanding");
     }
 }

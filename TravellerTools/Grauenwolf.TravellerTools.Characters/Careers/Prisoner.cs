@@ -9,20 +9,7 @@ abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharac
         //Rank 0 skill
         character.Skills.Add("Melee", "Unarmed", 1);
 
-        var roll = dice.D(6);
-
-        if (all || roll == 1)
-            character.Skills.Add("Athletics");
-        if (all || roll == 2)
-            character.Skills.Add("Deception");
-        if (all || roll == 3)
-            character.Skills.Add("Profession");
-        if (all || roll == 4)
-            character.Skills.Add("Streetwise");
-        if (all || roll == 5)
-            character.Skills.Add("Melee");
-        if (all || roll == 6)
-            character.Skills.Add("Persuade");
+        AddBasicSkills(character, dice, all, "Athletics", "Deception", "Profession", "Streetwise", "Melee", "Persuade");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -338,7 +325,7 @@ abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharac
         }
     }
 
-    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice)
+    internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
         switch (careerHistory.Rank)
         {
@@ -346,21 +333,24 @@ abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharac
                 return;
 
             case 2:
-                AddOneSkill(character, dice, "Athletics");
+                if (allowBonus)
+                    AddOneSkill(character, dice, "Athletics");
                 return;
 
             case 3:
                 return;
 
             case 4:
-                character.Skills.Add("Advocate");
+                if (allowBonus)
+                    character.Skills.Add("Advocate");
                 return;
 
             case 5:
                 return;
 
             case 6:
-                character.Endurance += 1;
+                if (allowBonus)
+                    character.Endurance += 1;
                 return;
         }
     }
