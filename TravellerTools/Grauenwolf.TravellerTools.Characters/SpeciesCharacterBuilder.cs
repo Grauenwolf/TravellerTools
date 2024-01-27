@@ -20,9 +20,9 @@ public abstract class SpeciesCharacterBuilder
 
     ImmutableArray<CareerBase> m_DraftCareers;
 
-    public SpeciesCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder)
+    public SpeciesCharacterBuilder(string dataPath, CharacterBuilder characterBuilder)
     {
-        m_NameGenerator = nameGenerator;
+        m_NameGenerator = characterBuilder.NameGenerator;
         m_CharacterBuilderLocator = characterBuilder;
 
         var converter = new XmlSerializer(typeof(CharacterTemplates));

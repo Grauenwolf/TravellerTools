@@ -4,9 +4,9 @@ using Grauenwolf.TravellerTools.Names;
 namespace Grauenwolf.TravellerTools.Characters.Careers.Imperium;
 
 /// <summary>
-/// This class is uses when you want to use the Humaniti exactly. It prevents subclasses from overriding the career list and sets the CareersFrom property.
+/// This class is uses when you want to use the Humaniti careers exactly. It prevents subclasses from overriding the career list and sets the CareersFrom property.
 /// </summary>
-public abstract class ImperiumCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder) : HumanitiCharacterBuilder(dataPath, nameGenerator, characterBuilder)
+public abstract class ImperiumCharacterBuilder(string dataPath, CharacterBuilder characterBuilder) : HumanitiCharacterBuilder(dataPath, characterBuilder)
 {
     public sealed override string? CareersFrom => "Humaniti";
 

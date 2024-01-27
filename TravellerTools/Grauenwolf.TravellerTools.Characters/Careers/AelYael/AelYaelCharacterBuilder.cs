@@ -1,10 +1,9 @@
 using Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
-using Grauenwolf.TravellerTools.Names;
 using System.Collections.Immutable;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers.AelYael;
 
-public class AelYaelCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder) : SpeciesCharacterBuilder(dataPath, nameGenerator, characterBuilder)
+public class AelYaelCharacterBuilder(string dataPath, CharacterBuilder characterBuilder) : SpeciesCharacterBuilder(dataPath, characterBuilder)
 {
     public override string Faction => "3rd Imperium";
     public override ImmutableArray<Gender> Genders { get; } = ImmutableArray.Create<Gender>(new("F", "Female", 1), new("M", "Male", 1));

@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers.Dynchia;
 
-public class DynchiaCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder) : HumanitiCharacterBuilder(dataPath, nameGenerator, characterBuilder)
+public class DynchiaCharacterBuilder(string dataPath, CharacterBuilder characterBuilder) : HumanitiCharacterBuilder(dataPath, characterBuilder)
 {
     public override string Faction => "Dynchia Comitia";
     public override string? Remarks => "Warrior race\r\nDigestive mutation\r\nPolydactyly";

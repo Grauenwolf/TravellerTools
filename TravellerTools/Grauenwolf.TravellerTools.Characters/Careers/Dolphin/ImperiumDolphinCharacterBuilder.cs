@@ -5,7 +5,7 @@ using System.Collections.Immutable;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 
-public class DolphinImperiumCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder) : SpeciesCharacterBuilder(dataPath, nameGenerator, characterBuilder)
+public class DolphinImperiumCharacterBuilder(string dataPath, CharacterBuilder characterBuilder) : SpeciesCharacterBuilder(dataPath, characterBuilder)
 {
     public override string Faction => "3rd Imperium";
     public override ImmutableArray<Gender> Genders { get; } = ImmutableArray.Create<Gender>(new("F", "Female", 1), new("M", "Male", 1));

@@ -1,4 +1,5 @@
 ﻿@page "/careers"
+@page "/careers/{speciesFilter}"
 @inherits PageBase
 
 @{
@@ -10,8 +11,16 @@
 {
     @foreach (var species in Species)
     {
-        <h4><a target="_blank" href="@species.SpeciesUrl">@species.Species</a></h4>
-        <div>@species.Source</div>
+        <h4>
+            <a href="@($"/careers/{species.Species}")">@species.Species</a>
+
+        </h4>
+        <div>
+            @species.Source             
+            <a href="@species.SpeciesUrl" target="_blank" title="Traveller Wiki">
+                <span class="oi oi-globe" aria-hidden="true" /> TAS
+            </a>
+        </div>
         @if (species.Remarks != null)
         {
             <div>Remarks: @species.Remarks</div>

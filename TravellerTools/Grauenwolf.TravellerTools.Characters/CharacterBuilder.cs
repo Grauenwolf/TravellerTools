@@ -1,13 +1,6 @@
-using Grauenwolf.TravellerTools.Characters.Careers.AelYael;
-using Grauenwolf.TravellerTools.Characters.Careers.Aslan;
-using Grauenwolf.TravellerTools.Characters.Careers.Bwap;
-using Grauenwolf.TravellerTools.Characters.Careers.Dynchia;
-using Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
-using Grauenwolf.TravellerTools.Characters.Careers.Imperium;
-using Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
-using Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
 using Grauenwolf.TravellerTools.Names;
 using System.Collections.Immutable;
+using System.Reflection;
 using Tortuga.Anchor;
 
 namespace Grauenwolf.TravellerTools.Characters;
@@ -15,8 +8,6 @@ namespace Grauenwolf.TravellerTools.Characters;
 public class CharacterBuilder
 {
     readonly ImmutableDictionary<string, SpeciesCharacterBuilder> m_CharacterBuilders;
-
-    private readonly NameGenerator m_NameGenerator;
 
     public CharacterBuilder(string dataPath, NameGenerator nameGenerator)
     {
@@ -28,24 +19,33 @@ public class CharacterBuilder
                 builders[builder.Species] = builder;
         }
 
-        Add(new AelYaelCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new AnswerinCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new AslanCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new AyanshiCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new AzhantiCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new BwapCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new CafadanCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new CassilldanCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new DarmineCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new DarrianImperiumCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new DynchiaImperiumCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new DynchiaCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new DolphinImperiumCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new HumanitiCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new SolomaniImperiumCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new TezcatCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new VilaniImperiumCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new ZhodaniImperiumCharacterBuilder(dataPath, nameGenerator, this));
+        foreach (var type in Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(typeof(SpeciesCharacterBuilder)) && !t.IsAbstract))
+        {
+            Add((SpeciesCharacterBuilder)Activator.CreateInstance(type, dataPath, this)!);
+        }
+
+        //Add(new AelYaelCharacterBuilder(dataPath, this));
+        //Add(new AnswerinCharacterBuilder(dataPath, this));
+        //Add(new AslanCharacterBuilder(dataPath, this));
+        //Add(new AyanshiCharacterBuilder(dataPath, this));
+        //Add(new AzhantiCharacterBuilder(dataPath, this));
+        //Add(new BwapCharacterBuilder(dataPath, this));
+        //Add(new CafadanCharacterBuilder(dataPath, this));
+        //Add(new CassilldanCharacterBuilder(dataPath, this));
+        //Add(new DarmineCharacterBuilder(dataPath, this));
+        //Add(new DarrianImperiumCharacterBuilder(dataPath, this));
+        //Add(new DynchiaImperiumCharacterBuilder(dataPath, this));
+        //Add(new DynchiaCharacterBuilder(dataPath, this));
+        //Add(new DolphinImperiumCharacterBuilder(dataPath, this));
+        //Add(new HumanitiCharacterBuilder(dataPath, this));
+        //Add(new SolomaniImperiumCharacterBuilder(dataPath, this));
+        //Add(new TezcatCharacterBuilder(dataPath, this));
+        //Add(new VilaniImperiumCharacterBuilder(dataPath, this));
+        //Add(new FlorianCharacterBuilder(dataPath, this));
+        //Add(new ZhodaniImperiumCharacterBuilder(dataPath, this));
+        //Add(new HapprhaniCharacterBuilder(dataPath, this));
+        //Add(new HalkaCharacterBuilder(dataPath, this));
+        //Add(new KargolCharacterBuilder(dataPath, this));
 
         m_CharacterBuilders = builders.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
 
@@ -65,13 +65,13 @@ public class CharacterBuilder
                 talents.CopyFrom(book.PsionicTalents);
         AllPsionicTalents = talents.OrderBy(x => x.ToString()).ToImmutableArray();
 
-        m_NameGenerator = nameGenerator;
+        NameGenerator = nameGenerator;
     }
 
     public ImmutableArray<PsionicSkillTemplate> AllPsionicTalents { get; }
     public ImmutableArray<SkillTemplate> AllSkills { get; }
     public ImmutableArray<string> CareerNameList { get; }
-
+    public NameGenerator NameGenerator { get; }
     public ImmutableArray<string> SpeciesList { get; }
 
     public Character Build(CharacterBuilderOptions options)
@@ -116,7 +116,7 @@ public class CharacterBuilder
         options.Gender = genderCode ?? dice.Choose(builder.Genders).GenderCode;
 
         //TODO Species specific name generators
-        var temp = m_NameGenerator.CreateRandomPerson(dice, options.Gender == "M");
+        var temp = NameGenerator.CreateRandomPerson(dice, options.Gender == "M");
         options.Name = temp.FullName;
 
         options.MaxAge = builder.RandomAge(dice, noChildren);

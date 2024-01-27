@@ -1,4 +1,3 @@
-using Grauenwolf.TravellerTools.Names;
 using System.Collections.Immutable;
 using System.Xml.Serialization;
 
@@ -11,7 +10,7 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
     CareerLists FemaleCareers;
     CareerLists MaleCareers;
 
-    public AslanCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder) : base(dataPath, nameGenerator, characterBuilder)
+    public AslanCharacterBuilder(string dataPath, CharacterBuilder characterBuilder) : base(dataPath, characterBuilder)
     {
         var converter = new XmlSerializer(typeof(CharacterTemplates));
 
@@ -49,7 +48,11 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
             //new Outcast_Scavenger(this),
             //new Outlaw_Pirate(this),
             //new Outlaw_Raider(this),
-            //new Outlaw_Thief(this)
+            //new Outlaw_Thief(this),
+            new Retired(this),
+            new Prisoner_Fixer(this),
+            new Prisoner_Inmate(this),
+            new Prisoner_Thug(this),
         }.ToImmutableArray();
 
         var maleCareers = new List<CareerBase>()
@@ -79,7 +82,11 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
             //new Wanderer_Belter(this),
             //new Wanderer_Nomad(this),
             //new Wanderer_Scout(this),
-        }.ToImmutableArray();
+            new Retired(this),
+            new Prisoner_Fixer(this),
+            new Prisoner_Inmate(this),
+            new Prisoner_Thug(this),
+          }.ToImmutableArray();
 
         var draftCareers = new List<CareerBase>()
         {

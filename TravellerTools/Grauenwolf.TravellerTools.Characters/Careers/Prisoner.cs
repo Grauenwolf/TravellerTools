@@ -237,8 +237,6 @@ abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharac
         }
     }
 
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck) => false;
-
     internal override void Run(Character character, Dice dice)
     {
         var careerHistory = SetupAndSkills(character, dice);
@@ -298,32 +296,7 @@ abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharac
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Deception");
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Profession")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Streetwise");
-                return;
-
-            case 5:
-                character.Skills.Increase("Melee", "Unarmed");
-                return;
-
-            case 6:
-                character.Skills.Increase("Persuade");
-                return;
-        }
+        Increase(character, dice, "Athletics", "Deception", "Profession", "Streetwise", "Melee|Unarmed", "Persuade");
     }
 
     internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
@@ -365,33 +338,10 @@ abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharac
         dice.Choose(skillTables)(character, dice);
     }
 
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck) => false;
+
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Strength += 1;
-                return;
-
-            case 2:
-                character.Skills.Increase("Melee", "Unarmed");
-                return;
-
-            case 3:
-                character.Endurance += 1;
-                return;
-
-            case 4:
-                character.Skills.Increase("Jack-of-All-Trades");
-                return;
-
-            case 5:
-                character.Education += 1;
-                return;
-
-            case 6:
-                character.Skills.Increase("Gambler");
-                return;
-        }
+        Increase(character, dice, "Strength", "Melee|Unarmed", "Endurance", "Jack-of-All-Trades", "Education", "Gambler");
     }
 }

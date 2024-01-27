@@ -79,6 +79,7 @@
 			<Specialty Name="Oynprith (Droyne)" />
 			<Specialty Name="Trokh (Aslan)" />
 			<Specialty Name="Gvegh (Vargr)" />
+			<Specialty Name="Floriani (Florian League)" />
 		</Skill>
 		<Skill Name="Leadership" />
 		<Skill Name="Mechanic" />

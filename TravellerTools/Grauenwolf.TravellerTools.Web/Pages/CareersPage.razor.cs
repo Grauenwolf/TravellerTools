@@ -6,13 +6,19 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 
 partial class CareersPage
 {
+    [Parameter] public string? SpeciesFilter { get; set; }
     [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
-
     List<SpeciesDetails>? Species { get; set; }
 
     protected override void Initialized()
     {
+    }
+
+    protected override void ParametersSet()
+    {
         Species = CharacterBuilder.SpeciesList
+            .Where(s => SpeciesFilter == null || string.Equals(SpeciesFilter, s, StringComparison.OrdinalIgnoreCase))
+            //.Where(s => SpeciesFilter == null || s.Contains(SpeciesFilter, StringComparison.OrdinalIgnoreCase))
             .Select(s => CharacterBuilder.GetCharacterBuilder(s))
             .Select(s => new SpeciesDetails(s))
             .ToList();
@@ -84,6 +90,9 @@ partial class CareersPage
                 if (nc.AdvancementDM != 0)
                     parts.Add($"Advancement DM{nc.AdvancementDM.ToString(Format)}");
             }
+            if (careerBase.RequiredSkill != null)
+                parts.Add("Requires " + careerBase.RequiredSkill);
+
             if (parts.Count > 0)
                 result += $" ({string.Join(", ", parts)})";
 
