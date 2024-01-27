@@ -62,23 +62,8 @@ partial class WorldTradePage
         CounterpartyIsInformer = dice.D(2, 6) == 2;
         Options.CounterpartyScore = (int)Math.Floor(dice.D(2, 6) / 3.0);
 
-        var options = new CharacterBuilderOptions();
-        var temp = NameGenerator.CreateRandomPerson(dice);
-        options.Name = temp.FullName;
-        options.Gender = temp.Gender;
-        options.Species = CharacterBuilder.GetRandomSpecies(dice);
-        options.MaxAge = 22 + dice.D(1, 60);
+        CounterpartyCharacter = CharacterBuilder.CreateCharacterWithSkill(dice, "Broker", null, Options.CounterpartyScore);
 
-        CounterpartyCharacter = null;
-        for (var i = 0; i < 500; i++)
-        {
-            var result = CharacterBuilder.Build(options);
-            if (result.Skills.EffectiveSkillLevel("Broker") == Options.CounterpartyScore && !result.IsDead)
-            {
-                CounterpartyCharacter = result;
-                break;
-            }
-        }
         StateHasChanged();
     }
 
@@ -88,27 +73,9 @@ partial class WorldTradePage
         IsInformer = dice.D(2, 6) == 2;
         Options.StreetwiseScore = (int)Math.Floor(dice.D(2, 6) / 3.0);
 
-        var options = new CharacterBuilderOptions();
-        var temp = NameGenerator.CreateRandomPerson(dice);
-        options.Name = temp.FullName;
-        options.Gender = temp.Gender;
-        options.Species = CharacterBuilder.GetRandomSpecies(dice);
-        options.MaxAge = 22 + dice.D(1, 60);
+        LocalBrokerCharacter = CharacterBuilder.CreateCharacterWithSkill(dice, "Streetwise", null, Options.CounterpartyScore);
+        Options.BrokerScore = LocalBrokerCharacter.Skills.EffectiveSkillLevel("Broker");
 
-        LocalBrokerCharacter = null;
-        Options.BrokerScore = 0; //default
-
-        for (var i = 0; i < 500; i++)
-        {
-            var result = CharacterBuilder.Build(options);
-            if (result.Skills.EffectiveSkillLevel("Streetwise") == Options.StreetwiseScore && !result.IsDead)
-            {
-                LocalBrokerCharacter = result;
-                Options.BrokerScore = result.Skills.EffectiveSkillLevel("Broker");
-
-                break;
-            }
-        }
         //Penalty included for the fence's profit
         Options.StreetwiseScore -= 2;
 
@@ -121,26 +88,9 @@ partial class WorldTradePage
         var dice = new Dice();
         Options.BrokerScore = (int)Math.Floor(dice.D(2, 6) / 3.0);
 
-        var options = new CharacterBuilderOptions();
-        var temp = NameGenerator.CreateRandomPerson(dice);
-        options.Name = temp.FullName;
-        options.Gender = temp.Gender;
-        options.Species = CharacterBuilder.GetRandomSpecies(dice);
-        options.MaxAge = 22 + dice.D(1, 60);
+        LocalBrokerCharacter = CharacterBuilder.CreateCharacterWithSkill(dice, "Broker", null, Options.CounterpartyScore);
+        Options.StreetwiseScore = LocalBrokerCharacter.Skills.EffectiveSkillLevel("StreetwiseScore") - 2;
 
-        LocalBrokerCharacter = null;
-        Options.StreetwiseScore = 0; //default
-
-        for (var i = 0; i < 500; i++)
-        {
-            var result = CharacterBuilder.Build(options);
-            if (result.Skills.EffectiveSkillLevel("Broker") == Options.BrokerScore && !result.IsDead)
-            {
-                LocalBrokerCharacter = result;
-                Options.StreetwiseScore = result.Skills.EffectiveSkillLevel("StreetwiseScore") - 2;
-                break;
-            }
-        }
         StateHasChanged();
     }
 

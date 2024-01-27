@@ -17,13 +17,13 @@
             <div>This creates a ships crew.</div>
             <table class="gridtable">
                 <tr>
-                    <th>Species</th>
+                    <th>Species or Faction</th>
                     <td colspan="3">
-                        <InputSelect @bind-Value="Model.Species">
-                            <option value="" selected="@(string.IsNullOrEmpty(Model.Species))">(Random)</option>
-                            @foreach (var item in Model.SpeciesList)
+                        <InputSelect @bind-Value="Model.SpeciesOrFaction">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.SpeciesOrFaction))">(Random)</option>
+                            @foreach (var item in Model.SpeciesAndFactionsList)
                             {
-                                <option value="@(item)" selected="@(Model.Species == item)"> @(item)</option>
+                                <option value="@(item.Key)" selected="@(Model.SpeciesOrFaction == item.Key)"> @(item.DisplayText)</option>
                             }
                         </InputSelect>
                     </td>
@@ -70,6 +70,15 @@
                         <button @onclick="GenerateCrew">Generate Crew</button>
                     </td>
                 </tr>
+                <tr>
+                    <th>Options</th>
+                    <td>
+                        <label title="Show details meant for the referee">
+                            <InputCheckbox @bind-Value="Model.ShowDetails" />
+                            Show Details
+                        </label>
+                    </td>
+                </tr>
             </table>
         </EditForm>
     </div>
@@ -80,5 +89,5 @@
         Ship's Crew and Passengers
         <a href="@(Permalink())" target="_blank" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a>
     </h3>
-    <CrewListViewer Crew="CrewModel.Crew" />
+    <CrewListViewer Crew="CrewModel.Crew" ShowDetails="Model!.ShowDetails" />
 }

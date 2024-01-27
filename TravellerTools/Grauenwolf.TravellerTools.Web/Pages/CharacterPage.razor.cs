@@ -161,7 +161,7 @@ partial class CharacterPage
 
     private CharacterBuilderOptions CreateOptions(Dice dice)
     {
-        var species = Model!.Species;
+        var species = Model!.SpeciesOrFaction;
         var noChildren = false;
         if (species.IsNullOrEmpty())
         {

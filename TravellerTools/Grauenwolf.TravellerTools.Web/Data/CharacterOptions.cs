@@ -18,15 +18,15 @@ public class CharacterOptions : ModelBase
 
     public List<int> AgeList { get; }
 
-    [CalculatedField("Species")]
+    [CalculatedField("SpeciesOrFaction")]
     public IReadOnlyList<string> CareerList
     {
         get
         {
-            if (Species.IsNullOrEmpty())
+            if (SpeciesOrFaction.IsNullOrEmpty() || !CharacterBuilder.SpeciesList.Contains(SpeciesOrFaction))
                 return CharacterBuilder.CareerNameList;
             else
-                return CharacterBuilder.GetCharacterBuilder(Species).Careers(null).Select(c => c.Career).Distinct().OrderBy(s => s).ToList();
+                return CharacterBuilder.GetCharacterBuilder(SpeciesOrFaction).Careers(null).Select(c => c.Career).Distinct().OrderBy(s => s).ToList();
         }
     }
 
@@ -57,7 +57,7 @@ public class CharacterOptions : ModelBase
             if (FinalCareer.IsNullOrEmpty())
                 return new List<string>();
             else
-                return CharacterBuilder.GetAssignmentList(Species, FinalCareer);
+                return CharacterBuilder.GetAssignmentList(SpeciesOrFaction, FinalCareer);
         }
     }
 
@@ -80,7 +80,7 @@ public class CharacterOptions : ModelBase
             if (FirstCareer.IsNullOrEmpty())
                 return new List<string>();
             else
-                return CharacterBuilder.GetAssignmentList(Species, FirstCareer);
+                return CharacterBuilder.GetAssignmentList(SpeciesOrFaction, FirstCareer);
         }
     }
 
@@ -112,7 +112,9 @@ public class CharacterOptions : ModelBase
     /// </summary>
     public string? Soc { get => Get<string?>(); set => Set(value); }
 
-    public string? Species
+    public IReadOnlyList<FactionOrSpecies> SpeciesAndFactionsList => CharacterBuilder.FactionsAndSpecies;
+
+    public string? SpeciesOrFaction
     {
         get => Get<string?>(); set
         {
@@ -123,8 +125,6 @@ public class CharacterOptions : ModelBase
             }
         }
     }
-
-    public IReadOnlyList<string> SpeciesList => CharacterBuilder.SpeciesList;
 
     /// <summary>
     /// Valid values are High, Low, and empty.

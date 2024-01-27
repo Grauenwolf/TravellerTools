@@ -3,25 +3,73 @@
 
 @if (Crew != null)
 {
-    <table class="gridtable">
-        <tr>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Skill</th>
-            <th>Species</th>
-        </tr>
+    @if (!ShowDetails)
+    {
+        <table class="gridtable">
+            <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>UPP</th>
+                <th>Skill</th>
+                <th>Career</th>
+                <th>Species</th>
+            </tr>
+            @foreach (var crewMember in Crew)
+            {
+                <tr>
+                    <td>
+                        @crewMember.Title <a target="_blank" href="@QueryHelpers.AddQueryString("/character/view", crewMember.CharacterStub.ToQueryString())">@crewMember.CharacterStub.Name</a>
+                    </td>
+                    <td>@crewMember.CrewRole</td>
+                    <td>@crewMember.Character.Upp</td>
+                    <td>@crewMember.SkillName @crewMember.SkillLevel</td>
+                    <td>@crewMember.Careers</td>
+                    <td><a target="_blank" href="@(CharacterBuilder.GetSpeciesUrl(crewMember.CharacterStub.Species))">@crewMember.CharacterStub.Species</a> (@crewMember.CharacterStub.Gender/@crewMember.CharacterStub.MaxAge)</td>
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
         @foreach (var crewMember in Crew)
         {
-            <tr>
-                <td>
-                    @crewMember.Title <a target="_blank" href="@QueryHelpers.AddQueryString("/character/view", crewMember.CharacterStub.ToQueryString())">@crewMember.CharacterStub.Name</a>
-                </td>
-                <td>@crewMember.CrewRole</td>
-                <td>@crewMember.SkillName @crewMember.SkillLevel</td>
-                <td><a target="_blank" href="@(CharacterBuilder.GetSpeciesUrl(crewMember.CharacterStub.Species))">@crewMember.CharacterStub.Species</a> (@crewMember.CharacterStub.Gender/@crewMember.CharacterStub.MaxAge)</td>
-            </tr>
+            <table class="gridtable">
+                <tr>
+                    <th>Name</th>
+                    <th>Role</th>
+                    <th>Skill</th>
+                    <th>Species</th>
+                </tr>
+                <tr>
+                    <td>
+                        @crewMember.Title <a target="_blank" href="@QueryHelpers.AddQueryString("/character/view", crewMember.CharacterStub.ToQueryString())">@crewMember.CharacterStub.Name</a>
+                    </td>
+                    <td>@crewMember.CrewRole</td>
+                    <td>@crewMember.SkillName @crewMember.SkillLevel</td>
+                    <td><a target="_blank" href="@(CharacterBuilder.GetSpeciesUrl(crewMember.CharacterStub.Species))">@crewMember.CharacterStub.Species</a> (@crewMember.CharacterStub.Gender/@crewMember.CharacterStub.MaxAge)</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        @crewMember.Character.Characteristics
+                    </td>
+                </tr>
+                @if (!string.IsNullOrEmpty(crewMember.Skills))
+                {
+                    <tr>
+                        <td colspan="4">
+                            @crewMember.Skills
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="4">
+                        @crewMember.CareerDetails
+                    </td>
+                </tr>
+            </table>
+            <div>&nbsp;</div>
         }
-    </table>
+    }
 }
 else
 {

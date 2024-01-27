@@ -211,7 +211,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder)
         return new("ERROR");
     }
 
-    public Encounter BackwaterStarportGeneralEncounter(Dice dice)
+    public Encounter BackwaterStarportGeneralEncounter(Dice dice, string? speciesOrFaction)
     {
         var result = new Encounter();
         result.Title = "Backwater Starport General Encounter";
@@ -220,23 +220,23 @@ public class EncounterGenerator(CharacterBuilder characterBuilder)
         {
             case 1:
                 result.Add("Hitchhiker wants to leave the planet and is willing to work for passage.");
-                result.Add("Hitchhiker", CharacterBuilder.CreateCharacter(dice));
+                result.Add("Hitchhiker", CharacterBuilder.CreateCharacter(dice, speciesOrFaction));
                 break;
 
             case 2:
                 result.Add("Another ship is desperate for spare parts.");
                 for (var i = 0; i < dice.D(3); i++)
-                    result.Add("Crewmember", CharacterBuilder.CreateCharacter(dice));
+                    result.Add("Crewmember", CharacterBuilder.CreateCharacter(dice, speciesOrFaction));
                 break;
 
             case 3:
                 result.Add("Meet a starport employee who is having a bad day.");
-                result.Add("Employee", CharacterBuilder.CreateCharacter(dice));
+                result.Add("Employee", CharacterBuilder.CreateCharacter(dice, speciesOrFaction));
 
                 switch (dice.D(6))
                 {
                     case 1: result.Add("Lost lucky charm somewhere in spaceport"); break;
-                    case 2: result.Add("Dumped by boy/girl friend.", "Employee", CharacterBuilder.CreateCharacter(dice)); break;
+                    case 2: result.Add("Dumped by boy/girl friend.", "Employee", CharacterBuilder.CreateCharacter(dice, speciesOrFaction)); break;
                     case 3: result.Add("Passed over for promotion."); break;
                     case 4: result.Add("Forced to work overtime."); break;
                     case 5: result.Add("Lost heavily on a bet."); break;
@@ -247,11 +247,11 @@ public class EncounterGenerator(CharacterBuilder characterBuilder)
 
             case 4:
                 result.Add("A pulp fuction writer is willing to buy drinks in exchange for a story.");
-                result.Add("Author", CharacterBuilder.CreateCharacterWithSkill(dice, "Art", "Write"));
+                result.Add("Author", CharacterBuilder.CreateCharacterWithSkill(dice, "Art", "Write", species: speciesOrFaction));
                 break;
 
             case 5:
-                result.Add("Street performers put on a show.");
+                result.Add("Alien street performers put on a show.");
                 {
                     var species = CharacterBuilder.GetRandomSpecies(dice);
                     for (var i = 0; i < dice.D(3); i++)
@@ -260,7 +260,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder)
                 break;
 
             case 6:
-                result.Add("Religious zealot.", "Preacher", CharacterBuilder.CreateCharacterWithCareer(dice, ReligiousCareers));
+                result.Add("Religious zealot.", "Preacher", CharacterBuilder.CreateCharacterWithCareer(dice, ReligiousCareers, speciesOrFaction));
                 break;
 
             case 7:
@@ -268,12 +268,12 @@ public class EncounterGenerator(CharacterBuilder characterBuilder)
                 break;
 
             case 8:
-                result.Add("Starport chief is drunk and giving misleading flight instructions.", "Starport chief", CharacterBuilder.CreateCharacter(dice));
+                result.Add("Starport chief is drunk and giving misleading flight instructions.", "Starport chief", CharacterBuilder.CreateCharacter(dice, speciesOrFaction));
                 break;
 
             case 9:
                 {
-                    result.Add("Seller", CharacterBuilder.CreateCharacterWithCareer(dice, new[] { "Rogue", "Trader", "Merchant" }));
+                    result.Add("Seller", CharacterBuilder.CreateCharacterWithCareer(dice, new[] { "Rogue", "Trader", "Merchant" }, speciesOrFaction));
 
                     var price = (dice.D(5) + 3) * 10;
                     var source = dice.D(5) switch
@@ -296,7 +296,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder)
                 break;
 
             case 10:
-                result.Add("Pickpocket targets a character", "Pickpocket", CharacterBuilder.CreateCharacterWithCareer(dice, IllegalCareers));
+                result.Add("Pickpocket targets a character", "Pickpocket", CharacterBuilder.CreateCharacterWithCareer(dice, IllegalCareers, speciesOrFaction));
                 break;
 
             case 11:
@@ -308,7 +308,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder)
         return result;
     }
 
-    public Encounter BackwaterStarportSignificantEncounter(Dice dice)
+    public Encounter BackwaterStarportSignificantEncounter(Dice dice, string? speciesOrFaction)
     {
         var result = new Encounter();
         result.Title = "Backwater Starport Significant Encounter";
@@ -331,9 +331,9 @@ public class EncounterGenerator(CharacterBuilder characterBuilder)
                         result.Add("they are leading the officers to a crime scene."); break;
                 }
 
-                result.Add("Runner", CharacterBuilder.CreateCharacter(dice));
+                result.Add("Runner", CharacterBuilder.CreateCharacter(dice, speciesOrFaction));
                 for (var i = 0; i < dice.D(3); i++)
-                    result.Add("Officer", CharacterBuilder.CreateCharacterWithCareer(dice, OfficerCareers));
+                    result.Add("Officer", CharacterBuilder.CreateCharacterWithCareer(dice, OfficerCareers, speciesOrFaction));
                 break;
 
             case 2:
@@ -372,8 +372,8 @@ public class EncounterGenerator(CharacterBuilder characterBuilder)
                     case 6:
                         result.Add("Bleeding out."); break;
                 }
-                result.Add("Starport Employee", CharacterBuilder.CreateCharacterWithCareer(dice, StarportCareers));
-                result.Add("Victim", CharacterBuilder.CreateCharacter(dice));
+                result.Add("Starport Employee", CharacterBuilder.CreateCharacterWithCareer(dice, StarportCareers, speciesOrFaction));
+                result.Add("Victim", CharacterBuilder.CreateCharacter(dice, speciesOrFaction));
                 break;
 
             case 5:
@@ -382,7 +382,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder)
                 {
                     case 1:
                     case 2:
-                        result.Add("A free trader or similar ship has crashed. There is only one survivor, who is wounded.", "Survivor", CharacterBuilder.CreateCharacter(dice)); break;
+                        result.Add("A free trader or similar ship has crashed. There is only one survivor, who is wounded.", "Survivor", CharacterBuilder.CreateCharacter(dice, speciesOrFaction)); break;
                     case 3:
                     case 4:
                         result.Add("Abandoned ship. No sign of crew and logs were erased."); break;
@@ -409,8 +409,8 @@ public class EncounterGenerator(CharacterBuilder characterBuilder)
                     case 6:
                         result.Add("personal fued."); break;
                 }
-                result.Add("Starport Representative", CharacterBuilder.CreateCharacterWithCareer(dice, StarportCareers));
-                result.Add("Local Representative", CharacterBuilder.CreateCharacter(dice));
+                result.Add("Starport Representative", CharacterBuilder.CreateCharacterWithCareer(dice, StarportCareers, speciesOrFaction));
+                result.Add("Local Representative", CharacterBuilder.CreateCharacter(dice, speciesOrFaction));
                 break;
 
             case 7:
@@ -426,30 +426,30 @@ public class EncounterGenerator(CharacterBuilder characterBuilder)
                     case 3:
                     case 4:
                         result.Add("A person with amnesia is asking for help.");
-                        result.Add("Amnesia Sufferer", CharacterBuilder.CreateCharacter(dice));
+                        result.Add("Amnesia Sufferer", CharacterBuilder.CreateCharacter(dice, speciesOrFaction));
                         break;
 
                     case 5:
                         result.Add("Scientist didn't return from field work.");
-                        result.Add("Missing Scientist", CharacterBuilder.CreateCharacterWithCareer(dice, FieldScienceCareers));
-                        result.Add("Scientist Reporting Loss", CharacterBuilder.CreateCharacterWithCareer(dice, AllScienceCareers));
-                        result.Add("Starport Representative", CharacterBuilder.CreateCharacterWithCareer(dice, StarportCareers));
+                        result.Add("Missing Scientist", CharacterBuilder.CreateCharacterWithCareer(dice, FieldScienceCareers, speciesOrFaction));
+                        result.Add("Scientist Reporting Loss", CharacterBuilder.CreateCharacterWithCareer(dice, AllScienceCareers, speciesOrFaction));
+                        result.Add("Starport Representative", CharacterBuilder.CreateCharacterWithCareer(dice, StarportCareers, speciesOrFaction));
                         break;
 
                     case 6:
                         result.Add("Starport security office is missing. All space traffic is halted until the officer is found.");
-                        result.Add("Missing Officer", CharacterBuilder.CreateCharacterWithCareer(dice, OfficerCareers));
-                        result.Add("Starport Representative", CharacterBuilder.CreateCharacter(dice));
+                        result.Add("Missing Officer", CharacterBuilder.CreateCharacterWithCareer(dice, OfficerCareers, speciesOrFaction));
+                        result.Add("Starport Representative", CharacterBuilder.CreateCharacter(dice, speciesOrFaction));
                         break;
                 }
                 break;
 
             case 9:
-                result.Add("Someone is trying to sneak aboard ship.", "Stowaway", CharacterBuilder.CreateCharacter(dice));
+                result.Add("Someone is trying to sneak aboard ship.", "Stowaway", CharacterBuilder.CreateCharacter(dice, speciesOrFaction));
                 break;
 
             case 10:
-                result.Add("Pickpocket targets a character", "Pickpocket", CharacterBuilder.CreateCharacterWithCareer(dice, IllegalCareers));
+                result.Add("Pickpocket targets a character", "Pickpocket", CharacterBuilder.CreateCharacterWithCareer(dice, IllegalCareers, speciesOrFaction));
                 break;
 
             case 11:
@@ -467,7 +467,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder)
                     case 4:
                         result.Add("Offworld hunters are looking to recuit help.");
                         for (var i = 0; i < dice.D(3); i++)
-                            result.Add("Hunter", CharacterBuilder.CreateCharacter(dice));
+                            result.Add("Hunter", CharacterBuilder.CreateCharacter(dice, speciesOrFaction));
                         break;
 
                     case 5:

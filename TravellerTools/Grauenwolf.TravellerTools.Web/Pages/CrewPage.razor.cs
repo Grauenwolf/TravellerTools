@@ -24,13 +24,13 @@ partial class CrewPage
             var result = new CrewModel();
             result.Seed = seed;
 
-            result.Crew.AddRange(CreateRole(dice, Model.Species, CrewRole.Pilot, Model.Pilots));
-            result.Crew.AddRange(CreateRole(dice, Model.Species, CrewRole.Astrogator, Model.Astrogators));
-            result.Crew.AddRange(CreateRole(dice, Model.Species, CrewRole.Engineer, Model.Engineers));
-            result.Crew.AddRange(CreateRole(dice, Model.Species, CrewRole.Medic, Model.Medics));
-            result.Crew.AddRange(CreateRole(dice, Model.Species, CrewRole.Gunner, Model.Gunners));
-            result.Crew.AddRange(CreateRole(dice, Model.Species, CrewRole.Steward, Model.Stewards));
-            result.Crew.AddRange(CreateRole(dice, Model.Species, CrewRole.Passenger, Model.Passengers));
+            result.Crew.AddRange(CreateRole(dice, Model.SpeciesOrFaction, CrewRole.Pilot, Model.Pilots));
+            result.Crew.AddRange(CreateRole(dice, Model.SpeciesOrFaction, CrewRole.Astrogator, Model.Astrogators));
+            result.Crew.AddRange(CreateRole(dice, Model.SpeciesOrFaction, CrewRole.Engineer, Model.Engineers));
+            result.Crew.AddRange(CreateRole(dice, Model.SpeciesOrFaction, CrewRole.Medic, Model.Medics));
+            result.Crew.AddRange(CreateRole(dice, Model.SpeciesOrFaction, CrewRole.Gunner, Model.Gunners));
+            result.Crew.AddRange(CreateRole(dice, Model.SpeciesOrFaction, CrewRole.Steward, Model.Stewards));
+            result.Crew.AddRange(CreateRole(dice, Model.SpeciesOrFaction, CrewRole.Passenger, Model.Passengers));
 
             CrewModel = result;
         }
@@ -67,7 +67,7 @@ partial class CrewPage
                 if (!character.IsDead)
                 {
                     var skill = character.Skills.BestSkill();
-                    return new CrewMember(crewRole, character.GetCharacterBuilderOptions(), skill?.FullName, skill?.Level, character.Title);
+                    return new CrewMember(crewRole, character, skill?.FullName, skill?.Level, character.Title);
                 }
             }
         }
@@ -76,7 +76,7 @@ partial class CrewPage
             var character = CharacterBuilder.CreateCharacterWithSkill(dice, targetSkillName, null, targetSkillLevel, species);
 
             var lastBestSkill = character.Skills.BestSkill(targetSkillName);
-            return new CrewMember(crewRole, character.GetCharacterBuilderOptions(), lastBestSkill?.FullName, lastBestSkill?.Level, character.Title);
+            return new CrewMember(crewRole, character, lastBestSkill?.FullName, lastBestSkill?.Level, character.Title);
         }
     }
 

@@ -1,17 +1,17 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
+using Grauenwolf.TravellerTools.Shared;
 using Microsoft.Extensions.Primitives;
 using Tortuga.Anchor.Modeling;
-using Grauenwolf.TravellerTools.Shared;
 
 namespace Grauenwolf.TravellerTools.Web.Data;
 
 public class CrewOptions : ModelBase
 {
-    private CharacterBuilder m_CharacterBuilderLocator;
+    private CharacterBuilder m_CharacterBuilder;
 
     public CrewOptions(CharacterBuilder characterBuilder)
     {
-        m_CharacterBuilderLocator = characterBuilder;
+        m_CharacterBuilder = characterBuilder;
     }
 
     public int Astrogators
@@ -80,9 +80,10 @@ public class CrewOptions : ModelBase
         }
     }
 
-    public string? Species { get => Get<string?>(); set => Set(value); }
+    public bool ShowDetails { get => Get<bool>(); set => Set(value); }
+    public IReadOnlyList<FactionOrSpecies> SpeciesAndFactionsList => m_CharacterBuilder.FactionsAndSpecies;
 
-    public IReadOnlyList<string> SpeciesList => m_CharacterBuilderLocator.SpeciesList;
+    public string? SpeciesOrFaction { get => Get<string?>(); set => Set(value); }
 
     public int Stewards
     {
@@ -104,7 +105,7 @@ public class CrewOptions : ModelBase
         Gunners = keyValuePairs.ParseInt("gunners");
         Stewards = keyValuePairs.ParseInt("stewards");
         Passengers = keyValuePairs.ParseInt("passengers");
-        Species = keyValuePairs.ParseStringOrNull("species");
+        SpeciesOrFaction = keyValuePairs.ParseStringOrNull("species");
     }
 
     public IDictionary<string, string?> ToQueryString()
@@ -118,7 +119,7 @@ public class CrewOptions : ModelBase
             { "gunners", Gunners.ToString() },
             { "stewards", Stewards.ToString() },
             { "passengers", Passengers.ToString() },
-            { "species", Species },
+            { "species", SpeciesOrFaction },
         };
     }
 }

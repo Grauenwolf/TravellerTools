@@ -5,9 +5,17 @@ using Tortuga.Anchor;
 
 namespace Grauenwolf.TravellerTools.Characters;
 
+public class FactionOrSpecies(string key, string displayText, bool isFaction)
+{
+    public string DisplayText { get; } = displayText;
+    public bool IsFaction { get; } = isFaction;
+    public string Key { get; } = key;
+}
+
 public class CharacterBuilder
 {
     readonly ImmutableDictionary<string, SpeciesCharacterBuilder> m_CharacterBuilders;
+    readonly ImmutableDictionary<string, ImmutableArray<SpeciesCharacterBuilder>> m_FactionsDictionary;
 
     public CharacterBuilder(string dataPath, NameGenerator nameGenerator)
     {
@@ -30,6 +38,12 @@ public class CharacterBuilder
 
         FactionsList = m_CharacterBuilders.Values.Select(s => s.Faction).Distinct().OrderBy(x => x).ToImmutableArray();
 
+        var factionDictionary = new Dictionary<string, ImmutableArray<SpeciesCharacterBuilder>>();
+        foreach (var faction in FactionsList)
+            factionDictionary.Add(faction, m_CharacterBuilders.Values.Where(c => c.Faction == faction).OrderBy(c => c.Species).ToImmutableArray());
+
+        m_FactionsDictionary = factionDictionary.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
+
         CareerNameList = m_CharacterBuilders.Values.SelectMany(x => x.Careers(null)).Select(x => x.Career).Distinct().OrderBy(x => x).ToImmutableArray();
 
         var skills = new SkillTemplateCollection();
@@ -45,11 +59,17 @@ public class CharacterBuilder
         AllPsionicTalents = talents.OrderBy(x => x.ToString()).ToImmutableArray();
 
         NameGenerator = nameGenerator;
+
+        FactionsAndSpecies =
+            SpeciesList.Select(s => new FactionOrSpecies(s, s, false))
+            .Concat(FactionsList.Select(f => new FactionOrSpecies(f, "(" + f + ")", true)))
+            .ToImmutableArray();
     }
 
     public ImmutableArray<PsionicSkillTemplate> AllPsionicTalents { get; }
     public ImmutableArray<SkillTemplate> AllSkills { get; }
     public ImmutableArray<string> CareerNameList { get; }
+    public ImmutableArray<FactionOrSpecies> FactionsAndSpecies { get; }
     public ImmutableArray<string> FactionsList { get; }
     public NameGenerator NameGenerator { get; }
     public ImmutableArray<string> SpeciesList { get; }
@@ -72,11 +92,11 @@ public class CharacterBuilder
         }
     }
 
-    public Character CreateCharacter(Dice dice, string? species = null)
+    public Character CreateCharacter(Dice dice, string? speciesOrFaction = null)
     {
         while (true)
         {
-            var options = CreateCharacterStub(dice, species);
+            var options = CreateCharacterStub(dice, speciesOrFaction);
 
             var character = Build(options);
             if (!character.IsDead)
@@ -87,11 +107,12 @@ public class CharacterBuilder
         }
     }
 
-    public CharacterBuilderOptions CreateCharacterStub(Dice dice, string? species = null, string? genderCode = null, bool noChildren = false)
+    public CharacterBuilderOptions CreateCharacterStub(Dice dice, string? speciesOrFaction = null, string? genderCode = null, bool noChildren = false)
     {
         var options = new CharacterBuilderOptions();
-        options.Species = species ?? GetRandomSpecies(dice);
-        var builder = GetCharacterBuilder(options.Species);
+        options.Species = speciesOrFaction ?? GetRandomSpecies(dice);
+        var builder = GetCharacterBuilder(options.Species, dice);
+        options.Species = builder.Species; //Copy back in case it was a faction
 
         options.Gender = genderCode ?? dice.Choose(builder.Genders).GenderCode;
 
@@ -516,12 +537,29 @@ public class CharacterBuilder
             return GetCharacterBuilder(species).Careers(null).Where(x => x.Career == career && x.Assignment != null).Select(x => x.Assignment).Distinct().OrderBy(x => x).ToList()!;
     }
 
+    /// <summary>
+    /// Gets the character builder for a species or faction. If faction, choose one at random.
+    /// </summary>
+    public SpeciesCharacterBuilder GetCharacterBuilder(string? speciesOrFaction, Dice dice)
+    {
+        if (speciesOrFaction != null)
+        {
+            if (m_CharacterBuilders.TryGetValue(speciesOrFaction, out var result))
+                return result;
+
+            if (m_FactionsDictionary.TryGetValue(speciesOrFaction, out var list))
+                return dice.Choose(list);
+        }
+
+        return m_CharacterBuilders["Humaniti"];
+    }
+
     public SpeciesCharacterBuilder GetCharacterBuilder(string? species)
     {
         if (species != null && m_CharacterBuilders.TryGetValue(species, out var result))
             return result;
         else
-            return m_CharacterBuilders["Humaniti"];
+            return m_CharacterBuilders["Humaniti"]; //this should never happen.
     }
 
     public string GetRandomSpecies(Dice dice)

@@ -11,12 +11,12 @@ partial class EncountersPage
 
     protected void BackwaterStarportGeneralEncounter()
     {
-        Model.Encounters.Insert(0, EncounterGenerator.BackwaterStarportGeneralEncounter(new Dice()));
+        Model.Encounters.Insert(0, EncounterGenerator.BackwaterStarportGeneralEncounter(new Dice(), Model.SpeciesOrFaction));
     }
 
     protected void BackwaterStarportSignificantEncounter()
     {
-        Model.Encounters.Insert(0, EncounterGenerator.BackwaterStarportSignificantEncounter(new Dice()));
+        Model.Encounters.Insert(0, EncounterGenerator.BackwaterStarportSignificantEncounter(new Dice(), Model.SpeciesOrFaction));
     }
 
     protected void GenerateAlliesAndEnemies()
@@ -32,5 +32,10 @@ partial class EncountersPage
     protected void GeneratePatron()
     {
         Model.Encounters.Insert(0, EncounterGenerator.PickPatron(new Dice()));
+    }
+
+    protected override void Initialized()
+    {
+        Model.SpeciesAndFactionsList = CharacterBuilder.FactionsAndSpecies;
     }
 }
