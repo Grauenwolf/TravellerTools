@@ -10,29 +10,30 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Careers\Aslan\**" />
-	  <EmbeddedResource Remove="Careers\Aslan\**" />
-	  <None Remove="Careers\Aslan\**" />
+	  <Compile Remove="Aslan\**" />
+	  <EmbeddedResource Remove="Aslan\**" />
+	  <None Remove="Aslan\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Careers\Darrian\DarrianCharacterBuilder.cs" />
+	  <Compile Remove="Darrian\DarrianCharacterBuilder.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Include="Careers\Aslan\AslanCharacterBuilder.cs" />
-	  <Compile Include="Careers\Aslan\Ceremonial.cs" />
-	  <Compile Include="Careers\Aslan\Ceremonial_ClanAgent.cs" />
-	  <Compile Include="Careers\Aslan\Ceremonial_Poet.cs" />
-	  <Compile Include="Careers\Aslan\Ceremonial_Priest.cs" />
-	  <Compile Include="Careers\Aslan\Envoy.cs" />
-	  <Compile Include="Careers\Aslan\Envoy_Duellist.cs" />
-	  <Compile Include="Careers\Aslan\Envoy_Negotiator.cs" />
-	  <Compile Include="Careers\Aslan\Envoy_Spy.cs" />
-	  <Compile Include="Careers\Aslan\Management.cs" />
-	  <Compile Include="Careers\Aslan\Management_ClanAide.cs" />
-	  <Compile Include="Careers\Aslan\Management_Corporate.cs" />
-	  <Compile Include="Careers\Aslan\Management_Governess.cs" />
+	  <Compile Include="Aslan\AslanCharacterBuilder.cs" />
+	  <Compile Include="Aslan\Careers\Ceremonial.cs" />
+	  <Compile Include="Aslan\Careers\Ceremonial_ClanAgent.cs" />
+	  <Compile Include="Aslan\Careers\Ceremonial_Poet.cs" />
+	  <Compile Include="Aslan\Careers\Ceremonial_Priest.cs" />
+	  <Compile Include="Aslan\Careers\Envoy.cs" />
+	  <Compile Include="Aslan\Careers\Envoy_Duellist.cs" />
+	  <Compile Include="Aslan\Careers\Envoy_Negotiator.cs" />
+	  <Compile Include="Aslan\Careers\Envoy_Spy.cs" />
+	  <Compile Include="Aslan\Careers\Management.cs" />
+	  <Compile Include="Aslan\Careers\Management_ClanAide.cs" />
+	  <Compile Include="Aslan\Careers\Management_Corporate.cs" />
+	  <Compile Include="Aslan\Careers\Management_Governess.cs" />
+	  <Compile Include="Aslan\MurrissiCharacterBuilder.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -44,7 +45,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Careers\Darrian\" />
+	  <Folder Include="Darrian\" />
 	</ItemGroup>
 
 </Project>

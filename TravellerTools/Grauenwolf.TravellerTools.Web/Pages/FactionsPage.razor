@@ -1,0 +1,69 @@
+﻿@page "/factions"
+@page "/factions/{factionsFilter}"
+@inherits PageBase
+
+@{
+    PageTitle = "Factions";
+}
+<h2>Factions</h2>
+
+@if (Factions != null)
+{
+    @foreach (var faction in Factions)
+    {
+        <h3>
+            <a href="@($"/factions/{faction.Faction}")">@faction.Faction</a>
+        </h3>
+
+
+        @foreach (var species in @faction.Species)
+        {
+            <h4>
+                <a href="@($"/careers/{species.Species}")">@species.Species</a>
+            </h4>
+            <table class="gridtable">
+                <tr>
+                    <th>Source</th>
+                    @if (@species.Source == null)
+                    {
+                        <td colspan="2">
+                            <a href="@species.SpeciesUrl" target="_blank" title="Traveller Wiki">
+                                <span class="oi oi-globe" aria-hidden="true" /> TAS
+                            </a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <a href="@species.SpeciesUrl" target="_blank" title="Traveller Wiki">
+                                <span class="oi oi-globe" aria-hidden="true" /> TAS
+                            </a>
+                        </td>
+                        <td>
+                            @species.Source
+                        </td>
+                    }
+                </tr>
+                @if (!species.Species.Contains(species.SpeciesGroup))
+                {
+                    <tr>
+                        <th>Subspecies of</th>
+                        <td colspan="2">@species.SpeciesGroup</td>
+                    </tr>
+                }
+                @if (species.Remarks != null)
+                {
+                    <tr>
+                        <th>Remarks</th>
+                        <td colspan="2">@species.Remarks</td>
+                    </tr>
+                }
+            </table>
+            <div>&nbsp;</div>
+        }
+
+            <hr/>
+    }
+
+
+}

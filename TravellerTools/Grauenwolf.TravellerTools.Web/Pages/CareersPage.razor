@@ -5,83 +5,104 @@
 @{
     PageTitle = "Careers";
 }
-<h3>Careers</h3>
+<h2>Careers</h2>
 
 @if (Species != null)
 {
     @foreach (var species in Species)
     {
-        <h4>
+        <h3>
             <a href="@($"/careers/{species.Species}")">@species.Species</a>
-
-        </h4>
-        <div>
-            @species.Source             
-            <a href="@species.SpeciesUrl" target="_blank" title="Traveller Wiki">
-                <span class="oi oi-globe" aria-hidden="true" /> TAS
-            </a>
-        </div>
-        @if (species.Remarks != null)
-        {
-            <div>Remarks: @species.Remarks</div>
-        }
-        @if (species.CareersFrom != null)
-        {
-            <div>See @species.CareersFrom for careers.</div>
-        }
-
-        else
-        {
-
-            <table class="gridtable">
-                <tr>
-                    <th>Career</th>
-                    <th>Assignment</th>
-                    <th>Source</th>
-                </tr>
-                @foreach (var career in species.Careers)
+        </h3>
+        <table class="gridtable">
+            <tr>
+                <th>Source</th>
+                @if (@species.Source == null)
                 {
-                    if (career.Assignments.Count == 0)
-                    {
-                        <tr>
-                            <td valign="top">@career.Career</td>
-                            <td></td>
-                            <td>
-                                @foreach (var item in career.Sources)
-                                {
-                                    <div>@item</div>
-                                }
-                            </td>
-                        </tr>
-                    }
-                    else
-                    {
-                        <tr>
-                            <td valign="top" rowspan="@career.Assignments.Count">@career.Career</td>
-                            <td>@career.Assignments[0]</td>
-                            <td valign="top" rowspan="@career.Assignments.Count">
+                    <td colspan="2">
+                        <a href="@species.SpeciesUrl" target="_blank" title="Traveller Wiki">
+                            <span class="oi oi-globe" aria-hidden="true" /> TAS
+                        </a>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        <a href="@species.SpeciesUrl" target="_blank" title="Traveller Wiki">
+                            <span class="oi oi-globe" aria-hidden="true" /> TAS
+                        </a>
+                    </td>
+                    <td>
+                        @species.Source
+                    </td>
+                }
+            </tr>
+            <tr>
+                <th>Faction</th>
+                <td colspan="2">
+                    <a href="@($"/factions/{species.Faction}")">@species.Faction</a>
+                </td>
+            </tr>
+            @if (!species.Species.Contains(species.SpeciesGroup))
+            {
+                <tr>
+                    <th>Subspecies of</th>
+                    <td colspan="2">@species.SpeciesGroup</td>
+                </tr>
+            }
+            @if (species.Remarks != null)
+            {
+                <tr>
+                    <th>Remarks</th>
+                    <td colspan="2">@species.Remarks</td>
+                </tr>
+            }
+        </table>
+        <div>&nbsp;</div>
+        <table class="gridtable">
+            <tr>
+                <th>Career</th>
+                <th>Assignment</th>
+                <th>Source</th>
+            </tr>
+            @foreach (var career in species.Careers)
+            {
+                if (career.Assignments.Count == 0)
+                {
+                    <tr>
+                        <td valign="top">@career.Career</td>
+                        <td></td>
+                        <td>
+                            @foreach (var item in career.Sources)
+                            {
+                                <div>@item</div>
+                            }
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    <tr>
+                        <td valign="top" rowspan="@career.Assignments.Count">@career.Career</td>
+                        <td>@career.Assignments[0]</td>
+                        <td valign="top" rowspan="@career.Assignments.Count">
 
-                                @foreach (var item in career.Sources)
-                                {
-                                    <div>@item</div>
-                                }
-                            </td>
+                            @foreach (var item in career.Sources)
+                            {
+                                <div>@item</div>
+                            }
+                        </td>
+                    </tr>
+                    @for (var i = 1; i < career.Assignments.Count; i++)
+                    {
+                        <tr>
+                            <td>@career.Assignments[i]</td>
                         </tr>
-                        @for (var i = 1; i < career.Assignments.Count; i++)
-                        {
-                            <tr>
-                                <td>@career.Assignments[i]</td>
-                            </tr>
-                        }
                     }
                 }
+            }
 
-            </table>
-        }
-
-        <div>&nbsp;</div>
+        </table>
+        <hr />
     }
-
-
-
 }

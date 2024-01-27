@@ -36,35 +36,31 @@ partial class CareersPage
         public SpeciesDetails(SpeciesCharacterBuilder characterBuilder)
         {
             Species = characterBuilder.Species;
+            SpeciesGroup = characterBuilder.SpeciesGroup;
+            Faction = characterBuilder.Faction;
             SpeciesUrl = characterBuilder.SpeciesUrl;
             Source = characterBuilder.Source;
             Remarks = characterBuilder.Remarks?.Replace("\r\n", ", ");
 
-            if (characterBuilder.CareersFrom != null)
-                CareersFrom = characterBuilder.CareersFrom;
-            else
+            var careers = characterBuilder.Careers();
+            foreach (var careerName in careers.OrderBy(c => c.Career).Select(c => c.Career).Distinct())
             {
-                var careers = characterBuilder.Careers();
-                foreach (var careerName in careers.OrderBy(c => c.Career).Select(c => c.Career).Distinct())
-                {
-                    var assignments = careers.Where(c => c.Career == careerName && c.Assignment != null).Select(c => AssignmentString(c)).OrderBy(a => a).ToList();
+                var assignments = careers.Where(c => c.Career == careerName && c.Assignment != null).Select(c => AssignmentString(c)).OrderBy(a => a).ToList();
 
-                    var sources = careers.Where(c => c.Career == careerName && c.Source != null).Select(c => c.Source).Distinct().OrderBy(s => s).ToList();
+                var sources = careers.Where(c => c.Career == careerName && c.Source != null).Select(c => c.Source).Distinct().OrderBy(s => s).ToList();
 
-                    Careers.Add(new(careerName, assignments!, sources!));
-                }
+                Careers.Add(new(careerName, assignments!, sources!));
             }
         }
 
         public List<CareerDetail> Careers { get; } = new();
-
-        public string? CareersFrom { get; }
-
+        public string Faction { get; }
         public string? Remarks { get; }
 
         public string? Source { get; }
 
         public string Species { get; }
+        public string SpeciesGroup { get; }
 
         public string SpeciesUrl { get; }
 

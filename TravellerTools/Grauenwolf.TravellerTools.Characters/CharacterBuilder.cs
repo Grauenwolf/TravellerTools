@@ -24,32 +24,11 @@ public class CharacterBuilder
             Add((SpeciesCharacterBuilder)Activator.CreateInstance(type, dataPath, this)!);
         }
 
-        //Add(new AelYaelCharacterBuilder(dataPath, this));
-        //Add(new AnswerinCharacterBuilder(dataPath, this));
-        //Add(new AslanCharacterBuilder(dataPath, this));
-        //Add(new AyanshiCharacterBuilder(dataPath, this));
-        //Add(new AzhantiCharacterBuilder(dataPath, this));
-        //Add(new BwapCharacterBuilder(dataPath, this));
-        //Add(new CafadanCharacterBuilder(dataPath, this));
-        //Add(new CassilldanCharacterBuilder(dataPath, this));
-        //Add(new DarmineCharacterBuilder(dataPath, this));
-        //Add(new DarrianImperiumCharacterBuilder(dataPath, this));
-        //Add(new DynchiaImperiumCharacterBuilder(dataPath, this));
-        //Add(new DynchiaCharacterBuilder(dataPath, this));
-        //Add(new DolphinImperiumCharacterBuilder(dataPath, this));
-        //Add(new HumanitiCharacterBuilder(dataPath, this));
-        //Add(new SolomaniImperiumCharacterBuilder(dataPath, this));
-        //Add(new TezcatCharacterBuilder(dataPath, this));
-        //Add(new VilaniImperiumCharacterBuilder(dataPath, this));
-        //Add(new FlorianCharacterBuilder(dataPath, this));
-        //Add(new ZhodaniImperiumCharacterBuilder(dataPath, this));
-        //Add(new HapprhaniCharacterBuilder(dataPath, this));
-        //Add(new HalkaCharacterBuilder(dataPath, this));
-        //Add(new KargolCharacterBuilder(dataPath, this));
-
         m_CharacterBuilders = builders.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
 
         SpeciesList = m_CharacterBuilders.Keys.OrderBy(x => x).ToImmutableArray();
+
+        FactionsList = m_CharacterBuilders.Values.Select(s => s.Faction).Distinct().OrderBy(x => x).ToImmutableArray();
 
         CareerNameList = m_CharacterBuilders.Values.SelectMany(x => x.Careers(null)).Select(x => x.Career).Distinct().OrderBy(x => x).ToImmutableArray();
 
@@ -71,6 +50,7 @@ public class CharacterBuilder
     public ImmutableArray<PsionicSkillTemplate> AllPsionicTalents { get; }
     public ImmutableArray<SkillTemplate> AllSkills { get; }
     public ImmutableArray<string> CareerNameList { get; }
+    public ImmutableArray<string> FactionsList { get; }
     public NameGenerator NameGenerator { get; }
     public ImmutableArray<string> SpeciesList { get; }
 
