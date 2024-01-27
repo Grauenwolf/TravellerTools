@@ -1,4 +1,6 @@
-﻿namespace Grauenwolf.TravellerTools.Characters.Careers.Imperium;
+﻿using Grauenwolf.TravellerTools.Characters.Careers.Imperium;
+
+namespace Grauenwolf.TravellerTools.Characters.ZhodaniConsulate;
 
 public class ZhodaniImperiumCharacterBuilder(string dataPath, CharacterBuilder characterBuilder) : HumanitiImperiumCharacterBuilder(dataPath, characterBuilder)
 {

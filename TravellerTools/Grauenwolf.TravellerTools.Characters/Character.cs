@@ -86,6 +86,8 @@ public class Character : IContactGroup
         }
     }
 
+    public bool CharismaReplacesSocialStanding { get; set; }
+
     public List<Contact> Contacts { get; } = new();
     public int CurrentTerm { get; set; }
     public int Debt { get; set; }
@@ -161,9 +163,7 @@ public class Character : IContactGroup
     public SkillCollection Skills { get; } = new();
 
     public int SocialStanding { get; set; }
-
     public int SocialStandingDM => Tables.DMCalc(SocialStanding);
-
     public string? Species { get; set; }
 
     public string? SpeciesUrl { get; set; }
