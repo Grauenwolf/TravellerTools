@@ -2,6 +2,7 @@
 
 abstract class Entertainer(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Entertainer", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Traveller Core, page 30";
     protected override int AdvancedEductionMin => 10;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
@@ -151,7 +152,7 @@ abstract class Entertainer(string assignment, SpeciesCharacterBuilder speciesCha
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = Math.Max(character.IntellectDM, character.DexterityDM);
         dm += -1 * character.CareerHistory.Count;

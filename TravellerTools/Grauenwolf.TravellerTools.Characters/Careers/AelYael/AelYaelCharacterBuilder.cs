@@ -1,3 +1,4 @@
+using Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 using Grauenwolf.TravellerTools.Names;
 using System.Collections.Immutable;
 
@@ -5,7 +6,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.AelYael;
 
 public class AelYaelCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder) : SpeciesCharacterBuilder(dataPath, nameGenerator, characterBuilder)
 {
+    public override string Faction => "3rd Imperium";
     public override ImmutableArray<Gender> Genders { get; } = ImmutableArray.Create<Gender>(new("F", "Female", 1), new("M", "Male", 1));
+    public override string? Source => "Journal of the Traveller’s Aid Society Vol 3, page 50";
     public override string Species => "Ael Yael";
     public override string SpeciesUrl => "https://wiki.travellerrpg.com/Ael_Yael";
     protected override bool AllowPsionics => true;
@@ -17,41 +20,41 @@ public class AelYaelCharacterBuilder(string dataPath, NameGenerator nameGenerato
             //Duplicates are needed to make the odds match the book.
 
             //    Navy
-            new Navy_EngineerGunner(this),
-            new Navy_Flight(this),
-            new Navy_LineCrew(this),
+            new Navy_EngineerGunner(this){QualifyDM=-1},
+            new Navy_Flight(this){QualifyDM=-1},
+            new Navy_LineCrew(this){QualifyDM=-1},
 
             //    Army
-            new Army_Support(this),
-            new Army_Cavalry(this),
-            new Army_Infantry(this),
+            new Army_Support(this) {QualifyDM=-1},
+            new Army_Cavalry(this){QualifyDM=-1},
+            new Army_Infantry(this){QualifyDM=-1},
 
             //    Marine
-            new Marine_Support(this),
-            new Marine_GroundAssault(this),
-            new Marine_StarMarine(this),
+            new Marine_Support(this){QualifyDM=-1},
+            new Marine_GroundAssault(this){QualifyDM=-1},
+            new Marine_StarMarine(this){QualifyDM=-1},
 
             //    Merchant Marine
-            //new Humaniti.Merchant_MerchantMarine(this),
-            //new Humaniti.Merchant_MerchantMarine(this),
-            //new Humaniti.Merchant_MerchantMarine(this),
+            //new Merchant_MerchantMarine(this),
+            //new Merchant_MerchantMarine(this),
+            //new Merchant_MerchantMarine(this),
 
             //    Scout
-            new Scout_Courier(this),
-            new Scout_Explorer(this),
-            new Scout_Surveyor(this),
+            new Scout_Courier(this){QualifyDM=2},
+            new Scout_Explorer(this){QualifyDM=2},
+            new Scout_Surveyor(this){QualifyDM=2},
 
             //    Law Enforcement
-            new Humaniti.Agent_LawEnforcement(this),
-            new Humaniti.Agent_LawEnforcement(this),
-            new Humaniti.Agent_LawEnforcement(this),
+            new Agent_LawEnforcement(this),
+            new Agent_LawEnforcement(this),
+            new Agent_LawEnforcement(this),
         };
 
         var defaultCareers = new List<CareerBase>()
         {
-            new Humaniti.Drifter_Barbarian(this),
-            new Humaniti.Drifter_Scavenger(this),
-            new Humaniti.Drifter_Wanderer(this),
+            new Drifter_Barbarian(this),
+            new Drifter_Scavenger(this),
+            new Drifter_Wanderer(this),
         };
 
         var careers = new List<CareerBase>
@@ -68,53 +71,53 @@ public class AelYaelCharacterBuilder(string dataPath, NameGenerator nameGenerato
             new Precareers.University(this),
 
             //Careers
-            new Humaniti.Agent_CorporateAgent(this),
-            new Humaniti.Agent_Intelligence(this),
-            new Humaniti.Agent_LawEnforcement(this),
-            new Army_Cavalry(this),
-            new Army_Infantry(this),
-            new Army_Support(this),
-            new Humaniti.Believer_HolyWarrior(this),
-            new Humaniti.Believer_MainstreamBeliever(this),
-            new Humaniti.Believer_Missionary(this),
-            new Humaniti.Citizen_Colonist(this),
-            new Humaniti.Citizen_Corporate(this),
-            new Humaniti.Citizen_Worker(this),
-            new Humaniti.Drifter_Barbarian(this),
-            new Humaniti.Drifter_Scavenger(this),
-            new Humaniti.Drifter_Wanderer(this),
-            new Humaniti.Entertainer_Artist(this),
-            new Humaniti.Entertainer_Journalist(this),
-            new Humaniti.Entertainer_Performer(this),
-            new Marine_GroundAssault(this),
-            new Marine_StarMarine(this),
-            new Marine_Support(this),
-            new Humaniti.Merchant_Broker(this),
-            new Humaniti.Merchant_FreeTrader(this),
-            //new Humaniti.Merchant_MerchantMarine(this),
-            new Navy_EngineerGunner(this),
-            new Navy_Flight(this),
-            new Navy_LineCrew(this),
-            //new Humaniti.Noble_Administrator(this),
-            //new Humaniti.Noble_Dilettante(this),
-            //new Humaniti.Noble_Diplomat(this),
+            new Agent_CorporateAgent(this),
+            new Agent_Intelligence(this),
+            new Agent_LawEnforcement(this),
+            new Army_Cavalry(this){QualifyDM=-1},
+            new Army_Infantry(this){QualifyDM=-1},
+            new Army_Support(this){QualifyDM=-1},
+            new Believer_HolyWarrior(this),
+            new Believer_MainstreamBeliever(this),
+            new Believer_Missionary(this),
+            new Citizen_Colonist(this),
+            new Citizen_Corporate(this),
+            new Citizen_Worker(this),
+            new Drifter_Barbarian(this),
+            new Drifter_Scavenger(this),
+            new Drifter_Wanderer(this),
+            new Entertainer_Artist(this),
+            new Entertainer_Journalist(this),
+            new Entertainer_Performer(this),
+            new Marine_GroundAssault(this){QualifyDM=-1},
+            new Marine_StarMarine(this){QualifyDM=-1},
+            new Marine_Support(this){QualifyDM=-1},
+            new Merchant_Broker(this),
+            new Merchant_FreeTrader(this),
+            //new Merchant_MerchantMarine(this),
+            new Navy_EngineerGunner(this){QualifyDM=-1},
+            new Navy_Flight(this){QualifyDM=-1},
+            new Navy_LineCrew(this){QualifyDM=-1},
+            //new Noble_Administrator(this),
+            //new Noble_Dilettante(this),
+            //new Noble_Diplomat(this),
             new Prisoner_Fixer(this),
             new Prisoner_Inmate(this),
             new Prisoner_Thug(this),
-            new Humaniti.Psion_Adept(this),
-            new Humaniti.Psion_PsiWarrrior(this),
-            new Humaniti.Psion_WildTalent(this),
+            new Psion_Adept(this),
+            new Psion_PsiWarrrior(this),
+            new Psion_WildTalent(this),
             new Retired(this),
-            new Humaniti.Rogue_Enforcer(this),
-            new Humaniti.Rogue_Pirate(this),
-            new Humaniti.Rogue_Thief(this),
-            new Humaniti.Scholar_FieldResearcher(this),
-            new Humaniti.Scholar_Physician(this),
-            new Humaniti.Scholar_Scientist(this),
-            new Scout_Courier(this),
-            new Scout_Explorer(this),
-            new Scout_Surveyor(this),
-            new Humaniti.Truther(this),
+            new Rogue_Enforcer(this),
+            new Rogue_Pirate(this),
+            new Rogue_Thief(this),
+            new Scholar_FieldResearcher(this),
+            new Scholar_Physician(this),
+            new Scholar_Scientist(this),
+            new Scout_Courier(this){QualifyDM=2},
+            new Scout_Explorer(this){QualifyDM=2},
+            new Scout_Surveyor(this){QualifyDM=2},
+            new Truther(this),
         };
 
         return new(defaultCareers.ToImmutableArray(), draftCareers.ToImmutableArray(), careers.ToImmutableArray());

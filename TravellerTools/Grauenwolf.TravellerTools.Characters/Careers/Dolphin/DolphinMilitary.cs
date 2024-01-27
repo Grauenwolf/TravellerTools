@@ -2,6 +2,7 @@
 
 abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : MilitaryCareer("Dolphin Military", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Aliens of Charted Space Vol. 3, page 172";
     protected override int AdvancedEductionMin => 8;
 
     protected override int CommssionTargetNumber => 8;
@@ -194,17 +195,6 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        var dm = character.EducationDM;
-        dm += -1 * character.CareerHistory.Count;
-
-        dm += character.GetEnlistmentBonus(Career, Assignment);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 6, isPrecheck);
-    }
-
     internal override void ServiceSkill(Character character, Dice dice)
     {
         Increase(character, dice, "Athletics", "Vacc Suit", "Electronics|Comms", "Electronics|Sensors", "Gun Combat", "Stealth");
@@ -305,6 +295,17 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
     protected override void OfficerTraining(Character character, Dice dice)
     {
         Increase(character, dice, "Leadership", "Electronics", "Pilot", "Admin", "Tactics", "Diplomat");
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        var dm = character.EducationDM;
+        dm += -1 * character.CareerHistory.Count;
+
+        dm += character.GetEnlistmentBonus(Career, Assignment);
+        dm += QualifyDM;
+
+        return dice.RollHigh(dm, 6, isPrecheck);
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)

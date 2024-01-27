@@ -15,7 +15,7 @@ class DolphinCivilian_HistorianPoet(SpeciesCharacterBuilder speciesCharacterBuil
         Increase(character, dice, "Science|History", "Art", "Art", "Advocate", "Persuade", "Diplomat");
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.EducationDM;
         dm += -1 * character.CareerHistory.Count;

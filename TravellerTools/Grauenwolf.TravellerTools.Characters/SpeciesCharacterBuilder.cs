@@ -70,8 +70,12 @@ public abstract class SpeciesCharacterBuilder
 
     public virtual ImmutableArray<Book> Books { get; protected set; }
 
+    public virtual string? CareersFrom { get; }
+    public abstract string Faction { get; }
     public abstract ImmutableArray<Gender> Genders { get; }
 
+    public virtual string? Remarks { get; }
+    public virtual string? Source { get; }
     public abstract string Species { get; }
 
     public abstract string SpeciesUrl { get; }
@@ -184,6 +188,8 @@ public abstract class SpeciesCharacterBuilder
 
         return character;
     }
+
+    public ImmutableArray<CareerBase> Careers() => Careers(null);
 
     public virtual ImmutableArray<CareerBase> Careers(Character? character)
     {

@@ -2,6 +2,7 @@
 
 abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : MilitaryCareer("Army", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Traveller Core, page 24";
     protected override int AdvancedEductionMin => 8;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
@@ -173,7 +174,7 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.EnduranceDM;
         dm += -1 * character.CareerHistory.Count;

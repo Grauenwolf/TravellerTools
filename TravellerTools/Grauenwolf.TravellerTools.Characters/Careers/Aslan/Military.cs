@@ -5,6 +5,8 @@ abstract class Military(string assignment, SpeciesCharacterBuilder speciesCharac
     internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 8;
 
+    public override string? Source => "Aliens of Charted Space 1, page 28";
+
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
         var roll = dice.D(5);

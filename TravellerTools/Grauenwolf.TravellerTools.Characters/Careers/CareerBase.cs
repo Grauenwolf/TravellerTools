@@ -9,13 +9,18 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
     public string Career { get; } = career;
     public string Key => Assignment ?? Career;
 
+    public int QualifyDM { get; set; }
+
+    public string? RequiredSkill { get; set; }
+
     /// <summary>
     /// Gets the assignment. If that is null, returns the career.
     /// </summary>
     public string ShortName => Assignment ?? Career;
 
+    public abstract string? Source { get; }
+
     internal virtual bool RankCarryover { get; } = false;
-    protected virtual int QualifyDM => 0;
 
     public void AddOneRandomSkill(Character character, Dice dice)
     {
@@ -117,10 +122,16 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
     internal virtual decimal MedicalPaymentPercentage(Character character, Dice dice) => 0;
 
     /// <summary>
-    /// Qualifies the specified character.
+    /// This performs the necessary pre-checks such as required skills, then calls OnQualify.
     /// </summary>
-    /// <param name="isPrecheck">Pretend the character rolled an 8. Used to determine which careers to try.</param>
-    internal abstract bool Qualify(Character character, Dice dice, bool isPrecheck);
+    internal bool Qualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (RequiredSkill != null)
+            if (!character.Skills.Contains(RequiredSkill))
+                return false;
+
+        return OnQualify(character, dice, isPrecheck);
+    }
 
     internal abstract void Run(Character character, Dice dice);
 
@@ -243,6 +254,12 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
     protected void InjuryRollAge(Character character, Dice dice) => m_SpeciesCharacterBuilder.Injury(character, dice, this, false, character.Age + dice.D(4));
 
     protected void LifeEvent(Character character, Dice dice) => m_SpeciesCharacterBuilder.LifeEvent(character, dice, this);
+
+    /// <summary>
+    /// Determines if the specified character qualifies for the career.
+    /// </summary>
+    /// <param name="isPrecheck">Pretend the character rolled an 8. Used to determine which careers to try.</param>
+    protected abstract bool OnQualify(Character character, Dice dice, bool isPrecheck);
 
     protected void PreCareerEvents(Character character, Dice dice, CareerBase career, SkillTemplateCollection skills) => m_SpeciesCharacterBuilder.PreCareerEvents(character, dice, career, skills);
 

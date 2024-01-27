@@ -2,6 +2,7 @@
 
 abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : FullCareer("Prisoner", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Traveller Core, page 56";
     internal override bool RankCarryover { get; } = true;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
@@ -236,7 +237,7 @@ abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharac
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck) => false;
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck) => false;
 
     internal override void Run(Character character, Dice dice)
     {

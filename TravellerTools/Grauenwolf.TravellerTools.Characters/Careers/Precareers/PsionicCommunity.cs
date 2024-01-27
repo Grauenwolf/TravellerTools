@@ -2,7 +2,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class PsionicCommunity(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Psionic Community", null, speciesCharacterBuilder)
 {
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    public override string? Source => "Traveller Companion, page  33";
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         if (character.CurrentTerm != 1)
             return false;

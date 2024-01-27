@@ -20,6 +20,7 @@ abstract class Agent : NormalCareer
         m_Careers = careers.ToImmutableArray();
     }
 
+    public override string? Source => "Traveller Core, page 22";
     protected override int AdvancedEductionMin => 8;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
@@ -172,7 +173,7 @@ abstract class Agent : NormalCareer
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.IntellectDM;
         dm += -1 * character.CareerHistory.Count;

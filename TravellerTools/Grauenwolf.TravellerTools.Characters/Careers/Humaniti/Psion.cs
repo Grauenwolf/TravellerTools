@@ -2,6 +2,7 @@
 
 abstract class Psion(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Psion", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Traveller Core, page 236";
     protected override int AdvancedEductionMin => 8;
 
     internal override void Event(Character character, Dice dice)
@@ -154,20 +155,6 @@ abstract class Psion(string assignment, SpeciesCharacterBuilder speciesCharacter
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if ((character.Psi ?? 0) <= 0)
-            return false; //not possible
-
-        var dm = character.PsiDM;
-        dm += -1 * character.CareerHistory.Count;
-
-        dm += character.GetEnlistmentBonus(Career, Assignment);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 6, isPrecheck);
-    }
-
     internal override void Run(Character character, Dice dice)
     {
         //Force Psionic Testing. This can only happen if the character is forced into this career.
@@ -238,6 +225,20 @@ abstract class Psion(string assignment, SpeciesCharacterBuilder speciesCharacter
             character.Skills.Increase(name);
         else
             AttemptTalent(character, dice, name);
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if ((character.Psi ?? 0) <= 0)
+            return false; //not possible
+
+        var dm = character.PsiDM;
+        dm += -1 * character.CareerHistory.Count;
+
+        dm += character.GetEnlistmentBonus(Career, Assignment);
+        dm += QualifyDM;
+
+        return dice.RollHigh(dm, 6, isPrecheck);
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)

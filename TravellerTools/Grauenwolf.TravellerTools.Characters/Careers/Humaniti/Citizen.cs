@@ -2,6 +2,7 @@
 
 abstract class Citizen(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Citizen", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Traveller Core, page 26";
     protected override int AdvancedEductionMin => 10;
 
     internal override void Event(Character character, Dice dice)
@@ -150,7 +151,7 @@ abstract class Citizen(string assignment, SpeciesCharacterBuilder speciesCharact
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.EducationDM;
         dm += -1 * character.CareerHistory.Count;

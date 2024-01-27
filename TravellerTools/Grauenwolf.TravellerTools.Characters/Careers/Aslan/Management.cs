@@ -2,6 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 abstract class Management(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Management", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Aliens of Charted Space 1, page 32";
+
     internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 8;
 
@@ -194,7 +196,7 @@ abstract class Management(string assignment, SpeciesCharacterBuilder speciesChar
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.RiteOfPassageDM;
         dm += character.GetEnlistmentBonus(Career, Assignment);

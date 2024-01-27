@@ -2,6 +2,7 @@
 
 abstract class ShaperPriest(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Shaper Priest", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Aliens of Charted Space Vol. 4, page 226";
     protected override int AdvancedEductionMin => 8;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
@@ -161,7 +162,7 @@ abstract class ShaperPriest(string assignment, SpeciesCharacterBuilder speciesCh
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.IntellectDM;
         dm += -1 * character.CareerHistory.Count;

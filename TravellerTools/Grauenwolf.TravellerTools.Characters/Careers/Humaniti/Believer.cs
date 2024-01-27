@@ -2,6 +2,7 @@
 
 abstract class Believer(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Believer", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Traveller Companion, page  38";
     protected override int AdvancedEductionMin => 8;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
@@ -149,7 +150,7 @@ abstract class Believer(string assignment, SpeciesCharacterBuilder speciesCharac
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck) => true;
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck) => true;
 
     internal override void ServiceSkill(Character character, Dice dice)
     {

@@ -2,6 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 abstract class MilitaryAcademy(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Military Academy", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Traveller Core, page 16";
+
     protected abstract string Branch { get; }
     protected abstract string QualifyAttribute { get; }
     protected abstract int QualifyTarget { get; }
@@ -11,7 +13,7 @@ abstract class MilitaryAcademy(string assignment, SpeciesCharacterBuilder specie
     ///// </summary>
     //protected abstract MilitaryCareer Stub { get; }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         if (!character.LongTermBenefits.MayEnrollInSchool)
             return false;

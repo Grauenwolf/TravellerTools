@@ -1,7 +1,9 @@
 using Grauenwolf.TravellerTools.Characters.Careers.AelYael;
 using Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 using Grauenwolf.TravellerTools.Characters.Careers.Bwap;
+using Grauenwolf.TravellerTools.Characters.Careers.Dynchia;
 using Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
+using Grauenwolf.TravellerTools.Characters.Careers.Imperium;
 using Grauenwolf.TravellerTools.Characters.Careers.ImperiumDolphin;
 using Grauenwolf.TravellerTools.Characters.Careers.Tezcat;
 using Grauenwolf.TravellerTools.Names;
@@ -26,12 +28,24 @@ public class CharacterBuilder
                 builders[builder.Species] = builder;
         }
 
-        Add(new HumanitiCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new BwapCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new TezcatCharacterBuilder(dataPath, nameGenerator, this));
-        Add(new ImperiumDolphinCharacterBuilder(dataPath, nameGenerator, this));
         Add(new AelYaelCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new AnswerinCharacterBuilder(dataPath, nameGenerator, this));
         Add(new AslanCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new AyanshiCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new AzhantiCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new BwapCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new CafadanCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new CassilldanCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new DarmineCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new DarrianImperiumCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new DynchiaImperiumCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new DynchiaCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new DolphinImperiumCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new HumanitiCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new SolomaniImperiumCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new TezcatCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new VilaniImperiumCharacterBuilder(dataPath, nameGenerator, this));
+        Add(new ZhodaniImperiumCharacterBuilder(dataPath, nameGenerator, this));
 
         m_CharacterBuilders = builders.ToImmutableDictionary(StringComparer.OrdinalIgnoreCase);
 

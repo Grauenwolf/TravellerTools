@@ -1,7 +1,8 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-abstract class NormalCareer(string name, string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : FullCareer(name, assignment, speciesCharacterBuilder)
+public abstract class NormalCareer(string name, string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : FullCareer(name, assignment, speciesCharacterBuilder)
 {
+    public int AdvancementDM { get; set; }
     internal override bool RankCarryover { get; } = false;
 
     protected abstract int AdvancedEductionMin { get; }
@@ -32,7 +33,7 @@ abstract class NormalCareer(string name, string assignment, SpeciesCharacterBuil
                 character.AddHistory($"Forced to continue current assignment.", character.Age);
                 character.NextTermBenefits.MustEnroll = Assignment;
             }
-            advancementRoll += character.GetDM(AdvancementAttribute) + character.GetAdvancementBonus(Career, Assignment);
+            advancementRoll += character.GetDM(AdvancementAttribute) + character.GetAdvancementBonus(Career, Assignment) + AdvancementDM;
 
             if (advancementRoll >= AdvancementTarget)
             {

@@ -2,7 +2,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class University(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("University", null, speciesCharacterBuilder)
 {
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    public override string? Source => "Traveller Core, page 16";
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         if (!character.LongTermBenefits.MayEnrollInSchool)
             return false;

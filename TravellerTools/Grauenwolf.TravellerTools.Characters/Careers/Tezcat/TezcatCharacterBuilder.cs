@@ -7,7 +7,9 @@ public class TezcatCharacterBuilder(string dataPath, NameGenerator nameGenerator
 {
     static readonly ImmutableList<string> s_MandatoryBackgroundSkills = ImmutableList.Create("Gun Combat", "Melee", "Stealth");
     static readonly ImmutableList<string> s_OptionalBackgroundSkills = ImmutableList.Create("Admin", "Animals", "Art", "Athletics", "Carouse", "Drive", "Science", "Seafarer", "Streetwise", "Survival", "Vacc Suit", "Electronics", "Flyer", "Language", "Mechanic", "Medic", "Profession");
+    public override string Faction => "Tezcat";
     public override ImmutableArray<Gender> Genders { get; } = ImmutableArray.Create<Gender>(new("F", "Female", 1), new("M", "Male", 1));
+    public override string? Source => "Aliens of Charted Space Vol. 4, page 224";
     public override string Species => "Tezcat";
 
     public override string SpeciesUrl => "https://wiki.travellerrpg.com/Tezcat";

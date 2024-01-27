@@ -28,7 +28,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grauenwolf.TravellerTools.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tortuga.Yardarm", "Tortuga.Yardarm\Tortuga.Yardarm.csproj", "{C9749626-2FCB-4E5C-9642-F8805A2FF0F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Grauenwolf.TravellerTools.Encounters", "Grauenwolf.TravellerTools.Encounters\Grauenwolf.TravellerTools.Encounters.csproj", "{C9E24C24-D91F-4C0A-A073-A6645DFB877E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Grauenwolf.TravellerTools.Encounters", "Grauenwolf.TravellerTools.Encounters\Grauenwolf.TravellerTools.Encounters.csproj", "{C9E24C24-D91F-4C0A-A073-A6645DFB877E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

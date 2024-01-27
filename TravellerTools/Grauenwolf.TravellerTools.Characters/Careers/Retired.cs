@@ -2,6 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 class Retired(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Retired", null, speciesCharacterBuilder)
 {
+    public override string? Source => null;
+
     public void Event(Character character, Dice dice)
     {
         switch (dice.D(2, 6))
@@ -67,7 +69,7 @@ class Retired(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Ret
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         return character.LongTermBenefits.Retired;
     }

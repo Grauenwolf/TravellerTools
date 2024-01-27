@@ -16,6 +16,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Careers\Darrian\DarrianCharacterBuilder.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Include="Careers\Aslan\AslanCharacterBuilder.cs" />
 	  <Compile Include="Careers\Aslan\Ceremonial.cs" />
 	  <Compile Include="Careers\Aslan\Ceremonial_ClanAgent.cs" />
@@ -37,6 +41,10 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Grauenwolf.TravellerTools.Shared\Grauenwolf.TravellerTools.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Careers\Darrian\" />
 	</ItemGroup>
 
 </Project>

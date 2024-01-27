@@ -2,6 +2,7 @@
 
 abstract class DolphinCivilian(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Dolphin Civilian", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Aliens of Charted Space Vol. 3, page 170";
     protected override int AdvancedEductionMin => 8;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)

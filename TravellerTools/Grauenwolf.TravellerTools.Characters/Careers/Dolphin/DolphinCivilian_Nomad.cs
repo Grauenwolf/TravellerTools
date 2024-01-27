@@ -15,7 +15,7 @@ class DolphinCivilian_Nomad(SpeciesCharacterBuilder speciesCharacterBuilder) : D
         Increase(character, dice, "Athletics", "Melee|Natural", "Leadership", "Recon", "Stealth", "Survival");
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck) => true;
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck) => true;
 
     internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {

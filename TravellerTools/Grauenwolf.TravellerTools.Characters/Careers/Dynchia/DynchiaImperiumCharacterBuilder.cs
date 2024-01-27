@@ -1,15 +1,16 @@
+﻿//using Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
+using Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
 using Grauenwolf.TravellerTools.Names;
 using System.Collections.Immutable;
 
-namespace Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
+namespace Grauenwolf.TravellerTools.Characters.Careers.Dynchia;
 
-public class HumanitiCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder) : SpeciesCharacterBuilder(dataPath, nameGenerator, characterBuilder)
+public class DynchiaImperiumCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder) : HumanitiCharacterBuilder(dataPath, nameGenerator, characterBuilder)
 {
-    public override string Faction => "3rd Imperium";
-    public override ImmutableArray<Gender> Genders { get; } = ImmutableArray.Create<Gender>(new("F", "Female", 1), new("M", "Male", 1));
-    public override string Species => "Humaniti";
-    public override string SpeciesUrl => "https://wiki.travellerrpg.com/Humaniti";
-    protected override bool AllowPsionics => true;
+    public override string? Remarks => "Warrior race\r\nDigestive mutation\r\nPolydactyly";
+    public override string? Source => "Journal of the Traveller’s Aid Society Vol 1, page 52";
+    public override string Species => "Dynchia, Imperium";
+    public override string SpeciesUrl => "https://wiki.travellerrpg.com/Dynchia";
 
     protected override CareerLists CreateCareerList()
     {
@@ -18,24 +19,24 @@ public class HumanitiCharacterBuilder(string dataPath, NameGenerator nameGenerat
             //Duplicates are needed to make the odds match the book.
 
             //    Navy
-            new Navy_EngineerGunner(this),
-            new Navy_Flight(this),
-            new Navy_LineCrew(this),
+            new Navy_EngineerGunner(this){ CommissionDM= -2, AdvancementDM = -2},
+            new Navy_Flight(this){ CommissionDM= -2, AdvancementDM = -2},
+            new Navy_LineCrew(this){ CommissionDM= -2, AdvancementDM = -2},
 
             //    Army
-            new Army_Support(this),
-            new Army_Cavalry(this),
-            new Army_Infantry(this),
+            new Army_Support(this){ CommissionDM= -2, AdvancementDM = -2},
+            new Army_Cavalry(this){ CommissionDM= -2, AdvancementDM = -2},
+            new Army_Infantry(this){ CommissionDM= -2, AdvancementDM = -2},
 
             //    Marine
-            new Marine_Support(this),
-            new Marine_GroundAssault(this),
-            new Marine_StarMarine(this),
+            new Marine_Support(this){ CommissionDM= -2, AdvancementDM = -2},
+            new Marine_GroundAssault(this){ CommissionDM= -2, AdvancementDM = -2},
+            new Marine_StarMarine(this){ CommissionDM= -2, AdvancementDM = -2},
 
             //    Merchant Marine
-            new Merchant_MerchantMarine(this),
-            new Merchant_MerchantMarine(this),
-            new Merchant_MerchantMarine(this),
+            new Merchant_MerchantMarine(this){  AdvancementDM = -2},
+            new Merchant_MerchantMarine(this){  AdvancementDM = -2},
+            new Merchant_MerchantMarine(this){  AdvancementDM = -2},
 
             //    Scout
             new Scout_Courier(this),
@@ -72,9 +73,9 @@ public class HumanitiCharacterBuilder(string dataPath, NameGenerator nameGenerat
             new Agent_CorporateAgent(this),
             new Agent_Intelligence(this),
             new Agent_LawEnforcement(this),
-            new Army_Cavalry(this),
-            new Army_Infantry(this),
-            new Army_Support(this),
+            new Army_Cavalry(this){ CommissionDM= -2, AdvancementDM = -2},
+            new Army_Infantry(this){ CommissionDM= -2, AdvancementDM = -2},
+            new Army_Support(this){ CommissionDM= -2, AdvancementDM = -2},
             new Believer_HolyWarrior(this),
             new Believer_MainstreamBeliever(this),
             new Believer_Missionary(this),
@@ -87,15 +88,15 @@ public class HumanitiCharacterBuilder(string dataPath, NameGenerator nameGenerat
             new Entertainer_Artist(this),
             new Entertainer_Journalist(this),
             new Entertainer_Performer(this),
-            new Marine_GroundAssault(this),
-            new Marine_StarMarine(this),
-            new Marine_Support(this),
+            new Marine_GroundAssault(this){ CommissionDM= -2, AdvancementDM = -2},
+            new Marine_StarMarine(this){ CommissionDM= -2, AdvancementDM = -2},
+            new Marine_Support(this){ CommissionDM= -2, AdvancementDM = -2},
             new Merchant_Broker(this),
             new Merchant_FreeTrader(this),
-            new Merchant_MerchantMarine(this),
-            new Navy_EngineerGunner(this),
-            new Navy_Flight(this),
-            new Navy_LineCrew(this),
+            new Merchant_MerchantMarine(this){ AdvancementDM = -2},
+            new Navy_EngineerGunner(this){ CommissionDM= -2, AdvancementDM = -2},
+            new Navy_Flight(this){ CommissionDM= -2, AdvancementDM = -2},
+            new Navy_LineCrew(this){ CommissionDM= -2, AdvancementDM = -2},
             new Noble_Administrator(this),
             new Noble_Dilettante(this),
             new Noble_Diplomat(this),
@@ -121,5 +122,11 @@ public class HumanitiCharacterBuilder(string dataPath, NameGenerator nameGenerat
         return new(defaultCareers.ToImmutableArray(), draftCareers.ToImmutableArray(), careers.ToImmutableArray());
     }
 
-    protected override int RollForPsi(Character character, Dice dice) => dice.D(2, 6) - character.CurrentTerm;
+    protected override void InitialCharacterStats(Dice dice, Character character)
+    {
+        base.InitialCharacterStats(dice, character);
+        character.Strength = dice.D(1, 6) + 3;
+        character.Dexterity += 1;
+        character.Education += 1;
+    }
 }

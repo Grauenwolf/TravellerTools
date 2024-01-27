@@ -1,7 +1,9 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters.Careers;
 
-abstract class MilitaryCareer(string name, string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : FullCareer(name, assignment, speciesCharacterBuilder)
+abstract public class MilitaryCareer(string name, string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : FullCareer(name, assignment, speciesCharacterBuilder)
 {
+    public int AdvancementDM { get; set; }
+    public int CommissionDM { get; set; }
     internal override bool RankCarryover { get; } = true;
     protected abstract int AdvancedEductionMin { get; }
     protected virtual int CommssionTargetNumber => 8;
@@ -44,7 +46,7 @@ abstract class MilitaryCareer(string name, string assignment, SpeciesCharacterBu
                 character.AddHistory($"Forced to continue current assignment", character.Age);
                 character.NextTermBenefits.MustEnroll = Assignment;
             }
-            advancementRoll += character.GetDM(AdvancementAttribute) + character.GetAdvancementBonus(Career, Assignment); ;
+            advancementRoll += character.GetDM(AdvancementAttribute) + character.GetAdvancementBonus(Career, Assignment) + AdvancementDM;
 
             if (advancementRoll >= AdvancementTarget)
             {
@@ -102,7 +104,8 @@ abstract class MilitaryCareer(string name, string assignment, SpeciesCharacterBu
                character.CurrentTermBenefits.AdvancementDM +
                character.CurrentTermBenefits.CommissionDM +
                character.LongTermBenefits.CommissionDM +
-               (1 - careerHistory.Terms);
+               (1 - careerHistory.Terms)
+               + CommissionDM;
 
         character.CurrentTermBenefits.FreeCommissionRoll = false;
         character.CurrentTermBenefits.CommissionDM = 0;

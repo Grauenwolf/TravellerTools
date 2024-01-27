@@ -2,8 +2,8 @@
 
 internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : RanklessCareer("Truther", null, speciesCharacterBuilder)
 {
+    public override string? Source => "Traveller Companion, page  36";
     protected override string SurvivalAttribute => "Fol";
-
     protected override int SurvivalTarget => 4;
 
     internal override void AssignmentSkills(Character character, Dice dice)
@@ -217,11 +217,6 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        return (character.Following == null && character.Following >= 0);
-    }
-
     internal override void Run(Character character, Dice dice)
     {
         if (character.Following == null)
@@ -258,6 +253,11 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
                 character.Skills.Increase("Persuade");
                 return;
         }
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        return (character.Following == null && character.Following >= 0);
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)

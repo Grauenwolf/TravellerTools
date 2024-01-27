@@ -2,6 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 abstract class Envoy(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Envoy", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Aliens of Charted Space 1, page 24";
     internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 8;
 
@@ -209,7 +210,7 @@ abstract class Envoy(string assignment, SpeciesCharacterBuilder speciesCharacter
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.RiteOfPassageDM;
         dm += character.GetEnlistmentBonus(Career, Assignment);

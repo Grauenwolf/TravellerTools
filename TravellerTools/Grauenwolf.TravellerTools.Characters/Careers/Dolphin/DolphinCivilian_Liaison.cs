@@ -15,7 +15,7 @@ class DolphinCivilian_Liaison(SpeciesCharacterBuilder speciesCharacterBuilder) :
         Increase(character, dice, "Vacc Suit", "Vacc Suit", "Carouse", "Electronics", "Diplomat", "Persuade");
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck) => true;
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck) => true;
 
     internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {

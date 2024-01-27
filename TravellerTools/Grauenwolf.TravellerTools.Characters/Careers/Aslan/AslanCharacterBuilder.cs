@@ -9,7 +9,6 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
     static readonly ImmutableList<string> s_FemaleBackgroundSkills = ImmutableList.Create("Admin", "Animals", "Art", "Athletics", "Carouse", "Drive", "Science", "Seafarer", "Streetwise", "Survival", "Vacc Suit", "Electronics", "Flyer", "Language", "Mechanic", "Medic", "Profession", "Tolerance");
     static readonly ImmutableList<string> s_MaleBackgroundSkills = ImmutableList.Create("Admin", "Animals", "Art", "Athletics", "Carouse", "Drive", "Science", "Seafarer", "Streetwise", "Survival", "Vacc Suit", "Electronics", "Flyer", "Language", "Medic", "Independence", "Tolerance");
     CareerLists FemaleCareers;
-
     CareerLists MaleCareers;
 
     public AslanCharacterBuilder(string dataPath, NameGenerator nameGenerator, CharacterBuilder characterBuilder) : base(dataPath, nameGenerator, characterBuilder)
@@ -112,8 +111,9 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
         FemaleCareers = new(defaultCareers, draftCareers, femaleCareers);
     }
 
+    public override string Faction => "Aslan";
     public override ImmutableArray<Gender> Genders { get; } = ImmutableArray.Create<Gender>(new("F", "Female", 26), new("M", "Male", 10));
-
+    public override string? Source => "Aliens of Charted Space 1, page 15";
     public override string Species => "Aslan";
 
     public override string SpeciesUrl => "https://wiki.travellerrpg.com/Aslan";

@@ -2,6 +2,7 @@
 
 abstract class Drifter(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Drifter", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Traveller Core, page 28";
     protected override int AdvancedEductionMin => int.MaxValue;
 
     internal override void Event(Character character, Dice dice)
@@ -138,11 +139,6 @@ abstract class Drifter(string assignment, SpeciesCharacterBuilder speciesCharact
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
-    {
-        return !character.LongTermBenefits.Retired;
-    }
-
     internal override void ServiceSkill(Character character, Dice dice)
     {
         Increase(character, dice, "Athletics", "Melee|Unarmed", "Recon", "Streetwise", "Stealth", "Survival");
@@ -151,6 +147,11 @@ abstract class Drifter(string assignment, SpeciesCharacterBuilder speciesCharact
     protected override void AdvancedEducation(Character character, Dice dice)
     {
         throw new NotImplementedException();
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        return !character.LongTermBenefits.Retired;
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)

@@ -2,6 +2,7 @@
 
 abstract class Rogue(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Rogue", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Traveller Core, page 40";
     internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 10;
 
@@ -172,7 +173,7 @@ abstract class Rogue(string assignment, SpeciesCharacterBuilder speciesCharacter
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.DexterityDM;
         dm += -1 * character.CareerHistory.Count;

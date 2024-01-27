@@ -2,6 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 abstract class Ceremonial(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Ceremonial", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Aliens of Charted Space 1, page 22";
     protected override int AdvancedEductionMin => 8;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
@@ -170,7 +171,7 @@ abstract class Ceremonial(string assignment, SpeciesCharacterBuilder speciesChar
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.RiteOfPassageDM;
         if (character.SocialStanding >= 9)

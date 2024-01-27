@@ -2,6 +2,7 @@
 
 abstract class Merchant(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Merchant", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Traveller Core, page 34";
     protected override int AdvancedEductionMin => 8;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
@@ -159,7 +160,7 @@ abstract class Merchant(string assignment, SpeciesCharacterBuilder speciesCharac
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.IntellectDM;
         dm += -1 * character.CareerHistory.Count;

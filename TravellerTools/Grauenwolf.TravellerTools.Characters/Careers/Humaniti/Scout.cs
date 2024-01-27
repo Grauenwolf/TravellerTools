@@ -2,6 +2,7 @@
 
 abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Scout", assignment, speciesCharacterBuilder)
 {
+    public override string? Source => "Traveller Core, page 44";
     internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 8;
 
@@ -188,7 +189,7 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
         }
     }
 
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.IntellectDM;
         dm += -1 * character.CareerHistory.Count;

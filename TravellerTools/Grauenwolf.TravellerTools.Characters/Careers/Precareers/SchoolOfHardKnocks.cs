@@ -2,7 +2,9 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class SchoolOfHardKnocks(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("School of Hard Knocks", null, speciesCharacterBuilder)
 {
-    internal override bool Qualify(Character character, Dice dice, bool isPrecheck)
+    public override string? Source => "Traveller Companion, page  34";
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         if (character.CurrentTerm != 1)
             return false;
