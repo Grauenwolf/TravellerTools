@@ -26,7 +26,7 @@ class ShaperPriest_Partisan(SpeciesCharacterBuilder speciesCharacterBuilder) : S
             case 1:
                 careerHistory.Title = "Third Claw";
                 if (allowBonus)
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
+                    IncreaseOneSkill(character, dice, "Gun Combat");
                 return;
 
             case 2:

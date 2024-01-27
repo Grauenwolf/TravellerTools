@@ -150,36 +150,9 @@ abstract class Believer(string assignment, SpeciesCharacterBuilder speciesCharac
         }
     }
 
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck) => true;
-
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Profession", "Religion");
-                return;
-
-            case 2:
-                character.Skills.Increase("Science", "Belief");
-                return;
-
-            case 3:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 4:
-                character.Skills.Increase("Electronics", "Computers");
-                return;
-
-            case 5:
-                character.Skills.Increase("Diplomat");
-                return;
-
-            case 6:
-                character.Skills.Increase("Persuade");
-                return;
-        }
+        Increase(character, dice, "Profession|Religion", "Science|Belief", "Admin", "Electronics|Computers", "Diplomat", "Persuade");
     }
 
     protected override void AdvancedEducation(Character character, Dice dice)
@@ -213,33 +186,10 @@ abstract class Believer(string assignment, SpeciesCharacterBuilder speciesCharac
         character.AddHistory(historyMessage, age ?? character.Age);
     }
 
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck) => true;
+
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Intellect += 1;
-                return;
-
-            case 2:
-                character.Education += 1;
-                return;
-
-            case 3:
-                character.SocialStanding += 1;
-                return;
-
-            case 4:
-                character.Skills.Increase("Science", "Belief");
-                return;
-
-            case 5:
-                character.Skills.Increase("Profession", "Religion");
-                return;
-
-            case 6:
-                character.Skills.Increase("Persuade");
-                return;
-        }
+        Increase(character, dice, "Intellect", "Education", "SocialStanding", "Science|Belief", "Profession|Religion", "Persuade");
     }
 }

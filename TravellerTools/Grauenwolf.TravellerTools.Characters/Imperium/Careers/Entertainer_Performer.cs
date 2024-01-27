@@ -12,37 +12,7 @@ class Entertainer_Performer(SpeciesCharacterBuilder speciesCharacterBuilder) : E
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Art", "Performer");
-                    skillList.Add("Art", "Instrument");
-                    character.Skills.Increase(dice.Choose(skillList));
-                }
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Carouse");
-                return;
-
-            case 4:
-                character.Skills.Increase("Deception");
-                return;
-
-            case 5:
-                character.Skills.Increase("Stealth");
-                return;
-
-            case 6:
-                character.Skills.Increase("Streetwise");
-                return;
-        }
+        Increase(character, dice, "Art|Performer,Art|Instrument", "Athletics", "Carouse", "Deception", "Stealth", "Streetwise");
     }
 
     internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)

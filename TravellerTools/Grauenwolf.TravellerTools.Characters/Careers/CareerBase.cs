@@ -56,6 +56,53 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
         return true;
     }
 
+    /// <summary>
+    /// Adds the one skill at level 1.
+    /// </summary>
+    /// <returns>Returns false if the character already has all of the skills.</returns>
+    public bool AddOneSkillAtLevelZero(Character character, Dice dice, params string[] skills)
+    {
+        var skillList = new SkillTemplateCollection();
+        foreach (var skill in skills)
+        {
+            if (skill.Contains("|"))
+            {
+                var parts = skill.Split('|');
+                skillList.Add(parts[0]); //don't need specialities.
+            }
+            else
+                skillList.Add(skill);
+        }
+
+        skillList.RemoveOverlap(character.Skills, 0);
+        if (skillList.Count == 0)
+            return false;
+
+        character.Skills.Add(dice.Choose(skillList), 0);
+        return true;
+    }
+
+    public bool IncreaseMultipleSkills(Character character, Dice dice, int skillCount, params string[] skills)
+    {
+        var skillList = new SkillTemplateCollection();
+        foreach (var skill in skills)
+        {
+            if (skill.Contains("|"))
+            {
+                var parts = skill.Split('|');
+                skillList.Add(parts[0], parts[1]);
+            }
+            else
+                skillList.AddRange(SpecialtiesFor(character, skill));
+        }
+        if (skillList.Count == 0)
+            return false;
+
+        for (var i = 0; i < skillCount; i++)
+            character.Skills.Increase(dice.Pick(skillList), 1); //remove the skill so we don't pick it twice
+        return true;
+    }
+
     public void IncreaseOneRandomSkill(Character character, Dice dice)
     {
         character.Skills.Increase(dice.Choose(RandomSkills(character)));
@@ -179,17 +226,26 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
                 case "SS":
                 case "Soc":
                 case "SocialStanding":
+                case "Chr":
+                case "Charisma":
                     character.SocialStanding += 1; return;
 
+                case "Psi":
+                    character.Psi += 1; return;
+
+                case "Ter":
+                case "Territory":
+                    character.Territory += 1; return;
+
+                case "Fol":
+                case "Following":
+                    character.Following += 1; return;
+
                 default:
-                    //TODO: Check for illegal skills
-                    if (item.Contains("|"))
-                    {
-                        var parts = item.Split('|');
-                        character.Skills.Add(parts[0]);
-                    }
+                    if (item.Contains(',')) //You only get one.
+                        AddOneSkillAtLevelZero(character, dice, dice.Choose(item.Split(',')));
                     else
-                        character.Skills.Add(item);
+                        AddOneSkillAtLevelZero(character, dice, item);
 
                     return;
             }
@@ -237,7 +293,21 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
             case "SS":
             case "Soc":
             case "SocialStanding":
+            case "Chr":
+            case "Charisma":
                 character.SocialStanding += 1; return;
+
+            case "Psi":
+                character.Psi += 1; return;
+
+            case "Ter":
+            case "Territory":
+                character.Territory += 1; return;
+
+            case "Fol":
+            case "Following":
+                character.Following += 1; return;
+
             default:
                 if (!IncreaseOneSkill(character, dice, item.Split(',')))
                     goto top; //Try again because your race can't have that skill

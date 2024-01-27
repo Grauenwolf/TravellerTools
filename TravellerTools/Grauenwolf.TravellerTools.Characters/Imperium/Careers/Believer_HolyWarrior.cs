@@ -26,7 +26,7 @@ class Believer_HolyWarrior(SpeciesCharacterBuilder speciesCharacterBuilder) : Be
             case 1:
                 careerHistory.Title = "Fighter";
                 if (allowBonus)
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
+                    IncreaseOneSkill(character, dice, "Gun Combat");
                 return;
 
             case 2:

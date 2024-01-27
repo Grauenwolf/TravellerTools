@@ -162,45 +162,9 @@ abstract class ShaperPriest(string assignment, SpeciesCharacterBuilder speciesCh
         }
     }
 
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        var dm = character.IntellectDM;
-        dm += -1 * character.CareerHistory.Count;
-
-        dm += character.GetEnlistmentBonus(Career, Assignment);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 6);
-    }
-
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Profession", "Religion");
-                return;
-
-            case 2:
-                character.Skills.Increase("Science", "Shaper Church");
-                return;
-
-            case 3:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 4:
-                character.Skills.Increase("Diplomat");
-                return;
-
-            case 5:
-                character.Skills.Increase("Persuade");
-                return;
-
-            case 6:
-                character.Skills.Increase("Electronics", "Computer");
-                return;
-        }
+        Increase(character, dice, "Profession|Religion", "Science|Shaper Church", "Admin", "Diplomat", "Persuade", "Electronics|Computer");
     }
 
     internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
@@ -247,32 +211,7 @@ abstract class ShaperPriest(string assignment, SpeciesCharacterBuilder speciesCh
 
     protected override void AdvancedEducation(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Profession", "Religion");
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Medic");
-                return;
-
-            case 4:
-                character.Skills.Increase("Investigate");
-                return;
-
-            case 5:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 6:
-                character.Skills.Increase("Electronics", "Computer");
-                return;
-        }
+        Increase(character, dice, "Profession|Religion", "Science", "Medic", "Investigate", "Advocate", "Electronics|Computer");
     }
 
     protected void Demote(Character character, Dice dice, CareerHistory careerHistory, int? age)
@@ -301,33 +240,19 @@ abstract class ShaperPriest(string assignment, SpeciesCharacterBuilder speciesCh
         character.AddHistory(historyMessage, age ?? character.Age);
     }
 
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        var dm = character.IntellectDM;
+        dm += -1 * character.CareerHistory.Count;
+
+        dm += character.GetEnlistmentBonus(Career, Assignment);
+        dm += QualifyDM;
+
+        return dice.RollHigh(dm, 6);
+    }
+
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Intellect += 1;
-                return;
-
-            case 2:
-                character.Education += 1;
-                return;
-
-            case 3:
-                character.SocialStanding += 1;
-                return;
-
-            case 4:
-                character.Skills.Increase("Science", "Shaper Church");
-                return;
-
-            case 5:
-                character.Skills.Increase("Profession", "Religion");
-                return;
-
-            case 6:
-                character.Skills.Increase("Persuade");
-                return;
-        }
+        Increase(character, dice, "Intellect", "Education", "SocialStanding", "Science|Shaper Church", "Profession|Religion", "Persuade");
     }
 }

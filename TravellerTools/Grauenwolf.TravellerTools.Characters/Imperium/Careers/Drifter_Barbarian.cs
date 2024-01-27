@@ -12,35 +12,7 @@ class Drifter_Barbarian(SpeciesCharacterBuilder speciesCharacterBuilder) : Drift
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Animals")));
-                return;
-
-            case 2:
-                character.Skills.Increase("Carouse");
-                return;
-
-            case 3:
-                character.Skills.Increase("Melee", "Blade");
-                return;
-
-            case 4:
-                character.Skills.Increase("Stealth");
-                return;
-
-            case 5:
-                {
-                    var skillList = new SkillTemplateCollection() { new SkillTemplate("Seafarer", "Personal"), new SkillTemplate("Seafarer", "Sails") };
-                    character.Skills.Increase(dice.Choose(skillList));
-                }
-                return;
-
-            case 6:
-                character.Skills.Increase("Survival");
-                return;
-        }
+        Increase(character, dice, "Animals", "Carouse", "Melee|Blade", "Stealth", "Seafarer|Personal,Seafarer|Sails", "Survival");
     }
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)

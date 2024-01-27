@@ -8,35 +8,7 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Profession")));
-                return;
-
-            case 2:
-                var skills = new SkillTemplateCollection();
-                skills.AddRange(SpecialtiesFor(character, "Science"));
-                skills.Add("Medic");
-                character.Skills.Increase(dice.Choose(skills));
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Investigate");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
-                return;
-        }
+        IncreaseOneSkill(character, dice, "Profession", "Science|Medic", "Science", "Investigate", "Science", "Science");
     }
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
@@ -64,7 +36,7 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
                     character.AddHistory($"A corporate or government body wants to use {character.Name}'s knowledge in a way {character.Name} find questionable. {character.Name} agree, but gain {enemies} enemies..", dice);
                     character.AddEnemy(3);
                     character.BenefitRolls += 1;
-                    character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
+                    IncreaseOneSkill(character, dice, "Science");
                 }
                 return;
 
@@ -76,24 +48,12 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
 
             case 5:
                 character.AddHistory($"Understanding some new revelation requires a crash course in a field {character.Name} lacked knowledge of.", dice);
-                {
-                    var skills = new SkillTemplateCollection();
-                    skills.AddRange(SpecialtiesFor(character, "Science"));
-                    skills.AddRange(SpecialtiesFor(character, "Electronics"));
-                    skills.RemoveOverlap(character.Skills, 1);
-                    if (skills.Count > 0)
-                        character.Skills.Add(dice.Choose(skills), 1);
-                }
+                AddOneSkill(character, dice, "Science", "Electronics");
                 return;
 
             case 6:
                 character.AddHistory($"{character.Name}'s search for Truth takes {character.Name} out onto the frontiers.", dice);
-                {
-                    var skills = new SkillTemplateCollection();
-                    skills.AddRange(SpecialtiesFor(character, "Survival"));
-                    skills.AddRange(SpecialtiesFor(character, "Recon"));
-                    character.Skills.Increase(dice.Choose(skills));
-                }
+                IncreaseOneSkill(character, dice, "Survival", "Recon");
                 return;
 
             case 7:
@@ -102,13 +62,8 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
 
             case 8:
                 character.AddHistory($"{character.Name} make a series of high-profile appearances on entertainment/topical news shows.", dice);
-                {
-                    var skills = new SkillTemplateCollection();
-                    skills.AddRange(SpecialtiesFor(character, "Carouse"));
-                    skills.AddRange(SpecialtiesFor(character, "Persuade"));
-                    character.Skills.Increase(dice.Choose(skills));
-                    character.Following += 1;
-                }
+                IncreaseOneSkill(character, dice, "Carouse", "Persuade");
+                character.Following += 1;
                 return;
 
             case 9:
@@ -136,13 +91,7 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
                             break;
 
                         case 3:
-                            var skills = new SkillTemplateCollection();
-                            skills.AddRange(SpecialtiesFor(character, "Science"));
-                            skills.AddRange(SpecialtiesFor(character, "Electronics"));
-                            skills.Add("Medic");
-
-                            if (skills.Count > 0)
-                                character.Skills.Increase(dice.Choose(skills), 2);
+                            IncreaseMultipleSkills(character, dice, 2, "Science", "Electronics", "Medic");
                             break;
                     }
                 }
@@ -153,11 +102,7 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
                     var contacts = dice.D(3);
                     character.AddHistory($"{character.Name} come into contact with a mysterious group who are interested in {character.Name}'s Truth. Interactions with them are vague and secretive. Gain {contacts} Contacts.", dice);
                     character.AddContact(contacts);
-                    var skills = new SkillTemplateCollection();
-                    skills.AddRange(SpecialtiesFor(character, "Streetwise"));
-                    skills.AddRange(SpecialtiesFor(character, "Carouse"));
-                    skills.AddRange(SpecialtiesFor(character, "Recon"));
-                    character.Skills.Increase(dice.Choose(skills));
+                    IncreaseOneSkill(character, dice, "Streetwise", "Carouse", "Recon");
                     return;
                 }
             case 11:
@@ -227,32 +172,7 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Investigate");
-                return;
-
-            case 2:
-                character.Skills.Increase("Art", "Writing");
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Language")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Electronics", "Computer");
-                return;
-
-            case 5:
-                character.Skills.Increase("Diplomat");
-                return;
-
-            case 6:
-                character.Skills.Increase("Persuade");
-                return;
-        }
+        Increase(character, dice, "Investigate", "Art|Writing", "Language", "Electronics|Computer", "Diplomat", "Persuade");
     }
 
     protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
@@ -262,31 +182,6 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Intellect += 1;
-                return;
-
-            case 2:
-                character.Education += 1;
-                return;
-
-            case 3:
-                character.Following += 1;
-                return;
-
-            case 4:
-                character.Skills.Increase("Admin");
-                return;
-
-            case 5:
-                character.Skills.Increase("Carouse");
-                return;
-
-            case 6:
-                character.Skills.Increase("Persuade");
-                return;
-        }
+        Increase(character, dice, "Intellect", "Education", "Following", "Admin", "Carouse", "Persuade");
     }
 }

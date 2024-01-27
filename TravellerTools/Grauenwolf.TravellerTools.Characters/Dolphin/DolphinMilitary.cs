@@ -49,13 +49,7 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
             case 6:
                 character.AddHistory($"A brutal amphibious warfare campaign forces {character.Name} to spend as much time fighting out of water as in.", dice);
                 if (dice.RollHigh(character.Skills.BestSkillLevel("Vacc Suit"), 7))
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
-                    skillList.Add("Leadership");
-                    skillList.Add("Tactics", "Military");
-                    character.Skills.Increase(dice.Choose(skillList), 1);
-                }
+                    IncreaseOneSkill(character, dice, "Gun Combat", "Leadership", "Tactics|Military");
                 return;
 
             case 7:
@@ -63,26 +57,14 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
                 return;
 
             case 8:
-                {
-                    var age = character.AddHistory($"Participate in a major sea battle", dice);
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Vacc Suit");
-                    skillList.AddRange(SpecialtiesFor(character, "Melee"));
-                    skillList.AddRange(SpecialtiesFor(character, "Gun Combat"));
-                    skillList.Add("Tactics", "Military");
-                    character.Skills.Increase(dice.Choose(skillList), 1);
-                }
+                character.AddHistory($"Participate in a major sea battle", dice);
+                IncreaseOneSkill(character, dice, "Vacc Suit", "Melee", "Gun Combat", "Tactics|Military");
                 return;
 
             case 9:
                 character.AddHistory($"{character.Name} is assigned to a joint mission with an intelligence agency to catch spies or insurgents operating near underwater base facilities. Gain an intelligence agent as a Contact.", dice);
                 character.AddContact();
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Recon");
-                    skillList.Add("Stealth");
-                    character.Skills.Increase(dice.Choose(skillList), 1);
-                }
+                IncreaseOneSkill(character, dice, "Recon", "Stealth");
                 return;
 
             case 10:
@@ -97,11 +79,7 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
                     if (dice.RollHigh(dm, 8))
                     {
                         character.AddHistory($"A mission goes badly wrong when a human leader disregards {character.Name}'s advice because {character.Name} is ‘just a Dolphin’ and then blames {character.Name} for their mistake. {character.Name} prove {character.Name}'s innocence and they are dismissed.", dice);
-
-                        var skillList = new SkillTemplateCollection();
-                        skillList.Add("Leadership");
-                        skillList.Add("Advocate");
-                        character.Skills.Increase(dice.Choose(skillList), 1);
+                        IncreaseOneSkill(character, dice, "Leadership", "Advocate");
                         character.CurrentTermBenefits.AdvancementDM += 1;
                     }
                     else

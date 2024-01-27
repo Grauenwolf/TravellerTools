@@ -189,48 +189,9 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
         }
     }
 
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        var dm = character.IntellectDM;
-        dm += -1 * character.CareerHistory.Count;
-
-        dm += character.GetEnlistmentBonus(Career, Assignment);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 5, isPrecheck);
-    }
-
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                if (dice.NextBoolean())
-                    character.Skills.Increase("Pilot", "Small Craft");
-                else
-                    character.Skills.Increase("Pilot", "Spacecraft");
-                return;
-
-            case 2:
-                character.Skills.Increase("Survival");
-                return;
-
-            case 3:
-                character.Skills.Increase("Mechanic");
-                return;
-
-            case 4:
-                character.Skills.Increase("Astrogation");
-                return;
-
-            case 5:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 6:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Gun Combat")));
-                return;
-        }
+        Increase(character, dice, "Pilot|Small Craft,Pilot|Spacecraft", "Survival", "Mechanic", "Astrogation", "Vacc Suit", "Gun Combat");
     }
 
     internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
@@ -268,61 +229,22 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
 
     protected override void AdvancedEducation(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Medic");
-                return;
+        Increase(character, dice, "Medic", "Navigation", "Seafarer", "Explosives", "Science", "Jack-of-All-Trades");
+    }
 
-            case 2:
-                character.Skills.Increase("Navigation");
-                return;
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        var dm = character.IntellectDM;
+        dm += -1 * character.CareerHistory.Count;
 
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Seafarer")));
-                return;
+        dm += character.GetEnlistmentBonus(Career, Assignment);
+        dm += QualifyDM;
 
-            case 4:
-                character.Skills.Increase("Explosives");
-                return;
-
-            case 5:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
-                return;
-
-            case 6:
-                character.Skills.Increase("Jack-of-All-Trades");
-                return;
-        }
+        return dice.RollHigh(dm, 5, isPrecheck);
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Strength += 1;
-                return;
-
-            case 2:
-                character.Dexterity += 1;
-                return;
-
-            case 3:
-                character.Endurance += 1;
-                return;
-
-            case 4:
-                character.Intellect += 1;
-                return;
-
-            case 5:
-                character.Education += 1;
-                return;
-
-            case 6:
-                character.Skills.Increase("Jack-of-All-Trades");
-                return;
-        }
+        Increase(character, dice, "Strength", "Dexterity", "Endurance", "Intellect", "Education", "Jack-of-All-Trades");
     }
 }

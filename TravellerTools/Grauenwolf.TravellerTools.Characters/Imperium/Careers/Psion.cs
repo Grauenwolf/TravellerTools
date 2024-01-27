@@ -243,31 +243,6 @@ abstract class Psion(string assignment, SpeciesCharacterBuilder speciesCharacter
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Education += 1;
-                return;
-
-            case 2:
-                character.Intellect += 1;
-                return;
-
-            case 3:
-                character.Strength += 1;
-                return;
-
-            case 4:
-                character.Dexterity += 1;
-                return;
-
-            case 5:
-                character.Endurance += 1;
-                return;
-
-            case 6:
-                character.Psi += 1;
-                return;
-        }
+        Increase(character, dice, "Education", "Intellect", "Strength", "Dexterity", "Endurance", "Psi");
     }
 }

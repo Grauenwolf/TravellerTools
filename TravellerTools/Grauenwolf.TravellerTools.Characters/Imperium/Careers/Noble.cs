@@ -94,16 +94,9 @@ abstract class Noble(string assignment, SpeciesCharacterBuilder speciesCharacter
 
             case 10:
                 character.AddHistory($"{character.Name} manipulate and charm {character.Name}'s way through high society. Gain a Rival and an Ally.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Carouse");
-                    skillList.Add("Diplomat");
-                    skillList.Add("Persuade");
-                    skillList.Add("Steward");
-                    character.Skills.Increase(dice.Choose(skillList));
-                    character.AddRival();
-                    character.AddAlly();
-                }
+                IncreaseOneSkill(character, dice, "Carouse", "Diplomat", "Persuade", "Steward");
+                character.AddRival();
+                character.AddAlly();
                 return;
 
             case 11:
@@ -177,6 +170,16 @@ abstract class Noble(string assignment, SpeciesCharacterBuilder speciesCharacter
         }
     }
 
+    internal override void ServiceSkill(Character character, Dice dice)
+    {
+        Increase(character, dice, "Admin", "Advocate", "Electronics", "Diplomat", "Investigate", "Persuade");
+    }
+
+    protected override void AdvancedEducation(Character character, Dice dice)
+    {
+        Increase(character, dice, "Admin", "Advocate", "Language", "Leadership", "Diplomat", "Art");
+    }
+
     protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         if (character.SocialStanding >= 10 && !character.LongTermBenefits.Retired)
@@ -189,16 +192,6 @@ abstract class Noble(string assignment, SpeciesCharacterBuilder speciesCharacter
         dm += QualifyDM;
 
         return dice.RollHigh(dm, 10, isPrecheck);
-    }
-
-    internal override void ServiceSkill(Character character, Dice dice)
-    {
-        Increase(character, dice, "Admin", "Advocate", "Electronics", "Diplomat", "Investigate", "Persuade");
-    }
-
-    protected override void AdvancedEducation(Character character, Dice dice)
-    {
-        Increase(character, dice, "Admin", "Advocate", "Language", "Leadership", "Diplomat", "Art");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)

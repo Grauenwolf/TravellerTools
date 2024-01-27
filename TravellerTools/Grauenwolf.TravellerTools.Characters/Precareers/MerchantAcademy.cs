@@ -4,22 +4,6 @@ class MerchantAcademy(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerB
 {
     public override string? Source => "Traveller Companion, page  33";
 
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.LongTermBenefits.MayEnrollInSchool)
-            return false;
-        //if (character.CurrentTerm > 3)
-        //    return false;
-
-        var dm = character.IntellectDM;
-        if (character.SocialStanding >= 8)
-            dm += 1;
-        dm += character.GetEnlistmentBonus(Career, null);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 9, isPrecheck);
-    }
-
     internal override void Run(Character character, Dice dice)
     {
         character.LongTermBenefits.MayEnrollInSchool = false;
@@ -93,7 +77,7 @@ class MerchantAcademy(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerB
             }
             skillChoices.RemoveOverlap(character.Skills, 1);
             if (skillChoices.Count > 0)
-                character.Skills.Increase(dice.Choose(skillChoices));
+                character.Skills.Increase(dice.Choose(skillChoices)); //one level 0 becomes level 1
             FixupSkills(character, dice);
             character.Education += 1;
 
@@ -104,5 +88,21 @@ class MerchantAcademy(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerB
 
             character.LongTermBenefits.CareerAdvancementDM.Add("Merchant", bonus);
         }
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.LongTermBenefits.MayEnrollInSchool)
+            return false;
+        //if (character.CurrentTerm > 3)
+        //    return false;
+
+        var dm = character.IntellectDM;
+        if (character.SocialStanding >= 8)
+            dm += 1;
+        dm += character.GetEnlistmentBonus(Career, null);
+        dm += QualifyDM;
+
+        return dice.RollHigh(dm, 9, isPrecheck);
     }
 }

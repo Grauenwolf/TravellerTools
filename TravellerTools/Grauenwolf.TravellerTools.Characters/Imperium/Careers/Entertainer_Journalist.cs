@@ -12,37 +12,7 @@ class Entertainer_Journalist(SpeciesCharacterBuilder speciesCharacterBuilder) : 
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Art", "Holography");
-                    skillList.Add("Art", "Write");
-                    character.Skills.Increase(dice.Choose(skillList));
-                }
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Electronics")));
-                return;
-
-            case 3:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Drive")));
-                return;
-
-            case 4:
-                character.Skills.Increase("Investigate");
-                return;
-
-            case 5:
-                character.Skills.Increase("Recon");
-                return;
-
-            case 6:
-                character.Skills.Increase("Streetwise");
-                return;
-        }
+        Increase(character, dice, "Art|Holography,Art|Write", "Electronics", "Drive", "Investigate", "Recon", "Streetwise");
     }
 
     /// <summary>

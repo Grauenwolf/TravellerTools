@@ -102,12 +102,7 @@ abstract class DolphinCivilian(string assignment, SpeciesCharacterBuilder specie
 
             case 8:
                 character.AddHistory($"Spend an extensive period living out of water among humans.", dice);
-                {
-                    var skills = new SkillTemplateCollection();
-                    skills.Add("Vacc Suit");
-                    skills.Add("Diplomat");
-                    character.Skills.Increase(dice.Choose(skills));
-                }
+                IncreaseOneSkill(character, dice, "Vacc Suit", "Diplomat");
                 return;
 
             case 9:
@@ -217,91 +212,16 @@ abstract class DolphinCivilian(string assignment, SpeciesCharacterBuilder specie
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 2:
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Athletics")));
-                return;
-
-            case 3:
-                character.Skills.Increase("Melee", "Natural");
-                return;
-
-            case 4:
-                character.Skills.Increase("Melee", "Natural");
-                return;
-
-            case 5:
-                character.Skills.Increase("Carouse");
-                return;
-
-            case 6:
-                character.Skills.Increase("Recon");
-                return;
-        }
+        Increase(character, dice, "Athletics", "Athletics", "Melee|Natural", "Melee|Natural", "Carouse", "Recon");
     }
 
     protected override void AdvancedEducation(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Skills.Increase("Advocate");
-                return;
-
-            case 2:
-                character.Skills.Increase("Art");
-                return;
-
-            case 3:
-                character.Skills.Increase("Vacc Suit");
-                return;
-
-            case 4:
-                character.Skills.Increase("Leadership");
-                return;
-
-            case 5:
-                character.Skills.Increase("Navigation");
-                return;
-
-            case 6:
-                character.Skills.Increase("Science", "History");
-                return;
-        }
+        Increase(character, dice, "Advocate", "Art", "Vacc Suit", "Leadership", "Navigation", "Science|History");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        switch (dice.D(6))
-        {
-            case 1:
-                character.Dexterity += 1;
-                return;
-
-            case 2:
-                character.Endurance += 1;
-                return;
-
-            case 3:
-                character.Intellect += 1;
-                return;
-
-            case 4:
-                character.Strength += 1;
-                return;
-
-            case 5:
-                character.Education += 2;
-                return;
-
-            case 6:
-                character.Skills.Increase("Survival");
-                return;
-        }
+        Increase(character, dice, "Dexterity", "Endurance", "Intellect", "Strength", "Education", "Survival");
     }
 }

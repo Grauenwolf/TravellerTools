@@ -80,7 +80,7 @@ abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharac
                 character.AddHistory($"Vocational Training.", dice);
                 if (dice.RollHigh(character.EducationDM, 8))
                 {
-                    character.Skills.Increase(dice.Choose(RandomSkills(character)), 1);
+                    IncreaseOneRandomSkill(character, dice);
                 }
                 return;
 
@@ -155,14 +155,7 @@ abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharac
 
             case 10:
                 character.AddHistory($"Special Duty.", dice);
-                {
-                    var skillList = new SkillTemplateCollection();
-                    skillList.Add("Admin");
-                    skillList.Add("Advocate");
-                    skillList.Add("Electronics", "Computers");
-                    skillList.Add("Steward");
-                    character.Skills.Increase(dice.Choose(skillList));
-                }
+                IncreaseOneSkill(character, dice, "Admin", "Advocate", "Electronics|Computers", "Steward");
                 return;
 
             case 11:

@@ -99,7 +99,7 @@ abstract class Scholar(string assignment, SpeciesCharacterBuilder speciesCharact
                 switch (dice.D(2))
                 {
                     case 1:
-                        character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
+                        IncreaseOneSkill(character, dice, "Science");
                         return;
 
                     case 2:
@@ -156,7 +156,7 @@ abstract class Scholar(string assignment, SpeciesCharacterBuilder speciesCharact
                     character.AddHistory($"The planetary government interferes with {character.Name}'s research for political or religious reasons. {character.Name} continue working openly and gain an Enemy.", age);
                     character.AddEnemy();
                 }
-                character.Skills.Increase(dice.Choose(SpecialtiesFor(character, "Science")));
+                IncreaseOneSkill(character, dice, "Science");
                 character.NextTermBenefits.MusterOut = false;
                 return;
 
@@ -187,6 +187,16 @@ abstract class Scholar(string assignment, SpeciesCharacterBuilder speciesCharact
         }
     }
 
+    internal override void ServiceSkill(Character character, Dice dice)
+    {
+        Increase(character, dice, "Drive", "Electronics", "Diplomat", "Medic", "Investigate", "Science");
+    }
+
+    protected override void AdvancedEducation(Character character, Dice dice)
+    {
+        Increase(character, dice, "Art", "Advocate", "Electronics", "Language", "Engineer", "Science");
+    }
+
     protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.IntellectDM;
@@ -196,16 +206,6 @@ abstract class Scholar(string assignment, SpeciesCharacterBuilder speciesCharact
         dm += QualifyDM;
 
         return dice.RollHigh(dm, 5, isPrecheck);
-    }
-
-    internal override void ServiceSkill(Character character, Dice dice)
-    {
-        Increase(character, dice, "Drive", "Electronics", "Diplomat", "Medic", "Investigate", "Science");
-    }
-
-    protected override void AdvancedEducation(Character character, Dice dice)
-    {
-        Increase(character, dice, "Art", "Advocate", "Electronics", "Language", "Engineer", "Science");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
