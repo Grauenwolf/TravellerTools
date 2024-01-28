@@ -8,7 +8,7 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        IncreaseOneSkill(character, dice, "Profession", "Science|Medic", "Science", "Investigate", "Science", "Science");
+        IncreaseOneSkill(character, dice, "Profession", "Science,Medic", "Science", "Investigate", "Science", "Science");
     }
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
@@ -33,7 +33,7 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
                 else
                 {
                     var enemies = dice.D(3);
-                    character.AddHistory($"A corporate or government body wants to use {character.Name}'s knowledge in a way {character.Name} find questionable. {character.Name} agree, but gain {enemies} enemies..", dice);
+                    character.AddHistory($"A corporate or government body wants to use {character.Name}'s knowledge in a way {character.Name} find questionable. {character.Name} agree, but gain {enemies} enemies.", dice);
                     character.AddEnemy(3);
                     character.BenefitRolls += 1;
                     IncreaseOneSkill(character, dice, "Science");
