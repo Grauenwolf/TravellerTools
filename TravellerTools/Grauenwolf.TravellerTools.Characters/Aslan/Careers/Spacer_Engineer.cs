@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Spacer_Engineer(CharacterBuilder characterBuilder) : Spacer("Engineer", speciesCharacterBuilder)
+class Spacer_Engineer(SpeciesCharacterBuilder speciesCharacterBuilder) : Spacer("Engineer", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "";
 

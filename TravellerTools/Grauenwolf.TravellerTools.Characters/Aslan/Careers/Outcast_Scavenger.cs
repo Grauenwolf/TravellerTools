@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Outcast_Scavenger(CharacterBuilder characterBuilder) : Outcast("Scavenger", speciesCharacterBuilder)
+class Outcast_Scavenger(SpeciesCharacterBuilder speciesCharacterBuilder) : Outcast("Scavenger", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "";
 

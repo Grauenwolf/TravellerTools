@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class SpaceOfficer_Navigator(CharacterBuilder characterBuilder) : SpaceOfficer("Navigator", speciesCharacterBuilder)
+class SpaceOfficer_Navigator(SpeciesCharacterBuilder speciesCharacterBuilder) : SpaceOfficer("Navigator", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "";
 

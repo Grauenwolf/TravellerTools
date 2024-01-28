@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Wanderer_Belter(CharacterBuilder characterBuilder) : Wanderer("Belter", speciesCharacterBuilder)
+class Wanderer_Belter(SpeciesCharacterBuilder speciesCharacterBuilder) : Wanderer("Belter", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "";
 

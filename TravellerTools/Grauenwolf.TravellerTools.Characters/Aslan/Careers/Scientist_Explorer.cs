@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Scientist_Explorer(CharacterBuilder characterBuilder) : Scientist("Explorer", speciesCharacterBuilder)
+class Scientist_Explorer(SpeciesCharacterBuilder speciesCharacterBuilder) : Scientist("Explorer", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "";
 

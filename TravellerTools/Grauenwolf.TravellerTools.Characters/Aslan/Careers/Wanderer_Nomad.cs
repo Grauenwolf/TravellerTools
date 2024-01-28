@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Wanderer_Nomad(CharacterBuilder characterBuilder) : Wanderer("Nomad", speciesCharacterBuilder)
+class Wanderer_Nomad(SpeciesCharacterBuilder speciesCharacterBuilder) : Wanderer("Nomad", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "";
 

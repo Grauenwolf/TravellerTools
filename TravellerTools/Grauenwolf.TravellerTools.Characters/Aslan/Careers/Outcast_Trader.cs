@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Outcast_Trader(CharacterBuilder characterBuilder) : Outcast("Trader", speciesCharacterBuilder)
+class Outcast_Trader(SpeciesCharacterBuilder speciesCharacterBuilder) : Outcast("Trader", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "";
 

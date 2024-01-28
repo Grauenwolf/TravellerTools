@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Outlaw_Raider(CharacterBuilder characterBuilder) : Outlaw("Raider", speciesCharacterBuilder)
+class Outlaw_Raider(SpeciesCharacterBuilder speciesCharacterBuilder) : Outlaw("Raider", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "";
 

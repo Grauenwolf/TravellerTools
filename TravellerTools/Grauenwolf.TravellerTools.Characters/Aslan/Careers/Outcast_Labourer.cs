@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Outcast_Labourer(CharacterBuilder characterBuilder) : Outcast("Labourer", speciesCharacterBuilder)
+class Outcast_Labourer(SpeciesCharacterBuilder speciesCharacterBuilder) : Outcast("Labourer", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "";
 
