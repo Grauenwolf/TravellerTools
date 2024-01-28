@@ -1,6 +1,8 @@
 ﻿@page "/character"
 @inherits NullablePageBase<CharacterOptions>
-@{PageTitle = "Character Generator";}
+@{
+    PageTitle = "Character Generator";
+}
 
 <h3>Characters</h3>
 
@@ -32,9 +34,9 @@
                         <InputSelect @bind-Value="Model.FirstCareer">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.FirstCareer))">(Random)</option>
                             @foreach (var item in Model.CareerList)
-                                {
+                            {
                                 <option value="@(item)" selected="@(Model.FirstCareer == item)"> @(item)</option>
-                                }
+                            }
                         </InputSelect>
                     </td>
                     <th>First Assignment</th>
@@ -42,9 +44,9 @@
                         <InputSelect @bind-Value="Model.FirstAssignment">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.FirstAssignment))">(Random)</option>
                             @foreach (var item in Model.FirstAssignmentList)
-                                {
+                            {
                                 <option value="@(item)" selected="@(Model.FirstAssignment == item)"> @(item)</option>
-                                }
+                            }
                         </InputSelect>
                     </td>
                 </tr>
@@ -54,9 +56,9 @@
                         <InputSelect @bind-Value="Model.FinalCareer">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.FinalCareer))">(Random)</option>
                             @foreach (var item in Model.CareerList)
-                                {
+                            {
                                 <option value="@(item)" selected="@(Model.FinalCareer == item)"> @(item)</option>
-                                }
+                            }
                         </InputSelect>
                     </td>
                     <th title="Final assignment is not guaranteed.">Desired final Assignment</th>
@@ -64,9 +66,9 @@
                         <InputSelect @bind-Value="Model.FinalAssignment">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.FinalAssignment))">(Random)</option>
                             @foreach (var item in Model.FinalAssignmentList)
-                                {
+                            {
                                 <option value="@(item)" selected="@(Model.FinalAssignment == item)"> @(item)</option>
-                                }
+                            }
                         </InputSelect>
                     </td>
                 </tr>
@@ -76,9 +78,9 @@
                         Terms <InputSelect @bind-Value="Model.Terms">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.TermsCode))">(Random)</option>
                             @foreach (var item in Model.AgeList)
-                                {
+                            {
                                 <option value="@(item.ToString())" selected="@( item == Model.Terms )">@item</option>
-                                }
+                            }
                         </InputSelect>
                     </td>
                     <th>Gender</th>
@@ -98,7 +100,7 @@
                             Prefer Younger
                         </label>
                     </td>
-                    <td colspan="2"/>
+                    <td colspan="2" />
                 </tr>
                 <tr>
                     <th title="Prefer a character with positive or negative DMs to the following stats.">Desired Stats</th>
@@ -182,9 +184,9 @@
                         <InputSelect @bind-Value="Model.SkillA">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.SkillA))"></option>
                             @foreach (var item in Model.SkillList)
-                                {
+                            {
                                 <option value="@(item.ShortName)" selected="@( !string.IsNullOrEmpty(Model.SkillA) && (Model.SkillA == item.ShortName) )"> @(item.ToString())</option>
-                                }
+                            }
                         </InputSelect>
                         <br />
                         <br />
@@ -192,27 +194,27 @@
                         <InputSelect @bind-Value="Model.SkillB">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.SkillB))"></option>
                             @foreach (var item in Model.SkillList)
-                                {
-                                <option value="@(item.ShortName)" selected="@( !string.IsNullOrEmpty(Model.SkillB) && (Model.SkillB == item.ShortName) )"> @(item.ToString())</option> 
-                                }
+                            {
+                                <option value="@(item.ShortName)" selected="@( !string.IsNullOrEmpty(Model.SkillB) && (Model.SkillB == item.ShortName) )"> @(item.ToString())</option>
+                            }
                         </InputSelect>
                         <br />
                         <br />
                         <InputSelect @bind-Value="Model.SkillC">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.SkillC))"></option>
                             @foreach (var item in Model.SkillList)
-                                {
-                                <option value="@(item.ShortName)" selected="@( !string.IsNullOrEmpty(Model.SkillC) && (Model.SkillC == item.ShortName) )"> @(item.ToString())</option> 
-                                }
+                            {
+                                <option value="@(item.ShortName)" selected="@( !string.IsNullOrEmpty(Model.SkillC) && (Model.SkillC == item.ShortName) )"> @(item.ToString())</option>
+                            }
                         </InputSelect>
                         <br />
                         <br />
                         <InputSelect @bind-Value="Model.SkillD">
                             <option value="" selected="@(string.IsNullOrEmpty(Model.SkillD))"></option>
                             @foreach (var item in Model.SkillList)
-                                {
-                                <option value="@(item.ShortName)" selected="@( !string.IsNullOrEmpty(Model.SkillD) && (Model.SkillD == item.ShortName) )"> @(item.ToString())</option> 
-                                }
+                            {
+                                <option value="@(item.ShortName)" selected="@( !string.IsNullOrEmpty(Model.SkillD) && (Model.SkillD == item.ShortName) )"> @(item.ToString())</option>
+                            }
                         </InputSelect>
                     </td>
                 </tr>
@@ -226,7 +228,15 @@
                         <button @onclick="GenerateCharacter">Generate Character</button>
                     </td>
                 </tr>
-                <tr><td colspan="4">When using a "desired" option, 500 characters will be created and then the best match selected.</td></tr>
+                <tr>
+                    <td colspan="4">
+                        When using a "desired" option, 500 characters will be created and then the best match selected.
+                        <br />
+                        Aslan characters are given SOC+5 during their Rite of Passage. If the net SOC is less than 2, they begin as an Outcast.
+                        <br />
+                        For Aslan characters, ensure the gender is correct for the first/last career.
+                    </td>
+                </tr>
             </table>
         </EditForm>
     </div>

@@ -138,7 +138,7 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
     /// <summary>
     /// Increases one skill by 1 level.
     /// </summary>
-    public bool IncreaseOneSkill(Character character, Dice dice, params string[] skills)
+    public Skill? IncreaseOneSkill(Character character, Dice dice, params string[] skills)
     {
         var skillList = new SkillTemplateCollection();
         foreach (var skill in skills)
@@ -152,10 +152,9 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
                 skillList.AddRange(SpecialtiesFor(character, skill));
         }
         if (skillList.Count == 0)
-            return false;
+            return null;
 
-        character.Skills.Increase(dice.Choose(skillList), 1);
-        return true;
+        return character.Skills.Increase(dice.Choose(skillList), 1);
     }
 
     public override string ToString()
@@ -309,7 +308,7 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
                 character.Following += 1; return;
 
             default:
-                if (!IncreaseOneSkill(character, dice, item.Split(',')))
+                if (IncreaseOneSkill(character, dice, item.Split(',')) == null)
                     goto top; //Try again because your race can't have that skill
                 return;
         }

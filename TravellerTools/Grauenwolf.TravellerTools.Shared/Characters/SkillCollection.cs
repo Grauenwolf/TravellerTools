@@ -199,21 +199,28 @@ public class SkillCollection : List<Skill>
     /// </summary>
     /// <param name="name">The name.</param>
     /// <param name="levels">The levels.</param>
-    public void Increase(string name, string? specialty, int levels = 1)
+    /// <returns>Returns the newly added/increased sill. </returns>
+    public Skill Increase(string name, string? specialty, int levels = 1)
     {
         var skill = this[name, specialty];
         if (skill == null)
-            Add(new Skill(name, specialty, levels));
+        {
+            skill = new Skill(name, specialty, levels);
+            Add(skill);
+        }
         else
+        {
             skill.Level += levels;
+        }
+        return skill;
     }
 
-    public void Increase(SkillTemplate skill, int levels = 1)
+    public Skill Increase(SkillTemplate skill, int levels = 1)
     {
         if (skill == null)
             throw new ArgumentNullException(nameof(skill), $"{nameof(skill)} is null.");
 
-        Increase(skill.Name, skill.Specialty, levels);
+        return Increase(skill.Name, skill.Specialty, levels);
     }
 
     public void Remove(string name, string specialty)
