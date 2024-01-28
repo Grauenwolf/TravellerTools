@@ -37,27 +37,29 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
                 return;
 
             case 6:
-                character.AddHistory($"Assigned to an assault on an enemy fortress.", dice);
-                if (dice.RollHigh(character.Skills.BestSkillLevel("Gun Combat", "Melee"), 8))
                 {
-                    IncreaseOneSkill(character, dice, "Tactics|Military", "Leadership");
-                }
-                else
-                {
-                    character.AddHistory($"Injured", dice);
-                    switch (dice.D(3))
+                    var age = character.AddHistory($"Assigned to an assault on an enemy fortress.", dice);
+                    if (dice.RollHigh(character.Skills.BestSkillLevel("Gun Combat", "Melee"), 8))
                     {
-                        case 1:
-                            character.Strength -= 1;
-                            return;
+                        IncreaseOneSkill(character, dice, "Tactics|Military", "Leadership");
+                    }
+                    else
+                    {
+                        character.AddHistory($"Injured", age);
+                        switch (dice.D(3))
+                        {
+                            case 1:
+                                character.Strength -= 1;
+                                return;
 
-                        case 2:
-                            character.Dexterity -= 1;
-                            return;
+                            case 2:
+                                character.Dexterity -= 1;
+                                return;
 
-                        case 3:
-                            character.Endurance -= 1;
-                            return;
+                            case 3:
+                                character.Endurance -= 1;
+                                return;
+                        }
                     }
                 }
                 return;
@@ -72,15 +74,17 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
                 return;
 
             case 9:
-                var age = character.AddHistory($"A mission goes disastrously wrong due to {character.Name}'s commander’s error or incompetence, but {character.Name} survive.", dice);
-                if (dice.NextBoolean())
                 {
-                    character.AddHistory($"Report commander and gain an Enemy.", age);
-                    character.CurrentTermBenefits.AdvancementDM += 2;
-                }
-                else
-                {
-                    character.AddHistory($"Cover for the commander and gain an Ally.", age);
+                    var age = character.AddHistory($"A mission goes disastrously wrong due to {character.Name}'s commander’s error or incompetence, but {character.Name} survive.", dice);
+                    if (dice.NextBoolean())
+                    {
+                        character.AddHistory($"Report commander and gain an Enemy.", age);
+                        character.CurrentTermBenefits.AdvancementDM += 2;
+                    }
+                    else
+                    {
+                        character.AddHistory($"Cover for the commander and gain an Ally.", age);
+                    }
                 }
                 return;
 
@@ -170,19 +174,6 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
                 Injury(character, dice, false, age);
                 return;
         }
-    }
-
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        var dm = character.EnduranceDM;
-        dm += -1 * character.CareerHistory.Count;
-        if (character.Age >= 30)
-            dm += -2;
-
-        dm += character.GetEnlistmentBonus(Career, Assignment);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 6, isPrecheck);
     }
 
     internal override void ServiceSkill(Character character, Dice dice)
@@ -283,6 +274,19 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
     protected override void OfficerTraining(Character character, Dice dice)
     {
         Increase(character, dice, "Electronics", "Tactics", "Admin", "Advocate", "Vacc Suit", "Leadership");
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        var dm = character.EnduranceDM;
+        dm += -1 * character.CareerHistory.Count;
+        if (character.Age >= 30)
+            dm += -2;
+
+        dm += character.GetEnlistmentBonus(Career, Assignment);
+        dm += QualifyDM;
+
+        return dice.RollHigh(dm, 6, isPrecheck);
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
