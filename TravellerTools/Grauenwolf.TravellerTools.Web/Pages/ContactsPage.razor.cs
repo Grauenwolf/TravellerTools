@@ -30,11 +30,11 @@ partial class ContactsPage
             character.AddRival(Model.Rivals);
             character.AddEnemy(Model.Enemies);
 
-            var odds = new OddsTable<string>();
-            if (!Model.Species.IsNullOrEmpty())
-                odds.Add(Model.Species, 100); //TODO - Add the option for 50% of the contacts to be of the selected race
+            var speciesOrFactionOdds = new OddsTable<string>();
+            if (!Model.SpeciesOrFaction.IsNullOrEmpty())
+                speciesOrFactionOdds.Add(Model.SpeciesOrFaction, 100); //TODO - Add the option for 50% of the contacts to be of the selected race
 
-            CharacterBuilder.BuildContacts(dice, character, odds);
+            CharacterBuilder.BuildContacts(dice, character, speciesOrFactionOdds);
             result.Contacts = character.Contacts;
             result.Seed = seed;
 

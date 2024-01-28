@@ -17,13 +17,13 @@
             <div>This creates contacts using the rules from Traveller Companion. You'll need that book to interper the stats. Note that some contact events can trigger the creation of additional contacts.</div>
             <table class="gridtable">
                 <tr>
-                    <th>Species</th>
+                    <th>Species or Faction</th>
                     <td colspan="3">
-                        <InputSelect @bind-Value="Model.Species">
-                            <option value="" selected="@(string.IsNullOrEmpty(Model.Species))">(Random)</option>
-                            @foreach (var item in Model.SpeciesList)
+                        <InputSelect @bind-Value="Model.SpeciesOrFaction">
+                            <option value="" selected="@(string.IsNullOrEmpty(Model.SpeciesOrFaction))">(Random)</option>
+                            @foreach (var item in Model.SpeciesAndFactionsList)
                             {
-                                <option value="@(item)" selected="@(Model.Species == item)"> @(item)</option>
+                                <option value="@(item.Key)" selected="@(Model.SpeciesOrFaction == item.Key)"> @(item.DisplayText)</option>
                             }
                         </InputSelect>
                     </td>

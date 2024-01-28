@@ -58,8 +58,8 @@ partial class ContactsViewPage
             character.AddEnemy(Model.Enemies);
 
             var odds = new OddsTable<string>();
-            if (!Model.Species.IsNullOrEmpty())
-                odds.Add(Model.Species, 100);
+            if (!Model.SpeciesOrFaction.IsNullOrEmpty())
+                odds.Add(Model.SpeciesOrFaction, 100);
 
             CharacterBuilder.BuildContacts(dice, character, odds);
             result.Contacts = character.Contacts;

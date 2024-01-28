@@ -80,13 +80,13 @@ public class CharacterBuilder
         return builder.Build(options);
     }
 
-    public void BuildContacts(Dice dice, IContactGroup character, OddsTable<string> odds)
+    public void BuildContacts(Dice dice, IContactGroup character, OddsTable<string> speciesOrFactionOdds)
     {
         while (character.UnusedContacts.Count > 0)
         {
             string? species = null;
-            if (odds.Count > 0)
-                species = odds.Choose(dice);
+            if (speciesOrFactionOdds.Count > 0)
+                species = speciesOrFactionOdds.Choose(dice);
 
             character.Contacts.Add(CreateContact(dice, character.UnusedContacts.Dequeue(), character, species));
         }
@@ -218,7 +218,7 @@ public class CharacterBuilder
         return lastBest!;
     }
 
-    public Contact CreateContact(Dice dice, ContactType contactType, IContactGroup? character, string? species)
+    public Contact CreateContact(Dice dice, ContactType contactType, IContactGroup? character, string? speciesOrFaction)
     {
         int PITable(int roll)
         {
@@ -248,7 +248,7 @@ public class CharacterBuilder
             };
         }
 
-        var result = new Contact(contactType, CreateCharacterStub(dice, species));
+        var result = new Contact(contactType, CreateCharacterStub(dice, speciesOrFaction));
         RollAffinityEnmity(dice, result);
         result.Power = PITable(dice.D(2, 6));
         result.Influence = PITable(dice.D(2, 6));
