@@ -663,10 +663,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
                     default: //individual 10%
                         {
-                            var user = m_NameGenerator.CreateRandomPerson(dice);
-
-                            var options = new CharacterBuilderOptions() { MaxAge = 22 + dice.D(1, 50), Gender = user.Gender, Name = $"{user.FirstName} {user.LastName}", Seed = dice.Next(), Species = m_CharacterBuilderLocator.GetRandomSpecies(dice) };
-
+                            var options = m_CharacterBuilderLocator.CreateCharacterStub(dice);
                             lot.OwnerCharacter = m_CharacterBuilderLocator.Build(options);
                             lot.Owner = (lot.OwnerCharacter.Title + " " + lot.OwnerCharacter.Name).Trim();
                             break;
@@ -677,16 +674,16 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
         protected Passenger PassengerDetail(Dice dice, string travelType, decimal ticketPrice, bool variablePrice)
         {
-            var user = m_NameGenerator.CreateRandomPerson(dice);
+            var options = m_CharacterBuilderLocator.CreateCharacterStub(dice);
 
             var result = new Passenger()
             {
                 TravelType = travelType,
-                Name = $"{user.FirstName} {user.LastName}",
-                Gender = user.Gender,
-                ApparentAge = 12 + dice.D(1, 60),
+                Name = options.Name,
+                Gender = options.Gender,
+                ApparentAge = options.MaxAge!.Value,
                 TicketPrice = ticketPrice,
-                Species = m_CharacterBuilderLocator.GetRandomSpecies(dice)
+                Species = options.Species
             };
             result.SpeciesUrl = m_CharacterBuilderLocator.GetSpeciesUrl(result.Species);
 
@@ -713,34 +710,22 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
             SimpleCharacterEngine.AddTrait(result, dice);
 
-            //if (!advancedCharacters)
-            //{
-            //    SimpleCharacterEngine.AddCharacteristics(result, random);
+            result.Seed = options.Seed;
 
-            //    //Add personality
-            //    int personalityTraits = random.D(3);
-            //    for (var i = 0; i < personalityTraits; i++)
-            //        result.Personality.Add(random.Choose(m_Personalities));
-            //}
-            //else
-            //{
-            result.Seed = dice.Next();
-            var options = new CharacterBuilderOptions() { MaxAge = result.ApparentAge, Gender = result.Gender, Name = result.Name, Seed = result.Seed, Species = result.Species };
             var character = m_CharacterBuilderLocator.Build(options);
 
             result.PermalinkDetails = character.GetCharacterBuilderOptions().ToQueryString();
-            result.Strength += character.Strength;
-            result.Dexterity += character.Dexterity;
-            result.Endurance += character.Endurance;
-            result.Intellect += character.Intellect;
-            result.Education += character.Education;
-            result.SocialStanding += character.SocialStanding;
+            result.Strength = character.Strength;
+            result.Dexterity = character.Dexterity;
+            result.Endurance = character.Endurance;
+            result.Intellect = character.Intellect;
+            result.Education = character.Education;
+            result.SocialStanding = character.SocialStanding;
 
             result.Skills = string.Join(", ", character.Skills.Where(s => s.Level > 0).Select(s => s.ToString()).OrderBy(s => s));
 
             result.Title = character.Title;
             result.Personality.AddRange(character.Personality);
-            //}
 
             return result;
         }

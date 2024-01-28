@@ -1,3 +1,4 @@
+using Grauenwolf.TravellerTools.Names;
 using System.Collections.Immutable;
 using System.Xml.Serialization;
 
@@ -178,6 +179,11 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
             return MaleCareers.DraftCareers;
         else
             return FemaleCareers.DraftCareers;
+    }
+
+    public override string GenerateName(Dice dice, string genderCode)
+    {
+        return NameGenerator.AslanName(dice, genderCode);
     }
 
     protected override void AddBackgroundSkills(Dice dice, Character character)
@@ -475,7 +481,7 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
             }
             else
             {
-                character.AddHistory($"Failed to qualify for {result} and became an outcast.", character.Age);
+                character.AddHistory($"Failed to qualify for {result} and became a Yohai (outcast).", character.Age);
                 character.IsOutcast = true;
                 character.SocialStanding = 2;
             }
@@ -498,8 +504,8 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
 
         if (character.IsOutcast)
             if (character.Title == null)
-                character.Title = "Outcast";
+                character.Title = "Yohai";
             else
-                character.Title = "Outcast " + character.Title;
+                character.Title = "Yohai " + character.Title;
     }
 }

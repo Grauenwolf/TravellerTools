@@ -118,7 +118,7 @@ abstract class MilitaryOfficer(string assignment, SpeciesCharacterBuilder specie
                 return;
 
             case 2:
-                character.AddHistory($"Failing on your part causes a catastrophic loss for your clan. Become an outcast.", age);
+                character.AddHistory($"Failing on your part causes a catastrophic loss for your clan. Become a Yohai (outcast).", age);
                 character.IsOutcast = true;
                 character.SocialStanding = 2;
                 return;
