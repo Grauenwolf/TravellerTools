@@ -10,20 +10,15 @@ public abstract class SpeciesCharacterBuilder
     static readonly ImmutableList<string> s_BackgroundSkills = ImmutableList.Create("Admin", "Animals", "Art", "Athletics", "Carouse", "Drive", "Science", "Seafarer", "Streetwise", "Survival", "Vacc Suit", "Electronics", "Flyer", "Language", "Mechanic", "Medic", "Profession");
 
     readonly OddsTable<int> m_AgeTable;
-    readonly CharacterBuilder m_CharacterBuilderLocator;
-    readonly NameGenerator m_NameGenerator;
+    readonly CharacterBuilder m_CharacterBuilder;
     readonly ImmutableArray<string> m_Personalities;
-
     ImmutableArray<CareerBase> m_Careers;
-
     ImmutableArray<CareerBase> m_DefaultCareers;
-
     ImmutableArray<CareerBase> m_DraftCareers;
 
     public SpeciesCharacterBuilder(string dataPath, CharacterBuilder characterBuilder)
     {
-        m_NameGenerator = characterBuilder.NameGenerator;
-        m_CharacterBuilderLocator = characterBuilder;
+        m_CharacterBuilder = characterBuilder;
 
         var converter = new XmlSerializer(typeof(CharacterTemplates));
 
@@ -69,23 +64,18 @@ public abstract class SpeciesCharacterBuilder
     }
 
     public virtual ImmutableArray<Book> Books { get; protected set; }
-
     public abstract string Faction { get; }
     public abstract ImmutableArray<Gender> Genders { get; }
-
     public virtual string? Remarks { get; }
     public virtual string? Source { get; }
     public abstract string Species { get; }
     public virtual string SpeciesGroup => Species;
-
     public abstract string SpeciesUrl { get; }
-
     public virtual int StartingAge => 18;
     protected virtual int AgingRollMinAge => 34;
-
     protected abstract bool AllowPsionics { get; }
-
     protected virtual string? CharacterBuilderFilename => "CharacterBuilder.xml";
+    protected NameGenerator NameGenerator => m_CharacterBuilder.NameGenerator;
 
     public virtual Book Book(Character character) => Books[0];
 
@@ -178,13 +168,13 @@ public abstract class SpeciesCharacterBuilder
 
         //Half of all contacts should be the same species.
         var odds = new OddsTable<string>();
-        foreach (var species in m_CharacterBuilderLocator.SpeciesList)
+        foreach (var species in m_CharacterBuilder.SpeciesList)
             if (species == character.Species)
-                odds.Add(species, m_CharacterBuilderLocator.SpeciesList.Length - 1);
+                odds.Add(species, m_CharacterBuilder.SpeciesList.Length - 1);
             else
                 odds.Add(species, 1);
 
-        m_CharacterBuilderLocator.BuildContacts(dice, character, odds);
+        m_CharacterBuilder.BuildContacts(dice, character, odds);
 
         return character;
     }
@@ -204,6 +194,11 @@ public abstract class SpeciesCharacterBuilder
     public virtual ImmutableArray<CareerBase> DraftCareers(Character? character)
     {
         return m_DraftCareers;
+    }
+
+    public virtual string GenerateName(Dice dice, string genderCode)
+    {
+        return NameGenerator.HumanitiName(dice, genderCode);
     }
 
     public virtual void Injury(Character character, Dice dice, CareerBase career, bool severe, int age)

@@ -19,6 +19,8 @@ public class CharacterBuilder
 
     public CharacterBuilder(string dataPath, NameGenerator nameGenerator)
     {
+        NameGenerator = nameGenerator ?? throw new System.ArgumentNullException(nameof(nameGenerator), $"{nameof(nameGenerator)} is null.");
+
         var builders = new Dictionary<string, SpeciesCharacterBuilder>();
 
         void Add(SpeciesCharacterBuilder builder)
@@ -57,8 +59,6 @@ public class CharacterBuilder
             foreach (var book in builder.Books)
                 talents.CopyFrom(book.PsionicTalents);
         AllPsionicTalents = talents.OrderBy(x => x.ToString()).ToImmutableArray();
-
-        NameGenerator = nameGenerator;
 
         FactionsAndSpecies =
             SpeciesList.Select(s => new FactionOrSpecies(s, s, false))
@@ -116,9 +116,7 @@ public class CharacterBuilder
 
         options.Gender = genderCode ?? dice.Choose(builder.Genders).GenderCode;
 
-        //TODO Species specific name generators
-        var temp = NameGenerator.CreateRandomPerson(dice, options.Gender == "M");
-        options.Name = temp.FullName;
+        options.Name = builder.GenerateName(dice, options.Gender);
 
         options.MaxAge = builder.RandomAge(dice, noChildren);
 

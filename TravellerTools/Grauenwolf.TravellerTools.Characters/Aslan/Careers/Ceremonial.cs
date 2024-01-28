@@ -134,7 +134,7 @@ abstract class Ceremonial(string assignment, SpeciesCharacterBuilder speciesChar
                 return;
 
             case 2:
-                character.AddHistory($"{character.Name} commited a grievous breach of protocol and are Outcast.", age);
+                character.AddHistory($"{character.Name} commited a grievous breach of protocol and is now a Yohai (outcast).", age);
                 character.SocialStanding = 2;
                 character.IsOutcast = true;
                 return;
@@ -171,6 +171,16 @@ abstract class Ceremonial(string assignment, SpeciesCharacterBuilder speciesChar
         }
     }
 
+    internal override void ServiceSkill(Character character, Dice dice)
+    {
+        Increase(character, dice, "Diplomat", "Investigate", "Advocate", "Melee|Natural", "Science", "Persuade");
+    }
+
+    protected override void AdvancedEducation(Character character, Dice dice)
+    {
+        Increase(character, dice, "Art", "Electronics", "Language", "Tolerance", "Admin", "Science");
+    }
+
     protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = character.RiteOfPassageDM;
@@ -180,16 +190,6 @@ abstract class Ceremonial(string assignment, SpeciesCharacterBuilder speciesChar
         dm += QualifyDM;
 
         return dice.RollHigh(dm, 10, isPrecheck);
-    }
-
-    internal override void ServiceSkill(Character character, Dice dice)
-    {
-        Increase(character, dice, "Diplomat", "Investigate", "Advocate", "Melee|Natural", "Science", "Persuade");
-    }
-
-    protected override void AdvancedEducation(Character character, Dice dice)
-    {
-        Increase(character, dice, "Art", "Electronics", "Language", "Tolerance", "Admin", "Science");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)

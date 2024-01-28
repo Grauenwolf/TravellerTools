@@ -166,7 +166,7 @@ abstract class Envoy(string assignment, SpeciesCharacterBuilder speciesCharacter
                 return;
 
             case 2:
-                character.AddHistory($"A blunder in a negotiation brings shame to the clan. {character.Name} is now an Outcast.", age);
+                character.AddHistory($"A blunder in a negotiation brings shame to the clan. {character.Name} is now a Yohai (outcast).", age);
                 character.SocialStanding = 2;
                 character.IsOutcast = true;
                 return;
@@ -208,15 +208,6 @@ abstract class Envoy(string assignment, SpeciesCharacterBuilder speciesCharacter
 
                 return;
         }
-    }
-
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        var dm = character.RiteOfPassageDM;
-        dm += character.GetEnlistmentBonus(Career, Assignment);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 10, isPrecheck);
     }
 
     internal override void ServiceSkill(Character character, Dice dice)
@@ -268,6 +259,15 @@ abstract class Envoy(string assignment, SpeciesCharacterBuilder speciesCharacter
     protected override void AdvancedEducation(Character character, Dice dice)
     {
         Increase(character, dice, "Admin", "Advocate", "Language", "Science", "Electronics", "Diplomat");
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        var dm = character.RiteOfPassageDM;
+        dm += character.GetEnlistmentBonus(Career, Assignment);
+        dm += QualifyDM;
+
+        return dice.RollHigh(dm, 10, isPrecheck);
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
