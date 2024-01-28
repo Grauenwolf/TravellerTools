@@ -87,7 +87,7 @@ abstract class Military(string assignment, SpeciesCharacterBuilder speciesCharac
                 {
                     if (dice.NextBoolean())
                     {
-                        var age = character.AddHistory($"An officer insults {character.Name}'s courage, leading to reckless behavior and a wound", dice);
+                        var age = character.AddHistory($"An officer insults {character.Name}'s courage, leading to reckless behavior and a wound.", dice);
                         Injury(character, dice, age);
                     }
                     else

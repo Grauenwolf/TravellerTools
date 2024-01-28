@@ -34,6 +34,10 @@
 	  <Compile Include="Aslan\Careers\Management_Corporate.cs" />
 	  <Compile Include="Aslan\Careers\Management_Governess.cs" />
 	  <Compile Include="Aslan\Careers\Military.cs" />
+	  <Compile Include="Aslan\Careers\MilitaryOfficer.cs" />
+	  <Compile Include="Aslan\Careers\MilitaryOfficer_Assassin.cs" />
+	  <Compile Include="Aslan\Careers\MilitaryOfficer_ExecutiveOfficer.cs" />
+	  <Compile Include="Aslan\Careers\MilitaryOfficer_Leader.cs" />
 	  <Compile Include="Aslan\Careers\Military_Cavalry.cs" />
 	  <Compile Include="Aslan\Careers\Military_Flyer.cs" />
 	  <Compile Include="Aslan\Careers\Military_Support.cs" />
