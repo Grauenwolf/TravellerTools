@@ -1,4 +1,5 @@
 ﻿using Grauenwolf.TravellerTools.Characters.Careers.Imperium;
+using Grauenwolf.TravellerTools.Shared.Names;
 
 namespace Grauenwolf.TravellerTools.Characters.Trexen;
 
@@ -9,6 +10,7 @@ public class VargrImperiumCharacterBuilder(string dataPath, CharacterBuilder cha
     public override string SpeciesGroup => "Vargr";
 
     public override string SpeciesUrl => "https://wiki.travellerrpg.com/Vargr";
+    protected override LanguageType LanguageTypeForNames => LanguageType.Vargr;
 
     protected override void InitialCharacterStats(Dice dice, Character character)
     {

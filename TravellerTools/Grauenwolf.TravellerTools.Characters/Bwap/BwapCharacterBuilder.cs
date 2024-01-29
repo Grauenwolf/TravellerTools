@@ -1,5 +1,5 @@
 using Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
-using Grauenwolf.TravellerTools.Names;
+using Grauenwolf.TravellerTools.Shared.Names;
 using System.Collections.Immutable;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers.Bwap;
@@ -12,6 +12,8 @@ public class BwapCharacterBuilder(string dataPath, CharacterBuilder characterBui
     public override string Species => "Bwap";
     public override string SpeciesUrl => "https://wiki.travellerrpg.com/Bwap";
     protected override bool AllowPsionics => true;
+
+    protected override LanguageType LanguageTypeForNames => LanguageType.Bwap;
 
     internal override void FixupSkills(Character character, Dice dice)
     {

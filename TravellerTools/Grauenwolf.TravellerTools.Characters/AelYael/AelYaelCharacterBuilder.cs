@@ -1,4 +1,5 @@
 using Grauenwolf.TravellerTools.Characters.Careers.Humaniti;
+using Grauenwolf.TravellerTools.Shared.Names;
 using System.Collections.Immutable;
 
 namespace Grauenwolf.TravellerTools.Characters.Careers.AelYael;
@@ -11,6 +12,8 @@ public class AelYaelCharacterBuilder(string dataPath, CharacterBuilder character
     public override string Species => "Ael Yael";
     public override string SpeciesUrl => "https://wiki.travellerrpg.com/Ael_Yael";
     protected override bool AllowPsionics => true;
+
+    protected override LanguageType LanguageTypeForNames => LanguageType.AelYael;
 
     protected override CareerLists CreateCareerList()
     {

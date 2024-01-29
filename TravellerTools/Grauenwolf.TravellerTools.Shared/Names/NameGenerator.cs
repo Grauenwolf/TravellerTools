@@ -1,3 +1,4 @@
+using Grauenwolf.TravellerTools.Shared.Names;
 using System.Collections.Immutable;
 
 namespace Grauenwolf.TravellerTools.Names;
@@ -31,6 +32,40 @@ public class NameGenerator
         m_MegacorpNames = LoadFile("megacorp.txt");
     }
 
+    public string CreateCompanyName(Dice dice)
+    {
+        if (dice.D(20) == 1)
+            return dice.Choose(m_MegacorpNames);
+
+        return dice.Choose(m_CompanyFirstNames) + " " + dice.Choose(m_CompanyLastNames);
+    }
+
+    public string GenerateName(LanguageType languageType, Dice dice, string genderCode)
+    {
+        return languageType switch
+        {
+            LanguageType.Humaniti => HumanitiName(dice, genderCode),
+            LanguageType.Aslan => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.Darrian => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.Droyne => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.Ithklur => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.KKree => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.Vargr => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.Vilani => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.Zhodani => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.Hiver => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.AelYael => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.NeoIcelandic => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.Bwap => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.Kehuu => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.Ushi => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.Loes => WordGenerator.GenerateName(languageType, dice),
+            LanguageType.Galanglic => WordGenerator.GenerateName(languageType, dice),
+            _ => HumanitiName(dice, genderCode)
+        };
+    }
+
+    /*
     public static string AslanName(Dice dice, string genderCode)
     {
         var nm1 = new[] { "", "", "", "", "", "b", "bg", "br", "c", "d", "dh", "g", "h", "j", "k", "ks", "m", "n", "p", "pr", "r", "s", "sh", "t", "v", "y" };
@@ -124,26 +159,7 @@ public class NameGenerator
 
         return char.ToUpperInvariant(result[0]) + result[1..];
     }
-
-    public string CreateCompanyName(Dice dice)
-    {
-        if (dice.D(20) == 1)
-            return dice.Choose(m_MegacorpNames);
-
-        return dice.Choose(m_CompanyFirstNames) + " " + dice.Choose(m_CompanyLastNames);
-    }
-
-    [Obsolete("Use the species character generator to create genders and names.")]
-    public RandomPerson CreateRandomPerson(Dice dice, bool? isMale = null)
-    {
-        isMale ??= dice.NextBoolean();
-
-        return new RandomPerson(
-             isMale.Value ? dice.Choose(m_MaleNames) : dice.Choose(m_FemaleNames),
-             dice.Choose(m_LastNames),
-             isMale.Value ? "M" : "F"
-            );
-    }
+    */
 
     public string HumanitiName(Dice dice, string genderCode)
     {

@@ -9,6 +9,9 @@ public class DarrianCharacterBuilder(string dataPath, NameGenerator nameGenerato
     public override string Species => "Darrian";
     public override string SpeciesUrl => "https://wiki.travellerrpg.com/Daryen";
 
+    protected override LanguageType LanguageTypeForNames => LanguageType.Darrian;
+
+
     protected override void InitialCharacterStats(Dice dice, Character character)
     {
         base.InitialCharacterStats(dice, character);

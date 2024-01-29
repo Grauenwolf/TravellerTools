@@ -1,5 +1,6 @@
 using Grauenwolf.TravellerTools.Characters.Careers;
 using Grauenwolf.TravellerTools.Names;
+using Grauenwolf.TravellerTools.Shared.Names;
 using System.Collections.Immutable;
 using System.Xml.Serialization;
 
@@ -75,6 +76,7 @@ public abstract class SpeciesCharacterBuilder
     protected virtual int AgingRollMinAge => 34;
     protected abstract bool AllowPsionics { get; }
     protected virtual string? CharacterBuilderFilename => "CharacterBuilder.xml";
+    protected virtual LanguageType LanguageTypeForNames => LanguageType.Humaniti;
     protected NameGenerator NameGenerator => m_CharacterBuilder.NameGenerator;
 
     public virtual Book Book(Character character) => Books[0];
@@ -198,7 +200,7 @@ public abstract class SpeciesCharacterBuilder
 
     public virtual string GenerateName(Dice dice, string genderCode)
     {
-        return NameGenerator.HumanitiName(dice, genderCode);
+        return NameGenerator.GenerateName(LanguageTypeForNames, dice, genderCode);
     }
 
     public virtual void Injury(Character character, Dice dice, CareerBase career, bool severe, int age)

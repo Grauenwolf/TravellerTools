@@ -1,4 +1,4 @@
-using Grauenwolf.TravellerTools.Names;
+using Grauenwolf.TravellerTools.Shared.Names;
 using System.Collections.Immutable;
 using System.Xml.Serialization;
 
@@ -123,16 +123,12 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
     public override ImmutableArray<Gender> Genders { get; } = ImmutableArray.Create<Gender>(new("F", "Female", 26), new("M", "Male", 10));
     public override string? Source => "Aliens of Charted Space 1, page 15";
     public override string Species => "Aslan";
-
     public override string SpeciesUrl => "https://wiki.travellerrpg.com/Aslan";
-
     public override int StartingAge => 14;
-
     protected override int AgingRollMinAge => 40;
-
     protected override bool AllowPsionics => false;
-
     protected override string? CharacterBuilderFilename => null;
+    protected override LanguageType LanguageTypeForNames => LanguageType.Aslan;
 
     public override Book Book(Character character)
     {
@@ -179,11 +175,6 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
             return MaleCareers.DraftCareers;
         else
             return FemaleCareers.DraftCareers;
-    }
-
-    public override string GenerateName(Dice dice, string genderCode)
-    {
-        return NameGenerator.AslanName(dice, genderCode);
     }
 
     protected override void AddBackgroundSkills(Dice dice, Character character)
