@@ -736,9 +736,10 @@ public abstract class SpeciesCharacterBuilder
             //2-3: New assignment in same career, if RankCarryover.
             //4+: Same assignment.
 
-            var continueRoll = dice.D(10);
+            //If you have a generic Qualification bonus, you are more likely to change careers.
+            var continueRoll = dice.D(10) - character.NextTermBenefits.QualificationDM;
 
-            if (continueRoll == 1)
+            if (continueRoll <= 1)
             {
                 character.NextTermBenefits.MusterOut = true;
                 character.AddHistory($"Voluntarily left " + character.LastCareer.ShortName, character.Age);

@@ -42,6 +42,7 @@
 	  <Compile Include="Aslan\Careers\Military_Flyer.cs" />
 	  <Compile Include="Aslan\Careers\Military_Support.cs" />
 	  <Compile Include="Aslan\Careers\Military_Warrior.cs" />
+	  <Compile Include="Aslan\Careers\Outcast.cs" />
 	  <Compile Include="Aslan\MurrissiCharacterBuilder.cs" />
 	</ItemGroup>
 

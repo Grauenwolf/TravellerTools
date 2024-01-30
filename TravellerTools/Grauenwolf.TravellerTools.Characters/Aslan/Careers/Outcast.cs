@@ -23,43 +23,26 @@ abstract class Outcast(string assignment, SpeciesCharacterBuilder speciesCharact
                     return;
 
                 case 3:
-                    {
-                        if (dice.RollHigh(8, character.Skills.BestSkillLevel("Recon", "Gun Combat")))
-                        {
-                            character.AddHistory($"Sent into the maw of hell.", dice);
-                            AddOneSkill(character, dice, "Stealth", "Medic", "Heavy Weapons", "Leadership");
-                        }
-                        else
-                        {
-                            var age = character.AddHistory($"Sent into the maw of hell and injured.", dice);
-                            Injury(character, dice, age);
-                        }
-                    }
+                    character.AddHistory("Serve a landowner, but owe a great debt.", dice);
+                    character.NextTermBenefits.QualificationDM += 4;
+
                     return;
 
                 case 4:
 
-                    character.AddHistory($"Assigned to garrison duty on a clan outpost. Gain a Contact.", dice);
-                    character.AddContact();
-                    IncreaseOneSkill(character, dice, "Streetwise", "Electronics|Comms", "Mechanic");
+                    character.AddHistory($"Pick up a few handy skills", dice);
+                    character.Skills.Increase("Jack-of-All-Trades");
 
                     return;
 
                 case 5:
-                    var skill = IncreaseOneSkill(character, dice, "Melee|Natural", "Gun Combat", "Drive", "Survival");
-                    if (skill != null && dice.RollHigh(skill.Level, 8))
-                    {
-                        character.AddHistory($"Victorious in a border skirmish with another clan.", dice);
-                        character.CurrentTermBenefits.AdvancementDM += 2;
-                    }
-                    else
-                        character.AddHistory($"Involved in a border skirmish with another clan.", dice);
+                    character.AddHistory($"Find working passage on a starship", dice);
+                    var skill = IncreaseOneSkill(character, dice, "Mechanic", "Vacc Suit", "Engineer", "Tolerance");
                     return;
 
                 case 6:
-                    character.AddHistory($"{character.Name} is given advanced training in a specialist field.", dice);
-                    if (dice.RollHigh(character.EducationDM, 8))
-                        character.Skills.Increase(dice.Choose(RandomSkills(character)));
+                    character.AddHistory("Survive on the edge.Gain a Contact.", dice);
+                    character.AddContact();
                     return;
 
                 case 7:
@@ -67,6 +50,32 @@ abstract class Outcast(string assignment, SpeciesCharacterBuilder speciesCharact
                     return;
 
                 case 8:
+                    if (dice.NextBoolean())
+                    {
+                        if (dice.RollHigh(character.Skills.EffectiveSkillLevel("Melee"), 10))
+                        {
+                            character.AddHistory($"Fought off thieves.", dice);
+                            character.BenefitRolls += 1;
+                        }
+                        else
+                        {
+                            character.AddHistory($"Beaten in a fight with thieves.", dice);
+                            character.BenefitRolls += -1;
+                        }
+                    }
+                    else
+                    {
+                        if (dice.RollHigh(character.Skills.EffectiveSkillLevel("Stealth"), 8))
+                        {
+                            character.AddHistory($"Fled from thieves.", dice);
+                            character.BenefitRolls += 1;
+                        }
+                        else
+                        {
+                            character.AddHistory($"Caught fleeing from thieves.", dice);
+                            character.BenefitRolls += -1;
+                        }
+                    }
                     character.AddHistory("Fight against an alien race.", dice);
                     IncreaseOneSkill(character, dice, "Gun Combat", "Language", "Melee", "Recon", "Suvival");
                     return;
@@ -74,30 +83,28 @@ abstract class Outcast(string assignment, SpeciesCharacterBuilder speciesCharact
                 case 9:
                     if (dice.NextBoolean())
                     {
-                        if (dice.RollHigh(character.Skills.EffectiveSkillLevel("Melee", "Natural"), 8))
+                        if (dice.RollHigh(character.Skills.EffectiveSkillLevel("Melee"), 10))
                         {
-                            character.AddHistory($"An officer insults {character.Name}'s courage, leading to a successful duel.", dice);
-                            character.SocialStanding += 1;
+                            character.AddHistory($"Fought off thieves.", dice);
+                            character.BenefitRolls += 1;
                         }
                         else
                         {
-                            character.AddHistory($"An officer insults {character.Name}'s courage, leading to a defeat in a duel.", dice);
-                            character.SocialStanding += -1;
+                            character.AddHistory($"Beaten in a fight with thieves.", dice);
+                            character.BenefitRolls += -1;
                         }
                     }
                     else
                     {
-                        if (dice.NextBoolean())
+                        if (dice.RollHigh(character.Skills.EffectiveSkillLevel("Stealth"), 8))
                         {
-                            var age = character.AddHistory($"An officer insults {character.Name}'s courage, leading to reckless behavior and a wound.", dice);
-                            Injury(character, dice, age);
+                            character.AddHistory($"Fled from thieves.", dice);
+                            character.BenefitRolls += 1;
                         }
                         else
                         {
-                            character.AddHistory($"An officer insults {character.Name}'s courage. Under fire, prove the office wrong and gain a Rival.", dice);
-                            character.AddRival();
-                            character.SocialStanding += 1;
-                            character.CurrentTermBenefits.AdvancementDM += 4;
+                            character.AddHistory($"Caught fleeing from thieves.", dice);
+                            character.BenefitRolls += -1;
                         }
                     }
                     return;
