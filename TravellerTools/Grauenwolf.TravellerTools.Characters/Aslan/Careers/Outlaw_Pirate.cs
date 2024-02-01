@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-class Outlaw_Pirate(SpeciesCharacterBuilder speciesCharacterBuilder) : Outlaw("Pirate", speciesCharacterBuilder)
+class Outlaw_Pirate(SpeciesCharacterBuilder speciesCharacterBuilder) : Outlaw("Outlaw Pirate", speciesCharacterBuilder)
 {
     protected override string AdvancementAttribute => "Int";
 

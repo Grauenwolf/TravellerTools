@@ -4,7 +4,7 @@ abstract class Outlaw(string assignment, SpeciesCharacterBuilder speciesCharacte
 {
     public override string? Source => "Aliens of Charted Space 1, page 40";
     internal override bool RankCarryover => true;
-    protected override int AdvancedEductionMin => throw new NotImplementedException();
+    protected override int AdvancedEductionMin => int.MaxValue;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
