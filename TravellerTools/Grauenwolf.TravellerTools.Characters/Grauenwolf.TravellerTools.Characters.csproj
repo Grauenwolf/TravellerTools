@@ -43,6 +43,13 @@
 	  <Compile Include="Aslan\Careers\Military_Support.cs" />
 	  <Compile Include="Aslan\Careers\Military_Warrior.cs" />
 	  <Compile Include="Aslan\Careers\Outcast.cs" />
+	  <Compile Include="Aslan\Careers\Outcast_Labourer.cs" />
+	  <Compile Include="Aslan\Careers\Outcast_Scavenger.cs" />
+	  <Compile Include="Aslan\Careers\Outcast_Trader.cs" />
+	  <Compile Include="Aslan\Careers\Outlaw.cs" />
+	  <Compile Include="Aslan\Careers\Outlaw_Pirate.cs" />
+	  <Compile Include="Aslan\Careers\Outlaw_Raider.cs" />
+	  <Compile Include="Aslan\Careers\Outlaw_Thief.cs" />
 	  <Compile Include="Aslan\MurrissiCharacterBuilder.cs" />
 	</ItemGroup>
 

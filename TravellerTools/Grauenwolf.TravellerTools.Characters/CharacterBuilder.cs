@@ -296,6 +296,16 @@ public class CharacterBuilder
                                 result.ContactType = ContactType.Contact;
                                 break;
 
+                            case ContactType.Husband:
+                            case ContactType.Wife:
+                                result.History.Add("Relationship becomes more moderate.");
+                                if (result.Affinity > 0)
+                                    result.Affinity += -1;
+
+                                if (result.Enmity > 0)
+                                    result.Enmity += -1;
+                                break;
+
                             default:
                                 result.History.Add("Relationship becomes more moderate.");
                                 result.Enmity -= 1;
@@ -308,13 +318,13 @@ public class CharacterBuilder
                         switch (result.ContactType)
                         {
                             case ContactType.Rival:
-                                result.History.Add("Relationship becomes more moderate. Rival becomes an enemy.");
+                                result.History.Add("Relationship becomes more intense. Rival becomes an enemy.");
                                 result.ContactType = ContactType.Enemy;
                                 RollAffinityEnmity(dice, result);
                                 break;
 
                             case ContactType.Contact:
-                                result.History.Add("Relationship becomes more moderate. Contact becomes an ally.");
+                                result.History.Add("Relationship becomes more intense. Contact becomes an ally.");
                                 result.ContactType = ContactType.Ally;
                                 RollAffinityEnmity(dice, result);
                                 break;
@@ -328,7 +338,18 @@ public class CharacterBuilder
                                 result.History.Add("Relationship becomes more intense.");
                                 result.Affinity += 1;
                                 break;
+
+                            case ContactType.Husband:
+                            case ContactType.Wife:
+                                result.History.Add("Relationship becomes more intense.");
+                                if (result.Affinity >= 0)
+                                    result.Affinity += 1;
+
+                                if (result.Enmity >= 0)
+                                    result.Enmity += 1;
+                                break;
                         }
+
                         break;
 
                     case 21:
@@ -486,6 +507,11 @@ public class CharacterBuilder
                                 result.History.Add("Relationship redefined. Ally becomes an enemy.");
                                 result.ContactType = ContactType.Enemy;
                                 break;
+
+                            case ContactType.Husband:
+                            case ContactType.Wife:
+                                result.History.Add("Relationship redefined.");
+                                break;
                         }
                         break;
 
@@ -507,6 +533,8 @@ public class CharacterBuilder
             switch (result.ContactType)
             {
                 case ContactType.Ally:
+                case ContactType.Husband:
+                case ContactType.Wife:
                     result.Affinity = AffinityTable(dice.D(2, 6));
                     break;
 

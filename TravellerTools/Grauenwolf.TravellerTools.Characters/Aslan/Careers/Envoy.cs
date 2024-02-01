@@ -162,7 +162,7 @@ abstract class Envoy(string assignment, SpeciesCharacterBuilder speciesCharacter
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:
@@ -185,7 +185,7 @@ abstract class Envoy(string assignment, SpeciesCharacterBuilder speciesCharacter
                 else
                 {
                     character.AddHistory($"Injured by an assassin.", age);
-                    Injury(character, dice, true, age);
+                    Injury(character, dice, age);
                 }
                 return;
 

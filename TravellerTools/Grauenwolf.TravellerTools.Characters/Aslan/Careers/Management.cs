@@ -140,7 +140,7 @@ abstract class Management(string assignment, SpeciesCharacterBuilder speciesChar
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:
@@ -196,15 +196,6 @@ abstract class Management(string assignment, SpeciesCharacterBuilder speciesChar
         }
     }
 
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        var dm = character.RiteOfPassageDM;
-        dm += character.GetEnlistmentBonus(Career, Assignment);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 8, isPrecheck);
-    }
-
     internal override void ServiceSkill(Character character, Dice dice)
     {
         Increase(character, dice, "Advocate", "Broker", "Admin", "Gun Combat", "Tolerance", "Admin");
@@ -246,6 +237,15 @@ abstract class Management(string assignment, SpeciesCharacterBuilder speciesChar
     protected override void AdvancedEducation(Character character, Dice dice)
     {
         Increase(character, dice, "Advocate", "Electronics", "Language", "Science", "Tolerance", "Diplomat");
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        var dm = character.RiteOfPassageDM;
+        dm += character.GetEnlistmentBonus(Career, Assignment);
+        dm += QualifyDM;
+
+        return dice.RollHigh(dm, 8, isPrecheck);
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)

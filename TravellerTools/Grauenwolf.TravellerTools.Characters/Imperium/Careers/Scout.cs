@@ -2,6 +2,7 @@
 
 abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Scout", assignment, speciesCharacterBuilder)
 {
+    public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
     public override string? Source => "Traveller Core, page 44";
     internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 8;
@@ -153,7 +154,7 @@ abstract class Scout(string assignment, SpeciesCharacterBuilder speciesCharacter
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:

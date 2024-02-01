@@ -2,6 +2,7 @@
 
 abstract class Citizen(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Citizen", assignment, speciesCharacterBuilder)
 {
+    public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
     public override string? Source => "Traveller Core, page 26";
     protected override int AdvancedEductionMin => 10;
 
@@ -114,7 +115,7 @@ abstract class Citizen(string assignment, SpeciesCharacterBuilder speciesCharact
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:
@@ -146,9 +147,19 @@ abstract class Citizen(string assignment, SpeciesCharacterBuilder speciesCharact
                 return;
 
             case 6:
-                Injury(character, dice, false, age);
+                Injury(character, dice, age);
                 return;
         }
+    }
+
+    internal override void ServiceSkill(Character character, Dice dice)
+    {
+        Increase(character, dice, "Drive", "Flyer", "Streetwise", "Melee", "Steward", "Profession");
+    }
+
+    protected override void AdvancedEducation(Character character, Dice dice)
+    {
+        Increase(character, dice, "Art", "Advocate", "Diplomat", "Language", "Electronics|Computers", "Medic");
     }
 
     protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
@@ -160,16 +171,6 @@ abstract class Citizen(string assignment, SpeciesCharacterBuilder speciesCharact
         dm += QualifyDM;
 
         return dice.RollHigh(dm, 5, isPrecheck);
-    }
-
-    internal override void ServiceSkill(Character character, Dice dice)
-    {
-        Increase(character, dice, "Drive", "Flyer", "Streetwise", "Melee", "Steward", "Profession");
-    }
-
-    protected override void AdvancedEducation(Character character, Dice dice)
-    {
-        Increase(character, dice, "Art", "Advocate", "Diplomat", "Language", "Electronics|Computers", "Medic");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)

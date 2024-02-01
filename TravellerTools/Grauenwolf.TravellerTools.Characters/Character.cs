@@ -128,6 +128,15 @@ public class Character : IContactGroup
 
     public bool IsDead { get; set; }
 
+    public bool IsMarried
+    {
+        get
+        {
+            return UnusedContacts.Contains(ContactType.Husband) || UnusedContacts.Contains(ContactType.Wife)
+                || Contacts.Any(c => c.ContactType == ContactType.Husband || c.ContactType == ContactType.Wife);
+        }
+    }
+
     public bool IsOutcast { get; set; }
 
     public CareerHistory? LastCareer { get; set; }
@@ -222,11 +231,6 @@ public class Character : IContactGroup
             UnusedContacts.Enqueue(ContactType.Enemy);
     }
 
-    //public void AddHistory(string text)
-    //{
-    //    History.Add(new History(CurrentTerm, Age, text));
-    //}
-
     /// <summary>
     /// Adds the history.
     /// </summary>
@@ -240,15 +244,31 @@ public class Character : IContactGroup
         return age;
     }
 
+    //public void AddHistory(string text)
+    //{
+    //    History.Add(new History(CurrentTerm, Age, text));
+    //}
     public void AddHistory(string text, int age)
     {
         History.Add(new History(CurrentTerm, age, text));
+    }
+
+    public void AddHusband(int count = 1)
+    {
+        for (var i = 0; i < count; i++)
+            UnusedContacts.Enqueue(ContactType.Husband);
     }
 
     public void AddRival(int count = 1)
     {
         for (var i = 0; i < count; i++)
             UnusedContacts.Enqueue(ContactType.Rival);
+    }
+
+    public void AddWife(int count = 1)
+    {
+        for (var i = 0; i < count; i++)
+            UnusedContacts.Enqueue(ContactType.Wife);
     }
 
     /// <summary>
@@ -297,6 +317,19 @@ public class Character : IContactGroup
             "TER" or "Territory" => TerritoryDM,
             _ => throw new ArgumentOutOfRangeException(nameof(attributeName), attributeName, "Unknown attribute " + attributeName),
         };
+    }
+
+    public bool RemoveContact(ContactType contactType)
+    {
+        if (!UnusedContacts.Contains(contactType))
+            return false;
+
+        var temp = UnusedContacts.ToList();
+        temp.Remove(contactType);
+        UnusedContacts.Clear();
+        foreach (var item in temp)
+            UnusedContacts.Enqueue(item);
+        return true;
     }
 
     //public void Increase(string attributeName, int bonus)

@@ -7,6 +7,7 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
     readonly SpeciesCharacterBuilder m_SpeciesCharacterBuilder = speciesCharacterBuilder;
     public string? Assignment { get; } = assignment;
     public string Career { get; } = career;
+    public virtual CareerGroup CareerGroup { get; } = CareerGroup.None;
     public string Key => Assignment ?? Career;
 
     public int QualifyDM { get; set; }
@@ -309,12 +310,12 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
 
             default:
                 if (IncreaseOneSkill(character, dice, item.Split(',')) == null)
-                    goto top; //Try again because your race can't have that skill
+                    goto top; //Try again because your race or gender can't have that skill
                 return;
         }
     }
 
-    protected void Injury(Character character, Dice dice, bool severe, int age) => m_SpeciesCharacterBuilder.Injury(character, dice, this, severe, age);
+    //protected void Injury(Character character, Dice dice, bool severe, int age) => m_SpeciesCharacterBuilder.Injury(character, dice, this, severe, age);
 
     protected void Injury(Character character, Dice dice, int age) => m_SpeciesCharacterBuilder.Injury(character, dice, this, false, age);
 
@@ -340,6 +341,8 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
     protected ImmutableArray<SkillTemplate> RandomSkills(Character character) => m_SpeciesCharacterBuilder.Book(character).RandomSkills;
 
     protected CareerBase RollDraft(Character character, Dice dice) => m_SpeciesCharacterBuilder.RollDraft(character, dice);
+
+    protected void SevereInjury(Character character, Dice dice, int age) => m_SpeciesCharacterBuilder.Injury(character, dice, this, true, age);
 
     /// <summary>
     /// Returns all the specialities for a skill. If it has no specialities, then just return the skill.

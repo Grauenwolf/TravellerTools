@@ -20,6 +20,7 @@ abstract class Agent : NormalCareer
         m_Careers = careers.ToImmutableArray();
     }
 
+    public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
     public override string? Source => "Traveller Core, page 22";
     protected override int AdvancedEductionMin => 8;
 
@@ -137,7 +138,7 @@ abstract class Agent : NormalCareer
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:
@@ -168,9 +169,19 @@ abstract class Agent : NormalCareer
                 return;
 
             case 6:
-                Injury(character, dice, false, age);
+                Injury(character, dice, age);
                 return;
         }
+    }
+
+    internal override void ServiceSkill(Character character, Dice dice)
+    {
+        Increase(character, dice, "Streetwise", "Drive", "Investigate", "Flyer", "Recon", "Gun Combat");
+    }
+
+    protected override void AdvancedEducation(Character character, Dice dice)
+    {
+        Increase(character, dice, "Advocate", "Language", "Explosives", "Medic", "Vacc Suit", "Electronics");
     }
 
     protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
@@ -182,16 +193,6 @@ abstract class Agent : NormalCareer
         dm += QualifyDM;
 
         return dice.RollHigh(dm, 6, isPrecheck);
-    }
-
-    internal override void ServiceSkill(Character character, Dice dice)
-    {
-        Increase(character, dice, "Streetwise", "Drive", "Investigate", "Flyer", "Recon", "Gun Combat");
-    }
-
-    protected override void AdvancedEducation(Character character, Dice dice)
-    {
-        Increase(character, dice, "Advocate", "Language", "Explosives", "Medic", "Vacc Suit", "Electronics");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)

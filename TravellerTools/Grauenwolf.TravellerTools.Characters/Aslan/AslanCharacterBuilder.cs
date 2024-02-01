@@ -44,12 +44,12 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
             //new Spacer_Crew(this),
             //new SpaceOfficer_Shipmaster(this),
             //new SpaceOfficer_Navigator(this),
-            //new Outcast_Labourer(this),
-            //new Outcast_Trader(this),
-            //new Outcast_Scavenger(this),
-            //new Outlaw_Pirate(this),
-            //new Outlaw_Raider(this),
-            //new Outlaw_Thief(this),
+            new Outcast_Labourer(this),
+            new Outcast_Trader(this),
+            new Outcast_Scavenger(this),
+            new Outlaw_Pirate(this),
+            new Outlaw_Raider(this),
+            new Outlaw_Thief(this),
             new Retired(this),
             new Prisoner_Fixer(this),
             new Prisoner_Inmate(this),
@@ -74,12 +74,12 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
             //new Spacer_Gunner(this),
             //new Spacer_Crew(this),
             //new SpaceOfficer_Commander(this),
-            //new Outcast_Labourer(this),
-            //new Outcast_Trader(this),
-            //new Outcast_Scavenger(this),
-            //new Outlaw_Pirate(this),
-            //new Outlaw_Raider(this),
-            //new Outlaw_Thief(this),
+            new Outcast_Labourer(this),
+            new Outcast_Trader(this),
+            new Outcast_Scavenger(this),
+            new Outlaw_Pirate(this),
+            new Outlaw_Raider(this),
+            new Outlaw_Thief(this),
             //new Wanderer_Belter(this),
             //new Wanderer_Nomad(this),
             //new Wanderer_Scout(this),
@@ -96,10 +96,10 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
             new Humaniti.Drifter_Wanderer(this),
             new Humaniti.Rogue_Enforcer(this),
             new Humaniti.Rogue_Pirate(this),
-            new Humaniti.Rogue_Thief(this)
-            //new Outcast_Labourer(this),
-            //new Outcast_Trader(this),
-            //new Outcast_Scavenger(this),
+            new Humaniti.Rogue_Thief(this),
+            new Outcast_Labourer(this),
+            new Outcast_Trader(this),
+            new Outcast_Scavenger(this),
             //new Outlaw_Pirate(this),
             //new Outlaw_Raider(this),
             //new Outlaw_Thief(this),
@@ -110,9 +110,9 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
             new Humaniti.Drifter_Barbarian(this),
             new Humaniti.Drifter_Scavenger(this),
             new Humaniti.Drifter_Wanderer(this),
-            //new Outcast_Labourer(this),
-            //new Outcast_Trader(this),
-            //new Outcast_Scavenger(this),
+            new Outcast_Labourer(this),
+            new Outcast_Trader(this),
+            new Outcast_Scavenger(this),
         }.ToImmutableArray();
 
         MaleCareers = new(defaultCareers, draftCareers, maleCareers);
@@ -499,4 +499,16 @@ public class AslanCharacterBuilder : SpeciesCharacterBuilder
             else
                 character.Title = "Yohai " + character.Title;
     }
+
+    /*
+    public override void LifeEvent(Character character, Dice dice, CareerBase career)
+    {
+        if(character.IsOutcast)
+            base.LifeEvent(character, dice, career);
+        else
+        {
+            //TODO Page 45
+        }
+    }
+    */
 }

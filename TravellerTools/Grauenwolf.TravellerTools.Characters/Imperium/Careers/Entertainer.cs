@@ -2,6 +2,7 @@
 
 abstract class Entertainer(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Entertainer", assignment, speciesCharacterBuilder)
 {
+    public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
     public override string? Source => "Traveller Core, page 30";
     protected override int AdvancedEductionMin => 10;
 
@@ -124,7 +125,7 @@ abstract class Entertainer(string assignment, SpeciesCharacterBuilder speciesCha
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:
@@ -152,6 +153,16 @@ abstract class Entertainer(string assignment, SpeciesCharacterBuilder speciesCha
         }
     }
 
+    internal override void ServiceSkill(Character character, Dice dice)
+    {
+        Increase(character, dice, "Art", "Carouse", "Deception", "Drive", "Persuade", "Steward");
+    }
+
+    protected override void AdvancedEducation(Character character, Dice dice)
+    {
+        Increase(character, dice, "Advocate", "Broker", "Deception", "Science", "Streetwise", "Diplomat");
+    }
+
     protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
         var dm = Math.Max(character.IntellectDM, character.DexterityDM);
@@ -161,16 +172,6 @@ abstract class Entertainer(string assignment, SpeciesCharacterBuilder speciesCha
         dm += QualifyDM;
 
         return dice.RollHigh(dm, 5, isPrecheck);
-    }
-
-    internal override void ServiceSkill(Character character, Dice dice)
-    {
-        Increase(character, dice, "Art", "Carouse", "Deception", "Drive", "Persuade", "Steward");
-    }
-
-    protected override void AdvancedEducation(Character character, Dice dice)
-    {
-        Increase(character, dice, "Advocate", "Broker", "Deception", "Science", "Streetwise", "Diplomat");
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)

@@ -2,6 +2,7 @@
 
 abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : MilitaryCareer("Army", assignment, speciesCharacterBuilder)
 {
+    public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
     public override string? Source => "Traveller Core, page 24";
     protected override int AdvancedEductionMin => 8;
 
@@ -135,7 +136,7 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:
@@ -169,22 +170,9 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
                 return;
 
             case 6:
-                Injury(character, dice, false, age);
+                Injury(character, dice, age);
                 return;
         }
-    }
-
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        var dm = character.EnduranceDM;
-        dm += -1 * character.CareerHistory.Count;
-        if (character.Age >= 30)
-            dm += -2;
-
-        dm += character.GetEnlistmentBonus(Career, Assignment);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 5, isPrecheck);
     }
 
     internal override void ServiceSkill(Character character, Dice dice)
@@ -283,6 +271,19 @@ abstract class Army(string assignment, SpeciesCharacterBuilder speciesCharacterB
     protected override void OfficerTraining(Character character, Dice dice)
     {
         Increase(character, dice, "Tactics|Military", "Leadership", "Advocate", "Diplomat", "Electronics", "Admin");
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        var dm = character.EnduranceDM;
+        dm += -1 * character.CareerHistory.Count;
+        if (character.Age >= 30)
+            dm += -2;
+
+        dm += character.GetEnlistmentBonus(Career, Assignment);
+        dm += QualifyDM;
+
+        return dice.RollHigh(dm, 5, isPrecheck);
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)

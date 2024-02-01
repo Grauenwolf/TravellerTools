@@ -129,7 +129,7 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:
@@ -168,7 +168,7 @@ abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder specie
                 return;
 
             case 6:
-                Injury(character, dice, false, age);
+                Injury(character, dice, age);
                 return;
         }
     }

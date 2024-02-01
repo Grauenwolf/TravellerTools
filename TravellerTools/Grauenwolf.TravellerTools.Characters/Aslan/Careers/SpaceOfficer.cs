@@ -1,6 +1,6 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-abstract class SpaceOfficer(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Space Officer", assignment, characterBuilder) {
+abstract class SpaceOfficer(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Space Officer", assignment, speciesCharacterBuilder) {
     public override string? Source => "Aliens of Charted Space 1, page 36";
 
 

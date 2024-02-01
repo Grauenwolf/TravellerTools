@@ -2,16 +2,16 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 class Outlaw_Raider(SpeciesCharacterBuilder speciesCharacterBuilder) : Outlaw("Raider", speciesCharacterBuilder)
 {
-    protected override string AdvancementAttribute => "";
+    protected override string AdvancementAttribute => "Str";
 
-    protected override int AdvancementTarget => ;
+    protected override int AdvancementTarget => 6;
 
-    protected override string SurvivalAttribute => "";
+    protected override string SurvivalAttribute => "End";
 
-    protected override int SurvivalTarget => ;
+    protected override int SurvivalTarget => 8;
 
     internal override void AssignmentSkills(Character character, Dice dice)
     {
-        Increase(character, dice, "", "", "", "", "", "");
+        Increase(character, dice, "Gun Combat", "Medic", "Streetwise", "Recon", "Stealth", "Melee");
     }
 }

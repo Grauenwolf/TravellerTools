@@ -2,6 +2,7 @@
 
 internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : RanklessCareer("Truther", null, speciesCharacterBuilder)
 {
+    public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
     public override string? Source => "Traveller Companion, page  36";
     protected override string SurvivalAttribute => "Fol";
     protected override int SurvivalTarget => 4;
@@ -125,7 +126,7 @@ internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : Rankle
             case 1:
 
                 character.AddHistory($"Injured in a misadventure or attacked by a deranged objector to {character.Name}'s work.", age);
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:

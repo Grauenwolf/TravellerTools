@@ -103,7 +103,7 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:
@@ -161,22 +161,9 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
                 return;
 
             case 6:
-                Injury(character, dice, false, age);
+                Injury(character, dice, age);
                 return;
         }
-    }
-
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        var dm = character.EnduranceDM;
-        dm += -1 * character.CareerHistory.Count;
-        if (character.Age >= 30)
-            dm += -2;
-
-        dm += character.GetEnlistmentBonus(Career, Assignment);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 6);
     }
 
     internal override void ServiceSkill(Character character, Dice dice)
@@ -277,6 +264,19 @@ abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesChar
     protected override void OfficerTraining(Character character, Dice dice)
     {
         Increase(character, dice, "Leadership", "Electronics", "Pilot", "Melee|Natural", "Admin", "Tactics");
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        var dm = character.EnduranceDM;
+        dm += -1 * character.CareerHistory.Count;
+        if (character.Age >= 30)
+            dm += -2;
+
+        dm += character.GetEnlistmentBonus(Career, Assignment);
+        dm += QualifyDM;
+
+        return dice.RollHigh(dm, 6);
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)

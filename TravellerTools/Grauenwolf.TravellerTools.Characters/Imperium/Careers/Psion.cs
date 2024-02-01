@@ -2,6 +2,7 @@
 
 abstract class Psion(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Psion", assignment, speciesCharacterBuilder)
 {
+    public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
     public override string? Source => "Traveller Core, page 236";
     protected override int AdvancedEductionMin => 8;
 
@@ -104,7 +105,7 @@ abstract class Psion(string assignment, SpeciesCharacterBuilder speciesCharacter
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:

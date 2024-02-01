@@ -117,7 +117,7 @@ abstract class ShaperPriest(string assignment, SpeciesCharacterBuilder speciesCh
         {
             case 1:
                 character.AddHistory($"Opponents of {character.Name}'s belief system ambush {character.Name}.", age);
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:

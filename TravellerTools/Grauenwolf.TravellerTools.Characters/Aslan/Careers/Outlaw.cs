@@ -1,14 +1,14 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-abstract class Outlaw(string assignment, CharacterBuilder characterBuilder) : NormalCareer("Outlaw", assignment, characterBuilder) {
-    internal override bool RankCarryover => true;
+abstract class Outlaw(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Outlaw", assignment, speciesCharacterBuilder)
+{
     public override string? Source => "Aliens of Charted Space 1, page 40";
-
-    protected override int AdvancedEductionMin => 8;
+    internal override bool RankCarryover => true;
+    protected override int AdvancedEductionMin => throw new NotImplementedException();
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        AddBasicSkills(character, dice, all, "", "", "", "", "", "");
+        AddBasicSkills(character, dice, all, "Streetwise", "Gun Combat ", "Melee", "Tactics", "Persuade", "Stealth");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -21,43 +21,42 @@ abstract class Outlaw(string assignment, CharacterBuilder characterBuilder) : No
                 return;
 
             case 3:
-                {
-                    if (dice.RollHigh(8, character.Skills.BestSkillLevel("Recon", "Gun Combat")))
-                    {
-                        character.AddHistory($"Sent into the maw of hell.", dice);
-                        AddOneSkill(character, dice, "Stealth", "Medic", "Heavy Weapons", "Leadership");
-                    }
-                    else
-                    {
-                        var age = character.AddHistory($"Sent into the maw of hell and injured.", dice);
-                        Injury(character, dice, age);
-                    }
-                }
+                character.AddHistory($"Barely survive on the fringes of Aslan space.", dice);
+                character.Endurance += -1;
+                AddOneRandomSkill(character, dice);
                 return;
 
             case 4:
 
-                character.AddHistory($"Assigned to garrison duty on a clan outpost. Gain a Contact.", dice);
-                character.AddContact();
-                IncreaseOneSkill(character, dice, "Streetwise", "Electronics|Comms", "Mechanic");
-
+                character.AddHistory($"Crimes pays off.", dice);
+                character.BenefitRolls += 1;
                 return;
 
             case 5:
-                var skill = IncreaseOneSkill(character, dice, "Melee|Natural", "Gun Combat", "Drive", "Survival");
-                if (skill != null && dice.RollHigh(skill.Level, 8))
+                if (dice.NextBoolean())
                 {
-                    character.AddHistory($"Victorious in a border skirmish with another clan.", dice);
-                    character.CurrentTermBenefits.AdvancementDM += 2;
+                    character.AddHistory($"Clan puts a price on {character.Name}'s head. Gain an Enemy.", dice);
+                    character.AddEnemy();
                 }
                 else
-                    character.AddHistory($"Involved in a border skirmish with another clan.", dice);
+                {
+                    if (dice.RollHigh(character.Skills.EffectiveSkillLevel("Deception"), 8))
+                    {
+                        character.AddHistory($"Clan puts a price on {character.Name}'s head. {character.Name} claims the price through trickery.", dice);
+                        character.BenefitRolls += 3;
+                    }
+                    else
+                    {
+                        character.AddHistory($"Clan puts a price on {character.Name}'s head. {character.Name} tries the price through trickery and is caught.", dice);
+                        character.Endurance += -2;
+                        character.NextTermBenefits.MusterOut = true;
+                    }
+                }
                 return;
 
             case 6:
-                character.AddHistory($"{character.Name} is given advanced training in a specialist field.", dice);
-                if (dice.RollHigh(character.EducationDM, 8))
-                    character.Skills.Increase(dice.Choose(RandomSkills(character)));
+                character.AddHistory("Acquire a contact in the criminal sphere. Gain a Contact.", dice);
+                character.AddContact();
                 return;
 
             case 7:
@@ -65,65 +64,82 @@ abstract class Outlaw(string assignment, CharacterBuilder characterBuilder) : No
                 return;
 
             case 8:
-                character.AddHistory("Fight against an alien race.", dice);
-                IncreaseOneSkill(character, dice, "Gun Combat", "Language", "Melee", "Recon", "Suvival");
+                character.AddHistory("Pick up some useful skills.", dice);
+                IncreaseOneSkill(character, dice, "Electronics", "Independence", "Stealth", "Gun Combat");
                 return;
 
             case 9:
-                if (dice.NextBoolean())
+                if (dice.RollHigh(character.Skills.BestSkillLevel("Pilot", "Stealth", "Gun Combat"), 8))
                 {
-                    if (dice.RollHigh(character.Skills.EffectiveSkillLevel("Melee", "Natural"), 8))
-                    {
-                        character.AddHistory($"An officer insults {character.Name}'s courage, leading to a successful duel.", dice);
-                        character.SocialStanding += 1;
-                    }
+                    character.AddHistory($"Succeed at an audacious raid on a rival.", dice);
+                    if (dice.NextBoolean())
+                        character.BenefitRolls += 1;
                     else
-                    {
-                        character.AddHistory($"An officer insults {character.Name}'s courage, leading to a defeat in a duel.", dice);
-                        character.SocialStanding += -1;
-                    }
+                        character.SocialStanding += 1;
                 }
                 else
                 {
-                    if (dice.NextBoolean())
-                    {
-                        var age = character.AddHistory($"An officer insults {character.Name}'s courage, leading to reckless behavior and a wound.", dice);
-                        Injury(character, dice, age);
-                    }
-                    else
-                    {
-                        character.AddHistory($"An officer insults {character.Name}'s courage. Under fire, prove the office wrong and gain a Rival.", dice);
-                        character.AddRival();
-                        character.SocialStanding += 1;
-                        character.CurrentTermBenefits.AdvancementDM += 4;
-                    }
+                    character.AddHistory($"Attempt an audacious raid on a rival and are injured.", dice);
+                    character.SocialStanding += -1;
                 }
                 return;
 
             case 10:
 
-                if (dice.RollHigh(character.RiteOfPassageDM + character.LastCareer!.Terms, 10))
+                if (dice.NextBoolean())
                 {
-                    character.AddHistory($"Promoted to the officer caste.", dice);
-                    character.NextTermBenefits.MustEnroll = "Military Officer";
+                    if (dice.RollHigh(character.Skills.BestSkillLevel("Stealth"), 8))
+                    {
+                        character.AddHistory($"Employed by a clan to perform some deed that they want accomplished covertly, but fail.", dice);
+                        character.BenefitRolls += 1;
+                    }
+                    else
+                        character.AddHistory($"Employed employment by a clan to perform some deed that they want accomplished covertly, but fail.", dice);
                 }
                 else
                 {
-                    character.AddHistory($"Considered for promotion in the officer caste but didn't make the cut.", dice);
+                    character.AddHistory($"Offered employment by a clan to perform some deed that they want accomplished covertly. Inform the clan’s enemies. Gain an enemy.", dice);
+                    character.BenefitRolls += 1;
+                    character.AddEnemy();
                 }
 
                 return;
 
             case 11:
-                character.AddHistory($"Serve under a hero of the clan.", dice);
-                if (dice.NextBoolean())
-                    character.Skills.Increase("Tactics|Military");
+                if (character.Gender == "M")
+                {
+                    character.AddHistory("Reclaim your standing in society.", dice);
+                    character.Territory += 1;
+                    character.SocialStanding = Math.Max(character.SocialStanding, Math.Max(dice.D(2, 6), character.Territory ?? 0));
+                    character.IsOutcast = false;
+                    character.NextTermBenefits.MusterOut = true;
+                }
                 else
-                    character.CurrentTermBenefits.AdvancementDM += 4;
+                {
+                    if (!character.IsMarried)
+                        if (dice.NextBoolean())
+                        {
+                            character.AddHistory("Marry a male of good family. Gain Husband.", dice);
+                            character.AddHusband();
+                            character.SocialStanding = Math.Max(character.SocialStanding, Math.Max(dice.D(2, 6), character.Territory ?? 0));
+                            character.IsOutcast = false;
+                            character.NextTermBenefits.MusterOut = true;
+                        }
+                        else
+                        {
+                            character.AddHistory("Refused to marry a male of good family.", dice);
+                            character.AddHusband();
+                        }
+                    else
+                    {
+                        character.AddHistory("Turned down an inappropriate offer to marry.", dice);
+                    }
+                }
+
                 return;
 
             case 12:
-                character.AddHistory($"Efforts strike a great blow for the clan.", dice);
+                character.AddHistory($"Deeds are the stuff of legends and nightmares.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 99;
                 return;
         }
@@ -134,52 +150,53 @@ abstract class Outlaw(string assignment, CharacterBuilder characterBuilder) : No
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:
-                character.AddHistory($"Drumed out of the service by a superior officer. Gain a Rival.", age);
-                character.AddRival();
+                character.AddHistory($"Captured and punished by the clan you stole from. Gain an enemy.", age);
+                character.Endurance += -2;
+                character.AddEnemy();
                 return;
 
             case 3:
-                character.AddHistory($"Lost behind enemy lines.", age);
-                IncreaseOneSkill(character, dice, "Stealth", "Survival", "Streetwise", "Gun Combat");
+                character.AddHistory($"Rival outlaw band attacks.", age);
+                Injury(character, dice, age);
+                character.BenefitRolls += -1;
                 return;
 
             case 4:
-                character.AddHistory($"Captured and ransomed back to the clan.", age);
-                character.SocialStanding += -1;
+                character.AddHistory($"Forced to flee off-planet.", age);
+                AddOneSkill(character, dice, "Deception", "Pilot", "Independence", "Streetwise");
                 return;
 
             case 5:
-                if (dice.NextBoolean())
+
+                if (character.RemoveContact(ContactType.Contact))
                 {
-                    if (dice.RollHigh(character.Skills.BestSkillLevel("Gun Combat", "Athletics"), 8))
-                    {
-                        character.AddHistory("Fight bravely in a dangerous skirmish.", dice);
-                        character.NextTermBenefits.MusterOut = false;
-                    }
-                    else
-                    {
-                        character.AddHistory("Injured in a dangerous skirmish.", dice);
-                    }
+                    character.AddHistory($"Betrayed by a friend. Contact becomes a Rival.", age);
+                }
+                else if (character.RemoveContact(ContactType.Ally))
+                {
+                    character.AddHistory($"Betrayed by a friend. Ally becomes a Rival.", age);
                 }
                 else
                 {
-                    character.AddHistory("Refused to fight in a dangerous skirmish.", dice);
+                    character.AddHistory($"Betrayed by a friend. Gain a Rival.", age);
                 }
+                character.AddRival();
+
                 return;
 
             case 6:
-                Injury(character, dice, true, age);
+                Injury(character, dice, age);
                 return;
         }
     }
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        IncreaseOneSkill(character, dice, "", "", "", "", "", "");
+        IncreaseOneSkill(character, dice, "Streetwise", "Gun Combat ", "Melee|Natural", "Tactics|Military", "Persuade", "Stealth");
     }
 
     internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
@@ -187,60 +204,56 @@ abstract class Outlaw(string assignment, CharacterBuilder characterBuilder) : No
         switch (careerHistory.Rank)
         {
             case 0:
-                character.Title = "Recruit";
+                character.Title = "Outlaw";
                 return;
 
             case 1:
-                character.Title = "Soldier";
                 if (allowBonus)
-                    character.Skills.Add("Melee", "Natural", 1);
+                    AddOneSkill(character, dice, "Melee|Natural");
+
                 return;
 
             case 2:
-                character.Title = "Veteran Soldier";
+
                 return;
 
             case 3:
-                character.Title = "Warrior";
+                character.Title = "Feared Outlaw";
                 if (allowBonus)
-                    character.Endurance += 1;
+                    AddOneSkill(character, dice, "Independence", "Streetwise");
                 return;
 
             case 4:
-                character.Title = "Veteran Warrior";
                 return;
 
             case 5:
-                character.Title = "Leader of Warriors";
                 return;
 
             case 6:
-                character.Title = "Honoured Warrior Leader";
+                character.Title = "Outlaw Chief";
                 if (allowBonus)
-                    character.AddHistory("Gain 3 clan shares.", character.Age);
+                    AddOneSkill(character, dice, "Leadership");
+
                 return;
         }
     }
 
-    protected override void AdvancedEducation(Character character, Dice dice)
-    {
-        Increase(character, dice, "", "", "", "", "", "");
-    }
+    protected override void AdvancedEducation(Character character, Dice dice) => throw new NotImplementedException();
 
     protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
     {
-        var dm = character.RiteOfPassageDM;
+        var dm = character.StrengthDM;
         dm += character.GetEnlistmentBonus(Career, Assignment);
         dm += QualifyDM;
 
-        return dice.RollHigh(dm, , isPrecheck);
+        return dice.RollHigh(dm, 6, isPrecheck);
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        Increase(character, dice, "", "", "", "", "", "");
+        if (character.Gender == "M")
+            Increase(character, dice, "Independence", "Intellect", "Education", "Gambler", "Endurance", "Independence");
+        else
+            Increase(character, dice, "Melee", "Intellect", "Education", "Gambler", "Endurance", "Melee");
     }
-
-
-
 }

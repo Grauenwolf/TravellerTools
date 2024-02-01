@@ -13,6 +13,7 @@ class NextTermBenefits
     /// </summary>
     public int? MinRank { get; set; }
 
+    public CareerGroup? MustAttemptCareerGroup { get; set; }
     public string? MustEnroll { get; set; }
     public bool MusterOut { get; set; }
     public int QualificationDM { get; set; }

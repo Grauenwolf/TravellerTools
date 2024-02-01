@@ -2,6 +2,7 @@
 
 abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : MilitaryCareer("Marine", assignment, speciesCharacterBuilder)
 {
+    public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
     public override string? Source => "Traveller Core, page 32";
     protected override int AdvancedEductionMin => 8;
 
@@ -137,7 +138,7 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:
@@ -171,7 +172,7 @@ abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacte
                 return;
 
             case 6:
-                Injury(character, dice, false, age);
+                Injury(character, dice, age);
                 return;
         }
     }

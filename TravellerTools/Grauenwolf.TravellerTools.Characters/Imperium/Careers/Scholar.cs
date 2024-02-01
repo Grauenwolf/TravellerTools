@@ -2,6 +2,7 @@
 
 abstract class Scholar(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Scholar", assignment, speciesCharacterBuilder)
 {
+    public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
     public override string? Source => "Traveller Core, page 42";
     internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 10;
@@ -132,7 +133,7 @@ abstract class Scholar(string assignment, SpeciesCharacterBuilder speciesCharact
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:

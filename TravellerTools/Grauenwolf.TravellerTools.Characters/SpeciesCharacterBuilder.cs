@@ -719,14 +719,18 @@ public abstract class SpeciesCharacterBuilder
         //Forced picks (e.g. Draft)
         if (character.NextTermBenefits.MustEnroll != null)
         {
+            noRoll = true; //Don't need to roll if forced to enroll
             foreach (var career in Careers(character))
             {
-                noRoll = true; //Don't need to roll if forced to enroll
                 if (string.Equals(character.NextTermBenefits.MustEnroll, career.Career, StringComparison.OrdinalIgnoreCase) || string.Equals(character.NextTermBenefits.MustEnroll, career.Assignment, StringComparison.OrdinalIgnoreCase))
                 {
                     careerOptions.Add(career);
                 }
             }
+        }
+        else if (character.NextTermBenefits.MustAttemptCareerGroup != null)
+        {
+            careerOptions.AddRange(Careers(character).Where(c => c.CareerGroup == character.NextTermBenefits.MustAttemptCareerGroup));
         }
 
         //Normal career progression

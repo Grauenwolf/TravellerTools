@@ -2,6 +2,7 @@
 
 abstract class Drifter(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Drifter", assignment, speciesCharacterBuilder)
 {
+    public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
     public override string? Source => "Traveller Core, page 28";
     protected override int AdvancedEductionMin => int.MaxValue;
 
@@ -111,7 +112,7 @@ abstract class Drifter(string assignment, SpeciesCharacterBuilder speciesCharact
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:

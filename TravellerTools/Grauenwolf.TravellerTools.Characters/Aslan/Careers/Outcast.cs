@@ -76,63 +76,52 @@ abstract class Outcast(string assignment, SpeciesCharacterBuilder speciesCharact
                             character.BenefitRolls += -1;
                         }
                     }
-                    character.AddHistory("Fight against an alien race.", dice);
-                    IncreaseOneSkill(character, dice, "Gun Combat", "Language", "Melee", "Recon", "Suvival");
                     return;
 
                 case 9:
                     if (dice.NextBoolean())
                     {
-                        if (dice.RollHigh(character.Skills.EffectiveSkillLevel("Melee"), 10))
-                        {
-                            character.AddHistory($"Fought off thieves.", dice);
-                            character.BenefitRolls += 1;
-                        }
-                        else
-                        {
-                            character.AddHistory($"Beaten in a fight with thieves.", dice);
-                            character.BenefitRolls += -1;
-                        }
+                        character.AddHistory("Join an ihatei heading for frontier worlds. Gain an Ally.", dice);
+                        character.NextTermBenefits.MustAttemptCareerGroup = CareerGroup.ImperiumCareer;
+                        character.AddAlly();
                     }
                     else
                     {
-                        if (dice.RollHigh(character.Skills.EffectiveSkillLevel("Stealth"), 8))
-                        {
-                            character.AddHistory($"Fled from thieves.", dice);
-                            character.BenefitRolls += 1;
-                        }
-                        else
-                        {
-                            character.AddHistory($"Caught fleeing from thieves.", dice);
-                            character.BenefitRolls += -1;
-                        }
+                        character.AddHistory("Refused to join an ihatei heading for frontier worlds.", dice);
                     }
                     return;
 
                 case 10:
-
-                    if (dice.RollHigh(character.RiteOfPassageDM + character.LastCareer!.Terms, 10))
+                    if (dice.NextBoolean())
                     {
-                        character.AddHistory($"Promoted to the officer caste.", dice);
-                        character.NextTermBenefits.MustEnroll = "Military Officer";
+                        if (dice.NextBoolean())
+                        {
+                            character.AddHistory("Joined an outlaw band.", dice);
+                            character.NextTermBenefits.MustEnroll = "Outlaw";
+                        }
+                        else
+                        {
+                            character.AddHistory("Joined a wanderer ship.", dice);
+                            character.NextTermBenefits.MustEnroll = "Wanderer";
+                        }
                     }
                     else
                     {
-                        character.AddHistory($"Considered for promotion in the officer caste but didn't make the cut.", dice);
+                        if (dice.NextBoolean())
+                            character.AddHistory("Refused to join an outlaw band.", dice);
+                        else
+                            character.AddHistory("Refused to join a wanderer ship.", dice);
                     }
-
                     return;
 
                 case 11:
-                    character.AddHistory($"Serve under a hero of the clan.", dice);
-                    if (dice.NextBoolean())
-                        character.Skills.Increase("Tactics|Military");
-                    else
-                        character.CurrentTermBenefits.AdvancementDM += 4;
+                    character.AddHistory($"Offered a chance at redemption, but owes a great debt to a clan elder.", dice);
+                    character.IsOutcast = false;
+                    character.NextTermBenefits.MusterOut = true;
+                    character.SocialStanding = 2 + dice.D(6);
                     return;
 
                 case 12:
-                    character.AddHistory($"Efforts strike a great blow for the clan.", dice);
                     character.CurrentTermBenefits.AdvancementDM += 99;
                     return;
             }
@@ -150,45 +139,38 @@ abstract class Outcast(string assignment, SpeciesCharacterBuilder speciesCharact
             switch (dice.D(6))
             {
                 case 1:
-                    Injury(character, dice, true, age);
+                    SevereInjury(character, dice, age);
                     return;
 
                 case 2:
-                    character.AddHistory($"Drumed out of the service by a superior officer. Gain a Rival.", age);
-                    character.AddRival();
+                    if (character.RemoveContact(ContactType.Contact))
+                        character.AddHistory($"Friends desert you. Lose a Contact.", age);
+                    else if (character.RemoveContact(ContactType.Ally))
+                        character.AddHistory($"Friends desert you. Lose an Ally.", age);
+                    else
+                    {
+                        character.AddHistory($"Friends desert you.", age);
+                        character.BenefitRolls = 0;
+                    }
                     return;
 
                 case 3:
-                    character.AddHistory($"Lost behind enemy lines.", age);
-                    IncreaseOneSkill(character, dice, "Stealth", "Survival", "Streetwise", "Gun Combat");
+                    character.AddHistory($"Attacked by a band of young Aslan thugs. Gain an Enemy.", age);
+                    character.AddEnemy();
                     return;
 
                 case 4:
-                    character.AddHistory($"Captured and ransomed back to the clan.", age);
-                    character.SocialStanding += -1;
+                    character.AddHistory($"Euffer a life-threatening disease.", age);
+                    character.Endurance += -1;
                     return;
 
                 case 5:
-                    if (dice.NextBoolean())
-                    {
-                        if (dice.RollHigh(character.Skills.BestSkillLevel("Gun Combat", "Athletics"), 8))
-                        {
-                            character.AddHistory("Fight bravely in a dangerous skirmish.", dice);
-                            character.NextTermBenefits.MusterOut = false;
-                        }
-                        else
-                        {
-                            character.AddHistory("Injured in a dangerous skirmish.", dice);
-                        }
-                    }
-                    else
-                    {
-                        character.AddHistory("Refused to fight in a dangerous skirmish.", dice);
-                    }
+                    character.AddHistory($"Hunted after stealing from a noble lord.", age);
+                    character.BenefitRolls += -1;
                     return;
 
                 case 6:
-                    Injury(character, dice, true, age);
+                    Injury(character, dice, age);
                     return;
             }
         }
@@ -208,37 +190,30 @@ abstract class Outcast(string assignment, SpeciesCharacterBuilder speciesCharact
         switch (careerHistory.Rank)
         {
             case 0:
-                character.Title = "Recruit";
+                character.Title = "Outcast";
                 return;
 
             case 1:
-                character.Title = "Soldier";
                 if (allowBonus)
-                    character.Skills.Add("Melee", "Natural", 1);
+                    AddOneSkill(character, dice, "Independence");
                 return;
 
             case 2:
-                character.Title = "Veteran Soldier";
                 return;
 
             case 3:
-                character.Title = "Warrior";
+                character.Title = "Survivor";
                 if (allowBonus)
-                    character.Endurance += 1;
+                    AddOneSkill(character, dice, "Streetwise");
                 return;
 
             case 4:
-                character.Title = "Veteran Warrior";
                 return;
 
             case 5:
-                character.Title = "Leader of Warriors";
                 return;
 
             case 6:
-                character.Title = "Honoured Warrior Leader";
-                if (allowBonus)
-                    character.AddHistory("Gain 3 clan shares.", character.Age);
                 return;
         }
     }

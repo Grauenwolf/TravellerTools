@@ -168,7 +168,7 @@ abstract class DolphinCivilian(string assignment, SpeciesCharacterBuilder specie
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:
