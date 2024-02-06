@@ -50,6 +50,10 @@
 	  <Compile Include="Aslan\Careers\Outlaw_Pirate.cs" />
 	  <Compile Include="Aslan\Careers\Outlaw_Raider.cs" />
 	  <Compile Include="Aslan\Careers\Outlaw_Thief.cs" />
+	  <Compile Include="Aslan\Careers\Scientist.cs" />
+	  <Compile Include="Aslan\Careers\Scientist_Explorer.cs" />
+	  <Compile Include="Aslan\Careers\Scientist_Healer.cs" />
+	  <Compile Include="Aslan\Careers\Scientist_Researcher.cs" />
 	  <Compile Include="Aslan\MurrissiCharacterBuilder.cs" />
 	</ItemGroup>
 

@@ -84,12 +84,12 @@ abstract class Psion(string assignment, SpeciesCharacterBuilder speciesCharacter
                 return;
 
             case 10:
-                character.AddHistory($"Pick up potentially useful information using {character.Name}'s psychic powers/", dice);
+                character.AddHistory($"Pick up potentially useful information using {character.Name}'s psychic powers.", dice);
                 character.BenefitRollDMs.Add(1);
                 return;
 
             case 11:
-                character.AddHistory($"Gain a mentor/", dice);
+                character.AddHistory($"Gain a mentor.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 4;
                 return;
 

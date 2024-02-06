@@ -134,7 +134,7 @@ abstract class SpaceOfficer(string assignment, SpeciesCharacterBuilder speciesCh
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:
@@ -172,7 +172,7 @@ abstract class SpaceOfficer(string assignment, SpeciesCharacterBuilder speciesCh
                 return;
 
             case 6:
-                Injury(character, dice, true, age);
+                Injury(character, dice, age);
                 return;
         }
     }
@@ -233,7 +233,7 @@ abstract class SpaceOfficer(string assignment, SpeciesCharacterBuilder speciesCh
         dm += character.GetEnlistmentBonus(Career, Assignment);
         dm += QualifyDM;
 
-        return dice.RollHigh(dm, , isPrecheck);
+        return dice.RollHigh(dm, 10, isPrecheck);
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)

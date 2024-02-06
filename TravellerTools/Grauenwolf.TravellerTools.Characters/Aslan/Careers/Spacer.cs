@@ -1,8 +1,8 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-abstract class Spacer(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Spacer", assignment, speciesCharacterBuilder) {
-    internal override bool RankCarryover => true;
-    public override string? Source => "Aliens of Charted Space 1, page 34";
+abstract class SpaceOfficer(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Space Officer", assignment, speciesCharacterBuilder)
+{
+    public override string? Source => "Aliens of Charted Space 1, page 36";
 
 
     protected override int AdvancedEductionMin => 8;
@@ -135,7 +135,7 @@ abstract class Spacer(string assignment, SpeciesCharacterBuilder speciesCharacte
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:
@@ -173,7 +173,7 @@ abstract class Spacer(string assignment, SpeciesCharacterBuilder speciesCharacte
                 return;
 
             case 6:
-                Injury(character, dice, true, age);
+                Injury(character, dice, age);
                 return;
         }
     }
@@ -234,7 +234,7 @@ abstract class Spacer(string assignment, SpeciesCharacterBuilder speciesCharacte
         dm += character.GetEnlistmentBonus(Career, Assignment);
         dm += QualifyDM;
 
-        return dice.RollHigh(dm, , isPrecheck);
+        return dice.RollHigh(dm, 8, isPrecheck);
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)

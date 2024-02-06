@@ -97,6 +97,7 @@ abstract class Scholar(string assignment, SpeciesCharacterBuilder speciesCharact
 
             case 11:
                 character.AddHistory($"Work for an eccentric but brilliant mentor, who becomes an Ally.", dice);
+                character.AddAlly();
                 switch (dice.D(2))
                 {
                     case 1:

@@ -1,14 +1,14 @@
 namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
-abstract class Scientist(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Scientist", assignment, speciesCharacterBuilder) {
-    internal override bool RankCarryover => true;
+abstract class Scientist(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Scientist", assignment, speciesCharacterBuilder)
+{
     public override string? Source => "Aliens of Charted Space 1, page 32";
-
+    internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 8;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)
     {
-        AddBasicSkills(character, dice, all, "", "", "", "", "", "");
+        AddBasicSkills(character, dice, all, "Electronics", "Science", "Science", "Science", "Investigate", "Admin");
     }
 
     internal override void Event(Character character, Dice dice)
@@ -21,37 +21,28 @@ abstract class Scientist(string assignment, SpeciesCharacterBuilder speciesChara
                 return;
 
             case 3:
+
+                if (dice.NextBoolean() && AddOneSkill(character, dice, "Carouse", "Survival", "Streetwise"))
                 {
-                    if (dice.RollHigh(8, character.Skills.BestSkillLevel("Recon", "Gun Combat")))
-                    {
-                        character.AddHistory($"Sent into the maw of hell.", dice);
-                        AddOneSkill(character, dice, "Stealth", "Medic", "Heavy Weapons", "Leadership");
-                    }
-                    else
-                    {
-                        var age = character.AddHistory($"Sent into the maw of hell and injured.", dice);
-                        Injury(character, dice, age);
-                    }
+                    character.AddHistory($"Spend some time outside of the lab.", dice);
+                }
+                else
+                {
+                    character.AddHistory($"Spend some time outside of the lab. Gain a Contact.", dice);
+                    character.AddContact();
                 }
                 return;
 
             case 4:
-
-                character.AddHistory($"Assigned to garrison duty on a clan outpost. Gain a Contact.", dice);
-                character.AddContact();
-                IncreaseOneSkill(character, dice, "Streetwise", "Electronics|Comms", "Mechanic");
+                character.AddHistory($"Work on weapons technology for the clan.", dice);
+                AddOneSkill(character, dice, "Science", "Engineer", "Gunner", "Gun Combat");
 
                 return;
 
             case 5:
-                var skill = IncreaseOneSkill(character, dice, "Melee|Natural", "Gun Combat", "Drive", "Survival");
-                if (skill != null && dice.RollHigh(skill.Level, 8))
-                {
-                    character.AddHistory($"Victorious in a border skirmish with another clan.", dice);
-                    character.CurrentTermBenefits.AdvancementDM += 2;
-                }
-                else
-                    character.AddHistory($"Involved in a border skirmish with another clan.", dice);
+                character.AddHistory($"Work closely with a scientist from another species. Gain a Contact.", dice);
+                AddOneSkill(character, dice, "Tolerance");
+                character.AddContact();
                 return;
 
             case 6:
@@ -65,65 +56,79 @@ abstract class Scientist(string assignment, SpeciesCharacterBuilder speciesChara
                 return;
 
             case 8:
-                character.AddHistory("Fight against an alien race.", dice);
-                IncreaseOneSkill(character, dice, "Gun Combat", "Language", "Melee", "Recon", "Suvival");
-                return;
-
-            case 9:
-                if (dice.NextBoolean())
+                if (dice.NextBoolean() && AddOneSkill(character, dice, "Admin", "Art", "Science"))
                 {
-                    if (dice.RollHigh(character.Skills.EffectiveSkillLevel("Melee", "Natural"), 8))
-                    {
-                        character.AddHistory($"An officer insults {character.Name}'s courage, leading to a successful duel.", dice);
-                        character.SocialStanding += 1;
-                    }
-                    else
-                    {
-                        character.AddHistory($"An officer insults {character.Name}'s courage, leading to a defeat in a duel.", dice);
-                        character.SocialStanding += -1;
-                    }
+                    character.AddHistory($"Teach the young cubs of the clan.", dice);
                 }
                 else
                 {
-                    if (dice.NextBoolean())
-                    {
-                        var age = character.AddHistory($"An officer insults {character.Name}'s courage, leading to reckless behavior and a wound.", dice);
-                        Injury(character, dice, age);
-                    }
-                    else
-                    {
-                        character.AddHistory($"An officer insults {character.Name}'s courage. Under fire, prove the office wrong and gain a Rival.", dice);
+                    character.AddHistory($"Teach the young cubs of the clan. Gain a Contact.", dice);
+                    character.AddContact();
+                }
+                return;
+
+            case 9:
+                switch (dice.D(3))
+                {
+                    case 1:
+                        if (dice.RollHigh(character.Skills.BestSkillLevel("Science"), 10))
+                        {
+                            character.AddHistory($"Scientist from another clan tried to make a breakthrough in an area that {character.Name} was researching, but {character.Name} beat them to it. Gain a Rival.", dice); character.CurrentTermBenefits.AdvancementDM += 2;
+                        }
+                        else
+                        {
+                            character.AddHistory($"Scientist from another clan made to make a breakthrough in an area that {character.Name} was researching despite {character.Name} pouring funds into it. Gain a Rival.", dice);
+                            character.BenefitRolls += -1;
+                        }
                         character.AddRival();
-                        character.SocialStanding += 1;
-                        character.CurrentTermBenefits.AdvancementDM += 4;
-                    }
+                        break;
+
+                    case 2:
+                        if (dice.RollHigh(character.Skills.BestSkillLevel("Stealth", "Deception"), 8))
+                        {
+                            character.AddHistory($"Scientist from another clan tried to make a breakthrough in an area that {character.Name} was researching, so {character.Name} sabotaged their work. Gain an Enemy.", dice);
+                            character.CurrentTermBenefits.AdvancementDM += 2;
+                        }
+                        else
+                        {
+                            character.AddHistory($"Scientist from another clan made a breakthrough in an area that {character.Name} was researching despite {character.Name} trying to sabotaged their work. Gain an Enemy.", dice);
+                            character.SocialStanding -= 2;
+                        }
+                        character.AddEnemy();
+                        break;
+
+                    case 3:
+                        character.AddHistory($"Scientist from another clan makes a breakthrough in an area that {character.Name} was researching.", dice);
+                        break;
                 }
                 return;
 
             case 10:
 
-                if (dice.RollHigh(character.RiteOfPassageDM + character.LastCareer!.Terms, 10))
+                var itemType = dice.NextBoolean() ? "a rare alien artefact" : "an alien life form";
+
+                if (dice.RollHigh(character.Skills.BestSkillLevel("Science"), 8))
                 {
-                    character.AddHistory($"Promoted to the officer caste.", dice);
-                    character.NextTermBenefits.MustEnroll = "Military Officer";
+                    character.AddHistory($"Uncover secrets about {itemType} that you found.", dice);
+                    character.CurrentTermBenefits.AdvancementDM += 2;
                 }
                 else
                 {
-                    character.AddHistory($"Considered for promotion in the officer caste but didn't make the cut.", dice);
+                    character.AddHistory($"Failed to understand {itemType} that you found.", dice);
+                    character.CurrentTermBenefits.AdvancementDM += -2;
                 }
-
                 return;
 
             case 11:
-                character.AddHistory($"Serve under a hero of the clan.", dice);
+                character.AddHistory($"Study at one of the great universities or research facilities.", dice);
                 if (dice.NextBoolean())
-                    character.Skills.Increase("Tactics|Military");
+                    character.Skills.Increase("Investigate");
                 else
                     character.CurrentTermBenefits.AdvancementDM += 4;
                 return;
 
             case 12:
-                character.AddHistory($"Efforts strike a great blow for the clan.", dice);
+                character.AddHistory($"Make a scientific breakthrough.", dice);
                 character.CurrentTermBenefits.AdvancementDM += 99;
                 return;
         }
@@ -134,52 +139,54 @@ abstract class Scientist(string assignment, SpeciesCharacterBuilder speciesChara
         switch (dice.D(6))
         {
             case 1:
-                Injury(character, dice, true, age);
+                SevereInjury(character, dice, age);
                 return;
 
             case 2:
-                character.AddHistory($"Drumed out of the service by a superior officer. Gain a Rival.", age);
-                character.AddRival();
+                character.AddHistory($"Exposed to something dangerous in a lab accident.", age);
+                character.Endurance += -1;
                 return;
 
             case 3:
-                character.AddHistory($"Lost behind enemy lines.", age);
-                IncreaseOneSkill(character, dice, "Stealth", "Survival", "Streetwise", "Gun Combat");
+                character.AddHistory($"Work sabotaged by another researcher. Gain a Rival.", age);
+                character.AddRival();
                 return;
 
             case 4:
-                character.AddHistory($"Captured and ransomed back to the clan.", age);
-                character.SocialStanding += -1;
+                character.AddHistory($"A lab ship misjumps, stranding you on an alien world.", age);
+                AddOneSkill(character, dice, "Survival", "Astrogation", "Mechanic", "Science");
                 return;
 
             case 5:
                 if (dice.NextBoolean())
                 {
-                    if (dice.RollHigh(character.Skills.BestSkillLevel("Gun Combat", "Athletics"), 8))
+                    if (dice.RollHigh(character.Skills.EffectiveSkillLevel("Melee", "Natural"), 8))
                     {
-                        character.AddHistory("Fight bravely in a dangerous skirmish.", dice);
+                        character.AddHistory($"Clan elder challenged {character.Name}'s work as being flawed and was defeated in a duel.", dice);
                         character.NextTermBenefits.MusterOut = false;
+                        character.SocialStanding += 1;
                     }
                     else
                     {
-                        character.AddHistory("Injured in a dangerous skirmish.", dice);
+                        character.AddHistory($"Clan elder challenged {character.Name}'s work as being flawed, then defeated {character.Name} in a duel.", dice);
+                        character.SocialStanding += -2;
                     }
                 }
                 else
                 {
-                    character.AddHistory("Refused to fight in a dangerous skirmish.", dice);
+                    character.AddHistory($"Backed down when a clan elder challenged {character.Name}'s work as being flawed.", dice);
                 }
                 return;
 
             case 6:
-                Injury(character, dice, true, age);
+                Injury(character, dice, age);
                 return;
         }
     }
 
     internal override void ServiceSkill(Character character, Dice dice)
     {
-        IncreaseOneSkill(character, dice, "", "", "", "", "", "");
+        IncreaseOneSkill(character, dice, "Electronics", "Science", "Science", "Science", "Investigate", "Admin");
     }
 
     internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
@@ -187,44 +194,40 @@ abstract class Scientist(string assignment, SpeciesCharacterBuilder speciesChara
         switch (careerHistory.Rank)
         {
             case 0:
-                character.Title = "Recruit";
                 return;
 
             case 1:
-                character.Title = "Soldier";
+                character.Title = "Scholar";
                 if (allowBonus)
-                    character.Skills.Add("Melee", "Natural", 1);
+                    AddOneSkill(character, dice, "Electronics|Computers");
                 return;
 
             case 2:
-                character.Title = "Veteran Soldier";
                 return;
 
             case 3:
-                character.Title = "Warrior";
+                character.Title = "Respected Scholar";
                 if (allowBonus)
-                    character.Endurance += 1;
+                    AddOneSkill(character, dice, "Admin");
                 return;
 
             case 4:
-                character.Title = "Veteran Warrior";
                 return;
 
             case 5:
-                character.Title = "Leader of Warriors";
                 return;
 
             case 6:
-                character.Title = "Honoured Warrior Leader";
+                character.Title = "Revered Scholar";
                 if (allowBonus)
-                    character.AddHistory("Gain 3 clan shares.", character.Age);
+                    character.SocialStanding += 1;
                 return;
         }
     }
 
     protected override void AdvancedEducation(Character character, Dice dice)
     {
-        Increase(character, dice, "", "", "", "", "", "");
+        Increase(character, dice, "Admin", "Astrogation", "Engineer", "Electronics", "Advocate", "Medic");
     }
 
     protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
@@ -233,13 +236,17 @@ abstract class Scientist(string assignment, SpeciesCharacterBuilder speciesChara
         dm += character.GetEnlistmentBonus(Career, Assignment);
         dm += QualifyDM;
 
-        return dice.RollHigh(dm, , isPrecheck);
+        if (character.Gender == "M")
+            return dice.RollHigh(dm, 10, isPrecheck);
+        else
+            return dice.RollHigh(dm, 7, isPrecheck);
     }
 
     protected override void PersonalDevelopment(Character character, Dice dice)
     {
-        Increase(character, dice, "", "", "", "", "", "");
+        if (character.Gender == "M")
+            Increase(character, dice, "Intellect", "Education", "SocialStanding", "Diplomat", "Tolerance", "Independence");
+        else
+            Increase(character, dice, "Intellect", "Education", "SocialStanding", "Diplomat", "Tolerance", "Tolerance");
     }
-
-
 }
