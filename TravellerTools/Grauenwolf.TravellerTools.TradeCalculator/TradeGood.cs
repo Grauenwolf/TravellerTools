@@ -67,6 +67,8 @@ public class TradeGood
     [XmlAttribute()]
     public decimal BasePrice { get; set; }
 
+    public bool Common => Availability == "*";
+
     /// <remarks/>
     [XmlAttribute]
     public string Availability

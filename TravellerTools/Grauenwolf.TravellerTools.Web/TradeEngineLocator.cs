@@ -13,6 +13,7 @@ public class TradeEngineLocator(TravellerMapServiceLocator mapService, string da
     public CharacterBuilder CharacterBuilder { get; } = characterBuilder;
     public string DataPath { get; } = dataPath;
 
+    public TradeEngine DefaultTradeEngine => GetTradeEngine("1105", Edition.Mongoose2022);
     public TravellerMapServiceLocator MapService { get; } = mapService;
 
     public NameGenerator NameGenerator { get; } = nameGenerator;

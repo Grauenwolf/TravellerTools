@@ -36,10 +36,24 @@
                     </InputSelect>
                 </td>
             </tr>
+            <tr style="@(string.IsNullOrEmpty(Model.SpeciesOrFaction) ?  "display:none;" : "")"><th>% Chance of unusual Species</th>
+                <td colspan="2">
+                    <InputNumber @bind-Value="Model.PercentOfOtherSpecies" style="width: 50px;" />
+                </td></tr>
             <tr>
                 <th>Backwater Starport</th>
-                <td><button @onclick="BackwaterStarportGeneralEncounter">General Encounter</button></td>
+                <td><button  @onclick="BackwaterStarportGeneralEncounter">General Encounter</button></td>
                 <td><button @onclick="BackwaterStarportSignificantEncounter">Significant Encounter</button></td>
+            </tr>
+            <tr >
+                <th>Bustling Starport</th>
+                <td><button @onclick="BustlingStarportGeneralEncounter">General Encounter</button></td>
+                <td style="display:none"><button @onclick="BustlingStarportSignificantEncounter">Significant Encounter</button></td>
+            </tr>
+            <tr style="display:none">
+                <th>Metropolis Starport</th>
+                <td><button @onclick="MetropolisStarportGeneralEncounter">General Encounter</button></td>
+                <td><button @onclick="MetropolisStarportSignificantEncounter">Significant Encounter</button></td>
             </tr>
         </table>
     </EditForm>

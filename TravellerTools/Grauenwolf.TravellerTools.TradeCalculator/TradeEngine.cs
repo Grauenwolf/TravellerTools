@@ -23,18 +23,23 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
             using (var stream = file.OpenRead())
                 TradeGoods = ((TradeGoods)converter.Deserialize(stream)!).TradeGood.ToImmutableList();
 
+            CommonTradeGoods = TradeGoods.Where(g => g.Common).ToImmutableList();
+            UncommonTradeGoods = TradeGoods.Where(g => g.Legal && !g.Common).ToImmutableList();
             LegalTradeGoods = TradeGoods.Where(g => g.Legal).ToImmutableList();
+            IllegalTradeGoods = TradeGoods.Where(g => !g.Legal).ToImmutableList();
             m_CharacterBuilderLocator = characterBuilder;
 
             var personalityFile = new FileInfo(Path.Combine(dataPath, "personality.txt"));
             m_Personalities = File.ReadAllLines(personalityFile.FullName).Where(x => !string.IsNullOrEmpty(x)).Distinct().ToImmutableArray();
         }
 
+        public ImmutableList<TradeGood> CommonTradeGoods { get; }
+        public ImmutableList<TradeGood> IllegalTradeGoods { get; }
+        public ImmutableList<TradeGood> LegalTradeGoods { get; }
         public TravellerMapService MapService { get; }
+        public ImmutableList<TradeGood> TradeGoods { get; }
+        public ImmutableList<TradeGood> UncommonTradeGoods { get; }
         protected abstract string DataFileName { get; }
-        protected ImmutableList<TradeGood> LegalTradeGoods { get; }
-        protected ImmutableList<TradeGood> TradeGoods { get; }
-
         protected virtual bool UseCounterpartyScore => false;
 
         /// <summary>

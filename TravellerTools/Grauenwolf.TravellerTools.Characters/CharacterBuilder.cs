@@ -5,13 +5,6 @@ using Tortuga.Anchor;
 
 namespace Grauenwolf.TravellerTools.Characters;
 
-public class FactionOrSpecies(string key, string displayText, bool isFaction)
-{
-    public string DisplayText { get; } = displayText;
-    public bool IsFaction { get; } = isFaction;
-    public string Key { get; } = key;
-}
-
 public class CharacterBuilder
 {
     readonly ImmutableDictionary<string, SpeciesCharacterBuilder> m_CharacterBuilders;
@@ -92,11 +85,14 @@ public class CharacterBuilder
         }
     }
 
-    public Character CreateCharacter(Dice dice, string? speciesOrFaction = null)
+    public Character CreateCharacter(Dice dice, ISpeciesSettings speciesSettings, bool noChildren = false) =>
+        CreateCharacter(dice, speciesSettings.SpeciesOrFaction, speciesSettings.PercentOfOtherSpecies, noChildren);
+
+    public Character CreateCharacter(Dice dice, string? speciesOrFaction = null, int? percentOfOtherSpecies = null, bool noChildren = false)
     {
         while (true)
         {
-            var options = CreateCharacterStub(dice, speciesOrFaction);
+            var options = CreateCharacterStub(dice, speciesOrFaction, percentOfOtherSpecies, noChildren: noChildren);
 
             var character = Build(options);
             if (!character.IsDead)
@@ -107,10 +103,19 @@ public class CharacterBuilder
         }
     }
 
-    public CharacterBuilderOptions CreateCharacterStub(Dice dice, string? speciesOrFaction = null, string? genderCode = null, bool noChildren = false)
+    /// <summary>
+    /// Creates the character stub.
+    /// </summary>
+    /// <param name="dice">The dice.</param>
+    /// <param name="speciesOrFaction">The species or faction.</param>
+    /// <param name="percentOfOtherSpecies">The percent of other species form 0 to 100, default 0.</param>
+    /// <param name="genderCode">The gender code.</param>
+    /// <param name="noChildren">if set to true, children will not be generated.</param>
+    /// <returns>CharacterBuilderOptions.</returns>
+    public CharacterBuilderOptions CreateCharacterStub(Dice dice, string? speciesOrFaction = null, int? percentOfOtherSpecies = null, string? genderCode = null, bool noChildren = false)
     {
         var options = new CharacterBuilderOptions();
-        options.Species = speciesOrFaction ?? GetRandomSpecies(dice);
+        options.Species = GetRandomSpecies(dice, speciesOrFaction, percentOfOtherSpecies);
         var builder = GetCharacterBuilder(options.Species, dice);
         options.Species = builder.Species; //Copy back in case it was a faction
 
@@ -133,22 +138,36 @@ public class CharacterBuilder
     /// Creates the character with a desired final career.
     /// </summary>
     /// <param name="careerList">The list of desired careers and/or assignments.</param>
-    public Character CreateCharacterWithCareer(Dice dice, string career, string? species = null)
+    public Character CreateCharacterWithCareer(Dice dice, string career, string? species = null, int? percentOfOtherSpecies = null)
     {
-        return CreateCharacterWithCareer(dice, new[] { career }, species);
+        return CreateCharacterWithCareer(dice, new[] { career }, species, percentOfOtherSpecies);
     }
 
     /// <summary>
     /// Creates the character with a desired final career.
     /// </summary>
     /// <param name="careerList">The list of desired careers and/or assignments.</param>
-    public Character CreateCharacterWithCareer(Dice dice, IReadOnlyList<string> careerList, string? species = null)
+    public Character CreateCharacterWithCareer(Dice dice, ISpeciesSettings speciesSettings, string career) =>
+    CreateCharacterWithCareer(dice, career, speciesSettings.SpeciesOrFaction, speciesSettings.PercentOfOtherSpecies);
+
+    /// <summary>
+    /// Creates the character with a desired final career.
+    /// </summary>
+    /// <param name="careerList">The list of desired careers and/or assignments.</param>
+    public Character CreateCharacterWithCareer(Dice dice, ISpeciesSettings speciesSettings, IReadOnlyList<string> careerList) =>
+        CreateCharacterWithCareer(dice, careerList, speciesSettings.SpeciesOrFaction, speciesSettings.PercentOfOtherSpecies);
+
+    /// <summary>
+    /// Creates the character with a desired final career.
+    /// </summary>
+    /// <param name="careerList">The list of desired careers and/or assignments.</param>
+    public Character CreateCharacterWithCareer(Dice dice, IReadOnlyList<string> careerList, string? speciesOrFaction = null, int? percentOfOtherSpecies = null)
     {
         var characters = new List<Character>();
 
         for (int i = 0; i < 500; i++)
         {
-            var character = Build(CreateCharacterStub(dice, species, noChildren: true));
+            var character = Build(CreateCharacterStub(dice, speciesOrFaction, percentOfOtherSpecies, noChildren: true));
             if (character.IsDead && !character.LongTermBenefits.Retired)
                 continue;
 
@@ -186,7 +205,11 @@ public class CharacterBuilder
         }
     }
 
-    public Character CreateCharacterWithSkill(Dice dice, string targetSkillName, string? targetSkillSpeciality, int? targetSkillLevel = null, string? species = null)
+    public Character CreateCharacterWithSkill(Dice dice, ISpeciesSettings speciesSettings, string targetSkillName, string? targetSkillSpeciality, int? targetSkillLevel = null)
+        =>
+        CreateCharacterWithSkill(dice, targetSkillName, targetSkillSpeciality, targetSkillLevel, speciesSettings?.SpeciesOrFaction, speciesSettings?.PercentOfOtherSpecies);
+
+    public Character CreateCharacterWithSkill(Dice dice, string targetSkillName, string? targetSkillSpeciality, int? targetSkillLevel = null, string? species = null, int? percentOfOtherSpecies = null)
     {
         targetSkillLevel ??= (int)Math.Floor(dice.D(2, 6) / 3.0);
 
@@ -195,7 +218,7 @@ public class CharacterBuilder
 
         for (var i = 0; i < 500 || lastBest == null; i++)
         {
-            var character = Build(CreateCharacterStub(dice, species));
+            var character = Build(CreateCharacterStub(dice, species, percentOfOtherSpecies));
             if (!character.IsDead && !character.LongTermBenefits.Retired)
             {
                 int currentSkill = character.Skills.EffectiveSkillLevel(targetSkillName, targetSkillSpeciality);
@@ -563,23 +586,6 @@ public class CharacterBuilder
             return GetCharacterBuilder(species).Careers(null).Where(x => x.Career == career && x.Assignment != null).Select(x => x.Assignment).Distinct().OrderBy(x => x).ToList()!;
     }
 
-    /// <summary>
-    /// Gets the character builder for a species or faction. If faction, choose one at random.
-    /// </summary>
-    public SpeciesCharacterBuilder GetCharacterBuilder(string? speciesOrFaction, Dice dice)
-    {
-        if (speciesOrFaction != null)
-        {
-            if (m_CharacterBuilders.TryGetValue(speciesOrFaction, out var result))
-                return result;
-
-            if (m_FactionsDictionary.TryGetValue(speciesOrFaction, out var list))
-                return dice.Choose(list);
-        }
-
-        return m_CharacterBuilders["Humaniti"];
-    }
-
     public SpeciesCharacterBuilder GetCharacterBuilder(string? species)
     {
         if (species != null && m_CharacterBuilders.TryGetValue(species, out var result))
@@ -590,6 +596,29 @@ public class CharacterBuilder
 
     public string GetRandomSpecies(Dice dice)
     {
+        return dice.Choose(SpeciesList);
+    }
+
+    public string GetRandomSpecies(Dice dice, ISpeciesSettings speciesSettings) =>
+        GetRandomSpecies(dice, speciesSettings.SpeciesOrFaction, speciesSettings.PercentOfOtherSpecies);
+
+    /// <summary>
+    /// Gets a random species, using the speciesOrFaction parameter to filter to list of options. If percentOfOtherSpecies is &gt; 0, then completely random species will occur that many times out of a hundred.
+    /// </summary>
+    /// <param name="dice">The dice.</param>
+    /// <param name="speciesOrFaction">The species or faction.</param>
+    /// <param name="percentOfOtherSpecies">The percent of other species form 0 to 100, default 0.</param>
+    public string GetRandomSpecies(Dice dice, string? speciesOrFaction, int? percentOfOtherSpecies = null)
+    {
+        if (speciesOrFaction != null && ((percentOfOtherSpecies ?? 0) == 0 || dice.D(100) > percentOfOtherSpecies))
+        {
+            if (m_CharacterBuilders.TryGetValue(speciesOrFaction, out var result))
+                return result.Species;
+
+            if (m_FactionsDictionary.TryGetValue(speciesOrFaction, out var list))
+                return dice.Choose(list).Species;
+        }
+
         return dice.Choose(SpeciesList);
     }
 
@@ -616,5 +645,22 @@ public class CharacterBuilder
     public string? GetSpeciesUrl(string? species)
     {
         return GetCharacterBuilder(species)?.SpeciesUrl;
+    }
+
+    /// <summary>
+    /// Gets the character builder for a species or faction. If faction, choose one at random.
+    /// </summary>
+    SpeciesCharacterBuilder GetCharacterBuilder(string? speciesOrFaction, Dice dice)
+    {
+        if (speciesOrFaction != null)
+        {
+            if (m_CharacterBuilders.TryGetValue(speciesOrFaction, out var result))
+                return result;
+
+            if (m_FactionsDictionary.TryGetValue(speciesOrFaction, out var list))
+                return dice.Choose(list);
+        }
+
+        return m_CharacterBuilders["Humaniti"];
     }
 }

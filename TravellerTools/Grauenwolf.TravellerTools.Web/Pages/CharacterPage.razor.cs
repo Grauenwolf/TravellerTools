@@ -175,7 +175,7 @@ partial class CharacterPage
         }
 
         //This gives us a name and starting age
-        var options = CharacterBuilder.CreateCharacterStub(dice, species, Model.Gender, noChildren);
+        var options = CharacterBuilder.CreateCharacterStub(dice, species, genderCode: Model.Gender, noChildren: noChildren);
 
         var builder = CharacterBuilder.GetCharacterBuilder(options.Species);
 
