@@ -2,6 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 abstract class MilitaryAcademy(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Military Academy", assignment, speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Military | CareerType.Precareer;
+
     public override string? Source => "Traveller Core, page 16";
 
     protected abstract string Branch { get; }
@@ -12,24 +14,6 @@ abstract class MilitaryAcademy(string assignment, SpeciesCharacterBuilder specie
     ///// This is a stub for military careers used to get basic skills.
     ///// </summary>
     //protected abstract MilitaryCareer Stub { get; }
-
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.LongTermBenefits.MayEnrollInSchool)
-            return false;
-        if (character.CurrentTerm > 3)
-            return false;
-
-        var dm = character.GetDM(QualifyAttribute);
-        if (character.CurrentTerm == 2)
-            dm += -2;
-        if (character.CurrentTerm == 3)
-            dm += -4;
-        dm += character.GetEnlistmentBonus(Career, Assignment);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, QualifyTarget, isPrecheck);
-    }
 
     internal override void Run(Character character, Dice dice)
     {
@@ -105,4 +89,22 @@ abstract class MilitaryAcademy(string assignment, SpeciesCharacterBuilder specie
     /// Gets a list of skills you can choose from for pre-career events.
     /// </summary>
     protected abstract SkillTemplateCollection GetBasicSkills(Character character);
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.LongTermBenefits.MayEnrollInSchool)
+            return false;
+        if (character.CurrentTerm > 3)
+            return false;
+
+        var dm = character.GetDM(QualifyAttribute);
+        if (character.CurrentTerm == 2)
+            dm += -2;
+        if (character.CurrentTerm == 3)
+            dm += -4;
+        dm += character.GetEnlistmentBonus(Career, Assignment);
+        dm += QualifyDM;
+
+        return dice.RollHigh(dm, QualifyTarget, isPrecheck);
+    }
 }

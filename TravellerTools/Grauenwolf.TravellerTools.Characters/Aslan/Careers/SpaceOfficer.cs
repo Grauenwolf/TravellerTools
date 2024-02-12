@@ -4,6 +4,7 @@ abstract class SpaceOfficer(string assignment, SpeciesCharacterBuilder speciesCh
     public override string? Source => "Aliens of Charted Space 1, page 36";
 
 
+    public override CareerType CareerTypes => CareerType.Military;
     protected override int AdvancedEductionMin => 8;
 
     internal override void BasicTrainingSkills(Character character, Dice dice, bool all)

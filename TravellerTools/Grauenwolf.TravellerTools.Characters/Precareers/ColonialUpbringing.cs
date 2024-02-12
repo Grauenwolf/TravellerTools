@@ -2,15 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class ColonialUpbringing(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Colonial Upbringing", null, speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Precareer;
     public override string? Source => "Traveller Companion, page  32";
-
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (character.CurrentTerm != 1)
-            return false;
-
-        return true;
-    }
 
     internal override void Run(Character character, Dice dice)
     {
@@ -90,6 +83,14 @@ class ColonialUpbringing(SpeciesCharacterBuilder speciesCharacterBuilder) : Care
             character.Endurance += 1;
             character.Education -= dice.D(3);
         }
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (character.CurrentTerm != 1)
+            return false;
+
+        return true;
     }
 
     private void IncreaseLevel0Skill(Character character, Dice dice)

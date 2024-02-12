@@ -2,28 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class University(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("University", null, speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Precareer;
     public override string? Source => "Traveller Core, page 16";
-
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (!character.LongTermBenefits.MayEnrollInSchool)
-            return false;
-        if (character.CurrentTerm > 3)
-            return false;
-
-        var dm = character.EducationDM;
-        if (character.CurrentTerm == 2)
-            dm += -1;
-        if (character.CurrentTerm == 3)
-            dm += -2;
-        if (character.SocialStanding >= 9)
-            dm += 1;
-
-        dm += character.GetEnlistmentBonus(Career, null);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 7, isPrecheck);
-    }
 
     internal override void Run(Character character, Dice dice)
     {
@@ -108,5 +88,26 @@ class University(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("
             character.LongTermBenefits.EnlistmentDM.Add("Scholar", bonus);
             character.LongTermBenefits.EnlistmentDM.Add("Scouts", bonus);
         }
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (!character.LongTermBenefits.MayEnrollInSchool)
+            return false;
+        if (character.CurrentTerm > 3)
+            return false;
+
+        var dm = character.EducationDM;
+        if (character.CurrentTerm == 2)
+            dm += -1;
+        if (character.CurrentTerm == 3)
+            dm += -2;
+        if (character.SocialStanding >= 9)
+            dm += 1;
+
+        dm += character.GetEnlistmentBonus(Career, null);
+        dm += QualifyDM;
+
+        return dice.RollHigh(dm, 7, isPrecheck);
     }
 }

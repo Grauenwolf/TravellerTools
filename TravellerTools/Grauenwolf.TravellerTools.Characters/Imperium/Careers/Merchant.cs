@@ -3,6 +3,7 @@
 abstract class Merchant(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Merchant", assignment, speciesCharacterBuilder)
 {
     public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
+    public override CareerType CareerTypes => CareerType.LegalGoodsTrader | CareerType.ShadyGoodsTrader;
     public override string? Source => "Traveller Core, page 34";
     protected override int AdvancedEductionMin => 8;
 

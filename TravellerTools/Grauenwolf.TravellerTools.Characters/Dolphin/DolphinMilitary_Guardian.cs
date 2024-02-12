@@ -2,6 +2,7 @@
 
 class DolphinMilitary_Guardian(SpeciesCharacterBuilder speciesCharacterBuilder) : DolphinMilitary("Guardian", speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.StarportOfficer | CareerType.Military;
     protected override string AdvancementAttribute => "Str";
 
     protected override int AdvancementTarget => 7;

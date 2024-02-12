@@ -2,6 +2,8 @@
 
 class Scholar_FieldResearcher(SpeciesCharacterBuilder speciesCharacterBuilder) : Scholar("Field Researcher", speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Science | CareerType.FieldScience;
+
     protected override string AdvancementAttribute => "Int";
 
     protected override int AdvancementTarget => 6;

@@ -3,6 +3,7 @@
 abstract class Scholar(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Scholar", assignment, speciesCharacterBuilder)
 {
     public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
+    public override CareerType CareerTypes => CareerType.Science;
     public override string? Source => "Traveller Core, page 42";
     internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 10;

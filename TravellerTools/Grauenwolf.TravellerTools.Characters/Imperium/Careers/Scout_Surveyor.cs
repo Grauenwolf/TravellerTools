@@ -2,6 +2,7 @@
 
 class Scout_Surveyor(SpeciesCharacterBuilder speciesCharacterBuilder) : Scout("Surveyor", speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Science | CareerType.FieldScience | CareerType.Military;
     protected override string AdvancementAttribute => "Int";
 
     protected override int AdvancementTarget => 8;

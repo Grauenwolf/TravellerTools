@@ -114,7 +114,7 @@ public abstract class FullCareer(string name, string? assignment, SpeciesCharact
         CareerHistory careerHistory;
         if (!character.CareerHistory.Any(pc => pc.Career == Career))
         {
-            careerHistory = new CareerHistory(character.Age, Career, Assignment, 0);
+            careerHistory = new CareerHistory(character.Age, Career, Assignment, CareerTypes, 0);
             ChangeCareer(character, dice, careerHistory);
             BasicTrainingSkills(character, dice, character.CareerHistory.Count == 0);
             FixupSkills(character, dice);
@@ -131,14 +131,14 @@ public abstract class FullCareer(string name, string? assignment, SpeciesCharact
                     //copy old rank
                     var rank = character.CareerHistory.Where(pc => pc.Career == Career).Max(pc => pc.Rank);
                     var commissionRank = character.CareerHistory.Where(pc => pc.Career == Career).Max(pc => pc.CommissionRank);
-                    careerHistory = new CareerHistory(character.Age, Career, Assignment, rank, commissionRank);
+                    careerHistory = new CareerHistory(character.Age, Career, Assignment, CareerTypes, rank, commissionRank);
                     character.CareerHistory.Add(careerHistory);
                     ChangeAssignment(character, dice, careerHistory, true);
                 }
                 else
                 {
                     //learn basic training
-                    careerHistory = new CareerHistory(character.Age, Career, Assignment, 0);
+                    careerHistory = new CareerHistory(character.Age, Career, Assignment, CareerTypes, 0);
                     character.CareerHistory.Add(careerHistory);
                     ChangeAssignment(character, dice, careerHistory, false);
                     BasicTrainingSkills(character, dice, false);

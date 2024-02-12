@@ -2,17 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class SchoolOfHardKnocks(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("School of Hard Knocks", null, speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Precareer;
     public override string? Source => "Traveller Companion, page  34";
-
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (character.CurrentTerm != 1)
-            return false;
-        if (!character.LongTermBenefits.MayEnrollInSchool)
-            return false;
-
-        return character.SocialStanding <= 6;
-    }
 
     internal override void Run(Character character, Dice dice)
     {
@@ -102,5 +93,15 @@ class SchoolOfHardKnocks(SpeciesCharacterBuilder speciesCharacterBuilder) : Care
                 character.NextTermBenefits.MinRank = 1;
             }
         }
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (character.CurrentTerm != 1)
+            return false;
+        if (!character.LongTermBenefits.MayEnrollInSchool)
+            return false;
+
+        return character.SocialStanding <= 6;
     }
 }

@@ -2,6 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 class Outcast_Scavenger(SpeciesCharacterBuilder speciesCharacterBuilder) : Outcast("Outcast Scavenger", speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.LegalGoodsTrader | CareerType.ShadyGoodsTrader;
+
     protected override string AdvancementAttribute => "Edu";
 
     protected override int AdvancementTarget => 7;

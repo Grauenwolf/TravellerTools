@@ -2,6 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 class Military_Warrior(SpeciesCharacterBuilder speciesCharacterBuilder) : Military("Warrior", speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.StarportOfficer | CareerType.Military;
+
     protected override string AdvancementAttribute => "Str";
 
     protected override int AdvancementTarget => 6;

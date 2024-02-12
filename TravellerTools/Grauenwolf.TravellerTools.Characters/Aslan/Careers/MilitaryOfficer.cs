@@ -2,8 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 abstract class MilitaryOfficer(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Military Officer", assignment, speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Military;
     public override string? Source => "Aliens of Charted Space 1, page 30";
-
     internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 8;
 

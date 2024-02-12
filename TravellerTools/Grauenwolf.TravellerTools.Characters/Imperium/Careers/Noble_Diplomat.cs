@@ -2,6 +2,8 @@
 
 class Noble_Diplomat(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble("Diplomat", speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.StarportEmployee;
+
     protected override string AdvancementAttribute => "Soc";
 
     protected override int AdvancementTarget => 7;

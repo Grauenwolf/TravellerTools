@@ -2,6 +2,8 @@
 
 class Citizen_Corporate(SpeciesCharacterBuilder speciesCharacterBuilder) : Citizen("Corporate", speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.StarportEmployee;
+
     protected override string AdvancementAttribute => "Int";
 
     protected override int AdvancementTarget => 6;

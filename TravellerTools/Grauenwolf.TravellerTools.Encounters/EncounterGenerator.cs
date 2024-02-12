@@ -1,24 +1,18 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
-using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.TradeCalculator;
 
 namespace Grauenwolf.TravellerTools.Encounters;
 
-public interface IEncounterGeneratorSettings : ISpeciesSettings
-{
-    World? World { get; } //not currently used.
-}
-
 public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine tradeEngine)
 {
-    readonly string[] AllScienceCareers = ["Explorer", "Surveyor", "Scholar", "Scientist"];
-    readonly string[] FieldScienceCareers = ["Explorer", "Surveyor", "Field Researcher"];
-    readonly string[] IllegalCareers = ["Rogue", "Outlaw"];
-    readonly string[] LegalGoodsCareers = ["Trader", "Merchant"];
-    readonly string[] OfficerCareers = ["Law Enforcement", "Marine", "Guardian", "Warrior", "Commando"];
-    readonly string[] ReligiousCareers = ["Priest", "Believer", "Truther", "Shaper Priest"];
-    readonly string[] ShadyGoodsCareers = ["Rogue", "Trader", "Merchant"];
-    readonly string[] StarportCareers = ["Corporate", "Worker", "Law Enforcement", "Administrator", "Clan Agent", "Management"];
+    //readonly string[] AllScienceCareers = ["Explorer", "Surveyor", "Scholar", "Scientist"];
+    //readonly string[] FieldScienceCareers = ["Explorer", "Surveyor", "Field Researcher"];
+    //readonly string[] IllegalCareers = ["Rogue", "Outlaw"];
+    //readonly string[] LegalGoodsCareers = ["Trader", "Merchant"];
+    //readonly string[] OfficerCareers = ["Law Enforcement", "Marine", "Guardian", "Warrior", "Commando"];
+    //readonly string[] ReligiousCareers = ["Priest", "Believer", "Truther", "Shaper Priest"];
+    //readonly string[] ShadyGoodsCareers = ["Rogue", "Trader", "Merchant"];
+    //readonly string[] StarportCareers = ["Corporate", "Worker", "Law Enforcement", "Administrator", "Clan Agent", "Management"];
 
     public CharacterBuilder CharacterBuilder { get; } = characterBuilder;
 
@@ -176,7 +170,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
                 break;
 
             case 6:
-                result.Add("Religious zealot.", "Preacher", CharacterBuilder.CreateCharacterWithCareer(dice, settings, ReligiousCareers));
+                result.Add("Religious zealot.", "Preacher", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.Religious));
                 break;
 
             case 7:
@@ -189,7 +183,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
 
             case 9:
                 {
-                    result.Add("Seller", CharacterBuilder.CreateCharacterWithCareer(dice, settings, ShadyGoodsCareers));
+                    result.Add("Seller", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.ShadyGoodsTrader));
 
                     var price = (dice.D(5) + 3) * 10;
                     var source = dice.D(5) switch
@@ -212,7 +206,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
                 break;
 
             case 10:
-                result.Add("Pickpocket targets a character", "Pickpocket", CharacterBuilder.CreateCharacterWithCareer(dice, settings, IllegalCareers));
+                result.Add("Pickpocket targets a character", "Pickpocket", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.Illegal));
                 break;
 
             case 11:
@@ -249,7 +243,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
 
                 result.Add("Runner", CharacterBuilder.CreateCharacter(dice, settings));
                 for (var i = 0; i < dice.D(3); i++)
-                    result.Add("Officer", CharacterBuilder.CreateCharacterWithCareer(dice, settings, OfficerCareers));
+                    result.Add("Officer", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.StarportOfficer));
                 break;
 
             case 2:
@@ -288,7 +282,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
                     case 6:
                         result.Add("Bleeding out."); break;
                 }
-                result.Add("Starport Employee", CharacterBuilder.CreateCharacterWithCareer(dice, settings, StarportCareers));
+                result.Add("Starport Employee", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.StarportEmployee));
                 result.Add("Victim", CharacterBuilder.CreateCharacter(dice, settings));
                 break;
 
@@ -325,7 +319,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
                     case 6:
                         result.Add("personal fued."); break;
                 }
-                result.Add("Starport Representative", CharacterBuilder.CreateCharacterWithCareer(dice, settings, StarportCareers));
+                result.Add("Starport Representative", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.StarportEmployee));
                 result.Add("Local Representative", CharacterBuilder.CreateCharacter(dice, settings));
                 break;
 
@@ -347,14 +341,14 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
 
                     case 5:
                         result.Add("Scientist didn't return from field work.");
-                        result.Add("Missing Scientist", CharacterBuilder.CreateCharacterWithCareer(dice, settings, FieldScienceCareers));
-                        result.Add("Scientist Reporting Loss", CharacterBuilder.CreateCharacterWithCareer(dice, settings, AllScienceCareers));
-                        result.Add("Starport Representative", CharacterBuilder.CreateCharacterWithCareer(dice, settings, StarportCareers));
+                        result.Add("Missing Scientist", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.FieldScience));
+                        result.Add("Scientist Reporting Loss", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.Science));
+                        result.Add("Starport Representative", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.StarportEmployee));
                         break;
 
                     case 6:
                         result.Add("Starport security office is missing. All space traffic is halted until the officer is found.");
-                        result.Add("Missing Officer", CharacterBuilder.CreateCharacterWithCareer(dice, settings, OfficerCareers));
+                        result.Add("Missing Officer", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.StarportOfficer));
                         result.Add("Starport Representative", CharacterBuilder.CreateCharacter(dice, settings));
                         break;
                 }
@@ -365,7 +359,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
                 break;
 
             case 10:
-                result.Add("Pickpocket targets a character", "Pickpocket", CharacterBuilder.CreateCharacterWithCareer(dice, settings, IllegalCareers));
+                result.Add("Pickpocket targets a character", "Pickpocket", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.Illegal));
                 break;
 
             case 11:
@@ -438,7 +432,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
                     _ => "Meta-gel",
                 };
                 result.Add($"{type} are offered for sale.");
-                result.Add("Merchant", CharacterBuilder.CreateCharacterWithCareer(dice, settings, ShadyGoodsCareers));
+                result.Add("Merchant", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.ShadyGoodsTrader));
                 break;
 
             case 21:
@@ -491,7 +485,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
             case 45:
             case 46:
                 result.Add("An SPA official wants to interview one of the travellers for an hour or so to see if they are happy with SPA operations.");
-                result.Add("SPA Official", CharacterBuilder.CreateCharacterWithCareer(dice, settings, StarportCareers));
+                result.Add("SPA Official", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.StarportEmployee));
                 break;
 
             case 51:
@@ -518,13 +512,13 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
             case 62:
             case 63:
                 result.Add($"Trader is offering {Goods(dice)}, but its a trick to lure the traveller to where they can be mugged.");
-                result.Add("Trader", CharacterBuilder.CreateCharacterWithCareer(dice, settings, IllegalCareers)); break;
+                result.Add("Trader", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.Illegal)); break;
 
             case 64:
             case 65:
             case 66:
                 result.Add($"Trader is offering {Goods(dice)}.");
-                result.Add("Trader", CharacterBuilder.CreateCharacterWithCareer(dice, settings, LegalGoodsCareers));
+                result.Add("Trader", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.LegalGoodsTrader));
                 break;
         }
         return result;

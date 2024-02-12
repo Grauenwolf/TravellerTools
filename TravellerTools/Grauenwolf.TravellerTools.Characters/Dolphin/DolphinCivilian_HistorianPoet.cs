@@ -2,6 +2,7 @@
 
 class DolphinCivilian_HistorianPoet(SpeciesCharacterBuilder speciesCharacterBuilder) : DolphinCivilian("Historian Poet", speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Science;
     protected override string AdvancementAttribute => "Edu";
 
     protected override int AdvancementTarget => 8;
@@ -13,17 +14,6 @@ class DolphinCivilian_HistorianPoet(SpeciesCharacterBuilder speciesCharacterBuil
     internal override void AssignmentSkills(Character character, Dice dice)
     {
         Increase(character, dice, "Science|History", "Art", "Art", "Advocate", "Persuade", "Diplomat");
-    }
-
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        var dm = character.EducationDM;
-        dm += -1 * character.CareerHistory.Count;
-
-        dm += character.GetEnlistmentBonus(Career, Assignment);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 8, isPrecheck);
     }
 
     internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
@@ -80,5 +70,16 @@ class DolphinCivilian_HistorianPoet(SpeciesCharacterBuilder speciesCharacterBuil
                 }
                 return;
         }
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        var dm = character.EducationDM;
+        dm += -1 * character.CareerHistory.Count;
+
+        dm += character.GetEnlistmentBonus(Career, Assignment);
+        dm += QualifyDM;
+
+        return dice.RollHigh(dm, 8, isPrecheck);
     }
 }

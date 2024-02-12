@@ -2,6 +2,7 @@
 
 abstract class Prisoner(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : FullCareer("Prisoner", assignment, speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Outsider;
     public override string? Source => "Traveller Core, page 56";
     internal override bool RankCarryover { get; } = true;
 

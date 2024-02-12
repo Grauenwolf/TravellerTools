@@ -2,6 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class MerchantAcademy(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Merchant Academy", null, speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Precareer;
     public override string? Source => "Traveller Companion, page  33";
 
     internal override void Run(Character character, Dice dice)

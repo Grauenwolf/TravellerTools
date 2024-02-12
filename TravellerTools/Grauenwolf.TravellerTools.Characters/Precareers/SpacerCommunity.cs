@@ -2,24 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class SpacerCommunity(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Spacer Community", null, speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Precareer;
     public override string? Source => "Traveller Companion, page  34";
-
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (character.CurrentTerm != 1)
-            return false;
-        if (!character.LongTermBenefits.MayEnrollInSchool)
-            return false;
-
-        var dm = character.IntellectDM;
-        if (character.Dexterity >= 8)
-            dm += 1;
-
-        dm += character.GetEnlistmentBonus(Career, null);
-        dm += QualifyDM;
-
-        return dice.RollHigh(dm, 7, isPrecheck);
-    }
 
     internal override void Run(Character character, Dice dice)
     {
@@ -108,5 +92,22 @@ class SpacerCommunity(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerB
                 character.AddHistory($"Graduated.", character.Age);
             }
         }
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (character.CurrentTerm != 1)
+            return false;
+        if (!character.LongTermBenefits.MayEnrollInSchool)
+            return false;
+
+        var dm = character.IntellectDM;
+        if (character.Dexterity >= 8)
+            dm += 1;
+
+        dm += character.GetEnlistmentBonus(Career, null);
+        dm += QualifyDM;
+
+        return dice.RollHigh(dm, 7, isPrecheck);
     }
 }

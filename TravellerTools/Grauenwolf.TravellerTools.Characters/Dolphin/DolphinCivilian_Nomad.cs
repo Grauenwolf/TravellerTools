@@ -2,6 +2,7 @@
 
 class DolphinCivilian_Nomad(SpeciesCharacterBuilder speciesCharacterBuilder) : DolphinCivilian("Nomad", speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Outsider;
     protected override string AdvancementAttribute => "Str";
 
     protected override int AdvancementTarget => 7;
@@ -14,8 +15,6 @@ class DolphinCivilian_Nomad(SpeciesCharacterBuilder speciesCharacterBuilder) : D
     {
         Increase(character, dice, "Athletics", "Melee|Natural", "Leadership", "Recon", "Stealth", "Survival");
     }
-
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck) => true;
 
     internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
@@ -58,4 +57,6 @@ class DolphinCivilian_Nomad(SpeciesCharacterBuilder speciesCharacterBuilder) : D
                 return;
         }
     }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck) => true;
 }

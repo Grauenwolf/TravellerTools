@@ -2,28 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class PsionicCommunity(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Psionic Community", null, speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Precareer | CareerType.Pisonic;
     public override string? Source => "Traveller Companion, page  33";
-
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        if (character.CurrentTerm != 1)
-            return false;
-
-        var dm = 0;
-
-        if (character.Intellect >= 8)
-            dm += 1;
-        dm += character.GetEnlistmentBonus(Career, null);
-        dm += QualifyDM;
-
-        if (!isPrecheck) //Free Psionic test if you choose this career.
-        {
-            TestPsionic(character, dice, character.Age);
-            dm += character.Psi ?? -3;
-        }
-
-        return dice.RollHigh(dm, 8, isPrecheck);
-    }
 
     internal override void Run(Character character, Dice dice)
     {
@@ -82,5 +62,26 @@ class PsionicCommunity(SpeciesCharacterBuilder speciesCharacterBuilder) : Career
 
             character.LongTermBenefits.EnlistmentDM["Psion"] = 999; //Future enrollment is automatic.
         }
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        if (character.CurrentTerm != 1)
+            return false;
+
+        var dm = 0;
+
+        if (character.Intellect >= 8)
+            dm += 1;
+        dm += character.GetEnlistmentBonus(Career, null);
+        dm += QualifyDM;
+
+        if (!isPrecheck) //Free Psionic test if you choose this career.
+        {
+            TestPsionic(character, dice, character.Age);
+            dm += character.Psi ?? -3;
+        }
+
+        return dice.RollHigh(dm, 8, isPrecheck);
     }
 }

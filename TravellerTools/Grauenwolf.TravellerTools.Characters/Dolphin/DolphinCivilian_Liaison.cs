@@ -2,6 +2,7 @@
 
 class DolphinCivilian_Liaison(SpeciesCharacterBuilder speciesCharacterBuilder) : DolphinCivilian("Liaison", speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Spy;
     protected override string AdvancementAttribute => "Soc";
 
     protected override int AdvancementTarget => 6;
@@ -14,8 +15,6 @@ class DolphinCivilian_Liaison(SpeciesCharacterBuilder speciesCharacterBuilder) :
     {
         Increase(character, dice, "Vacc Suit", "Vacc Suit", "Carouse", "Electronics", "Diplomat", "Persuade");
     }
-
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck) => true;
 
     internal override void TitleTable(Character character, CareerHistory careerHistory, Dice dice, bool allowBonus)
     {
@@ -50,4 +49,6 @@ class DolphinCivilian_Liaison(SpeciesCharacterBuilder speciesCharacterBuilder) :
                 return;
         }
     }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck) => true;
 }

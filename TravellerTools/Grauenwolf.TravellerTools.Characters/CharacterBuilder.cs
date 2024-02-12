@@ -205,6 +205,58 @@ public class CharacterBuilder
         }
     }
 
+    /// <summary>
+    /// Creates the character with a desired final career.
+    /// </summary>
+    /// <param name="careerList">The list of desired careers and/or assignments.</param>
+    public Character CreateCharacterWithCareer(Dice dice, ISpeciesSettings speciesSettings, CareerType careerType) =>
+        CreateCharacterWithCareer(dice, careerType, speciesSettings.SpeciesOrFaction, speciesSettings.PercentOfOtherSpecies);
+
+    /// <summary>
+    /// Creates the character with a desired final career.
+    /// </summary>
+    /// <param name="careerList">The list of desired careers and/or assignments.</param>
+    public Character CreateCharacterWithCareer(Dice dice, CareerType careerType, string? speciesOrFaction = null, int? percentOfOtherSpecies = null)
+    {
+        var characters = new List<Character>();
+
+        for (int i = 0; i < 500; i++)
+        {
+            var character = Build(CreateCharacterStub(dice, speciesOrFaction, percentOfOtherSpecies, noChildren: true));
+            if (character.IsDead && !character.LongTermBenefits.Retired)
+                continue;
+
+            if (character.LastCareer?.CareerTypes.HasFlag(careerType) == true)
+                return character;
+
+            characters.Add(character);
+        }
+
+        double Suitability(Character item, bool includeCareers)
+        {
+            var baseValue = 0.00;
+
+            if (includeCareers)
+            {
+                baseValue += (item.CareerHistory.Where(ch => ch.CareerTypes.HasFlag(careerType)).Sum(ch => ch.Terms));
+                baseValue += (item.CareerHistory.Where(ch => ch.CareerTypes.HasFlag(careerType)).Sum(ch => ch.Terms));
+            }
+
+            return baseValue;
+        }
+
+        {
+            //No character's last career was the requested one. Choose the one who spend the most time in the desired career.
+            var sortedList = characters.Select(c => new
+            {
+                Character = c,
+                Suitability = Suitability(c, true)
+            }).OrderByDescending(x => x.Suitability).ToList();
+
+            return sortedList.First().Character;
+        }
+    }
+
     public Character CreateCharacterWithSkill(Dice dice, ISpeciesSettings speciesSettings, string targetSkillName, string? targetSkillSpeciality, int? targetSkillLevel = null)
         =>
         CreateCharacterWithSkill(dice, targetSkillName, targetSkillSpeciality, targetSkillLevel, speciesSettings?.SpeciesOrFaction, speciesSettings?.PercentOfOtherSpecies);

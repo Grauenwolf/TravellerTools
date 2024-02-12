@@ -2,6 +2,8 @@
 
 abstract class DolphinMilitary(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : MilitaryCareer("Dolphin Military", assignment, speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.Military;
+
     public override string? Source => "Aliens of Charted Space Vol. 3, page 172";
     protected override int AdvancedEductionMin => 8;
 

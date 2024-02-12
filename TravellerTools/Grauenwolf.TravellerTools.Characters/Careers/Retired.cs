@@ -2,6 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 class Retired(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Retired", null, speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.None;
     public override string? Source => null;
 
     public void Event(Character character, Dice dice)
@@ -69,18 +70,13 @@ class Retired(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Ret
         }
     }
 
-    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
-    {
-        return character.LongTermBenefits.Retired;
-    }
-
     internal override void Run(Character character, Dice dice)
     {
         CareerHistory careerHistory;
         if (!character.CareerHistory.Any(pc => pc.Career == "Retired"))
         {
             character.AddHistory($"Retired.", character.Age);
-            careerHistory = new CareerHistory(character.Age, "Retired", null, 0);
+            careerHistory = new CareerHistory(character.Age, "Retired", null, CareerTypes, 0);
             character.CareerHistory.Add(careerHistory);
         }
         else
@@ -95,5 +91,10 @@ class Retired(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Ret
         character.LastCareer = careerHistory;
         character.Age += 4;
         character.NextTermBenefits.MustEnroll = "Retired";
+    }
+
+    protected override bool OnQualify(Character character, Dice dice, bool isPrecheck)
+    {
+        return character.LongTermBenefits.Retired;
     }
 }

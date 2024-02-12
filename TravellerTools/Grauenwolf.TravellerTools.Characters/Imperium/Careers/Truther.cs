@@ -3,6 +3,7 @@
 internal class Truther(SpeciesCharacterBuilder speciesCharacterBuilder) : RanklessCareer("Truther", null, speciesCharacterBuilder)
 {
     public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
+    public override CareerType CareerTypes => CareerType.Religious;
     public override string? Source => "Traveller Companion, page  36";
     protected override string SurvivalAttribute => "Fol";
     protected override int SurvivalTarget => 4;

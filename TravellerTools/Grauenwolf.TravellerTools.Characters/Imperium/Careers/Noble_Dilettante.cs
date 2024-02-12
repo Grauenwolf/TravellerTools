@@ -2,6 +2,7 @@
 
 class Noble_Dilettante(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble("Dilettante", speciesCharacterBuilder)
 {
+    public override CareerType CareerTypes => CareerType.None;
     protected override string AdvancementAttribute => "Int";
 
     protected override int AdvancementTarget => 7;
