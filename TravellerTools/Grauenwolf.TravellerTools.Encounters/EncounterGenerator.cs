@@ -782,29 +782,29 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
 
         switch (dice.D66())
         {
-            case 11: encounter.Add($"Assassinate a ", PickTarget(dice, settings)); break;
-            case 12: encounter.Add($"Frame a ", PickTarget(dice, settings)); break;
-            case 13: encounter.Add($"Destroy a ", PickTarget(dice, settings)); break;
-            case 14: encounter.Add($"Steal from a ", PickTarget(dice, settings)); break;
+            case 11: encounter.Merge($"Assassinate a ", PickTarget(dice, settings)); break;
+            case 12: encounter.Merge($"Frame a ", PickTarget(dice, settings)); break;
+            case 13: encounter.Merge($"Destroy a ", PickTarget(dice, settings)); break;
+            case 14: encounter.Merge($"Steal from a ", PickTarget(dice, settings)); break;
             case 15: encounter.Add($"Aid in a burglary"); break;
             case 16: encounter.Add($"Stop a burglary"); break;
             case 21: encounter.Add($"Retrieve data or an object from a secure facility"); break;
-            case 22: encounter.Add($"Discredit a ", PickTarget(dice, settings)); break;
-            case 23: encounter.Add($"Find a lost cargo"); break;
-            case 24: encounter.Add($"Find a lost person"); break;
-            case 25: encounter.Add($"Deceive a ", PickTarget(dice, settings)); break;
-            case 26: encounter.Add($"Sabotage a ", PickTarget(dice, settings)); break;
+            case 22: encounter.Merge($"Discredit a ", PickTarget(dice, settings)); break;
+            case 23: encounter.Add($"Find a lost cargo of {TradeGood(dice).Name}"); break;
+            case 24: encounter.Add($"Find a lost person", "Person", CharacterBuilder.CreateCharacter(dice, settings)); break;
+            case 25: encounter.Merge($"Deceive a ", PickTarget(dice, settings)); break;
+            case 26: encounter.Merge($"Sabotage a ", PickTarget(dice, settings)); break;
             case 31: encounter.Add($"Transport {LegalTradeGood(dice).Name}."); break;
-            case 32: encounter.Add($"Transport a person"); break;
+            case 32: encounter.Add($"Transport a person", "Person", CharacterBuilder.CreateCharacter(dice, settings)); break;
             case 33: encounter.Add($"Transport data"); break;
             case 34: encounter.Add($"Transport {TradeGood(dice).Name} secretly"); break;
             case 35: encounter.Add($"Transport {LegalTradeGood(dice).Name} quickly"); break;
             case 36: encounter.Add($"Transport dangerous goods"); break;
             case 41: encounter.Add($"Investigate a crime"); break;
             case 42: encounter.Add($"Investigate a theft"); break;
-            case 43: encounter.Add($"Investigate a murder"); break;
+            case 43: encounter.Add($"Investigate a murder", "Victim", CharacterBuilder.CreateCharacter(dice, settings)); break;
             case 44: encounter.Add($"Investigate a mystery"); break;
-            case 45: encounter.Add($"Investigate a ", PickTarget(dice, settings)); break;
+            case 45: encounter.Merge($"Investigate a ", PickTarget(dice, settings)); break;
             case 46: encounter.Add($"Investigate an event"); break;
             case 51: encounter.Add($"Join an expedition"); break;
             case 52: encounter.Add($"Survey a planet"); break;
@@ -813,10 +813,10 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
             case 55: encounter.Add($"Salvage a ship"); break;
             case 56: encounter.Add($"Capture a creature"); break;
             case 61: encounter.Add($"Hijack a ship"); break;
-            case 62: encounter.Add($"Entertain a noble"); break;
-            case 63: encounter.Add($"Protect a ", PickTarget(dice, settings)); break;
-            case 64: encounter.Add($"Save a ", PickTarget(dice, settings)); break;
-            case 65: encounter.Add($"Aid a ", PickTarget(dice, settings)); break;
+            case 62: encounter.Add($"Entertain a noble", "Noble", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Noble)); break;
+            case 63: encounter.Merge($"Protect a ", PickTarget(dice, settings)); break;
+            case 64: encounter.Merge($"Save a ", PickTarget(dice, settings)); break;
+            case 65: encounter.Merge($"Aid a ", PickTarget(dice, settings)); break;
             case 66: encounter.Add($"It is a trap – the Patron intends to betray the Traveller. Fake mission: ", PickMission(dice, settings)); break;
         }
         return encounter;
