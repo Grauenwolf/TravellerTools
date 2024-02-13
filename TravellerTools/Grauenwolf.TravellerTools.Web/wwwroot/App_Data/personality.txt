@@ -199,7 +199,7 @@ Cheerless
 Childish
 Chiseled jawline
 Chivalrous
-Civilised
+Civilized
 Classy
 Clean
 Clear Complexion
@@ -809,7 +809,6 @@ Judgmental
 Jumpy
 Just
 Keen
-Kenderish
 Kind
 Kind hearted
 Kind Hearted
@@ -843,7 +842,6 @@ Likes people
 Limited
 Limp
 Linear
-Lineat
 Lingering
 Lively
 Lively step
@@ -1067,7 +1065,6 @@ Perfect
 Perfectionist
 Performer
 Persecuted
-Perserverant
 Perseverant
 Perseveres
 Persevering
@@ -1392,7 +1389,7 @@ Stooped gait
 Stooped neck
 Stooped posture
 Stooped shoulders
-Straight-laced
+Strait-laced
 Straightforward
 Strange
 Stress free
@@ -1479,7 +1476,7 @@ Threatened
 Threatening
 Thrifty
 Thrilled
-Thrillseeker
+Thrill seeker
 Thwarted
 Tight
 Time driven
