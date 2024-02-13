@@ -2,7 +2,7 @@
 
 class Soulhunter_Commando(SpeciesCharacterBuilder speciesCharacterBuilder) : Soulhunter("Commando", speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.StarportOfficer | CareerType.Military;
+    public override CareerTypes CareerTypes => CareerTypes.StarportOfficer | CareerTypes.Military;
 
     protected override string AdvancementAttribute => "Edu";
 

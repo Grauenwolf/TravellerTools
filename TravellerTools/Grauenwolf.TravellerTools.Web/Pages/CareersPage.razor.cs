@@ -24,10 +24,11 @@ partial class CareersPage
             .ToList();
     }
 
-    class CareerDetail(string career, List<string> assignments, List<string> sources)
+    class CareerDetail(string career, List<string> assignments, List<string> sources, List<CareerTypes> careerTypes)
     {
         public List<string> Assignments { get; } = assignments;
         public string Career { get; } = career;
+        public List<CareerTypes> CareerTypes { get; } = careerTypes;
         public List<string> Sources { get; } = sources;
     }
 
@@ -49,7 +50,10 @@ partial class CareersPage
 
                 var sources = careers.Where(c => c.Career == careerName && c.Source != null).Select(c => c.Source).Distinct().OrderBy(s => s).ToList();
 
-                Careers.Add(new(careerName, assignments!, sources!));
+                var careerTypes = careers.Where(c => c.Career == careerName)
+                    .OrderBy(c => c.Assignment).Select(a => a.CareerTypes).ToList();
+
+                Careers.Add(new(careerName, assignments!, sources!, careerTypes));
             }
         }
 

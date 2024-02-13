@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 class Management_Governess(SpeciesCharacterBuilder speciesCharacterBuilder) : Management("Governess", speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.StarportEmployee;
+    public override CareerTypes CareerTypes => CareerTypes.StarportEmployee;
     protected override string AdvancementAttribute => "Edu";
 
     protected override int AdvancementTarget => 8;

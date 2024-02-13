@@ -3,7 +3,7 @@
 abstract class Psion(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Psion", assignment, speciesCharacterBuilder)
 {
     public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
-    public override CareerType CareerTypes => CareerType.Pisonic;
+    public override CareerTypes CareerTypes => CareerTypes.Pisonic;
     public override string? Source => "Traveller Core, page 236";
     protected override int AdvancedEductionMin => 8;
 

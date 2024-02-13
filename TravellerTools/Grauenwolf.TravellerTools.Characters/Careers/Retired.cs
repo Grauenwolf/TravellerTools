@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers;
 
 class Retired(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Retired", null, speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.None;
+    public override CareerTypes CareerTypes => CareerTypes.None;
     public override string? Source => null;
 
     public void Event(Character character, Dice dice)

@@ -2,7 +2,7 @@
 
 class Noble_Administrator(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble("Administrator", speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.StarportEmployee;
+    public override CareerTypes CareerTypes => CareerTypes.StarportEmployee | CareerTypes.Government | CareerTypes.Noble;
     protected override string AdvancementAttribute => "Edu";
 
     protected override int AdvancementTarget => 6;

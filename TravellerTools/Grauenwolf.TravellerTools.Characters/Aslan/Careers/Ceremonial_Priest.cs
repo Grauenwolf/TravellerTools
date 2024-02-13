@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 class Ceremonial_Priest(SpeciesCharacterBuilder speciesCharacterBuilder) : Ceremonial("Priest", speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.Religious;
+    public override CareerTypes CareerTypes => CareerTypes.Religious;
 
     protected override string AdvancementAttribute => "Edu";
 

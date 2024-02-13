@@ -3,7 +3,7 @@
 abstract class Entertainer(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Entertainer", assignment, speciesCharacterBuilder)
 {
     public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
-    public override CareerType CareerTypes => CareerType.ArtistOrPerformer;
+    public override CareerTypes CareerTypes => CareerTypes.ArtistOrPerformer;
     public override string? Source => "Traveller Core, page 30";
     protected override int AdvancedEductionMin => 10;
 

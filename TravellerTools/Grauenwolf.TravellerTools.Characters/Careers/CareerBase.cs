@@ -8,7 +8,7 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
     public string? Assignment { get; } = assignment;
     public string Career { get; } = career;
     public virtual CareerGroup CareerGroup { get; } = CareerGroup.None;
-    public abstract CareerType CareerTypes { get; }
+    public abstract CareerTypes CareerTypes { get; }
     public string Key => Assignment ?? Career;
 
     public int QualifyDM { get; set; }

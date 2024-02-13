@@ -2,7 +2,7 @@
 
 abstract class ShaperPriest(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Shaper Priest", assignment, speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.Religious;
+    public override CareerTypes CareerTypes => CareerTypes.Religious;
     public override string? Source => "Aliens of Charted Space Vol. 4, page 226";
     protected override int AdvancedEductionMin => 8;
 

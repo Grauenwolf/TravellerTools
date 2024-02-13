@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class PsionicCommunity(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Psionic Community", null, speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.Precareer | CareerType.Pisonic;
+    public override CareerTypes CareerTypes => CareerTypes.Precareer | CareerTypes.Pisonic;
     public override string? Source => "Traveller Companion, page  33";
 
     internal override void Run(Character character, Dice dice)

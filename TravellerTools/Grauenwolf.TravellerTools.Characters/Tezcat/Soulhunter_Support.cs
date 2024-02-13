@@ -2,7 +2,7 @@
 
 class Soulhunter_Support(SpeciesCharacterBuilder speciesCharacterBuilder) : Soulhunter("Soulhunter Support", speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.StarportOfficer | CareerType.Military;
+    public override CareerTypes CareerTypes => CareerTypes.StarportOfficer | CareerTypes.Military;
     protected override string AdvancementAttribute => "Edu";
 
     protected override int AdvancementTarget => 7;

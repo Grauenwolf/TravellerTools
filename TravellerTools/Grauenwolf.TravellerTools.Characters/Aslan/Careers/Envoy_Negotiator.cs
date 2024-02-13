@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 class Envoy_Negotiator(SpeciesCharacterBuilder speciesCharacterBuilder) : Envoy("Negotiator", speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.Spy;
+    public override CareerTypes CareerTypes => CareerTypes.Spy | CareerTypes.Diplomat | CareerTypes.Government;
     protected override string AdvancementAttribute => "Int";
 
     protected override int AdvancementTarget => 7;

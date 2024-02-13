@@ -2,10 +2,10 @@
 
 class Scholar_Physician(SpeciesCharacterBuilder speciesCharacterBuilder) : Scholar("Physician", speciesCharacterBuilder)
 {
+    public override CareerTypes CareerTypes => CareerTypes.Science | CareerTypes.Healer;
     protected override string AdvancementAttribute => "Edu";
 
     protected override int AdvancementTarget => 8;
-
     protected override string SurvivalAttribute => "Edu";
 
     protected override int SurvivalTarget => 4;

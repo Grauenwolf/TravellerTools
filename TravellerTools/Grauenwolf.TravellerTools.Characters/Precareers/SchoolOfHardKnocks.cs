@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class SchoolOfHardKnocks(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("School of Hard Knocks", null, speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.Precareer;
+    public override CareerTypes CareerTypes => CareerTypes.Precareer;
     public override string? Source => "Traveller Companion, page  34";
 
     internal override void Run(Character character, Dice dice)

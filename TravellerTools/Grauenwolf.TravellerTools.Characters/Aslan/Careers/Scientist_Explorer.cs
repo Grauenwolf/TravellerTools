@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 class Scientist_Explorer(SpeciesCharacterBuilder speciesCharacterBuilder) : Scientist("Explorer", speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.Science | CareerType.FieldScience;
+    public override CareerTypes CareerTypes => CareerTypes.Science | CareerTypes.FieldScience;
     protected override string AdvancementAttribute => "Int";
 
     protected override int AdvancementTarget => 6;

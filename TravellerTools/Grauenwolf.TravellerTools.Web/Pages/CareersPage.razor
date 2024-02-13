@@ -64,6 +64,7 @@
                 <th>Career</th>
                 <th>Assignment</th>
                 <th>Source</th>
+                <th>Career Types for Encounters</th>
             </tr>
             @foreach (var career in species.Careers)
             {
@@ -78,6 +79,7 @@
                                 <div>@item</div>
                             }
                         </td>
+                        <td>@career.CareerTypes.Single();</td>
                     </tr>
                 }
                 else
@@ -92,11 +94,13 @@
                                 <div>@item</div>
                             }
                         </td>
+                        <td>@career.CareerTypes[0]</td>
                     </tr>
                     @for (var i = 1; i < career.Assignments.Count; i++)
                     {
                         <tr>
                             <td>@career.Assignments[i]</td>
+                            <td>@career.CareerTypes[i]</td>
                         </tr>
                     }
                 }

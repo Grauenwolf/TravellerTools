@@ -2,6 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 class Scientist_Healer(SpeciesCharacterBuilder speciesCharacterBuilder) : Scientist("Healer", speciesCharacterBuilder)
 {
+    public override CareerTypes CareerTypes => CareerTypes.Science | CareerTypes.Healer;
     protected override string AdvancementAttribute => "Soc";
 
     protected override int AdvancementTarget => 8;

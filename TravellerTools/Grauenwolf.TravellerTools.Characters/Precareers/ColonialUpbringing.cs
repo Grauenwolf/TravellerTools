@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class ColonialUpbringing(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Colonial Upbringing", null, speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.Precareer;
+    public override CareerTypes CareerTypes => CareerTypes.Precareer | CareerTypes.Belter;
     public override string? Source => "Traveller Companion, page  32";
 
     internal override void Run(Character character, Dice dice)

@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 abstract class Outcast(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Outcast", assignment, speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.Outsider;
+    public override CareerTypes CareerTypes => CareerTypes.Outsider;
     public override string? Source => "Aliens of Charted Space 1, page 38";
 
     protected override int AdvancedEductionMin => int.MaxValue;

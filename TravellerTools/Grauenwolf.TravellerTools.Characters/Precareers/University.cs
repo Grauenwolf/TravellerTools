@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 class University(SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("University", null, speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.Precareer;
+    public override CareerTypes CareerTypes => CareerTypes.Precareer;
     public override string? Source => "Traveller Core, page 16";
 
     internal override void Run(Character character, Dice dice)

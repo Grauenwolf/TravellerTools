@@ -2,6 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 abstract class Envoy(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Envoy", assignment, speciesCharacterBuilder)
 {
+    public override CareerTypes CareerTypes => CareerTypes.Diplomat | CareerTypes.Government;
+
     public override string? Source => "Aliens of Charted Space 1, page 24";
     internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 8;

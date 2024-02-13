@@ -209,14 +209,14 @@ public class CharacterBuilder
     /// Creates the character with a desired final career.
     /// </summary>
     /// <param name="careerList">The list of desired careers and/or assignments.</param>
-    public Character CreateCharacterWithCareer(Dice dice, ISpeciesSettings speciesSettings, CareerType careerType) =>
+    public Character CreateCharacterWithCareer(Dice dice, ISpeciesSettings speciesSettings, CareerTypes careerType) =>
         CreateCharacterWithCareer(dice, careerType, speciesSettings.SpeciesOrFaction, speciesSettings.PercentOfOtherSpecies);
 
     /// <summary>
     /// Creates the character with a desired final career.
     /// </summary>
     /// <param name="careerList">The list of desired careers and/or assignments.</param>
-    public Character CreateCharacterWithCareer(Dice dice, CareerType careerType, string? speciesOrFaction = null, int? percentOfOtherSpecies = null)
+    public Character CreateCharacterWithCareer(Dice dice, CareerTypes careerType, string? speciesOrFaction = null, int? percentOfOtherSpecies = null)
     {
         var characters = new List<Character>();
 
@@ -257,7 +257,7 @@ public class CharacterBuilder
         }
     }
 
-    public Character CreateCharacterWithSkill(Dice dice, ISpeciesSettings speciesSettings, string targetSkillName, string? targetSkillSpeciality, int? targetSkillLevel = null)
+    public Character CreateCharacterWithSkill(Dice dice, ISpeciesSettings speciesSettings, string targetSkillName, string? targetSkillSpeciality = null, int? targetSkillLevel = null)
         =>
         CreateCharacterWithSkill(dice, targetSkillName, targetSkillSpeciality, targetSkillLevel, speciesSettings?.SpeciesOrFaction, speciesSettings?.PercentOfOtherSpecies);
 

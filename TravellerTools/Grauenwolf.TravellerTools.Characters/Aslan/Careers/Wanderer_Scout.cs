@@ -2,6 +2,8 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 class Wanderer_Scout(SpeciesCharacterBuilder speciesCharacterBuilder) : Wanderer("Scout", speciesCharacterBuilder)
 {
+    public override CareerTypes CareerTypes => CareerTypes.Scout;
+
     protected override string AdvancementAttribute => "";
 
     protected override int AdvancementTarget => ;

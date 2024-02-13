@@ -3,7 +3,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 class Ceremonial_ClanAgent(SpeciesCharacterBuilder speciesCharacterBuilder) : Ceremonial("Clan Agent", speciesCharacterBuilder)
 
 {
-    public override CareerType CareerTypes => CareerType.Religious | CareerType.StarportEmployee;
+    public override CareerTypes CareerTypes => CareerTypes.Religious | CareerTypes.StarportEmployee | CareerTypes.Government;
     protected override string AdvancementAttribute => "Int";
 
     protected override int AdvancementTarget => 6;

@@ -2,7 +2,6 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 class Envoy_Duellist(SpeciesCharacterBuilder speciesCharacterBuilder) : Envoy("Duellist", speciesCharacterBuilder)
 {
-    public override CareerType CareerTypes => CareerType.None;
     protected override string AdvancementAttribute => "Dex";
 
     protected override int AdvancementTarget => 6;

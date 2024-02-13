@@ -2,8 +2,8 @@
 
 class Merchant_Broker(SpeciesCharacterBuilder speciesCharacterBuilder) : Merchant("Broker", speciesCharacterBuilder)
 {
+    public override CareerTypes CareerTypes => CareerTypes.LegalGoodsTrader | CareerTypes.ShadyGoodsTrader | CareerTypes.FreeTrader | CareerTypes.CorporateMerchant;
     protected override string AdvancementAttribute => "Int";
-
     protected override int AdvancementTarget => 7;
 
     protected override string SurvivalAttribute => "Edu";

@@ -2,8 +2,8 @@
 
 class Drifter_Wanderer(SpeciesCharacterBuilder speciesCharacterBuilder) : Drifter("Wanderer", speciesCharacterBuilder)
 {
+    public override CareerTypes CareerTypes => CareerTypes.Outsider | CareerTypes.Belter;
     protected override string AdvancementAttribute => "Str";
-
     protected override int AdvancementTarget => 7;
 
     protected override string SurvivalAttribute => "End";

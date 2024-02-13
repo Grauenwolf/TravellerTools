@@ -5,121 +5,9 @@ namespace Grauenwolf.TravellerTools.Encounters;
 
 public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine tradeEngine)
 {
-    //readonly string[] AllScienceCareers = ["Explorer", "Surveyor", "Scholar", "Scientist"];
-    //readonly string[] FieldScienceCareers = ["Explorer", "Surveyor", "Field Researcher"];
-    //readonly string[] IllegalCareers = ["Rogue", "Outlaw"];
-    //readonly string[] LegalGoodsCareers = ["Trader", "Merchant"];
-    //readonly string[] OfficerCareers = ["Law Enforcement", "Marine", "Guardian", "Warrior", "Commando"];
-    //readonly string[] ReligiousCareers = ["Priest", "Believer", "Truther", "Shaper Priest"];
-    //readonly string[] ShadyGoodsCareers = ["Rogue", "Trader", "Merchant"];
-    //readonly string[] StarportCareers = ["Corporate", "Worker", "Law Enforcement", "Administrator", "Clan Agent", "Management"];
-
     public CharacterBuilder CharacterBuilder { get; } = characterBuilder;
 
     public TradeEngine TradeEngine { get; } = tradeEngine;
-
-    public static Encounter PickAlliesAndEnemies(Dice dice, IEncounterGeneratorSettings settings, Encounter? encounter = null)
-    {
-        if (dice == null)
-            throw new ArgumentNullException(nameof(dice), $"{nameof(dice)} is null.");
-
-        encounter ??= new Encounter() { Title = "Allies and Enemies" };
-
-        //TODO: Add name generator
-
-        switch (dice.D66())
-        {
-            case 11: encounter.Add($"Naval Officer"); break;
-            case 12: encounter.Add($"Imperial Diplomat"); break;
-            case 13: encounter.Add($"Crooked Trader"); break;
-            case 14: encounter.Add($"Medical Doctor"); break;
-            case 15: encounter.Add($"Eccentric Scientist"); break;
-            case 16: encounter.Add($"Mercenary"); break;
-            case 21: encounter.Add($"Famous Performer"); break;
-            case 22: encounter.Add($"Alien Thief"); break;
-            case 23: encounter.Add($"Free Trader"); break;
-            case 24: encounter.Add($"Explorer"); break;
-            case 25: encounter.Add($"Marine Captain"); break;
-            case 26: encounter.Add($"Corporate Executive"); break;
-            case 31: encounter.Add($"Researcher"); break;
-            case 32: encounter.Add($"Cultural Attaché"); break;
-            case 33: encounter.Add($"Religious Leader"); break;
-            case 34: encounter.Add($"Conspirator"); break;
-            case 35: encounter.Add($"Rich Noble"); break;
-            case 36: encounter.Add($"Artificial Intelligence"); break;
-            case 41: encounter.Add($"Bored Noble"); break;
-            case 42: encounter.Add($"Planetary Governor"); break;
-            case 43: encounter.Add($"Inveterate Gambler"); break;
-            case 44: encounter.Add($"Crusading Journalist"); break;
-            case 45: encounter.Add($"Doomsday Cultist"); break;
-            case 46: encounter.Add($"Corporate Agent"); break;
-            case 51: encounter.Add($"Criminal Syndicate"); break;
-            case 52: encounter.Add($"Military Governor"); break;
-            case 53: encounter.Add($"Army Quartermaster"); break;
-            case 54: encounter.Add($"Private Investigator"); break;
-            case 55: encounter.Add($"Starport Administrator"); break;
-            case 56: encounter.Add($"Retired Admiral"); break;
-            case 61: encounter.Add($"Alien Ambassador"); break;
-            case 62: encounter.Add($"Smuggler"); break;
-            case 63: encounter.Add($"Weapons Inspector"); break;
-            case 64: encounter.Add($"Elder Statesman"); break;
-            case 65: encounter.Add($"Planetary Warlord"); break;
-            case 66: encounter.Add($"Imperial Agent"); break;
-        }
-        return encounter;
-    }
-
-    public static Encounter PickPatron(Dice dice, IEncounterGeneratorSettings settings, Encounter? encounter = null)
-    {
-        if (dice == null)
-            throw new ArgumentNullException(nameof(dice), $"{nameof(dice)} is null.");
-
-        encounter ??= new Encounter() { Title = "Patron" };
-
-        //TODO: Add name generator
-        //TODO: Add actual characters
-        switch (dice.D66())
-        {
-            case 11: encounter.Add("Assassin"); break;
-            case 12: encounter.Add("Smuggler"); break;
-            case 13: encounter.Add("Terrorist"); break;
-            case 14: encounter.Add("Embezzler"); break;
-            case 15: encounter.Add("Thief"); break;
-            case 16: encounter.Add("Revolutionary"); break;
-            case 21: encounter.Add("Clerk"); break;
-            case 22: encounter.Add("Administrator"); break;
-            case 23: encounter.Add("Mayor"); break;
-            case 24: encounter.Add("Minor Noble"); break;
-            case 25: encounter.Add("Physician"); break;
-            case 26: encounter.Add("Tribal Leader"); break;
-            case 31: encounter.Add("Diplomat"); break;
-            case 32: encounter.Add("Courier"); break;
-            case 33: encounter.Add("Spy"); break;
-            case 34: encounter.Add("Ambassador"); break;
-            case 35: encounter.Add("Noble"); break;
-            case 36: encounter.Add("Police Officer"); break;
-            case 41: encounter.Add("Merchant"); break;
-            case 42: encounter.Add("Free Trader"); break;
-            case 43: encounter.Add("Broker"); break;
-            case 44: encounter.Add("Corporate Executive"); break;
-            case 45: encounter.Add("Corporate Agent"); break;
-            case 46: encounter.Add("Financier"); break;
-            case 51: encounter.Add("Belter"); break;
-            case 52: encounter.Add("Researcher"); break;
-            case 53: encounter.Add("Naval Officer"); break;
-            case 54: encounter.Add("Pilot"); break;
-            case 55: encounter.Add("Starport Administrator"); break;
-            case 56: encounter.Add("Scout"); break;
-            case 61: encounter.Add("Alien"); break;
-            case 62: encounter.Add("Playboy"); break;
-            case 63: encounter.Add("Stowaway"); break;
-            case 64: encounter.Add("Family Relative"); break;
-            case 65: encounter.Add("Agent of a Foreign Power"); break;
-            case 66: encounter.Add("Imperial Agent"); break;
-        }
-
-        return encounter;
-    }
 
     public Encounter BackwaterStarportGeneralEncounter(Dice dice, IEncounterGeneratorSettings settings)
     {
@@ -170,7 +58,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
                 break;
 
             case 6:
-                result.Add("Religious zealot.", "Preacher", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.Religious));
+                result.Add("Religious zealot.", "Preacher", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Religious));
                 break;
 
             case 7:
@@ -183,7 +71,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
 
             case 9:
                 {
-                    result.Add("Seller", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.ShadyGoodsTrader));
+                    result.Add("Seller", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.ShadyGoodsTrader));
 
                     var price = (dice.D(5) + 3) * 10;
                     var source = dice.D(5) switch
@@ -206,7 +94,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
                 break;
 
             case 10:
-                result.Add("Pickpocket targets a character", "Pickpocket", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.Illegal));
+                result.Add("Pickpocket targets a character", "Pickpocket", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Illegal));
                 break;
 
             case 11:
@@ -243,7 +131,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
 
                 result.Add("Runner", CharacterBuilder.CreateCharacter(dice, settings));
                 for (var i = 0; i < dice.D(3); i++)
-                    result.Add("Officer", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.StarportOfficer));
+                    result.Add("Officer", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.StarportOfficer));
                 break;
 
             case 2:
@@ -282,7 +170,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
                     case 6:
                         result.Add("Bleeding out."); break;
                 }
-                result.Add("Starport Employee", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.StarportEmployee));
+                result.Add("Starport Employee", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.StarportEmployee));
                 result.Add("Victim", CharacterBuilder.CreateCharacter(dice, settings));
                 break;
 
@@ -319,7 +207,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
                     case 6:
                         result.Add("personal fued."); break;
                 }
-                result.Add("Starport Representative", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.StarportEmployee));
+                result.Add("Starport Representative", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.StarportEmployee));
                 result.Add("Local Representative", CharacterBuilder.CreateCharacter(dice, settings));
                 break;
 
@@ -341,14 +229,14 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
 
                     case 5:
                         result.Add("Scientist didn't return from field work.");
-                        result.Add("Missing Scientist", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.FieldScience));
-                        result.Add("Scientist Reporting Loss", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.Science));
-                        result.Add("Starport Representative", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.StarportEmployee));
+                        result.Add("Missing Scientist", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.FieldScience));
+                        result.Add("Scientist Reporting Loss", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Science));
+                        result.Add("Starport Representative", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.StarportEmployee));
                         break;
 
                     case 6:
                         result.Add("Starport security office is missing. All space traffic is halted until the officer is found.");
-                        result.Add("Missing Officer", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.StarportOfficer));
+                        result.Add("Missing Officer", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.StarportOfficer));
                         result.Add("Starport Representative", CharacterBuilder.CreateCharacter(dice, settings));
                         break;
                 }
@@ -359,7 +247,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
                 break;
 
             case 10:
-                result.Add("Pickpocket targets a character", "Pickpocket", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.Illegal));
+                result.Add("Pickpocket targets a character", "Pickpocket", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Illegal));
                 break;
 
             case 11:
@@ -432,7 +320,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
                     _ => "Meta-gel",
                 };
                 result.Add($"{type} are offered for sale.");
-                result.Add("Merchant", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.ShadyGoodsTrader));
+                result.Add("Merchant", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.ShadyGoodsTrader));
                 break;
 
             case 21:
@@ -485,7 +373,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
             case 45:
             case 46:
                 result.Add("An SPA official wants to interview one of the travellers for an hour or so to see if they are happy with SPA operations.");
-                result.Add("SPA Official", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.StarportEmployee));
+                result.Add("SPA Official", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.StarportEmployee));
                 break;
 
             case 51:
@@ -512,13 +400,13 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
             case 62:
             case 63:
                 result.Add($"Trader is offering {Goods(dice)}, but its a trick to lure the traveller to where they can be mugged.");
-                result.Add("Trader", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.Illegal)); break;
+                result.Add("Trader", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Illegal)); break;
 
             case 64:
             case 65:
             case 66:
                 result.Add($"Trader is offering {Goods(dice)}.");
-                result.Add("Trader", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerType.LegalGoodsTrader));
+                result.Add("Trader", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.LegalGoodsTrader));
                 break;
         }
         return result;
@@ -834,6 +722,57 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
         return result;
     }
 
+    public Encounter PickAlliesAndEnemies(Dice dice, IEncounterGeneratorSettings settings, Encounter? encounter = null)
+    {
+        if (dice == null)
+            throw new ArgumentNullException(nameof(dice), $"{nameof(dice)} is null.");
+
+        encounter ??= new Encounter() { Title = "Allies and Enemies" };
+
+        //TODO: Add name generator
+
+        switch (dice.D66())
+        {
+            case 11: encounter.Add($"Naval Officer"); break;
+            case 12: encounter.Add($"Imperial Diplomat", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Diplomat)); break;
+            case 13: encounter.Add($"Crooked Trader", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.ShadyGoodsTrader)); break;
+            case 14: encounter.Add($"Medical Doctor", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Healer)); break;
+            case 15: encounter.Add($"Eccentric Scientist", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Science)); break;
+            case 16: encounter.Add($"Mercenary"); break;
+            case 21: encounter.Add($"Famous Performer", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.ArtistOrPerformer)); break;
+            case 22: encounter.Add($"Alien Thief", CharacterBuilder.CreateCharacterWithCareer(dice, CareerTypes.Illegal)); break;
+            case 23: encounter.Add($"Free Trader"); break;
+            case 24: encounter.Add($"Explorer"); break;
+            case 25: encounter.Add($"Marine Captain"); break;
+            case 26: encounter.Add($"Corporate Executive"); break;
+            case 31: encounter.Add($"Researcher", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Science)); break;
+            case 32: encounter.Add($"Cultural Attaché", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Diplomat)); break;
+            case 33: encounter.Add($"Religious Leader", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Religious)); break;
+            case 34: encounter.Add($"Conspirator"); break;
+            case 35: encounter.Add($"Rich Noble"); break;
+            case 36: encounter.Add($"Artificial Intelligence"); break;
+            case 41: encounter.Add($"Bored Noble"); break;
+            case 42: encounter.Add($"Planetary Governor"); break;
+            case 43: encounter.Add($"Inveterate Gambler"); break;
+            case 44: encounter.Add($"Crusading Journalist"); break;
+            case 45: encounter.Add($"Doomsday Cultist", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Religious)); break;
+            case 46: encounter.Add($"Corporate Agent"); break;
+            case 51: encounter.Add($"Criminal Syndicate", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Illegal)); break;
+            case 52: encounter.Add($"Military Governor"); break;
+            case 53: encounter.Add($"Army Quartermaster"); break;
+            case 54: encounter.Add($"Private Investigator"); break;
+            case 55: encounter.Add($"Starport Administrator", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.StarportEmployee)); break;
+            case 56: encounter.Add($"Retired Admiral"); break;
+            case 61: encounter.Add($"Alien Ambassador"); break;
+            case 62: encounter.Add($"Smuggler", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.ShadyGoodsTrader)); break;
+            case 63: encounter.Add($"Weapons Inspector", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.StarportEmployee)); break;
+            case 64: encounter.Add($"Elder Statesman"); break;
+            case 65: encounter.Add($"Planetary Warlord"); break;
+            case 66: encounter.Add($"Imperial Agent"); break;
+        }
+        return encounter;
+    }
+
     public Encounter PickMission(Dice dice, IEncounterGeneratorSettings settings, Encounter? encounter = null)
     {
         if (dice == null)
@@ -880,6 +819,58 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
             case 65: encounter.Add($"Aid a ", PickTarget(dice, settings)); break;
             case 66: encounter.Add($"It is a trap – the Patron intends to betray the Traveller. Fake mission: ", PickMission(dice, settings)); break;
         }
+        return encounter;
+    }
+
+    public Encounter PickPatron(Dice dice, IEncounterGeneratorSettings settings, Encounter? encounter = null)
+    {
+        if (dice == null)
+            throw new ArgumentNullException(nameof(dice), $"{nameof(dice)} is null.");
+
+        encounter ??= new Encounter() { Title = "Patron" };
+
+        //TODO: Add name generator
+        //TODO: Add actual characters
+        switch (dice.D66())
+        {
+            case 11: encounter.Add("Assassin", CharacterBuilder.CreateCharacter(dice, settings)); break;
+            case 12: encounter.Add("Smuggler"); break;
+            case 13: encounter.Add("Terrorist", CharacterBuilder.CreateCharacter(dice, settings)); break;
+            case 14: encounter.Add("Embezzler", CharacterBuilder.CreateCharacter(dice, settings)); break;
+            case 15: encounter.Add("Thief", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Illegal)); break;
+            case 16: encounter.Add("Revolutionary"); break;
+            case 21: encounter.Add("Clerk"); break;
+            case 22: encounter.Add("Administrator"); break;
+            case 23: encounter.Add("Mayor"); break;
+            case 24: encounter.Add("Minor Noble", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Noble)); break;
+            case 25: encounter.Add("Physician", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Healer)); break;
+            case 26: encounter.Add("Tribal Leader"); break;
+            case 31: encounter.Add("Diplomat", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Diplomat)); break;
+            case 32: encounter.Add("Courier"); break;
+            case 33: encounter.Add("Spy", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Spy)); break;
+            case 34: encounter.Add("Ambassador", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Diplomat)); break;
+            case 35: encounter.Add("Noble", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Noble)); break;
+            case 36: encounter.Add("Police Officer", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Police)); break;
+            case 41: encounter.Add("Merchant", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.CorporateMerchant)); break;
+            case 42: encounter.Add("Free Trader", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.FreeTrader)); break;
+            case 43: encounter.Add("Broker", CharacterBuilder.CreateCharacterWithSkill(dice, settings, "Broker")); break;
+            case 44: encounter.Add("Corporate Executive", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Corporate)); break;
+            case 45: encounter.Add("Corporate Agent", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Corporate)); break;
+            case 46: encounter.Add("Financier", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Corporate)); break;
+            case 51: encounter.Add("Belter", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Belter)); break;
+            case 52: encounter.Add("Researcher", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.FieldScience)); break;
+            case 53: encounter.Add("Naval Officer", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.MilitaryNavy)); break;
+            case 54: encounter.Add("Pilot", CharacterBuilder.CreateCharacterWithSkill(dice, settings, "Pilot")); break;
+            case 55: encounter.Add("Starport Administrator", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.StarportEmployee)); break;
+            case 56: encounter.Add("Scout", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Scout)); break;
+            case 61: encounter.Add("Alien", CharacterBuilder.CreateCharacter(dice)); break;
+            case 62: encounter.Add("Playboy", CharacterBuilder.CreateCharacter(dice, settings)); break;
+            case 63: encounter.Add("Stowaway", CharacterBuilder.CreateCharacter(dice, settings)); break;
+            case 64: encounter.Add("Family Relative", CharacterBuilder.CreateCharacter(dice, settings)); break;
+            case 65: encounter.Add("Agent of a Foreign Power", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Diplomat)); break;
+            case 66: encounter.Add("Imperial Agent", CharacterBuilder.CreateCharacterWithCareer(dice, settings, CareerTypes.Government)); break;
+        }
+
         return encounter;
     }
 
