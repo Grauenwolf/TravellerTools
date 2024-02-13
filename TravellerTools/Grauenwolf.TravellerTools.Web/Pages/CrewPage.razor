@@ -28,6 +28,12 @@
                         </InputSelect>
                     </td>
                 </tr>
+                <tr style="@(string.IsNullOrEmpty(Model.SpeciesOrFaction) ?  "display:none;" : "")">
+                    <th>% Chance of unusual Species</th>
+                    <td colspan="3">
+                        <InputNumber @bind-Value="Model.PercentOfOtherSpecies" style="width: 50px;" />
+                    </td>
+                </tr>
                 <tr>
                     <th>Pilots</th>
                     <th>Astrogators</th>
@@ -52,7 +58,7 @@
                 <tr>
                     <th>Gunners</th>
                     <th>Stewards</th>
-                    <th colspan="2">Passengers</th>
+                    <th colspan="2">Administrators</th>
                 </tr>
                 <tr>
                     <td>
@@ -62,6 +68,22 @@
                         <InputNumber @bind-Value="Model.Stewards" style="width: 50px;" />
                     </td>
                     <td colspan="2">
+                        <InputNumber @bind-Value="Model.Administrators" style="width: 50px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <th>Sensor Operators</th>
+                    <th>Officers</th>
+                    <th>Passengers</th>
+                </tr>
+                <tr>
+                    <td>
+                        <InputNumber @bind-Value="Model.SensorOperators" style="width: 50px;" />
+                    </td>
+                    <td>
+                        <InputNumber @bind-Value="Model.Officers" style="width: 50px;" />
+                    </td>
+                    <td>
                         <InputNumber @bind-Value="Model.Passengers" style="width: 50px;" />
                     </td>
                 </tr>

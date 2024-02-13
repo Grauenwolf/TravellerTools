@@ -24,13 +24,16 @@ partial class CrewViewPage
             var result = new CrewModel();
             result.Seed = seed;
 
-            result.Crew.AddRange(CreateRole(dice, Model.SpeciesOrFaction, CrewRole.Pilot, Model.Pilots));
-            result.Crew.AddRange(CreateRole(dice, Model.SpeciesOrFaction, CrewRole.Astrogator, Model.Astrogators));
-            result.Crew.AddRange(CreateRole(dice, Model.SpeciesOrFaction, CrewRole.Engineer, Model.Engineers));
-            result.Crew.AddRange(CreateRole(dice, Model.SpeciesOrFaction, CrewRole.Medic, Model.Medics));
-            result.Crew.AddRange(CreateRole(dice, Model.SpeciesOrFaction, CrewRole.Gunner, Model.Gunners));
-            result.Crew.AddRange(CreateRole(dice, Model.SpeciesOrFaction, CrewRole.Steward, Model.Stewards));
-            result.Crew.AddRange(CreateRole(dice, Model.SpeciesOrFaction, CrewRole.Passenger, Model.Passengers));
+            result.Crew.AddRange(CreateRole(dice, Model, CrewRole.Pilot, Model.Pilots));
+            result.Crew.AddRange(CreateRole(dice, Model, CrewRole.Astrogator, Model.Astrogators));
+            result.Crew.AddRange(CreateRole(dice, Model, CrewRole.Engineer, Model.Engineers));
+            result.Crew.AddRange(CreateRole(dice, Model, CrewRole.Medic, Model.Medics));
+            result.Crew.AddRange(CreateRole(dice, Model, CrewRole.Gunner, Model.Gunners));
+            result.Crew.AddRange(CreateRole(dice, Model, CrewRole.Steward, Model.Stewards));
+            result.Crew.AddRange(CreateRole(dice, Model, CrewRole.Administrator, Model.Administrators));
+            result.Crew.AddRange(CreateRole(dice, Model, CrewRole.SensorOperator, Model.SensorOperators));
+            result.Crew.AddRange(CreateRole(dice, Model, CrewRole.Officer, Model.Officers));
+            result.Crew.AddRange(CreateRole(dice, Model, CrewRole.Passenger, Model.Passengers));
 
             CrewModel = result;
         }
@@ -66,13 +69,13 @@ partial class CrewViewPage
         return uri;
     }
 
-    CrewMember CreateCrewMember(Dice dice, string? species, CrewRole crewRole, string? targetSkillName, int targetSkillLevel)
+    CrewMember CreateCrewMember(Dice dice, ISpeciesSettings speciesSettings, CrewRole crewRole, string? targetSkillName, int targetSkillLevel)
     {
         if (targetSkillName == null)
         {
             while (true)
             {
-                var character = CharacterBuilder.CreateCharacter(dice, species);
+                var character = CharacterBuilder.CreateCharacter(dice, speciesSettings);
                 if (!character.IsDead)
                 {
                     var skill = character.Skills.BestSkill();
@@ -80,16 +83,24 @@ partial class CrewViewPage
                 }
             }
         }
+        else if (targetSkillName.Contains('|'))
+        {
+            var parts = targetSkillName.Split('|');
+            var character = CharacterBuilder.CreateCharacterWithSkill(dice, speciesSettings, parts[0], parts[1], targetSkillLevel);
+
+            var lastBestSkill = character.Skills.BestSkill(parts[1]);
+            return new CrewMember(crewRole, character, lastBestSkill?.FullName, lastBestSkill?.Level, character.Title);
+        }
         else
         {
-            var character = CharacterBuilder.CreateCharacterWithSkill(dice, targetSkillName, null, targetSkillLevel, species);
+            var character = CharacterBuilder.CreateCharacterWithSkill(dice, speciesSettings, targetSkillName, null, targetSkillLevel);
 
             var lastBestSkill = character.Skills.BestSkill(targetSkillName);
             return new CrewMember(crewRole, character, lastBestSkill?.FullName, lastBestSkill?.Level, character.Title);
         }
     }
 
-    List<CrewMember> CreateRole(Dice dice, string? species, CrewRole crewRole, int count)
+    List<CrewMember> CreateRole(Dice dice, ISpeciesSettings speciesSettings, CrewRole crewRole, int count)
     {
         var result = new List<CrewMember>();
         if (count == 0) return result;
@@ -103,13 +114,16 @@ partial class CrewViewPage
             CrewRole.Medic => "Medic",
             CrewRole.Gunner => "Gunner",
             CrewRole.Steward => "Steward",
+            CrewRole.SensorOperator => "Electronics|Sensors",
+            CrewRole.Officer => "Leadership",
+            CrewRole.Administrator => "Admin",
             _ => null
         };
 
-        result.Add(CreateCrewMember(dice, species, crewRole, targetSkillName, targetSkillLevel));
+        result.Add(CreateCrewMember(dice, speciesSettings, crewRole, targetSkillName, targetSkillLevel));
 
         for (int i = 2; i <= count; i++) //additional crew members have equal or lower skill
-            result.Add(CreateCrewMember(dice, species, crewRole, targetSkillName, dice.Next(0, targetSkillLevel + 1)));
+            result.Add(CreateCrewMember(dice, speciesSettings, crewRole, targetSkillName, dice.Next(0, targetSkillLevel + 1)));
 
         return result;
     }

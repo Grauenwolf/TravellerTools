@@ -8,5 +8,8 @@ public enum CrewRole
     Medic,
     Gunner,
     Steward,
-    Passenger
+    Passenger,
+    Administrator,
+    SensorOperator,
+    Officer
 }
