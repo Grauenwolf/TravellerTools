@@ -63,4 +63,17 @@ public class Encounter
         Add(newContent);
         Add(encounterRole, character);
     }
+
+    public void Merge(string newContent, Encounter encounterToMerge)
+    {
+        Add(newContent);
+
+        if (encounterToMerge.Description != null)
+            Add(encounterToMerge.Description);
+        foreach (var item in encounterToMerge.Characters)
+        {
+            Add(item.EncounterRole);
+            Add(item);
+        }
+    }
 }
