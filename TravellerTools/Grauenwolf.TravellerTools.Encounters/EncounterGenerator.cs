@@ -329,7 +329,7 @@ public class EncounterGenerator(CharacterBuilder characterBuilder, TradeEngine t
                 var speciesB = CharacterBuilder.GetRandomSpecies(dice, speciesA, 5); //5% chance of mixed marriage
                 var characterA = CharacterBuilder.CreateCharacter(dice, speciesA, noChildren: true);
                 var characterB = CharacterBuilder.CreateCharacter(dice, speciesB, noChildren: true);
-                result.Add($"{characterA} and {characterB} are on their honeymoon, but their ship never arrived. They ask for transport with the remainder of their spending money.");
+                result.Add($"{characterA.Name} and {characterB.Name} are on their honeymoon, but their ship never arrived. They ask for transport with the remainder of their spending money.");
                 result.Add("Newlywed", characterA);
                 result.Add("Newlywed", characterB);
                 break;
