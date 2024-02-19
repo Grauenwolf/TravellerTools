@@ -96,8 +96,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     }
                     break;
 
-                case "B":
-                case "F":
+                case "B" or "F":
                     result.BerthingCost = dice.D(1, 6) * 500;
                     result.BerthingCostPerDay = 200;
                     result.RefinedFuelCost = 500;
@@ -137,8 +136,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     }
                     break;
 
-                case "C":
-                case "G":
+                case "C" or "G":
                     result.BerthingCost = dice.D(1, 6) * 100;
                     result.BerthingCostPerDay = 100;
                     result.RefinedFuelCost = 500;
@@ -178,8 +176,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     }
                     break;
 
-                case "D":
-                case "H":
+                case "D" or "H":
                     if (isHighPort) return null;
 
                     result.BerthingCost = dice.D(1, 6) * 10;
@@ -200,8 +197,7 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
 
                     break;
 
-                case "E":
-                case "J":
+                case "E" or "J":
                     if (isHighPort) return null;
 
                     result.BerthingCost = 0;
@@ -234,26 +230,22 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                     hotelClass = 4;
                     break;
 
-                case "B":
-                case "F":
+                case "B" or "F":
                     result.CargoStorageCost = 400;
                     hotelClass = 2 + dice.D(2);
                     break;
 
-                case "C":
-                case "G":
+                case "C" or "G":
                     result.CargoStorageCost = 300;
                     hotelClass = 1 + dice.D(2);
                     break;
 
-                case "D":
-                case "H":
+                case "D" or "H":
                     result.CargoStorageCost = 200;
                     hotelClass = dice.D(2);
                     break;
 
-                case "E":
-                case "J":
+                case "E" or "J":
                     result.CargoStorageCost = 100;
                     break;
             }
@@ -863,24 +855,5 @@ namespace Grauenwolf.TravellerTools.TradeCalculator
                 }
             }
         }
-
-        ///// <summary>
-        ///// This has the cargo, people, etc. that want to travel from one location to another.
-        ///// </summary>
-        ///// <param name="worlds">The worlds.</param>
-        ///// <param name="random">The random.</param>
-        ///// <param name="illegalGoods">if set to <c>true</c> [illegal goods].</param>
-        ///// <param name="advancedCharacters">if set to <c>true</c> [advanced characters].</param>
-        ///// <returns></returns>
-        //ManifestCollection BuildManifests(IReadOnlyList<World> worlds, Dice random, bool illegalGoods, bool advancedCharacters)
-        //{
-        //    var result = new ManifestCollection(worlds[0]);
-
-        //    for (var i = 1; i < worlds.Count; i++)
-        //        if (worlds[i].UWP != null && !worlds[i].UWP!.Contains("?")) //skip uncharted words
-        //            result.Add(BuildManifest(result.Origin, worlds[i], random, illegalGoods, advancedCharacters));
-
-        //    return result;
-        //}
     }
 }

@@ -739,8 +739,7 @@ public static class Tables
     {
         switch (lawCode.Value)
         {
-            case 1:
-            case 2:
+            case 1 or 2:
                 yield return LawLevelDrugsRestricted(lawCode);
                 break;
 
@@ -835,9 +834,7 @@ public static class Tables
     {
         switch (lawCode.Value)
         {
-            case 1:
-            case 2:
-            case 5:
+            case 1 or 2 or 5:
                 yield return LawLevelPsionicsRestricted(lawCode);
                 break;
 
@@ -1003,18 +1000,21 @@ public static class Tables
 
     public static int OddsOfSuccess(int target)
     {
-        if (target <= 2) return 100;
-        if (target == 3) return 97;
-        if (target == 4) return 92;
-        if (target == 5) return 83;
-        if (target == 6) return 72;
-        if (target == 7) return 58;
-        if (target == 8) return 42;
-        if (target == 9) return 28;
-        if (target == 10) return 17;
-        if (target == 11) return 8;
-        if (target == 12) return 3;
-        return 0;
+        return target switch
+        {
+            <= 2 => 100,
+            3 => 97,
+            4 => 92,
+            5 => 83,
+            6 => 72,
+            7 => 58,
+            8 => 42,
+            9 => 28,
+            10 => 17,
+            11 => 8,
+            12 => 3,
+            _ => 0
+        };
     }
 
     public static double PopulationExponent(EHex populationCode) => Math.Pow(10, populationCode.Value);

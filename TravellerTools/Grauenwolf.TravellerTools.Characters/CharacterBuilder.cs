@@ -95,11 +95,60 @@ public class CharacterBuilder
             var options = CreateCharacterStub(dice, speciesOrFaction, percentOfOtherSpecies, noChildren: noChildren);
 
             var character = Build(options);
-            if (!character.IsDead)
-            {
-                var skill = character.Skills.BestSkill();
+            if (!character.IsDead) //reroll if the character is deceased.
                 return character;
+        }
+    }
+
+    /// <summary>
+    /// Creates the character with a desired final career.
+    /// </summary>
+    /// <param name="careerList">The list of desired careers and/or assignments.</param>
+    public Character CreateCharacter(Dice dice, ISpeciesSettings speciesSettings, CareerTypes careerType) =>
+        CreateCharacter(dice, careerType, speciesSettings.SpeciesOrFaction, speciesSettings.PercentOfOtherSpecies);
+
+    /// <summary>
+    /// Creates the character with a desired final career.
+    /// </summary>
+    /// <param name="careerList">The list of desired careers and/or assignments.</param>
+    public Character CreateCharacter(Dice dice, CareerTypes careerType, string? speciesOrFaction = null, int? percentOfOtherSpecies = null)
+    {
+        var characters = new List<Character>();
+
+        for (int i = 0; i < 500; i++)
+        {
+            var character = Build(CreateCharacterStub(dice, speciesOrFaction, percentOfOtherSpecies, noChildren: true));
+            if (character.IsDead && !character.LongTermBenefits.Retired)
+                continue;
+
+            if (character.LastCareer?.CareerTypes.HasFlag(careerType) == true)
+                return character;
+
+            characters.Add(character);
+        }
+
+        double Suitability(Character item, bool includeCareers)
+        {
+            var baseValue = 0.00;
+
+            if (includeCareers)
+            {
+                baseValue += (item.CareerHistory.Where(ch => ch.CareerTypes.HasFlag(careerType)).Sum(ch => ch.Terms));
+                baseValue += (item.CareerHistory.Where(ch => ch.CareerTypes.HasFlag(careerType)).Sum(ch => ch.Terms));
             }
+
+            return baseValue;
+        }
+
+        {
+            //No character's last career was the requested one. Choose the one who spend the most time in the desired career.
+            var sortedList = characters.Select(c => new
+            {
+                Character = c,
+                Suitability = Suitability(c, true)
+            }).OrderByDescending(x => x.Suitability).ToList();
+
+            return sortedList.First().Character;
         }
     }
 
@@ -188,58 +237,6 @@ public class CharacterBuilder
             {
                 baseValue += (item.CareerHistory.Where(ch => careerList.Contains(ch.Career)).Sum(ch => ch.Terms));
                 baseValue += (item.CareerHistory.Where(ch => careerList.Contains(ch.Assignment)).Sum(ch => ch.Terms));
-            }
-
-            return baseValue;
-        }
-
-        {
-            //No character's last career was the requested one. Choose the one who spend the most time in the desired career.
-            var sortedList = characters.Select(c => new
-            {
-                Character = c,
-                Suitability = Suitability(c, true)
-            }).OrderByDescending(x => x.Suitability).ToList();
-
-            return sortedList.First().Character;
-        }
-    }
-
-    /// <summary>
-    /// Creates the character with a desired final career.
-    /// </summary>
-    /// <param name="careerList">The list of desired careers and/or assignments.</param>
-    public Character CreateCharacterWithCareer(Dice dice, ISpeciesSettings speciesSettings, CareerTypes careerType) =>
-        CreateCharacterWithCareer(dice, careerType, speciesSettings.SpeciesOrFaction, speciesSettings.PercentOfOtherSpecies);
-
-    /// <summary>
-    /// Creates the character with a desired final career.
-    /// </summary>
-    /// <param name="careerList">The list of desired careers and/or assignments.</param>
-    public Character CreateCharacterWithCareer(Dice dice, CareerTypes careerType, string? speciesOrFaction = null, int? percentOfOtherSpecies = null)
-    {
-        var characters = new List<Character>();
-
-        for (int i = 0; i < 500; i++)
-        {
-            var character = Build(CreateCharacterStub(dice, speciesOrFaction, percentOfOtherSpecies, noChildren: true));
-            if (character.IsDead && !character.LongTermBenefits.Retired)
-                continue;
-
-            if (character.LastCareer?.CareerTypes.HasFlag(careerType) == true)
-                return character;
-
-            characters.Add(character);
-        }
-
-        double Suitability(Character item, bool includeCareers)
-        {
-            var baseValue = 0.00;
-
-            if (includeCareers)
-            {
-                baseValue += (item.CareerHistory.Where(ch => ch.CareerTypes.HasFlag(careerType)).Sum(ch => ch.Terms));
-                baseValue += (item.CareerHistory.Where(ch => ch.CareerTypes.HasFlag(careerType)).Sum(ch => ch.Terms));
             }
 
             return baseValue;
@@ -371,8 +368,7 @@ public class CharacterBuilder
                                 result.ContactType = ContactType.Contact;
                                 break;
 
-                            case ContactType.Husband:
-                            case ContactType.Wife:
+                            case ContactType.Husband or ContactType.Wife:
                                 result.History.Add("Relationship becomes more moderate.");
                                 if (result.Affinity > 0)
                                     result.Affinity += -1;
@@ -414,8 +410,7 @@ public class CharacterBuilder
                                 result.Affinity += 1;
                                 break;
 
-                            case ContactType.Husband:
-                            case ContactType.Wife:
+                            case ContactType.Husband or ContactType.Wife:
                                 result.History.Add("Relationship becomes more intense.");
                                 if (result.Affinity >= 0)
                                     result.Affinity += 1;
@@ -583,8 +578,7 @@ public class CharacterBuilder
                                 result.ContactType = ContactType.Enemy;
                                 break;
 
-                            case ContactType.Husband:
-                            case ContactType.Wife:
+                            case ContactType.Husband or ContactType.Wife:
                                 result.History.Add("Relationship redefined.");
                                 break;
                         }
@@ -607,9 +601,7 @@ public class CharacterBuilder
         {
             switch (result.ContactType)
             {
-                case ContactType.Ally:
-                case ContactType.Husband:
-                case ContactType.Wife:
+                case ContactType.Ally or ContactType.Husband or ContactType.Wife:
                     result.Affinity = AffinityTable(dice.D(2, 6));
                     break;
 

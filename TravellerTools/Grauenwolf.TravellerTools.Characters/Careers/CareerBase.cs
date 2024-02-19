@@ -204,42 +204,31 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
         {
             switch (item)
             {
-                case "Strength":
-                case "Str":
+                case "Strength" or "Str":
                     character.Strength += 1; return;
 
-                case "Dexterity":
-                case "Dex":
+                case "Dexterity" or "Dex":
                     character.Dexterity += 1; return;
 
-                case "Endurance":
-                case "End":
+                case "Endurance" or "End":
                     character.Endurance += 1; return;
 
-                case "Intellect":
-                case "Int":
+                case "Intellect" or "Int":
                     character.Intellect += 1; return;
 
-                case "Education":
-                case "Edu":
+                case "Education" or "Edu":
                     character.Education += 1; return;
 
-                case "SS":
-                case "Soc":
-                case "SocialStanding":
-                case "Chr":
-                case "Charisma":
+                case "SS" or "Soc" or "SocialStanding" or "Chr" or "Charisma":
                     character.SocialStanding += 1; return;
 
                 case "Psi":
                     character.Psi += 1; return;
 
-                case "Ter":
-                case "Territory":
+                case "Ter" or "Territory":
                     character.Territory += 1; return;
 
-                case "Fol":
-                case "Following":
+                case "Fol" or "Following":
                     character.Following += 1; return;
 
                 default:
@@ -271,42 +260,31 @@ public abstract class CareerBase(string career, string? assignment, SpeciesChara
 
         switch (item)
         {
-            case "Strength":
-            case "Str":
+            case "Strength" or "Str":
                 character.Strength += 1; return;
 
-            case "Dexterity":
-            case "Dex":
+            case "Dexterity" or "Dex":
                 character.Dexterity += 1; return;
 
-            case "Endurance":
-            case "End":
+            case "Endurance" or "End":
                 character.Endurance += 1; return;
 
-            case "Intellect":
-            case "Int":
+            case "Intellect" or "Int":
                 character.Intellect += 1; return;
 
-            case "Education":
-            case "Edu":
+            case "Education" or "Edu":
                 character.Education += 1; return;
 
-            case "SS":
-            case "Soc":
-            case "SocialStanding":
-            case "Chr":
-            case "Charisma":
+            case "SS" or "Soc" or "SocialStanding" or "Chr" or "Charisma":
                 character.SocialStanding += 1; return;
 
             case "Psi":
                 character.Psi += 1; return;
 
-            case "Ter":
-            case "Territory":
+            case "Ter" or "Territory":
                 character.Territory += 1; return;
 
-            case "Fol":
-            case "Following":
+            case "Fol" or "Following":
                 character.Following += 1; return;
 
             default:

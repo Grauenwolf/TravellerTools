@@ -285,53 +285,6 @@ public class Character : IContactGroup
         return true;
     }
 
-    //public void Increase(string attributeName, int bonus)
-    //{
-    //    switch (attributeName)
-    //    {
-    //        case "Strength":
-    //        case "Str":
-    //            Strength += bonus; return;
-
-    //        case "Dexterity":
-    //        case "Dex":
-    //            Dexterity += bonus; return;
-
-    //        case "Endurance":
-    //        case "End":
-    //            Endurance += bonus; return;
-
-    //        case "Intellect":
-    //        case "Int":
-    //            Intellect += bonus; return;
-
-    //        case "Education":
-    //        case "Edu":
-    //            Education += bonus; return;
-
-    //        case "SS":
-    //        case "SocialStanding":
-    //            SocialStanding += bonus; return;
-
-    //        //case "Armor": Armor += bonus; return;
-
-    //        //case "QuirkRolls":
-    //        //case "Quirks":
-    //        //    QuirkRolls += bonus; return;
-
-    //        //case "PhysicalSkills": PhysicalSkills += bonus; return;
-    //        //case "SocialSkills": SocialSkills += bonus; return;
-
-    //        //case "EvolutionSkills": EvolutionSkills += bonus; return;
-    //        //case "EvolutionDM": EvolutionDM += bonus; return;
-    //        //case "EvolutionRolls": EvolutionRolls += bonus; return;
-    //        //case "InitiativeDM": InitiativeDM += bonus; return;
-
-    //        default:
-    //            throw new ArgumentOutOfRangeException(nameof(attributeName), attributeName, "Unknown attribute " + attributeName);
-    //    }
-    //}
-
     internal int GetAdvancementBonus(string career, string? assignment)
     {
         var result = CurrentTermBenefits.AdvancementDM + LongTermBenefits.AdvancementDM;

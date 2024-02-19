@@ -78,32 +78,26 @@ public class Animal : ModelBase
         {
             case "Size": Size += bonus; return;
 
-            case "Strength":
-            case "Str":
+            case "Strength" or "Str":
                 Strength += bonus; return;
 
-            case "Dexterity":
-            case "Dex":
+            case "Dexterity" or "Dex":
                 Dexterity += bonus; return;
 
-            case "Endurance":
-            case "End":
+            case "Endurance" or "End":
                 Endurance += bonus; return;
 
-            case "Intelligence":
-            case "Int":
+            case "Intelligence" or "Int":
                 Intelligence += bonus; return;
 
-            case "Instinct":
-            case "Ins":
+            case "Instinct" or "Ins":
                 Instinct += bonus; return;
 
             case "Pack": Pack += bonus; return;
 
             case "Armor": Armor += bonus; return;
 
-            case "QuirkRolls":
-            case "Quirks":
+            case "QuirkRolls" or "Quirks":
                 QuirkRolls += bonus; return;
 
             case "PhysicalSkills": PhysicalSkills += bonus; return;
