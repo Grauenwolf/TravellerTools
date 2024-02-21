@@ -31,17 +31,22 @@ partial class EncountersPage
 
     protected void GenerateAlliesAndEnemies()
     {
-        Model.Encounters.Insert(0, EncounterGenerator.PickAlliesAndEnemies(new Dice(), Model));
+        Model.Encounters.Insert(0, EncounterGenerator.GenerateAlliesAndEnemies(new Dice(), Model));
     }
 
     protected void GenerateMission()
     {
-        Model.Encounters.Insert(0, EncounterGenerator.PickMission(new Dice(), Model));
+        Model.Encounters.Insert(0, EncounterGenerator.GenerateMission(new Dice(), Model));
+    }
+
+    protected void GenerateNpc()
+    {
+        Model.Encounters.Insert(0, EncounterGenerator.GenerateNpc(new Dice(), Model, Model.CareerType, Model.NpcCount));
     }
 
     protected void GeneratePatron()
     {
-        Model.Encounters.Insert(0, EncounterGenerator.PickPatron(new Dice(), Model));
+        Model.Encounters.Insert(0, EncounterGenerator.GeneratePatron(new Dice(), Model));
     }
 
     protected override void Initialized()

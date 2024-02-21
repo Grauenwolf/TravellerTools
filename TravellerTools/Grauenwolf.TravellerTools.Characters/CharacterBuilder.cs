@@ -5,6 +5,13 @@ using Tortuga.Anchor;
 
 namespace Grauenwolf.TravellerTools.Characters;
 
+public enum AgeClass
+{
+    None = 0,
+    Child = 1,
+    Adult = 2
+}
+
 public class CharacterBuilder
 {
     readonly ImmutableDictionary<string, SpeciesCharacterBuilder> m_CharacterBuilders;
@@ -85,14 +92,14 @@ public class CharacterBuilder
         }
     }
 
-    public Character CreateCharacter(Dice dice, ISpeciesSettings speciesSettings, bool noChildren = false) =>
-        CreateCharacter(dice, speciesSettings.SpeciesOrFaction, speciesSettings.PercentOfOtherSpecies, noChildren);
+    public Character CreateCharacter(Dice dice, ISpeciesSettings speciesSettings, AgeClass ageClass = AgeClass.None) =>
+        CreateCharacter(dice, speciesSettings.SpeciesOrFaction, speciesSettings.PercentOfOtherSpecies, ageClass);
 
-    public Character CreateCharacter(Dice dice, string? speciesOrFaction = null, int? percentOfOtherSpecies = null, bool noChildren = false)
+    public Character CreateCharacter(Dice dice, string? speciesOrFaction = null, int? percentOfOtherSpecies = null, AgeClass ageClass = AgeClass.None)
     {
         while (true)
         {
-            var options = CreateCharacterStub(dice, speciesOrFaction, percentOfOtherSpecies, noChildren: noChildren);
+            var options = CreateCharacterStub(dice, speciesOrFaction, percentOfOtherSpecies, ageClass: ageClass);
 
             var character = Build(options);
             if (!character.IsDead) //reroll if the character is deceased.
@@ -113,11 +120,14 @@ public class CharacterBuilder
     /// <param name="careerList">The list of desired careers and/or assignments.</param>
     public Character CreateCharacter(Dice dice, CareerTypes careerType, string? speciesOrFaction = null, int? percentOfOtherSpecies = null)
     {
+        if (careerType == CareerTypes.None)
+            return CreateCharacter(dice, speciesOrFaction, percentOfOtherSpecies);
+
         var characters = new List<Character>();
 
         for (int i = 0; i < 500; i++)
         {
-            var character = Build(CreateCharacterStub(dice, speciesOrFaction, percentOfOtherSpecies, noChildren: true));
+            var character = Build(CreateCharacterStub(dice, speciesOrFaction, percentOfOtherSpecies, ageClass: AgeClass.Adult));
             if (character.IsDead && !character.LongTermBenefits.Retired)
                 continue;
 
@@ -153,6 +163,54 @@ public class CharacterBuilder
     }
 
     /// <summary>
+    /// Creates the character with a desired final career.
+    /// </summary>
+    /// <param name="careerList">The list of desired careers and/or assignments.</param>
+    public Character CreateCharacter(Dice dice, ISpeciesSettings speciesSettings, string career)
+    {
+        var characters = new List<Character>();
+
+        for (int i = 0; i < 500; i++)
+        {
+            var character = Build(CreateCharacterStub(dice, speciesSettings.SpeciesOrFaction, speciesSettings.PercentOfOtherSpecies, ageClass: AgeClass.Adult));
+            if (character.IsDead && !character.LongTermBenefits.Retired)
+                continue;
+
+            if (career == character.LastCareer?.Career)
+                return character;
+
+            if (career == character.LastCareer?.Assignment)
+                return character;
+
+            characters.Add(character);
+        }
+
+        double Suitability(Character item, bool includeCareers)
+        {
+            var baseValue = 0.00;
+
+            if (includeCareers)
+            {
+                baseValue += (item.CareerHistory.Where(ch => career == ch.Career).Sum(ch => ch.Terms));
+                baseValue += (item.CareerHistory.Where(ch => career == ch.Assignment).Sum(ch => ch.Terms));
+            }
+
+            return baseValue;
+        }
+
+        {
+            //No character's last career was the requested one. Choose the one who spend the most time in the desired career.
+            var sortedList = characters.Select(c => new
+            {
+                Character = c,
+                Suitability = Suitability(c, true)
+            }).OrderByDescending(x => x.Suitability).ToList();
+
+            return sortedList.First().Character;
+        }
+    }
+
+    /// <summary>
     /// Creates the character stub.
     /// </summary>
     /// <param name="dice">The dice.</param>
@@ -161,7 +219,7 @@ public class CharacterBuilder
     /// <param name="genderCode">The gender code.</param>
     /// <param name="noChildren">if set to true, children will not be generated.</param>
     /// <returns>CharacterBuilderOptions.</returns>
-    public CharacterBuilderOptions CreateCharacterStub(Dice dice, string? speciesOrFaction = null, int? percentOfOtherSpecies = null, string? genderCode = null, bool noChildren = false)
+    public CharacterBuilderOptions CreateCharacterStub(Dice dice, string? speciesOrFaction = null, int? percentOfOtherSpecies = null, string? genderCode = null, AgeClass ageClass = AgeClass.None)
     {
         var options = new CharacterBuilderOptions();
         options.Species = GetRandomSpecies(dice, speciesOrFaction, percentOfOtherSpecies);
@@ -172,39 +230,11 @@ public class CharacterBuilder
 
         options.Name = builder.GenerateName(dice, options.Gender);
 
-        options.MaxAge = builder.RandomAge(dice, noChildren);
+        options.MaxAge = builder.RandomAge(dice, ageClass);
 
         options.Seed = dice.Next();
         return options;
     }
-
-    //public CharacterBuilderOptions CreateCharacterStubWithSkill(Dice dice, string targetSkillName, string targetSkillSpeciality, int? targetSkillLevel = null, string? species = null)
-    //{
-    //    return CreateCharacterWithSkill(dice, targetSkillName, targetSkillSpeciality, targetSkillLevel, species).GetCharacterBuilderOptions();
-    //}
-
-    /// <summary>
-    /// Creates the character with a desired final career.
-    /// </summary>
-    /// <param name="careerList">The list of desired careers and/or assignments.</param>
-    public Character CreateCharacterWithCareer(Dice dice, string career, string? species = null, int? percentOfOtherSpecies = null)
-    {
-        return CreateCharacterWithCareer(dice, new[] { career }, species, percentOfOtherSpecies);
-    }
-
-    /// <summary>
-    /// Creates the character with a desired final career.
-    /// </summary>
-    /// <param name="careerList">The list of desired careers and/or assignments.</param>
-    public Character CreateCharacterWithCareer(Dice dice, ISpeciesSettings speciesSettings, string career) =>
-    CreateCharacterWithCareer(dice, career, speciesSettings.SpeciesOrFaction, speciesSettings.PercentOfOtherSpecies);
-
-    /// <summary>
-    /// Creates the character with a desired final career.
-    /// </summary>
-    /// <param name="careerList">The list of desired careers and/or assignments.</param>
-    public Character CreateCharacterWithCareer(Dice dice, ISpeciesSettings speciesSettings, IReadOnlyList<string> careerList) =>
-        CreateCharacterWithCareer(dice, careerList, speciesSettings.SpeciesOrFaction, speciesSettings.PercentOfOtherSpecies);
 
     /// <summary>
     /// Creates the character with a desired final career.
@@ -216,7 +246,7 @@ public class CharacterBuilder
 
         for (int i = 0; i < 500; i++)
         {
-            var character = Build(CreateCharacterStub(dice, speciesOrFaction, percentOfOtherSpecies, noChildren: true));
+            var character = Build(CreateCharacterStub(dice, speciesOrFaction, percentOfOtherSpecies, ageClass: AgeClass.Adult));
             if (character.IsDead && !character.LongTermBenefits.Retired)
                 continue;
 

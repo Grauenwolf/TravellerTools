@@ -162,7 +162,7 @@ partial class CharacterPage
     private CharacterBuilderOptions CreateOptions(Dice dice)
     {
         var species = Model!.SpeciesOrFaction;
-        var noChildren = false;
+        var ageClass = AgeClass.None;
         if (species.IsNullOrEmpty())
         {
             if (Model.FirstCareer.IsNullOrEmpty() && Model.FinalCareer.IsNullOrEmpty())
@@ -170,12 +170,12 @@ partial class CharacterPage
             else
             {
                 species = CharacterBuilder.GetRandomSpeciesForCareer(dice, Model.FirstCareer, Model.FinalCareer);
-                noChildren = true;
+                ageClass = AgeClass.Adult;
             }
         }
 
         //This gives us a name and starting age
-        var options = CharacterBuilder.CreateCharacterStub(dice, species, genderCode: Model.Gender, noChildren: noChildren);
+        var options = CharacterBuilder.CreateCharacterStub(dice, species, genderCode: Model.Gender, ageClass: ageClass);
 
         var builder = CharacterBuilder.GetCharacterBuilder(options.Species);
 

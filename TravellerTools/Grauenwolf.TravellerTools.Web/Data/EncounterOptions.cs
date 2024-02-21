@@ -7,7 +7,21 @@ namespace Grauenwolf.TravellerTools.Web.Data;
 
 public class EncounterOptions : ModelBase, IEncounterGeneratorSettings
 {
+    public CareerTypes CareerType { get => Get<CareerTypes>(); set => Set(value); }
     public List<Encounter> Encounters { get; } = new();
+
+    public int NpcCount
+    {
+        get => GetDefault<int>(1);
+        set
+        {
+            Set(value);
+            if (value < 1)
+                Set(1);
+            if (value > 100)
+                Set(100);
+        }
+    }
 
     public int PercentOfOtherSpecies
     {

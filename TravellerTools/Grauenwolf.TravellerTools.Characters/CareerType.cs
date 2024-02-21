@@ -1,5 +1,24 @@
 ﻿namespace Grauenwolf.TravellerTools.Characters;
 
+public static class CareerTypesExtension
+{
+    public static string ToDescription(this CareerTypes type)
+    {
+        return type switch
+        {
+            CareerTypes.FieldScience => "Field Science",
+            CareerTypes.LegalGoodsTrader => "Legal Goods Trader",
+            CareerTypes.ShadyGoodsTrader => "Shady Goods Trader",
+            CareerTypes.StarportEmployee => "Starport Employee",
+            CareerTypes.StarportOfficer => "Starport Officer",
+            CareerTypes.ArtistOrPerformer => "Artist/Performer ",
+            CareerTypes.CorporateMerchant => "Corporate Merchant",
+            CareerTypes.MilitaryNavy => "Navy",
+            _ => type.ToString(),
+        };
+    }
+}
+
 /// <summary>
 /// Career types are used for the encounter generator.
 /// </summary>

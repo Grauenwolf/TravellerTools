@@ -19,12 +19,12 @@ partial class EncounterGenerator
             case 2:
                 result.Add("Another ship is desperate for spare parts.");
                 for (var i = 0; i < dice.D(3); i++)
-                    result.Add("Crewmember", CharacterBuilder.CreateCharacter(dice, settings));
+                    result.Add("Crewmember", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
                 break;
 
             case 3:
                 result.Add("Meet a starport employee who is having a bad day.");
-                result.Add("Employee", CharacterBuilder.CreateCharacter(dice, settings));
+                result.Add("Employee", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportEmployee));
 
                 switch (dice.D(6))
                 {
@@ -61,7 +61,7 @@ partial class EncounterGenerator
                 break;
 
             case 8:
-                result.Add("Starport chief is drunk and giving misleading flight instructions.", "Starport chief", CharacterBuilder.CreateCharacter(dice, settings));
+                result.Add("Starport chief is drunk and giving misleading flight instructions.", "Starport chief", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportEmployee));
                 break;
 
             case 9:
@@ -93,7 +93,7 @@ partial class EncounterGenerator
                 break;
 
             case 11 or 12:
-                result.Add($"One of the starport services is unavilable. It will take {dice.D(4, 6)} hours to fix unless help is found.");
+                result.Add($"One of the starport services is unavailable. It will take {dice.D(4, 6)} hours to fix unless help is found.");
                 break;
         }
 
@@ -173,7 +173,7 @@ partial class EncounterGenerator
                     case 5:
                         result.Add("Plague ship. Communications are down so crew cannot warn the outside."); break;
                     case 6:
-                        result.Add("Priate ship was shot down. Crew will attempt to sieze the ship of any rescuers."); break;
+                        result.Add("Pirate ship was shot down. Crew will attempt to seize the ship of any rescuers."); break;
                 }
                 break;
 
@@ -189,10 +189,10 @@ partial class EncounterGenerator
                     case 5:
                         result.Add("extortion."); break;
                     case 6:
-                        result.Add("personal fued."); break;
+                        result.Add("personal feud."); break;
                 }
                 result.Add("Starport Representative", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportEmployee));
-                result.Add("Local Representative", CharacterBuilder.CreateCharacter(dice, settings));
+                result.Add("Local Representative", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
                 break;
 
             case 7:
@@ -219,7 +219,7 @@ partial class EncounterGenerator
                     case 6:
                         result.Add("Starport security office is missing. All space traffic is halted until the officer is found.");
                         result.Add("Missing Officer", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportOfficer));
-                        result.Add("Starport Representative", CharacterBuilder.CreateCharacter(dice, settings));
+                        result.Add("Starport Representative", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportEmployee));
                         break;
                 }
                 break;
@@ -241,13 +241,13 @@ partial class EncounterGenerator
                         result.Add("Flying fauna is swarming around the starport, blocking space traffic."); break;
                     case 2:
                         //TODO : Add the random animal creator here
-                        result.Add("Mating season is causing fauna to act aggresively."); break;
+                        result.Add("Mating season is causing fauna to act aggressively."); break;
                     case 3:
                         result.Add("Burrowing creatures are causing the building to subside."); break;
                     case 4:
-                        result.Add("Offworld hunters are looking to recuit help.");
+                        result.Add("Off world hunters are looking to recruit help.");
                         for (var i = 0; i < dice.D(3); i++)
-                            result.Add("Hunter", CharacterBuilder.CreateCharacter(dice, settings));
+                            result.Add("Hunter", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
                         break;
 
                     case 5:
@@ -281,13 +281,13 @@ partial class EncounterGenerator
     {
         var result = new Encounter();
         result.Title = "Bustling Starport General Encounter";
-        switch (dice.D66())
+        switch (dice.D(13))
         {
-            case 11 or 12 or 13:
+            case 1:
                 result.Add("Local holiday. Non-vital services are closed down.");
                 break;
 
-            case 14 or 15 or 16:
+            case 2:
                 var type = dice.D(6) switch
                 {
                     1 or 2 => "Living fabric",
@@ -299,49 +299,49 @@ partial class EncounterGenerator
                 result.Add("Merchant", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.ShadyGoodsTrader));
                 break;
 
-            case 21 or 22:
+            case 3:
                 var speciesA = CharacterBuilder.GetRandomSpecies(dice, settings);
                 var speciesB = CharacterBuilder.GetRandomSpecies(dice, speciesA, 5); //5% chance of mixed marriage
-                var characterA = CharacterBuilder.CreateCharacter(dice, speciesA, noChildren: true);
-                var characterB = CharacterBuilder.CreateCharacter(dice, speciesB, noChildren: true);
+                var characterA = CharacterBuilder.CreateCharacter(dice, speciesA, ageClass: AgeClass.Adult);
+                var characterB = CharacterBuilder.CreateCharacter(dice, speciesB, ageClass: AgeClass.Adult);
                 result.Add($"{characterA.Name} and {characterB.Name} are on their honeymoon, but their ship never arrived. They ask for transport with the remainder of their spending money.");
                 result.Add("Newlywed", characterA);
                 result.Add("Newlywed", characterB);
                 break;
 
-            case 23 or 24:
+            case 4:
                 result.Add("Of the the travellers is approached by a 'lady of the night'");
-                result.Add("Professional", CharacterBuilder.CreateCharacter(dice, settings));
+                result.Add("Professional", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
                 break;
 
-            case 25 or 26:
+            case 5:
                 result.Add("A reporter wants to interview the travellers.");
-                result.Add("Journalist", CharacterBuilder.CreateCharacterWithCareer(dice, settings, "Journalist"));
+                result.Add("Journalist", CharacterBuilder.CreateCharacter(dice, settings, "Journalist"));
                 break;
 
-            case 31 or 32 or 33:
+            case 6:
                 result.Add("Due to a bomb scare, security is ramped up and incoming ships are thoroughly searched.");
                 break;
 
-            case 34 or 35 or 36:
-                result.Add("Due to industrial action, one or more services are unavailable. The stike typically lasts one day.");
+            case 7:
+                result.Add("Due to industrial action, one or more services are unavailable. The strike typically lasts one day.");
                 break;
 
-            case 41 or 42 or 43:
-                var dropoff = CharacterBuilder.CreateCharacterWithCareer(dice, settings, "IllegalCareers");
-                var pickip = CharacterBuilder.CreateCharacterWithCareer(dice, settings, "IllegalCareers");
+            case 8:
+                var dropoff = CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.Illegal);
+                var pickip = CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.Illegal);
 
-                result.Add($"Traveller is tricked into carrying drugs through security. They are either given the to character by {dropoff.Name} as a memento or hidded in their luggage. {pickip.Name} will retrieve it on the other side.");
+                result.Add($"Traveller is tricked into carrying drugs through security. They are either given the to character by {dropoff.Name} as a memento or hidden in their luggage. {pickip.Name} will retrieve it on the other side.");
                 result.Add("Drop-off", dropoff);
                 result.Add("Pick-up", pickip);
                 break;
 
-            case 44 or 45 or 46:
+            case 9:
                 result.Add("An SPA official wants to interview one of the travellers for an hour or so to see if they are happy with SPA operations.");
                 result.Add("SPA Official", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportEmployee));
                 break;
 
-            case 51 or 52 or 53:
+            case 10:
                 var service = dice.D(6) switch
                 {
                     1 or 2 => "docking facilities",
@@ -353,15 +353,15 @@ partial class EncounterGenerator
                 result.Add($"Loading bay doors jammed. Increase wait times for {service}.");
                 break;
 
-            case 54 or 55 or 56:
+            case 11:
                 result.Add("A colony of scavengers are stealing food and shiny objects. They may be native or accidentally released.");
                 break;
 
-            case 61 or 62 or 63:
-                result.Add($"Trader is offering {Goods(dice)}, but its a trick to lure the traveller to where they can be mugged.");
+            case 12:
+                result.Add($"Trader is offering {Goods(dice)}, but it’s a trick to lure the traveller to where they can be mugged.");
                 result.Add("Trader", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.Illegal)); break;
 
-            case 64 or 65 or 66:
+            case 13:
                 result.Add($"Trader is offering {Goods(dice)}.");
                 result.Add("Trader", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.LegalGoodsTrader));
                 break;
@@ -409,40 +409,40 @@ partial class EncounterGenerator
     {
         var result = new Encounter();
         result.Title = "Bustling Starport Significant Encounter";
-        switch (dice.D66())
+        switch (dice.D(15))
         {
-            case 11 or 12:
+            case 1:
                 result.Add("The starport has become the base of operations for dealing with a nearby environmental emergency.");
                 break;
 
-            case 13 or 14:
+            case 2:
                 switch (dice.D(6))
                 {
                     case 1 or 2:
                         result.Add("Travellers are asked by a desperate dealer to smuggle drugs off planet. The dealer is afraid for his life.");
-                        result.Add("Dealer", CharacterBuilder.CreateCharacter(dice, settings));
+                        result.Add("Dealer", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
                         break;
 
                     case 3 or 4:
                         result.Add("Travellers are asked to help smuggle a relic off planet. The locals will not be happy to learn it was stolen.");
-                        result.Add("Archaeologist", CharacterBuilder.CreateCharacter(dice, settings));
+                        result.Add("Archaeologist", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
                         break;
 
                     case 5:
-                        result.Add("Travellers are asked to help smuggle a live animinal off planet."); //Roll for animal details
-                        result.Add("Trapper", CharacterBuilder.CreateCharacter(dice, settings));
+                        result.Add("Travellers are asked to help smuggle a live animal off planet."); //Roll for animal details
+                        result.Add("Trapper", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
                         break;
 
                     case 6:
-                        result.Add("Travellers are asked to help smuggle a coma patient off planet. They are actualy drugged.");
-                        result.Add("Kidnapper", CharacterBuilder.CreateCharacter(dice, settings));
+                        result.Add("Travellers are asked to help smuggle a coma patient off planet. They are actually drugged.");
+                        result.Add("Kidnapper", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
                         result.Add("Victim", CharacterBuilder.CreateCharacter(dice, settings));
                         break;
                 }
                 break;
 
-            case 15 or 16:
-                switch (dice.D(6))
+            case 3:
+                switch (dice.D(4))
                 {
                     case 1:
                         result.Add("The starport is hosting a major race around the nearest moon and back.");
@@ -462,108 +462,190 @@ partial class EncounterGenerator
                 }
                 break;
 
-            case 21 or 22:
+            case 4:
                 var landType = dice.D(6) switch
                 {
-                    1 or 2 => "swamp filled with valuable aligator-like monster skins.", //roll for animal
-                    3 or 4 => "volanic region filled with poison gas and valuable minerals.",
-                    5 => "fertile grassland that allows animals to grow faster. Also lots of carnavores.",
-                    6 => "well stocked section of ocean.",
+                    1 or 2 => "swamp filled with valuable alligator-like monster skins.", //roll for animal
+                    3 or 4 => "volcanic region filled with poison gas and valuable minerals.",
+                    5 => "fertile grassland that allows animals to grow faster. Also lots of carnivores.",
+                    _ => "well stocked section of ocean.",
                 };
                 var complication = dice.D(6) switch
                 {
-                    1 or 2 => "",
-                    3 or 4 => "",
-                    5 => "",
-                    6 => "",
+                    1 or 2 => "a pirate fleet attacks intruders to protect the location of their base",
+                    3 or 4 => "an exploding moon has made the area treacherous",
+                    5 => "an xenophobic alien race has been attacking trespassers",
+                    _ => "gravitational anomalies disrupt navigation",
                 };
                 result.Add($"Travellers are asked to transport a person to a planet so they can obtain some land they inherited. The land is {landType}, but {complication}.");
-                switch (dice.D(6))
-                {
-                    case 1 or 2:
-                        result.Add("Travellers are asked by a desperate dealer to smuggle drugs off planet. The dealer is afraid for his life.");
-                        break;
-
-                    case 3 or 4:
-                        result.Add("Travellers are asked to help smuggle a relic off planet. The locals will not be happy to learn it was stolen.");
-                        break;
-
-                    case 5:
-                        result.Add("Travellers are asked to help smuggle a live animinal off planet.");
-                        break;
-
-                    case 6:
-                        result.Add("Travellers are asked to help smuggle a coma patient off planet. They are actualy drugged.");
-                        break;
-                }
                 result.Add("Beneficiary", CharacterBuilder.CreateCharacter(dice, settings));
+
+                break;
+
+            case 5:
                 switch (dice.D(6))
                 {
-                    case 1 or 2:
-                        result.Add("Travellers are asked by a desperate dealer to smuggle drugs off planet. The dealer is afraid for his life.");
-                        result.Add("Dealer", CharacterBuilder.CreateCharacter(dice, settings));
+                    case 1:
+                        result.Add($"Targeted for a sing operation. They are offered stolen goods. {LegalTradeGood(dice)}");
+                        result.Add("Fake Dealer", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
+                        result.Add("Lead Officer", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportOfficer));
                         break;
 
-                    case 3 or 4:
-                        result.Add("Travellers are asked to help smuggle a relic off planet. The locals will not be happy to learn it was stolen.");
-                        result.Add("Archaeologist", CharacterBuilder.CreateCharacter(dice, settings));
+                    case 2:
+                        result.Add("Travellers' ship looks similar to a pirate ship. Travellers are brought in for questioning by over-zealous investigator.");
+                        result.Add("Investigator", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportOfficer));
+                        break;
+
+                    case 3:
+                        result.Add("Witness a kidnapping of an undercover officer.");
+                        result.Add("Kidnapped Officer", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportOfficer));
+                        var count = dice.D(3);
+                        for (int i = 0; i < count; i++)
+                            result.Add("Gangster", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.Illegal));
+                        break;
+
+                    case 4:
+                        result.Add("Accidentally pick up a receiver for a 'bug' that allows them overhear a corrupt customs officer.");
+                        result.Add("Corrupt Officer", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportOfficer));
+                        result.Add("Collaborator", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
                         break;
 
                     case 5:
-                        result.Add("Travellers are asked to help smuggle a live animinal off planet."); //Roll for animal details
-                        result.Add("Trapper", CharacterBuilder.CreateCharacter(dice, settings));
+                        result.Add("Learn about the location of some smuggled gemstones.");
+                        result.Add("Lead Officer", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportOfficer));
                         break;
 
                     case 6:
-                        result.Add("Travellers are asked to help smuggle a coma patient off planet. They are actualy drugged.");
-                        result.Add("Kidnapper", CharacterBuilder.CreateCharacter(dice, settings));
-                        result.Add("Victim", CharacterBuilder.CreateCharacter(dice, settings));
+                        result.Add("Bounty hunter askes crew to sneak prisoner off-planet.");
+                        result.Add("Bounty Hunter", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
+                        result.Add("Prisoner", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.Illegal));
                         break;
                 }
                 break;
 
-            case 23 or 24:
-                result.Add("");
+            case 6:
+                result.Add("Outbreak of Violence");
+                switch (dice.D(6))
+                {
+                    case 1:
+                        result.Add("Crew from ship on adjectent pad are involved in a brawl.");
+                        result.Add("Crewmember", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
+                        result.Add("Crewmember", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
+                        var count = dice.D(5) - 2;
+                        for (int i = 0; i < count; i++)
+                            result.Add("Other", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
+                        break;
+
+                    case 2:
+                        result.Add("Victim of a pick-pocket that will need to be tracked down.");
+                        result.Add("Thief", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.Illegal));
+                        result.Add("Security", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportOfficer));
+                        break;
+
+                    case 3:
+                        result.Add("Funds are counterfit. Traveller will be arrested unless explaination about their source is provided.");
+                        result.Add("Seller", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
+                        result.Add("Security", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportOfficer));
+                        break;
+
+                    case 4:
+                        var cause = dice.D(2) switch
+                        {
+                            1 => "terrorists",
+                            _ => "a mechanical failure",
+                        };
+                        result.Add($"Trapped in the hangar by an explosion. This was caused by {cause}.");
+                        break;
+
+                    case 5:
+                        result.Add("Illegal narcotics are stashed in the traveller's luggage. If caught, the smuggler will react with violence.");
+                        result.Add("Smuggler", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.Illegal));
+                        result.Add("Officer", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportOfficer));
+                        break;
+
+                    case 6:
+                        result.Add("A person is suffering from 'space madness' and tries to take a traveller hostage unless they \"turn on the lights\" outside the station.");
+                        result.Add("Person", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
+                        break;
+                }
                 break;
 
-            case 25 or 26:
-                result.Add("");
+            case 7:
+                result.Add("A massive meteorite or hail storm forces everyone indoors. A large predator uses this opportunity to hunt stranded people.");
                 break;
 
-            case 31 or 32:
-                result.Add("");
+            case 8:
+                result.Add("Alien tech");
+                switch (dice.D(6))
+                {
+                    case 1 or 2:
+                        result.Add("Request by seller for transport to a cache of artifacts and assistance fighting claim jumpers.");
+                        result.Add("Archeologist", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
+                        break;
+
+                    case 3 or 4:
+                        result.Add("Offered location of a derelict alien ship.");
+                        result.Add("Seller", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
+                        break;
+
+                    case 5:
+                        result.Add("Offered alien tech... that is embedded is partner's body. And it is rewriting his DNA.");
+                        result.Add("Seller", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
+                        result.Add("Partner", CharacterBuilder.CreateCharacter(dice, settings));
+                        break;
+
+                    case 6:
+                        result.Add("Offered a homing beacon leading to an ancient alien city, or alien ship, or secret vault or...");
+                        result.Add("Hard-up Seller", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
+                        break;
+                }
                 break;
 
-            case 33 or 34:
-                result.Add("");
+            case 9:
+                result.Add("Approached by bounty-hunter looking for someone the travellers recently met.");
+                result.Add("Bounty Hunter", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
+                result.Add("Target", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
                 break;
 
-            case 35 or 36:
-                result.Add("");
+            case 10:
+                result.Add("Infestation");
+                switch (dice.D(6))
+                {
+                    case 1: result.Add("A hardy type of cockroach is nesting in the station and threatens to infect the ship."); break;
+                    case 2: result.Add("Rats have found their way into the ship's cargo bay."); break;
+                    case 3: result.Add("A character is infected with a stomach parasite. Must be removed within a week or it will find its own way out."); break;
+                    case 4: result.Add("Outbreak of lice-like portbugs."); break;
+                    case 5: result.Add("Spores of an exotic type of a plant is germating on ship and will damage wiring."); break;
+                    case 6: result.Add("Star spiders infect the station. Adult bites are lethal and even young can induce psionic fear."); break;
+                }
                 break;
 
-            case 41 or 42 or 43:
-                result.Add("");
+            case 11:
+                var reason = dice.D(2) switch
+                {
+                    1 => "a love-sick fool who wants to die",
+                    _ => "a experienced dullist who likes the challenge",
+                };
+                result.Add($"Challenged to a duel by an offended visitor. The real is reason is that they are {reason}.");
+                result.Add("Visitor", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
                 break;
 
-            case 44 or 45 or 46:
-                result.Add("");
+            case 12:
+                result.Add("Asked to bring ship close to the sun to observe a solar flare.");
                 break;
 
-            case 51 or 52 or 53:
-                result.Add("");
+            case 13:
+                result.Add("A robot has been programmed by a child to collect items for their go-cart, including parts of their ship or its cargo.");
+                result.Add("Child", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Child));
                 break;
 
-            case 54 or 55 or 56:
-                result.Add("");
+            case 14:
+                result.Add("A group of space nomands in patched-up ships arrive, raising tensions among the locals.");
                 break;
 
-            case 61 or 62 or 63:
-                result.Add("");
-                break;
-
-            case 64 or 65 or 66:
-                result.Add("");
+            case 15:
+                result.Add("A starport employee is found lurking outside a traveller's room or warehouse. They want to retrieve a stolen item they hid there before the room was rented.");
+                result.Add("Employee", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.StarportEmployee));
                 break;
         }
         return result;
@@ -573,66 +655,93 @@ partial class EncounterGenerator
     {
         var result = new Encounter();
         result.Title = "Metropolis Starport General Encounter";
-        switch (dice.D66())
+        switch (dice.D(15))
         {
-            case 11 or 12:
-                result.Add("");
+            case 1:
+                result.Add("Trade fair");
+                switch (dice.D(6))
+                {
+                    case 1: result.Add(""); break;
+                    case 2: result.Add(""); break;
+                    case 3: result.Add(""); break;
+                    case 4: result.Add(""); break;
+                    case 5: result.Add(""); break;
+                    case 6: result.Add(""); break;
+                }
                 break;
 
-            case 13 or 14:
-                result.Add("");
+            case 2:
+                result.Add("Wildlife Photo");
                 break;
 
-            case 15 or 16:
-                result.Add("");
+            case 3:
+                result.Add("Explorer");
                 break;
 
-            case 21 or 22:
-                result.Add("");
+            case 4:
+                result.Add("Lost child");
                 break;
 
-            case 23 or 24:
-                result.Add("");
+            case 5:
+                result.Add("More than you bargain");
+                switch (dice.D(6))
+                {
+                    case 1: result.Add(""); break;
+                    case 2: result.Add(""); break;
+                    case 3: result.Add(""); break;
+                    case 4: result.Add(""); break;
+                    case 5: result.Add(""); break;
+                    case 6: result.Add(""); break;
+                }
                 break;
 
-            case 25 or 26:
-                result.Add("");
+            case 6:
+                result.Add("Startown market");
                 break;
 
-            case 31 or 32:
-                result.Add("");
+            case 7:
+                result.Add("CHeap fuel");
                 break;
 
-            case 33 or 34:
-                result.Add("");
+            case 8:
+                result.Add("Cultural faux");
                 break;
 
-            case 35 or 36:
-                result.Add("");
+            case 9:
+                result.Add("Droid for sale");
+                switch (dice.D(6))
+                {
+                    case 1: result.Add(""); break;
+                    case 2: result.Add(""); break;
+                    case 3: result.Add(""); break;
+                    case 4: result.Add(""); break;
+                    case 5: result.Add(""); break;
+                    case 6: result.Add(""); break;
+                }
                 break;
 
-            case 41 or 42 or 43:
-                result.Add("");
+            case 10:
+                result.Add("Traffic jam");
                 break;
 
-            case 44 or 45 or 46:
-                result.Add("");
+            case 11:
+                result.Add("Drunken cadet");
                 break;
 
-            case 51 or 52 or 53:
-                result.Add("");
+            case 12:
+                result.Add("Alien zoo");
                 break;
 
-            case 54 or 55 or 56:
-                result.Add("");
+            case 13:
+                result.Add("Guided tours");
                 break;
 
-            case 61 or 62 or 63:
-                result.Add("");
+            case 14:
+                result.Add("Recruitment drive");
                 break;
 
-            case 64 or 65 or 66:
-                result.Add("");
+            case 15:
+                result.Add("ship's mascot");
                 break;
         }
         return result;
@@ -642,70 +751,82 @@ partial class EncounterGenerator
     {
         var result = new Encounter();
         result.Title = "Metropolis Starport Significant Encounter";
-        switch (dice.D66())
+        switch (dice.D(16))
         {
-            case 11 or 12:
-                result.Add("");
+            case 1:
+                result.Add("MIstekn delivery");
+                switch (dice.D(6))
+                {
+                    case 1 or 2: result.Add(""); break;
+                    case 3 or 4 or 5 or 6: result.Add(""); break;
+                }
                 break;
 
-            case 13 or 14:
-                result.Add("");
+            case 2:
+                result.Add("ROgue robot");
+                switch (dice.D(6))
+                {
+                    case 1 or 2: result.Add(""); break;
+                    case 3 or 4: result.Add(""); break;
+                    case 5: result.Add(""); break;
+                    case 6: result.Add(""); break;
+                }
                 break;
 
-            case 15 or 16:
-                result.Add("");
+            case 3:
+                result.Add("banquet fit for a king");
                 break;
 
-            case 21 or 22:
-                result.Add("");
+            case 4:
+                result.Add("Storm hunters");
                 break;
 
-            case 23 or 24:
-                result.Add("");
+            case 5:
+                result.Add("Mercs");
                 break;
 
-            case 25 or 26:
-                result.Add("");
+            case 6:
+                result.Add("Bail");
                 break;
 
-            case 31 or 32 or 33:
-                result.Add("");
+            case 7:
+                result.Add("Take me to your breeder");
                 break;
 
-            case 34 or 35 or 36:
-                result.Add("");
+            case 8:
+                result.Add("Starown riots");
                 break;
 
-            case 41 or 42:
-                result.Add("");
+            case 9:
+                result.Add("Prototype");
                 break;
 
-            case 43 or 44:
-                result.Add("");
+            case 10:
+                result.Add("More than you bargan");
                 break;
 
-            case 45 or 46:
-                result.Add("");
+            case 11:
+                result.Add("Asssassins");
                 break;
 
-            case 51 or 52 or 53:
-                result.Add("");
+            case 12:
+                result.Add("Bulter bot");
                 break;
 
-            case 54 or 55 or 56:
-                result.Add("");
+            case 13:
+                result.Add("Refugee crisis");
                 break;
 
-            case 61 or 62:
-                result.Add("");
+            case 14:
+                result.Add("port kour");
                 break;
 
-            case 63 or 64:
-                result.Add("");
+            case 15:
+                result.Add("tailed");
                 break;
 
-            case 65 or 66:
-                result.Add("");
+            case 16:
+                result.Add("counter-espinage");
                 break;
         }
         return result;

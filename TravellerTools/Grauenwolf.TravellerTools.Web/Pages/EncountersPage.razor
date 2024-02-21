@@ -2,27 +2,16 @@
 @inherits PageBase<EncounterOptions>
 @using Microsoft.AspNetCore.WebUtilities
 @{
-    PageTitle = "";
+    PageTitle = "Encounters";
 }
 
 <h3>Encounter Builder</h3>
 
 <div class="do-not-print">
     <EditForm Model="@Model">
-
         <table class="gridtable">
             <tr>
-                <th>Encounter Generator</th>
-                <td><button @onclick="GenerateAlliesAndEnemies">Generate Allies and Enemies</button></td>
-                <td><button @onclick="GeneratePatron">Generate Patron</button></td>
-                <td><button @onclick="GenerateMission">Generate Mission</button></td>
-                <!-- TODO: Once we have permalinks for characters, add option to generate NPCs -->
-            </tr>
-        </table>
-        <br />
-        <table class="gridtable">
-            <tr>
-                <th colspan="3">Starport Encounter </th>
+                <th colspan="2">Settings</th>
             </tr>
             <tr>
                 <th>Species or Faction</th>
@@ -35,6 +24,48 @@
                         }
                     </InputSelect>
                 </td>
+            </tr>
+        </table>
+        <br />
+
+
+        <table class="gridtable">
+            <tr>
+                <th>Encounter Generator</th>
+                <td><button @onclick="GenerateAlliesAndEnemies">Generate Allies and Enemies</button></td>
+                <td><button @onclick="GeneratePatron">Generate Patron</button></td>
+                <td><button @onclick="GenerateMission">Generate Mission</button></td>
+            </tr>
+        </table>
+        <br />
+        <table class="gridtable">
+            <tr>
+                <th colspan="2">NPC Generator</th>
+            </tr>
+            <tr>
+                <th>Career Type</th>
+                <td>
+                    <InputSelect @bind-Value="Model.CareerType">
+                        <option value="@CareerTypes.None" selected="@(Model.CareerType == CareerTypes.None)">(Any)</option>
+                        @foreach (var item in Enum.GetValues<CareerTypes>().Where(x=>x != CareerTypes.None).OrderBy(x=>x.ToDescription()))
+                        {
+                            <option value="@(item)" selected="@(Model.CareerType == item)"> @(item.ToDescription())</option>
+                        }
+                    </InputSelect>
+                </td>
+            </tr>
+            <tr>
+                <th>Count</th>
+                <td><InputNumber @bind-Value="Model.NpcCount" style="width: 50px;" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><button @onclick="GenerateNpc">Generate NPCs</button></td>
+            </tr>
+        </table>
+        <br />
+        <table class="gridtable">
+            <tr>
+                <th colspan="3">Starport Encounter </th>
             </tr>
             <tr style="@(string.IsNullOrEmpty(Model.SpeciesOrFaction) ?  "display:none;" : "")">
                 <th>% Chance of unusual Species</th>
@@ -50,7 +81,7 @@
             <tr>
                 <th>Bustling Starport</th>
                 <td><button @onclick="BustlingStarportGeneralEncounter">General Encounter</button></td>
-                <td style="display:none"><button @onclick="BustlingStarportSignificantEncounter">Significant Encounter</button></td>
+                <td><button @onclick="BustlingStarportSignificantEncounter">Significant Encounter</button></td>
             </tr>
             <tr style="display:none">
                 <th>Metropolis Starport</th>

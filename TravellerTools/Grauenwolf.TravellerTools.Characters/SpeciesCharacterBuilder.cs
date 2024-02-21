@@ -10,7 +10,7 @@ public abstract class SpeciesCharacterBuilder
 {
     static readonly ImmutableList<string> s_BackgroundSkills = ImmutableList.Create("Admin", "Animals", "Art", "Athletics", "Carouse", "Drive", "Science", "Seafarer", "Streetwise", "Survival", "Vacc Suit", "Electronics", "Flyer", "Language", "Mechanic", "Medic", "Profession");
 
-    readonly OddsTable<int> m_AgeTable;
+    readonly Dictionary<AgeClass, OddsTable<int>> m_AgeTables = new();
     readonly CharacterBuilder m_CharacterBuilder;
     readonly ImmutableArray<string> m_Personalities;
     ImmutableArray<CareerBase> m_Careers;
@@ -37,7 +37,7 @@ public abstract class SpeciesCharacterBuilder
 
         //Age Table
         var ages = new OddsTable<int>();
-        var age = StartingAge - 4; //Pre-adults
+        var age = StartingAge / 2; //Pre-adults
         const int baseOdds = 20;
 
         while (true)
@@ -61,7 +61,9 @@ public abstract class SpeciesCharacterBuilder
             age += 1;
         }
 
-        m_AgeTable = ages;
+        m_AgeTables[AgeClass.None] = ages;
+        m_AgeTables[AgeClass.Adult] = new OddsTable<int>(ages.Where(x => x.value >= StartingAge + 4));
+        m_AgeTables[AgeClass.Child] = new OddsTable<int>(ages.Where(x => x.value <= StartingAge));
     }
 
     public virtual ImmutableArray<Book> Books { get; protected set; }
@@ -656,17 +658,9 @@ public abstract class SpeciesCharacterBuilder
     {
     }
 
-    internal int RandomAge(Dice dice, bool noChildren = false)
+    internal int RandomAge(Dice dice, AgeClass ageClass)
     {
-        if (noChildren) //keep trying until we get an adult
-            while (true)
-            {
-                int age = m_AgeTable.Choose(dice);
-                if (age >= StartingAge + 4)
-                    return age;
-            }
-        else
-            return m_AgeTable.Choose(dice);
+        return m_AgeTables[ageClass].Choose(dice);
     }
 
     protected virtual void AddBackgroundSkills(Dice dice, Character character)

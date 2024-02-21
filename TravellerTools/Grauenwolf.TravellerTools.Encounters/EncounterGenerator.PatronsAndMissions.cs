@@ -4,7 +4,7 @@ namespace Grauenwolf.TravellerTools.Encounters;
 
 partial class EncounterGenerator
 {
-    public Encounter PickAlliesAndEnemies(Dice dice, IEncounterGeneratorSettings settings, Encounter? encounter = null)
+    public Encounter GenerateAlliesAndEnemies(Dice dice, IEncounterGeneratorSettings settings, Encounter? encounter = null)
     {
         if (dice == null)
             throw new ArgumentNullException(nameof(dice), $"{nameof(dice)} is null.");
@@ -55,7 +55,7 @@ partial class EncounterGenerator
         return encounter;
     }
 
-    public Encounter PickMission(Dice dice, IEncounterGeneratorSettings settings, Encounter? encounter = null)
+    public Encounter GenerateMission(Dice dice, IEncounterGeneratorSettings settings, Encounter? encounter = null)
     {
         if (dice == null)
             throw new ArgumentNullException(nameof(dice), $"{nameof(dice)} is null.");
@@ -99,12 +99,20 @@ partial class EncounterGenerator
             case 63: encounter.Merge($"Protect a ", PickTarget(dice, settings)); break;
             case 64: encounter.Merge($"Save a ", PickTarget(dice, settings)); break;
             case 65: encounter.Merge($"Aid a ", PickTarget(dice, settings)); break;
-            case 66: encounter.Add($"It is a trap – the Patron intends to betray the Traveller. Fake mission: ", PickMission(dice, settings)); break;
+            case 66: encounter.Add($"It is a trap – the Patron intends to betray the Traveller. Fake mission: ", GenerateMission(dice, settings)); break;
         }
         return encounter;
     }
 
-    public Encounter PickPatron(Dice dice, IEncounterGeneratorSettings settings, Encounter? encounter = null)
+    public Encounter GenerateNpc(Dice dice, IEncounterGeneratorSettings settings, CareerTypes careerType, int count)
+    {
+        var encounter = new Encounter() { Title = "NPC Group" };
+        for (int i = 0; i < count; i++)
+            encounter.Add($"{careerType.ToDescription()} {i + 1}", CharacterBuilder.CreateCharacter(dice, settings, careerType));
+        return encounter;
+    }
+
+    public Encounter GeneratePatron(Dice dice, IEncounterGeneratorSettings settings, Encounter? encounter = null)
     {
         if (dice == null)
             throw new ArgumentNullException(nameof(dice), $"{nameof(dice)} is null.");
@@ -180,8 +188,8 @@ partial class EncounterGenerator
             case 34: result.Add("Research station"); break;
             case 35: result.Add("Bar or Nightclub"); break;
             case 36: result.Add("Medical Facility"); break;
-            case 41 or 42 or 43: result.Add(PickPatron(dice, settings)); break;
-            case 44 or 45 or 46: result.Add(PickAlliesAndEnemies(dice, settings)); break;
+            case 41 or 42 or 43: result.Add(GeneratePatron(dice, settings)); break;
+            case 44 or 45 or 46: result.Add(GenerateAlliesAndEnemies(dice, settings)); break;
             case 51: result.Add("Local Government"); break;
             case 52: result.Add("Planetary Government"); break;
             case 53: result.Add("Corporation"); break;
