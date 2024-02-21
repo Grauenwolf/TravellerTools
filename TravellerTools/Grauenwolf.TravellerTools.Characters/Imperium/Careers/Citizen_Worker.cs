@@ -2,7 +2,7 @@
 
 class Citizen_Worker(SpeciesCharacterBuilder speciesCharacterBuilder) : Citizen("Worker", speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.StarportEmployee | CareerTypes.Belter;
+    public override CareerTypes CareerTypes => CareerTypes.StarportEmployee | CareerTypes.Belter | CareerTypes.Civilian;
     protected override string AdvancementAttribute => "Edu";
 
     protected override int AdvancementTarget => 8;

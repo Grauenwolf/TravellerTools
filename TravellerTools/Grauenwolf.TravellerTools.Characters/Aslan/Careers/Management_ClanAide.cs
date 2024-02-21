@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 class Management_ClanAide(SpeciesCharacterBuilder speciesCharacterBuilder) : Management("Clan Aide", speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.StarportEmployee;
+    public override CareerTypes CareerTypes => CareerTypes.StarportEmployee | CareerTypes.Civilian;
     protected override string AdvancementAttribute => "Soc";
 
     protected override int AdvancementTarget => 6;

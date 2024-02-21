@@ -2,12 +2,12 @@
 
 class Believer_HolyWarrior(SpeciesCharacterBuilder speciesCharacterBuilder) : Believer("Holy Warrior", speciesCharacterBuilder)
 {
+    public override CareerTypes CareerTypes => CareerTypes.Religious;
     protected override string AdvancementAttribute => "Int";
 
     protected override int AdvancementTarget => 5;
 
     protected override string SurvivalAttribute => "Int";
-
     protected override int SurvivalTarget => 8;
 
     internal override void AssignmentSkills(Character character, Dice dice)

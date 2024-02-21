@@ -2,7 +2,7 @@
 
 class Scout_Courier(SpeciesCharacterBuilder speciesCharacterBuilder) : Scout("Courier", speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.Military | CareerTypes.Scout;
+    public override CareerTypes CareerTypes => CareerTypes.Military | CareerTypes.Scout | CareerTypes.Violent;
     protected override string AdvancementAttribute => "Edu";
 
     protected override int AdvancementTarget => 9;

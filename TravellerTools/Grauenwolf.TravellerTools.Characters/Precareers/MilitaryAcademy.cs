@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Precareers;
 
 abstract class MilitaryAcademy(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : CareerBase("Military Academy", assignment, speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.Military | CareerTypes.Precareer;
+    public override CareerTypes CareerTypes => CareerTypes.Military | CareerTypes.Precareer | CareerTypes.Violent;
 
     public override string? Source => "Traveller Core, page 16";
 

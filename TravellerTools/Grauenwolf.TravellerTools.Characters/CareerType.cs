@@ -14,6 +14,7 @@ public static class CareerTypesExtension
             CareerTypes.ArtistOrPerformer => "Artist/Performer ",
             CareerTypes.CorporateMerchant => "Corporate Merchant",
             CareerTypes.MilitaryNavy => "Navy",
+            CareerTypes.ViolentNonMilitary => "Violent Non-military",
             _ => type.ToString(),
         };
     }
@@ -59,5 +60,8 @@ public enum CareerTypes
     Police = 0x200000,
     Belter = 0x400000,
     MilitaryNavy = 0x800000,
-    Scout = 0x1000000
+    Scout = 0x1000000,
+    Civilian = 0x2000000,
+    ViolentNonMilitary = 0x4000000,
+    Violent = 0x8000000,
 }

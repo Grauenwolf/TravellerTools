@@ -3,7 +3,7 @@
 abstract class Believer(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Believer", assignment, speciesCharacterBuilder)
 {
     public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
-    public override CareerTypes CareerTypes => CareerTypes.Religious;
+    public override CareerTypes CareerTypes => CareerTypes.Religious | CareerTypes.Civilian;
     public override string? Source => "Traveller Companion, page  38";
     protected override int AdvancedEductionMin => 8;
 

@@ -2,7 +2,7 @@
 
 class Agent_CorporateAgent(SpeciesCharacterBuilder speciesCharacterBuilder) : Agent("Corporate Agent", speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.StarportEmployee | CareerTypes.StarportOfficer | CareerTypes.Spy | CareerTypes.Corporate;
+    public override CareerTypes CareerTypes => CareerTypes.StarportEmployee | CareerTypes.StarportOfficer | CareerTypes.Spy | CareerTypes.Corporate | CareerTypes.ViolentNonMilitary | CareerTypes.Violent;
     protected override string AdvancementAttribute => "Int";
     protected override int AdvancementTarget => 7;
 

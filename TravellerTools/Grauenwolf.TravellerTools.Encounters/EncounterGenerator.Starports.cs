@@ -517,7 +517,7 @@ partial class EncounterGenerator
 
                     case 6:
                         result.Add("Bounty hunter askes crew to sneak prisoner off-planet.");
-                        result.Add("Bounty Hunter", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
+                        result.Add("Bounty Hunter", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.ViolentNonMilitary));
                         result.Add("Prisoner", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.Illegal));
                         break;
                 }
@@ -603,7 +603,7 @@ partial class EncounterGenerator
 
             case 9:
                 result.Add("Approached by bounty-hunter looking for someone the travellers recently met.");
-                result.Add("Bounty Hunter", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
+                result.Add("Bounty Hunter", CharacterBuilder.CreateCharacter(dice, settings, CareerTypes.ViolentNonMilitary));
                 result.Add("Target", CharacterBuilder.CreateCharacter(dice, settings, AgeClass.Adult));
                 break;
 
@@ -658,16 +658,16 @@ partial class EncounterGenerator
         switch (dice.D(15))
         {
             case 1:
-                result.Add("Trade fair");
-                switch (dice.D(6))
+                var fairType = dice.D(6) switch
                 {
-                    case 1: result.Add(""); break;
-                    case 2: result.Add(""); break;
-                    case 3: result.Add(""); break;
-                    case 4: result.Add(""); break;
-                    case 5: result.Add(""); break;
-                    case 6: result.Add(""); break;
-                }
+                    1 => "computer and communications equipment",
+                    2 => "military weapons and vehicles",
+                    3 => "medical equipment and drugs",
+                    4 => "civilian vehicles",
+                    5 => "robots and drones",
+                    _ => "space craft",
+                };
+                result.Add($"Trade fair with a focus on {fairType}.");
                 break;
 
             case 2:

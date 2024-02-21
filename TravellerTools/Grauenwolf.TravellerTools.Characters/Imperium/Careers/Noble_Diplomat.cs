@@ -2,7 +2,7 @@
 
 class Noble_Diplomat(SpeciesCharacterBuilder speciesCharacterBuilder) : Noble("Diplomat", speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.StarportEmployee | CareerTypes.Diplomat | CareerTypes.Government | CareerTypes.Noble | CareerTypes.Spy;
+    public override CareerTypes CareerTypes => CareerTypes.StarportEmployee | CareerTypes.Diplomat | CareerTypes.Government | CareerTypes.Noble | CareerTypes.Spy | CareerTypes.Civilian;
 
     protected override string AdvancementAttribute => "Soc";
 

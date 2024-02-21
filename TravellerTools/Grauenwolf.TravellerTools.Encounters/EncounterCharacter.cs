@@ -13,6 +13,7 @@ public class EncounterCharacter(string encounterRole, Character character)
         }
     }
 
+    public string Careers => string.Join("/", Character.CareerHistory.Select(c => c.Career).Distinct());
     public Character Character { get; } = character;
     public CharacterBuilderOptions CharacterStub => Character.GetCharacterBuilderOptions();
     public string EncounterRole { get; } = encounterRole;

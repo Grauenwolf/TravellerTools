@@ -2,7 +2,7 @@
 
 class Citizen_Colonist(SpeciesCharacterBuilder speciesCharacterBuilder) : Citizen("Colonist", speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.StarportEmployee | CareerTypes.Belter;
+    public override CareerTypes CareerTypes => CareerTypes.StarportEmployee | CareerTypes.Belter | CareerTypes.Civilian;
 
     protected override string AdvancementAttribute => "End";
 

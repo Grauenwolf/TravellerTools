@@ -110,6 +110,7 @@
                             <tr>
                                 <th>Role</th>
                                 <th>Name</th>
+                                <th>Careers</th>
                                 <th>Species</th>
                             </tr>
                             @foreach (var character in row.Characters)
@@ -119,17 +120,18 @@
                                     <td>
                                         @character.Character.Title <a target="_blank" href="@QueryHelpers.AddQueryString("/character/view", character.CharacterStub.ToQueryString())">@character.CharacterStub.Name</a>
                                     </td>
+                                    <td>@character.Careers</td>
                                     <td><a target="_blank" href="@(CharacterBuilder.GetSpeciesUrl(character.CharacterStub.Species))">@character.CharacterStub.Species</a> (@character.CharacterStub.Gender/@character.CharacterStub.MaxAge)</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="3">
+                                    <td colspan="4">
                                         @character.Character.Characteristics
                                     </td>
                                 </tr>
                                 if (!string.IsNullOrEmpty(character.Skills))
                                 {
                                     <tr>
-                                        <td colspan="3">
+                                        <td colspan="4">
                                             @character.Skills
                                         </td>
                                     </tr>

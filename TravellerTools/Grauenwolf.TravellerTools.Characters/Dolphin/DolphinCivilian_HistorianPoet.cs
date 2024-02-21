@@ -2,7 +2,7 @@
 
 class DolphinCivilian_HistorianPoet(SpeciesCharacterBuilder speciesCharacterBuilder) : DolphinCivilian("Historian Poet", speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.Science;
+    public override CareerTypes CareerTypes => CareerTypes.Science | CareerTypes.Civilian;
     protected override string AdvancementAttribute => "Edu";
 
     protected override int AdvancementTarget => 8;

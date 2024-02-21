@@ -3,7 +3,7 @@
 abstract class Drifter(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Drifter", assignment, speciesCharacterBuilder)
 {
     public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
-    public override CareerTypes CareerTypes => CareerTypes.Outsider;
+    public override CareerTypes CareerTypes => CareerTypes.Outsider | CareerTypes.Civilian;
 
     public override string? Source => "Traveller Core, page 28";
     protected override int AdvancedEductionMin => int.MaxValue;

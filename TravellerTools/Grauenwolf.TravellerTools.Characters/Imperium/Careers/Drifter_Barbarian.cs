@@ -2,6 +2,7 @@
 
 class Drifter_Barbarian(SpeciesCharacterBuilder speciesCharacterBuilder) : Drifter("Barbarian", speciesCharacterBuilder)
 {
+    public override CareerTypes CareerTypes => CareerTypes.Outsider | CareerTypes.ViolentNonMilitary | CareerTypes.Violent;
     protected override string AdvancementAttribute => "Str";
 
     protected override int AdvancementTarget => 7;

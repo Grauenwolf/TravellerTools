@@ -2,7 +2,7 @@
 
 class Agent_Intelligence(SpeciesCharacterBuilder speciesCharacterBuilder) : Agent("Intelligence", speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.Spy | CareerTypes.Government;
+    public override CareerTypes CareerTypes => CareerTypes.Spy | CareerTypes.Government | CareerTypes.ViolentNonMilitary | CareerTypes.Violent;
     protected override string AdvancementAttribute => "Int";
 
     protected override int AdvancementTarget => 5;

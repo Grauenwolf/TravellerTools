@@ -3,7 +3,7 @@
 abstract class Rogue(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Rogue", assignment, speciesCharacterBuilder)
 {
     public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
-    public override CareerTypes CareerTypes => CareerTypes.Illegal | CareerTypes.ShadyGoodsTrader;
+    public override CareerTypes CareerTypes => CareerTypes.Illegal | CareerTypes.ShadyGoodsTrader | CareerTypes.ViolentNonMilitary | CareerTypes.Violent;
     public override string? Source => "Traveller Core, page 40";
     internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 10;

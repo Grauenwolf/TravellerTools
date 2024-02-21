@@ -2,7 +2,7 @@
 
 class Agent_LawEnforcement(SpeciesCharacterBuilder speciesCharacterBuilder) : Agent("Law Enforcement", speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.Police | CareerTypes.StarportOfficer | CareerTypes.StarportEmployee | CareerTypes.Government;
+    public override CareerTypes CareerTypes => CareerTypes.Police | CareerTypes.StarportOfficer | CareerTypes.StarportEmployee | CareerTypes.Government | CareerTypes.ViolentNonMilitary | CareerTypes.Violent;
 
     protected override string AdvancementAttribute => "Int";
 

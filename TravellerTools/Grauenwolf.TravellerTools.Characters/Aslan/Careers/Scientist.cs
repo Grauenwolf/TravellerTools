@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 abstract class Scientist(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Scientist", assignment, speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.Science;
+    public override CareerTypes CareerTypes => CareerTypes.Science | CareerTypes.Civilian;
     public override string? Source => "Aliens of Charted Space 1, page 32";
     internal override bool RankCarryover => true;
     protected override int AdvancedEductionMin => 8;

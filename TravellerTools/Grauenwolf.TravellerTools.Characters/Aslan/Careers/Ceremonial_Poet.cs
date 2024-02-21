@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 class Ceremonial_Poet(SpeciesCharacterBuilder speciesCharacterBuilder) : Ceremonial("Poet", speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.ArtistOrPerformer;
+    public override CareerTypes CareerTypes => CareerTypes.ArtistOrPerformer | CareerTypes.Civilian;
 
     protected override string AdvancementAttribute => "Int";
 

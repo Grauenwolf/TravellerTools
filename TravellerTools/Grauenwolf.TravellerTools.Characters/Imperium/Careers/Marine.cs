@@ -3,7 +3,7 @@
 abstract class Marine(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : MilitaryCareer("Marine", assignment, speciesCharacterBuilder)
 {
     public override CareerGroup CareerGroup => CareerGroup.ImperiumCareer;
-    public override CareerTypes CareerTypes => CareerTypes.StarportOfficer | CareerTypes.Military;
+    public override CareerTypes CareerTypes => CareerTypes.StarportOfficer | CareerTypes.Military | CareerTypes.Violent;
     public override string? Source => "Traveller Core, page 32";
     protected override int AdvancedEductionMin => 8;
 

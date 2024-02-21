@@ -2,7 +2,7 @@
 
 abstract class Soulhunter(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : MilitaryCareer("Soulhunter", assignment, speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.Military;
+    public override CareerTypes CareerTypes => CareerTypes.Military | CareerTypes.Violent;
     public override string? Source => "Aliens of Charted Space Vol. 4, page 228";
     protected override int AdvancedEductionMin => 8;
 

@@ -2,7 +2,7 @@ namespace Grauenwolf.TravellerTools.Characters.Careers.Aslan;
 
 abstract class Outlaw(string assignment, SpeciesCharacterBuilder speciesCharacterBuilder) : NormalCareer("Outlaw", assignment, speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.Illegal | CareerTypes.ShadyGoodsTrader | CareerTypes.Outsider;
+    public override CareerTypes CareerTypes => CareerTypes.Illegal | CareerTypes.ShadyGoodsTrader | CareerTypes.Outsider | CareerTypes.ViolentNonMilitary | CareerTypes.Violent;
 
     public override string? Source => "Aliens of Charted Space 1, page 40";
     internal override bool RankCarryover => true;

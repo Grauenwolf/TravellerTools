@@ -2,7 +2,7 @@
 
 class DolphinCivilian_Nomad(SpeciesCharacterBuilder speciesCharacterBuilder) : DolphinCivilian("Nomad", speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.Outsider;
+    public override CareerTypes CareerTypes => CareerTypes.Outsider | CareerTypes.Civilian;
     protected override string AdvancementAttribute => "Str";
 
     protected override int AdvancementTarget => 7;

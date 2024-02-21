@@ -2,7 +2,7 @@
 
 class DolphinCivilian_Liaison(SpeciesCharacterBuilder speciesCharacterBuilder) : DolphinCivilian("Liaison", speciesCharacterBuilder)
 {
-    public override CareerTypes CareerTypes => CareerTypes.Spy | CareerTypes.Government;
+    public override CareerTypes CareerTypes => CareerTypes.Spy | CareerTypes.Government | CareerTypes.Civilian;
     protected override string AdvancementAttribute => "Soc";
 
     protected override int AdvancementTarget => 6;
