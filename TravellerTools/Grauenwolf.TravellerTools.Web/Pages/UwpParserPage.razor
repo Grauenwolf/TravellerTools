@@ -16,9 +16,12 @@
         <table class="gridtable">
             <tr>
                 <th>UWP</th>
-                <td><InputText @bind-Value="Model.RawUwp" /></td>
                 <td>
-                    <button @onclick="GotoPlanet" disabled="@Model.UwpNotSelected">Planet Info</button>
+                    <InputText @bind-Value="Model.RawUwp" />
+                    <button type="button" @onclick="RandomizeUwp" title="Generate a random UWP.">Random</button>
+                </td>
+                <td>
+                    <button type="button" @onclick="GotoPlanet" disabled="@Model.UwpNotSelected">Planet Info</button>
                 </td>
             </tr>
         </table>
@@ -150,7 +153,7 @@
             </tr>
             <tr>
                 <td colspan="3">
-                    <button @onclick="GotoPlanet2">Planet Info</button>
+                    <button type="button" @onclick="GotoPlanet2">Planet Info</button>
                 </td>
             </tr>
         </table>
