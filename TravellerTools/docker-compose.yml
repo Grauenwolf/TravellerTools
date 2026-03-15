@@ -1,0 +1,12 @@
+services:
+  travellertools-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: travellertools:web-local
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+

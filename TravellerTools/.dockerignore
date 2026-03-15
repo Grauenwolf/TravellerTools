@@ -1,0 +1,16 @@
+﻿# Docker build context exclusions
+**/bin/
+**/obj/
+**/TestResults/
+
+.git/
+.vs/
+**/.vs/
+
+*.user
+*.suo
+*.cache
+
+# Local publish/build artifacts that are not needed for image builds.
+publish/
+publish.zip
