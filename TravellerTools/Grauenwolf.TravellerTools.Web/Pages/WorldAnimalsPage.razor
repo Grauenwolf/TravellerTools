@@ -1,0 +1,88 @@
+@page "/world/{milieuCode}/{sectorHex}/{planetHex}/animals"
+@page "/uwp/{uwp}/animals"
+@inherits NullablePageBase<WorldModel>
+
+@if (Model != null)
+{
+    var current = Model.World;
+
+    <h2>@current.Name</h2>
+    <WorldNavigation CurrentPage="animals" World="@Model.World" MilieuCode="@MilieuCode" />
+    <div>&nbsp;</div>
+
+    <div class="do-not-print">
+        <table class="gridtable">
+            <tr>
+                <th>Terrain</th>
+                <th>Animal Type</th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <td>
+                    <InputSelect @bind-Value="TerrainType">
+                        <option value="">(All Terrains)</option>
+                        @foreach (var item in TerrainTypeList)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </InputSelect>
+                </td>
+                <td>
+                    <InputSelect @bind-Value="AnimalType">
+                        <option value="">(By Encounter Table)</option>
+                        @foreach (var item in AnimalTypeList)
+                        {
+                            <option value="@item">@item</option>
+                        }
+                    </InputSelect>
+                </td>
+                <td>
+                    <button type="button" @onclick="GenerateAnimals">Generate</button>
+                    <button type="button" @onclick="OnReroll">Reroll</button>
+                    <a href="@Permalink">Permalink</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    @if (Animals != null)
+    {
+        @foreach (var terrain in Animals.OrderBy(x => x.Key))
+        {
+            <div>&nbsp;</div>
+            <h3>@terrain.Key</h3>
+            <table class="gridtable">
+                <tr>
+                    <th>Roll</th>
+                    <th>Type</th>
+                    <th>Move</th>
+                    <th>Num.</th>
+                    <th>Str</th>
+                    <th>Dex</th>
+                    <th>End</th>
+                    <th>Int</th>
+                    <th>Ins</th>
+                    <th>Pack</th>
+                    <th>Size</th>
+                </tr>
+                @foreach (var animal in terrain.Value)
+                {
+                    <tr>
+                        <td>@animal.Roll</td>
+                        <td>@animal.Behavior (@animal.AnimalType)</td>
+                        <td>@animal.Movement</td>
+                        <td>@animal.NumberEncountered</td>
+                        <td>@animal.Strength (@animal.StrengthDM)</td>
+                        <td>@animal.Dexterity (@animal.DexterityDM)</td>
+                        <td>@animal.Endurance (@animal.EnduranceDM)</td>
+                        <td>@animal.Intelligence (@animal.IntelligenceDM)</td>
+                        <td>@animal.Instinct (@animal.InstinctDM)</td>
+                        <td>@animal.Pack (@animal.PackDM)</td>
+                        <td>@animal.WeightKG.ToString("N0") kg</td>
+                    </tr>
+                }
+            </table>
+        }
+    }
+}
+
