@@ -1,4 +1,5 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
+using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Names;
 using Grauenwolf.TravellerTools.Web.Data;
 using Microsoft.AspNetCore.Components;
@@ -8,9 +9,22 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 
 partial class CrewPage
 {
+    [Parameter]
+    public string? MilieuCode { get; set; }
+
+    [Parameter]
+    public string? PlanetHex { get; set; }
+
+    [Parameter]
+    public string? SectorHex { get; set; }
+
+    [Parameter]
+    public string? Uwp { get; set; }
+
     protected CrewModel? CrewModel { get; set; }
     [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
     [Inject] NameGenerator NameGenerator { get; set; } = null!;
+    [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
 
     protected void GenerateCrew()
     {
@@ -46,6 +60,20 @@ partial class CrewPage
     protected override void Initialized()
     {
         Model = new CrewOptions(CharacterBuilder);
+    }
+
+    protected override async Task ParametersSetAsync()
+    {
+        if (Model == null)
+            return;
+
+        Model.SpeciesOrFaction = await SpeciesOrFactionSelection.ResolveForWorldAsync(
+            Model.SpeciesOrFaction,
+            MilieuCode,
+            SectorHex,
+            PlanetHex,
+            TravellerMapServiceLocator,
+            Model.SpeciesAndFactionsList).ConfigureAwait(false);
     }
 
     protected string Permalink()

@@ -127,6 +127,30 @@
             {
                 <th><a href="@(BaseUrl +  "encounters" + QueryParameters)"><span class="oi oi-puzzle-piece" aria-hidden="true" /> Encounters</a></th>
             }
+            @if (CurrentPage == "character")
+            {
+                <th><span class="oi oi-person" aria-hidden="true" /> Character</th>
+            }
+            else
+            {
+                <th><a href="@(BaseUrl +  "character" + QueryParameters)"><span class="oi oi-person" aria-hidden="true" /> Character</a></th>
+            }
+            @if (CurrentPage == "contacts")
+            {
+                <th><span class="oi oi-people" aria-hidden="true" /> Contacts</th>
+            }
+            else
+            {
+                <th><a href="@(BaseUrl +  "contacts" + QueryParameters)"><span class="oi oi-people" aria-hidden="true" /> Contacts</a></th>
+            }
+            @if (CurrentPage == "crew")
+            {
+                <th><span class="oi oi-briefcase" aria-hidden="true" /> Crew</th>
+            }
+            else
+            {
+                <th><a href="@(BaseUrl +  "crew" + QueryParameters)"><span class="oi oi-briefcase" aria-hidden="true" /> Crew</a></th>
+            }
         </tr>
 
         @if (!IsCustom && CurrentPage != "destination")

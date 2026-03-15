@@ -54,7 +54,7 @@ partial class CrewViewPage
         if (Seed != null)
             GenerateCrew(Seed.Value);
         else
-            Navigation.NavigateTo("/contacts", true, true);
+            Navigation.NavigateTo("/crew", true, true);
     }
 
     protected string Permalink()

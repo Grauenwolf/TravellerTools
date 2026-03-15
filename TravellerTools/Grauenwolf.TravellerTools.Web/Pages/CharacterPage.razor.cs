@@ -1,4 +1,5 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
+using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Names;
 using Grauenwolf.TravellerTools.Web.Data;
 using Microsoft.AspNetCore.Components;
@@ -8,7 +9,20 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 
 partial class CharacterPage
 {
+    [Parameter]
+    public string? MilieuCode { get; set; }
+
+    [Parameter]
+    public string? PlanetHex { get; set; }
+
+    [Parameter]
+    public string? SectorHex { get; set; }
+
+    [Parameter]
+    public string? Uwp { get; set; }
+
     [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
+    [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
     List<Character> Characters { get; set; } = new List<Character>();
     [Inject] NameGenerator NameGenerator { get; set; } = null!;
     //public int? Seed { get => Get<int?>(); set => Set(value); }
@@ -157,6 +171,20 @@ partial class CharacterPage
     protected override void Initialized()
     {
         Model = new CharacterOptions(CharacterBuilder);
+    }
+
+    protected override async Task ParametersSetAsync()
+    {
+        if (Model == null)
+            return;
+
+        Model.SpeciesOrFaction = await SpeciesOrFactionSelection.ResolveForWorldAsync(
+            Model.SpeciesOrFaction,
+            MilieuCode,
+            SectorHex,
+            PlanetHex,
+            TravellerMapServiceLocator,
+            Model.SpeciesAndFactionsList).ConfigureAwait(false);
     }
 
     private CharacterBuilderOptions CreateOptions(Dice dice)
