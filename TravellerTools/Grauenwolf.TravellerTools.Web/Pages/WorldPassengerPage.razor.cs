@@ -14,15 +14,15 @@ partial class WorldPassengerPage
         Options.PropertyChanged += (sender, e) => OnOptionsChanged();
     }
 
-    [Parameter] public string? DestinationPlanetHex { get => Get<string?>(); set => Set(value, true); }
+    [Parameter] public string? DestinationPlanetHex { get; set; }
 
-    [Parameter] public string? DestinationSectorHex { get => Get<string?>(); set => Set(value, true); }
+    [Parameter] public string? DestinationSectorHex { get; set; }
 
-    [Parameter] public string? MilieuCode { get => Get<string?>(); set => Set(value, true); }
+    [Parameter] public string? MilieuCode { get; set; }
 
-    [Parameter] public string? PlanetHex { get => Get<string?>(); set => Set(value, true); }
+    [Parameter] public string? PlanetHex { get; set; }
 
-    [Parameter] public string? SectorHex { get => Get<string?>(); set => Set(value, true); }
+    [Parameter] public string? SectorHex { get; set; }
 
     public int? Seed { get => Get<int?>(); set => Set(value, true); }
     protected PassengerOptions Options { get; } = new();

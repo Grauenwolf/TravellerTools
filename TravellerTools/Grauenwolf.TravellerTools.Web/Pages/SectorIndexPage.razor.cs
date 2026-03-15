@@ -9,18 +9,10 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 partial class SectorIndexPage
 {
     [Parameter]
-    public string? MilieuCode
-    {
-        get => Get<string?>();
-        set => Set(value, true);
-    }
+    public string? MilieuCode { get; set; }
 
     [Parameter]
-    public string? SectorHex
-    {
-        get => Get<string?>();
-        set => Set(value, true);
-    }
+    public string? SectorHex { get; set; }
 
     [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
 

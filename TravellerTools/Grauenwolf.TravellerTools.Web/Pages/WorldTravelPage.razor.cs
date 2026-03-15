@@ -9,18 +9,18 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 partial class WorldTravelPage
 {
     [Parameter]
-    public string? MilieuCode { get => Get<string?>(); set => Set(value, true); }
+    public string? MilieuCode { get; set; }
 
     [Parameter]
-    public string? PlanetHex { get => Get<string?>(); set => Set(value, true); }
+    public string? PlanetHex { get; set; }
 
     [Parameter]
-    public string? SectorHex { get => Get<string?>(); set => Set(value, true); }
+    public string? SectorHex { get; set; }
 
     public string? TasZone { get => Get<string?>(); set => Set(value, true); }
 
     [Parameter]
-    public string? Uwp { get => Get<string?>(); set => Set(value, true); }
+    public string? Uwp { get; set; }
 
     [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
 

@@ -17,19 +17,19 @@ partial class WorldTradePage
     }
 
     [Parameter]
-    public string? MilieuCode { get => Get<string?>(); set => Set(value, true); }
+    public string? MilieuCode { get; set; }
 
     [Parameter]
-    public string? PlanetHex { get => Get<string?>(); set => Set(value, true); }
+    public string? PlanetHex { get; set; }
 
     [Parameter]
-    public string? SectorHex { get => Get<string?>(); set => Set(value, true); }
+    public string? SectorHex { get; set; }
 
     public int? Seed { get => Get<int?>(); set => Set(value, true); }
     public string? TasZone { get => Get<string?>(); set => Set(value, true); }
 
     [Parameter]
-    public string? Uwp { get => Get<string?>(); set => Set(value, true); }
+    public string? Uwp { get; set; }
 
     protected TradeOptions Options { get; } = new TradeOptions();
     [Inject] CharacterBuilder CharacterBuilder { get; set; } = null!;
