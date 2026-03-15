@@ -11,7 +11,13 @@
         @if (IsCustom)
         {
             <tr>
-                <td>@(World.Name)</td>
+                <td>
+                    @(World.Name)
+                    <br />
+                    <a href="@TravellerWorldsUrl" target="_blank" title="Generate this world in Traveller Worlds.">
+                        <span class="oi oi-map" aria-hidden="true" /> Traveller Worlds
+                    </a>
+                </td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -61,6 +67,9 @@
 
                     <a href="@string.Format("http://travellermap.com/?scale=64&sx={0}&sy={1}&hx={2}&hy={3}&milieu={4}", World.SectorX, World.SectorY, World.HexX, World.HexY, MilieuCode)" target="_blank" title="Show planet in Traveller Map.">
                         <span class="oi oi-map" aria-hidden="true" /> Map
+                    </a>
+                    <a href="@TravellerWorldsUrl" target="_blank" title="Generate this world in Traveller Worlds.">
+                        <span class="oi oi-map" aria-hidden="true" /> Traveller Worlds
                     </a>
                 </td>
             </tr>

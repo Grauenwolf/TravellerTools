@@ -24,6 +24,7 @@ partial class WorldNavigation
 
     protected bool IsCustom => MilieuCode == Milieu.Custom.Code;
     protected string? QueryParameters { get; private set; }
+    protected string TravellerWorldsUrl => TravellerWorldsUrlBuilder.Build(World);
     [Inject] NavigationManager NavigationManager { get; set; } = null!;
     [Inject] protected LocalStorage LocalStorage { get; set; } = null!;
 
