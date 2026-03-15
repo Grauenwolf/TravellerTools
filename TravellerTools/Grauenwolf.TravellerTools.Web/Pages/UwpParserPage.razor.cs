@@ -16,22 +16,22 @@ partial class UwpParserPage
 
     protected void RandomizeUwp()
     {
-        var size = Roll2D6() - 2;
+        var size = Max0(Roll2D6() - 2);
 
-        var atmosphere = Roll2D6() - 7 + size;
-        if (atmosphere < 0 || size == 0)
-            atmosphere = 0;
+        var atmosphere = Max0(Roll2D6() - 7 + size);
 
-        var hydrosphere = Roll2D6() - 7 + size;
-        if (size < 2)
+        int hydrosphere;
+        if (size <= 1)
             hydrosphere = 0;
-        else if (atmosphere < 2 || atmosphere > 8)
-            hydrosphere -= 4;
-        hydrosphere = Math.Clamp(hydrosphere, 0, 10);
+        else if (atmosphere <= 1 || (atmosphere >= 10 && atmosphere <= 12))
+            hydrosphere = Roll2D6() - 7 + atmosphere - 4;
+        else
+            hydrosphere = Roll2D6() - 7;
+        hydrosphere = Max0(hydrosphere);
 
-        var population = Roll2D6() - 2;
-        var government = Math.Clamp(Roll2D6() - 7 + population, 0, 13);
-        var lawfulness = Math.Clamp(Roll2D6() - 7 + government, 0, 9);
+        var population = Max0(Roll2D6() - 2);
+        var government = Max0(Roll2D6() - 7 + population);
+        var lawfulness = Max0(Roll2D6() - 7 + government);
         var starportRoll = Roll2D6() + PopulationStarportDm(population);
         var starportCode = DetermineStarportCode(starportRoll);
 
@@ -45,15 +45,17 @@ partial class UwpParserPage
             _ => 0,
         };
 
-        if (size < 2)
-            techBonus += 1;
-        else if (size <= 4)
+        if (size <= 1)
             techBonus += 2;
+        else if (size <= 4)
+            techBonus += 1;
 
         if (atmosphere <= 3 || (atmosphere >= 10 && atmosphere <= 15))
             techBonus += 1;
 
-        if (hydrosphere == 9)
+        if (hydrosphere == 0)
+            techBonus += 1;
+        else if (hydrosphere == 9)
             techBonus += 1;
         else if (hydrosphere == 10)
             techBonus += 2;
@@ -61,16 +63,37 @@ partial class UwpParserPage
         if (population >= 1 && population <= 5)
             techBonus += 1;
         else if (population == 9)
-            techBonus += 2;
+            techBonus += 1;
         else if (population == 10)
             techBonus += 4;
 
-        if (government == 13)
-            techBonus -= 2;
-        else if (government is 0 or 5)
+        if (government == 0)
             techBonus += 1;
+        else if (government == 5)
+            techBonus += 1;
+        else if (government == 7)
+            techBonus += 2;
+        else if (government == 13 || government == 14)
+            techBonus -= 2;
 
-        var technology = Math.Clamp(RollD6() + techBonus, 0, 18);
+        var technology = Max0(RollD6() + techBonus);
+
+        if (atmosphere <= 1 && technology < 8)
+            technology = 8;
+        else if (atmosphere <= 3 && technology < 5)
+            technology = 5;
+        else if ((atmosphere == 4 || atmosphere == 7 || atmosphere == 9) && technology < 3)
+            technology = 3;
+        else if (atmosphere == 10 && technology < 8)
+            technology = 8;
+        else if (atmosphere == 11 && technology < 9)
+            technology = 9;
+        else if (atmosphere == 12 && technology < 10)
+            technology = 10;
+        else if ((atmosphere == 13 || atmosphere == 14) && technology < 5)
+            technology = 5;
+        else if (atmosphere == 15 && technology < 8)
+            technology = 8;
 
         Model.StarportCode = starportCode.ToString();
         Model.SizeCode = ToCode(size);
@@ -87,6 +110,8 @@ partial class UwpParserPage
     static int RollD6() => Random.Shared.Next(1, 7);
 
     static int Roll2D6() => RollD6() + RollD6();
+
+    static int Max0(int value) => value < 0 ? 0 : value;
 
     static string ToCode(int value) => new EHex(value).ToString();
 
