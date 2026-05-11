@@ -3,6 +3,7 @@
 @page "/animals/mgt"
 @page "/animal-encounters"
 @inherits NullablePageBase<WorldModel>
+@attribute [Authorize]
 
 @if (Model != null)
 {
