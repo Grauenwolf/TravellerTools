@@ -18,19 +18,19 @@ partial class WorldFreightPage
     }
 
     [Parameter]
-    public string? DestinationPlanetHex { get => Get<string?>(); set => Set(value, true); }
+    public string? DestinationPlanetHex { get; set; }
 
     [Parameter]
-    public string? DestinationSectorHex { get => Get<string?>(); set => Set(value, true); }
+    public string? DestinationSectorHex { get; set; }
 
     [Parameter]
-    public string? MilieuCode { get => Get<string?>(); set => Set(value, true); }
+    public string? MilieuCode { get; set; }
 
     [Parameter]
-    public string? PlanetHex { get => Get<string?>(); set => Set(value, true); }
+    public string? PlanetHex { get; set; }
 
     [Parameter]
-    public string? SectorHex { get => Get<string?>(); set => Set(value, true); }
+    public string? SectorHex { get; set; }
 
     public int? Seed { get => Get<int?>(); set => Set(value, true); }
     protected FreightOptions Options { get; } = new();
