@@ -1,6 +1,7 @@
 ﻿@page "/world/{milieuCode}/{sectorHex}/{planetHex}/store"
 @page "/uwp/{uwp}/store"
 @inherits NullablePageBase<WorldModel>
+@attribute [Authorize]
 
 @if (Model != null)
 {

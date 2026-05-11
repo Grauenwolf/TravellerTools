@@ -1,6 +1,7 @@
 ﻿@page "/crew/view"
 @using Microsoft.AspNetCore.WebUtilities
 @inherits NullablePageBase<CrewOptions>
+@attribute [Authorize]
 @{
     PageTitle = "Crew";
 }

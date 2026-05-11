@@ -1,6 +1,7 @@
 ﻿@page "/world/{milieuCode}/{sectorHex}/subsector/{subsector}"
 
 @inherits NullablePageBase<SubsectorModel>
+@attribute [Authorize]
 
 @if (Model != null)
 {

@@ -1,6 +1,7 @@
 ﻿@page "/character/view"
 @inherits NullablePageBase<Character>
 @{PageTitle = (Model?.Title + " " + Model?.Name).TrimStart();}
+@attribute [Authorize]
 
 @if (Model != null)
 {

@@ -1,0 +1,28 @@
+@page "/login"
+@layout MainLayout
+@attribute [AllowAnonymous]
+
+<h3>Login</h3>
+
+@if (HasError)
+{
+    <div class="alert alert-danger">Invalid password. Please try again.</div>
+}
+
+<!-- TODO: Why does this need an API call? -->
+<form method="post" action="api/auth/login">
+    <input type="hidden" name="returnUrl" value="@ReturnUrl" />
+    <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" style="max-width: 300px;" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+@code {
+    [SupplyParameterFromQuery]
+    public string? ReturnUrl { get; set; }
+
+    [SupplyParameterFromQuery(Name = "error")]
+    public bool HasError { get; set; }
+}

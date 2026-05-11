@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.WebUtilities
 
 @inherits NullablePageBase<PassengerModel>
+@attribute [Authorize]
 
 @if (Model != null)
 {

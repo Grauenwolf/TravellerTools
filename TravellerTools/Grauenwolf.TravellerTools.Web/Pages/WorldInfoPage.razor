@@ -4,6 +4,7 @@
 @page "/uwp/{uwp}/info"
 
 @inherits NullablePageBase<WorldModel>
+@attribute [Authorize]
 
 @if (Model != null)
 {
