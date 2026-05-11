@@ -5,6 +5,7 @@ using Grauenwolf.TravellerTools.Encounters;
 using Grauenwolf.TravellerTools.Equipment;
 using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Names;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Grauenwolf.TravellerTools.Web;
 
@@ -39,8 +40,12 @@ public class Startup
 
         app.UseRouting();
 
+        app.UseAuthentication();
+        app.UseAuthorization();
+
         app.UseEndpoints(endpoints =>
         {
+            endpoints.MapControllers();
             endpoints.MapBlazorHub();
             endpoints.MapFallbackToPage("/_Host");
         });
@@ -51,7 +56,22 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.AddRazorPages();
+        services.AddControllers();
         services.AddServerSideBlazor();
+
+        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/login";
+                options.LogoutPath = "/api/auth/logout";
+            });
+
+        services.AddAuthorization(options =>
+        {
+            options.FallbackPolicy = new Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+        });
 
         AnimalBuilderMgt.SetDataPath(AppDataPath);
         AnimalBuilderAE.SetDataPath(AppDataPath);

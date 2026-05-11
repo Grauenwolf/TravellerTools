@@ -4,6 +4,7 @@
 @page "/uwp/{uwp}/starport/starport/{spaceport}"
 
 @inherits NullablePageBase<WorldModel>
+@attribute [Authorize]
 
 @if (Model != null)
 {

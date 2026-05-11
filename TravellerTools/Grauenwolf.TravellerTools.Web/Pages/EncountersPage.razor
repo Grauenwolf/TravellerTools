@@ -2,6 +2,7 @@
 @page "/world/{milieuCode}/{sectorHex}/{planetHex}/encounters"
 @page "/uwp/{uwp}/encounters"
 @inherits PageBase<EncounterOptions>
+@attribute [Authorize]
 @using Microsoft.AspNetCore.WebUtilities
 @{
     PageTitle = "Encounters";

@@ -1,6 +1,7 @@
 ﻿@page "/world/{milieuCode}/{sectorHex}/{planetHex}/travel"
 @page "/uwp/{uwp}/travel"
 @inherits NullablePageBase<WorldModel>
+@attribute [Authorize]
 
 @if (Model != null)
 {

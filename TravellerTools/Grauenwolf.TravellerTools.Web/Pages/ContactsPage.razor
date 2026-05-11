@@ -3,6 +3,7 @@
 @page "/uwp/{uwp}/contacts"
 @using Microsoft.AspNetCore.WebUtilities
 @inherits NullablePageBase<ContactOptions>
+@attribute [Authorize]
 @{
     PageTitle = "Contact Generator";
 }

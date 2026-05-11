@@ -1,6 +1,7 @@
 ﻿@page "/contacts/view"
 @using Microsoft.AspNetCore.WebUtilities
 @inherits NullablePageBase<ContactOptions>
+@attribute [Authorize]
 @{
     PageTitle = "Contacts";
 }

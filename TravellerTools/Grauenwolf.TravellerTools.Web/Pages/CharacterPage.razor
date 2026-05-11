@@ -2,6 +2,7 @@
 @page "/world/{milieuCode}/{sectorHex}/{planetHex}/character"
 @page "/uwp/{uwp}/character"
 @inherits NullablePageBase<CharacterOptions>
+@attribute [Authorize]
 @{
     PageTitle = "Character Generator";
 }
