@@ -101,8 +101,6 @@
             {
                 <th><a href="@(BaseUrl +  "travel" + QueryParameters)"><span class="oi oi-compass" aria-hidden="true" /> Travel</a></th>
             }
-        </tr>
-        <tr>
             @if (CurrentPage == "store")
             {
                 <th><span class="oi oi-cart" aria-hidden="true" /> Store</th>
@@ -111,6 +109,8 @@
             {
                 <th><a href="@(BaseUrl +  "store" + QueryParameters)"><span class="oi oi-cart" aria-hidden="true" /> Store</a></th>
             }
+        </tr>
+        <tr>
             @if (CurrentPage == "animals")
             {
                 <th><span class="oi oi-bug" aria-hidden="true" /> Animals</th>
