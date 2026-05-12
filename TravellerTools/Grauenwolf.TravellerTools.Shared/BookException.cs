@@ -17,7 +17,4 @@ public class BookException : Exception
     {
     }
 
-    protected BookException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
 }

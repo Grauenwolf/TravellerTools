@@ -160,8 +160,6 @@ public class TravellerMapService(bool filterUnpopulatedSectors, string milieu) /
         if (m_SectorList != null)
             return m_SectorList;
 
-        ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
-
         string rawSectorList;
         try
         {
