@@ -18,7 +18,12 @@
     <div class="do-not-print">
         @if (ShowMgtSection)
         {
-            <h3>Mongoose 1 Animals</h3>
+            <h3>Mongoose 1 Animals
+                @*
+                TODO-143 Use the href version
+                <a @onclick="OnReroll" href="#" title="Reroll"><span class="oi oi-random" /></a> *@
+                <a @onclick="OnReroll" title="Reroll"><span class="oi oi-random" /></a>
+                <a href="@PermalinkMgt" target="_blank" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a></h3>
             <table class="gridtable">
                 <tr>
                     <th>Terrain</th>
@@ -46,18 +51,85 @@
                     </td>
                     <td>
                         <button type="button" disabled="@(CanRerollAnimals)" @onclick="GenerateAnimals">Generate</button>
-                        <button type="button" disabled="@(!CanRerollAnimals)" title="Clears the selected terrain tab. If All Terrains is selected, clears all generated results." @onclick="ClearAnimals">Clear</button>
-                        <button type="button" disabled="@(!CanRerollAnimals)" @onclick="OnReroll">Reroll</button>
-                        <a href="@Permalink">Permalink</a>
+                        <button type="button" disabled="@(!CanRerollAnimals)" title="Clears the selected terrain tab. If All Terrains is selected, clears all generated results." @onclick="ClearAnimals">Clear</button>                        
                     </td>
                 </tr>
             </table>
         }
 
+        @if (ShowMgtSection && Animals != null)
+        {
+            <div class="do-not-print terrain-tabs terrain-tabs-sticky">
+                <button type="button" class="terrain-tab @(ActiveTerrainTab == "__all__" ? "terrain-tab-active" : "")" @onclick='() => SetMgtTerrainTab("__all__")'>All Terrains</button>
+                @foreach (var terrainTab in Animals.Keys.OrderBy(x => x))
+                {
+                    <button type="button" class="terrain-tab @(ActiveTerrainTab == terrainTab ? "terrain-tab-active" : "")" @onclick='() => SetMgtTerrainTab(terrainTab)'>@terrainTab</button>
+                }
+            </div>
+
+            @foreach (var terrain in DisplayedMgtTerrains)
+            {
+                <div>&nbsp;</div>
+                <h3>@terrain.Key</h3>
+                <table class="gridtable">
+                    <tr>
+                        <th width="50">Roll</th>
+                        <th colspan="5">Type</th>
+                        <th width="70">Move</th>
+                        <th width="50">Num.</th>
+                        <th width="50">Str</th>
+                        <th width="50">Dex</th>
+                        <th width="50">End</th>
+                        <th width="50">Int</th>
+                        <th width="50">Ins</th>
+                        <th width="50">Pack</th>
+                        <th width="50">Size</th>
+                    </tr>
+                    @foreach (var animal in terrain.Value)
+                    {
+                        <tr>
+                            <td>@animal.Roll</td>
+                            <td colspan="5">@animal.Behavior (@animal.AnimalType)</td>
+                            <td>@animal.Movement</td>
+                            <td>@animal.NumberEncountered</td>
+                            <td>@animal.Strength (@animal.StrengthDM)</td>
+                            <td>@animal.Dexterity (@animal.DexterityDM)</td>
+                            <td>@animal.Endurance (@animal.EnduranceDM)</td>
+                            <td>@animal.Intelligence (@animal.IntelligenceDM)</td>
+                            <td>@animal.Instinct (@animal.InstinctDM)</td>
+                            <td>@animal.Pack (@animal.PackDM)</td>
+                            <td>@animal.WeightKG.ToString("N0") kg</td>
+                        </tr>
+                        <tr>
+                            <th>Skills</th>
+                            <td colspan="14">@string.Join(", ", animal.Skills.Select(s => s.Name + " " + s.Level))</td>
+                        </tr>
+                        <tr>
+                            <th>Armor</th>
+                            <td>@animal.Armor</td>
+                            <th>Weapons</th>
+                            <td colspan="12">@string.Join(", ", animal.Weapons.Select(s => s.Name + " " + s.Damage))</td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Attacks on</th>
+                            <td colspan="4">@animal.Attack</td>
+                            <th>Flees on</th>
+                            <td colspan="8">@animal.Flee</td>
+                        </tr>
+                    }
+                </table>
+            }
+        }
+
+
         @if (ShowAeSection)
         {
-            <div>&nbsp;</div>
-            <h3>Animal Encounters</h3>
+            <h3>Animal Encounters
+                @*
+                TODO-143 Use the href version
+                <a @onclick="OnReroll" href="#" title="Reroll"><span class="oi oi-random" /></a> *@
+                <a @onclick="OnReroll" title="Reroll"><span class="oi oi-random" /></a>
+                <a href="@PermalinkAE" target="_blank" title="Permalink. Use this to share with your players."><span class="oi oi-link-intact" /></a></h3>
             <table class="gridtable">
                 <tr>
                     <th>Terrain</th>
@@ -85,9 +157,7 @@
                     </td>
                     <td>
                         <button type="button" disabled="@(CanRerollAnimalEncounters)" @onclick="GenerateAnimalEncounters">Generate</button>
-                        <button type="button" disabled="@(!CanRerollAnimalEncounters)" title="Clears the selected terrain tab. If All Terrains is selected, clears all generated results." @onclick="ClearAnimalEncounters">Clear</button>
-                        <button type="button" disabled="@(!CanRerollAnimalEncounters)" @onclick="OnReroll">Reroll</button>
-                        <a href="@Permalink">Permalink</a>
+                        <button type="button" disabled="@(!CanRerollAnimalEncounters)" title="Clears the selected terrain tab. If All Terrains is selected, clears all generated results." @onclick="ClearAnimalEncounters">Clear</button>                      
                     </td>
                 </tr>
                 <tr>
@@ -97,69 +167,6 @@
         }
     </div>
 
-    @if (ShowMgtSection && Animals != null)
-    {
-        <div class="do-not-print terrain-tabs terrain-tabs-sticky">
-            <button type="button" class="terrain-tab @(ActiveTerrainTab == "__all__" ? "terrain-tab-active" : "")" @onclick='() => SetMgtTerrainTab("__all__")'>All Terrains</button>
-            @foreach (var terrainTab in Animals.Keys.OrderBy(x => x))
-            {
-                <button type="button" class="terrain-tab @(ActiveTerrainTab == terrainTab ? "terrain-tab-active" : "")" @onclick='() => SetMgtTerrainTab(terrainTab)'>@terrainTab</button>
-            }
-        </div>
-
-        @foreach (var terrain in DisplayedMgtTerrains)
-        {
-            <div>&nbsp;</div>
-            <h3>@terrain.Key</h3>
-            <table class="gridtable">
-                <tr>
-                    <th width="50">Roll</th>
-                    <th colspan="5">Type</th>
-                    <th width="70">Move</th>
-                    <th width="50">Num.</th>
-                    <th width="50">Str</th>
-                    <th width="50">Dex</th>
-                    <th width="50">End</th>
-                    <th width="50">Int</th>
-                    <th width="50">Ins</th>
-                    <th width="50">Pack</th>
-                    <th width="50">Size</th>
-                </tr>
-                @foreach (var animal in terrain.Value)
-                {
-                    <tr>
-                        <td>@animal.Roll</td>
-                        <td colspan="5">@animal.Behavior (@animal.AnimalType)</td>
-                        <td>@animal.Movement</td>
-                        <td>@animal.NumberEncountered</td>
-                        <td>@animal.Strength (@animal.StrengthDM)</td>
-                        <td>@animal.Dexterity (@animal.DexterityDM)</td>
-                        <td>@animal.Endurance (@animal.EnduranceDM)</td>
-                        <td>@animal.Intelligence (@animal.IntelligenceDM)</td>
-                        <td>@animal.Instinct (@animal.InstinctDM)</td>
-                        <td>@animal.Pack (@animal.PackDM)</td>
-                        <td>@animal.WeightKG.ToString("N0") kg</td>
-                    </tr>
-                    <tr>
-                        <th>Skills</th>
-                        <td colspan="14">@string.Join(", ", animal.Skills.Select(s => s.Name + " " + s.Level))</td>
-                    </tr>
-                    <tr>
-                        <th>Armor</th>
-                        <td>@animal.Armor</td>
-                        <th>Weapons</th>
-                        <td colspan="12">@string.Join(", ", animal.Weapons.Select(s => s.Name + " " + s.Damage))</td>
-                    </tr>
-                    <tr>
-                        <th colspan="2">Attacks on</th>
-                        <td colspan="4">@animal.Attack</td>
-                        <th>Flees on</th>
-                        <td colspan="8">@animal.Flee</td>
-                    </tr>
-                }
-            </table>
-        }
-    }
 
     @if (ShowAeSection && AeAnimals != null)
     {

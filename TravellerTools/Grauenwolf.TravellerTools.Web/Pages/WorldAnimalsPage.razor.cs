@@ -1,10 +1,11 @@
-using AE = Grauenwolf.TravellerTools.Animals.AE;
-using Mgt = Grauenwolf.TravellerTools.Animals.Mgt;
 using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Shared;
 using Grauenwolf.TravellerTools.Web.Data;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.WebUtilities;
+using AE = Grauenwolf.TravellerTools.Animals.AE;
+using Mgt = Grauenwolf.TravellerTools.Animals.Mgt;
 
 namespace Grauenwolf.TravellerTools.Web.Pages;
 
@@ -30,12 +31,15 @@ partial class WorldAnimalsPage
     public Dictionary<string, List<Mgt.Animal>>? Animals { get => Get<Dictionary<string, List<Mgt.Animal>>?>(); set => Set(value); }
     public string? ActiveTerrainTab { get => Get<string?>(); set => Set(value); }
     public string? AeTerrainType { get => Get<string?>(); set => Set(value); }
-    public int? Seed { get => Get<int?>(); set => Set(value); }
+
+    [Parameter] public int? Seed { get; set; }
+    [Parameter] public string? Generate { get; set; }
+
+
     public string? TerrainType { get => Get<string?>(); set => Set(value); }
     public string? TasZone { get => Get<string?>(); set => Set(value, true); }
 
-    [Parameter]
-    public string? Uwp { get; set; }
+    [Parameter] public string? Uwp { get; set; }
 
     [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
 
@@ -48,30 +52,51 @@ partial class WorldAnimalsPage
     protected IReadOnlyList<string> AeAnimalClassList => AE.AnimalBuilderAE.AnimalClassList.Select(x => x.Name).OrderBy(x => x).ToList();
     protected IReadOnlyList<string> AeTerrainTypeList => AE.AnimalBuilderAE.TerrainTypeList.Select(x => x.Name).OrderBy(x => x).ToList();
     protected IReadOnlyList<string> AnimalTypeList => Mgt.AnimalBuilderMgt.AnimalTypeList.Select(x => x.Name).OrderBy(x => x).ToList();
-    protected string Permalink
+
+    protected string PermalinkMgt
     {
         get
         {
-            string uri;
-            if (Uwp != null)
-                uri = $"/uwp/{Uwp}/animals?tasZone={TasZone}";
-            else if (IsStandaloneRoute)
-                uri = CurrentRoutePath;
-            else
-                uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/animals";
-
-            if (!string.IsNullOrWhiteSpace(TerrainType))
-                uri = QueryHelpers.AddQueryString(uri, "terrainType", TerrainType);
-            if (!string.IsNullOrWhiteSpace(AnimalType))
-                uri = QueryHelpers.AddQueryString(uri, "animalType", AnimalType);
-            if (!string.IsNullOrWhiteSpace(AeTerrainType))
-                uri = QueryHelpers.AddQueryString(uri, "aeTerrainType", AeTerrainType);
-            if (!string.IsNullOrWhiteSpace(AeAnimalClass))
-                uri = QueryHelpers.AddQueryString(uri, "aeAnimalClass", AeAnimalClass);
-
-            return QueryHelpers.AddQueryString(uri, "seed", (Seed ?? 0).ToString());
+            var uri = BuildPermalink();
+            uri = QueryHelpers.AddQueryString(uri, "generate", "mgt");
+            return uri;
         }
     }
+
+    protected string PermalinkAE
+    {
+        get
+        {
+            var uri = BuildPermalink();
+            uri = QueryHelpers.AddQueryString(uri, "generate", "ae");
+            return uri;
+        }
+    }
+
+    private string BuildPermalink()
+    {
+        string uri;
+        if (Uwp != null)
+            uri = $"/uwp/{Uwp}/animals?tasZone={TasZone}";
+        else if (IsStandaloneRoute)
+            uri = CurrentRoutePath;
+        else
+            uri = $"/world/{MilieuCode}/{SectorHex}/{PlanetHex}/animals";
+
+        if (!string.IsNullOrWhiteSpace(TerrainType))
+            uri = QueryHelpers.AddQueryString(uri, "terrainType", TerrainType);
+        if (!string.IsNullOrWhiteSpace(AnimalType))
+            uri = QueryHelpers.AddQueryString(uri, "animalType", AnimalType);
+        if (!string.IsNullOrWhiteSpace(AeTerrainType))
+            uri = QueryHelpers.AddQueryString(uri, "aeTerrainType", AeTerrainType);
+        if (!string.IsNullOrWhiteSpace(AeAnimalClass))
+            uri = QueryHelpers.AddQueryString(uri, "aeAnimalClass", AeAnimalClass);
+
+        uri = QueryHelpers.AddQueryString(uri, "seed", (Seed ?? 0).ToString());
+
+        return uri;
+    }
+
     protected IReadOnlyList<string> TerrainTypeList => Mgt.AnimalBuilderMgt.TerrainTypeList.Select(x => x.Name).OrderBy(x => x).ToList();
 
     protected IEnumerable<KeyValuePair<string, List<AE.Animal>>> DisplayedAeTerrains
@@ -107,6 +132,9 @@ partial class WorldAnimalsPage
 
     protected void ClearAnimalEncounters()
     {
+        //TODO: This doesn't work right now because the terrain tabs aren't disabled when only one terrain is generated. Need to disable the terrain tabs when only one terrain is generated, or change this logic to handle that case.
+
+
         if (AeAnimals == null)
             return;
 
@@ -125,6 +153,8 @@ partial class WorldAnimalsPage
 
     protected void ClearAnimals()
     {
+        //TODO: This doesn't work right now because the terrain tabs aren't disabled when only one terrain is generated. Need to disable the terrain tabs when only one terrain is generated, or change this logic to handle that case.
+
         if (Animals == null)
             return;
 
@@ -246,15 +276,24 @@ partial class WorldAnimalsPage
         if (Navigation.TryGetQueryString("aeAnimalClass", out string aeAnimalClass))
             AeAnimalClass = aeAnimalClass;
 
+        if (Navigation.TryGetQueryString("generate", out string generate))
+            Generate = generate;
+
         if (!string.IsNullOrWhiteSpace(TerrainType))
             ActiveTerrainTab = TerrainType;
 
         if (!string.IsNullOrWhiteSpace(AeTerrainType))
             AeActiveTerrainTab = AeTerrainType;
     }
-
-    protected void OnReroll()
+    
+    protected void OnReroll(MouseEventArgs _)
     {
+        //TODO-143 Use the below code in the same manner we do for trade and starports.
+        //Seed = (new Random()).Next();
+        //Navigation.NavigateTo(Permalink, false);
+
+        //Temporay code follows
+
         Seed = (new Random()).Next();
 
         // Reroll is equivalent to Clear, then Generate, for sections that already have results.
@@ -282,34 +321,42 @@ partial class WorldAnimalsPage
             Model = new WorldModel(Milieu.Custom, world);
         }
         else
-        if (Uwp != null)
-        {
-            var world = new World(Uwp, Uwp, 0, TasZone);
+            if (Uwp != null)
+            {
+                var world = new World(Uwp, Uwp, 0, TasZone);
 
-            MilieuCode = Milieu.Custom.Code;
-            Model = new WorldModel(Milieu.Custom, world);
-        }
-        else
-        {
-            if (PlanetHex == null || SectorHex == null || MilieuCode == null)
-                goto ReturnToIndex;
+                MilieuCode = Milieu.Custom.Code;
+                Model = new WorldModel(Milieu.Custom, world);
+            }
+            else
+            {
+                if (PlanetHex == null || SectorHex == null || MilieuCode == null)
+                    goto ReturnToIndex;
 
-            var milieu = Milieu.FromCode(MilieuCode);
-            if (milieu == null)
-                goto ReturnToIndex;
+                var milieu = Milieu.FromCode(MilieuCode);
+                if (milieu == null)
+                    goto ReturnToIndex;
 
-            var service = TravellerMapServiceLocator.GetMapService(MilieuCode);
-            var world = await service.FetchWorldAsync(SectorHex, PlanetHex);
-            if (world == null)
-                goto ReturnToIndex;
+                var service = TravellerMapServiceLocator.GetMapService(MilieuCode);
+                var world = await service.FetchWorldAsync(SectorHex, PlanetHex);
+                if (world == null)
+                    goto ReturnToIndex;
 
-            Model = new WorldModel(milieu, world);
-        }
+                Model = new WorldModel(milieu, world);
+            }
 
         PageTitle = IsStandaloneRoute ? "Animals" : Model.World.Name ?? Uwp + " Animals";
 
         Animals = null;
         AeAnimals = null;
+
+        if (Generate != null)
+        {
+            if (string.Equals(Generate, "mgt", StringComparison.OrdinalIgnoreCase))
+                GenerateAnimals();
+            else if (string.Equals(Generate, "ae", StringComparison.OrdinalIgnoreCase))
+                GenerateAnimalEncounters();
+        }
 
         return;
 
