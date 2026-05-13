@@ -1,8 +1,10 @@
-﻿using Grauenwolf.TravellerTools.Maps;
+﻿using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
+using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Shared;
 using Grauenwolf.TravellerTools.Web.Data;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
+using Tortuga.Anchor;
 
 namespace Grauenwolf.TravellerTools.Web.Controls;
 
@@ -17,9 +19,34 @@ partial class WorldPicker
     //PlanetPickerOptions Model { get; } = new PlanetPickerOptions();
     [Inject] TravellerMapServiceLocator TravellerMapServiceLocator { get; set; } = null!;
 
+    [Inject] protected LocalStorage LocalStorage { get; set; } = null!;
+
     protected override async Task InitializedAsync()
     {
         await OnMilieuChangedAsync();
+
+        if (RendererInfo.IsInteractive && LocalStorage != null)
+        {
+            var lastSectorHex = await LocalStorage.GetItemAsync("LastSectorHex");
+            var lastSubsectorIndex = await LocalStorage.GetItemAsync("LastSubsectorIndex");
+            var lastWorldHex = await LocalStorage.GetItemAsync("LastWorldHex");
+
+            if (!lastSectorHex.IsNullOrEmpty())
+            {
+                Model.SelectedSectorHex = lastSectorHex;
+
+                if (!lastSubsectorIndex.IsNullOrEmpty())
+                {
+                    Model.SelectedSubsectorIndex = lastSubsectorIndex;
+
+                    if (!lastWorldHex.IsNullOrEmpty())
+                    {
+                        Model.SelectedWorldHex = lastWorldHex;
+                    }
+
+                }
+            }
+        }
     }
 
     protected override async void OnModelPropertyChanged(PropertyChangedEventArgs e)
@@ -29,7 +56,13 @@ partial class WorldPicker
             case nameof(PlanetPickerOptions.SelectedMilieu): await OnMilieuChangedAsync(); break;
             case nameof(PlanetPickerOptions.SelectedSector): await OnSectorChangedAsync(); break;
             case nameof(PlanetPickerOptions.SelectedSubsector): await OnSubsectorChangedAsync(); break;
+            case nameof(PlanetPickerOptions.SelectedWorld): await OnWorldChangedAsync(); break;
         }
+    }
+
+    private async Task OnWorldChangedAsync()
+    {
+
     }
 
     protected string? PlanetUrl(string suffix)

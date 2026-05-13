@@ -1,4 +1,5 @@
-﻿using Grauenwolf.TravellerTools.Maps;
+﻿using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
+using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Shared;
 using Microsoft.AspNetCore.Components;
 
@@ -24,6 +25,7 @@ partial class WorldNavigation
     protected bool IsCustom => MilieuCode == Milieu.Custom.Code;
     protected string? QueryParameters { get; private set; }
     [Inject] NavigationManager NavigationManager { get; set; } = null!;
+    [Inject] protected LocalStorage LocalStorage { get; set; } = null!;
 
     protected override void Initialized()
     {
@@ -31,6 +33,18 @@ partial class WorldNavigation
         QueryParameters = NavigationManager.QueryString();
     }
 
+    protected override async Task ParametersSetAsync()
+    {
+        if (RendererInfo.IsInteractive && LocalStorage != null)
+        {
+            if (World.SectorHex != null)
+            {
+                await LocalStorage.SetItemAsync("LastSectorHex", World.SectorHex);
+                await LocalStorage.SetItemAsync("LastSubsectorIndex", World.SubSectorIndex);
+                await LocalStorage.SetItemAsync("LastWorldHex", World.Hex);
+            }
+        }
+    }
     /*
     void GotoAnimals()
     {

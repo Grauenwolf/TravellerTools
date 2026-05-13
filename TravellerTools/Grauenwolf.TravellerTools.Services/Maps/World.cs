@@ -165,6 +165,17 @@ public class World
 
     public int? SectorX { get; set; }
 
+    public string? SectorHex
+    {
+        get
+        {
+            if (SectorX.HasValue && SectorY.HasValue)
+                return SectorX + "," + SectorY;
+            return null;
+        }
+    }
+    
+
     public int? SectorY { get; set; }
     public EHex SizeCode { get { return UWP?[1]; } }
     public int SizeKM => Tables.SizeKM(SizeCode);

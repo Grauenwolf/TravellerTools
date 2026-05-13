@@ -10,6 +10,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Cloudcrate.AspNetCore.Blazor.Browser.Storage" Version="3.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\Grauenwolf.TravellerTools.Animals\Grauenwolf.TravellerTools.Animals.csproj" />
 		<ProjectReference Include="..\Grauenwolf.TravellerTools.Characters\Grauenwolf.TravellerTools.Characters.csproj" />
 		<ProjectReference Include="..\Grauenwolf.TravellerTools.Encounters\Grauenwolf.TravellerTools.Encounters.csproj" />

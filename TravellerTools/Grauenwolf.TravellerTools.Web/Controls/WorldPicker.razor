@@ -9,7 +9,7 @@
         <table class="gridtable">
             <tr>
                 <th>Milieu</th>
-                <td>
+                <td colspan="5">
                     <InputSelect @bind-Value="Model!.SelectedMilieuCode">
                         @foreach (var item in Model.MilieuList)
                         {
@@ -27,7 +27,7 @@
             </tr>
             <tr>
                 <th rowspan="2">Sector</th>
-                <td>
+                <td colspan="5">
                     <InputSelect @bind-Value="Model.SelectedSectorHex">
                         @if (Model.SelectedMilieu == null)
                         {
@@ -53,7 +53,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td colspan="5">
                     <a href="@SectorUrl()">
                         <span class="oi oi-list" aria-hidden="true" /> Index
                     </a>
@@ -65,7 +65,7 @@
             </tr>
             <tr>
                 <th rowspan="2">Subector</th>
-                <td>
+                <td colspan="5">
                     <InputSelect @bind-Value="Model.SelectedSubsectorIndex">
                         @if (Model.SelectedSubsector == null)
                         {
@@ -90,7 +90,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td colspan="5">
                     <a href="@SubsectorUrl()">
                         <span class="oi oi-list" aria-hidden="true" /> Index
                     </a>
@@ -101,8 +101,8 @@
                 </td>
             </tr>
             <tr>
-                <th rowspan="2">World</th>
-                <td>
+                <th rowspan="3">World</th>
+                <td colspan="5">
                     <InputSelect @bind-Value="Model.SelectedWorldHex">
                         @if (Model.SelectedWorld == null)
                         {
@@ -129,14 +129,34 @@
             <tr>
                 <td>
                     <a href="@PlanetUrl("info")"><span class="oi oi-globe" aria-hidden="true" /> Info</a>
+                </td>
+                <td>
                     <a href="@PlanetUrl("starport")"><span class="oi oi-star" aria-hidden="true" /> Starport</a>
+                </td>
+                <td>
                     <a href="@PlanetUrl("trade")"><span class="oi oi-box" aria-hidden="true" /> Trade</a>
+                </td>
+                <td>
                     <a href="@PlanetUrl("travel")"><span class="oi oi-compass" aria-hidden="true" /> Travel</a>
+                </td>
+                <td>
                     <a href="@PlanetUrl("store")"><span class="oi oi-cart" aria-hidden="true" /> Store</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <a href="@PlanetUrl("animals")"><span class="oi oi-bug" aria-hidden="true" /> Animals</a>
+                </td>
+                <td>
                     <a href="@PlanetUrl("encounters")"><span class="oi oi-puzzle-piece" aria-hidden="true" /> Encounters</a>
+                </td>
+                <td>
                     <a href="@PlanetUrl("character")"><span class="oi oi-person" aria-hidden="true" /> Character</a>
+                </td>
+                <td>
                     <a href="@PlanetUrl("contacts")"><span class="oi oi-people" aria-hidden="true" /> Contacts</a>
+                </td>
+                <td>
                     <a href="@PlanetUrl("crew")"><span class="oi oi-briefcase" aria-hidden="true" /> Crew</a>
                 </td>
             </tr>

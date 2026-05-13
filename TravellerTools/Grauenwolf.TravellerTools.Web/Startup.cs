@@ -1,3 +1,4 @@
+using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
 using Grauenwolf.TravellerTools.Animals.AE;
 using Grauenwolf.TravellerTools.Animals.Mgt;
 using Grauenwolf.TravellerTools.Characters;
@@ -72,6 +73,8 @@ public class Startup
                 .RequireAuthenticatedUser()
                 .Build();
         });
+
+        services.AddStorage();
 
         AnimalBuilderMgt.SetDataPath(AppDataPath);
         AnimalBuilderAE.SetDataPath(AppDataPath);
