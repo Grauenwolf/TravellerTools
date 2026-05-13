@@ -1,6 +1,7 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
 using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Names;
+using Grauenwolf.TravellerTools.Shared;
 using Grauenwolf.TravellerTools.Web.Data;
 using Microsoft.AspNetCore.Components;
 using Tortuga.Anchor;
@@ -179,13 +180,29 @@ partial class CharacterPage
             return;
 
         Model.SpeciesOrFaction = await SpeciesOrFactionSelection.ResolveForWorldAsync(
-            Model.SpeciesOrFaction,
             MilieuCode,
             SectorHex,
             PlanetHex,
             TravellerMapServiceLocator,
             Model.SpeciesAndFactionsList).ConfigureAwait(false);
+
+        if (PlanetHex != null && SectorHex != null && MilieuCode != null)
+        {
+            var milieu = Milieu.FromCode(MilieuCode);
+            var service = TravellerMapServiceLocator.GetMapService(MilieuCode);
+
+            World = await service.FetchWorldAsync(SectorHex, PlanetHex);
+        }
+        else
+        {
+            World = null;
+        }
+
+        Characters.Clear();
     }
+
+    public World? World { get; set; }
+
 
     private CharacterBuilderOptions CreateOptions(Dice dice)
     {

@@ -7,10 +7,23 @@
     PageTitle = "Character Generator";
 }
 
-<h3>Characters</h3>
 
 @if (Model != null)
 {
+    @if (World == null)
+    {
+        <h3>Characters</h3>
+    }
+    else
+    {
+        <h2>@World.Name</h2>
+
+        <div class="do-not-print">
+            <WorldNavigation CurrentPage="character" World="@World" MilieuCode="@MilieuCode" />
+            <div>&nbsp;</div>
+        </div>
+    }
+
     <div>
         <EditForm Model="@Model">
 

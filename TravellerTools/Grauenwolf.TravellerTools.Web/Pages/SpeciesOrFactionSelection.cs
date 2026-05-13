@@ -7,16 +7,12 @@ namespace Grauenwolf.TravellerTools.Web.Pages;
 static class SpeciesOrFactionSelection
 {
     public static async Task<string?> ResolveForWorldAsync(
-        string? currentSelection,
-        string? milieuCode,
-        string? sectorHex,
-        string? planetHex,
-        TravellerMapServiceLocator travellerMapServiceLocator,
-        IReadOnlyList<FactionOrSpecies> speciesAndFactions)
+    string? milieuCode,
+    string? sectorHex,
+    string? planetHex,
+    TravellerMapServiceLocator travellerMapServiceLocator,
+    IReadOnlyList<FactionOrSpecies> speciesAndFactions)
     {
-        if (!string.IsNullOrWhiteSpace(currentSelection))
-            return currentSelection;
-
         if (string.IsNullOrWhiteSpace(milieuCode)
             || string.IsNullOrWhiteSpace(sectorHex)
             || string.IsNullOrWhiteSpace(planetHex)
@@ -30,6 +26,7 @@ static class SpeciesOrFactionSelection
 
         return FindSpeciesOrFactionFromAllegiance(world.Allegiance, world.AllegianceName, speciesAndFactions);
     }
+
 
     static string NormalizeForMatch(string value)
     {

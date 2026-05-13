@@ -1,4 +1,5 @@
 ﻿using Grauenwolf.TravellerTools.Characters;
+using Grauenwolf.TravellerTools.Maps;
 using Grauenwolf.TravellerTools.Shared;
 using Microsoft.Extensions.Primitives;
 using Tortuga.Anchor.Modeling;
@@ -61,6 +62,7 @@ public class ContactOptions : ModelBase
     public IReadOnlyList<FactionOrSpecies> SpeciesAndFactionsList => m_CharacterBuilder.FactionsAndSpecies;
 
     public string? SpeciesOrFaction { get => Get<string?>(); set => Set(value); }
+
 
     public void FromQueryString(Dictionary<string, StringValues> keyValuePairs)
     {

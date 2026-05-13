@@ -8,7 +8,19 @@
     PageTitle = "Encounters";
 }
 
-<h3>Encounter Builder</h3>
+@if (World == null)
+{
+    <h3>Encounter Builder</h3>
+}
+else
+{
+    <h2>@World.Name</h2>
+    
+    <div class="do-not-print">
+        <WorldNavigation CurrentPage="encounters" World="@World" MilieuCode="@MilieuCode" />
+        <div>&nbsp;</div>
+    </div>
+}
 
 <div class="do-not-print">
     <EditForm Model="@Model">
@@ -50,7 +62,7 @@
                 <td>
                     <InputSelect @bind-Value="Model.CareerType">
                         <option value="@CareerTypes.None" selected="@(Model.CareerType == CareerTypes.None)">(Any)</option>
-                        @foreach (var item in Enum.GetValues<CareerTypes>().Where(x=>x != CareerTypes.None).OrderBy(x=>x.ToDescription()))
+                        @foreach (var item in Enum.GetValues<CareerTypes>().Where(x => x != CareerTypes.None).OrderBy(x => x.ToDescription()))
                         {
                             <option value="@(item)" selected="@(Model.CareerType == item)"> @(item.ToDescription())</option>
                         }
@@ -70,7 +82,7 @@
             <tr>
                 <th colspan="3">Starport Encounter </th>
             </tr>
-            <tr style="@(string.IsNullOrEmpty(Model.SpeciesOrFaction) ?  "display:none;" : "")">
+            <tr style="@(string.IsNullOrEmpty(Model.SpeciesOrFaction) ? "display:none;" : "")">
                 <th>% Chance of unusual Species</th>
                 <td colspan="2">
                     <InputNumber @bind-Value="Model.PercentOfOtherSpecies" style="width: 50px;" />

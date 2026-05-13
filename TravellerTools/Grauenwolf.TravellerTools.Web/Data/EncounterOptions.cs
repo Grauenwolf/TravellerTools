@@ -40,5 +40,4 @@ public class EncounterOptions : ModelBase, IEncounterGeneratorSettings
     public IReadOnlyList<FactionOrSpecies> SpeciesAndFactionsList { get; set; } = null!;
     public string? SpeciesOrFaction { get => Get<string?>(); set => Set(value); }
 
-    World? IEncounterGeneratorSettings.World => null;
 }
